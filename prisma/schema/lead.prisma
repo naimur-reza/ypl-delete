@@ -1,0 +1,35 @@
+// Lead Management and Recommendations
+model Lead {
+  id            String       @id @default(cuid())
+  name          String
+  email         String?
+  phone         String?
+  countryId     String?
+  country       Country?     @relation(fields: [countryId], references: [id])
+  destinationId String?
+  destination   Destination? @relation(fields: [destinationId], references: [id])
+  interestJson  Json?
+  createdAt     DateTime     @default(now())
+
+  // Back-relations
+  offerRequests   OfferRequest[]
+  recommendations Recommendation[]
+}
+
+model OfferRequest {
+  id        String   @id @default(cuid())
+  leadId    String
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  status    String   @default("NEW") // NEW | IN_PROGRESS | SENT | CLOSED
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Recommendation {
+  id        String   @id @default(cuid())
+  leadId    String
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  payload   Json
+  createdAt DateTime @default(now())
+}

@@ -1,0 +1,80 @@
+// Event Management
+model Event {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String?
+  thumbnail   String?
+  gallery     String[]
+  video       String?
+
+  eventType  EventType
+  startDate  DateTime
+  endDate    DateTime?
+  location   String?
+  isFeatured Boolean   @default(false)
+
+  registrationLink       String?
+  registrationButtonText String?
+  isRegistrationOpen     Boolean @default(true)
+
+  // SEO Fields
+  metaTitle       String?
+  metaDescription String?
+  metaKeywords    String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy String?
+  updatedBy String?
+
+  destinationId String
+  destination   Destination @relation(fields: [destinationId], references: [id])
+
+  universityId String?
+  university   University? @relation(fields: [universityId], references: [id])
+
+  countries EventCountry[]
+  faqs      FAQEvent[]
+
+  testimonials TestimonialEvent[]
+  appointments Appointment[]
+
+  // Event Enhancements
+  successSummary     String?
+  media              EventMedia[]
+  eventRegistrations EventRegistration[]
+
+  @@index([destinationId])
+}
+
+// Event Media (Photos/Videos)
+model EventMedia {
+  id        String  @id @default(cuid())
+  eventId   String
+  event     Event   @relation(fields: [eventId], references: [id])
+  mediaType String // VIDEO | IMAGE
+  url       String
+  thumbnail String?
+  caption   String?
+  sortOrder Int?    @default(0)
+}
+
+// Event Registrations
+model EventRegistration {
+  id        String             @id @default(cuid())
+  eventId   String
+  event     Event              @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  countryId String?
+  country   Country?           @relation(fields: [countryId], references: [id])
+  name      String
+  email     String?
+  phone     String?
+  notes     String?
+  status    RegistrationStatus @default(PENDING)
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+
+  @@index([eventId])
+  @@index([countryId])
+}

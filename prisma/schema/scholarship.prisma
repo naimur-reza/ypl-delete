@@ -1,0 +1,42 @@
+// Scholarship Management
+model Scholarship {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  image       String?
+  description String?
+  amount      Float?
+  deadline    DateTime?
+
+  // SEO Fields
+  metaTitle       String?
+  metaDescription String?
+  metaKeywords    String?
+
+  // New fields for details page
+  overview            String? // Overview / About the Scholarship
+  benefits            String? // Scholarship Value / Benefits
+  eligibilityCriteria String? // Eligibility Criteria (more detailed than eligibility)
+  levelAndField       String? // Level & Field of Study
+  providerInfo        String? // Host University / Provider Info
+  requiredDocuments   String? // Required Documents
+  howToApply          String? // How to Apply - CTR
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy String?
+  updatedBy String?
+
+  universityId String?
+  university   University? @relation(fields: [universityId], references: [id])
+
+  destinationId String
+  destination   Destination @relation(fields: [destinationId], references: [id])
+
+  countries ScholarshipCountry[]
+  courses   Course[]
+  faqs      FAQScholarship[]
+
+  @@index([destinationId])
+  @@index([universityId])
+}

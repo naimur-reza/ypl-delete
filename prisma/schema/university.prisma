@@ -1,0 +1,63 @@
+// University and related models
+model University {
+  id           String       @id @default(cuid())
+  name         String
+  slug         String       @unique
+  logo         String?
+  thumbnail    String?
+  description  String?
+  providerType ProviderType
+  isFeatured   Boolean      @default(false)
+  isActive     Boolean      @default(true)
+  website      String?
+  address      String?
+  phone        String?
+  email        String?
+
+  // SEO Fields
+  metaTitle       String?
+  metaDescription String?
+  metaKeywords    String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy String?
+  updatedBy String?
+
+  destinationId String
+  destination   Destination @relation(fields: [destinationId], references: [id])
+
+  detail                          UniversityDetail? @relation("UniversityToDetail")
+  countries                       UniversityCountry[]
+  courses                         Course[]
+  events                          Event[]
+  scholarships                    Scholarship[]
+  blogLinks                       BlogUniversity[]
+  faqLinks                        FAQUniversity[]
+  testimonials                    TestimonialUniversity[]
+
+  @@index([destinationId])
+  @@index([isFeatured, isActive])
+}
+
+// University Detail (Extended Information)
+model UniversityDetail {
+  id                  String     @id @default(cuid())
+  universityId        String     @unique
+  university          University @relation("UniversityToDetail", fields: [universityId], references: [id], onDelete: Cascade)
+  overview            String     @db.Text
+  ranking             String?    @db.Text
+  tuitionFees         String?
+  famousFor           String?    @db.Text
+  servicesHeading     String?
+  servicesDescription String?    @db.Text
+  servicesImage       String?
+  entryRequirements   String     @db.Text
+  description         String?    @db.Text
+  accommodation       String?    @db.Text
+  accommodationImage  String?
+  createdAt           DateTime   @default(now())
+  updatedAt           DateTime   @updatedAt
+
+  @@index([universityId])
+}

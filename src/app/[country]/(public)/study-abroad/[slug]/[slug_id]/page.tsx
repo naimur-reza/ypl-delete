@@ -1,0 +1,1 @@
+export {default} from "@/app/(public)/study-abroad/[slug]/[slug_id]/page"

@@ -1,0 +1,74 @@
+// Course and Intake Management
+model Course {
+  id          String  @id @default(cuid())
+  title       String
+  slug        String  @unique
+  description String?
+  duration    String?
+  tuitionMin  Float?
+  tuitionMax  Float?
+
+  currency String? @default("USD")
+
+  sections Json?
+
+  isFeatured Boolean @default(false)
+  isActive   Boolean @default(true)
+
+  // SEO Fields
+  metaTitle       String?
+  metaDescription String?
+  metaKeywords    String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy String?
+  updatedBy String?
+
+  universityId String
+  university   University @relation(fields: [universityId], references: [id])
+
+  destinationId String
+  destination   Destination @relation(fields: [destinationId], references: [id])
+
+  countries    CourseCountry[]
+  scholarships Scholarship[]
+  intakes      CourseIntake[]
+  blogLinks    BlogCourse[]
+  faqs         FAQCourse[]
+
+  @@index([universityId])
+  @@index([destinationId])
+  @@index([isActive])
+}
+
+// Course Intake Periods
+model CourseIntake {
+  id       String      @id @default(cuid())
+  courseId String
+  intake   IntakeMonth
+  course   Course      @relation(fields: [courseId], references: [id])
+
+  @@unique([courseId, intake])
+}
+
+// Intake Page Information
+model IntakePage {
+  id            String      @id @default(cuid())
+  destinationId String
+  destination   Destination @relation(fields: [destinationId], references: [id])
+  intake        IntakeMonth
+  title         String
+  description   String?
+  heroMedia     String?
+  eligibility   String?
+  timelineJson  Json?
+  ctaLabel      String?
+  ctaUrl        String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  faqs FAQIntakePage[]
+
+  @@unique([destinationId, intake])
+}

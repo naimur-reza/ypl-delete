@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+  previewFeatures = ["prismaSchemaFolder"]
+  engineType   = "library"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  SUPERADMIN  // Can manage users, full access
+  ADMIN       // Full content access, no user management  
+  MANAGER     // Limited content access
+}
+
+enum ProviderType {
+  UNIVERSITY
+  GOVERNMENT
+  PRIVATE
+  EMBASSY
+}
+
+enum EventType {
+  EXPO
+  WEBINAR
+  ADMISSION_DAY
+  OPEN_DAY
+  SEMINAR
+  WORKSHOP
+}
+
+enum IntakeMonth {
+  JANUARY
+  MAY
+  SEPTEMBER
+}
+
+enum ReviewType {
+  GMB
+  STUDENT
+  OTHER
+}
+
+enum RegistrationStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+enum TestimonialType {
+  STUDENT
+  REPRESENTATIVE
+  GMB
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+  TEXT_ONLY
+}
+
+enum BackgroundType {
+  IMAGE
+  VIDEO
+  YOUTUBE
+}

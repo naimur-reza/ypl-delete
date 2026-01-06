@@ -1,0 +1,23 @@
+// Gallery Module - For showcasing images like visa success, representatives, events
+
+enum GalleryType {
+  VISA_SUCCESS   // Visa success stories/photos
+  REPRESENTATIVE // Representative/team photos
+  EVENT          // Event photos
+  OFFICE         // Office photos
+  STUDENT        // Student photos
+}
+
+model Gallery {
+  id          String      @id @default(cuid())
+  title       String
+  description String?
+  image       String      // Image URL
+  type        GalleryType @default(VISA_SUCCESS)
+  sortOrder   Int?        @default(0)
+  isActive    Boolean     @default(true)
+
+  countries GalleryCountry[]
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+}

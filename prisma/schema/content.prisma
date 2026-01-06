@@ -1,0 +1,105 @@
+// Additional Content Models
+model Service {
+  id              String   @id @default(cuid())
+  title           String
+  slug            String   @unique
+  summary         String?
+  content         String?
+  image           String?
+  metaTitle       String?
+  metaDescription String?
+  metaKeywords    String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+enum AccreditationType {
+  NEWS        // As seen in the news (media logos)
+  PARTNER     // University partners
+  ACCREDITATION // Official accreditations
+}
+
+model Accreditation {
+  id        String   @id @default(cuid())
+  name      String
+  logo      String?
+  website   String?
+  type      AccreditationType @default(NEWS)
+  sortOrder Int?     @default(0)
+
+  
+  countries AccreditationCountry[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Career {
+  id               String  @id @default(cuid())
+  title            String
+  slug             String  @unique
+  department       String?
+  location         String?
+  jobType          String? // FULL_TIME, PART_TIME, CONTRACT, INTERNSHIP
+  jobLocation      String? // REMOTE, ON_SITE, HYBRID
+  description      String? @db.Text
+  requirements     String? @db.Text
+  responsibilities String? @db.Text
+  benefits         String? @db.Text
+
+  // Salary Range
+  salaryMin      Int?
+  salaryMax      Int?
+  salaryCurrency String? @default("USD")
+
+  // Application
+  applyUrl String?
+  deadline DateTime?
+
+  // Status
+  isActive Boolean @default(true)
+
+  // SEO
+  metaTitle       String?
+  metaDescription String?
+  metaKeywords    String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  applications JobApplication[]
+}
+
+model JobApplication {
+  id       String @id @default(cuid())
+  careerId String
+  career   Career @relation(fields: [careerId], references: [id], onDelete: Cascade)
+
+  // Applicant Information
+  firstName String
+  lastName  String
+  email     String
+  phone     String
+
+  // Application Details
+  coverLetter  String? @db.Text
+  resumeUrl    String?
+  linkedinUrl  String?
+  portfolioUrl String?
+
+  // Additional Info
+  currentCompany    String?
+  yearsOfExperience Int?
+  expectedSalary    String?
+  availableFrom     DateTime?
+
+  // Status
+  status String  @default("PENDING") // PENDING, REVIEWING, SHORTLISTED, REJECTED, ACCEPTED
+  notes  String? @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([careerId])
+  @@index([email])
+  @@index([status])
+}

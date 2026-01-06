@@ -1,0 +1,109 @@
+import { Prisma } from "../../prisma/src/generated/prisma/client";
+import { prisma } from "./prisma";
+
+export type EventWithRelations = Prisma.EventGetPayload<{
+  include: {
+    destination: {
+      select: {
+        id: true;
+        name: true;
+        slug: true;
+      };
+    };
+    university: {
+      select: {
+        id: true;
+        name: true;
+        logo: true;
+        slug: true;
+      };
+    };
+  };
+}>;
+
+type EventPageQuery = {
+  countrySlug?: string | null;
+};
+
+export const fetchUpcomingEvents = async ({
+  countrySlug,
+}: EventPageQuery): Promise<EventWithRelations[]> => {
+  const now = new Date();
+
+  const where: Prisma.EventWhereInput = {
+    startDate: { gte: now },
+    ...(countrySlug
+      ? {
+          countries: {
+            some: {
+              country: { slug: countrySlug },
+            },
+          },
+        }
+      : {}),
+  };
+
+  return prisma.event.findMany({
+    where,
+    include: {
+      destination: {
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+        },
+      },
+      university: {
+        select: {
+          id: true,
+          name: true,
+          logo: true,
+          slug: true,
+        },
+      },
+    },
+    orderBy: { startDate: "asc" },
+  });
+};
+
+export const fetchPastEvents = async ({
+  countrySlug,
+}: EventPageQuery): Promise<EventWithRelations[]> => {
+  const now = new Date();
+
+  const where: Prisma.EventWhereInput = {
+    startDate: { lt: now },
+    ...(countrySlug
+      ? {
+          countries: {
+            some: {
+              country: { slug: countrySlug },
+            },
+          },
+        }
+      : {}),
+  };
+
+  return prisma.event.findMany({
+    where,
+    include: {
+      destination: {
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+        },
+      },
+      university: {
+        select: {
+          id: true,
+          name: true,
+          logo: true,
+          slug: true,
+        },
+      },
+    },
+    orderBy: { startDate: "desc" },
+    take: 9,
+  });
+};

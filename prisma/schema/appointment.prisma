@@ -1,0 +1,20 @@
+// Appointment bookings (general consultations)
+model Appointment {
+  id          String            @id @default(cuid())
+  eventId     String?
+  event       Event?            @relation(fields: [eventId], references: [id], onDelete: SetNull)
+  countryId   String?
+  country     Country?          @relation(fields: [countryId], references: [id])
+  name        String
+  email       String?
+  phone       String?
+  notes       String?
+  preferredAt DateTime?
+  status      AppointmentStatus @default(PENDING)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  @@index([eventId])
+  @@index([countryId])
+  @@index([status])
+}
