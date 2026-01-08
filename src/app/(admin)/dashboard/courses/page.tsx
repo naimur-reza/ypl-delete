@@ -203,7 +203,7 @@ const CoursesPage = () => {
           isEditing={isEditing}
           selectedCourse={
             selectedCourse
-              ? {
+              ? ({
                   id: selectedCourse.id,
                   title: selectedCourse.title,
                   slug: selectedCourse.slug,
@@ -251,7 +251,7 @@ const CoursesPage = () => {
                           )?.admission?.toString() || "",
                       }
                     : null,
-                }
+                } as any)
               : undefined
           }
           onClose={handleCloseModal}

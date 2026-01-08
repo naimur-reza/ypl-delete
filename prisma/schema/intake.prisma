@@ -1,61 +1,42 @@
-// Intake Season and Page Management
-
-// Global Intake Season Settings (for CTA Banner across the site)
 model IntakeSeason {
-  id              String      @id @default(cuid())
-  title           String      // e.g., "January 2026 Intake - Admission open!"
-  subtitle        String?     // e.g., "Study in the UK at Top Universities"
-  description     String?     @db.Text // e.g., "Apply early to secure your place!"
-  
-  // Intake Details
-  intake          IntakeMonth
-  year            Int         // e.g., 2026
-  
-  // Visual Settings
-  backgroundImage String?     // Hero/banner background image
-  
-  // CTA Configuration
-  ctaLabel        String?     @default("Apply Now")
-  ctaUrl          String?     @default("/apply-now")
-  
-  // Status
-  isActive        Boolean     @default(false) // Only one should be active at a time
-  
-  // Timing (for countdown/urgency features)
+  id                  String                @id @default(cuid())
+  title               String
+  subtitle            String?
+  description         String?
+  intake              IntakeMonth
+  year                Int
+  backgroundImage     String?
+  ctaLabel            String?               @default("Apply Now")
+  ctaUrl              String?               @default("/apply-now")
+  isActive            Boolean               @default(false)
   applicationDeadline DateTime?
   intakeStartDate     DateTime?
-  
-  // Country Relations (optional - for country-specific intakes)
-  countries       IntakeSeasonCountry[]
-  
-  createdAt       DateTime    @default(now())
-  updatedAt       DateTime    @updatedAt
-  
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+  countries           IntakeSeasonCountry[]
+
   @@index([isActive])
   @@index([intake, year])
 }
 
 model IntakeSeasonCountry {
-  id              String       @id @default(cuid())
-  intakeSeasonId  String
-  countryId       String
-  
-  intakeSeason    IntakeSeason @relation(fields: [intakeSeasonId], references: [id], onDelete: Cascade)
-  country         Country      @relation(fields: [countryId], references: [id], onDelete: Cascade)
-  
+  id             String       @id @default(cuid())
+  intakeSeasonId String
+  countryId      String
+  country        Country      @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  intakeSeason   IntakeSeason @relation(fields: [intakeSeasonId], references: [id], onDelete: Cascade)
+
   @@unique([intakeSeasonId, countryId])
 }
 
-// Benefits for "Why Choose Intake" section on IntakePage
 model IntakePageBenefit {
-  id            String     @id @default(cuid())
-  intakePageId  String
-  intakePage    IntakePage @relation(fields: [intakePageId], references: [id], onDelete: Cascade)
-  
-  title         String     // e.g., "Get Organized"
-  description   String?    @db.Text
-  icon          String?    // Icon name (e.g., "Clock", "Briefcase") or URL
-  sortOrder     Int        @default(0)
-  
+  id           String     @id @default(cuid())
+  intakePageId String
+  title        String
+  description  String?
+  icon         String?
+  sortOrder    Int        @default(0)
+  intakePage   IntakePage @relation(fields: [intakePageId], references: [id], onDelete: Cascade)
+
   @@index([intakePageId])
 }

@@ -1,13 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
+import { useState } from "react";
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
 import { useAppForm } from "@/hooks/use-field-context";
+import { useAutoSlug } from "@/hooks/use-auto-slug";
 import { toast } from "sonner";
 import z from "zod";
 import { createEntityApi } from "@/lib/api-client";
+import { generateSlug } from "@/lib/utils";
+import { FormBase } from "@/components/form/FormBase";
+import { Input } from "@/components/ui/input";
 
 const careerSchema = z.object({
   title: z.string().min(1, "Title is required").max(200),
@@ -16,6 +22,7 @@ const careerSchema = z.object({
   jobType: z.string().optional().nullable(),
   description: z.string().optional().nullable(),
   requirements: z.string().optional().nullable(),
+  responsilities: z.string().optional().nullable(),
   isActive: z.boolean().optional().nullable(),
 });
 
@@ -35,6 +42,7 @@ export default function CareerFormModal({
   onSuccess?: () => void;
 }) {
   const isOpen = true;
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useAppForm({
     defaultValues: {
@@ -44,10 +52,12 @@ export default function CareerFormModal({
       jobType: selected?.jobType || "",
       description: selected?.description || "",
       requirements: selected?.requirements || "",
+      responsilities: selected?.responsilities || "",
       isActive: selected?.isActive ?? true,
     } as unknown as FormData,
     validators: { onSubmit: careerSchema as any },
     onSubmit: async ({ value }) => {
+      setIsSubmitting(true);
       try {
         const payload = {
           ...value,
@@ -63,15 +73,27 @@ export default function CareerFormModal({
             ? await api.update(selected.id, payload)
             : await api.create(payload);
 
-        if (res.error) return toast.error(res.error);
+        if (res.error) {
+          toast.error(res.error);
+          return;
+        }
         toast.success(isEditing ? "Career updated" : "Career created");
         onClose();
         onSuccess?.();
       } catch (e) {
         toast.error("Request failed");
         console.error(e);
+      } finally {
+        setIsSubmitting(false);
       }
     },
+  });
+
+  // Auto-slug generation from title
+  const { handleTitleChange, handleSlugChange } = useAutoSlug({
+    getSlugValue: () => form.getFieldValue("slug") || "",
+    setSlugValue: (value) => form.setFieldValue("slug", value),
+    isEditing: !!isEditing,
   });
 
   return (
@@ -88,10 +110,42 @@ export default function CareerFormModal({
       >
         <FieldGroup>
           <form.AppField name="title">
-            {(field) => <field.Input label="Title" />}
+            {(field) => (
+              <FormBase label="Title">
+                <Input
+                  id={field.name}
+                  name={field.name}
+                  value={field.state.value}
+                  onChange={(e) => {
+                    field.handleChange(e.target.value);
+                    handleTitleChange(e.target.value);
+                  }}
+                  onBlur={field.handleBlur}
+                  placeholder="e.g., Senior Education Counselor"
+                />
+              </FormBase>
+            )}
           </form.AppField>
           <form.AppField name="slug">
-            {(field) => <field.Input label="Slug" />}
+            {(field) => (
+              <FormBase
+                label="Slug"
+                description="Auto-generated from title. You can edit if needed."
+              >
+                <Input
+                  id={field.name}
+                  name={field.name}
+                  value={field.state.value}
+                  onChange={(e) => {
+                    const slugValue = generateSlug(e.target.value);
+                    field.handleChange(slugValue);
+                    handleSlugChange(slugValue);
+                  }}
+                  onBlur={field.handleBlur}
+                  placeholder="e.g., senior-education-counselor"
+                />
+              </FormBase>
+            )}
           </form.AppField>
           <form.AppField name="location">
             {(field) => <field.Input label="Location" />}
@@ -115,14 +169,31 @@ export default function CareerFormModal({
               />
             )}
           </form.AppField>
+          <form.AppField name="responsilities">
+            {(field) => (
+              <field.RichText
+                label="Responsibilities"
+                placeholder="Enter job responsibilities..."
+              />
+            )}
+          </form.AppField>
           <form.AppField name="isActive">
             {(field) => <field.Checkbox label="Active" />}
           </form.AppField>
           <div className="flex gap-2 justify-end">
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onClose}
+              disabled={isSubmitting}
+            >
               Cancel
             </Button>
-            <Button type="submit">{isEditing ? "Update" : "Create"}</Button>
+            <SubmitButton
+              isSubmitting={isSubmitting}
+              submitText={isEditing ? "Update" : "Create"}
+              submittingText={isEditing ? "Updating..." : "Creating..."}
+            />
           </div>
         </FieldGroup>
       </form>

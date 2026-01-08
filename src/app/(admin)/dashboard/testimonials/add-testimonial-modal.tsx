@@ -3,22 +3,29 @@
 import { useEffect, useState } from "react";
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
 import { useAppForm } from "@/hooks/hooks";
 import { testimonialSchema } from "@/schemas/testimonial";
 import { toast } from "sonner";
 import z from "zod";
-import { createEntityApi, apiClient } from "@/lib/api-client";
+import { createRestEntityApi, apiClient } from "@/lib/api-client";
 import { CountrySelect } from "@/components/ui/region-select";
 import { ImageUpload } from "@/components/ui/image-upload";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 type FormData = z.infer<typeof testimonialSchema>;
 
-const testimonialApi = createEntityApi<{ id: string }>("/api/testimonials");
+const testimonialApi = createRestEntityApi<{ id: string }>("/api/testimonials");
 
 interface TestimonialFormModalProps {
   isEditing?: boolean;
@@ -57,19 +64,20 @@ const TestimonialFormModal = ({
   onSuccess,
 }: TestimonialFormModalProps) => {
   const isOpen = true;
-  
+
   // State for multi-select fields
   const [countryIds, setCountryIds] = useState<string[]>([]);
   const [destinationIds, setDestinationIds] = useState<string[]>([]);
   const [universityIds, setUniversityIds] = useState<string[]>([]);
   const [eventIds, setEventIds] = useState<string[]>([]);
-  
+
   // Entity lists for selection
   const [destinations, setDestinations] = useState<Entity[]>([]);
   const [universities, setUniversities] = useState<Entity[]>([]);
   const [events, setEvents] = useState<Entity[]>([]);
   const [loading, setLoading] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Local state for conditional rendering (replaces useStore)
   const [type, setType] = useState<"STUDENT" | "REPRESENTATIVE" | "GMB">(
@@ -88,11 +96,23 @@ const TestimonialFormModal = ({
           apiClient.get<Entity[]>("/api/universities"),
           apiClient.get<Entity[]>("/api/events"),
         ]);
-        
+
         // Handle both array and paginated responses
-        setDestinations(Array.isArray(destRes.data) ? destRes.data : (destRes.data as any)?.data || []);
-        setUniversities(Array.isArray(uniRes.data) ? uniRes.data : (uniRes.data as any)?.data || []);
-        setEvents(Array.isArray(eventRes.data) ? eventRes.data : (eventRes.data as any)?.data || []);
+        setDestinations(
+          Array.isArray(destRes.data)
+            ? destRes.data
+            : (destRes.data as any)?.data || []
+        );
+        setUniversities(
+          Array.isArray(uniRes.data)
+            ? uniRes.data
+            : (uniRes.data as any)?.data || []
+        );
+        setEvents(
+          Array.isArray(eventRes.data)
+            ? eventRes.data
+            : (eventRes.data as any)?.data || []
+        );
       } catch (error) {
         console.error("Failed to fetch entities:", error);
       } finally {
@@ -116,12 +136,15 @@ const TestimonialFormModal = ({
       isFeatured: selectedTestimonial?.isFeatured || false,
       order: selectedTestimonial?.order || 0,
       countryIds: selectedTestimonial?.countries?.map((c) => c.countryId) || [],
-      destinationIds: selectedTestimonial?.destinations?.map((d) => d.destinationId) || [],
-      universityIds: selectedTestimonial?.universities?.map((u) => u.universityId) || [],
+      destinationIds:
+        selectedTestimonial?.destinations?.map((d) => d.destinationId) || [],
+      universityIds:
+        selectedTestimonial?.universities?.map((u) => u.universityId) || [],
       eventIds: selectedTestimonial?.events?.map((e) => e.eventId) || [],
     } satisfies FormData as FormData,
     validators: { onSubmit: testimonialSchema as any },
     onSubmit: async ({ value }) => {
+      setIsSubmitting(true);
       try {
         let response;
         const submitData = {
@@ -168,6 +191,8 @@ const TestimonialFormModal = ({
       } catch (err) {
         toast.error("Request failed");
         console.error(err);
+      } finally {
+        setIsSubmitting(false);
       }
     },
   });
@@ -176,10 +201,14 @@ const TestimonialFormModal = ({
 
   useEffect(() => {
     if (selectedTestimonial) {
-      const initialCountryIds = selectedTestimonial.countries?.map((c) => c.countryId) || [];
-      const initialDestinationIds = selectedTestimonial.destinations?.map((d) => d.destinationId) || [];
-      const initialUniversityIds = selectedTestimonial.universities?.map((u) => u.universityId) || [];
-      const initialEventIds = selectedTestimonial.events?.map((e) => e.eventId) || [];
+      const initialCountryIds =
+        selectedTestimonial.countries?.map((c) => c.countryId) || [];
+      const initialDestinationIds =
+        selectedTestimonial.destinations?.map((d) => d.destinationId) || [];
+      const initialUniversityIds =
+        selectedTestimonial.universities?.map((u) => u.universityId) || [];
+      const initialEventIds =
+        selectedTestimonial.events?.map((e) => e.eventId) || [];
 
       setCountryIds(initialCountryIds);
       setDestinationIds(initialDestinationIds);
@@ -257,7 +286,9 @@ const TestimonialFormModal = ({
                   <Label className="text-sm font-medium">Type</Label>
                   <Select
                     value={field.state.value}
-                    onValueChange={(val: "STUDENT" | "REPRESENTATIVE" | "GMB") => {
+                    onValueChange={(
+                      val: "STUDENT" | "REPRESENTATIVE" | "GMB"
+                    ) => {
                       field.handleChange(val);
                       setType(val);
                     }}
@@ -267,7 +298,9 @@ const TestimonialFormModal = ({
                     </SelectTrigger>
                     <SelectContent className="border border-gray-200">
                       <SelectItem value="STUDENT">Student Review</SelectItem>
-                      <SelectItem value="REPRESENTATIVE">Representative</SelectItem>
+                      <SelectItem value="REPRESENTATIVE">
+                        Representative
+                      </SelectItem>
                       <SelectItem value="GMB">GMB Review</SelectItem>
                     </SelectContent>
                   </Select>
@@ -341,7 +374,9 @@ const TestimonialFormModal = ({
                   <ImageUpload
                     value={field.state.value || ""}
                     onChange={field.handleChange}
-                    label={mediaType === "VIDEO" ? "Thumbnail" : "Profile Image"}
+                    label={
+                      mediaType === "VIDEO" ? "Thumbnail" : "Profile Image"
+                    }
                     folder="testimonials"
                     onUploadingChange={setIsUploading}
                   />
@@ -351,13 +386,17 @@ const TestimonialFormModal = ({
               <div className="space-y-4">
                 {(mediaType === "VIDEO" || type === "REPRESENTATIVE") && (
                   <form.AppField name="videoUrl">
-                    {(field) => <field.Input label="Video URL (YouTube/Vimeo)" />}
+                    {(field) => (
+                      <field.Input label="Video URL (YouTube/Vimeo)" />
+                    )}
                   </form.AppField>
                 )}
 
                 {(type === "GMB" || type === "REPRESENTATIVE") && (
                   <form.AppField name="url">
-                    {(field) => <field.Input label="External Link (Original Source)" />}
+                    {(field) => (
+                      <field.Input label="External Link (Original Source)" />
+                    )}
                   </form.AppField>
                 )}
               </div>
@@ -366,7 +405,9 @@ const TestimonialFormModal = ({
 
           {/* Associations Section */}
           <div className="space-y-4 rounded-lg border p-4">
-            <h3 className="font-semibold text-sm">Associations (Where to display)</h3>
+            <h3 className="font-semibold text-sm">
+              Associations (Where to display)
+            </h3>
             <Tabs defaultValue="countries" className="w-full">
               <TabsList>
                 <TabsTrigger value="countries">Countries</TabsTrigger>
@@ -402,10 +443,18 @@ const TestimonialFormModal = ({
                             id={`dest-${d.id}`}
                             checked={destinationIds.includes(d.id)}
                             onCheckedChange={() =>
-                              handleEntityToggle(d.id, destinationIds, setDestinationIds, "destinationIds")
+                              handleEntityToggle(
+                                d.id,
+                                destinationIds,
+                                setDestinationIds,
+                                "destinationIds"
+                              )
                             }
                           />
-                          <Label htmlFor={`dest-${d.id}`} className="text-sm cursor-pointer">
+                          <Label
+                            htmlFor={`dest-${d.id}`}
+                            className="text-sm cursor-pointer"
+                          >
                             {d.name}
                           </Label>
                         </div>
@@ -425,10 +474,18 @@ const TestimonialFormModal = ({
                             id={`uni-${u.id}`}
                             checked={universityIds.includes(u.id)}
                             onCheckedChange={() =>
-                              handleEntityToggle(u.id, universityIds, setUniversityIds, "universityIds")
+                              handleEntityToggle(
+                                u.id,
+                                universityIds,
+                                setUniversityIds,
+                                "universityIds"
+                              )
                             }
                           />
-                          <Label htmlFor={`uni-${u.id}`} className="text-sm cursor-pointer">
+                          <Label
+                            htmlFor={`uni-${u.id}`}
+                            className="text-sm cursor-pointer"
+                          >
                             {u.name}
                           </Label>
                         </div>
@@ -448,10 +505,18 @@ const TestimonialFormModal = ({
                             id={`event-${e.id}`}
                             checked={eventIds.includes(e.id)}
                             onCheckedChange={() =>
-                              handleEntityToggle(e.id, eventIds, setEventIds, "eventIds")
+                              handleEntityToggle(
+                                e.id,
+                                eventIds,
+                                setEventIds,
+                                "eventIds"
+                              )
                             }
                           />
-                          <Label htmlFor={`event-${e.id}`} className="text-sm cursor-pointer">
+                          <Label
+                            htmlFor={`event-${e.id}`}
+                            className="text-sm cursor-pointer"
+                          >
                             {e.title || e.name}
                           </Label>
                         </div>
@@ -470,7 +535,9 @@ const TestimonialFormModal = ({
                 <div className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                   <Checkbox
                     checked={field.state.value as boolean}
-                    onCheckedChange={(checked) => field.handleChange(checked === true)}
+                    onCheckedChange={(checked) =>
+                      field.handleChange(checked === true)
+                    }
                   />
                   <div className="space-y-1 leading-none">
                     <Label>Featured</Label>
@@ -486,12 +553,20 @@ const TestimonialFormModal = ({
 
           {/* Action Buttons */}
           <div className="flex gap-2 justify-end">
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onClose}
+              disabled={isSubmitting}
+            >
               Cancel
             </Button>
-            <Button type="submit" disabled={isUploading}>
-              {isUploading ? "Uploading..." : isEditing ? "Update" : "Create"}
-            </Button>
+            <SubmitButton
+              isSubmitting={isSubmitting}
+              isUploading={isUploading}
+              submitText={isEditing ? "Update" : "Create"}
+              submittingText={isEditing ? "Updating..." : "Creating..."}
+            />
           </div>
         </FieldGroup>
       </form>

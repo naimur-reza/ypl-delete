@@ -53,7 +53,6 @@ export function HeroSlide({ slide, isActive }: HeroSlideProps) {
                 : "opacity-0 translate-y-10"
             }`}
           >
- 
             {/* Headline */}
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white leading-[1.1] tracking-tight text-balance drop-shadow-lg">
               {slide.headline.split(" ").map((word: string, idx: number) => (
@@ -93,13 +92,13 @@ export function HeroSlide({ slide, isActive }: HeroSlideProps) {
             <div className="flex flex-wrap gap-4 mt-2">
               <a
                 href={slide.cta.href}
-                className="group relative inline-flex items-center gap-3 px-8 py-4 bg-primary text-white font-bold rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(var(--primary),0.5)]"
+                className="group relative inline-flex items-center gap-3 px-8 py-3 bg-primary text-white font-bold rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(var(--primary),0.5)]"
               >
                 <div className="absolute inset-0 bg-linear-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <span className="relative">{slide.cta.text}</span>
                 <ArrowRight className="w-5 h-5 relative transition-transform duration-300 group-hover:translate-x-1" />
               </a>
-              
+
               <button className="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white font-semibold rounded-full hover:bg-white/20 transition-all duration-300 hover:scale-105">
                 Learn More
               </button>

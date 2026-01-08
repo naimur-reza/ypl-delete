@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { CountryAwareLink } from "@/components/common/navbar/country-aware-link";
 
 export async function IntakeFeature() {
   // Fetch the currently active intake season
@@ -63,12 +63,12 @@ export async function IntakeFeature() {
           )}
 
           {/* CTA Button */}
-          <Link
+          <CountryAwareLink
             href={season.ctaUrl || "/apply-now"}
             className="bg-primary hover:bg-primary/90 active:bg-primary/80 text-white font-bold py-4 px-10 rounded-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 text-lg cursor-pointer inline-block"
           >
             {season.ctaLabel || "Apply Now"}
-          </Link>
+          </CountryAwareLink>
         </div>
       </div>
     </section>

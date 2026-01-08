@@ -49,7 +49,7 @@ const NavDropdown = ({
 
       {/* Dropdown Content */}
       <div
-        className={`absolute left-0 top-full mt-0.5 w-80 bg-white border border-border rounded shadow-lg transition-all duration-200 z-50 ${
+        className={`absolute left-0 top-full mt-0.5 w-80 bg-white/90 backdrop-blur-md border border-border rounded shadow-lg transition-all duration-200 z-50 ${
           isOpen
             ? "opacity-100 visible"
             : "opacity-0 invisible pointer-events-none"

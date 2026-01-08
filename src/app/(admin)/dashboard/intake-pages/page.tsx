@@ -141,7 +141,14 @@ export default function IntakePages() {
       {isModalOpen && (
         <IntakePageFormModal
           isEditing={isEditing}
-          selected={selected}
+          selected={
+            selected
+              ? {
+                  ...selected,
+                  intake: selected.intake as "JANUARY" | "MAY" | "SEPTEMBER",
+                }
+              : undefined
+          }
           onClose={handleCloseModal}
           onSuccess={refetch}
         />

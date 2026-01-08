@@ -2,6 +2,8 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 
+export const revalidate = 3600;
+
 // Components
 import { UniversityHero } from "@/components/university/UniversityHero";
 import { UniversityOverview } from "@/components/university/UniversityOverview";
@@ -11,15 +13,15 @@ import { UniversityEntryRequirements } from "@/components/university/UniversityE
 import { UniversityCostAndAccommodation } from "@/components/university/UniversityCostAndAccommodation";
 import { UniversityCourses } from "@/components/university/UniversityCourses";
 import { UniversityScholarships } from "@/components/university/UniversityScholarships";
- 
+
 import { ReviewSlider } from "@/components/sections/review-slider";
-import { BlogSlider } from "../../blogs/components/blog-slider";
+
 import { FaqSection } from "@/components/sections/faq-section";
 import { RepresentativeVideoSlider } from "@/components/sections/representative-video-slider";
 import CallToActionBanner from "@/components/CallToActionBanner";
-import { UniversityGlobalBranches } from "@/components/university/UniversityGlobalBranches";
+
 import { fetchFaqsByContext } from "@/lib/faqs";
-import { fetchRepresentativeVideos } from "@/lib/representative-videos";
+
 import { IntakeFeature } from "../../components";
 
 interface PageProps {
@@ -102,7 +104,9 @@ export default async function UniversityDetailsPage({ params }: PageProps) {
 
   // Map testimonials to ReviewItem shape - filter for student reviews
   const reviews = university.testimonials
-    .filter((t) => t.testimonial.type === "STUDENT" || t.testimonial.type === "GMB")
+    .filter(
+      (t) => t.testimonial.type === "STUDENT" || t.testimonial.type === "GMB"
+    )
     .map((t) => ({
       id: t.testimonial.id,
       name: t.testimonial.name,
@@ -114,7 +118,9 @@ export default async function UniversityDetailsPage({ params }: PageProps) {
 
   // Filter for representative videos
   const representativeVideos = university.testimonials
-    .filter((t) => t.testimonial.type === "REPRESENTATIVE" && t.testimonial.videoUrl)
+    .filter(
+      (t) => t.testimonial.type === "REPRESENTATIVE" && t.testimonial.videoUrl
+    )
     .map((t) => t.testimonial);
 
   // Fetch FAQs for this university
@@ -154,7 +160,8 @@ export default async function UniversityDetailsPage({ params }: PageProps) {
         heading={university.detail?.servicesHeading}
         description={university.detail?.servicesDescription}
         image={
-          university.detail?.servicesImage ||"https://thumbs.dreamstime.com/b/conceptual-hand-writing-showing-our-services-concept-meaning-occupation-function-serving-intangible-products-male-wear-160644151.jpg"
+          university.detail?.servicesImage ||
+          "https://thumbs.dreamstime.com/b/conceptual-hand-writing-showing-our-services-concept-meaning-occupation-function-serving-intangible-products-male-wear-160644151.jpg"
         }
       />
 
@@ -195,9 +202,9 @@ export default async function UniversityDetailsPage({ params }: PageProps) {
 
       {/* 10. Student Review Video Slider */}
       {reviews.length > 0 && (
-       <div className="container mx-auto">
-         <ReviewSlider title="Student Reviews" items={reviews} type="text" />
-       </div>
+        <div className="container mx-auto">
+          <ReviewSlider title="Student Reviews" items={reviews} type="text" />
+        </div>
       )}
       {/* If you have video reviews, you might want to fetch them or if they are mixed in reviews, filter them */}
 
@@ -209,7 +216,6 @@ export default async function UniversityDetailsPage({ params }: PageProps) {
       <FaqSection faqs={faqs} />
 
       {/* 12.5. Global Branches */}
- 
 
       {/* 13. Representative Video Slider */}
       <RepresentativeVideoSlider videos={representativeVideos} />

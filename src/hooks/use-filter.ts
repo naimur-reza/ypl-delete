@@ -9,7 +9,7 @@ export interface UseFilterOptions<T> {
   filterConfig: {
     [key: string]: {
       getValue: (item: T) => string | string[] | null | undefined;
-      matchType?: "exact" | "includes" | "search";
+      matchType?: "exact" | "includes" | "search" | "array";
     };
   };
   searchFields?: Array<keyof T | ((item: T) => string | null | undefined)>;

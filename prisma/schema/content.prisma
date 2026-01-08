@@ -1,4 +1,3 @@
-// Additional Content Models
 model Service {
   id              String   @id @default(cuid())
   title           String
@@ -13,93 +12,79 @@ model Service {
   updatedAt       DateTime @updatedAt
 }
 
-enum AccreditationType {
-  NEWS        // As seen in the news (media logos)
-  PARTNER     // University partners
-  ACCREDITATION // Official accreditations
-}
-
 model Accreditation {
-  id        String   @id @default(cuid())
+  id        String                 @id @default(cuid())
   name      String
   logo      String?
   website   String?
-  type      AccreditationType @default(NEWS)
-  sortOrder Int?     @default(0)
-
-  
+  sortOrder Int?                   @default(0)
+  createdAt DateTime               @default(now())
+  updatedAt DateTime               @updatedAt
+  type      AccreditationType      @default(NEWS)
   countries AccreditationCountry[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 model Career {
-  id               String  @id @default(cuid())
+  id               String           @id @default(cuid())
   title            String
-  slug             String  @unique
+  slug             String           @unique
   department       String?
   location         String?
-  jobType          String? // FULL_TIME, PART_TIME, CONTRACT, INTERNSHIP
-  jobLocation      String? // REMOTE, ON_SITE, HYBRID
-  description      String? @db.Text
-  requirements     String? @db.Text
-  responsibilities String? @db.Text
-  benefits         String? @db.Text
-
-  // Salary Range
-  salaryMin      Int?
-  salaryMax      Int?
-  salaryCurrency String? @default("USD")
-
-  // Application
-  applyUrl String?
-  deadline DateTime?
-
-  // Status
-  isActive Boolean @default(true)
-
-  // SEO
-  metaTitle       String?
-  metaDescription String?
-  metaKeywords    String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  applications JobApplication[]
+  jobType          String?
+  jobLocation      String?
+  description      String?
+  requirements     String?
+  responsibilities String?
+  benefits         String?
+  salaryMin        Int?
+  salaryMax        Int?
+  salaryCurrency   String?          @default("USD")
+  applyUrl         String?
+  deadline         DateTime?
+  isActive         Boolean          @default(true)
+  metaTitle        String?
+  metaDescription  String?
+  metaKeywords     String?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  applications     JobApplication[]
 }
 
 model JobApplication {
-  id       String @id @default(cuid())
-  careerId String
-  career   Career @relation(fields: [careerId], references: [id], onDelete: Cascade)
-
-  // Applicant Information
-  firstName String
-  lastName  String
-  email     String
-  phone     String
-
-  // Application Details
-  coverLetter  String? @db.Text
-  resumeUrl    String?
-  linkedinUrl  String?
-  portfolioUrl String?
-
-  // Additional Info
+  id                String                @id @default(cuid())
+  careerId          String
+  name              String
+  email             String
+  phone             String
+  coverLetter       String?
+  resumeUrl         String?
+  linkedinUrl       String?
+  portfolioUrl      String?
   currentCompany    String?
   yearsOfExperience Int?
   expectedSalary    String?
   availableFrom     DateTime?
-
-  // Status
-  status String  @default("PENDING") // PENDING, REVIEWING, SHORTLISTED, REJECTED, ACCEPTED
-  notes  String? @db.Text
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  status            JobApplicationStatus  @default(PENDING)
+  notes             String?
+  createdAt         DateTime              @default(now())
+  updatedAt         DateTime              @updatedAt
+  career            Career                @relation(fields: [careerId], references: [id], onDelete: Cascade)
 
   @@index([careerId])
   @@index([email])
   @@index([status])
+}
+
+enum JobApplicationStatus {
+  PENDING
+  REVIEWING
+  SHORTLISTED
+  REJECTED
+  HIRED
+}
+
+enum AccreditationType {
+  NEWS
+  PARTNER
+  ACCREDITATION
 }

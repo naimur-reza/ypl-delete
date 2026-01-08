@@ -4,7 +4,8 @@ import Footer from "@/components/common/Footer";
 import { resolveCountryContext } from "@/lib/country-resolver";
 import { Toaster } from "sonner";
 
-export const dynamic = "force-dynamic";
+// Enable ISR with 1 hour revalidation for better performance
+export const revalidate = 3600;
 
 export default async function PublicLayout({
   children,

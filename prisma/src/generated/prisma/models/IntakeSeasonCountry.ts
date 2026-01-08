@@ -166,16 +166,16 @@ export type IntakeSeasonCountryWhereInput = {
   id?: Prisma.StringFilter<"IntakeSeasonCountry"> | string
   intakeSeasonId?: Prisma.StringFilter<"IntakeSeasonCountry"> | string
   countryId?: Prisma.StringFilter<"IntakeSeasonCountry"> | string
-  intakeSeason?: Prisma.XOR<Prisma.IntakeSeasonScalarRelationFilter, Prisma.IntakeSeasonWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
+  intakeSeason?: Prisma.XOR<Prisma.IntakeSeasonScalarRelationFilter, Prisma.IntakeSeasonWhereInput>
 }
 
 export type IntakeSeasonCountryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   intakeSeasonId?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
-  intakeSeason?: Prisma.IntakeSeasonOrderByWithRelationInput
   country?: Prisma.CountryOrderByWithRelationInput
+  intakeSeason?: Prisma.IntakeSeasonOrderByWithRelationInput
 }
 
 export type IntakeSeasonCountryWhereUniqueInput = Prisma.AtLeast<{
@@ -186,8 +186,8 @@ export type IntakeSeasonCountryWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.IntakeSeasonCountryWhereInput | Prisma.IntakeSeasonCountryWhereInput[]
   intakeSeasonId?: Prisma.StringFilter<"IntakeSeasonCountry"> | string
   countryId?: Prisma.StringFilter<"IntakeSeasonCountry"> | string
-  intakeSeason?: Prisma.XOR<Prisma.IntakeSeasonScalarRelationFilter, Prisma.IntakeSeasonWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
+  intakeSeason?: Prisma.XOR<Prisma.IntakeSeasonScalarRelationFilter, Prisma.IntakeSeasonWhereInput>
 }, "id" | "intakeSeasonId_countryId">
 
 export type IntakeSeasonCountryOrderByWithAggregationInput = {
@@ -210,8 +210,8 @@ export type IntakeSeasonCountryScalarWhereWithAggregatesInput = {
 
 export type IntakeSeasonCountryCreateInput = {
   id?: string
-  intakeSeason: Prisma.IntakeSeasonCreateNestedOneWithoutCountriesInput
   country: Prisma.CountryCreateNestedOneWithoutIntakeSeasonsInput
+  intakeSeason: Prisma.IntakeSeasonCreateNestedOneWithoutCountriesInput
 }
 
 export type IntakeSeasonCountryUncheckedCreateInput = {
@@ -222,8 +222,8 @@ export type IntakeSeasonCountryUncheckedCreateInput = {
 
 export type IntakeSeasonCountryUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  intakeSeason?: Prisma.IntakeSeasonUpdateOneRequiredWithoutCountriesNestedInput
   country?: Prisma.CountryUpdateOneRequiredWithoutIntakeSeasonsNestedInput
+  intakeSeason?: Prisma.IntakeSeasonUpdateOneRequiredWithoutCountriesNestedInput
 }
 
 export type IntakeSeasonCountryUncheckedUpdateInput = {
@@ -492,24 +492,24 @@ export type IntakeSeasonCountrySelect<ExtArgs extends runtime.Types.Extensions.I
   id?: boolean
   intakeSeasonId?: boolean
   countryId?: boolean
-  intakeSeason?: boolean | Prisma.IntakeSeasonDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  intakeSeason?: boolean | Prisma.IntakeSeasonDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["intakeSeasonCountry"]>
 
 export type IntakeSeasonCountrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   intakeSeasonId?: boolean
   countryId?: boolean
-  intakeSeason?: boolean | Prisma.IntakeSeasonDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  intakeSeason?: boolean | Prisma.IntakeSeasonDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["intakeSeasonCountry"]>
 
 export type IntakeSeasonCountrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   intakeSeasonId?: boolean
   countryId?: boolean
-  intakeSeason?: boolean | Prisma.IntakeSeasonDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  intakeSeason?: boolean | Prisma.IntakeSeasonDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["intakeSeasonCountry"]>
 
 export type IntakeSeasonCountrySelectScalar = {
@@ -520,23 +520,23 @@ export type IntakeSeasonCountrySelectScalar = {
 
 export type IntakeSeasonCountryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "intakeSeasonId" | "countryId", ExtArgs["result"]["intakeSeasonCountry"]>
 export type IntakeSeasonCountryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  intakeSeason?: boolean | Prisma.IntakeSeasonDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  intakeSeason?: boolean | Prisma.IntakeSeasonDefaultArgs<ExtArgs>
 }
 export type IntakeSeasonCountryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  intakeSeason?: boolean | Prisma.IntakeSeasonDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  intakeSeason?: boolean | Prisma.IntakeSeasonDefaultArgs<ExtArgs>
 }
 export type IntakeSeasonCountryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  intakeSeason?: boolean | Prisma.IntakeSeasonDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  intakeSeason?: boolean | Prisma.IntakeSeasonDefaultArgs<ExtArgs>
 }
 
 export type $IntakeSeasonCountryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "IntakeSeasonCountry"
   objects: {
-    intakeSeason: Prisma.$IntakeSeasonPayload<ExtArgs>
     country: Prisma.$CountryPayload<ExtArgs>
+    intakeSeason: Prisma.$IntakeSeasonPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -936,8 +936,8 @@ readonly fields: IntakeSeasonCountryFieldRefs;
  */
 export interface Prisma__IntakeSeasonCountryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  intakeSeason<T extends Prisma.IntakeSeasonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.IntakeSeasonDefaultArgs<ExtArgs>>): Prisma.Prisma__IntakeSeasonClient<runtime.Types.Result.GetResult<Prisma.$IntakeSeasonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   country<T extends Prisma.CountryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CountryDefaultArgs<ExtArgs>>): Prisma.Prisma__CountryClient<runtime.Types.Result.GetResult<Prisma.$CountryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  intakeSeason<T extends Prisma.IntakeSeasonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.IntakeSeasonDefaultArgs<ExtArgs>>): Prisma.Prisma__IntakeSeasonClient<runtime.Types.Result.GetResult<Prisma.$IntakeSeasonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

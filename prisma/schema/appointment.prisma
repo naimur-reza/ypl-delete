@@ -1,10 +1,7 @@
-// Appointment bookings (general consultations)
 model Appointment {
   id          String            @id @default(cuid())
   eventId     String?
-  event       Event?            @relation(fields: [eventId], references: [id], onDelete: SetNull)
   countryId   String?
-  country     Country?          @relation(fields: [countryId], references: [id])
   name        String
   email       String?
   phone       String?
@@ -13,6 +10,8 @@ model Appointment {
   status      AppointmentStatus @default(PENDING)
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
+  country     Country?          @relation(fields: [countryId], references: [id])
+  event       Event?            @relation(fields: [eventId], references: [id])
 
   @@index([eventId])
   @@index([countryId])

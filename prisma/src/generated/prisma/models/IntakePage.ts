@@ -34,18 +34,18 @@ export type IntakePageMinAggregateOutputType = {
   eligibility: string | null
   ctaLabel: string | null
   ctaUrl: string | null
-  whyChooseTitle: string | null
-  whyChooseDescription: string | null
-  heroTitle: string | null
-  heroSubtitle: string | null
-  heroCTALabel: string | null
-  heroCTAUrl: string | null
-  metaTitle: string | null
-  metaDescription: string | null
-  metaKeywords: string | null
-  isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
+  isActive: boolean | null
+  heroCTALabel: string | null
+  heroCTAUrl: string | null
+  heroSubtitle: string | null
+  heroTitle: string | null
+  metaDescription: string | null
+  metaKeywords: string | null
+  metaTitle: string | null
+  whyChooseDescription: string | null
+  whyChooseTitle: string | null
 }
 
 export type IntakePageMaxAggregateOutputType = {
@@ -58,18 +58,18 @@ export type IntakePageMaxAggregateOutputType = {
   eligibility: string | null
   ctaLabel: string | null
   ctaUrl: string | null
-  whyChooseTitle: string | null
-  whyChooseDescription: string | null
-  heroTitle: string | null
-  heroSubtitle: string | null
-  heroCTALabel: string | null
-  heroCTAUrl: string | null
-  metaTitle: string | null
-  metaDescription: string | null
-  metaKeywords: string | null
-  isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
+  isActive: boolean | null
+  heroCTALabel: string | null
+  heroCTAUrl: string | null
+  heroSubtitle: string | null
+  heroTitle: string | null
+  metaDescription: string | null
+  metaKeywords: string | null
+  metaTitle: string | null
+  whyChooseDescription: string | null
+  whyChooseTitle: string | null
 }
 
 export type IntakePageCountAggregateOutputType = {
@@ -83,18 +83,18 @@ export type IntakePageCountAggregateOutputType = {
   timelineJson: number
   ctaLabel: number
   ctaUrl: number
-  whyChooseTitle: number
-  whyChooseDescription: number
-  heroTitle: number
-  heroSubtitle: number
-  heroCTALabel: number
-  heroCTAUrl: number
-  metaTitle: number
-  metaDescription: number
-  metaKeywords: number
-  isActive: number
   createdAt: number
   updatedAt: number
+  isActive: number
+  heroCTALabel: number
+  heroCTAUrl: number
+  heroSubtitle: number
+  heroTitle: number
+  metaDescription: number
+  metaKeywords: number
+  metaTitle: number
+  whyChooseDescription: number
+  whyChooseTitle: number
   _all: number
 }
 
@@ -109,18 +109,18 @@ export type IntakePageMinAggregateInputType = {
   eligibility?: true
   ctaLabel?: true
   ctaUrl?: true
-  whyChooseTitle?: true
-  whyChooseDescription?: true
-  heroTitle?: true
-  heroSubtitle?: true
-  heroCTALabel?: true
-  heroCTAUrl?: true
-  metaTitle?: true
-  metaDescription?: true
-  metaKeywords?: true
-  isActive?: true
   createdAt?: true
   updatedAt?: true
+  isActive?: true
+  heroCTALabel?: true
+  heroCTAUrl?: true
+  heroSubtitle?: true
+  heroTitle?: true
+  metaDescription?: true
+  metaKeywords?: true
+  metaTitle?: true
+  whyChooseDescription?: true
+  whyChooseTitle?: true
 }
 
 export type IntakePageMaxAggregateInputType = {
@@ -133,18 +133,18 @@ export type IntakePageMaxAggregateInputType = {
   eligibility?: true
   ctaLabel?: true
   ctaUrl?: true
-  whyChooseTitle?: true
-  whyChooseDescription?: true
-  heroTitle?: true
-  heroSubtitle?: true
-  heroCTALabel?: true
-  heroCTAUrl?: true
-  metaTitle?: true
-  metaDescription?: true
-  metaKeywords?: true
-  isActive?: true
   createdAt?: true
   updatedAt?: true
+  isActive?: true
+  heroCTALabel?: true
+  heroCTAUrl?: true
+  heroSubtitle?: true
+  heroTitle?: true
+  metaDescription?: true
+  metaKeywords?: true
+  metaTitle?: true
+  whyChooseDescription?: true
+  whyChooseTitle?: true
 }
 
 export type IntakePageCountAggregateInputType = {
@@ -158,18 +158,18 @@ export type IntakePageCountAggregateInputType = {
   timelineJson?: true
   ctaLabel?: true
   ctaUrl?: true
-  whyChooseTitle?: true
-  whyChooseDescription?: true
-  heroTitle?: true
-  heroSubtitle?: true
-  heroCTALabel?: true
-  heroCTAUrl?: true
-  metaTitle?: true
-  metaDescription?: true
-  metaKeywords?: true
-  isActive?: true
   createdAt?: true
   updatedAt?: true
+  isActive?: true
+  heroCTALabel?: true
+  heroCTAUrl?: true
+  heroSubtitle?: true
+  heroTitle?: true
+  metaDescription?: true
+  metaKeywords?: true
+  metaTitle?: true
+  whyChooseDescription?: true
+  whyChooseTitle?: true
   _all?: true
 }
 
@@ -256,18 +256,18 @@ export type IntakePageGroupByOutputType = {
   timelineJson: runtime.JsonValue | null
   ctaLabel: string | null
   ctaUrl: string | null
-  whyChooseTitle: string | null
-  whyChooseDescription: string | null
-  heroTitle: string | null
-  heroSubtitle: string | null
-  heroCTALabel: string | null
-  heroCTAUrl: string | null
-  metaTitle: string | null
-  metaDescription: string | null
-  metaKeywords: string | null
-  isActive: boolean
   createdAt: Date
   updatedAt: Date
+  isActive: boolean | null
+  heroCTALabel: string | null
+  heroCTAUrl: string | null
+  heroSubtitle: string | null
+  heroTitle: string | null
+  metaDescription: string | null
+  metaKeywords: string | null
+  metaTitle: string | null
+  whyChooseDescription: string | null
+  whyChooseTitle: string | null
   _count: IntakePageCountAggregateOutputType | null
   _min: IntakePageMinAggregateOutputType | null
   _max: IntakePageMaxAggregateOutputType | null
@@ -302,21 +302,21 @@ export type IntakePageWhereInput = {
   timelineJson?: Prisma.JsonNullableFilter<"IntakePage">
   ctaLabel?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   ctaUrl?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  whyChooseTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  whyChooseDescription?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  heroTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  heroSubtitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  heroCTALabel?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  heroCTAUrl?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  metaTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  metaDescription?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  metaKeywords?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  isActive?: Prisma.BoolFilter<"IntakePage"> | boolean
   createdAt?: Prisma.DateTimeFilter<"IntakePage"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"IntakePage"> | Date | string
-  destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
+  isActive?: Prisma.BoolNullableFilter<"IntakePage"> | boolean | null
+  heroCTALabel?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  heroCTAUrl?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  heroSubtitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  heroTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  metaDescription?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  metaKeywords?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  metaTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  whyChooseDescription?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  whyChooseTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   faqs?: Prisma.FAQIntakePageListRelationFilter
-  benefits?: Prisma.IntakePageBenefitListRelationFilter
+  destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
+  intakePageBenefits?: Prisma.IntakePageBenefitListRelationFilter
 }
 
 export type IntakePageOrderByWithRelationInput = {
@@ -330,21 +330,21 @@ export type IntakePageOrderByWithRelationInput = {
   timelineJson?: Prisma.SortOrderInput | Prisma.SortOrder
   ctaLabel?: Prisma.SortOrderInput | Prisma.SortOrder
   ctaUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  whyChooseTitle?: Prisma.SortOrderInput | Prisma.SortOrder
-  whyChooseDescription?: Prisma.SortOrderInput | Prisma.SortOrder
-  heroTitle?: Prisma.SortOrderInput | Prisma.SortOrder
-  heroSubtitle?: Prisma.SortOrderInput | Prisma.SortOrder
-  heroCTALabel?: Prisma.SortOrderInput | Prisma.SortOrder
-  heroCTAUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  metaTitle?: Prisma.SortOrderInput | Prisma.SortOrder
-  metaDescription?: Prisma.SortOrderInput | Prisma.SortOrder
-  metaKeywords?: Prisma.SortOrderInput | Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  destination?: Prisma.DestinationOrderByWithRelationInput
+  isActive?: Prisma.SortOrderInput | Prisma.SortOrder
+  heroCTALabel?: Prisma.SortOrderInput | Prisma.SortOrder
+  heroCTAUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  heroSubtitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  heroTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  metaDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  metaKeywords?: Prisma.SortOrderInput | Prisma.SortOrder
+  metaTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  whyChooseDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  whyChooseTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   faqs?: Prisma.FAQIntakePageOrderByRelationAggregateInput
-  benefits?: Prisma.IntakePageBenefitOrderByRelationAggregateInput
+  destination?: Prisma.DestinationOrderByWithRelationInput
+  intakePageBenefits?: Prisma.IntakePageBenefitOrderByRelationAggregateInput
 }
 
 export type IntakePageWhereUniqueInput = Prisma.AtLeast<{
@@ -362,21 +362,21 @@ export type IntakePageWhereUniqueInput = Prisma.AtLeast<{
   timelineJson?: Prisma.JsonNullableFilter<"IntakePage">
   ctaLabel?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   ctaUrl?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  whyChooseTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  whyChooseDescription?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  heroTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  heroSubtitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  heroCTALabel?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  heroCTAUrl?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  metaTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  metaDescription?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  metaKeywords?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  isActive?: Prisma.BoolFilter<"IntakePage"> | boolean
   createdAt?: Prisma.DateTimeFilter<"IntakePage"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"IntakePage"> | Date | string
-  destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
+  isActive?: Prisma.BoolNullableFilter<"IntakePage"> | boolean | null
+  heroCTALabel?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  heroCTAUrl?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  heroSubtitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  heroTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  metaDescription?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  metaKeywords?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  metaTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  whyChooseDescription?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  whyChooseTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   faqs?: Prisma.FAQIntakePageListRelationFilter
-  benefits?: Prisma.IntakePageBenefitListRelationFilter
+  destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
+  intakePageBenefits?: Prisma.IntakePageBenefitListRelationFilter
 }, "id" | "destinationId_intake">
 
 export type IntakePageOrderByWithAggregationInput = {
@@ -390,18 +390,18 @@ export type IntakePageOrderByWithAggregationInput = {
   timelineJson?: Prisma.SortOrderInput | Prisma.SortOrder
   ctaLabel?: Prisma.SortOrderInput | Prisma.SortOrder
   ctaUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  whyChooseTitle?: Prisma.SortOrderInput | Prisma.SortOrder
-  whyChooseDescription?: Prisma.SortOrderInput | Prisma.SortOrder
-  heroTitle?: Prisma.SortOrderInput | Prisma.SortOrder
-  heroSubtitle?: Prisma.SortOrderInput | Prisma.SortOrder
-  heroCTALabel?: Prisma.SortOrderInput | Prisma.SortOrder
-  heroCTAUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  metaTitle?: Prisma.SortOrderInput | Prisma.SortOrder
-  metaDescription?: Prisma.SortOrderInput | Prisma.SortOrder
-  metaKeywords?: Prisma.SortOrderInput | Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isActive?: Prisma.SortOrderInput | Prisma.SortOrder
+  heroCTALabel?: Prisma.SortOrderInput | Prisma.SortOrder
+  heroCTAUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  heroSubtitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  heroTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  metaDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  metaKeywords?: Prisma.SortOrderInput | Prisma.SortOrder
+  metaTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  whyChooseDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  whyChooseTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.IntakePageCountOrderByAggregateInput
   _max?: Prisma.IntakePageMaxOrderByAggregateInput
   _min?: Prisma.IntakePageMinOrderByAggregateInput
@@ -421,18 +421,18 @@ export type IntakePageScalarWhereWithAggregatesInput = {
   timelineJson?: Prisma.JsonNullableWithAggregatesFilter<"IntakePage">
   ctaLabel?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
   ctaUrl?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
-  whyChooseTitle?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
-  whyChooseDescription?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
-  heroTitle?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
-  heroSubtitle?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
-  heroCTALabel?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
-  heroCTAUrl?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
-  metaTitle?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
-  metaDescription?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
-  metaKeywords?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
-  isActive?: Prisma.BoolWithAggregatesFilter<"IntakePage"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"IntakePage"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"IntakePage"> | Date | string
+  isActive?: Prisma.BoolNullableWithAggregatesFilter<"IntakePage"> | boolean | null
+  heroCTALabel?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
+  heroCTAUrl?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
+  heroSubtitle?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
+  heroTitle?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
+  metaDescription?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
+  metaKeywords?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
+  metaTitle?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
+  whyChooseDescription?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
+  whyChooseTitle?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
 }
 
 export type IntakePageCreateInput = {
@@ -445,21 +445,21 @@ export type IntakePageCreateInput = {
   timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ctaLabel?: string | null
   ctaUrl?: string | null
-  whyChooseTitle?: string | null
-  whyChooseDescription?: string | null
-  heroTitle?: string | null
-  heroSubtitle?: string | null
-  heroCTALabel?: string | null
-  heroCTAUrl?: string | null
-  metaTitle?: string | null
-  metaDescription?: string | null
-  metaKeywords?: string | null
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  destination: Prisma.DestinationCreateNestedOneWithoutIntakePagesInput
+  isActive?: boolean | null
+  heroCTALabel?: string | null
+  heroCTAUrl?: string | null
+  heroSubtitle?: string | null
+  heroTitle?: string | null
+  metaDescription?: string | null
+  metaKeywords?: string | null
+  metaTitle?: string | null
+  whyChooseDescription?: string | null
+  whyChooseTitle?: string | null
   faqs?: Prisma.FAQIntakePageCreateNestedManyWithoutIntakePageInput
-  benefits?: Prisma.IntakePageBenefitCreateNestedManyWithoutIntakePageInput
+  destination: Prisma.DestinationCreateNestedOneWithoutIntakePagesInput
+  intakePageBenefits?: Prisma.IntakePageBenefitCreateNestedManyWithoutIntakePageInput
 }
 
 export type IntakePageUncheckedCreateInput = {
@@ -473,20 +473,20 @@ export type IntakePageUncheckedCreateInput = {
   timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ctaLabel?: string | null
   ctaUrl?: string | null
-  whyChooseTitle?: string | null
-  whyChooseDescription?: string | null
-  heroTitle?: string | null
-  heroSubtitle?: string | null
-  heroCTALabel?: string | null
-  heroCTAUrl?: string | null
-  metaTitle?: string | null
-  metaDescription?: string | null
-  metaKeywords?: string | null
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  isActive?: boolean | null
+  heroCTALabel?: string | null
+  heroCTAUrl?: string | null
+  heroSubtitle?: string | null
+  heroTitle?: string | null
+  metaDescription?: string | null
+  metaKeywords?: string | null
+  metaTitle?: string | null
+  whyChooseDescription?: string | null
+  whyChooseTitle?: string | null
   faqs?: Prisma.FAQIntakePageUncheckedCreateNestedManyWithoutIntakePageInput
-  benefits?: Prisma.IntakePageBenefitUncheckedCreateNestedManyWithoutIntakePageInput
+  intakePageBenefits?: Prisma.IntakePageBenefitUncheckedCreateNestedManyWithoutIntakePageInput
 }
 
 export type IntakePageUpdateInput = {
@@ -499,21 +499,21 @@ export type IntakePageUpdateInput = {
   timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  destination?: Prisma.DestinationUpdateOneRequiredWithoutIntakePagesNestedInput
+  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqs?: Prisma.FAQIntakePageUpdateManyWithoutIntakePageNestedInput
-  benefits?: Prisma.IntakePageBenefitUpdateManyWithoutIntakePageNestedInput
+  destination?: Prisma.DestinationUpdateOneRequiredWithoutIntakePagesNestedInput
+  intakePageBenefits?: Prisma.IntakePageBenefitUpdateManyWithoutIntakePageNestedInput
 }
 
 export type IntakePageUncheckedUpdateInput = {
@@ -527,20 +527,20 @@ export type IntakePageUncheckedUpdateInput = {
   timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqs?: Prisma.FAQIntakePageUncheckedUpdateManyWithoutIntakePageNestedInput
-  benefits?: Prisma.IntakePageBenefitUncheckedUpdateManyWithoutIntakePageNestedInput
+  intakePageBenefits?: Prisma.IntakePageBenefitUncheckedUpdateManyWithoutIntakePageNestedInput
 }
 
 export type IntakePageCreateManyInput = {
@@ -554,18 +554,18 @@ export type IntakePageCreateManyInput = {
   timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ctaLabel?: string | null
   ctaUrl?: string | null
-  whyChooseTitle?: string | null
-  whyChooseDescription?: string | null
-  heroTitle?: string | null
-  heroSubtitle?: string | null
-  heroCTALabel?: string | null
-  heroCTAUrl?: string | null
-  metaTitle?: string | null
-  metaDescription?: string | null
-  metaKeywords?: string | null
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  isActive?: boolean | null
+  heroCTALabel?: string | null
+  heroCTAUrl?: string | null
+  heroSubtitle?: string | null
+  heroTitle?: string | null
+  metaDescription?: string | null
+  metaKeywords?: string | null
+  metaTitle?: string | null
+  whyChooseDescription?: string | null
+  whyChooseTitle?: string | null
 }
 
 export type IntakePageUpdateManyMutationInput = {
@@ -578,18 +578,18 @@ export type IntakePageUpdateManyMutationInput = {
   timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type IntakePageUncheckedUpdateManyInput = {
@@ -603,18 +603,18 @@ export type IntakePageUncheckedUpdateManyInput = {
   timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type IntakePageDestinationIdIntakeCompoundUniqueInput = {
@@ -633,18 +633,18 @@ export type IntakePageCountOrderByAggregateInput = {
   timelineJson?: Prisma.SortOrder
   ctaLabel?: Prisma.SortOrder
   ctaUrl?: Prisma.SortOrder
-  whyChooseTitle?: Prisma.SortOrder
-  whyChooseDescription?: Prisma.SortOrder
-  heroTitle?: Prisma.SortOrder
-  heroSubtitle?: Prisma.SortOrder
-  heroCTALabel?: Prisma.SortOrder
-  heroCTAUrl?: Prisma.SortOrder
-  metaTitle?: Prisma.SortOrder
-  metaDescription?: Prisma.SortOrder
-  metaKeywords?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
+  heroCTALabel?: Prisma.SortOrder
+  heroCTAUrl?: Prisma.SortOrder
+  heroSubtitle?: Prisma.SortOrder
+  heroTitle?: Prisma.SortOrder
+  metaDescription?: Prisma.SortOrder
+  metaKeywords?: Prisma.SortOrder
+  metaTitle?: Prisma.SortOrder
+  whyChooseDescription?: Prisma.SortOrder
+  whyChooseTitle?: Prisma.SortOrder
 }
 
 export type IntakePageMaxOrderByAggregateInput = {
@@ -657,18 +657,18 @@ export type IntakePageMaxOrderByAggregateInput = {
   eligibility?: Prisma.SortOrder
   ctaLabel?: Prisma.SortOrder
   ctaUrl?: Prisma.SortOrder
-  whyChooseTitle?: Prisma.SortOrder
-  whyChooseDescription?: Prisma.SortOrder
-  heroTitle?: Prisma.SortOrder
-  heroSubtitle?: Prisma.SortOrder
-  heroCTALabel?: Prisma.SortOrder
-  heroCTAUrl?: Prisma.SortOrder
-  metaTitle?: Prisma.SortOrder
-  metaDescription?: Prisma.SortOrder
-  metaKeywords?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
+  heroCTALabel?: Prisma.SortOrder
+  heroCTAUrl?: Prisma.SortOrder
+  heroSubtitle?: Prisma.SortOrder
+  heroTitle?: Prisma.SortOrder
+  metaDescription?: Prisma.SortOrder
+  metaKeywords?: Prisma.SortOrder
+  metaTitle?: Prisma.SortOrder
+  whyChooseDescription?: Prisma.SortOrder
+  whyChooseTitle?: Prisma.SortOrder
 }
 
 export type IntakePageMinOrderByAggregateInput = {
@@ -681,18 +681,18 @@ export type IntakePageMinOrderByAggregateInput = {
   eligibility?: Prisma.SortOrder
   ctaLabel?: Prisma.SortOrder
   ctaUrl?: Prisma.SortOrder
-  whyChooseTitle?: Prisma.SortOrder
-  whyChooseDescription?: Prisma.SortOrder
-  heroTitle?: Prisma.SortOrder
-  heroSubtitle?: Prisma.SortOrder
-  heroCTALabel?: Prisma.SortOrder
-  heroCTAUrl?: Prisma.SortOrder
-  metaTitle?: Prisma.SortOrder
-  metaDescription?: Prisma.SortOrder
-  metaKeywords?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
+  heroCTALabel?: Prisma.SortOrder
+  heroCTAUrl?: Prisma.SortOrder
+  heroSubtitle?: Prisma.SortOrder
+  heroTitle?: Prisma.SortOrder
+  metaDescription?: Prisma.SortOrder
+  metaKeywords?: Prisma.SortOrder
+  metaTitle?: Prisma.SortOrder
+  whyChooseDescription?: Prisma.SortOrder
+  whyChooseTitle?: Prisma.SortOrder
 }
 
 export type IntakePageScalarRelationFilter = {
@@ -710,18 +710,22 @@ export type IntakePageOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type IntakePageCreateNestedOneWithoutBenefitsInput = {
-  create?: Prisma.XOR<Prisma.IntakePageCreateWithoutBenefitsInput, Prisma.IntakePageUncheckedCreateWithoutBenefitsInput>
-  connectOrCreate?: Prisma.IntakePageCreateOrConnectWithoutBenefitsInput
+export type NullableBoolFieldUpdateOperationsInput = {
+  set?: boolean | null
+}
+
+export type IntakePageCreateNestedOneWithoutIntakePageBenefitsInput = {
+  create?: Prisma.XOR<Prisma.IntakePageCreateWithoutIntakePageBenefitsInput, Prisma.IntakePageUncheckedCreateWithoutIntakePageBenefitsInput>
+  connectOrCreate?: Prisma.IntakePageCreateOrConnectWithoutIntakePageBenefitsInput
   connect?: Prisma.IntakePageWhereUniqueInput
 }
 
-export type IntakePageUpdateOneRequiredWithoutBenefitsNestedInput = {
-  create?: Prisma.XOR<Prisma.IntakePageCreateWithoutBenefitsInput, Prisma.IntakePageUncheckedCreateWithoutBenefitsInput>
-  connectOrCreate?: Prisma.IntakePageCreateOrConnectWithoutBenefitsInput
-  upsert?: Prisma.IntakePageUpsertWithoutBenefitsInput
+export type IntakePageUpdateOneRequiredWithoutIntakePageBenefitsNestedInput = {
+  create?: Prisma.XOR<Prisma.IntakePageCreateWithoutIntakePageBenefitsInput, Prisma.IntakePageUncheckedCreateWithoutIntakePageBenefitsInput>
+  connectOrCreate?: Prisma.IntakePageCreateOrConnectWithoutIntakePageBenefitsInput
+  upsert?: Prisma.IntakePageUpsertWithoutIntakePageBenefitsInput
   connect?: Prisma.IntakePageWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.IntakePageUpdateToOneWithWhereWithoutBenefitsInput, Prisma.IntakePageUpdateWithoutBenefitsInput>, Prisma.IntakePageUncheckedUpdateWithoutBenefitsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.IntakePageUpdateToOneWithWhereWithoutIntakePageBenefitsInput, Prisma.IntakePageUpdateWithoutIntakePageBenefitsInput>, Prisma.IntakePageUncheckedUpdateWithoutIntakePageBenefitsInput>
 }
 
 export type IntakePageCreateNestedManyWithoutDestinationInput = {
@@ -780,7 +784,7 @@ export type IntakePageUpdateOneRequiredWithoutFaqsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.IntakePageUpdateToOneWithWhereWithoutFaqsInput, Prisma.IntakePageUpdateWithoutFaqsInput>, Prisma.IntakePageUncheckedUpdateWithoutFaqsInput>
 }
 
-export type IntakePageCreateWithoutBenefitsInput = {
+export type IntakePageCreateWithoutIntakePageBenefitsInput = {
   id?: string
   intake: $Enums.IntakeMonth
   title: string
@@ -790,23 +794,23 @@ export type IntakePageCreateWithoutBenefitsInput = {
   timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ctaLabel?: string | null
   ctaUrl?: string | null
-  whyChooseTitle?: string | null
-  whyChooseDescription?: string | null
-  heroTitle?: string | null
-  heroSubtitle?: string | null
-  heroCTALabel?: string | null
-  heroCTAUrl?: string | null
-  metaTitle?: string | null
-  metaDescription?: string | null
-  metaKeywords?: string | null
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  destination: Prisma.DestinationCreateNestedOneWithoutIntakePagesInput
+  isActive?: boolean | null
+  heroCTALabel?: string | null
+  heroCTAUrl?: string | null
+  heroSubtitle?: string | null
+  heroTitle?: string | null
+  metaDescription?: string | null
+  metaKeywords?: string | null
+  metaTitle?: string | null
+  whyChooseDescription?: string | null
+  whyChooseTitle?: string | null
   faqs?: Prisma.FAQIntakePageCreateNestedManyWithoutIntakePageInput
+  destination: Prisma.DestinationCreateNestedOneWithoutIntakePagesInput
 }
 
-export type IntakePageUncheckedCreateWithoutBenefitsInput = {
+export type IntakePageUncheckedCreateWithoutIntakePageBenefitsInput = {
   id?: string
   destinationId: string
   intake: $Enums.IntakeMonth
@@ -817,38 +821,38 @@ export type IntakePageUncheckedCreateWithoutBenefitsInput = {
   timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ctaLabel?: string | null
   ctaUrl?: string | null
-  whyChooseTitle?: string | null
-  whyChooseDescription?: string | null
-  heroTitle?: string | null
-  heroSubtitle?: string | null
-  heroCTALabel?: string | null
-  heroCTAUrl?: string | null
-  metaTitle?: string | null
-  metaDescription?: string | null
-  metaKeywords?: string | null
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  isActive?: boolean | null
+  heroCTALabel?: string | null
+  heroCTAUrl?: string | null
+  heroSubtitle?: string | null
+  heroTitle?: string | null
+  metaDescription?: string | null
+  metaKeywords?: string | null
+  metaTitle?: string | null
+  whyChooseDescription?: string | null
+  whyChooseTitle?: string | null
   faqs?: Prisma.FAQIntakePageUncheckedCreateNestedManyWithoutIntakePageInput
 }
 
-export type IntakePageCreateOrConnectWithoutBenefitsInput = {
+export type IntakePageCreateOrConnectWithoutIntakePageBenefitsInput = {
   where: Prisma.IntakePageWhereUniqueInput
-  create: Prisma.XOR<Prisma.IntakePageCreateWithoutBenefitsInput, Prisma.IntakePageUncheckedCreateWithoutBenefitsInput>
+  create: Prisma.XOR<Prisma.IntakePageCreateWithoutIntakePageBenefitsInput, Prisma.IntakePageUncheckedCreateWithoutIntakePageBenefitsInput>
 }
 
-export type IntakePageUpsertWithoutBenefitsInput = {
-  update: Prisma.XOR<Prisma.IntakePageUpdateWithoutBenefitsInput, Prisma.IntakePageUncheckedUpdateWithoutBenefitsInput>
-  create: Prisma.XOR<Prisma.IntakePageCreateWithoutBenefitsInput, Prisma.IntakePageUncheckedCreateWithoutBenefitsInput>
+export type IntakePageUpsertWithoutIntakePageBenefitsInput = {
+  update: Prisma.XOR<Prisma.IntakePageUpdateWithoutIntakePageBenefitsInput, Prisma.IntakePageUncheckedUpdateWithoutIntakePageBenefitsInput>
+  create: Prisma.XOR<Prisma.IntakePageCreateWithoutIntakePageBenefitsInput, Prisma.IntakePageUncheckedCreateWithoutIntakePageBenefitsInput>
   where?: Prisma.IntakePageWhereInput
 }
 
-export type IntakePageUpdateToOneWithWhereWithoutBenefitsInput = {
+export type IntakePageUpdateToOneWithWhereWithoutIntakePageBenefitsInput = {
   where?: Prisma.IntakePageWhereInput
-  data: Prisma.XOR<Prisma.IntakePageUpdateWithoutBenefitsInput, Prisma.IntakePageUncheckedUpdateWithoutBenefitsInput>
+  data: Prisma.XOR<Prisma.IntakePageUpdateWithoutIntakePageBenefitsInput, Prisma.IntakePageUncheckedUpdateWithoutIntakePageBenefitsInput>
 }
 
-export type IntakePageUpdateWithoutBenefitsInput = {
+export type IntakePageUpdateWithoutIntakePageBenefitsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   intake?: Prisma.EnumIntakeMonthFieldUpdateOperationsInput | $Enums.IntakeMonth
   title?: Prisma.StringFieldUpdateOperationsInput | string
@@ -858,23 +862,23 @@ export type IntakePageUpdateWithoutBenefitsInput = {
   timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  destination?: Prisma.DestinationUpdateOneRequiredWithoutIntakePagesNestedInput
+  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqs?: Prisma.FAQIntakePageUpdateManyWithoutIntakePageNestedInput
+  destination?: Prisma.DestinationUpdateOneRequiredWithoutIntakePagesNestedInput
 }
 
-export type IntakePageUncheckedUpdateWithoutBenefitsInput = {
+export type IntakePageUncheckedUpdateWithoutIntakePageBenefitsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   intake?: Prisma.EnumIntakeMonthFieldUpdateOperationsInput | $Enums.IntakeMonth
@@ -885,18 +889,18 @@ export type IntakePageUncheckedUpdateWithoutBenefitsInput = {
   timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqs?: Prisma.FAQIntakePageUncheckedUpdateManyWithoutIntakePageNestedInput
 }
 
@@ -910,20 +914,20 @@ export type IntakePageCreateWithoutDestinationInput = {
   timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ctaLabel?: string | null
   ctaUrl?: string | null
-  whyChooseTitle?: string | null
-  whyChooseDescription?: string | null
-  heroTitle?: string | null
-  heroSubtitle?: string | null
-  heroCTALabel?: string | null
-  heroCTAUrl?: string | null
-  metaTitle?: string | null
-  metaDescription?: string | null
-  metaKeywords?: string | null
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  isActive?: boolean | null
+  heroCTALabel?: string | null
+  heroCTAUrl?: string | null
+  heroSubtitle?: string | null
+  heroTitle?: string | null
+  metaDescription?: string | null
+  metaKeywords?: string | null
+  metaTitle?: string | null
+  whyChooseDescription?: string | null
+  whyChooseTitle?: string | null
   faqs?: Prisma.FAQIntakePageCreateNestedManyWithoutIntakePageInput
-  benefits?: Prisma.IntakePageBenefitCreateNestedManyWithoutIntakePageInput
+  intakePageBenefits?: Prisma.IntakePageBenefitCreateNestedManyWithoutIntakePageInput
 }
 
 export type IntakePageUncheckedCreateWithoutDestinationInput = {
@@ -936,20 +940,20 @@ export type IntakePageUncheckedCreateWithoutDestinationInput = {
   timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ctaLabel?: string | null
   ctaUrl?: string | null
-  whyChooseTitle?: string | null
-  whyChooseDescription?: string | null
-  heroTitle?: string | null
-  heroSubtitle?: string | null
-  heroCTALabel?: string | null
-  heroCTAUrl?: string | null
-  metaTitle?: string | null
-  metaDescription?: string | null
-  metaKeywords?: string | null
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  isActive?: boolean | null
+  heroCTALabel?: string | null
+  heroCTAUrl?: string | null
+  heroSubtitle?: string | null
+  heroTitle?: string | null
+  metaDescription?: string | null
+  metaKeywords?: string | null
+  metaTitle?: string | null
+  whyChooseDescription?: string | null
+  whyChooseTitle?: string | null
   faqs?: Prisma.FAQIntakePageUncheckedCreateNestedManyWithoutIntakePageInput
-  benefits?: Prisma.IntakePageBenefitUncheckedCreateNestedManyWithoutIntakePageInput
+  intakePageBenefits?: Prisma.IntakePageBenefitUncheckedCreateNestedManyWithoutIntakePageInput
 }
 
 export type IntakePageCreateOrConnectWithoutDestinationInput = {
@@ -992,18 +996,18 @@ export type IntakePageScalarWhereInput = {
   timelineJson?: Prisma.JsonNullableFilter<"IntakePage">
   ctaLabel?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   ctaUrl?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  whyChooseTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  whyChooseDescription?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  heroTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  heroSubtitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  heroCTALabel?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  heroCTAUrl?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  metaTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  metaDescription?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  metaKeywords?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  isActive?: Prisma.BoolFilter<"IntakePage"> | boolean
   createdAt?: Prisma.DateTimeFilter<"IntakePage"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"IntakePage"> | Date | string
+  isActive?: Prisma.BoolNullableFilter<"IntakePage"> | boolean | null
+  heroCTALabel?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  heroCTAUrl?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  heroSubtitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  heroTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  metaDescription?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  metaKeywords?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  metaTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  whyChooseDescription?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  whyChooseTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
 }
 
 export type IntakePageCreateWithoutFaqsInput = {
@@ -1016,20 +1020,20 @@ export type IntakePageCreateWithoutFaqsInput = {
   timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ctaLabel?: string | null
   ctaUrl?: string | null
-  whyChooseTitle?: string | null
-  whyChooseDescription?: string | null
-  heroTitle?: string | null
-  heroSubtitle?: string | null
-  heroCTALabel?: string | null
-  heroCTAUrl?: string | null
-  metaTitle?: string | null
-  metaDescription?: string | null
-  metaKeywords?: string | null
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  isActive?: boolean | null
+  heroCTALabel?: string | null
+  heroCTAUrl?: string | null
+  heroSubtitle?: string | null
+  heroTitle?: string | null
+  metaDescription?: string | null
+  metaKeywords?: string | null
+  metaTitle?: string | null
+  whyChooseDescription?: string | null
+  whyChooseTitle?: string | null
   destination: Prisma.DestinationCreateNestedOneWithoutIntakePagesInput
-  benefits?: Prisma.IntakePageBenefitCreateNestedManyWithoutIntakePageInput
+  intakePageBenefits?: Prisma.IntakePageBenefitCreateNestedManyWithoutIntakePageInput
 }
 
 export type IntakePageUncheckedCreateWithoutFaqsInput = {
@@ -1043,19 +1047,19 @@ export type IntakePageUncheckedCreateWithoutFaqsInput = {
   timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ctaLabel?: string | null
   ctaUrl?: string | null
-  whyChooseTitle?: string | null
-  whyChooseDescription?: string | null
-  heroTitle?: string | null
-  heroSubtitle?: string | null
-  heroCTALabel?: string | null
-  heroCTAUrl?: string | null
-  metaTitle?: string | null
-  metaDescription?: string | null
-  metaKeywords?: string | null
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  benefits?: Prisma.IntakePageBenefitUncheckedCreateNestedManyWithoutIntakePageInput
+  isActive?: boolean | null
+  heroCTALabel?: string | null
+  heroCTAUrl?: string | null
+  heroSubtitle?: string | null
+  heroTitle?: string | null
+  metaDescription?: string | null
+  metaKeywords?: string | null
+  metaTitle?: string | null
+  whyChooseDescription?: string | null
+  whyChooseTitle?: string | null
+  intakePageBenefits?: Prisma.IntakePageBenefitUncheckedCreateNestedManyWithoutIntakePageInput
 }
 
 export type IntakePageCreateOrConnectWithoutFaqsInput = {
@@ -1084,20 +1088,20 @@ export type IntakePageUpdateWithoutFaqsInput = {
   timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destination?: Prisma.DestinationUpdateOneRequiredWithoutIntakePagesNestedInput
-  benefits?: Prisma.IntakePageBenefitUpdateManyWithoutIntakePageNestedInput
+  intakePageBenefits?: Prisma.IntakePageBenefitUpdateManyWithoutIntakePageNestedInput
 }
 
 export type IntakePageUncheckedUpdateWithoutFaqsInput = {
@@ -1111,19 +1115,19 @@ export type IntakePageUncheckedUpdateWithoutFaqsInput = {
   timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  benefits?: Prisma.IntakePageBenefitUncheckedUpdateManyWithoutIntakePageNestedInput
+  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  intakePageBenefits?: Prisma.IntakePageBenefitUncheckedUpdateManyWithoutIntakePageNestedInput
 }
 
 export type IntakePageCreateManyDestinationInput = {
@@ -1136,18 +1140,18 @@ export type IntakePageCreateManyDestinationInput = {
   timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ctaLabel?: string | null
   ctaUrl?: string | null
-  whyChooseTitle?: string | null
-  whyChooseDescription?: string | null
-  heroTitle?: string | null
-  heroSubtitle?: string | null
-  heroCTALabel?: string | null
-  heroCTAUrl?: string | null
-  metaTitle?: string | null
-  metaDescription?: string | null
-  metaKeywords?: string | null
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  isActive?: boolean | null
+  heroCTALabel?: string | null
+  heroCTAUrl?: string | null
+  heroSubtitle?: string | null
+  heroTitle?: string | null
+  metaDescription?: string | null
+  metaKeywords?: string | null
+  metaTitle?: string | null
+  whyChooseDescription?: string | null
+  whyChooseTitle?: string | null
 }
 
 export type IntakePageUpdateWithoutDestinationInput = {
@@ -1160,20 +1164,20 @@ export type IntakePageUpdateWithoutDestinationInput = {
   timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqs?: Prisma.FAQIntakePageUpdateManyWithoutIntakePageNestedInput
-  benefits?: Prisma.IntakePageBenefitUpdateManyWithoutIntakePageNestedInput
+  intakePageBenefits?: Prisma.IntakePageBenefitUpdateManyWithoutIntakePageNestedInput
 }
 
 export type IntakePageUncheckedUpdateWithoutDestinationInput = {
@@ -1186,20 +1190,20 @@ export type IntakePageUncheckedUpdateWithoutDestinationInput = {
   timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqs?: Prisma.FAQIntakePageUncheckedUpdateManyWithoutIntakePageNestedInput
-  benefits?: Prisma.IntakePageBenefitUncheckedUpdateManyWithoutIntakePageNestedInput
+  intakePageBenefits?: Prisma.IntakePageBenefitUncheckedUpdateManyWithoutIntakePageNestedInput
 }
 
 export type IntakePageUncheckedUpdateManyWithoutDestinationInput = {
@@ -1212,18 +1216,18 @@ export type IntakePageUncheckedUpdateManyWithoutDestinationInput = {
   timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -1233,12 +1237,12 @@ export type IntakePageUncheckedUpdateManyWithoutDestinationInput = {
 
 export type IntakePageCountOutputType = {
   faqs: number
-  benefits: number
+  intakePageBenefits: number
 }
 
 export type IntakePageCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   faqs?: boolean | IntakePageCountOutputTypeCountFaqsArgs
-  benefits?: boolean | IntakePageCountOutputTypeCountBenefitsArgs
+  intakePageBenefits?: boolean | IntakePageCountOutputTypeCountIntakePageBenefitsArgs
 }
 
 /**
@@ -1261,7 +1265,7 @@ export type IntakePageCountOutputTypeCountFaqsArgs<ExtArgs extends runtime.Types
 /**
  * IntakePageCountOutputType without action
  */
-export type IntakePageCountOutputTypeCountBenefitsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type IntakePageCountOutputTypeCountIntakePageBenefitsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.IntakePageBenefitWhereInput
 }
 
@@ -1277,21 +1281,21 @@ export type IntakePageSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   timelineJson?: boolean
   ctaLabel?: boolean
   ctaUrl?: boolean
-  whyChooseTitle?: boolean
-  whyChooseDescription?: boolean
-  heroTitle?: boolean
-  heroSubtitle?: boolean
-  heroCTALabel?: boolean
-  heroCTAUrl?: boolean
-  metaTitle?: boolean
-  metaDescription?: boolean
-  metaKeywords?: boolean
-  isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  isActive?: boolean
+  heroCTALabel?: boolean
+  heroCTAUrl?: boolean
+  heroSubtitle?: boolean
+  heroTitle?: boolean
+  metaDescription?: boolean
+  metaKeywords?: boolean
+  metaTitle?: boolean
+  whyChooseDescription?: boolean
+  whyChooseTitle?: boolean
   faqs?: boolean | Prisma.IntakePage$faqsArgs<ExtArgs>
-  benefits?: boolean | Prisma.IntakePage$benefitsArgs<ExtArgs>
+  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  intakePageBenefits?: boolean | Prisma.IntakePage$intakePageBenefitsArgs<ExtArgs>
   _count?: boolean | Prisma.IntakePageCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["intakePage"]>
 
@@ -1306,18 +1310,18 @@ export type IntakePageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   timelineJson?: boolean
   ctaLabel?: boolean
   ctaUrl?: boolean
-  whyChooseTitle?: boolean
-  whyChooseDescription?: boolean
-  heroTitle?: boolean
-  heroSubtitle?: boolean
-  heroCTALabel?: boolean
-  heroCTAUrl?: boolean
-  metaTitle?: boolean
-  metaDescription?: boolean
-  metaKeywords?: boolean
-  isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isActive?: boolean
+  heroCTALabel?: boolean
+  heroCTAUrl?: boolean
+  heroSubtitle?: boolean
+  heroTitle?: boolean
+  metaDescription?: boolean
+  metaKeywords?: boolean
+  metaTitle?: boolean
+  whyChooseDescription?: boolean
+  whyChooseTitle?: boolean
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["intakePage"]>
 
@@ -1332,18 +1336,18 @@ export type IntakePageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   timelineJson?: boolean
   ctaLabel?: boolean
   ctaUrl?: boolean
-  whyChooseTitle?: boolean
-  whyChooseDescription?: boolean
-  heroTitle?: boolean
-  heroSubtitle?: boolean
-  heroCTALabel?: boolean
-  heroCTAUrl?: boolean
-  metaTitle?: boolean
-  metaDescription?: boolean
-  metaKeywords?: boolean
-  isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isActive?: boolean
+  heroCTALabel?: boolean
+  heroCTAUrl?: boolean
+  heroSubtitle?: boolean
+  heroTitle?: boolean
+  metaDescription?: boolean
+  metaKeywords?: boolean
+  metaTitle?: boolean
+  whyChooseDescription?: boolean
+  whyChooseTitle?: boolean
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["intakePage"]>
 
@@ -1358,25 +1362,25 @@ export type IntakePageSelectScalar = {
   timelineJson?: boolean
   ctaLabel?: boolean
   ctaUrl?: boolean
-  whyChooseTitle?: boolean
-  whyChooseDescription?: boolean
-  heroTitle?: boolean
-  heroSubtitle?: boolean
-  heroCTALabel?: boolean
-  heroCTAUrl?: boolean
-  metaTitle?: boolean
-  metaDescription?: boolean
-  metaKeywords?: boolean
-  isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isActive?: boolean
+  heroCTALabel?: boolean
+  heroCTAUrl?: boolean
+  heroSubtitle?: boolean
+  heroTitle?: boolean
+  metaDescription?: boolean
+  metaKeywords?: boolean
+  metaTitle?: boolean
+  whyChooseDescription?: boolean
+  whyChooseTitle?: boolean
 }
 
-export type IntakePageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "destinationId" | "intake" | "title" | "description" | "heroMedia" | "eligibility" | "timelineJson" | "ctaLabel" | "ctaUrl" | "whyChooseTitle" | "whyChooseDescription" | "heroTitle" | "heroSubtitle" | "heroCTALabel" | "heroCTAUrl" | "metaTitle" | "metaDescription" | "metaKeywords" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["intakePage"]>
+export type IntakePageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "destinationId" | "intake" | "title" | "description" | "heroMedia" | "eligibility" | "timelineJson" | "ctaLabel" | "ctaUrl" | "createdAt" | "updatedAt" | "isActive" | "heroCTALabel" | "heroCTAUrl" | "heroSubtitle" | "heroTitle" | "metaDescription" | "metaKeywords" | "metaTitle" | "whyChooseDescription" | "whyChooseTitle", ExtArgs["result"]["intakePage"]>
 export type IntakePageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
   faqs?: boolean | Prisma.IntakePage$faqsArgs<ExtArgs>
-  benefits?: boolean | Prisma.IntakePage$benefitsArgs<ExtArgs>
+  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  intakePageBenefits?: boolean | Prisma.IntakePage$intakePageBenefitsArgs<ExtArgs>
   _count?: boolean | Prisma.IntakePageCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type IntakePageIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1389,9 +1393,9 @@ export type IntakePageIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.E
 export type $IntakePagePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "IntakePage"
   objects: {
-    destination: Prisma.$DestinationPayload<ExtArgs>
     faqs: Prisma.$FAQIntakePagePayload<ExtArgs>[]
-    benefits: Prisma.$IntakePageBenefitPayload<ExtArgs>[]
+    destination: Prisma.$DestinationPayload<ExtArgs>
+    intakePageBenefits: Prisma.$IntakePageBenefitPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1404,18 +1408,18 @@ export type $IntakePagePayload<ExtArgs extends runtime.Types.Extensions.Internal
     timelineJson: runtime.JsonValue | null
     ctaLabel: string | null
     ctaUrl: string | null
-    whyChooseTitle: string | null
-    whyChooseDescription: string | null
-    heroTitle: string | null
-    heroSubtitle: string | null
-    heroCTALabel: string | null
-    heroCTAUrl: string | null
-    metaTitle: string | null
-    metaDescription: string | null
-    metaKeywords: string | null
-    isActive: boolean
     createdAt: Date
     updatedAt: Date
+    isActive: boolean | null
+    heroCTALabel: string | null
+    heroCTAUrl: string | null
+    heroSubtitle: string | null
+    heroTitle: string | null
+    metaDescription: string | null
+    metaKeywords: string | null
+    metaTitle: string | null
+    whyChooseDescription: string | null
+    whyChooseTitle: string | null
   }, ExtArgs["result"]["intakePage"]>
   composites: {}
 }
@@ -1810,9 +1814,9 @@ readonly fields: IntakePageFieldRefs;
  */
 export interface Prisma__IntakePageClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  destination<T extends Prisma.DestinationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DestinationDefaultArgs<ExtArgs>>): Prisma.Prisma__DestinationClient<runtime.Types.Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   faqs<T extends Prisma.IntakePage$faqsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.IntakePage$faqsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FAQIntakePagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  benefits<T extends Prisma.IntakePage$benefitsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.IntakePage$benefitsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IntakePageBenefitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  destination<T extends Prisma.DestinationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DestinationDefaultArgs<ExtArgs>>): Prisma.Prisma__DestinationClient<runtime.Types.Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  intakePageBenefits<T extends Prisma.IntakePage$intakePageBenefitsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.IntakePage$intakePageBenefitsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IntakePageBenefitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1852,18 +1856,18 @@ export interface IntakePageFieldRefs {
   readonly timelineJson: Prisma.FieldRef<"IntakePage", 'Json'>
   readonly ctaLabel: Prisma.FieldRef<"IntakePage", 'String'>
   readonly ctaUrl: Prisma.FieldRef<"IntakePage", 'String'>
-  readonly whyChooseTitle: Prisma.FieldRef<"IntakePage", 'String'>
-  readonly whyChooseDescription: Prisma.FieldRef<"IntakePage", 'String'>
-  readonly heroTitle: Prisma.FieldRef<"IntakePage", 'String'>
-  readonly heroSubtitle: Prisma.FieldRef<"IntakePage", 'String'>
-  readonly heroCTALabel: Prisma.FieldRef<"IntakePage", 'String'>
-  readonly heroCTAUrl: Prisma.FieldRef<"IntakePage", 'String'>
-  readonly metaTitle: Prisma.FieldRef<"IntakePage", 'String'>
-  readonly metaDescription: Prisma.FieldRef<"IntakePage", 'String'>
-  readonly metaKeywords: Prisma.FieldRef<"IntakePage", 'String'>
-  readonly isActive: Prisma.FieldRef<"IntakePage", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"IntakePage", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"IntakePage", 'DateTime'>
+  readonly isActive: Prisma.FieldRef<"IntakePage", 'Boolean'>
+  readonly heroCTALabel: Prisma.FieldRef<"IntakePage", 'String'>
+  readonly heroCTAUrl: Prisma.FieldRef<"IntakePage", 'String'>
+  readonly heroSubtitle: Prisma.FieldRef<"IntakePage", 'String'>
+  readonly heroTitle: Prisma.FieldRef<"IntakePage", 'String'>
+  readonly metaDescription: Prisma.FieldRef<"IntakePage", 'String'>
+  readonly metaKeywords: Prisma.FieldRef<"IntakePage", 'String'>
+  readonly metaTitle: Prisma.FieldRef<"IntakePage", 'String'>
+  readonly whyChooseDescription: Prisma.FieldRef<"IntakePage", 'String'>
+  readonly whyChooseTitle: Prisma.FieldRef<"IntakePage", 'String'>
 }
     
 
@@ -2284,9 +2288,9 @@ export type IntakePage$faqsArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
- * IntakePage.benefits
+ * IntakePage.intakePageBenefits
  */
-export type IntakePage$benefitsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type IntakePage$intakePageBenefitsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the IntakePageBenefit
    */

@@ -23,15 +23,18 @@ export type EventWithRelations = Prisma.EventGetPayload<{
 
 type EventPageQuery = {
   countrySlug?: string | null;
+  featuredOnly?: boolean;
 };
 
 export const fetchUpcomingEvents = async ({
   countrySlug,
+  featuredOnly,
 }: EventPageQuery): Promise<EventWithRelations[]> => {
   const now = new Date();
 
   const where: Prisma.EventWhereInput = {
     startDate: { gte: now },
+    ...(featuredOnly ? { isFeatured: true } : {}),
     ...(countrySlug
       ? {
           countries: {

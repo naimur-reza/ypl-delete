@@ -9,10 +9,11 @@ import {
 
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { setCookie, getCookie } from "cookies-next";
+import { setCookie, getCookie, deleteCookie } from "cookies-next";
 import Globe from "@/assets/icons/globe.svg";
 import { useCountry } from "@/lib/country-context";
 import { useState } from "react";
+import { Globe as GlobeIcon } from "lucide-react";
 
 type Country = {
   id: string;
@@ -54,21 +55,29 @@ const CountryModalClient = ({
       path: "/",
     });
 
-    let newPath: string;
-
-    if (isCountrySpecific && currentCountry) {
-      // We're on a country-specific route - replace the country
-      const pathSegments = pathname.split("/").filter(Boolean);
-      pathSegments[0] = country.slug; // Replace first segment (current country)
-      newPath = "/" + pathSegments.join("/");
-    } else {
-      // We're on a global route - prepend country
-      newPath = `/${country.slug}${pathname}`;
-    }
+    // Always navigate to country home page
+    const newPath = `/${country.slug}`;
 
     console.log("🔄 Switching country:", {
       from: currentCountry,
       to: country.slug,
+      newPath: newPath,
+    });
+
+    // Close modal and navigate
+    setIsOpen(false);
+    router.push(newPath);
+  };
+
+  const handleGoGlobal = () => {
+    // Delete the user-country cookie
+    deleteCookie("user-country", { path: "/" });
+
+    // Always navigate to global home page
+    const newPath = "/";
+
+    console.log("🌐 Switching to global:", {
+      from: currentCountry,
       isCountrySpecific,
       oldPath: pathname,
       newPath: newPath,
@@ -111,13 +120,42 @@ const CountryModalClient = ({
         {/* Country Grid */}
         {countries.length > 0 && (
           <div className="mt-6 grid grid-cols-3 gap-6 place-items-center">
+            {/* Global Option */}
+            <button
+              className="flex flex-col items-center gap-2 hover:scale-105 transition-transform cursor-pointer"
+              onClick={handleGoGlobal}
+            >
+              <div
+                className={`size-15 rounded-full overflow-hidden border-2 bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center transition-all ${
+                  !activeCountrySlug
+                    ? "ring-2 ring-primary ring-offset-2 border-primary"
+                    : "border-transparent hover:border-primary/50"
+                }`}
+              >
+                <GlobeIcon className="size-8 text-white" />
+              </div>
+              <span
+                className={`text-sm font-medium ${
+                  !activeCountrySlug ? "text-primary" : ""
+                }`}
+              >
+                Global
+              </span>
+            </button>
+
             {countries.map((country) => (
               <button
                 key={country.id}
                 className="flex flex-col items-center gap-2 hover:scale-105 transition-transform cursor-pointer"
                 onClick={() => handleCountryChange(country)}
               >
-                <div className="size-15 rounded-full overflow-hidden border">
+                <div
+                  className={`size-15 rounded-full overflow-hidden border-2 transition-all ${
+                    activeCountrySlug === country.slug
+                      ? "ring-2 ring-primary ring-offset-2 border-primary"
+                      : "border-transparent hover:border-primary/50"
+                  }`}
+                >
                   <Image
                     src={country.flag || "/placeholder-flag.png"}
                     alt={country.name}
@@ -126,7 +164,13 @@ const CountryModalClient = ({
                     className="size-full object-cover"
                   />
                 </div>
-                <span className="text-sm font-medium">{country.name}</span>
+                <span
+                  className={`text-sm font-medium ${
+                    activeCountrySlug === country.slug ? "text-primary" : ""
+                  }`}
+                >
+                  {country.name}
+                </span>
               </button>
             ))}
           </div>

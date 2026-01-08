@@ -28,33 +28,33 @@ export type FAQMinAggregateOutputType = {
   id: string | null
   question: string | null
   answer: string | null
-  isGlobal: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
   createdBy: string | null
   updatedBy: string | null
+  isGlobal: boolean | null
 }
 
 export type FAQMaxAggregateOutputType = {
   id: string | null
   question: string | null
   answer: string | null
-  isGlobal: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
   createdBy: string | null
   updatedBy: string | null
+  isGlobal: boolean | null
 }
 
 export type FAQCountAggregateOutputType = {
   id: number
   question: number
   answer: number
-  isGlobal: number
   createdAt: number
   updatedAt: number
   createdBy: number
   updatedBy: number
+  isGlobal: number
   _all: number
 }
 
@@ -63,33 +63,33 @@ export type FAQMinAggregateInputType = {
   id?: true
   question?: true
   answer?: true
-  isGlobal?: true
   createdAt?: true
   updatedAt?: true
   createdBy?: true
   updatedBy?: true
+  isGlobal?: true
 }
 
 export type FAQMaxAggregateInputType = {
   id?: true
   question?: true
   answer?: true
-  isGlobal?: true
   createdAt?: true
   updatedAt?: true
   createdBy?: true
   updatedBy?: true
+  isGlobal?: true
 }
 
 export type FAQCountAggregateInputType = {
   id?: true
   question?: true
   answer?: true
-  isGlobal?: true
   createdAt?: true
   updatedAt?: true
   createdBy?: true
   updatedBy?: true
+  isGlobal?: true
   _all?: true
 }
 
@@ -169,11 +169,11 @@ export type FAQGroupByOutputType = {
   id: string
   question: string
   answer: string
-  isGlobal: boolean
   createdAt: Date
   updatedAt: Date
   createdBy: string | null
   updatedBy: string | null
+  isGlobal: boolean
   _count: FAQCountAggregateOutputType | null
   _min: FAQMinAggregateOutputType | null
   _max: FAQMaxAggregateOutputType | null
@@ -201,36 +201,36 @@ export type FAQWhereInput = {
   id?: Prisma.StringFilter<"FAQ"> | string
   question?: Prisma.StringFilter<"FAQ"> | string
   answer?: Prisma.StringFilter<"FAQ"> | string
-  isGlobal?: Prisma.BoolFilter<"FAQ"> | boolean
   createdAt?: Prisma.DateTimeFilter<"FAQ"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FAQ"> | Date | string
   createdBy?: Prisma.StringNullableFilter<"FAQ"> | string | null
   updatedBy?: Prisma.StringNullableFilter<"FAQ"> | string | null
+  isGlobal?: Prisma.BoolFilter<"FAQ"> | boolean
   countries?: Prisma.FAQCountryListRelationFilter
-  destinations?: Prisma.FAQDestinationListRelationFilter
-  universities?: Prisma.FAQUniversityListRelationFilter
-  events?: Prisma.FAQEventListRelationFilter
   courses?: Prisma.FAQCourseListRelationFilter
-  scholarships?: Prisma.FAQScholarshipListRelationFilter
+  destinations?: Prisma.FAQDestinationListRelationFilter
+  events?: Prisma.FAQEventListRelationFilter
   intakePages?: Prisma.FAQIntakePageListRelationFilter
+  scholarships?: Prisma.FAQScholarshipListRelationFilter
+  universities?: Prisma.FAQUniversityListRelationFilter
 }
 
 export type FAQOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   question?: Prisma.SortOrder
   answer?: Prisma.SortOrder
-  isGlobal?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
   countries?: Prisma.FAQCountryOrderByRelationAggregateInput
-  destinations?: Prisma.FAQDestinationOrderByRelationAggregateInput
-  universities?: Prisma.FAQUniversityOrderByRelationAggregateInput
-  events?: Prisma.FAQEventOrderByRelationAggregateInput
   courses?: Prisma.FAQCourseOrderByRelationAggregateInput
-  scholarships?: Prisma.FAQScholarshipOrderByRelationAggregateInput
+  destinations?: Prisma.FAQDestinationOrderByRelationAggregateInput
+  events?: Prisma.FAQEventOrderByRelationAggregateInput
   intakePages?: Prisma.FAQIntakePageOrderByRelationAggregateInput
+  scholarships?: Prisma.FAQScholarshipOrderByRelationAggregateInput
+  universities?: Prisma.FAQUniversityOrderByRelationAggregateInput
 }
 
 export type FAQWhereUniqueInput = Prisma.AtLeast<{
@@ -240,29 +240,29 @@ export type FAQWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.FAQWhereInput | Prisma.FAQWhereInput[]
   question?: Prisma.StringFilter<"FAQ"> | string
   answer?: Prisma.StringFilter<"FAQ"> | string
-  isGlobal?: Prisma.BoolFilter<"FAQ"> | boolean
   createdAt?: Prisma.DateTimeFilter<"FAQ"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FAQ"> | Date | string
   createdBy?: Prisma.StringNullableFilter<"FAQ"> | string | null
   updatedBy?: Prisma.StringNullableFilter<"FAQ"> | string | null
+  isGlobal?: Prisma.BoolFilter<"FAQ"> | boolean
   countries?: Prisma.FAQCountryListRelationFilter
-  destinations?: Prisma.FAQDestinationListRelationFilter
-  universities?: Prisma.FAQUniversityListRelationFilter
-  events?: Prisma.FAQEventListRelationFilter
   courses?: Prisma.FAQCourseListRelationFilter
-  scholarships?: Prisma.FAQScholarshipListRelationFilter
+  destinations?: Prisma.FAQDestinationListRelationFilter
+  events?: Prisma.FAQEventListRelationFilter
   intakePages?: Prisma.FAQIntakePageListRelationFilter
+  scholarships?: Prisma.FAQScholarshipListRelationFilter
+  universities?: Prisma.FAQUniversityListRelationFilter
 }, "id">
 
 export type FAQOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   question?: Prisma.SortOrder
   answer?: Prisma.SortOrder
-  isGlobal?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
   _count?: Prisma.FAQCountOrderByAggregateInput
   _max?: Prisma.FAQMaxOrderByAggregateInput
   _min?: Prisma.FAQMinOrderByAggregateInput
@@ -275,149 +275,149 @@ export type FAQScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"FAQ"> | string
   question?: Prisma.StringWithAggregatesFilter<"FAQ"> | string
   answer?: Prisma.StringWithAggregatesFilter<"FAQ"> | string
-  isGlobal?: Prisma.BoolWithAggregatesFilter<"FAQ"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"FAQ"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"FAQ"> | Date | string
   createdBy?: Prisma.StringNullableWithAggregatesFilter<"FAQ"> | string | null
   updatedBy?: Prisma.StringNullableWithAggregatesFilter<"FAQ"> | string | null
+  isGlobal?: Prisma.BoolWithAggregatesFilter<"FAQ"> | boolean
 }
 
 export type FAQCreateInput = {
   id?: string
   question: string
   answer: string
-  isGlobal?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  isGlobal?: boolean
   countries?: Prisma.FAQCountryCreateNestedManyWithoutFaqInput
-  destinations?: Prisma.FAQDestinationCreateNestedManyWithoutFaqInput
-  universities?: Prisma.FAQUniversityCreateNestedManyWithoutFaqInput
-  events?: Prisma.FAQEventCreateNestedManyWithoutFaqInput
   courses?: Prisma.FAQCourseCreateNestedManyWithoutFaqInput
-  scholarships?: Prisma.FAQScholarshipCreateNestedManyWithoutFaqInput
+  destinations?: Prisma.FAQDestinationCreateNestedManyWithoutFaqInput
+  events?: Prisma.FAQEventCreateNestedManyWithoutFaqInput
   intakePages?: Prisma.FAQIntakePageCreateNestedManyWithoutFaqInput
+  scholarships?: Prisma.FAQScholarshipCreateNestedManyWithoutFaqInput
+  universities?: Prisma.FAQUniversityCreateNestedManyWithoutFaqInput
 }
 
 export type FAQUncheckedCreateInput = {
   id?: string
   question: string
   answer: string
-  isGlobal?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  isGlobal?: boolean
   countries?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutFaqInput
-  destinations?: Prisma.FAQDestinationUncheckedCreateNestedManyWithoutFaqInput
-  universities?: Prisma.FAQUniversityUncheckedCreateNestedManyWithoutFaqInput
-  events?: Prisma.FAQEventUncheckedCreateNestedManyWithoutFaqInput
   courses?: Prisma.FAQCourseUncheckedCreateNestedManyWithoutFaqInput
-  scholarships?: Prisma.FAQScholarshipUncheckedCreateNestedManyWithoutFaqInput
+  destinations?: Prisma.FAQDestinationUncheckedCreateNestedManyWithoutFaqInput
+  events?: Prisma.FAQEventUncheckedCreateNestedManyWithoutFaqInput
   intakePages?: Prisma.FAQIntakePageUncheckedCreateNestedManyWithoutFaqInput
+  scholarships?: Prisma.FAQScholarshipUncheckedCreateNestedManyWithoutFaqInput
+  universities?: Prisma.FAQUniversityUncheckedCreateNestedManyWithoutFaqInput
 }
 
 export type FAQUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
-  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.FAQCountryUpdateManyWithoutFaqNestedInput
-  destinations?: Prisma.FAQDestinationUpdateManyWithoutFaqNestedInput
-  universities?: Prisma.FAQUniversityUpdateManyWithoutFaqNestedInput
-  events?: Prisma.FAQEventUpdateManyWithoutFaqNestedInput
   courses?: Prisma.FAQCourseUpdateManyWithoutFaqNestedInput
-  scholarships?: Prisma.FAQScholarshipUpdateManyWithoutFaqNestedInput
+  destinations?: Prisma.FAQDestinationUpdateManyWithoutFaqNestedInput
+  events?: Prisma.FAQEventUpdateManyWithoutFaqNestedInput
   intakePages?: Prisma.FAQIntakePageUpdateManyWithoutFaqNestedInput
+  scholarships?: Prisma.FAQScholarshipUpdateManyWithoutFaqNestedInput
+  universities?: Prisma.FAQUniversityUpdateManyWithoutFaqNestedInput
 }
 
 export type FAQUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
-  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.FAQCountryUncheckedUpdateManyWithoutFaqNestedInput
-  destinations?: Prisma.FAQDestinationUncheckedUpdateManyWithoutFaqNestedInput
-  universities?: Prisma.FAQUniversityUncheckedUpdateManyWithoutFaqNestedInput
-  events?: Prisma.FAQEventUncheckedUpdateManyWithoutFaqNestedInput
   courses?: Prisma.FAQCourseUncheckedUpdateManyWithoutFaqNestedInput
-  scholarships?: Prisma.FAQScholarshipUncheckedUpdateManyWithoutFaqNestedInput
+  destinations?: Prisma.FAQDestinationUncheckedUpdateManyWithoutFaqNestedInput
+  events?: Prisma.FAQEventUncheckedUpdateManyWithoutFaqNestedInput
   intakePages?: Prisma.FAQIntakePageUncheckedUpdateManyWithoutFaqNestedInput
+  scholarships?: Prisma.FAQScholarshipUncheckedUpdateManyWithoutFaqNestedInput
+  universities?: Prisma.FAQUniversityUncheckedUpdateManyWithoutFaqNestedInput
 }
 
 export type FAQCreateManyInput = {
   id?: string
   question: string
   answer: string
-  isGlobal?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  isGlobal?: boolean
 }
 
 export type FAQUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
-  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type FAQUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
-  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type FAQCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   question?: Prisma.SortOrder
   answer?: Prisma.SortOrder
-  isGlobal?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
 }
 
 export type FAQMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   question?: Prisma.SortOrder
   answer?: Prisma.SortOrder
-  isGlobal?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
 }
 
 export type FAQMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   question?: Prisma.SortOrder
   answer?: Prisma.SortOrder
-  isGlobal?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
 }
 
 export type FAQScalarRelationFilter = {
@@ -527,34 +527,34 @@ export type FAQCreateWithoutCountriesInput = {
   id?: string
   question: string
   answer: string
-  isGlobal?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  destinations?: Prisma.FAQDestinationCreateNestedManyWithoutFaqInput
-  universities?: Prisma.FAQUniversityCreateNestedManyWithoutFaqInput
-  events?: Prisma.FAQEventCreateNestedManyWithoutFaqInput
+  isGlobal?: boolean
   courses?: Prisma.FAQCourseCreateNestedManyWithoutFaqInput
-  scholarships?: Prisma.FAQScholarshipCreateNestedManyWithoutFaqInput
+  destinations?: Prisma.FAQDestinationCreateNestedManyWithoutFaqInput
+  events?: Prisma.FAQEventCreateNestedManyWithoutFaqInput
   intakePages?: Prisma.FAQIntakePageCreateNestedManyWithoutFaqInput
+  scholarships?: Prisma.FAQScholarshipCreateNestedManyWithoutFaqInput
+  universities?: Prisma.FAQUniversityCreateNestedManyWithoutFaqInput
 }
 
 export type FAQUncheckedCreateWithoutCountriesInput = {
   id?: string
   question: string
   answer: string
-  isGlobal?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  destinations?: Prisma.FAQDestinationUncheckedCreateNestedManyWithoutFaqInput
-  universities?: Prisma.FAQUniversityUncheckedCreateNestedManyWithoutFaqInput
-  events?: Prisma.FAQEventUncheckedCreateNestedManyWithoutFaqInput
+  isGlobal?: boolean
   courses?: Prisma.FAQCourseUncheckedCreateNestedManyWithoutFaqInput
-  scholarships?: Prisma.FAQScholarshipUncheckedCreateNestedManyWithoutFaqInput
+  destinations?: Prisma.FAQDestinationUncheckedCreateNestedManyWithoutFaqInput
+  events?: Prisma.FAQEventUncheckedCreateNestedManyWithoutFaqInput
   intakePages?: Prisma.FAQIntakePageUncheckedCreateNestedManyWithoutFaqInput
+  scholarships?: Prisma.FAQScholarshipUncheckedCreateNestedManyWithoutFaqInput
+  universities?: Prisma.FAQUniversityUncheckedCreateNestedManyWithoutFaqInput
 }
 
 export type FAQCreateOrConnectWithoutCountriesInput = {
@@ -577,68 +577,68 @@ export type FAQUpdateWithoutCountriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
-  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  destinations?: Prisma.FAQDestinationUpdateManyWithoutFaqNestedInput
-  universities?: Prisma.FAQUniversityUpdateManyWithoutFaqNestedInput
-  events?: Prisma.FAQEventUpdateManyWithoutFaqNestedInput
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   courses?: Prisma.FAQCourseUpdateManyWithoutFaqNestedInput
-  scholarships?: Prisma.FAQScholarshipUpdateManyWithoutFaqNestedInput
+  destinations?: Prisma.FAQDestinationUpdateManyWithoutFaqNestedInput
+  events?: Prisma.FAQEventUpdateManyWithoutFaqNestedInput
   intakePages?: Prisma.FAQIntakePageUpdateManyWithoutFaqNestedInput
+  scholarships?: Prisma.FAQScholarshipUpdateManyWithoutFaqNestedInput
+  universities?: Prisma.FAQUniversityUpdateManyWithoutFaqNestedInput
 }
 
 export type FAQUncheckedUpdateWithoutCountriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
-  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  destinations?: Prisma.FAQDestinationUncheckedUpdateManyWithoutFaqNestedInput
-  universities?: Prisma.FAQUniversityUncheckedUpdateManyWithoutFaqNestedInput
-  events?: Prisma.FAQEventUncheckedUpdateManyWithoutFaqNestedInput
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   courses?: Prisma.FAQCourseUncheckedUpdateManyWithoutFaqNestedInput
-  scholarships?: Prisma.FAQScholarshipUncheckedUpdateManyWithoutFaqNestedInput
+  destinations?: Prisma.FAQDestinationUncheckedUpdateManyWithoutFaqNestedInput
+  events?: Prisma.FAQEventUncheckedUpdateManyWithoutFaqNestedInput
   intakePages?: Prisma.FAQIntakePageUncheckedUpdateManyWithoutFaqNestedInput
+  scholarships?: Prisma.FAQScholarshipUncheckedUpdateManyWithoutFaqNestedInput
+  universities?: Prisma.FAQUniversityUncheckedUpdateManyWithoutFaqNestedInput
 }
 
 export type FAQCreateWithoutDestinationsInput = {
   id?: string
   question: string
   answer: string
-  isGlobal?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  isGlobal?: boolean
   countries?: Prisma.FAQCountryCreateNestedManyWithoutFaqInput
-  universities?: Prisma.FAQUniversityCreateNestedManyWithoutFaqInput
-  events?: Prisma.FAQEventCreateNestedManyWithoutFaqInput
   courses?: Prisma.FAQCourseCreateNestedManyWithoutFaqInput
-  scholarships?: Prisma.FAQScholarshipCreateNestedManyWithoutFaqInput
+  events?: Prisma.FAQEventCreateNestedManyWithoutFaqInput
   intakePages?: Prisma.FAQIntakePageCreateNestedManyWithoutFaqInput
+  scholarships?: Prisma.FAQScholarshipCreateNestedManyWithoutFaqInput
+  universities?: Prisma.FAQUniversityCreateNestedManyWithoutFaqInput
 }
 
 export type FAQUncheckedCreateWithoutDestinationsInput = {
   id?: string
   question: string
   answer: string
-  isGlobal?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  isGlobal?: boolean
   countries?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutFaqInput
-  universities?: Prisma.FAQUniversityUncheckedCreateNestedManyWithoutFaqInput
-  events?: Prisma.FAQEventUncheckedCreateNestedManyWithoutFaqInput
   courses?: Prisma.FAQCourseUncheckedCreateNestedManyWithoutFaqInput
-  scholarships?: Prisma.FAQScholarshipUncheckedCreateNestedManyWithoutFaqInput
+  events?: Prisma.FAQEventUncheckedCreateNestedManyWithoutFaqInput
   intakePages?: Prisma.FAQIntakePageUncheckedCreateNestedManyWithoutFaqInput
+  scholarships?: Prisma.FAQScholarshipUncheckedCreateNestedManyWithoutFaqInput
+  universities?: Prisma.FAQUniversityUncheckedCreateNestedManyWithoutFaqInput
 }
 
 export type FAQCreateOrConnectWithoutDestinationsInput = {
@@ -661,68 +661,68 @@ export type FAQUpdateWithoutDestinationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
-  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.FAQCountryUpdateManyWithoutFaqNestedInput
-  universities?: Prisma.FAQUniversityUpdateManyWithoutFaqNestedInput
-  events?: Prisma.FAQEventUpdateManyWithoutFaqNestedInput
   courses?: Prisma.FAQCourseUpdateManyWithoutFaqNestedInput
-  scholarships?: Prisma.FAQScholarshipUpdateManyWithoutFaqNestedInput
+  events?: Prisma.FAQEventUpdateManyWithoutFaqNestedInput
   intakePages?: Prisma.FAQIntakePageUpdateManyWithoutFaqNestedInput
+  scholarships?: Prisma.FAQScholarshipUpdateManyWithoutFaqNestedInput
+  universities?: Prisma.FAQUniversityUpdateManyWithoutFaqNestedInput
 }
 
 export type FAQUncheckedUpdateWithoutDestinationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
-  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.FAQCountryUncheckedUpdateManyWithoutFaqNestedInput
-  universities?: Prisma.FAQUniversityUncheckedUpdateManyWithoutFaqNestedInput
-  events?: Prisma.FAQEventUncheckedUpdateManyWithoutFaqNestedInput
   courses?: Prisma.FAQCourseUncheckedUpdateManyWithoutFaqNestedInput
-  scholarships?: Prisma.FAQScholarshipUncheckedUpdateManyWithoutFaqNestedInput
+  events?: Prisma.FAQEventUncheckedUpdateManyWithoutFaqNestedInput
   intakePages?: Prisma.FAQIntakePageUncheckedUpdateManyWithoutFaqNestedInput
+  scholarships?: Prisma.FAQScholarshipUncheckedUpdateManyWithoutFaqNestedInput
+  universities?: Prisma.FAQUniversityUncheckedUpdateManyWithoutFaqNestedInput
 }
 
 export type FAQCreateWithoutUniversitiesInput = {
   id?: string
   question: string
   answer: string
-  isGlobal?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  isGlobal?: boolean
   countries?: Prisma.FAQCountryCreateNestedManyWithoutFaqInput
+  courses?: Prisma.FAQCourseCreateNestedManyWithoutFaqInput
   destinations?: Prisma.FAQDestinationCreateNestedManyWithoutFaqInput
   events?: Prisma.FAQEventCreateNestedManyWithoutFaqInput
-  courses?: Prisma.FAQCourseCreateNestedManyWithoutFaqInput
-  scholarships?: Prisma.FAQScholarshipCreateNestedManyWithoutFaqInput
   intakePages?: Prisma.FAQIntakePageCreateNestedManyWithoutFaqInput
+  scholarships?: Prisma.FAQScholarshipCreateNestedManyWithoutFaqInput
 }
 
 export type FAQUncheckedCreateWithoutUniversitiesInput = {
   id?: string
   question: string
   answer: string
-  isGlobal?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  isGlobal?: boolean
   countries?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutFaqInput
+  courses?: Prisma.FAQCourseUncheckedCreateNestedManyWithoutFaqInput
   destinations?: Prisma.FAQDestinationUncheckedCreateNestedManyWithoutFaqInput
   events?: Prisma.FAQEventUncheckedCreateNestedManyWithoutFaqInput
-  courses?: Prisma.FAQCourseUncheckedCreateNestedManyWithoutFaqInput
-  scholarships?: Prisma.FAQScholarshipUncheckedCreateNestedManyWithoutFaqInput
   intakePages?: Prisma.FAQIntakePageUncheckedCreateNestedManyWithoutFaqInput
+  scholarships?: Prisma.FAQScholarshipUncheckedCreateNestedManyWithoutFaqInput
 }
 
 export type FAQCreateOrConnectWithoutUniversitiesInput = {
@@ -745,68 +745,68 @@ export type FAQUpdateWithoutUniversitiesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
-  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.FAQCountryUpdateManyWithoutFaqNestedInput
+  courses?: Prisma.FAQCourseUpdateManyWithoutFaqNestedInput
   destinations?: Prisma.FAQDestinationUpdateManyWithoutFaqNestedInput
   events?: Prisma.FAQEventUpdateManyWithoutFaqNestedInput
-  courses?: Prisma.FAQCourseUpdateManyWithoutFaqNestedInput
-  scholarships?: Prisma.FAQScholarshipUpdateManyWithoutFaqNestedInput
   intakePages?: Prisma.FAQIntakePageUpdateManyWithoutFaqNestedInput
+  scholarships?: Prisma.FAQScholarshipUpdateManyWithoutFaqNestedInput
 }
 
 export type FAQUncheckedUpdateWithoutUniversitiesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
-  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.FAQCountryUncheckedUpdateManyWithoutFaqNestedInput
+  courses?: Prisma.FAQCourseUncheckedUpdateManyWithoutFaqNestedInput
   destinations?: Prisma.FAQDestinationUncheckedUpdateManyWithoutFaqNestedInput
   events?: Prisma.FAQEventUncheckedUpdateManyWithoutFaqNestedInput
-  courses?: Prisma.FAQCourseUncheckedUpdateManyWithoutFaqNestedInput
-  scholarships?: Prisma.FAQScholarshipUncheckedUpdateManyWithoutFaqNestedInput
   intakePages?: Prisma.FAQIntakePageUncheckedUpdateManyWithoutFaqNestedInput
+  scholarships?: Prisma.FAQScholarshipUncheckedUpdateManyWithoutFaqNestedInput
 }
 
 export type FAQCreateWithoutEventsInput = {
   id?: string
   question: string
   answer: string
-  isGlobal?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  isGlobal?: boolean
   countries?: Prisma.FAQCountryCreateNestedManyWithoutFaqInput
-  destinations?: Prisma.FAQDestinationCreateNestedManyWithoutFaqInput
-  universities?: Prisma.FAQUniversityCreateNestedManyWithoutFaqInput
   courses?: Prisma.FAQCourseCreateNestedManyWithoutFaqInput
-  scholarships?: Prisma.FAQScholarshipCreateNestedManyWithoutFaqInput
+  destinations?: Prisma.FAQDestinationCreateNestedManyWithoutFaqInput
   intakePages?: Prisma.FAQIntakePageCreateNestedManyWithoutFaqInput
+  scholarships?: Prisma.FAQScholarshipCreateNestedManyWithoutFaqInput
+  universities?: Prisma.FAQUniversityCreateNestedManyWithoutFaqInput
 }
 
 export type FAQUncheckedCreateWithoutEventsInput = {
   id?: string
   question: string
   answer: string
-  isGlobal?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  isGlobal?: boolean
   countries?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutFaqInput
-  destinations?: Prisma.FAQDestinationUncheckedCreateNestedManyWithoutFaqInput
-  universities?: Prisma.FAQUniversityUncheckedCreateNestedManyWithoutFaqInput
   courses?: Prisma.FAQCourseUncheckedCreateNestedManyWithoutFaqInput
-  scholarships?: Prisma.FAQScholarshipUncheckedCreateNestedManyWithoutFaqInput
+  destinations?: Prisma.FAQDestinationUncheckedCreateNestedManyWithoutFaqInput
   intakePages?: Prisma.FAQIntakePageUncheckedCreateNestedManyWithoutFaqInput
+  scholarships?: Prisma.FAQScholarshipUncheckedCreateNestedManyWithoutFaqInput
+  universities?: Prisma.FAQUniversityUncheckedCreateNestedManyWithoutFaqInput
 }
 
 export type FAQCreateOrConnectWithoutEventsInput = {
@@ -829,68 +829,68 @@ export type FAQUpdateWithoutEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
-  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.FAQCountryUpdateManyWithoutFaqNestedInput
-  destinations?: Prisma.FAQDestinationUpdateManyWithoutFaqNestedInput
-  universities?: Prisma.FAQUniversityUpdateManyWithoutFaqNestedInput
   courses?: Prisma.FAQCourseUpdateManyWithoutFaqNestedInput
-  scholarships?: Prisma.FAQScholarshipUpdateManyWithoutFaqNestedInput
+  destinations?: Prisma.FAQDestinationUpdateManyWithoutFaqNestedInput
   intakePages?: Prisma.FAQIntakePageUpdateManyWithoutFaqNestedInput
+  scholarships?: Prisma.FAQScholarshipUpdateManyWithoutFaqNestedInput
+  universities?: Prisma.FAQUniversityUpdateManyWithoutFaqNestedInput
 }
 
 export type FAQUncheckedUpdateWithoutEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
-  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.FAQCountryUncheckedUpdateManyWithoutFaqNestedInput
-  destinations?: Prisma.FAQDestinationUncheckedUpdateManyWithoutFaqNestedInput
-  universities?: Prisma.FAQUniversityUncheckedUpdateManyWithoutFaqNestedInput
   courses?: Prisma.FAQCourseUncheckedUpdateManyWithoutFaqNestedInput
-  scholarships?: Prisma.FAQScholarshipUncheckedUpdateManyWithoutFaqNestedInput
+  destinations?: Prisma.FAQDestinationUncheckedUpdateManyWithoutFaqNestedInput
   intakePages?: Prisma.FAQIntakePageUncheckedUpdateManyWithoutFaqNestedInput
+  scholarships?: Prisma.FAQScholarshipUncheckedUpdateManyWithoutFaqNestedInput
+  universities?: Prisma.FAQUniversityUncheckedUpdateManyWithoutFaqNestedInput
 }
 
 export type FAQCreateWithoutCoursesInput = {
   id?: string
   question: string
   answer: string
-  isGlobal?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  isGlobal?: boolean
   countries?: Prisma.FAQCountryCreateNestedManyWithoutFaqInput
   destinations?: Prisma.FAQDestinationCreateNestedManyWithoutFaqInput
-  universities?: Prisma.FAQUniversityCreateNestedManyWithoutFaqInput
   events?: Prisma.FAQEventCreateNestedManyWithoutFaqInput
-  scholarships?: Prisma.FAQScholarshipCreateNestedManyWithoutFaqInput
   intakePages?: Prisma.FAQIntakePageCreateNestedManyWithoutFaqInput
+  scholarships?: Prisma.FAQScholarshipCreateNestedManyWithoutFaqInput
+  universities?: Prisma.FAQUniversityCreateNestedManyWithoutFaqInput
 }
 
 export type FAQUncheckedCreateWithoutCoursesInput = {
   id?: string
   question: string
   answer: string
-  isGlobal?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  isGlobal?: boolean
   countries?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutFaqInput
   destinations?: Prisma.FAQDestinationUncheckedCreateNestedManyWithoutFaqInput
-  universities?: Prisma.FAQUniversityUncheckedCreateNestedManyWithoutFaqInput
   events?: Prisma.FAQEventUncheckedCreateNestedManyWithoutFaqInput
-  scholarships?: Prisma.FAQScholarshipUncheckedCreateNestedManyWithoutFaqInput
   intakePages?: Prisma.FAQIntakePageUncheckedCreateNestedManyWithoutFaqInput
+  scholarships?: Prisma.FAQScholarshipUncheckedCreateNestedManyWithoutFaqInput
+  universities?: Prisma.FAQUniversityUncheckedCreateNestedManyWithoutFaqInput
 }
 
 export type FAQCreateOrConnectWithoutCoursesInput = {
@@ -913,68 +913,68 @@ export type FAQUpdateWithoutCoursesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
-  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.FAQCountryUpdateManyWithoutFaqNestedInput
   destinations?: Prisma.FAQDestinationUpdateManyWithoutFaqNestedInput
-  universities?: Prisma.FAQUniversityUpdateManyWithoutFaqNestedInput
   events?: Prisma.FAQEventUpdateManyWithoutFaqNestedInput
-  scholarships?: Prisma.FAQScholarshipUpdateManyWithoutFaqNestedInput
   intakePages?: Prisma.FAQIntakePageUpdateManyWithoutFaqNestedInput
+  scholarships?: Prisma.FAQScholarshipUpdateManyWithoutFaqNestedInput
+  universities?: Prisma.FAQUniversityUpdateManyWithoutFaqNestedInput
 }
 
 export type FAQUncheckedUpdateWithoutCoursesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
-  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.FAQCountryUncheckedUpdateManyWithoutFaqNestedInput
   destinations?: Prisma.FAQDestinationUncheckedUpdateManyWithoutFaqNestedInput
-  universities?: Prisma.FAQUniversityUncheckedUpdateManyWithoutFaqNestedInput
   events?: Prisma.FAQEventUncheckedUpdateManyWithoutFaqNestedInput
-  scholarships?: Prisma.FAQScholarshipUncheckedUpdateManyWithoutFaqNestedInput
   intakePages?: Prisma.FAQIntakePageUncheckedUpdateManyWithoutFaqNestedInput
+  scholarships?: Prisma.FAQScholarshipUncheckedUpdateManyWithoutFaqNestedInput
+  universities?: Prisma.FAQUniversityUncheckedUpdateManyWithoutFaqNestedInput
 }
 
 export type FAQCreateWithoutScholarshipsInput = {
   id?: string
   question: string
   answer: string
-  isGlobal?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  isGlobal?: boolean
   countries?: Prisma.FAQCountryCreateNestedManyWithoutFaqInput
-  destinations?: Prisma.FAQDestinationCreateNestedManyWithoutFaqInput
-  universities?: Prisma.FAQUniversityCreateNestedManyWithoutFaqInput
-  events?: Prisma.FAQEventCreateNestedManyWithoutFaqInput
   courses?: Prisma.FAQCourseCreateNestedManyWithoutFaqInput
+  destinations?: Prisma.FAQDestinationCreateNestedManyWithoutFaqInput
+  events?: Prisma.FAQEventCreateNestedManyWithoutFaqInput
   intakePages?: Prisma.FAQIntakePageCreateNestedManyWithoutFaqInput
+  universities?: Prisma.FAQUniversityCreateNestedManyWithoutFaqInput
 }
 
 export type FAQUncheckedCreateWithoutScholarshipsInput = {
   id?: string
   question: string
   answer: string
-  isGlobal?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  isGlobal?: boolean
   countries?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutFaqInput
-  destinations?: Prisma.FAQDestinationUncheckedCreateNestedManyWithoutFaqInput
-  universities?: Prisma.FAQUniversityUncheckedCreateNestedManyWithoutFaqInput
-  events?: Prisma.FAQEventUncheckedCreateNestedManyWithoutFaqInput
   courses?: Prisma.FAQCourseUncheckedCreateNestedManyWithoutFaqInput
+  destinations?: Prisma.FAQDestinationUncheckedCreateNestedManyWithoutFaqInput
+  events?: Prisma.FAQEventUncheckedCreateNestedManyWithoutFaqInput
   intakePages?: Prisma.FAQIntakePageUncheckedCreateNestedManyWithoutFaqInput
+  universities?: Prisma.FAQUniversityUncheckedCreateNestedManyWithoutFaqInput
 }
 
 export type FAQCreateOrConnectWithoutScholarshipsInput = {
@@ -997,68 +997,68 @@ export type FAQUpdateWithoutScholarshipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
-  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.FAQCountryUpdateManyWithoutFaqNestedInput
-  destinations?: Prisma.FAQDestinationUpdateManyWithoutFaqNestedInput
-  universities?: Prisma.FAQUniversityUpdateManyWithoutFaqNestedInput
-  events?: Prisma.FAQEventUpdateManyWithoutFaqNestedInput
   courses?: Prisma.FAQCourseUpdateManyWithoutFaqNestedInput
+  destinations?: Prisma.FAQDestinationUpdateManyWithoutFaqNestedInput
+  events?: Prisma.FAQEventUpdateManyWithoutFaqNestedInput
   intakePages?: Prisma.FAQIntakePageUpdateManyWithoutFaqNestedInput
+  universities?: Prisma.FAQUniversityUpdateManyWithoutFaqNestedInput
 }
 
 export type FAQUncheckedUpdateWithoutScholarshipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
-  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.FAQCountryUncheckedUpdateManyWithoutFaqNestedInput
-  destinations?: Prisma.FAQDestinationUncheckedUpdateManyWithoutFaqNestedInput
-  universities?: Prisma.FAQUniversityUncheckedUpdateManyWithoutFaqNestedInput
-  events?: Prisma.FAQEventUncheckedUpdateManyWithoutFaqNestedInput
   courses?: Prisma.FAQCourseUncheckedUpdateManyWithoutFaqNestedInput
+  destinations?: Prisma.FAQDestinationUncheckedUpdateManyWithoutFaqNestedInput
+  events?: Prisma.FAQEventUncheckedUpdateManyWithoutFaqNestedInput
   intakePages?: Prisma.FAQIntakePageUncheckedUpdateManyWithoutFaqNestedInput
+  universities?: Prisma.FAQUniversityUncheckedUpdateManyWithoutFaqNestedInput
 }
 
 export type FAQCreateWithoutIntakePagesInput = {
   id?: string
   question: string
   answer: string
-  isGlobal?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  isGlobal?: boolean
   countries?: Prisma.FAQCountryCreateNestedManyWithoutFaqInput
-  destinations?: Prisma.FAQDestinationCreateNestedManyWithoutFaqInput
-  universities?: Prisma.FAQUniversityCreateNestedManyWithoutFaqInput
-  events?: Prisma.FAQEventCreateNestedManyWithoutFaqInput
   courses?: Prisma.FAQCourseCreateNestedManyWithoutFaqInput
+  destinations?: Prisma.FAQDestinationCreateNestedManyWithoutFaqInput
+  events?: Prisma.FAQEventCreateNestedManyWithoutFaqInput
   scholarships?: Prisma.FAQScholarshipCreateNestedManyWithoutFaqInput
+  universities?: Prisma.FAQUniversityCreateNestedManyWithoutFaqInput
 }
 
 export type FAQUncheckedCreateWithoutIntakePagesInput = {
   id?: string
   question: string
   answer: string
-  isGlobal?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  isGlobal?: boolean
   countries?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutFaqInput
-  destinations?: Prisma.FAQDestinationUncheckedCreateNestedManyWithoutFaqInput
-  universities?: Prisma.FAQUniversityUncheckedCreateNestedManyWithoutFaqInput
-  events?: Prisma.FAQEventUncheckedCreateNestedManyWithoutFaqInput
   courses?: Prisma.FAQCourseUncheckedCreateNestedManyWithoutFaqInput
+  destinations?: Prisma.FAQDestinationUncheckedCreateNestedManyWithoutFaqInput
+  events?: Prisma.FAQEventUncheckedCreateNestedManyWithoutFaqInput
   scholarships?: Prisma.FAQScholarshipUncheckedCreateNestedManyWithoutFaqInput
+  universities?: Prisma.FAQUniversityUncheckedCreateNestedManyWithoutFaqInput
 }
 
 export type FAQCreateOrConnectWithoutIntakePagesInput = {
@@ -1081,34 +1081,34 @@ export type FAQUpdateWithoutIntakePagesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
-  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.FAQCountryUpdateManyWithoutFaqNestedInput
-  destinations?: Prisma.FAQDestinationUpdateManyWithoutFaqNestedInput
-  universities?: Prisma.FAQUniversityUpdateManyWithoutFaqNestedInput
-  events?: Prisma.FAQEventUpdateManyWithoutFaqNestedInput
   courses?: Prisma.FAQCourseUpdateManyWithoutFaqNestedInput
+  destinations?: Prisma.FAQDestinationUpdateManyWithoutFaqNestedInput
+  events?: Prisma.FAQEventUpdateManyWithoutFaqNestedInput
   scholarships?: Prisma.FAQScholarshipUpdateManyWithoutFaqNestedInput
+  universities?: Prisma.FAQUniversityUpdateManyWithoutFaqNestedInput
 }
 
 export type FAQUncheckedUpdateWithoutIntakePagesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
-  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.FAQCountryUncheckedUpdateManyWithoutFaqNestedInput
-  destinations?: Prisma.FAQDestinationUncheckedUpdateManyWithoutFaqNestedInput
-  universities?: Prisma.FAQUniversityUncheckedUpdateManyWithoutFaqNestedInput
-  events?: Prisma.FAQEventUncheckedUpdateManyWithoutFaqNestedInput
   courses?: Prisma.FAQCourseUncheckedUpdateManyWithoutFaqNestedInput
+  destinations?: Prisma.FAQDestinationUncheckedUpdateManyWithoutFaqNestedInput
+  events?: Prisma.FAQEventUncheckedUpdateManyWithoutFaqNestedInput
   scholarships?: Prisma.FAQScholarshipUncheckedUpdateManyWithoutFaqNestedInput
+  universities?: Prisma.FAQUniversityUncheckedUpdateManyWithoutFaqNestedInput
 }
 
 
@@ -1118,22 +1118,22 @@ export type FAQUncheckedUpdateWithoutIntakePagesInput = {
 
 export type FAQCountOutputType = {
   countries: number
-  destinations: number
-  universities: number
-  events: number
   courses: number
-  scholarships: number
+  destinations: number
+  events: number
   intakePages: number
+  scholarships: number
+  universities: number
 }
 
 export type FAQCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   countries?: boolean | FAQCountOutputTypeCountCountriesArgs
-  destinations?: boolean | FAQCountOutputTypeCountDestinationsArgs
-  universities?: boolean | FAQCountOutputTypeCountUniversitiesArgs
-  events?: boolean | FAQCountOutputTypeCountEventsArgs
   courses?: boolean | FAQCountOutputTypeCountCoursesArgs
-  scholarships?: boolean | FAQCountOutputTypeCountScholarshipsArgs
+  destinations?: boolean | FAQCountOutputTypeCountDestinationsArgs
+  events?: boolean | FAQCountOutputTypeCountEventsArgs
   intakePages?: boolean | FAQCountOutputTypeCountIntakePagesArgs
+  scholarships?: boolean | FAQCountOutputTypeCountScholarshipsArgs
+  universities?: boolean | FAQCountOutputTypeCountUniversitiesArgs
 }
 
 /**
@@ -1156,15 +1156,15 @@ export type FAQCountOutputTypeCountCountriesArgs<ExtArgs extends runtime.Types.E
 /**
  * FAQCountOutputType without action
  */
-export type FAQCountOutputTypeCountDestinationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.FAQDestinationWhereInput
+export type FAQCountOutputTypeCountCoursesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FAQCourseWhereInput
 }
 
 /**
  * FAQCountOutputType without action
  */
-export type FAQCountOutputTypeCountUniversitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.FAQUniversityWhereInput
+export type FAQCountOutputTypeCountDestinationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FAQDestinationWhereInput
 }
 
 /**
@@ -1177,8 +1177,8 @@ export type FAQCountOutputTypeCountEventsArgs<ExtArgs extends runtime.Types.Exte
 /**
  * FAQCountOutputType without action
  */
-export type FAQCountOutputTypeCountCoursesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.FAQCourseWhereInput
+export type FAQCountOutputTypeCountIntakePagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FAQIntakePageWhereInput
 }
 
 /**
@@ -1191,8 +1191,8 @@ export type FAQCountOutputTypeCountScholarshipsArgs<ExtArgs extends runtime.Type
 /**
  * FAQCountOutputType without action
  */
-export type FAQCountOutputTypeCountIntakePagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.FAQIntakePageWhereInput
+export type FAQCountOutputTypeCountUniversitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FAQUniversityWhereInput
 }
 
 
@@ -1200,18 +1200,18 @@ export type FAQSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   id?: boolean
   question?: boolean
   answer?: boolean
-  isGlobal?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   createdBy?: boolean
   updatedBy?: boolean
+  isGlobal?: boolean
   countries?: boolean | Prisma.FAQ$countriesArgs<ExtArgs>
-  destinations?: boolean | Prisma.FAQ$destinationsArgs<ExtArgs>
-  universities?: boolean | Prisma.FAQ$universitiesArgs<ExtArgs>
-  events?: boolean | Prisma.FAQ$eventsArgs<ExtArgs>
   courses?: boolean | Prisma.FAQ$coursesArgs<ExtArgs>
-  scholarships?: boolean | Prisma.FAQ$scholarshipsArgs<ExtArgs>
+  destinations?: boolean | Prisma.FAQ$destinationsArgs<ExtArgs>
+  events?: boolean | Prisma.FAQ$eventsArgs<ExtArgs>
   intakePages?: boolean | Prisma.FAQ$intakePagesArgs<ExtArgs>
+  scholarships?: boolean | Prisma.FAQ$scholarshipsArgs<ExtArgs>
+  universities?: boolean | Prisma.FAQ$universitiesArgs<ExtArgs>
   _count?: boolean | Prisma.FAQCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["fAQ"]>
 
@@ -1219,44 +1219,44 @@ export type FAQSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extension
   id?: boolean
   question?: boolean
   answer?: boolean
-  isGlobal?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   createdBy?: boolean
   updatedBy?: boolean
+  isGlobal?: boolean
 }, ExtArgs["result"]["fAQ"]>
 
 export type FAQSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   question?: boolean
   answer?: boolean
-  isGlobal?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   createdBy?: boolean
   updatedBy?: boolean
+  isGlobal?: boolean
 }, ExtArgs["result"]["fAQ"]>
 
 export type FAQSelectScalar = {
   id?: boolean
   question?: boolean
   answer?: boolean
-  isGlobal?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   createdBy?: boolean
   updatedBy?: boolean
+  isGlobal?: boolean
 }
 
-export type FAQOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "question" | "answer" | "isGlobal" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy", ExtArgs["result"]["fAQ"]>
+export type FAQOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "question" | "answer" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "isGlobal", ExtArgs["result"]["fAQ"]>
 export type FAQInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   countries?: boolean | Prisma.FAQ$countriesArgs<ExtArgs>
-  destinations?: boolean | Prisma.FAQ$destinationsArgs<ExtArgs>
-  universities?: boolean | Prisma.FAQ$universitiesArgs<ExtArgs>
-  events?: boolean | Prisma.FAQ$eventsArgs<ExtArgs>
   courses?: boolean | Prisma.FAQ$coursesArgs<ExtArgs>
-  scholarships?: boolean | Prisma.FAQ$scholarshipsArgs<ExtArgs>
+  destinations?: boolean | Prisma.FAQ$destinationsArgs<ExtArgs>
+  events?: boolean | Prisma.FAQ$eventsArgs<ExtArgs>
   intakePages?: boolean | Prisma.FAQ$intakePagesArgs<ExtArgs>
+  scholarships?: boolean | Prisma.FAQ$scholarshipsArgs<ExtArgs>
+  universities?: boolean | Prisma.FAQ$universitiesArgs<ExtArgs>
   _count?: boolean | Prisma.FAQCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type FAQIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1266,22 +1266,22 @@ export type $FAQPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   name: "FAQ"
   objects: {
     countries: Prisma.$FAQCountryPayload<ExtArgs>[]
-    destinations: Prisma.$FAQDestinationPayload<ExtArgs>[]
-    universities: Prisma.$FAQUniversityPayload<ExtArgs>[]
-    events: Prisma.$FAQEventPayload<ExtArgs>[]
     courses: Prisma.$FAQCoursePayload<ExtArgs>[]
-    scholarships: Prisma.$FAQScholarshipPayload<ExtArgs>[]
+    destinations: Prisma.$FAQDestinationPayload<ExtArgs>[]
+    events: Prisma.$FAQEventPayload<ExtArgs>[]
     intakePages: Prisma.$FAQIntakePagePayload<ExtArgs>[]
+    scholarships: Prisma.$FAQScholarshipPayload<ExtArgs>[]
+    universities: Prisma.$FAQUniversityPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     question: string
     answer: string
-    isGlobal: boolean
     createdAt: Date
     updatedAt: Date
     createdBy: string | null
     updatedBy: string | null
+    isGlobal: boolean
   }, ExtArgs["result"]["fAQ"]>
   composites: {}
 }
@@ -1677,12 +1677,12 @@ readonly fields: FAQFieldRefs;
 export interface Prisma__FAQClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   countries<T extends Prisma.FAQ$countriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FAQ$countriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FAQCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  destinations<T extends Prisma.FAQ$destinationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FAQ$destinationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FAQDestinationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  universities<T extends Prisma.FAQ$universitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FAQ$universitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FAQUniversityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  events<T extends Prisma.FAQ$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FAQ$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FAQEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   courses<T extends Prisma.FAQ$coursesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FAQ$coursesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FAQCoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  scholarships<T extends Prisma.FAQ$scholarshipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FAQ$scholarshipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FAQScholarshipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  destinations<T extends Prisma.FAQ$destinationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FAQ$destinationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FAQDestinationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  events<T extends Prisma.FAQ$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FAQ$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FAQEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   intakePages<T extends Prisma.FAQ$intakePagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FAQ$intakePagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FAQIntakePagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  scholarships<T extends Prisma.FAQ$scholarshipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FAQ$scholarshipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FAQScholarshipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  universities<T extends Prisma.FAQ$universitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FAQ$universitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FAQUniversityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1715,11 +1715,11 @@ export interface FAQFieldRefs {
   readonly id: Prisma.FieldRef<"FAQ", 'String'>
   readonly question: Prisma.FieldRef<"FAQ", 'String'>
   readonly answer: Prisma.FieldRef<"FAQ", 'String'>
-  readonly isGlobal: Prisma.FieldRef<"FAQ", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"FAQ", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"FAQ", 'DateTime'>
   readonly createdBy: Prisma.FieldRef<"FAQ", 'String'>
   readonly updatedBy: Prisma.FieldRef<"FAQ", 'String'>
+  readonly isGlobal: Prisma.FieldRef<"FAQ", 'Boolean'>
 }
     
 
@@ -2132,6 +2132,30 @@ export type FAQ$countriesArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 }
 
 /**
+ * FAQ.courses
+ */
+export type FAQ$coursesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FAQCourse
+   */
+  select?: Prisma.FAQCourseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FAQCourse
+   */
+  omit?: Prisma.FAQCourseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FAQCourseInclude<ExtArgs> | null
+  where?: Prisma.FAQCourseWhereInput
+  orderBy?: Prisma.FAQCourseOrderByWithRelationInput | Prisma.FAQCourseOrderByWithRelationInput[]
+  cursor?: Prisma.FAQCourseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FAQCourseScalarFieldEnum | Prisma.FAQCourseScalarFieldEnum[]
+}
+
+/**
  * FAQ.destinations
  */
 export type FAQ$destinationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2153,30 +2177,6 @@ export type FAQ$destinationsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.FAQDestinationScalarFieldEnum | Prisma.FAQDestinationScalarFieldEnum[]
-}
-
-/**
- * FAQ.universities
- */
-export type FAQ$universitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the FAQUniversity
-   */
-  select?: Prisma.FAQUniversitySelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the FAQUniversity
-   */
-  omit?: Prisma.FAQUniversityOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.FAQUniversityInclude<ExtArgs> | null
-  where?: Prisma.FAQUniversityWhereInput
-  orderBy?: Prisma.FAQUniversityOrderByWithRelationInput | Prisma.FAQUniversityOrderByWithRelationInput[]
-  cursor?: Prisma.FAQUniversityWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.FAQUniversityScalarFieldEnum | Prisma.FAQUniversityScalarFieldEnum[]
 }
 
 /**
@@ -2204,27 +2204,27 @@ export type FAQ$eventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
 }
 
 /**
- * FAQ.courses
+ * FAQ.intakePages
  */
-export type FAQ$coursesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type FAQ$intakePagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the FAQCourse
+   * Select specific fields to fetch from the FAQIntakePage
    */
-  select?: Prisma.FAQCourseSelect<ExtArgs> | null
+  select?: Prisma.FAQIntakePageSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the FAQCourse
+   * Omit specific fields from the FAQIntakePage
    */
-  omit?: Prisma.FAQCourseOmit<ExtArgs> | null
+  omit?: Prisma.FAQIntakePageOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.FAQCourseInclude<ExtArgs> | null
-  where?: Prisma.FAQCourseWhereInput
-  orderBy?: Prisma.FAQCourseOrderByWithRelationInput | Prisma.FAQCourseOrderByWithRelationInput[]
-  cursor?: Prisma.FAQCourseWhereUniqueInput
+  include?: Prisma.FAQIntakePageInclude<ExtArgs> | null
+  where?: Prisma.FAQIntakePageWhereInput
+  orderBy?: Prisma.FAQIntakePageOrderByWithRelationInput | Prisma.FAQIntakePageOrderByWithRelationInput[]
+  cursor?: Prisma.FAQIntakePageWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.FAQCourseScalarFieldEnum | Prisma.FAQCourseScalarFieldEnum[]
+  distinct?: Prisma.FAQIntakePageScalarFieldEnum | Prisma.FAQIntakePageScalarFieldEnum[]
 }
 
 /**
@@ -2252,27 +2252,27 @@ export type FAQ$scholarshipsArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
- * FAQ.intakePages
+ * FAQ.universities
  */
-export type FAQ$intakePagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type FAQ$universitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the FAQIntakePage
+   * Select specific fields to fetch from the FAQUniversity
    */
-  select?: Prisma.FAQIntakePageSelect<ExtArgs> | null
+  select?: Prisma.FAQUniversitySelect<ExtArgs> | null
   /**
-   * Omit specific fields from the FAQIntakePage
+   * Omit specific fields from the FAQUniversity
    */
-  omit?: Prisma.FAQIntakePageOmit<ExtArgs> | null
+  omit?: Prisma.FAQUniversityOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.FAQIntakePageInclude<ExtArgs> | null
-  where?: Prisma.FAQIntakePageWhereInput
-  orderBy?: Prisma.FAQIntakePageOrderByWithRelationInput | Prisma.FAQIntakePageOrderByWithRelationInput[]
-  cursor?: Prisma.FAQIntakePageWhereUniqueInput
+  include?: Prisma.FAQUniversityInclude<ExtArgs> | null
+  where?: Prisma.FAQUniversityWhereInput
+  orderBy?: Prisma.FAQUniversityOrderByWithRelationInput | Prisma.FAQUniversityOrderByWithRelationInput[]
+  cursor?: Prisma.FAQUniversityWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.FAQIntakePageScalarFieldEnum | Prisma.FAQIntakePageScalarFieldEnum[]
+  distinct?: Prisma.FAQUniversityScalarFieldEnum | Prisma.FAQUniversityScalarFieldEnum[]
 }
 
 /**

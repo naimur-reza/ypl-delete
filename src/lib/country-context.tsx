@@ -56,12 +56,20 @@ export function CountryProvider({
 /**
  * Hook to consume country context
  * Use this in client components to get the current country
+ * Returns default global values if used outside provider (safe fallback)
  */
 export function useCountry(): CountryContextType {
   const context = useContext(CountryContext);
 
+  // Return default global values if outside provider (safe fallback)
   if (context === undefined) {
-    throw new Error("useCountry must be used within a CountryProvider");
+    return {
+      country: null,
+      countryName: null,
+      isoCode: null,
+      source: "global",
+      isCountrySpecific: false,
+    };
   }
 
   return context;

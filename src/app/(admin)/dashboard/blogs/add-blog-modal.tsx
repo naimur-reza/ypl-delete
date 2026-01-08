@@ -4,12 +4,15 @@
 import { useEffect, useState } from "react";
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
 import { useAppForm } from "@/hooks/use-field-context";
+import { useAutoSlug } from "@/hooks/use-auto-slug";
 import { blogSchema } from "@/schemas/blog";
 import { toast } from "sonner";
 import z from "zod";
 import { createEntityApi } from "@/lib/api-client";
+import { generateSlug } from "@/lib/utils";
 import { ImageUpload } from "@/components/ui/image-upload";
 import { apiClient } from "@/lib/api-client";
 import { FormBase } from "@/components/form/FormBase";
@@ -64,6 +67,7 @@ const BlogFormModal = ({
     ).filter((id) => id !== "")
   );
   const [isUploading, setIsUploading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const fetchDestinations = async () => {
@@ -106,6 +110,7 @@ const BlogFormModal = ({
     } satisfies FormData as FormData,
     validators: { onSubmit: blogSchema as any },
     onSubmit: async ({ value }) => {
+      setIsSubmitting(true);
       try {
         let response;
         const submitData = {
@@ -140,6 +145,8 @@ const BlogFormModal = ({
       } catch (err) {
         toast.error("Request failed");
         console.error(err);
+      } finally {
+        setIsSubmitting(false);
       }
     },
   });
@@ -180,6 +187,13 @@ const BlogFormModal = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedBlog]);
 
+  // Auto-slug generation from title
+  const { handleTitleChange, handleSlugChange } = useAutoSlug({
+    getSlugValue: () => form.getFieldValue("slug") || "",
+    setSlugValue: (value) => form.setFieldValue("slug", value),
+    isEditing: !!isEditing,
+  });
+
   return (
     <Modal
       isOpen={isOpen}
@@ -194,10 +208,42 @@ const BlogFormModal = ({
       >
         <FieldGroup>
           <form.AppField name="title">
-            {(field) => <field.Input label="Title" />}
+            {(field) => (
+              <FormBase label="Title">
+                <Input
+                  id={field.name}
+                  name={field.name}
+                  value={field.state.value}
+                  onChange={(e) => {
+                    field.handleChange(e.target.value);
+                    handleTitleChange(e.target.value);
+                  }}
+                  onBlur={field.handleBlur}
+                  placeholder="e.g., Top 10 Universities in Australia"
+                />
+              </FormBase>
+            )}
           </form.AppField>
           <form.AppField name="slug">
-            {(field) => <field.Input label="Slug" />}
+            {(field) => (
+              <FormBase
+                label="Slug"
+                description="Auto-generated from title. You can edit if needed."
+              >
+                <Input
+                  id={field.name}
+                  name={field.name}
+                  value={field.state.value}
+                  onChange={(e) => {
+                    const slugValue = generateSlug(e.target.value);
+                    field.handleChange(slugValue);
+                    handleSlugChange(slugValue);
+                  }}
+                  onBlur={field.handleBlur}
+                  placeholder="e.g., top-10-universities-in-australia"
+                />
+              </FormBase>
+            )}
           </form.AppField>
           <form.AppField name="destinationId">
             {(field) => (
@@ -274,12 +320,20 @@ const BlogFormModal = ({
             {(field) => <field.Input label="Meta Keywords" />}
           </form.AppField>
           <div className="flex gap-2 justify-end">
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onClose}
+              disabled={isSubmitting}
+            >
               Cancel
             </Button>
-            <Button type="submit" disabled={isUploading}>
-              {isUploading ? "Uploading..." : isEditing ? "Update" : "Create"}
-            </Button>
+            <SubmitButton
+              isSubmitting={isSubmitting}
+              isUploading={isUploading}
+              submitText={isEditing ? "Update" : "Create"}
+              submittingText={isEditing ? "Updating..." : "Creating..."}
+            />
           </div>
         </FieldGroup>
       </form>

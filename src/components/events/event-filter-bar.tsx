@@ -38,7 +38,7 @@ export function EventFilterBar({
     filterOptions.find((f) => f.id === "location")?.options || [];
 
   return (
-    <div className="bg-white rounded-xl border border-black/10 mb-8 overflow-hidden">
+    <div className="bg-white rounded-xl border border-border mb-8 overflow-hidden">
       <div className="flex flex-col md:flex-row divide-y md:divide-y-0 md:divide-x divide-gray-300">
         {/* Month Filter */}
         <div className="flex-1 px-4 py-3">

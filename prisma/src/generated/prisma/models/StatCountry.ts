@@ -166,16 +166,16 @@ export type StatCountryWhereInput = {
   id?: Prisma.StringFilter<"StatCountry"> | string
   statId?: Prisma.StringFilter<"StatCountry"> | string
   countryId?: Prisma.StringFilter<"StatCountry"> | string
-  stat?: Prisma.XOR<Prisma.StatScalarRelationFilter, Prisma.StatWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
+  stat?: Prisma.XOR<Prisma.StatScalarRelationFilter, Prisma.StatWhereInput>
 }
 
 export type StatCountryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   statId?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
-  stat?: Prisma.StatOrderByWithRelationInput
   country?: Prisma.CountryOrderByWithRelationInput
+  stat?: Prisma.StatOrderByWithRelationInput
 }
 
 export type StatCountryWhereUniqueInput = Prisma.AtLeast<{
@@ -186,8 +186,8 @@ export type StatCountryWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.StatCountryWhereInput | Prisma.StatCountryWhereInput[]
   statId?: Prisma.StringFilter<"StatCountry"> | string
   countryId?: Prisma.StringFilter<"StatCountry"> | string
-  stat?: Prisma.XOR<Prisma.StatScalarRelationFilter, Prisma.StatWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
+  stat?: Prisma.XOR<Prisma.StatScalarRelationFilter, Prisma.StatWhereInput>
 }, "id" | "statId_countryId">
 
 export type StatCountryOrderByWithAggregationInput = {
@@ -210,8 +210,8 @@ export type StatCountryScalarWhereWithAggregatesInput = {
 
 export type StatCountryCreateInput = {
   id?: string
-  stat: Prisma.StatCreateNestedOneWithoutCountriesInput
   country: Prisma.CountryCreateNestedOneWithoutStatsInput
+  stat: Prisma.StatCreateNestedOneWithoutCountriesInput
 }
 
 export type StatCountryUncheckedCreateInput = {
@@ -222,8 +222,8 @@ export type StatCountryUncheckedCreateInput = {
 
 export type StatCountryUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  stat?: Prisma.StatUpdateOneRequiredWithoutCountriesNestedInput
   country?: Prisma.CountryUpdateOneRequiredWithoutStatsNestedInput
+  stat?: Prisma.StatUpdateOneRequiredWithoutCountriesNestedInput
 }
 
 export type StatCountryUncheckedUpdateInput = {
@@ -492,24 +492,24 @@ export type StatCountrySelect<ExtArgs extends runtime.Types.Extensions.InternalA
   id?: boolean
   statId?: boolean
   countryId?: boolean
-  stat?: boolean | Prisma.StatDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  stat?: boolean | Prisma.StatDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["statCountry"]>
 
 export type StatCountrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   statId?: boolean
   countryId?: boolean
-  stat?: boolean | Prisma.StatDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  stat?: boolean | Prisma.StatDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["statCountry"]>
 
 export type StatCountrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   statId?: boolean
   countryId?: boolean
-  stat?: boolean | Prisma.StatDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  stat?: boolean | Prisma.StatDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["statCountry"]>
 
 export type StatCountrySelectScalar = {
@@ -520,23 +520,23 @@ export type StatCountrySelectScalar = {
 
 export type StatCountryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "statId" | "countryId", ExtArgs["result"]["statCountry"]>
 export type StatCountryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  stat?: boolean | Prisma.StatDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  stat?: boolean | Prisma.StatDefaultArgs<ExtArgs>
 }
 export type StatCountryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  stat?: boolean | Prisma.StatDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  stat?: boolean | Prisma.StatDefaultArgs<ExtArgs>
 }
 export type StatCountryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  stat?: boolean | Prisma.StatDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  stat?: boolean | Prisma.StatDefaultArgs<ExtArgs>
 }
 
 export type $StatCountryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "StatCountry"
   objects: {
-    stat: Prisma.$StatPayload<ExtArgs>
     country: Prisma.$CountryPayload<ExtArgs>
+    stat: Prisma.$StatPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -936,8 +936,8 @@ readonly fields: StatCountryFieldRefs;
  */
 export interface Prisma__StatCountryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  stat<T extends Prisma.StatDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StatDefaultArgs<ExtArgs>>): Prisma.Prisma__StatClient<runtime.Types.Result.GetResult<Prisma.$StatPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   country<T extends Prisma.CountryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CountryDefaultArgs<ExtArgs>>): Prisma.Prisma__CountryClient<runtime.Types.Result.GetResult<Prisma.$CountryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  stat<T extends Prisma.StatDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StatDefaultArgs<ExtArgs>>): Prisma.Prisma__StatClient<runtime.Types.Result.GetResult<Prisma.$StatPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

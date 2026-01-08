@@ -1,7 +1,8 @@
 import GlobalOfficesClient from "@/app/(public)/global-branches/global-offices-client";
 import { prisma } from "@/lib/prisma";
 import { Metadata } from "next";
- 
+
+export const revalidate = 3600;
 
 type PageProps = {
   params: Promise<{
@@ -37,7 +38,7 @@ export default async function GlobalBranchesPage({ params }: PageProps) {
       },
     },
     {
-       office: {
+      office: {
         id: "uae-dubai",
         name: "Dubai Office",
         slug: "dubai",
@@ -47,13 +48,13 @@ export default async function GlobalBranchesPage({ params }: PageProps) {
         address: "Dubai International Academic City",
       },
       country: {
-         id: "uae",
-         name: "United Arab Emirates",
-         slug: "uae"
-      }
+        id: "uae",
+        name: "United Arab Emirates",
+        slug: "uae",
+      },
     },
     {
-       office: {
+      office: {
         id: "bd-dhaka",
         name: "Dhaka Office",
         slug: "dhaka",
@@ -63,11 +64,11 @@ export default async function GlobalBranchesPage({ params }: PageProps) {
         address: "Gulshan 2, Dhaka, Bangladesh",
       },
       country: {
-         id: "bd",
-         name: "Bangladesh",
-         slug: "bangladesh"
-      }
-    }
+        id: "bd",
+        name: "Bangladesh",
+        slug: "bangladesh",
+      },
+    },
   ];
 
   const globalOffices = await prisma.globalOffice.findMany({
@@ -77,16 +78,16 @@ export default async function GlobalBranchesPage({ params }: PageProps) {
           country: {
             slug: country,
           },
-        }
-      }
+        },
+      },
     },
     include: {
       countries: {
         include: {
-          country: true
-        }
-      }
-    }
+          country: true,
+        },
+      },
+    },
   });
 
   console.log("Global Offices:", globalOffices);
@@ -101,7 +102,8 @@ export default async function GlobalBranchesPage({ params }: PageProps) {
               Our Global Offices
             </h1>
             <p className="text-xl text-blue-100 max-w-2xl mx-auto">
-              Visit our offices worldwide for expert study abroad consultation and support.
+              Visit our offices worldwide for expert study abroad consultation
+              and support.
             </p>
           </div>
         </div>

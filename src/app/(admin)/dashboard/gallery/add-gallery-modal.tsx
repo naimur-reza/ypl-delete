@@ -2,6 +2,7 @@
 
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
 import { useAppForm } from "@/hooks/hooks";
 import { toast } from "sonner";
@@ -34,7 +35,9 @@ const gallerySchema = z.object({
   description: z.string().optional().nullable(),
   image: z.string().optional(),
   images: z.array(z.string()).optional(),
-  type: z.enum(["VISA_SUCCESS", "REPRESENTATIVE", "EVENT", "OFFICE", "STUDENT"]).default("VISA_SUCCESS"),
+  type: z
+    .enum(["VISA_SUCCESS", "REPRESENTATIVE", "EVENT", "OFFICE", "STUDENT"])
+    .default("VISA_SUCCESS"),
   sortOrder: z.number().int().optional().nullable(),
   isActive: z.boolean().default(true),
   countryIds: z.array(z.string()).optional(),
@@ -67,10 +70,15 @@ export default function GalleryFormModal({
     ).filter((id) => id !== "")
   );
 
-  const [typeValue, setTypeValue] = useState<string>(selected?.type || "VISA_SUCCESS");
+  const [typeValue, setTypeValue] = useState<string>(
+    selected?.type || "VISA_SUCCESS"
+  );
   const [isActive, setIsActive] = useState<boolean>(selected?.isActive ?? true);
   const [isUploading, setIsUploading] = useState(false);
-  const [images, setImages] = useState<string[]>(selected?.image ? [selected.image] : []);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [images, setImages] = useState<string[]>(
+    selected?.image ? [selected.image] : []
+  );
 
   const form = useAppForm({
     defaultValues: {
@@ -85,6 +93,7 @@ export default function GalleryFormModal({
     } as unknown as FormData,
     validators: { onSubmit: gallerySchema as any },
     onSubmit: async ({ value }) => {
+      setIsSubmitting(true);
       try {
         // Validate at least one image
         if (!isEditing && images.length === 0) {
@@ -98,7 +107,8 @@ export default function GalleryFormModal({
             ...value,
             image: images[0] || value.image,
             description: value.description || null,
-            sortOrder: typeof value.sortOrder === "number" ? value.sortOrder : null,
+            sortOrder:
+              typeof value.sortOrder === "number" ? value.sortOrder : null,
             isActive,
             countryIds,
           } as Record<string, unknown>;
@@ -112,7 +122,8 @@ export default function GalleryFormModal({
             title: value.title,
             description: value.description || null,
             type: typeValue,
-            sortOrder: typeof value.sortOrder === "number" ? value.sortOrder : null,
+            sortOrder:
+              typeof value.sortOrder === "number" ? value.sortOrder : null,
             isActive,
             countryIds,
           };
@@ -122,7 +133,10 @@ export default function GalleryFormModal({
               api.create({
                 ...basePayload,
                 image: imageUrl,
-                title: images.length > 1 ? `${value.title} (${index + 1})` : value.title,
+                title:
+                  images.length > 1
+                    ? `${value.title} (${index + 1})`
+                    : value.title,
               })
             )
           );
@@ -143,6 +157,8 @@ export default function GalleryFormModal({
         toast.error("Request failed");
         console.error(e);
         setCountryIds([]);
+      } finally {
+        setIsSubmitting(false);
       }
     },
   });
@@ -161,12 +177,18 @@ export default function GalleryFormModal({
       >
         <FieldGroup>
           <form.AppField name="title">
-            {(field) => <field.Input label={isEditing ? "Title" : "Title (Base name for multiple images)"} />}
+            {(field) => (
+              <field.Input
+                label={
+                  isEditing ? "Title" : "Title (Base name for multiple images)"
+                }
+              />
+            )}
           </form.AppField>
           <form.AppField name="description">
             {(field) => <field.Textarea label="Description (Optional)" />}
           </form.AppField>
-          
+
           {isEditing ? (
             // Single image upload when editing
             <form.AppField name="image">
@@ -184,10 +206,12 @@ export default function GalleryFormModal({
                   />
                   <div className="relative">
                     <div className="absolute inset-0 flex items-center">
-                      <span className="w-full border-t border-black/10" />
+                      <span className="w-full border-t border-border" />
                     </div>
                     <div className="relative flex justify-center text-xs uppercase">
-                      <span className="bg-background px-2 text-muted-foreground">Or enter URL</span>
+                      <span className="bg-background px-2 text-muted-foreground">
+                        Or enter URL
+                      </span>
                     </div>
                   </div>
                   <div className="space-y-1.5">
@@ -219,7 +243,8 @@ export default function GalleryFormModal({
                 onUploadingChange={setIsUploading}
               />
               <p className="text-xs text-muted-foreground">
-                Each image will create a separate gallery item with the same metadata.
+                Each image will create a separate gallery item with the same
+                metadata.
               </p>
             </div>
           )}
@@ -273,12 +298,26 @@ export default function GalleryFormModal({
             />
           </div>
           <div className="flex gap-2 justify-end">
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onClose}
+              disabled={isSubmitting}
+            >
               Cancel
             </Button>
-            <Button type="submit" disabled={isUploading}>
-              {isUploading ? "Uploading..." : isEditing ? "Update" : `Create${images.length > 1 ? ` (${images.length} items)` : ""}`}
-            </Button>
+            <SubmitButton
+              isSubmitting={isSubmitting}
+              isUploading={isUploading}
+              submitText={
+                isEditing
+                  ? "Update"
+                  : `Create${
+                      images.length > 1 ? ` (${images.length} items)` : ""
+                    }`
+              }
+              submittingText={isEditing ? "Updating..." : "Creating..."}
+            />
           </div>
         </FieldGroup>
       </form>

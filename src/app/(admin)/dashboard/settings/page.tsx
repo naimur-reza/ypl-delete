@@ -38,7 +38,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { User, Users, Plus, Trash2, Eye, EyeOff } from "lucide-react";
+import {
+  User,
+  Users,
+  Plus,
+  Trash2,
+  Eye,
+  EyeOff,
+  Settings as SettingsIcon,
+} from "lucide-react";
+import FooterSettings from "./footer/page";
 import { toast } from "sonner";
 
 interface TeamMember {
@@ -55,7 +64,7 @@ export default function Settings() {
   const [showAddUserDialog, setShowAddUserDialog] = useState(false);
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
-  
+
   // Password change state
   const [passwordForm, setPasswordForm] = useState({
     currentPassword: "",
@@ -78,22 +87,22 @@ export default function Settings() {
     try {
       setLoading(true);
       const response = await fetch("/api/users");
-      
+
       if (response.status === 401) {
         toast.error("Unauthorized - Please log in again");
         return;
       }
-      
+
       if (response.status === 403) {
         toast.error("Access denied - Only SUPERADMIN can manage users");
         return;
       }
-      
+
       if (!response.ok) {
         toast.error("Failed to fetch team members");
         return;
       }
-      
+
       const result = await response.json();
       const data = Array.isArray(result.data) ? result.data : result.data || [];
       setTeamMembers(data);
@@ -137,7 +146,11 @@ export default function Settings() {
       }
 
       toast.success("Password changed successfully");
-      setPasswordForm({ currentPassword: "", newPassword: "", confirmPassword: "" });
+      setPasswordForm({
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      });
     } catch (error) {
       toast.error("Failed to change password");
     } finally {
@@ -250,7 +263,7 @@ export default function Settings() {
         </div>
 
         <Tabs defaultValue="profile" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2">
+          <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="profile" className="flex items-center gap-2">
               <User className="h-4 w-4" />
               Profile
@@ -258,6 +271,10 @@ export default function Settings() {
             <TabsTrigger value="team" className="flex items-center gap-2">
               <Users className="h-4 w-4" />
               Team
+            </TabsTrigger>
+            <TabsTrigger value="footer" className="flex items-center gap-2">
+              <SettingsIcon className="h-4 w-4" />
+              Footer
             </TabsTrigger>
           </TabsList>
 
@@ -309,7 +326,7 @@ export default function Settings() {
             </Card>
 
             {/* Change Password Card */}
-            <Card className="border-black/10">
+            <Card className="border-border">
               <CardHeader>
                 <CardTitle>Change Password</CardTitle>
                 <CardDescription>
@@ -325,7 +342,10 @@ export default function Settings() {
                       type={showCurrentPassword ? "text" : "password"}
                       value={passwordForm.currentPassword}
                       onChange={(e) =>
-                        setPasswordForm({ ...passwordForm, currentPassword: e.target.value })
+                        setPasswordForm({
+                          ...passwordForm,
+                          currentPassword: e.target.value,
+                        })
                       }
                     />
                     <Button
@@ -333,9 +353,15 @@ export default function Settings() {
                       variant="ghost"
                       size="icon"
                       className="absolute right-0 top-0 h-full px-3"
-                      onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                      onClick={() =>
+                        setShowCurrentPassword(!showCurrentPassword)
+                      }
                     >
-                      {showCurrentPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      {showCurrentPassword ? (
+                        <EyeOff className="h-4 w-4" />
+                      ) : (
+                        <Eye className="h-4 w-4" />
+                      )}
                     </Button>
                   </div>
                 </div>
@@ -347,7 +373,10 @@ export default function Settings() {
                       type={showNewPassword ? "text" : "password"}
                       value={passwordForm.newPassword}
                       onChange={(e) =>
-                        setPasswordForm({ ...passwordForm, newPassword: e.target.value })
+                        setPasswordForm({
+                          ...passwordForm,
+                          newPassword: e.target.value,
+                        })
                       }
                     />
                     <Button
@@ -357,7 +386,11 @@ export default function Settings() {
                       className="absolute right-0 top-0 h-full px-3"
                       onClick={() => setShowNewPassword(!showNewPassword)}
                     >
-                      {showNewPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      {showNewPassword ? (
+                        <EyeOff className="h-4 w-4" />
+                      ) : (
+                        <Eye className="h-4 w-4" />
+                      )}
                     </Button>
                   </div>
                 </div>
@@ -368,11 +401,17 @@ export default function Settings() {
                     type="password"
                     value={passwordForm.confirmPassword}
                     onChange={(e) =>
-                      setPasswordForm({ ...passwordForm, confirmPassword: e.target.value })
+                      setPasswordForm({
+                        ...passwordForm,
+                        confirmPassword: e.target.value,
+                      })
                     }
                   />
                 </div>
-                <Button onClick={handleChangePassword} disabled={changingPassword}>
+                <Button
+                  onClick={handleChangePassword}
+                  disabled={changingPassword}
+                >
                   {changingPassword ? "Updating..." : "Update Password"}
                 </Button>
               </CardContent>
@@ -389,7 +428,10 @@ export default function Settings() {
                       Manage your team members and their roles
                     </CardDescription>
                   </div>
-                  <Dialog open={showAddUserDialog} onOpenChange={setShowAddUserDialog}>
+                  <Dialog
+                    open={showAddUserDialog}
+                    onOpenChange={setShowAddUserDialog}
+                  >
                     <DialogTrigger asChild>
                       <Button>
                         <Plus className="mr-2 h-4 w-4" />
@@ -409,7 +451,10 @@ export default function Settings() {
                           <Input
                             value={newUserForm.name}
                             onChange={(e) =>
-                              setNewUserForm({ ...newUserForm, name: e.target.value })
+                              setNewUserForm({
+                                ...newUserForm,
+                                name: e.target.value,
+                              })
                             }
                             placeholder="John Doe"
                           />
@@ -420,7 +465,10 @@ export default function Settings() {
                             type="email"
                             value={newUserForm.email}
                             onChange={(e) =>
-                              setNewUserForm({ ...newUserForm, email: e.target.value })
+                              setNewUserForm({
+                                ...newUserForm,
+                                email: e.target.value,
+                              })
                             }
                             placeholder="john@company.com"
                           />
@@ -431,7 +479,10 @@ export default function Settings() {
                             type="password"
                             value={newUserForm.password}
                             onChange={(e) =>
-                              setNewUserForm({ ...newUserForm, password: e.target.value })
+                              setNewUserForm({
+                                ...newUserForm,
+                                password: e.target.value,
+                              })
                             }
                             placeholder="••••••••"
                           />
@@ -440,7 +491,9 @@ export default function Settings() {
                           <Label>Role</Label>
                           <Select
                             value={newUserForm.role}
-                            onValueChange={(value: "SUPERADMIN" | "ADMIN" | "MANAGER") =>
+                            onValueChange={(
+                              value: "SUPERADMIN" | "ADMIN" | "MANAGER"
+                            ) =>
                               setNewUserForm({ ...newUserForm, role: value })
                             }
                           >
@@ -448,7 +501,9 @@ export default function Settings() {
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="SUPERADMIN">Super Admin</SelectItem>
+                              <SelectItem value="SUPERADMIN">
+                                Super Admin
+                              </SelectItem>
                               <SelectItem value="ADMIN">Admin</SelectItem>
                               <SelectItem value="MANAGER">Manager</SelectItem>
                             </SelectContent>
@@ -456,10 +511,16 @@ export default function Settings() {
                         </div>
                       </div>
                       <DialogFooter>
-                        <Button variant="outline" onClick={() => setShowAddUserDialog(false)}>
+                        <Button
+                          variant="outline"
+                          onClick={() => setShowAddUserDialog(false)}
+                        >
                           Cancel
                         </Button>
-                        <Button onClick={handleCreateUser} disabled={creatingUser}>
+                        <Button
+                          onClick={handleCreateUser}
+                          disabled={creatingUser}
+                        >
                           {creatingUser ? "Creating..." : "Create User"}
                         </Button>
                       </DialogFooter>
@@ -469,7 +530,9 @@ export default function Settings() {
               </CardHeader>
               <CardContent>
                 {loading ? (
-                  <div className="text-center py-8 text-muted-foreground">Loading...</div>
+                  <div className="text-center py-8 text-muted-foreground">
+                    Loading...
+                  </div>
                 ) : teamMembers.length === 0 ? (
                   <div className="text-center py-8 text-muted-foreground">
                     No team members found
@@ -508,13 +571,17 @@ export default function Settings() {
                           <TableCell>
                             <Select
                               defaultValue={member.role}
-                              onValueChange={(value) => handleRoleChange(member.id, value)}
+                              onValueChange={(value) =>
+                                handleRoleChange(member.id, value)
+                              }
                             >
                               <SelectTrigger className="w-36">
                                 <SelectValue />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value="SUPERADMIN">Super Admin</SelectItem>
+                                <SelectItem value="SUPERADMIN">
+                                  Super Admin
+                                </SelectItem>
                                 <SelectItem value="ADMIN">Admin</SelectItem>
                                 <SelectItem value="MANAGER">Manager</SelectItem>
                               </SelectContent>
@@ -539,6 +606,10 @@ export default function Settings() {
                 )}
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="footer" className="space-y-6">
+            <FooterSettings />
           </TabsContent>
         </Tabs>
       </div>

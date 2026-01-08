@@ -1,32 +1,28 @@
 model Hero {
-  id                String        @id @default(cuid())
-  title             String
-  subtitle          String?       @db.Text
-  buttonText        String?
-  buttonUrl         String?
-  backgroundType    BackgroundType @default(IMAGE)
-  backgroundUrl     String        // Can be image URL, video URL, or YouTube URL
-  slug              String        // e.g., "home", "universities", "courses", etc. - NOT unique to allow multiple
-  isActive          Boolean       @default(true)
-  order             Int           @default(0)
-  
-  // Relations
-  countries         HeroCountry[]
-  
-  createdAt         DateTime      @default(now())
-  updatedAt         DateTime      @updatedAt
+  id             String         @id @default(cuid())
+  title          String
+  subtitle       String?
+  buttonText     String?
+  buttonUrl      String?
+  backgroundType BackgroundType @default(IMAGE)
+  backgroundUrl  String
+  slug           String
+  isActive       Boolean        @default(true)
+  order          Int            @default(0)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  countries      HeroCountry[]
 
   @@index([slug])
   @@index([isActive])
 }
 
 model HeroCountry {
-  id          String   @id @default(cuid())
-  heroId      String
-  countryId   String
-  
-  hero        Hero     @relation(fields: [heroId], references: [id], onDelete: Cascade)
-  country     Country  @relation(fields: [countryId], references: [id], onDelete: Cascade)
-  
+  id        String  @id @default(cuid())
+  heroId    String
+  countryId String
+  country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  hero      Hero    @relation(fields: [heroId], references: [id], onDelete: Cascade)
+
   @@unique([heroId, countryId])
 }

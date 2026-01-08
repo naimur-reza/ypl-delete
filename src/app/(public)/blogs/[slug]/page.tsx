@@ -11,15 +11,25 @@ import { RelatedArticles } from "@/components/blog/related-articles";
 import { ReviewSection } from "@/components/sections/review-section";
 import CallToActionBanner from "@/components/CallToActionBanner";
 
+export const revalidate = 300;
+
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const blog = await prisma.blog.findUnique({
     where: { slug },
-    select: { title: true, metaTitle: true, metaDescription: true, metaKeywords: true, excerpt: true },
+    select: {
+      title: true,
+      metaTitle: true,
+      metaDescription: true,
+      metaKeywords: true,
+      excerpt: true,
+    },
   });
 
   if (!blog) {
@@ -94,7 +104,7 @@ export default async function BlogDetailsPage({ params }: PageProps) {
                   </div>
                 </div>
               )}
-              
+
               <MarkdownContent content={blog.content || ""} generateIds />
             </article>
 

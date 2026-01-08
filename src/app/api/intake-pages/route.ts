@@ -1,7 +1,12 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { handleGetMany } from "@/lib/api-helpers";
-import { getSession, canManageContent, unauthorizedResponse, forbiddenResponse } from "@/lib/auth-helpers";
+import {
+  getSession,
+  canManageContent,
+  unauthorizedResponse,
+  forbiddenResponse,
+} from "@/lib/auth-helpers";
 
 export async function GET(req: NextRequest) {
   return handleGetMany(req, prisma.intakePage, {
@@ -9,7 +14,7 @@ export async function GET(req: NextRequest) {
     defaultSort: { updatedAt: "desc" },
     include: {
       destination: true,
-      benefits: { orderBy: { sortOrder: "asc" } },
+      intakePageBenefits: { orderBy: { sortOrder: "asc" } },
     },
   });
 }
@@ -72,7 +77,7 @@ export async function POST(req: NextRequest) {
         metaDescription,
         metaKeywords,
         isActive: isActive ?? true,
-        benefits: benefits?.length
+        intakePageBenefits: benefits?.length
           ? {
               create: benefits.map(
                 (
@@ -93,7 +98,7 @@ export async function POST(req: NextRequest) {
             }
           : undefined,
       },
-      include: { benefits: true, destination: true },
+      include: { intakePageBenefits: true, destination: true },
     });
 
     return Response.json(created, { status: 201 });
@@ -152,7 +157,7 @@ export async function PUT(req: NextRequest) {
               }
             : undefined,
       },
-      include: { benefits: true, destination: true },
+      include: { intakePageBenefits: true, destination: true },
     });
 
     return Response.json(updated);

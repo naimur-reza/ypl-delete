@@ -1,19 +1,27 @@
 import { Button } from "@/components/ui/button";
 
 import { prisma } from "@/lib/prisma";
-import { BookOpen, GraduationCap, CalendarDays } from "lucide-react";
+import {
+  BookOpen,
+  GraduationCap,
+  CalendarDays,
+  LayoutDashboard,
+} from "lucide-react";
 import { CountryAwareLink } from "./country-aware-link";
 import NavDropdown from "./navbar-dropdown";
 import { MobileNav } from "./mobile-nav";
 import Image from "next/image";
 import CountryModal from "@/app/[country]/(public)/(home)/components/country-modal";
 import Link from "next/link";
+import { getSession } from "@/lib/auth-helpers";
 
 type NavbarProps = {
   countrySlug?: string | null;
 };
 
 const Navbar = async ({ countrySlug }: NavbarProps) => {
+  const session = await getSession();
+
   const countryScopedFilter = countrySlug
     ? {
         some: {
@@ -105,7 +113,7 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
         </CountryAwareLink>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center">
+        <div className="hidden lg:flex items-center">
           <ul className="flex items-center gap-0">
             {destinationItems.length > 0 && (
               <li>
@@ -179,20 +187,20 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
                 },
               ]}
             />
-
-            <li>
-              <CountryAwareLink
-                href="/events"
-                className="px-3 py-2 rounded-md text-muted-foreground font-medium hover:text-primary hover:bg-background transition-colors"
-              >
-                Events
-              </CountryAwareLink>
-            </li>
           </ul>
         </div>
 
         {/* Right Actions */}
         <div className="flex items-center gap-3 md:gap-5">
+          {session && (
+            <Link
+              href="/dashboard"
+              className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+              title="Dashboard"
+            >
+              <LayoutDashboard className="w-5 h-5" />
+            </Link>
+          )}
           <div className="hidden sm:block">
             <CountryModal />
           </div>

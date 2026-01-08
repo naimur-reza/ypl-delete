@@ -4,7 +4,7 @@ import { handleGetMany } from "@/lib/api-helpers";
 
 export async function GET(req: NextRequest) {
   return handleGetMany(req, prisma.jobApplication, {
-    searchFields: ["firstName", "lastName", "email"],
+    searchFields: ["name", "email"],
     defaultSort: { createdAt: "desc" },
     include: {
       career: {
@@ -22,8 +22,7 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
   const {
     careerId,
-    firstName,
-    lastName,
+    name,
     email,
     phone,
     coverLetter,
@@ -36,9 +35,9 @@ export async function POST(req: NextRequest) {
     availableFrom,
   } = body;
 
-  if (!careerId || !firstName || !lastName || !email || !phone) {
+  if (!careerId || !name || !email || !phone) {
     return Response.json(
-      { error: "Career ID, first name, last name, email, and phone are required" },
+      { error: "Career ID, name, email, and phone are required" },
       { status: 400 }
     );
   }
@@ -47,8 +46,7 @@ export async function POST(req: NextRequest) {
     const application = await prisma.jobApplication.create({
       data: {
         careerId,
-        firstName,
-        lastName,
+        name,
         email,
         phone,
         coverLetter,
@@ -56,7 +54,9 @@ export async function POST(req: NextRequest) {
         linkedinUrl,
         portfolioUrl,
         currentCompany,
-        yearsOfExperience: yearsOfExperience ? parseInt(yearsOfExperience) : null,
+        yearsOfExperience: yearsOfExperience
+          ? parseInt(yearsOfExperience)
+          : null,
         expectedSalary,
         availableFrom: availableFrom ? new Date(availableFrom) : null,
       },

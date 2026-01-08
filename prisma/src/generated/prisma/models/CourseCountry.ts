@@ -166,16 +166,16 @@ export type CourseCountryWhereInput = {
   id?: Prisma.StringFilter<"CourseCountry"> | string
   courseId?: Prisma.StringFilter<"CourseCountry"> | string
   countryId?: Prisma.StringFilter<"CourseCountry"> | string
-  course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
+  course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
 }
 
 export type CourseCountryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
-  course?: Prisma.CourseOrderByWithRelationInput
   country?: Prisma.CountryOrderByWithRelationInput
+  course?: Prisma.CourseOrderByWithRelationInput
 }
 
 export type CourseCountryWhereUniqueInput = Prisma.AtLeast<{
@@ -186,8 +186,8 @@ export type CourseCountryWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.CourseCountryWhereInput | Prisma.CourseCountryWhereInput[]
   courseId?: Prisma.StringFilter<"CourseCountry"> | string
   countryId?: Prisma.StringFilter<"CourseCountry"> | string
-  course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
+  course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
 }, "id" | "courseId_countryId">
 
 export type CourseCountryOrderByWithAggregationInput = {
@@ -210,8 +210,8 @@ export type CourseCountryScalarWhereWithAggregatesInput = {
 
 export type CourseCountryCreateInput = {
   id?: string
-  course: Prisma.CourseCreateNestedOneWithoutCountriesInput
   country: Prisma.CountryCreateNestedOneWithoutCoursesInput
+  course: Prisma.CourseCreateNestedOneWithoutCountriesInput
 }
 
 export type CourseCountryUncheckedCreateInput = {
@@ -222,8 +222,8 @@ export type CourseCountryUncheckedCreateInput = {
 
 export type CourseCountryUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  course?: Prisma.CourseUpdateOneRequiredWithoutCountriesNestedInput
   country?: Prisma.CountryUpdateOneRequiredWithoutCoursesNestedInput
+  course?: Prisma.CourseUpdateOneRequiredWithoutCountriesNestedInput
 }
 
 export type CourseCountryUncheckedUpdateInput = {
@@ -492,24 +492,24 @@ export type CourseCountrySelect<ExtArgs extends runtime.Types.Extensions.Interna
   id?: boolean
   courseId?: boolean
   countryId?: boolean
-  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["courseCountry"]>
 
 export type CourseCountrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   courseId?: boolean
   countryId?: boolean
-  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["courseCountry"]>
 
 export type CourseCountrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   courseId?: boolean
   countryId?: boolean
-  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["courseCountry"]>
 
 export type CourseCountrySelectScalar = {
@@ -520,23 +520,23 @@ export type CourseCountrySelectScalar = {
 
 export type CourseCountryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "courseId" | "countryId", ExtArgs["result"]["courseCountry"]>
 export type CourseCountryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
 }
 export type CourseCountryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
 }
 export type CourseCountryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
 }
 
 export type $CourseCountryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "CourseCountry"
   objects: {
-    course: Prisma.$CoursePayload<ExtArgs>
     country: Prisma.$CountryPayload<ExtArgs>
+    course: Prisma.$CoursePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -936,8 +936,8 @@ readonly fields: CourseCountryFieldRefs;
  */
 export interface Prisma__CourseCountryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  course<T extends Prisma.CourseDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CourseDefaultArgs<ExtArgs>>): Prisma.Prisma__CourseClient<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   country<T extends Prisma.CountryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CountryDefaultArgs<ExtArgs>>): Prisma.Prisma__CountryClient<runtime.Types.Result.GetResult<Prisma.$CountryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  course<T extends Prisma.CourseDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CourseDefaultArgs<ExtArgs>>): Prisma.Prisma__CourseClient<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

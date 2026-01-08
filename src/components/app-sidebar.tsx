@@ -1,5 +1,6 @@
 "use client";
 
+import { useTransition } from "react";
 import {
   LayoutDashboard,
   Globe,
@@ -26,6 +27,9 @@ import {
   Image as ImageIcon,
   Monitor,
   BarChart3,
+  LogOut,
+  ChevronUp,
+  UserCheck,
 } from "lucide-react";
 
 import {
@@ -41,11 +45,19 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
+import { logout } from "@/app/actions/auth";
 
 interface MenuItem {
   title: string;
@@ -58,6 +70,14 @@ interface MenuItem {
 interface MenuSection {
   title: string;
   items: MenuItem[];
+}
+
+interface AppSidebarProps {
+  user?: {
+    name: string;
+    email: string;
+    role: string;
+  } | null;
 }
 
 const menuSections: MenuSection[] = [
@@ -73,7 +93,6 @@ const menuSections: MenuSection[] = [
         icon: FolderTree,
         url: "#",
         children: [
-
           {
             title: "Countries",
             url: "/dashboard/countries",
@@ -158,7 +177,12 @@ const menuSections: MenuSection[] = [
     title: "Applications",
     items: [
       {
-        title: "Event Applications",
+        title: "Job Applications",
+        url: "/dashboard/applications",
+        icon: UserCheck,
+      },
+      {
+        title: "Event Registrations",
         url: "/dashboard/registrations",
         icon: ClipboardCheck,
       },
@@ -178,8 +202,9 @@ const menuSections: MenuSection[] = [
   },
 ];
 
-export function AppSidebar() {
+export function AppSidebar({ user }: AppSidebarProps) {
   const pathname = usePathname();
+  const [isPending, startTransition] = useTransition();
 
   const isActive = (url: string) => {
     if (url === "/dashboard") {
@@ -187,6 +212,15 @@ export function AppSidebar() {
     }
     return pathname.startsWith(url);
   };
+
+  const initials = user?.name
+    ? user.name
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .toUpperCase()
+        .slice(0, 2)
+    : "AD";
 
   return (
     <Sidebar className="border-r border-border bg-linear-to-b from-background to-muted/20">
@@ -230,7 +264,7 @@ export function AppSidebar() {
                                       "border border-primary/20 bg-primary/10 text-primary shadow-sm"
                                   )}
                                 >
-                                  <Link href={child.url}>
+                                  <Link href={child.url} prefetch={false}>
                                     <child.icon className="h-4 w-4" />
                                     <span>{child.title}</span>
                                     {child.badge && (
@@ -263,7 +297,7 @@ export function AppSidebar() {
                               "border border-primary/25 bg-primary/10 text-primary shadow-sm"
                           )}
                         >
-                          <Link href={item.url}>
+                          <Link href={item.url} prefetch={false}>
                             <item.icon className="h-4 w-4" />
                             <span>{item.title}</span>
                             {item.badge && (
@@ -286,26 +320,42 @@ export function AppSidebar() {
         })}
       </SidebarContent>
       <SidebarFooter className="border-t border-border bg-muted/30 p-4">
-        <div className="flex items-center gap-3 rounded-lg bg-background/50 p-3 backdrop-blur-sm">
-          <Avatar className="h-9 w-9 ring-2 ring-primary/20">
-            <AvatarImage
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-              alt="Admin"
-              className="object-cover"
-            />
-            <AvatarFallback className="bg-linear-to-br from-primary to-primary/80 text-primary-foreground">
-              AD
-            </AvatarFallback>
-          </Avatar>
-          <div className="flex flex-col flex-1 min-w-0">
-            <span className="text-sm font-semibold truncate">
-              Administrator
-            </span>
-            <span className="text-xs text-muted-foreground truncate">
-              Admin Access
-            </span>
-          </div>
-        </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button className="flex items-center gap-3 rounded-lg bg-background/50 p-3 backdrop-blur-sm w-full hover:bg-background/80 transition-colors">
+              <Avatar className="h-9 w-9 ring-2 ring-primary/20">
+                <AvatarFallback className="bg-linear-to-br from-primary to-primary/80 text-primary-foreground">
+                  {initials}
+                </AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col flex-1 min-w-0 text-left">
+                <span className="text-sm font-semibold truncate">
+                  {user?.name || "Administrator"}
+                </span>
+                <span className="text-xs text-muted-foreground truncate">
+                  {user?.role || "Admin Access"}
+                </span>
+              </div>
+              <ChevronUp className="h-4 w-4 text-muted-foreground" />
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" side="top" className="w-56">
+            <DropdownMenuItem asChild>
+              <Link href="/dashboard/settings">
+                <Settings className="mr-2 h-4 w-4" />
+                Settings
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              className="text-red-600 focus:text-red-600 focus:bg-red-50"
+              onClick={() => logout()}
+            >
+              <LogOut className="mr-2 h-4 w-4" />
+              Log out
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </SidebarFooter>
     </Sidebar>
   );

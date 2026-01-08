@@ -65,7 +65,9 @@ export function DynamicHero({
 
         // If countrySlug exists, first fetch the country ID
         if (countrySlug) {
-          const countryResponse = await fetch(`/api/countries?slug=${countrySlug}`);
+          const countryResponse = await fetch(
+            `/api/countries?slug=${countrySlug}`
+          );
           if (countryResponse.ok) {
             const countryData = await countryResponse.json();
             if (countryData.length > 0) {
@@ -100,7 +102,15 @@ export function DynamicHero({
     };
 
     fetchHeroes();
-  }, [slug, countrySlug, defaultTitle, defaultSubtitle, defaultButtonText, defaultButtonUrl, defaultBackgroundUrl]);
+  }, [
+    slug,
+    countrySlug,
+    defaultTitle,
+    defaultSubtitle,
+    defaultButtonText,
+    defaultButtonUrl,
+    defaultBackgroundUrl,
+  ]);
 
   // Auto-play for slider (only when multiple heroes)
   useEffect(() => {
@@ -143,7 +153,7 @@ export function DynamicHero({
           const videoId = embedUrl.split("/embed/")[1]?.split("?")[0];
           if (videoId) embedUrl += videoId;
         }
-        
+
         return (
           <iframe
             src={embedUrl}
@@ -182,7 +192,11 @@ export function DynamicHero({
   const currentHero = heroes[currentSlide];
 
   return (
-    <section className={`relative ${isSlider ? "h-[600px] md:h-[700px]" : "h-[50vh] min-h-[400px]"} flex items-center justify-center overflow-hidden bg-slate-900 group`}>
+    <section
+      className={`relative ${
+        isSlider ? "h-[600px] md:h-[700px]" : "h-[50vh] min-h-[400px]"
+      } flex items-center justify-center overflow-hidden bg-slate-900 group`}
+    >
       {/* Background Slides */}
       {isSlider ? (
         <div className="absolute inset-0 z-0">
@@ -207,18 +221,50 @@ export function DynamicHero({
       )}
 
       {/* Content */}
-      <div className={`relative z-10 ${isSlider ? "max-w-[1400px] px-6 sm:px-12 lg:px-20 w-full" : "max-w-4xl mx-auto px-4 text-center"}`}>
+      <div
+        className={`relative z-10 ${
+          isSlider
+            ? "max-w-[1400px] px-6 sm:px-12 lg:px-20 w-full"
+            : "max-w-4xl mx-auto px-4 text-center"
+        }`}
+      >
         <div className={isSlider ? "max-w-3xl" : ""}>
-          <h1 className={`font-bold text-white mb-6 tracking-tight ${isSlider ? "text-5xl sm:text-6xl lg:text-7xl leading-[1.1]" : "text-4xl md:text-6xl"}`}>
+          <h1
+            className={`font-bold text-white mb-6 tracking-tight ${
+              isSlider
+                ? "text-5xl sm:text-6xl lg:text-7xl leading-[1.1]"
+                : "text-4xl md:text-6xl"
+            }`}
+          >
             {currentHero.title.split(" ").map((word, idx) => {
               // Highlight certain keywords
-              const highlightWords = ["University", "Universities", "Courses", "Scholarships", "Events", "Study", "Services", "UK", "Global"];
-              const shouldHighlight = highlightWords.some(hw => word.includes(hw));
-              
+              const highlightWords = [
+                "University",
+                "Universities",
+                "Courses",
+                "Scholarships",
+                "Events",
+                "Study",
+                "Services",
+                "UK",
+                "Global",
+              ];
+              const shouldHighlight = highlightWords.some((hw) =>
+                word.includes(hw)
+              );
+
               return (
                 <span key={idx}>
                   {shouldHighlight ? (
-                    <span className={isSlider ? "text-transparent bg-clip-text bg-linear-to-r from-accent to-primary-foreground" : "text-primary"}>{word}</span>
+                    <span
+                      className={
+                        isSlider
+                          ? "text-transparent bg-clip-text bg-linear-to-r from-accent to-primary-foreground"
+                          : "text-primary"
+                      }
+                    >
+                      {word}
+                    </span>
                   ) : (
                     word
                   )}{" "}
@@ -227,16 +273,24 @@ export function DynamicHero({
             })}
           </h1>
 
-          <p className={`text-slate-200 mb-8 leading-relaxed ${isSlider ? "text-lg md:text-xl max-w-2xl" : "text-lg md:text-xl max-w-2xl mx-auto"}`}>
+          <p
+            className={`text-slate-200 mb-8 leading-relaxed ${
+              isSlider
+                ? "text-lg md:text-xl max-w-2xl"
+                : "text-lg md:text-xl max-w-2xl mx-auto"
+            }`}
+          >
             {currentHero.subtitle}
           </p>
 
           {currentHero.buttonText && currentHero.buttonUrl && (
-            <div className={isSlider ? "flex flex-wrap gap-4" : "flex justify-center"}>
+            <div
+              className={
+                isSlider ? "flex flex-wrap gap-4" : "flex justify-center"
+              }
+            >
               <Link href={currentHero.buttonUrl}>
-                <GradientButton className="min-w-[180px]">
-                  {currentHero.buttonText}
-                </GradientButton>
+                <GradientButton>{currentHero.buttonText}</GradientButton>
               </Link>
             </div>
           )}

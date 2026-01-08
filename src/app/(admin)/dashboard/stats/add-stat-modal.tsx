@@ -4,12 +4,13 @@
 import { useEffect, useState } from "react";
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
 import { useAppForm } from "@/hooks/use-field-context";
 import { statSchema } from "@/schemas/stat";
 import { toast } from "sonner";
 import z from "zod";
-import { createEntityApi } from "@/lib/api-client";
+import { createRestEntityApi } from "@/lib/api-client";
 import { CountrySelect } from "@/components/ui/region-select";
 import { SelectItem } from "@/components/ui/select";
 import { FormBase } from "@/components/form/FormBase";
@@ -17,13 +18,14 @@ import { Input } from "@/components/ui/input";
 
 type FormData = z.infer<typeof statSchema>;
 
-const statApi = createEntityApi<FormData & { id: string }>("/api/stats");
+const statApi = createRestEntityApi<FormData & { id: string }>("/api/stats");
 
 const SECTION_OPTIONS = [
   { value: "about", label: "About Section" },
   { value: "hero", label: "Hero Slider" },
   { value: "faq", label: "FAQ Section" },
   { value: "event", label: "Events" },
+  { value: "why-choose-us", label: "Why Choose Us" },
 ];
 
 const ICON_OPTIONS = [
@@ -77,6 +79,7 @@ const StatFormModal = ({
   onSuccess?: () => void;
 }) => {
   const isOpen = true;
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [countryIds, setCountryIds] = useState<string[]>(
     (
       selectedStat?.countries?.map(
@@ -100,6 +103,7 @@ const StatFormModal = ({
     } satisfies FormData as FormData,
     validators: { onSubmit: statSchema as any },
     onSubmit: async ({ value }) => {
+      setIsSubmitting(true);
       try {
         let response;
         const submitData = {
@@ -131,6 +135,8 @@ const StatFormModal = ({
       } catch (err) {
         toast.error("Request failed");
         console.error(err);
+      } finally {
+        setIsSubmitting(false);
       }
     },
   });
@@ -145,7 +151,7 @@ const StatFormModal = ({
       form.setFieldValue("slideIndex", selectedStat.slideIndex ?? null);
       form.setFieldValue("sortOrder", selectedStat.sortOrder ?? 0);
       form.setFieldValue("isActive", selectedStat.isActive ?? true);
-      
+
       const countries = selectedStat.countries || [];
       const initialCountryIds = countries
         .map(
@@ -179,11 +185,21 @@ const StatFormModal = ({
         <FieldGroup>
           <div className="grid grid-cols-2 gap-4">
             <form.AppField name="title">
-              {(field) => <field.Input label="Title" placeholder="e.g., Located in, 500+" />}
+              {(field) => (
+                <field.Input
+                  label="Title"
+                  placeholder="e.g., Located in, 500+"
+                />
+              )}
             </form.AppField>
-            
+
             <form.AppField name="subtitle">
-              {(field) => <field.Input label="Subtitle" placeholder="e.g., 15+ Countries, Universities Covered" />}
+              {(field) => (
+                <field.Input
+                  label="Subtitle"
+                  placeholder="e.g., 15+ Countries, Universities Covered"
+                />
+              )}
             </form.AppField>
           </div>
 
@@ -202,8 +218,8 @@ const StatFormModal = ({
           {currentSection === "hero" && (
             <form.AppField name="slideIndex">
               {(field) => (
-                <FormBase 
-                  label="Slide Index" 
+                <FormBase
+                  label="Slide Index"
                   description="Which hero slide this stat belongs to (0 = first slide, 1 = second, etc.)"
                 >
                   <Input
@@ -212,7 +228,11 @@ const StatFormModal = ({
                     type="number"
                     min="0"
                     value={field.state.value ?? ""}
-                    onChange={(e) => field.handleChange(e.target.value ? parseInt(e.target.value) : null)}
+                    onChange={(e) =>
+                      field.handleChange(
+                        e.target.value ? parseInt(e.target.value) : null
+                      )
+                    }
                     onBlur={field.handleBlur}
                     placeholder="0"
                   />
@@ -224,7 +244,7 @@ const StatFormModal = ({
           <form.AppField name="icon">
             {(field) => (
               <field.Select label="Icon (Optional)">
-              <SelectItem value="none">No Icon</SelectItem>
+                <SelectItem value="none">No Icon</SelectItem>
                 {ICON_OPTIONS.map((option) => (
                   <SelectItem key={option.value} value={option.value}>
                     {option.label}
@@ -237,7 +257,7 @@ const StatFormModal = ({
           <form.AppField name="color">
             {(field) => (
               <field.Select label="Color (Optional)">
-              <SelectItem value="none">Default</SelectItem>
+                <SelectItem value="none">Default</SelectItem>
                 {COLOR_OPTIONS.map((option) => (
                   <SelectItem key={option.value} value={option.value}>
                     {option.label}
@@ -257,7 +277,9 @@ const StatFormModal = ({
                     type="number"
                     min="0"
                     value={field.state.value ?? 0}
-                    onChange={(e) => field.handleChange(parseInt(e.target.value) || 0)}
+                    onChange={(e) =>
+                      field.handleChange(parseInt(e.target.value) || 0)
+                    }
                     onBlur={field.handleBlur}
                   />
                 </FormBase>
@@ -283,12 +305,19 @@ const StatFormModal = ({
           </form.AppField>
 
           <div className="flex gap-2 justify-end">
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onClose}
+              disabled={isSubmitting}
+            >
               Cancel
             </Button>
-            <Button type="submit">
-              {isEditing ? "Update" : "Create"}
-            </Button>
+            <SubmitButton
+              isSubmitting={isSubmitting}
+              submitText={isEditing ? "Update" : "Create"}
+              submittingText={isEditing ? "Updating..." : "Creating..."}
+            />
           </div>
         </FieldGroup>
       </form>

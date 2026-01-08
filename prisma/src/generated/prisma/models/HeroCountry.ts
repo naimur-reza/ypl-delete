@@ -166,16 +166,16 @@ export type HeroCountryWhereInput = {
   id?: Prisma.StringFilter<"HeroCountry"> | string
   heroId?: Prisma.StringFilter<"HeroCountry"> | string
   countryId?: Prisma.StringFilter<"HeroCountry"> | string
-  hero?: Prisma.XOR<Prisma.HeroScalarRelationFilter, Prisma.HeroWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
+  hero?: Prisma.XOR<Prisma.HeroScalarRelationFilter, Prisma.HeroWhereInput>
 }
 
 export type HeroCountryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   heroId?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
-  hero?: Prisma.HeroOrderByWithRelationInput
   country?: Prisma.CountryOrderByWithRelationInput
+  hero?: Prisma.HeroOrderByWithRelationInput
 }
 
 export type HeroCountryWhereUniqueInput = Prisma.AtLeast<{
@@ -186,8 +186,8 @@ export type HeroCountryWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.HeroCountryWhereInput | Prisma.HeroCountryWhereInput[]
   heroId?: Prisma.StringFilter<"HeroCountry"> | string
   countryId?: Prisma.StringFilter<"HeroCountry"> | string
-  hero?: Prisma.XOR<Prisma.HeroScalarRelationFilter, Prisma.HeroWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
+  hero?: Prisma.XOR<Prisma.HeroScalarRelationFilter, Prisma.HeroWhereInput>
 }, "id" | "heroId_countryId">
 
 export type HeroCountryOrderByWithAggregationInput = {
@@ -210,8 +210,8 @@ export type HeroCountryScalarWhereWithAggregatesInput = {
 
 export type HeroCountryCreateInput = {
   id?: string
-  hero: Prisma.HeroCreateNestedOneWithoutCountriesInput
   country: Prisma.CountryCreateNestedOneWithoutHeroesInput
+  hero: Prisma.HeroCreateNestedOneWithoutCountriesInput
 }
 
 export type HeroCountryUncheckedCreateInput = {
@@ -222,8 +222,8 @@ export type HeroCountryUncheckedCreateInput = {
 
 export type HeroCountryUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  hero?: Prisma.HeroUpdateOneRequiredWithoutCountriesNestedInput
   country?: Prisma.CountryUpdateOneRequiredWithoutHeroesNestedInput
+  hero?: Prisma.HeroUpdateOneRequiredWithoutCountriesNestedInput
 }
 
 export type HeroCountryUncheckedUpdateInput = {
@@ -492,24 +492,24 @@ export type HeroCountrySelect<ExtArgs extends runtime.Types.Extensions.InternalA
   id?: boolean
   heroId?: boolean
   countryId?: boolean
-  hero?: boolean | Prisma.HeroDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  hero?: boolean | Prisma.HeroDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["heroCountry"]>
 
 export type HeroCountrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   heroId?: boolean
   countryId?: boolean
-  hero?: boolean | Prisma.HeroDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  hero?: boolean | Prisma.HeroDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["heroCountry"]>
 
 export type HeroCountrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   heroId?: boolean
   countryId?: boolean
-  hero?: boolean | Prisma.HeroDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  hero?: boolean | Prisma.HeroDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["heroCountry"]>
 
 export type HeroCountrySelectScalar = {
@@ -520,23 +520,23 @@ export type HeroCountrySelectScalar = {
 
 export type HeroCountryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "heroId" | "countryId", ExtArgs["result"]["heroCountry"]>
 export type HeroCountryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  hero?: boolean | Prisma.HeroDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  hero?: boolean | Prisma.HeroDefaultArgs<ExtArgs>
 }
 export type HeroCountryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  hero?: boolean | Prisma.HeroDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  hero?: boolean | Prisma.HeroDefaultArgs<ExtArgs>
 }
 export type HeroCountryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  hero?: boolean | Prisma.HeroDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  hero?: boolean | Prisma.HeroDefaultArgs<ExtArgs>
 }
 
 export type $HeroCountryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "HeroCountry"
   objects: {
-    hero: Prisma.$HeroPayload<ExtArgs>
     country: Prisma.$CountryPayload<ExtArgs>
+    hero: Prisma.$HeroPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -936,8 +936,8 @@ readonly fields: HeroCountryFieldRefs;
  */
 export interface Prisma__HeroCountryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  hero<T extends Prisma.HeroDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.HeroDefaultArgs<ExtArgs>>): Prisma.Prisma__HeroClient<runtime.Types.Result.GetResult<Prisma.$HeroPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   country<T extends Prisma.CountryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CountryDefaultArgs<ExtArgs>>): Prisma.Prisma__CountryClient<runtime.Types.Result.GetResult<Prisma.$CountryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  hero<T extends Prisma.HeroDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.HeroDefaultArgs<ExtArgs>>): Prisma.Prisma__HeroClient<runtime.Types.Result.GetResult<Prisma.$HeroPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

@@ -4,15 +4,19 @@
 import { useEffect, useState } from "react";
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
 import { useAppForm } from "@/hooks/hooks";
+import { useAutoSlug } from "@/hooks/use-auto-slug";
 import { globalOfficeSchema } from "@/schemas/global-office";
 import { toast } from "sonner";
 import { createEntityApi } from "@/lib/api-client";
+import { generateSlug } from "@/lib/utils";
 import { CountrySelect } from "@/components/ui/region-select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RichTextEditor } from "@/components/ui/rich-text-editor";
+import { FormBase } from "@/components/form/FormBase";
 
 type GlobalOfficeWithCountries = {
   id: string;
@@ -59,6 +63,7 @@ const GlobalOfficeFormModal = ({
   onSuccess?: () => void;
 }) => {
   const isOpen = true;
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [countryIds, setCountryIds] = useState<string[]>([]);
   const [openingHours, setOpeningHours] = useState<Record<string, any>>({});
   const [content, setContent] = useState<string>("");
@@ -81,6 +86,7 @@ const GlobalOfficeFormModal = ({
     } as any,
     validators: { onSubmit: globalOfficeSchema as any },
     onSubmit: async ({ value }) => {
+      setIsSubmitting(true);
       try {
         let response;
 
@@ -180,6 +186,8 @@ const GlobalOfficeFormModal = ({
 
         toast.error(err?.message || "Request failed");
         console.error(err);
+      } finally {
+        setIsSubmitting(false);
       }
     },
   });
@@ -232,6 +240,13 @@ const GlobalOfficeFormModal = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedGlobalOffice]);
 
+  // Auto-slug generation from name
+  const { handleTitleChange, handleSlugChange } = useAutoSlug({
+    getSlugValue: () => form.getFieldValue("slug") || "",
+    setSlugValue: (value) => form.setFieldValue("slug", value),
+    isEditing: !!isEditing,
+  });
+
   const handleDayChange = (
     day: string,
     field: "open" | "close" | "closed",
@@ -260,13 +275,45 @@ const GlobalOfficeFormModal = ({
       >
         <FieldGroup>
           <form.AppField name="name">
-            {(field) => <field.Input label="Name" />}
+            {(field) => (
+              <FormBase label="Name">
+                <Input
+                  id={field.name}
+                  name={field.name}
+                  value={field.state.value}
+                  onChange={(e) => {
+                    field.handleChange(e.target.value);
+                    handleTitleChange(e.target.value);
+                  }}
+                  onBlur={field.handleBlur}
+                  placeholder="e.g., NWC Dubai Office"
+                />
+              </FormBase>
+            )}
           </form.AppField>
           <form.AppField name="subtitle">
             {(field) => <field.Input label="Subtitle" />}
           </form.AppField>
           <form.AppField name="slug">
-            {(field) => <field.Input label="Slug" />}
+            {(field) => (
+              <FormBase
+                label="Slug"
+                description="Auto-generated from name. You can edit if needed."
+              >
+                <Input
+                  id={field.name}
+                  name={field.name}
+                  value={field.state.value}
+                  onChange={(e) => {
+                    const slugValue = generateSlug(e.target.value);
+                    field.handleChange(slugValue);
+                    handleSlugChange(slugValue);
+                  }}
+                  onBlur={field.handleBlur}
+                  placeholder="e.g., nwc-dubai-office"
+                />
+              </FormBase>
+            )}
           </form.AppField>
 
           <div className=" pt-4 mt-4">
@@ -391,10 +438,19 @@ const GlobalOfficeFormModal = ({
           </div>
 
           <div className="flex gap-2 justify-end mt-6">
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onClose}
+              disabled={isSubmitting}
+            >
               Cancel
             </Button>
-            <Button type="submit">{isEditing ? "Update" : "Create"}</Button>
+            <SubmitButton
+              isSubmitting={isSubmitting}
+              submitText={isEditing ? "Update" : "Create"}
+              submittingText={isEditing ? "Updating..." : "Creating..."}
+            />
           </div>
         </FieldGroup>
       </form>

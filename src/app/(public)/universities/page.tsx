@@ -13,14 +13,37 @@ export const metadata = {
     "Find your dream university. Browse top-ranked institutions worldwide.",
 };
 
-const UniversitiesPage = async () => {
+// Enable ISR with 1 hour revalidation for SSG
+export const revalidate = 3600;
+
+const UniversitiesPage = async ({
+  params,
+}: {
+  params: Promise<{ country: string }>;
+}) => {
+  const { country } = await params;
+
   const universities = await prisma.university.findMany({
-    where: { isActive: true },
+    where: {
+      countries: {
+        some: {
+          country: { slug: country },
+        },
+      },
+      isActive: true,
+    },
+    include: {
+      destination: true,
+      scholarships: {
+        select: { id: true },
+        take: 1, // Only need to know if any exist
+      },
+    },
     orderBy: { name: "asc" },
   });
 
   // Fetch FAQs for universities listing page
-  const faqs = await fetchFaqsForUniversitiesPage(null, 6);
+  const faqs = await fetchFaqsForUniversitiesPage(country, 6);
 
   return (
     <main className="bg-white">

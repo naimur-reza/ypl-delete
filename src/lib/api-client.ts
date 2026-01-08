@@ -49,16 +49,46 @@ export class ApiClient {
         },
       });
 
+      const contentType = response.headers.get("content-type");
       const text = await response.text();
-      const data = text ? JSON.parse(text) : {};
 
-      if (!response.ok) {
+      // Check if response is JSON before parsing
+      let data: unknown = {};
+      if (text && contentType?.includes("application/json")) {
+        try {
+          data = JSON.parse(text);
+        } catch {
+          // If JSON parsing fails, return a helpful error
+          return {
+            error: `Invalid JSON response from server. ${
+              response.status === 404
+                ? "Route not found."
+                : "Server may have returned an error page."
+            }`,
+          };
+        }
+      } else if (text && !response.ok) {
+        // If it's not JSON and not OK, it's likely an HTML error page
         return {
-          error: data.error || data.message || "An error occurred",
+          error: `Server returned ${response.status} ${response.statusText}. ${
+            response.status === 404
+              ? "The requested endpoint may not exist."
+              : "Please check the server logs."
+          }`,
         };
       }
 
-      return { data };
+      if (!response.ok) {
+        const errorData = data as { error?: string; message?: string };
+        return {
+          error:
+            errorData.error ||
+            errorData.message ||
+            `Request failed with status ${response.status}`,
+        };
+      }
+
+      return { data: data as T };
     } catch (error) {
       return {
         error:
@@ -74,7 +104,7 @@ export class ApiClient {
     const queryString = params
       ? "?" +
         Object.entries(params)
-          .filter(([_, value]) => value !== undefined)
+          .filter(([, value]) => value !== undefined)
           .map(([key, value]) => `${key}=${encodeURIComponent(value!)}`)
           .join("&")
       : "";
@@ -116,7 +146,10 @@ export const createEntityApi = <T extends { id: string }>(
   basePath: string
 ) => ({
   getAll: async (params?: PaginationParams) =>
-    apiClient.get<PaginatedResponse<T> | T[]>(basePath, params as Record<string, string | number | undefined>),
+    apiClient.get<PaginatedResponse<T> | T[]>(
+      basePath,
+      params as Record<string, string | number | undefined>
+    ),
 
   getById: async (id: string) => apiClient.get<T>(`${basePath}/${id}`),
 
@@ -133,7 +166,10 @@ export const createRestEntityApi = <T extends { id: string }>(
   basePath: string
 ) => ({
   getAll: async (params?: PaginationParams) =>
-    apiClient.get<PaginatedResponse<T> | T[]>(basePath, params as Record<string, string | number | undefined>),
+    apiClient.get<PaginatedResponse<T> | T[]>(
+      basePath,
+      params as Record<string, string | number | undefined>
+    ),
 
   getById: async (id: string) => apiClient.get<T>(`${basePath}/${id}`),
 
@@ -145,4 +181,3 @@ export const createRestEntityApi = <T extends { id: string }>(
 
   delete: async (id: string) => apiClient.delete<void>(`${basePath}/${id}`),
 });
-

@@ -290,6 +290,11 @@ export type GalleryCountry = Prisma.GalleryCountryModel
  */
 export type Scholarship = Prisma.ScholarshipModel
 /**
+ * Model Settings
+ * 
+ */
+export type Settings = Prisma.SettingsModel
+/**
  * Model Stat
  * 
  */

@@ -4,7 +4,6 @@ import {
   HeroSlider,
   CountriesSection,
   UniversitySlider,
-  AboutSection,
   AccredianSection,
   WhyChooseUs,
   EventsSection,
@@ -22,6 +21,10 @@ import { fetchFaqsForHomePage } from "@/lib/faqs";
 import { UniversityFilterWithWizard } from "@/components/filters/university-filter-with-wizard";
 import { buildMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
+import { AboutSection } from "@/components/home/about-section";
+
+// Enable ISR with 1 hour revalidation for SSG
+export const revalidate = 3600;
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return buildMetadata({
@@ -47,7 +50,8 @@ const HomePage = async () => {
         take: 12,
         orderBy: { updatedAt: "desc" },
       }),
-      fetchUpcomingEvents({ countrySlug }),
+      // Home page: show only featured upcoming events
+      fetchUpcomingEvents({ countrySlug, featuredOnly: true }),
       fetchLatestBlogs(countrySlug ?? undefined, 4),
       fetchFaqsForHomePage(countrySlug, 6),
       fetchRepresentativeVideos(countrySlug),
@@ -83,7 +87,7 @@ const HomePage = async () => {
       <IntakeFeature />
       <CountriesSection />
       <UniversitySlider universities={universities} />
-      <WhyChooseUs />
+      <WhyChooseUs countrySlug={countrySlug} />
       <ReviewSection countrySlug={countrySlug} />
       <AccredianSection />
       <EventsSection events={events} />

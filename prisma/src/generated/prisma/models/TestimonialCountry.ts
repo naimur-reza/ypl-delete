@@ -166,16 +166,16 @@ export type TestimonialCountryWhereInput = {
   id?: Prisma.StringFilter<"TestimonialCountry"> | string
   testimonialId?: Prisma.StringFilter<"TestimonialCountry"> | string
   countryId?: Prisma.StringFilter<"TestimonialCountry"> | string
-  testimonial?: Prisma.XOR<Prisma.TestimonialScalarRelationFilter, Prisma.TestimonialWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
+  testimonial?: Prisma.XOR<Prisma.TestimonialScalarRelationFilter, Prisma.TestimonialWhereInput>
 }
 
 export type TestimonialCountryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   testimonialId?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
-  testimonial?: Prisma.TestimonialOrderByWithRelationInput
   country?: Prisma.CountryOrderByWithRelationInput
+  testimonial?: Prisma.TestimonialOrderByWithRelationInput
 }
 
 export type TestimonialCountryWhereUniqueInput = Prisma.AtLeast<{
@@ -186,8 +186,8 @@ export type TestimonialCountryWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.TestimonialCountryWhereInput | Prisma.TestimonialCountryWhereInput[]
   testimonialId?: Prisma.StringFilter<"TestimonialCountry"> | string
   countryId?: Prisma.StringFilter<"TestimonialCountry"> | string
-  testimonial?: Prisma.XOR<Prisma.TestimonialScalarRelationFilter, Prisma.TestimonialWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
+  testimonial?: Prisma.XOR<Prisma.TestimonialScalarRelationFilter, Prisma.TestimonialWhereInput>
 }, "id" | "testimonialId_countryId">
 
 export type TestimonialCountryOrderByWithAggregationInput = {
@@ -210,8 +210,8 @@ export type TestimonialCountryScalarWhereWithAggregatesInput = {
 
 export type TestimonialCountryCreateInput = {
   id?: string
-  testimonial: Prisma.TestimonialCreateNestedOneWithoutCountriesInput
   country: Prisma.CountryCreateNestedOneWithoutTestimonialsInput
+  testimonial: Prisma.TestimonialCreateNestedOneWithoutCountriesInput
 }
 
 export type TestimonialCountryUncheckedCreateInput = {
@@ -222,8 +222,8 @@ export type TestimonialCountryUncheckedCreateInput = {
 
 export type TestimonialCountryUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  testimonial?: Prisma.TestimonialUpdateOneRequiredWithoutCountriesNestedInput
   country?: Prisma.CountryUpdateOneRequiredWithoutTestimonialsNestedInput
+  testimonial?: Prisma.TestimonialUpdateOneRequiredWithoutCountriesNestedInput
 }
 
 export type TestimonialCountryUncheckedUpdateInput = {
@@ -492,24 +492,24 @@ export type TestimonialCountrySelect<ExtArgs extends runtime.Types.Extensions.In
   id?: boolean
   testimonialId?: boolean
   countryId?: boolean
-  testimonial?: boolean | Prisma.TestimonialDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  testimonial?: boolean | Prisma.TestimonialDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["testimonialCountry"]>
 
 export type TestimonialCountrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   testimonialId?: boolean
   countryId?: boolean
-  testimonial?: boolean | Prisma.TestimonialDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  testimonial?: boolean | Prisma.TestimonialDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["testimonialCountry"]>
 
 export type TestimonialCountrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   testimonialId?: boolean
   countryId?: boolean
-  testimonial?: boolean | Prisma.TestimonialDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  testimonial?: boolean | Prisma.TestimonialDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["testimonialCountry"]>
 
 export type TestimonialCountrySelectScalar = {
@@ -520,23 +520,23 @@ export type TestimonialCountrySelectScalar = {
 
 export type TestimonialCountryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "testimonialId" | "countryId", ExtArgs["result"]["testimonialCountry"]>
 export type TestimonialCountryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  testimonial?: boolean | Prisma.TestimonialDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  testimonial?: boolean | Prisma.TestimonialDefaultArgs<ExtArgs>
 }
 export type TestimonialCountryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  testimonial?: boolean | Prisma.TestimonialDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  testimonial?: boolean | Prisma.TestimonialDefaultArgs<ExtArgs>
 }
 export type TestimonialCountryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  testimonial?: boolean | Prisma.TestimonialDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  testimonial?: boolean | Prisma.TestimonialDefaultArgs<ExtArgs>
 }
 
 export type $TestimonialCountryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "TestimonialCountry"
   objects: {
-    testimonial: Prisma.$TestimonialPayload<ExtArgs>
     country: Prisma.$CountryPayload<ExtArgs>
+    testimonial: Prisma.$TestimonialPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -936,8 +936,8 @@ readonly fields: TestimonialCountryFieldRefs;
  */
 export interface Prisma__TestimonialCountryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  testimonial<T extends Prisma.TestimonialDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestimonialDefaultArgs<ExtArgs>>): Prisma.Prisma__TestimonialClient<runtime.Types.Result.GetResult<Prisma.$TestimonialPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   country<T extends Prisma.CountryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CountryDefaultArgs<ExtArgs>>): Prisma.Prisma__CountryClient<runtime.Types.Result.GetResult<Prisma.$CountryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  testimonial<T extends Prisma.TestimonialDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestimonialDefaultArgs<ExtArgs>>): Prisma.Prisma__TestimonialClient<runtime.Types.Result.GetResult<Prisma.$TestimonialPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

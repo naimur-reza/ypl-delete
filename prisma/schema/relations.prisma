@@ -1,50 +1,43 @@
-// Junction/Relation Tables for Many-to-Many Relationships
-
-// ===== University Relations =====
 model UniversityCountry {
   id           String     @id @default(cuid())
   universityId String
   countryId    String
-  university   University @relation(fields: [universityId], references: [id], onDelete: Cascade)
   country      Country    @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  university   University @relation(fields: [universityId], references: [id], onDelete: Cascade)
 
   @@unique([universityId, countryId])
 }
 
-// ===== Course Relations =====
 model CourseCountry {
   id        String  @id @default(cuid())
   courseId  String
   countryId String
-  course    Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
   country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  course    Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   @@unique([courseId, countryId])
 }
 
-// ===== Scholarship Relations =====
 model ScholarshipCountry {
   id            String      @id @default(cuid())
   scholarshipId String
   countryId     String
-  scholarship   Scholarship @relation(fields: [scholarshipId], references: [id], onDelete: Cascade)
   country       Country     @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  scholarship   Scholarship @relation(fields: [scholarshipId], references: [id], onDelete: Cascade)
 
   @@unique([scholarshipId, countryId])
 }
 
-// ===== Event Relations =====
 model EventCountry {
   id        String  @id @default(cuid())
   eventId   String
   countryId String
-  event     Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
   country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  event     Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
 
   @@unique([eventId, countryId])
 }
 
-// ===== Blog Relations =====
 model BlogCountry {
   id        String  @id @default(cuid())
   blogId    String
@@ -75,13 +68,12 @@ model BlogCourse {
   @@unique([blogId, courseId])
 }
 
-// ===== FAQ Relations =====
 model FAQCountry {
   id        String  @id @default(cuid())
   faqId     String
   countryId String
-  faq       FAQ     @relation(fields: [faqId], references: [id], onDelete: Cascade)
   country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  faq       FAQ     @relation(fields: [faqId], references: [id], onDelete: Cascade)
 
   @@unique([faqId, countryId])
 }
@@ -90,8 +82,8 @@ model FAQDestination {
   id            String      @id @default(cuid())
   faqId         String
   destinationId String
-  faq           FAQ         @relation(fields: [faqId], references: [id], onDelete: Cascade)
   destination   Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  faq           FAQ         @relation(fields: [faqId], references: [id], onDelete: Cascade)
 
   @@unique([faqId, destinationId])
 }
@@ -107,11 +99,11 @@ model FAQUniversity {
 }
 
 model FAQEvent {
-  id        String @id @default(cuid())
-  faqId     String
-  eventId   String
-  faq       FAQ    @relation(fields: [faqId], references: [id], onDelete: Cascade)
-  event     Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  id      String @id @default(cuid())
+  faqId   String
+  eventId String
+  event   Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  faq     FAQ    @relation(fields: [faqId], references: [id], onDelete: Cascade)
 
   @@unique([faqId, eventId])
 }
@@ -120,8 +112,8 @@ model FAQCourse {
   id       String @id @default(cuid())
   faqId    String
   courseId String
-  faq      FAQ    @relation(fields: [faqId], references: [id], onDelete: Cascade)
   course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  faq      FAQ    @relation(fields: [faqId], references: [id], onDelete: Cascade)
 
   @@unique([faqId, courseId])
 }
@@ -137,44 +129,41 @@ model FAQScholarship {
 }
 
 model FAQIntakePage {
-  id            String     @id @default(cuid())
-  faqId         String
-  intakePageId  String
-  faq           FAQ        @relation(fields: [faqId], references: [id], onDelete: Cascade)
-  intakePage    IntakePage @relation(fields: [intakePageId], references: [id], onDelete: Cascade)
+  id           String     @id @default(cuid())
+  faqId        String
+  intakePageId String
+  faq          FAQ        @relation(fields: [faqId], references: [id], onDelete: Cascade)
+  intakePage   IntakePage @relation(fields: [intakePageId], references: [id], onDelete: Cascade)
 
   @@unique([faqId, intakePageId])
 }
 
-// ===== Global Office Relations =====
 model GlobalOfficeCountry {
   id             String       @id @default(cuid())
   globalOfficeId String
   countryId      String
-  globalOffice   GlobalOffice @relation(fields: [globalOfficeId], references: [id], onDelete: Cascade)
   country        Country      @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  globalOffice   GlobalOffice @relation(fields: [globalOfficeId], references: [id], onDelete: Cascade)
 
   @@unique([globalOfficeId, countryId])
 }
 
-// ===== Destination Relations =====
 model DestinationCountry {
   id            String      @id @default(cuid())
   destinationId String
   countryId     String
-  destination   Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
   country       Country     @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  destination   Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
 
   @@unique([destinationId, countryId])
 }
 
-// ===== Testimonial Relations (Unified) =====
 model TestimonialCountry {
   id            String      @id @default(cuid())
   testimonialId String
   countryId     String
-  testimonial   Testimonial @relation(fields: [testimonialId], references: [id], onDelete: Cascade)
   country       Country     @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  testimonial   Testimonial @relation(fields: [testimonialId], references: [id], onDelete: Cascade)
 
   @@unique([testimonialId, countryId])
 }
@@ -183,8 +172,8 @@ model TestimonialDestination {
   id            String      @id @default(cuid())
   testimonialId String
   destinationId String
-  testimonial   Testimonial @relation(fields: [testimonialId], references: [id], onDelete: Cascade)
   destination   Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  testimonial   Testimonial @relation(fields: [testimonialId], references: [id], onDelete: Cascade)
 
   @@unique([testimonialId, destinationId])
 }
@@ -203,32 +192,28 @@ model TestimonialEvent {
   id            String      @id @default(cuid())
   testimonialId String
   eventId       String
-  testimonial   Testimonial @relation(fields: [testimonialId], references: [id], onDelete: Cascade)
   event         Event       @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  testimonial   Testimonial @relation(fields: [testimonialId], references: [id], onDelete: Cascade)
 
   @@unique([testimonialId, eventId])
 }
 
-
 model AccreditationCountry {
-  id               String @id @default(cuid())
-  accreditationId  String
-  countryId        String
-
-  accreditation Accreditation @relation(fields: [accreditationId],references: [id], onDelete: Cascade )
-  country Country @relation(fields: [countryId],references: [id], onDelete: Cascade)
+  id              String        @id @default(cuid())
+  countryId       String
+  accreditationId String
+  accreditation   Accreditation @relation(fields: [accreditationId], references: [id], onDelete: Cascade)
+  country         Country       @relation(fields: [countryId], references: [id], onDelete: Cascade)
 
   @@unique([accreditationId, countryId])
 }
 
-// ===== Gallery Relations =====
 model GalleryCountry {
   id        String  @id @default(cuid())
   galleryId String
   countryId String
-  gallery   Gallery @relation(fields: [galleryId], references: [id], onDelete: Cascade)
   country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  gallery   Gallery @relation(fields: [galleryId], references: [id], onDelete: Cascade)
 
   @@unique([galleryId, countryId])
 }
-

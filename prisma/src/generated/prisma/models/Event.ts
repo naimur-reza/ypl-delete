@@ -338,14 +338,14 @@ export type EventWhereInput = {
   destinationId?: Prisma.StringFilter<"Event"> | string
   universityId?: Prisma.StringNullableFilter<"Event"> | string | null
   successSummary?: Prisma.StringNullableFilter<"Event"> | string | null
+  appointments?: Prisma.AppointmentListRelationFilter
   destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
   university?: Prisma.XOR<Prisma.UniversityNullableScalarRelationFilter, Prisma.UniversityWhereInput> | null
   countries?: Prisma.EventCountryListRelationFilter
-  faqs?: Prisma.FAQEventListRelationFilter
-  testimonials?: Prisma.TestimonialEventListRelationFilter
-  appointments?: Prisma.AppointmentListRelationFilter
   media?: Prisma.EventMediaListRelationFilter
   eventRegistrations?: Prisma.EventRegistrationListRelationFilter
+  faqs?: Prisma.FAQEventListRelationFilter
+  testimonials?: Prisma.TestimonialEventListRelationFilter
 }
 
 export type EventOrderByWithRelationInput = {
@@ -374,14 +374,14 @@ export type EventOrderByWithRelationInput = {
   destinationId?: Prisma.SortOrder
   universityId?: Prisma.SortOrderInput | Prisma.SortOrder
   successSummary?: Prisma.SortOrderInput | Prisma.SortOrder
+  appointments?: Prisma.AppointmentOrderByRelationAggregateInput
   destination?: Prisma.DestinationOrderByWithRelationInput
   university?: Prisma.UniversityOrderByWithRelationInput
   countries?: Prisma.EventCountryOrderByRelationAggregateInput
-  faqs?: Prisma.FAQEventOrderByRelationAggregateInput
-  testimonials?: Prisma.TestimonialEventOrderByRelationAggregateInput
-  appointments?: Prisma.AppointmentOrderByRelationAggregateInput
   media?: Prisma.EventMediaOrderByRelationAggregateInput
   eventRegistrations?: Prisma.EventRegistrationOrderByRelationAggregateInput
+  faqs?: Prisma.FAQEventOrderByRelationAggregateInput
+  testimonials?: Prisma.TestimonialEventOrderByRelationAggregateInput
 }
 
 export type EventWhereUniqueInput = Prisma.AtLeast<{
@@ -413,14 +413,14 @@ export type EventWhereUniqueInput = Prisma.AtLeast<{
   destinationId?: Prisma.StringFilter<"Event"> | string
   universityId?: Prisma.StringNullableFilter<"Event"> | string | null
   successSummary?: Prisma.StringNullableFilter<"Event"> | string | null
+  appointments?: Prisma.AppointmentListRelationFilter
   destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
   university?: Prisma.XOR<Prisma.UniversityNullableScalarRelationFilter, Prisma.UniversityWhereInput> | null
   countries?: Prisma.EventCountryListRelationFilter
-  faqs?: Prisma.FAQEventListRelationFilter
-  testimonials?: Prisma.TestimonialEventListRelationFilter
-  appointments?: Prisma.AppointmentListRelationFilter
   media?: Prisma.EventMediaListRelationFilter
   eventRegistrations?: Prisma.EventRegistrationListRelationFilter
+  faqs?: Prisma.FAQEventListRelationFilter
+  testimonials?: Prisma.TestimonialEventListRelationFilter
 }, "id" | "slug">
 
 export type EventOrderByWithAggregationInput = {
@@ -509,14 +509,14 @@ export type EventCreateInput = {
   createdBy?: string | null
   updatedBy?: string | null
   successSummary?: string | null
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutEventInput
   destination: Prisma.DestinationCreateNestedOneWithoutEventsInput
   university?: Prisma.UniversityCreateNestedOneWithoutEventsInput
   countries?: Prisma.EventCountryCreateNestedManyWithoutEventInput
-  faqs?: Prisma.FAQEventCreateNestedManyWithoutEventInput
-  testimonials?: Prisma.TestimonialEventCreateNestedManyWithoutEventInput
-  appointments?: Prisma.AppointmentCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutEventInput
+  faqs?: Prisma.FAQEventCreateNestedManyWithoutEventInput
+  testimonials?: Prisma.TestimonialEventCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateInput = {
@@ -545,12 +545,12 @@ export type EventUncheckedCreateInput = {
   destinationId: string
   universityId?: string | null
   successSummary?: string | null
-  countries?: Prisma.EventCountryUncheckedCreateNestedManyWithoutEventInput
-  faqs?: Prisma.FAQEventUncheckedCreateNestedManyWithoutEventInput
-  testimonials?: Prisma.TestimonialEventUncheckedCreateNestedManyWithoutEventInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutEventInput
+  countries?: Prisma.EventCountryUncheckedCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaUncheckedCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutEventInput
+  faqs?: Prisma.FAQEventUncheckedCreateNestedManyWithoutEventInput
+  testimonials?: Prisma.TestimonialEventUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EventUpdateInput = {
@@ -577,14 +577,14 @@ export type EventUpdateInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appointments?: Prisma.AppointmentUpdateManyWithoutEventNestedInput
   destination?: Prisma.DestinationUpdateOneRequiredWithoutEventsNestedInput
   university?: Prisma.UniversityUpdateOneWithoutEventsNestedInput
   countries?: Prisma.EventCountryUpdateManyWithoutEventNestedInput
-  faqs?: Prisma.FAQEventUpdateManyWithoutEventNestedInput
-  testimonials?: Prisma.TestimonialEventUpdateManyWithoutEventNestedInput
-  appointments?: Prisma.AppointmentUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutEventNestedInput
+  faqs?: Prisma.FAQEventUpdateManyWithoutEventNestedInput
+  testimonials?: Prisma.TestimonialEventUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateInput = {
@@ -613,12 +613,12 @@ export type EventUncheckedUpdateInput = {
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  countries?: Prisma.EventCountryUncheckedUpdateManyWithoutEventNestedInput
-  faqs?: Prisma.FAQEventUncheckedUpdateManyWithoutEventNestedInput
-  testimonials?: Prisma.TestimonialEventUncheckedUpdateManyWithoutEventNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutEventNestedInput
+  countries?: Prisma.EventCountryUncheckedUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUncheckedUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutEventNestedInput
+  faqs?: Prisma.FAQEventUncheckedUpdateManyWithoutEventNestedInput
+  testimonials?: Prisma.TestimonialEventUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EventCreateManyInput = {
@@ -1023,10 +1023,10 @@ export type EventCreateWithoutAppointmentsInput = {
   destination: Prisma.DestinationCreateNestedOneWithoutEventsInput
   university?: Prisma.UniversityCreateNestedOneWithoutEventsInput
   countries?: Prisma.EventCountryCreateNestedManyWithoutEventInput
-  faqs?: Prisma.FAQEventCreateNestedManyWithoutEventInput
-  testimonials?: Prisma.TestimonialEventCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutEventInput
+  faqs?: Prisma.FAQEventCreateNestedManyWithoutEventInput
+  testimonials?: Prisma.TestimonialEventCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateWithoutAppointmentsInput = {
@@ -1056,10 +1056,10 @@ export type EventUncheckedCreateWithoutAppointmentsInput = {
   universityId?: string | null
   successSummary?: string | null
   countries?: Prisma.EventCountryUncheckedCreateNestedManyWithoutEventInput
-  faqs?: Prisma.FAQEventUncheckedCreateNestedManyWithoutEventInput
-  testimonials?: Prisma.TestimonialEventUncheckedCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaUncheckedCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutEventInput
+  faqs?: Prisma.FAQEventUncheckedCreateNestedManyWithoutEventInput
+  testimonials?: Prisma.TestimonialEventUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EventCreateOrConnectWithoutAppointmentsInput = {
@@ -1105,10 +1105,10 @@ export type EventUpdateWithoutAppointmentsInput = {
   destination?: Prisma.DestinationUpdateOneRequiredWithoutEventsNestedInput
   university?: Prisma.UniversityUpdateOneWithoutEventsNestedInput
   countries?: Prisma.EventCountryUpdateManyWithoutEventNestedInput
-  faqs?: Prisma.FAQEventUpdateManyWithoutEventNestedInput
-  testimonials?: Prisma.TestimonialEventUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutEventNestedInput
+  faqs?: Prisma.FAQEventUpdateManyWithoutEventNestedInput
+  testimonials?: Prisma.TestimonialEventUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateWithoutAppointmentsInput = {
@@ -1138,10 +1138,10 @@ export type EventUncheckedUpdateWithoutAppointmentsInput = {
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   countries?: Prisma.EventCountryUncheckedUpdateManyWithoutEventNestedInput
-  faqs?: Prisma.FAQEventUncheckedUpdateManyWithoutEventNestedInput
-  testimonials?: Prisma.TestimonialEventUncheckedUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUncheckedUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutEventNestedInput
+  faqs?: Prisma.FAQEventUncheckedUpdateManyWithoutEventNestedInput
+  testimonials?: Prisma.TestimonialEventUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EventCreateWithoutMediaInput = {
@@ -1168,13 +1168,13 @@ export type EventCreateWithoutMediaInput = {
   createdBy?: string | null
   updatedBy?: string | null
   successSummary?: string | null
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutEventInput
   destination: Prisma.DestinationCreateNestedOneWithoutEventsInput
   university?: Prisma.UniversityCreateNestedOneWithoutEventsInput
   countries?: Prisma.EventCountryCreateNestedManyWithoutEventInput
+  eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutEventInput
   faqs?: Prisma.FAQEventCreateNestedManyWithoutEventInput
   testimonials?: Prisma.TestimonialEventCreateNestedManyWithoutEventInput
-  appointments?: Prisma.AppointmentCreateNestedManyWithoutEventInput
-  eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateWithoutMediaInput = {
@@ -1203,11 +1203,11 @@ export type EventUncheckedCreateWithoutMediaInput = {
   destinationId: string
   universityId?: string | null
   successSummary?: string | null
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutEventInput
   countries?: Prisma.EventCountryUncheckedCreateNestedManyWithoutEventInput
+  eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutEventInput
   faqs?: Prisma.FAQEventUncheckedCreateNestedManyWithoutEventInput
   testimonials?: Prisma.TestimonialEventUncheckedCreateNestedManyWithoutEventInput
-  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutEventInput
-  eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EventCreateOrConnectWithoutMediaInput = {
@@ -1250,13 +1250,13 @@ export type EventUpdateWithoutMediaInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appointments?: Prisma.AppointmentUpdateManyWithoutEventNestedInput
   destination?: Prisma.DestinationUpdateOneRequiredWithoutEventsNestedInput
   university?: Prisma.UniversityUpdateOneWithoutEventsNestedInput
   countries?: Prisma.EventCountryUpdateManyWithoutEventNestedInput
+  eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutEventNestedInput
   faqs?: Prisma.FAQEventUpdateManyWithoutEventNestedInput
   testimonials?: Prisma.TestimonialEventUpdateManyWithoutEventNestedInput
-  appointments?: Prisma.AppointmentUpdateManyWithoutEventNestedInput
-  eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateWithoutMediaInput = {
@@ -1285,11 +1285,11 @@ export type EventUncheckedUpdateWithoutMediaInput = {
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutEventNestedInput
   countries?: Prisma.EventCountryUncheckedUpdateManyWithoutEventNestedInput
+  eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutEventNestedInput
   faqs?: Prisma.FAQEventUncheckedUpdateManyWithoutEventNestedInput
   testimonials?: Prisma.TestimonialEventUncheckedUpdateManyWithoutEventNestedInput
-  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutEventNestedInput
-  eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EventCreateWithoutEventRegistrationsInput = {
@@ -1316,13 +1316,13 @@ export type EventCreateWithoutEventRegistrationsInput = {
   createdBy?: string | null
   updatedBy?: string | null
   successSummary?: string | null
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutEventInput
   destination: Prisma.DestinationCreateNestedOneWithoutEventsInput
   university?: Prisma.UniversityCreateNestedOneWithoutEventsInput
   countries?: Prisma.EventCountryCreateNestedManyWithoutEventInput
+  media?: Prisma.EventMediaCreateNestedManyWithoutEventInput
   faqs?: Prisma.FAQEventCreateNestedManyWithoutEventInput
   testimonials?: Prisma.TestimonialEventCreateNestedManyWithoutEventInput
-  appointments?: Prisma.AppointmentCreateNestedManyWithoutEventInput
-  media?: Prisma.EventMediaCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateWithoutEventRegistrationsInput = {
@@ -1351,11 +1351,11 @@ export type EventUncheckedCreateWithoutEventRegistrationsInput = {
   destinationId: string
   universityId?: string | null
   successSummary?: string | null
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutEventInput
   countries?: Prisma.EventCountryUncheckedCreateNestedManyWithoutEventInput
+  media?: Prisma.EventMediaUncheckedCreateNestedManyWithoutEventInput
   faqs?: Prisma.FAQEventUncheckedCreateNestedManyWithoutEventInput
   testimonials?: Prisma.TestimonialEventUncheckedCreateNestedManyWithoutEventInput
-  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutEventInput
-  media?: Prisma.EventMediaUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EventCreateOrConnectWithoutEventRegistrationsInput = {
@@ -1398,13 +1398,13 @@ export type EventUpdateWithoutEventRegistrationsInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appointments?: Prisma.AppointmentUpdateManyWithoutEventNestedInput
   destination?: Prisma.DestinationUpdateOneRequiredWithoutEventsNestedInput
   university?: Prisma.UniversityUpdateOneWithoutEventsNestedInput
   countries?: Prisma.EventCountryUpdateManyWithoutEventNestedInput
+  media?: Prisma.EventMediaUpdateManyWithoutEventNestedInput
   faqs?: Prisma.FAQEventUpdateManyWithoutEventNestedInput
   testimonials?: Prisma.TestimonialEventUpdateManyWithoutEventNestedInput
-  appointments?: Prisma.AppointmentUpdateManyWithoutEventNestedInput
-  media?: Prisma.EventMediaUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateWithoutEventRegistrationsInput = {
@@ -1433,11 +1433,11 @@ export type EventUncheckedUpdateWithoutEventRegistrationsInput = {
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutEventNestedInput
   countries?: Prisma.EventCountryUncheckedUpdateManyWithoutEventNestedInput
+  media?: Prisma.EventMediaUncheckedUpdateManyWithoutEventNestedInput
   faqs?: Prisma.FAQEventUncheckedUpdateManyWithoutEventNestedInput
   testimonials?: Prisma.TestimonialEventUncheckedUpdateManyWithoutEventNestedInput
-  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutEventNestedInput
-  media?: Prisma.EventMediaUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EventCreateWithoutDestinationInput = {
@@ -1464,13 +1464,13 @@ export type EventCreateWithoutDestinationInput = {
   createdBy?: string | null
   updatedBy?: string | null
   successSummary?: string | null
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutEventInput
   university?: Prisma.UniversityCreateNestedOneWithoutEventsInput
   countries?: Prisma.EventCountryCreateNestedManyWithoutEventInput
-  faqs?: Prisma.FAQEventCreateNestedManyWithoutEventInput
-  testimonials?: Prisma.TestimonialEventCreateNestedManyWithoutEventInput
-  appointments?: Prisma.AppointmentCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutEventInput
+  faqs?: Prisma.FAQEventCreateNestedManyWithoutEventInput
+  testimonials?: Prisma.TestimonialEventCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateWithoutDestinationInput = {
@@ -1498,12 +1498,12 @@ export type EventUncheckedCreateWithoutDestinationInput = {
   updatedBy?: string | null
   universityId?: string | null
   successSummary?: string | null
-  countries?: Prisma.EventCountryUncheckedCreateNestedManyWithoutEventInput
-  faqs?: Prisma.FAQEventUncheckedCreateNestedManyWithoutEventInput
-  testimonials?: Prisma.TestimonialEventUncheckedCreateNestedManyWithoutEventInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutEventInput
+  countries?: Prisma.EventCountryUncheckedCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaUncheckedCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutEventInput
+  faqs?: Prisma.FAQEventUncheckedCreateNestedManyWithoutEventInput
+  testimonials?: Prisma.TestimonialEventUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EventCreateOrConnectWithoutDestinationInput = {
@@ -1587,13 +1587,13 @@ export type EventCreateWithoutCountriesInput = {
   createdBy?: string | null
   updatedBy?: string | null
   successSummary?: string | null
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutEventInput
   destination: Prisma.DestinationCreateNestedOneWithoutEventsInput
   university?: Prisma.UniversityCreateNestedOneWithoutEventsInput
-  faqs?: Prisma.FAQEventCreateNestedManyWithoutEventInput
-  testimonials?: Prisma.TestimonialEventCreateNestedManyWithoutEventInput
-  appointments?: Prisma.AppointmentCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutEventInput
+  faqs?: Prisma.FAQEventCreateNestedManyWithoutEventInput
+  testimonials?: Prisma.TestimonialEventCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateWithoutCountriesInput = {
@@ -1622,11 +1622,11 @@ export type EventUncheckedCreateWithoutCountriesInput = {
   destinationId: string
   universityId?: string | null
   successSummary?: string | null
-  faqs?: Prisma.FAQEventUncheckedCreateNestedManyWithoutEventInput
-  testimonials?: Prisma.TestimonialEventUncheckedCreateNestedManyWithoutEventInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaUncheckedCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutEventInput
+  faqs?: Prisma.FAQEventUncheckedCreateNestedManyWithoutEventInput
+  testimonials?: Prisma.TestimonialEventUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EventCreateOrConnectWithoutCountriesInput = {
@@ -1669,13 +1669,13 @@ export type EventUpdateWithoutCountriesInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appointments?: Prisma.AppointmentUpdateManyWithoutEventNestedInput
   destination?: Prisma.DestinationUpdateOneRequiredWithoutEventsNestedInput
   university?: Prisma.UniversityUpdateOneWithoutEventsNestedInput
-  faqs?: Prisma.FAQEventUpdateManyWithoutEventNestedInput
-  testimonials?: Prisma.TestimonialEventUpdateManyWithoutEventNestedInput
-  appointments?: Prisma.AppointmentUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutEventNestedInput
+  faqs?: Prisma.FAQEventUpdateManyWithoutEventNestedInput
+  testimonials?: Prisma.TestimonialEventUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateWithoutCountriesInput = {
@@ -1704,11 +1704,11 @@ export type EventUncheckedUpdateWithoutCountriesInput = {
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  faqs?: Prisma.FAQEventUncheckedUpdateManyWithoutEventNestedInput
-  testimonials?: Prisma.TestimonialEventUncheckedUpdateManyWithoutEventNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUncheckedUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutEventNestedInput
+  faqs?: Prisma.FAQEventUncheckedUpdateManyWithoutEventNestedInput
+  testimonials?: Prisma.TestimonialEventUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EventCreateWithoutFaqsInput = {
@@ -1735,13 +1735,13 @@ export type EventCreateWithoutFaqsInput = {
   createdBy?: string | null
   updatedBy?: string | null
   successSummary?: string | null
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutEventInput
   destination: Prisma.DestinationCreateNestedOneWithoutEventsInput
   university?: Prisma.UniversityCreateNestedOneWithoutEventsInput
   countries?: Prisma.EventCountryCreateNestedManyWithoutEventInput
-  testimonials?: Prisma.TestimonialEventCreateNestedManyWithoutEventInput
-  appointments?: Prisma.AppointmentCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutEventInput
+  testimonials?: Prisma.TestimonialEventCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateWithoutFaqsInput = {
@@ -1770,11 +1770,11 @@ export type EventUncheckedCreateWithoutFaqsInput = {
   destinationId: string
   universityId?: string | null
   successSummary?: string | null
-  countries?: Prisma.EventCountryUncheckedCreateNestedManyWithoutEventInput
-  testimonials?: Prisma.TestimonialEventUncheckedCreateNestedManyWithoutEventInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutEventInput
+  countries?: Prisma.EventCountryUncheckedCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaUncheckedCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutEventInput
+  testimonials?: Prisma.TestimonialEventUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EventCreateOrConnectWithoutFaqsInput = {
@@ -1817,13 +1817,13 @@ export type EventUpdateWithoutFaqsInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appointments?: Prisma.AppointmentUpdateManyWithoutEventNestedInput
   destination?: Prisma.DestinationUpdateOneRequiredWithoutEventsNestedInput
   university?: Prisma.UniversityUpdateOneWithoutEventsNestedInput
   countries?: Prisma.EventCountryUpdateManyWithoutEventNestedInput
-  testimonials?: Prisma.TestimonialEventUpdateManyWithoutEventNestedInput
-  appointments?: Prisma.AppointmentUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutEventNestedInput
+  testimonials?: Prisma.TestimonialEventUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateWithoutFaqsInput = {
@@ -1852,11 +1852,11 @@ export type EventUncheckedUpdateWithoutFaqsInput = {
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  countries?: Prisma.EventCountryUncheckedUpdateManyWithoutEventNestedInput
-  testimonials?: Prisma.TestimonialEventUncheckedUpdateManyWithoutEventNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutEventNestedInput
+  countries?: Prisma.EventCountryUncheckedUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUncheckedUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutEventNestedInput
+  testimonials?: Prisma.TestimonialEventUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EventCreateWithoutTestimonialsInput = {
@@ -1883,13 +1883,13 @@ export type EventCreateWithoutTestimonialsInput = {
   createdBy?: string | null
   updatedBy?: string | null
   successSummary?: string | null
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutEventInput
   destination: Prisma.DestinationCreateNestedOneWithoutEventsInput
   university?: Prisma.UniversityCreateNestedOneWithoutEventsInput
   countries?: Prisma.EventCountryCreateNestedManyWithoutEventInput
-  faqs?: Prisma.FAQEventCreateNestedManyWithoutEventInput
-  appointments?: Prisma.AppointmentCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutEventInput
+  faqs?: Prisma.FAQEventCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateWithoutTestimonialsInput = {
@@ -1918,11 +1918,11 @@ export type EventUncheckedCreateWithoutTestimonialsInput = {
   destinationId: string
   universityId?: string | null
   successSummary?: string | null
-  countries?: Prisma.EventCountryUncheckedCreateNestedManyWithoutEventInput
-  faqs?: Prisma.FAQEventUncheckedCreateNestedManyWithoutEventInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutEventInput
+  countries?: Prisma.EventCountryUncheckedCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaUncheckedCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutEventInput
+  faqs?: Prisma.FAQEventUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EventCreateOrConnectWithoutTestimonialsInput = {
@@ -1965,13 +1965,13 @@ export type EventUpdateWithoutTestimonialsInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appointments?: Prisma.AppointmentUpdateManyWithoutEventNestedInput
   destination?: Prisma.DestinationUpdateOneRequiredWithoutEventsNestedInput
   university?: Prisma.UniversityUpdateOneWithoutEventsNestedInput
   countries?: Prisma.EventCountryUpdateManyWithoutEventNestedInput
-  faqs?: Prisma.FAQEventUpdateManyWithoutEventNestedInput
-  appointments?: Prisma.AppointmentUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutEventNestedInput
+  faqs?: Prisma.FAQEventUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateWithoutTestimonialsInput = {
@@ -2000,11 +2000,11 @@ export type EventUncheckedUpdateWithoutTestimonialsInput = {
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  countries?: Prisma.EventCountryUncheckedUpdateManyWithoutEventNestedInput
-  faqs?: Prisma.FAQEventUncheckedUpdateManyWithoutEventNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutEventNestedInput
+  countries?: Prisma.EventCountryUncheckedUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUncheckedUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutEventNestedInput
+  faqs?: Prisma.FAQEventUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EventCreateWithoutUniversityInput = {
@@ -2031,13 +2031,13 @@ export type EventCreateWithoutUniversityInput = {
   createdBy?: string | null
   updatedBy?: string | null
   successSummary?: string | null
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutEventInput
   destination: Prisma.DestinationCreateNestedOneWithoutEventsInput
   countries?: Prisma.EventCountryCreateNestedManyWithoutEventInput
-  faqs?: Prisma.FAQEventCreateNestedManyWithoutEventInput
-  testimonials?: Prisma.TestimonialEventCreateNestedManyWithoutEventInput
-  appointments?: Prisma.AppointmentCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutEventInput
+  faqs?: Prisma.FAQEventCreateNestedManyWithoutEventInput
+  testimonials?: Prisma.TestimonialEventCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateWithoutUniversityInput = {
@@ -2065,12 +2065,12 @@ export type EventUncheckedCreateWithoutUniversityInput = {
   updatedBy?: string | null
   destinationId: string
   successSummary?: string | null
-  countries?: Prisma.EventCountryUncheckedCreateNestedManyWithoutEventInput
-  faqs?: Prisma.FAQEventUncheckedCreateNestedManyWithoutEventInput
-  testimonials?: Prisma.TestimonialEventUncheckedCreateNestedManyWithoutEventInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutEventInput
+  countries?: Prisma.EventCountryUncheckedCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaUncheckedCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutEventInput
+  faqs?: Prisma.FAQEventUncheckedCreateNestedManyWithoutEventInput
+  testimonials?: Prisma.TestimonialEventUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EventCreateOrConnectWithoutUniversityInput = {
@@ -2150,13 +2150,13 @@ export type EventUpdateWithoutDestinationInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appointments?: Prisma.AppointmentUpdateManyWithoutEventNestedInput
   university?: Prisma.UniversityUpdateOneWithoutEventsNestedInput
   countries?: Prisma.EventCountryUpdateManyWithoutEventNestedInput
-  faqs?: Prisma.FAQEventUpdateManyWithoutEventNestedInput
-  testimonials?: Prisma.TestimonialEventUpdateManyWithoutEventNestedInput
-  appointments?: Prisma.AppointmentUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutEventNestedInput
+  faqs?: Prisma.FAQEventUpdateManyWithoutEventNestedInput
+  testimonials?: Prisma.TestimonialEventUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateWithoutDestinationInput = {
@@ -2184,12 +2184,12 @@ export type EventUncheckedUpdateWithoutDestinationInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  countries?: Prisma.EventCountryUncheckedUpdateManyWithoutEventNestedInput
-  faqs?: Prisma.FAQEventUncheckedUpdateManyWithoutEventNestedInput
-  testimonials?: Prisma.TestimonialEventUncheckedUpdateManyWithoutEventNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutEventNestedInput
+  countries?: Prisma.EventCountryUncheckedUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUncheckedUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutEventNestedInput
+  faqs?: Prisma.FAQEventUncheckedUpdateManyWithoutEventNestedInput
+  testimonials?: Prisma.TestimonialEventUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateManyWithoutDestinationInput = {
@@ -2270,13 +2270,13 @@ export type EventUpdateWithoutUniversityInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appointments?: Prisma.AppointmentUpdateManyWithoutEventNestedInput
   destination?: Prisma.DestinationUpdateOneRequiredWithoutEventsNestedInput
   countries?: Prisma.EventCountryUpdateManyWithoutEventNestedInput
-  faqs?: Prisma.FAQEventUpdateManyWithoutEventNestedInput
-  testimonials?: Prisma.TestimonialEventUpdateManyWithoutEventNestedInput
-  appointments?: Prisma.AppointmentUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutEventNestedInput
+  faqs?: Prisma.FAQEventUpdateManyWithoutEventNestedInput
+  testimonials?: Prisma.TestimonialEventUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateWithoutUniversityInput = {
@@ -2304,12 +2304,12 @@ export type EventUncheckedUpdateWithoutUniversityInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  countries?: Prisma.EventCountryUncheckedUpdateManyWithoutEventNestedInput
-  faqs?: Prisma.FAQEventUncheckedUpdateManyWithoutEventNestedInput
-  testimonials?: Prisma.TestimonialEventUncheckedUpdateManyWithoutEventNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutEventNestedInput
+  countries?: Prisma.EventCountryUncheckedUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUncheckedUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutEventNestedInput
+  faqs?: Prisma.FAQEventUncheckedUpdateManyWithoutEventNestedInput
+  testimonials?: Prisma.TestimonialEventUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateManyWithoutUniversityInput = {
@@ -2345,21 +2345,21 @@ export type EventUncheckedUpdateManyWithoutUniversityInput = {
  */
 
 export type EventCountOutputType = {
-  countries: number
-  faqs: number
-  testimonials: number
   appointments: number
+  countries: number
   media: number
   eventRegistrations: number
+  faqs: number
+  testimonials: number
 }
 
 export type EventCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  countries?: boolean | EventCountOutputTypeCountCountriesArgs
-  faqs?: boolean | EventCountOutputTypeCountFaqsArgs
-  testimonials?: boolean | EventCountOutputTypeCountTestimonialsArgs
   appointments?: boolean | EventCountOutputTypeCountAppointmentsArgs
+  countries?: boolean | EventCountOutputTypeCountCountriesArgs
   media?: boolean | EventCountOutputTypeCountMediaArgs
   eventRegistrations?: boolean | EventCountOutputTypeCountEventRegistrationsArgs
+  faqs?: boolean | EventCountOutputTypeCountFaqsArgs
+  testimonials?: boolean | EventCountOutputTypeCountTestimonialsArgs
 }
 
 /**
@@ -2375,29 +2375,15 @@ export type EventCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extens
 /**
  * EventCountOutputType without action
  */
-export type EventCountOutputTypeCountCountriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.EventCountryWhereInput
-}
-
-/**
- * EventCountOutputType without action
- */
-export type EventCountOutputTypeCountFaqsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.FAQEventWhereInput
-}
-
-/**
- * EventCountOutputType without action
- */
-export type EventCountOutputTypeCountTestimonialsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.TestimonialEventWhereInput
-}
-
-/**
- * EventCountOutputType without action
- */
 export type EventCountOutputTypeCountAppointmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.AppointmentWhereInput
+}
+
+/**
+ * EventCountOutputType without action
+ */
+export type EventCountOutputTypeCountCountriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EventCountryWhereInput
 }
 
 /**
@@ -2412,6 +2398,20 @@ export type EventCountOutputTypeCountMediaArgs<ExtArgs extends runtime.Types.Ext
  */
 export type EventCountOutputTypeCountEventRegistrationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.EventRegistrationWhereInput
+}
+
+/**
+ * EventCountOutputType without action
+ */
+export type EventCountOutputTypeCountFaqsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FAQEventWhereInput
+}
+
+/**
+ * EventCountOutputType without action
+ */
+export type EventCountOutputTypeCountTestimonialsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TestimonialEventWhereInput
 }
 
 
@@ -2441,14 +2441,14 @@ export type EventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   destinationId?: boolean
   universityId?: boolean
   successSummary?: boolean
+  appointments?: boolean | Prisma.Event$appointmentsArgs<ExtArgs>
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
   university?: boolean | Prisma.Event$universityArgs<ExtArgs>
   countries?: boolean | Prisma.Event$countriesArgs<ExtArgs>
-  faqs?: boolean | Prisma.Event$faqsArgs<ExtArgs>
-  testimonials?: boolean | Prisma.Event$testimonialsArgs<ExtArgs>
-  appointments?: boolean | Prisma.Event$appointmentsArgs<ExtArgs>
   media?: boolean | Prisma.Event$mediaArgs<ExtArgs>
   eventRegistrations?: boolean | Prisma.Event$eventRegistrationsArgs<ExtArgs>
+  faqs?: boolean | Prisma.Event$faqsArgs<ExtArgs>
+  testimonials?: boolean | Prisma.Event$testimonialsArgs<ExtArgs>
   _count?: boolean | Prisma.EventCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["event"]>
 
@@ -2542,14 +2542,14 @@ export type EventSelectScalar = {
 
 export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "description" | "thumbnail" | "gallery" | "video" | "eventType" | "startDate" | "endDate" | "location" | "isFeatured" | "registrationLink" | "registrationButtonText" | "isRegistrationOpen" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "destinationId" | "universityId" | "successSummary", ExtArgs["result"]["event"]>
 export type EventInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  appointments?: boolean | Prisma.Event$appointmentsArgs<ExtArgs>
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
   university?: boolean | Prisma.Event$universityArgs<ExtArgs>
   countries?: boolean | Prisma.Event$countriesArgs<ExtArgs>
-  faqs?: boolean | Prisma.Event$faqsArgs<ExtArgs>
-  testimonials?: boolean | Prisma.Event$testimonialsArgs<ExtArgs>
-  appointments?: boolean | Prisma.Event$appointmentsArgs<ExtArgs>
   media?: boolean | Prisma.Event$mediaArgs<ExtArgs>
   eventRegistrations?: boolean | Prisma.Event$eventRegistrationsArgs<ExtArgs>
+  faqs?: boolean | Prisma.Event$faqsArgs<ExtArgs>
+  testimonials?: boolean | Prisma.Event$testimonialsArgs<ExtArgs>
   _count?: boolean | Prisma.EventCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type EventIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2564,14 +2564,14 @@ export type EventIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type $EventPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Event"
   objects: {
+    appointments: Prisma.$AppointmentPayload<ExtArgs>[]
     destination: Prisma.$DestinationPayload<ExtArgs>
     university: Prisma.$UniversityPayload<ExtArgs> | null
     countries: Prisma.$EventCountryPayload<ExtArgs>[]
-    faqs: Prisma.$FAQEventPayload<ExtArgs>[]
-    testimonials: Prisma.$TestimonialEventPayload<ExtArgs>[]
-    appointments: Prisma.$AppointmentPayload<ExtArgs>[]
     media: Prisma.$EventMediaPayload<ExtArgs>[]
     eventRegistrations: Prisma.$EventRegistrationPayload<ExtArgs>[]
+    faqs: Prisma.$FAQEventPayload<ExtArgs>[]
+    testimonials: Prisma.$TestimonialEventPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2993,14 +2993,14 @@ readonly fields: EventFieldRefs;
  */
 export interface Prisma__EventClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  appointments<T extends Prisma.Event$appointmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$appointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   destination<T extends Prisma.DestinationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DestinationDefaultArgs<ExtArgs>>): Prisma.Prisma__DestinationClient<runtime.Types.Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   university<T extends Prisma.Event$universityArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$universityArgs<ExtArgs>>): Prisma.Prisma__UniversityClient<runtime.Types.Result.GetResult<Prisma.$UniversityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   countries<T extends Prisma.Event$countriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$countriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  faqs<T extends Prisma.Event$faqsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$faqsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FAQEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  testimonials<T extends Prisma.Event$testimonialsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$testimonialsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestimonialEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  appointments<T extends Prisma.Event$appointmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$appointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   media<T extends Prisma.Event$mediaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$mediaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventMediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   eventRegistrations<T extends Prisma.Event$eventRegistrationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$eventRegistrationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventRegistrationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  faqs<T extends Prisma.Event$faqsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$faqsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FAQEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  testimonials<T extends Prisma.Event$testimonialsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$testimonialsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestimonialEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3451,6 +3451,30 @@ export type EventDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
+ * Event.appointments
+ */
+export type Event$appointmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Appointment
+   */
+  select?: Prisma.AppointmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Appointment
+   */
+  omit?: Prisma.AppointmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AppointmentInclude<ExtArgs> | null
+  where?: Prisma.AppointmentWhereInput
+  orderBy?: Prisma.AppointmentOrderByWithRelationInput | Prisma.AppointmentOrderByWithRelationInput[]
+  cursor?: Prisma.AppointmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AppointmentScalarFieldEnum | Prisma.AppointmentScalarFieldEnum[]
+}
+
+/**
  * Event.university
  */
 export type Event$universityArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3491,78 +3515,6 @@ export type Event$countriesArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.EventCountryScalarFieldEnum | Prisma.EventCountryScalarFieldEnum[]
-}
-
-/**
- * Event.faqs
- */
-export type Event$faqsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the FAQEvent
-   */
-  select?: Prisma.FAQEventSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the FAQEvent
-   */
-  omit?: Prisma.FAQEventOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.FAQEventInclude<ExtArgs> | null
-  where?: Prisma.FAQEventWhereInput
-  orderBy?: Prisma.FAQEventOrderByWithRelationInput | Prisma.FAQEventOrderByWithRelationInput[]
-  cursor?: Prisma.FAQEventWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.FAQEventScalarFieldEnum | Prisma.FAQEventScalarFieldEnum[]
-}
-
-/**
- * Event.testimonials
- */
-export type Event$testimonialsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the TestimonialEvent
-   */
-  select?: Prisma.TestimonialEventSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the TestimonialEvent
-   */
-  omit?: Prisma.TestimonialEventOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TestimonialEventInclude<ExtArgs> | null
-  where?: Prisma.TestimonialEventWhereInput
-  orderBy?: Prisma.TestimonialEventOrderByWithRelationInput | Prisma.TestimonialEventOrderByWithRelationInput[]
-  cursor?: Prisma.TestimonialEventWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.TestimonialEventScalarFieldEnum | Prisma.TestimonialEventScalarFieldEnum[]
-}
-
-/**
- * Event.appointments
- */
-export type Event$appointmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Appointment
-   */
-  select?: Prisma.AppointmentSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Appointment
-   */
-  omit?: Prisma.AppointmentOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.AppointmentInclude<ExtArgs> | null
-  where?: Prisma.AppointmentWhereInput
-  orderBy?: Prisma.AppointmentOrderByWithRelationInput | Prisma.AppointmentOrderByWithRelationInput[]
-  cursor?: Prisma.AppointmentWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.AppointmentScalarFieldEnum | Prisma.AppointmentScalarFieldEnum[]
 }
 
 /**
@@ -3611,6 +3563,54 @@ export type Event$eventRegistrationsArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.EventRegistrationScalarFieldEnum | Prisma.EventRegistrationScalarFieldEnum[]
+}
+
+/**
+ * Event.faqs
+ */
+export type Event$faqsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FAQEvent
+   */
+  select?: Prisma.FAQEventSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FAQEvent
+   */
+  omit?: Prisma.FAQEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FAQEventInclude<ExtArgs> | null
+  where?: Prisma.FAQEventWhereInput
+  orderBy?: Prisma.FAQEventOrderByWithRelationInput | Prisma.FAQEventOrderByWithRelationInput[]
+  cursor?: Prisma.FAQEventWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FAQEventScalarFieldEnum | Prisma.FAQEventScalarFieldEnum[]
+}
+
+/**
+ * Event.testimonials
+ */
+export type Event$testimonialsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TestimonialEvent
+   */
+  select?: Prisma.TestimonialEventSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TestimonialEvent
+   */
+  omit?: Prisma.TestimonialEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TestimonialEventInclude<ExtArgs> | null
+  where?: Prisma.TestimonialEventWhereInput
+  orderBy?: Prisma.TestimonialEventOrderByWithRelationInput | Prisma.TestimonialEventOrderByWithRelationInput[]
+  cursor?: Prisma.TestimonialEventWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TestimonialEventScalarFieldEnum | Prisma.TestimonialEventScalarFieldEnum[]
 }
 
 /**

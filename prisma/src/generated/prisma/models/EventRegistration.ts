@@ -222,8 +222,8 @@ export type EventRegistrationWhereInput = {
   status?: Prisma.EnumRegistrationStatusFilter<"EventRegistration"> | $Enums.RegistrationStatus
   createdAt?: Prisma.DateTimeFilter<"EventRegistration"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EventRegistration"> | Date | string
-  event?: Prisma.XOR<Prisma.EventScalarRelationFilter, Prisma.EventWhereInput>
   country?: Prisma.XOR<Prisma.CountryNullableScalarRelationFilter, Prisma.CountryWhereInput> | null
+  event?: Prisma.XOR<Prisma.EventScalarRelationFilter, Prisma.EventWhereInput>
 }
 
 export type EventRegistrationOrderByWithRelationInput = {
@@ -237,8 +237,8 @@ export type EventRegistrationOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  event?: Prisma.EventOrderByWithRelationInput
   country?: Prisma.CountryOrderByWithRelationInput
+  event?: Prisma.EventOrderByWithRelationInput
 }
 
 export type EventRegistrationWhereUniqueInput = Prisma.AtLeast<{
@@ -255,8 +255,8 @@ export type EventRegistrationWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumRegistrationStatusFilter<"EventRegistration"> | $Enums.RegistrationStatus
   createdAt?: Prisma.DateTimeFilter<"EventRegistration"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EventRegistration"> | Date | string
-  event?: Prisma.XOR<Prisma.EventScalarRelationFilter, Prisma.EventWhereInput>
   country?: Prisma.XOR<Prisma.CountryNullableScalarRelationFilter, Prisma.CountryWhereInput> | null
+  event?: Prisma.XOR<Prisma.EventScalarRelationFilter, Prisma.EventWhereInput>
 }, "id">
 
 export type EventRegistrationOrderByWithAggregationInput = {
@@ -300,8 +300,8 @@ export type EventRegistrationCreateInput = {
   status?: $Enums.RegistrationStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  event: Prisma.EventCreateNestedOneWithoutEventRegistrationsInput
   country?: Prisma.CountryCreateNestedOneWithoutEventRegistrationsInput
+  event: Prisma.EventCreateNestedOneWithoutEventRegistrationsInput
 }
 
 export type EventRegistrationUncheckedCreateInput = {
@@ -326,8 +326,8 @@ export type EventRegistrationUpdateInput = {
   status?: Prisma.EnumRegistrationStatusFieldUpdateOperationsInput | $Enums.RegistrationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  event?: Prisma.EventUpdateOneRequiredWithoutEventRegistrationsNestedInput
   country?: Prisma.CountryUpdateOneWithoutEventRegistrationsNestedInput
+  event?: Prisma.EventUpdateOneRequiredWithoutEventRegistrationsNestedInput
 }
 
 export type EventRegistrationUncheckedUpdateInput = {
@@ -742,8 +742,8 @@ export type EventRegistrationSelect<ExtArgs extends runtime.Types.Extensions.Int
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
   country?: boolean | Prisma.EventRegistration$countryArgs<ExtArgs>
+  event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["eventRegistration"]>
 
 export type EventRegistrationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -757,8 +757,8 @@ export type EventRegistrationSelectCreateManyAndReturn<ExtArgs extends runtime.T
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
   country?: boolean | Prisma.EventRegistration$countryArgs<ExtArgs>
+  event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["eventRegistration"]>
 
 export type EventRegistrationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -772,8 +772,8 @@ export type EventRegistrationSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
   country?: boolean | Prisma.EventRegistration$countryArgs<ExtArgs>
+  event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["eventRegistration"]>
 
 export type EventRegistrationSelectScalar = {
@@ -791,23 +791,23 @@ export type EventRegistrationSelectScalar = {
 
 export type EventRegistrationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "eventId" | "countryId" | "name" | "email" | "phone" | "notes" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["eventRegistration"]>
 export type EventRegistrationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
   country?: boolean | Prisma.EventRegistration$countryArgs<ExtArgs>
+  event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
 }
 export type EventRegistrationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
   country?: boolean | Prisma.EventRegistration$countryArgs<ExtArgs>
+  event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
 }
 export type EventRegistrationIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
   country?: boolean | Prisma.EventRegistration$countryArgs<ExtArgs>
+  event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
 }
 
 export type $EventRegistrationPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "EventRegistration"
   objects: {
-    event: Prisma.$EventPayload<ExtArgs>
     country: Prisma.$CountryPayload<ExtArgs> | null
+    event: Prisma.$EventPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1214,8 +1214,8 @@ readonly fields: EventRegistrationFieldRefs;
  */
 export interface Prisma__EventRegistrationClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  event<T extends Prisma.EventDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EventDefaultArgs<ExtArgs>>): Prisma.Prisma__EventClient<runtime.Types.Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   country<T extends Prisma.EventRegistration$countryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EventRegistration$countryArgs<ExtArgs>>): Prisma.Prisma__CountryClient<runtime.Types.Result.GetResult<Prisma.$CountryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  event<T extends Prisma.EventDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EventDefaultArgs<ExtArgs>>): Prisma.Prisma__EventClient<runtime.Types.Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

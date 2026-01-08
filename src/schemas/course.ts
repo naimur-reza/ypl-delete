@@ -1,5 +1,34 @@
 import { z } from "zod";
 
+// Study level enum values
+const studyLevelEnum = z.enum([
+  "FOUNDATION",
+  "BACHELOR",
+  "MASTER",
+  "PHD",
+  "DIPLOMA",
+  "CERTIFICATE",
+  "PATHWAY",
+]);
+
+// Faculty enum values
+const facultyEnum = z.enum([
+  "ENGINEERING",
+  "BUSINESS",
+  "ARTS_HUMANITIES",
+  "SCIENCE",
+  "MEDICINE_HEALTH",
+  "LAW",
+  "EDUCATION",
+  "SOCIAL_SCIENCES",
+  "IT_COMPUTING",
+  "ARCHITECTURE",
+  "AGRICULTURE",
+  "HOSPITALITY_TOURISM",
+  "MEDIA_COMMUNICATION",
+  "OTHER",
+]);
+
 const courseSchema = z.object({
   title: z.string().min(1, "Title is required").max(200),
   slug: z.string().min(1, "Slug is required").max(50),
@@ -7,6 +36,8 @@ const courseSchema = z.object({
   summary: z.string().max(300).optional().nullable(),
   icon: z.string().max(50).optional().nullable(),
   duration: z.string().optional().nullable(),
+  studyLevel: studyLevelEnum.optional().nullable(),
+  faculty: facultyEnum.optional().nullable(),
   tuitionMin: z.number().min(0).optional().nullable(),
   tuitionMax: z.number().min(0).optional().nullable(),
   currency: z.string().default("USD").optional(),
@@ -30,4 +61,4 @@ const courseSchema = z.object({
     .nullable(),
 });
 
-export { courseSchema };
+export { courseSchema, studyLevelEnum, facultyEnum };

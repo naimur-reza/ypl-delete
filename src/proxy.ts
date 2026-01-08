@@ -83,8 +83,16 @@ export async function proxy(request: NextRequest) {
   const firstSegment = segments[0];
 
   // Homepage: redirect only if cookie country matches a valid slug
+  // AND user hasn't explicitly chosen global
   if (pathname === "/") {
+    const countryPreference = request.cookies.get("country-preference")?.value;
     const cookieCountry = request.cookies.get("user-country")?.value;
+
+    // If user explicitly chose global, don't redirect
+    if (countryPreference === "global") {
+      return withCountryHeader(request, null);
+    }
+
     if (cookieCountry && validCountrySlugs.has(cookieCountry)) {
       return NextResponse.redirect(new URL(`/${cookieCountry}`, request.url));
     }
@@ -93,17 +101,21 @@ export async function proxy(request: NextRequest) {
 
   // Handle country-specific routes
   if (firstSegment && validCountrySlugs.has(firstSegment)) {
-    // Valid country - save to cookie
+    // Valid country - save to cookie and clear global preference
     const response = withCountryHeader(request, firstSegment);
     response.cookies.set("user-country", firstSegment, {
       maxAge: 60 * 60 * 24 * 30, // 30 days
       path: "/",
     });
+    // Clear global preference when user navigates to a country
+    response.cookies.delete("country-preference");
     return response;
   }
 
   // If route doesn't have country slug but cookie exists, redirect to country-specific route
   // BUT exclude admin/system routes from this redirect
+  // AND respect user's explicit global preference
+  const countryPreference = request.cookies.get("country-preference")?.value;
   const cookieCountry = request.cookies.get("user-country")?.value;
   const isAdminOrSystemRoute =
     pathname.startsWith("/dashboard") ||
@@ -116,7 +128,8 @@ export async function proxy(request: NextRequest) {
     cookieCountry &&
     validCountrySlugs.has(cookieCountry) &&
     pathname !== "/" &&
-    !isAdminOrSystemRoute
+    !isAdminOrSystemRoute &&
+    countryPreference !== "global" // Don't redirect if user chose global
   ) {
     return NextResponse.redirect(
       new URL(`/${cookieCountry}${pathname}`, request.url)

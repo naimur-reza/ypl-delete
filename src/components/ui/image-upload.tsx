@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Upload, X, Image as ImageIcon, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { toast } from "sonner";
@@ -17,7 +18,7 @@ interface ImageUploadProps {
 }
 
 export function ImageUpload({
-  value,
+  value = "",
   onChange,
   folder = "nwc-education",
   label = "Upload Image",
@@ -25,13 +26,12 @@ export function ImageUpload({
   onUploadingChange,
 }: ImageUploadProps) {
   const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleUploadingChange = (isUploading: boolean) => {
     setUploading(isUploading);
     onUploadingChange?.(isUploading);
   };
-  const [preview, setPreview] = useState<string | null>(value || null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -50,13 +50,6 @@ export function ImageUpload({
       toast.error("File size too large. Maximum size is 5MB.");
       return;
     }
-
-    // Create preview
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setPreview(reader.result as string);
-    };
-    reader.readAsDataURL(file);
 
     // Upload file
     handleUploadingChange(true);
@@ -77,10 +70,8 @@ export function ImageUpload({
 
       onChange(data.url);
       toast.success("Image uploaded successfully");
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(error.message || "Failed to upload image");
-      setPreview(value || null);
     } finally {
       handleUploadingChange(false);
       if (fileInputRef.current) {
@@ -90,7 +81,6 @@ export function ImageUpload({
   };
 
   const handleRemove = () => {
-    setPreview(null);
     onChange("");
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -99,47 +89,68 @@ export function ImageUpload({
 
   return (
     <div className={className}>
-      {label && (
-        <label className="text-sm font-medium mb-2 block">{label}</label>
-      )}
-      <div className="space-y-2">
-        {preview ? (
+      {label && <Label className="mb-2 block">{label}</Label>}
+      
+      <div className="space-y-4">
+        {value ? (
           <div className="relative group">
-            <div className="relative w-full h-48 rounded-lg overflow-hidden border border-gray-200 bg-muted">
+            <div className="relative w-full h-48 rounded-lg overflow-hidden border border-gray-200 bg-gray-50">
               <Image
-                src={preview}
-                alt="Preview"
+                src={value}
+                alt="Uploaded image"
                 fill
                 className="object-cover"
               />
+              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <Button
+                  type="button"
+                  variant="destructive"
+                  size="sm"
+                  onClick={handleRemove}
+                  className="flex items-center gap-2"
+                >
+                  <X className="h-4 w-4" />
+                  Remove
+                </Button>
+              </div>
             </div>
-            <Button
-              type="button"
-              variant="destructive"
-              size="sm"
-              className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
-              onClick={handleRemove}
-            >
-              <X className="h-4 w-4" />
-            </Button>
           </div>
         ) : (
-          <div className="flex items-center justify-center w-full h-48 border-2 border-dashed border-gray-200 rounded-lg bg-muted/50 hover:bg-muted transition-colors">
-            <div className="text-center">
-              <ImageIcon className="h-12 w-12 text-muted-foreground mx-auto mb-2" />
-              <p className="text-sm text-muted-foreground mb-2">
-                No image uploaded
-              </p>
-            </div>
+          <div
+            onClick={() => fileInputRef.current?.click()}
+            className="relative flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-gray-400 transition-colors bg-gray-50"
+          >
+            <Input
+              ref={fileInputRef}
+              type="file"
+              accept="image/jpeg,image/jpg,image/png,image/webp"
+              onChange={handleFileSelect}
+              className="hidden"
+              disabled={uploading}
+            />
+            {uploading ? (
+              <Loader2 className="h-12 w-12 text-gray-400 animate-spin" />
+            ) : (
+              <>
+                <Upload className="h-12 w-12 text-gray-400 mb-2" />
+                <p className="text-sm text-gray-600 mb-1">
+                  Click to upload or drag and drop
+                </p>
+                <p className="text-xs text-gray-500">
+                  PNG, JPG, WEBP up to 5MB
+                </p>
+              </>
+            )}
           </div>
         )}
-        <div className="flex gap-2">
+
+        {value && (
           <Button
             type="button"
             variant="outline"
             onClick={() => fileInputRef.current?.click()}
             disabled={uploading}
-            className="flex-1 border border-gray-200 rounded-md"
+            className="w-full"
           >
             {uploading ? (
               <>
@@ -148,32 +159,12 @@ export function ImageUpload({
               </>
             ) : (
               <>
-                <Upload className="h-4 w-4 mr-2" />
-                {preview ? "Replace Image" : "Upload Image"}
+                <ImageIcon className="h-4 w-4 mr-2" />
+                Change Image
               </>
             )}
           </Button>
-          {preview && (
-            <Button
-              type="button"
-              variant="outline"
-              onClick={handleRemove}
-              disabled={uploading}
-            >
-              <X className="h-4 w-4" />
-            </Button>
-          )}
-        </div>
-        <Input
-          ref={fileInputRef}
-          type="file"
-          accept="image/*"
-          onChange={handleFileSelect}
-          className="hidden"
-        />
-        <p className="text-xs text-muted-foreground">
-          Supported formats: JPG, PNG, WebP. Max size: 5MB
-        </p>
+        )}
       </div>
     </div>
   );

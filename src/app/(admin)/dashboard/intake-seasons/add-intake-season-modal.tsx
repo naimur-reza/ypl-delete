@@ -3,6 +3,7 @@
 
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
 import { apiClient } from "@/lib/api-client";
 import { useEffect, useState } from "react";
@@ -41,22 +42,24 @@ export default function IntakeSeasonFormModal({
 }: {
   isEditing?: boolean;
   selected?: { id: string } & Partial<FormData> & {
-    countries?: { country: { id: string } }[];
-  };
+      countries?: { country: { id: string } }[];
+    };
   onClose: () => void;
   onSuccess?: () => void;
 }) {
   const isOpen = true;
-  const [countries, setCountries] = useState<{ id: string; name: string }[]>([]);
+  const [countries, setCountries] = useState<{ id: string; name: string }[]>(
+    []
+  );
   const [isUploading, setIsUploading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const load = async () => {
       try {
-        const res = await apiClient.get<{ data: { id: string; name: string }[] }>(
-          "/api/countries",
-          { limit: "1000" }
-        );
+        const res = await apiClient.get<{
+          data: { id: string; name: string }[];
+        }>("/api/countries", { limit: "1000" });
         if (res.data) {
           const arr = Array.isArray(res.data)
             ? (res.data as any)
@@ -88,10 +91,12 @@ export default function IntakeSeasonFormModal({
         ? new Date(selected.intakeStartDate).toISOString().split("T")[0]
         : "",
       countryIds:
-        selected?.countries?.map((c: any) => c.country?.id || c.countryId) || [],
+        selected?.countries?.map((c: any) => c.country?.id || c.countryId) ||
+        [],
     } as unknown as FormData,
     validators: { onSubmit: schema as any },
     onSubmit: async ({ value }) => {
+      setIsSubmitting(true);
       try {
         const payload = {
           ...value,
@@ -118,6 +123,8 @@ export default function IntakeSeasonFormModal({
       } catch (e) {
         toast.error("Request failed");
         console.error(e);
+      } finally {
+        setIsSubmitting(false);
       }
     },
   });
@@ -211,7 +218,9 @@ export default function IntakeSeasonFormModal({
 
           <div className="grid grid-cols-2 gap-4">
             <form.AppField name="applicationDeadline">
-              {(field) => <field.Input label="Application Deadline" type="date" />}
+              {(field) => (
+                <field.Input label="Application Deadline" type="date" />
+              )}
             </form.AppField>
 
             <form.AppField name="intakeStartDate">
@@ -265,12 +274,20 @@ export default function IntakeSeasonFormModal({
           </form.AppField>
 
           <div className="flex gap-2 justify-end">
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onClose}
+              disabled={isSubmitting}
+            >
               Cancel
             </Button>
-            <Button type="submit" disabled={isUploading}>
-              {isEditing ? "Update" : "Create"}
-            </Button>
+            <SubmitButton
+              isSubmitting={isSubmitting}
+              isUploading={isUploading}
+              submitText={isEditing ? "Update" : "Create"}
+              submittingText={isEditing ? "Updating..." : "Creating..."}
+            />
           </div>
         </FieldGroup>
       </form>

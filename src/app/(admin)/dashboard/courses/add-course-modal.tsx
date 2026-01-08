@@ -3,12 +3,15 @@
 import { useEffect, useState } from "react";
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
 import { useAppForm } from "@/hooks/use-field-context";
+import { useAutoSlug } from "@/hooks/use-auto-slug";
 import { courseSchema } from "@/schemas/course";
 import { toast } from "sonner";
 import z from "zod";
 import { createEntityApi, apiClient } from "@/lib/api-client";
+import { generateSlug } from "@/lib/utils";
 import {
   Course,
   University,
@@ -55,6 +58,7 @@ const CourseFormModal = ({
   >([]);
   const [loadingUniversities, setLoadingUniversities] = useState(false);
   const [loadingDestinations, setLoadingDestinations] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const fetchUniversities = async () => {
@@ -117,6 +121,8 @@ const CourseFormModal = ({
       summary: selectedCourse?.summary || "",
       icon: selectedCourse?.icon || "",
       duration: selectedCourse?.duration || "",
+      studyLevel: selectedCourse?.studyLevel || null,
+      faculty: selectedCourse?.faculty || null,
       tuitionMin: selectedCourse?.tuitionMin || null,
       tuitionMax: selectedCourse?.tuitionMax || null,
       currency: selectedCourse?.currency || "USD",
@@ -131,6 +137,7 @@ const CourseFormModal = ({
     } satisfies FormData as FormData,
     validators: { onSubmit: courseSchema },
     onSubmit: async ({ value }) => {
+      setIsSubmitting(true);
       try {
         let response;
         const submitData = {
@@ -139,6 +146,8 @@ const CourseFormModal = ({
           summary: value.summary || null,
           icon: value.icon || null,
           duration: value.duration || null,
+          studyLevel: value.studyLevel || null,
+          faculty: value.faculty || null,
           tuitionMin: value.tuitionMin || null,
           tuitionMax: value.tuitionMax || null,
           currency: value.currency || "USD",
@@ -176,6 +185,8 @@ const CourseFormModal = ({
       } catch (err) {
         toast.error("Request failed");
         console.error(err);
+      } finally {
+        setIsSubmitting(false);
       }
     },
   });
@@ -186,6 +197,13 @@ const CourseFormModal = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCourse]);
+
+  // Auto-slug generation from title
+  const { handleTitleChange, handleSlugChange } = useAutoSlug({
+    getSlugValue: () => form.getFieldValue("slug") || "",
+    setSlugValue: (value) => form.setFieldValue("slug", value),
+    isEditing: !!isEditing,
+  });
 
   return (
     <Modal
@@ -201,10 +219,42 @@ const CourseFormModal = ({
       >
         <FieldGroup>
           <form.AppField name="title">
-            {(field) => <field.Input label="Title" />}
+            {(field) => (
+              <FormBase label="Title">
+                <Input
+                  id={field.name}
+                  name={field.name}
+                  value={field.state.value}
+                  onChange={(e) => {
+                    field.handleChange(e.target.value);
+                    handleTitleChange(e.target.value);
+                  }}
+                  onBlur={field.handleBlur}
+                  placeholder="e.g., Study In Australia"
+                />
+              </FormBase>
+            )}
           </form.AppField>
           <form.AppField name="slug">
-            {(field) => <field.Input label="Slug" />}
+            {(field) => (
+              <FormBase
+                label="Slug"
+                description="Auto-generated from title. You can edit if needed."
+              >
+                <Input
+                  id={field.name}
+                  name={field.name}
+                  value={field.state.value}
+                  onChange={(e) => {
+                    const slugValue = generateSlug(e.target.value);
+                    field.handleChange(slugValue);
+                    handleSlugChange(slugValue);
+                  }}
+                  onBlur={field.handleBlur}
+                  placeholder="e.g., study-in-australia"
+                />
+              </FormBase>
+            )}
           </form.AppField>
           <form.AppField name="description">
             {(field) => <field.Textarea label="Description" />}
@@ -215,22 +265,37 @@ const CourseFormModal = ({
           <form.AppField name="icon">
             {(field) => (
               <field.Select label="Icon">
-               
                 <SelectItem value="Briefcase">Briefcase (Business)</SelectItem>
                 <SelectItem value="Code">Code (IT/Computer Science)</SelectItem>
-                <SelectItem value="Microscope">Microscope (Engineering)</SelectItem>
-                <SelectItem value="Stethoscope">Stethoscope (Medicine)</SelectItem>
+                <SelectItem value="Microscope">
+                  Microscope (Engineering)
+                </SelectItem>
+                <SelectItem value="Stethoscope">
+                  Stethoscope (Medicine)
+                </SelectItem>
                 <SelectItem value="Palette">Palette (Arts & Design)</SelectItem>
                 <SelectItem value="Scale">Scale (Law)</SelectItem>
-                <SelectItem value="BookOpen">BookOpen (Social Sciences)</SelectItem>
-                <SelectItem value="FlaskConical">FlaskConical (Sciences)</SelectItem>
-                <SelectItem value="GraduationCap">GraduationCap (Education)</SelectItem>
-                <SelectItem value="Building2">Building2 (Architecture)</SelectItem>
-                <SelectItem value="Calculator">Calculator (Mathematics)</SelectItem>
+                <SelectItem value="BookOpen">
+                  BookOpen (Social Sciences)
+                </SelectItem>
+                <SelectItem value="FlaskConical">
+                  FlaskConical (Sciences)
+                </SelectItem>
+                <SelectItem value="GraduationCap">
+                  GraduationCap (Education)
+                </SelectItem>
+                <SelectItem value="Building2">
+                  Building2 (Architecture)
+                </SelectItem>
+                <SelectItem value="Calculator">
+                  Calculator (Mathematics)
+                </SelectItem>
                 <SelectItem value="Music">Music (Music/Arts)</SelectItem>
                 <SelectItem value="Globe">Globe (International)</SelectItem>
                 <SelectItem value="Heart">Heart (Healthcare)</SelectItem>
-                <SelectItem value="Lightbulb">Lightbulb (Innovation)</SelectItem>
+                <SelectItem value="Lightbulb">
+                  Lightbulb (Innovation)
+                </SelectItem>
               </field.Select>
             )}
           </form.AppField>
@@ -324,6 +389,58 @@ const CourseFormModal = ({
               </field.Select>
             )}
           </form.AppField>
+          <form.AppField name="duration">
+            {(field) => (
+              <field.Input
+                label="Duration"
+                placeholder="e.g., 2 years, 18 months"
+              />
+            )}
+          </form.AppField>
+          <form.AppField name="studyLevel">
+            {(field) => (
+              <field.Select label="Study Level">
+                <SelectItem value="FOUNDATION">Foundation</SelectItem>
+                <SelectItem value="BACHELOR">Bachelor's Degree</SelectItem>
+                <SelectItem value="MASTER">Master's Degree</SelectItem>
+                <SelectItem value="PHD">PhD / Doctorate</SelectItem>
+                <SelectItem value="DIPLOMA">Diploma</SelectItem>
+                <SelectItem value="CERTIFICATE">Certificate</SelectItem>
+                <SelectItem value="PATHWAY">Pathway Program</SelectItem>
+              </field.Select>
+            )}
+          </form.AppField>
+          <form.AppField name="faculty">
+            {(field) => (
+              <field.Select label="Faculty / Subject Area">
+                <SelectItem value="ENGINEERING">Engineering</SelectItem>
+                <SelectItem value="BUSINESS">Business & Management</SelectItem>
+                <SelectItem value="ARTS_HUMANITIES">
+                  Arts & Humanities
+                </SelectItem>
+                <SelectItem value="SCIENCE">Science</SelectItem>
+                <SelectItem value="MEDICINE_HEALTH">
+                  Medicine & Health
+                </SelectItem>
+                <SelectItem value="LAW">Law</SelectItem>
+                <SelectItem value="EDUCATION">Education</SelectItem>
+                <SelectItem value="SOCIAL_SCIENCES">Social Sciences</SelectItem>
+                <SelectItem value="IT_COMPUTING">IT & Computing</SelectItem>
+                <SelectItem value="ARCHITECTURE">
+                  Architecture & Design
+                </SelectItem>
+                <SelectItem value="AGRICULTURE">Agriculture</SelectItem>
+                <SelectItem value="HOSPITALITY_TOURISM">
+                  Hospitality & Tourism
+                </SelectItem>
+                <SelectItem value="MEDIA_COMMUNICATION">
+                  Media & Communication
+                </SelectItem>
+                <SelectItem value="OTHER">Other</SelectItem>
+              </field.Select>
+            )}
+          </form.AppField>
+
           <form.AppField name="isFeatured">
             {(field) => <field.Checkbox label="Featured" />}
           </form.AppField>
@@ -415,10 +532,19 @@ const CourseFormModal = ({
             </Tabs>
           </div>
           <div className="flex gap-2 justify-end">
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onClose}
+              disabled={isSubmitting}
+            >
               Cancel
             </Button>
-            <Button type="submit">{isEditing ? "Update" : "Create"}</Button>
+            <SubmitButton
+              isSubmitting={isSubmitting}
+              submitText={isEditing ? "Update" : "Create"}
+              submittingText={isEditing ? "Updating..." : "Creating..."}
+            />
           </div>
         </FieldGroup>
       </form>

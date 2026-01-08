@@ -1,63 +1,56 @@
-// University and related models
 model University {
-  id           String       @id @default(cuid())
-  name         String
-  slug         String       @unique
-  logo         String?
-  thumbnail    String?
-  description  String?
-  providerType ProviderType
-  isFeatured   Boolean      @default(false)
-  isActive     Boolean      @default(true)
-  website      String?
-  address      String?
-  phone        String?
-  email        String?
-
-  // SEO Fields
+  id              String                  @id @default(cuid())
+  name            String
+  slug            String                  @unique
+  logo            String?
+  thumbnail       String?
+  description     String?
+  providerType    ProviderType
+  isFeatured      Boolean                 @default(false)
+  isActive        Boolean                 @default(true)
+  website         String?
+  address         String?
+  phone           String?
+  email           String?
   metaTitle       String?
   metaDescription String?
   metaKeywords    String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  createdBy String?
-  updatedBy String?
-
-  destinationId String
-  destination   Destination @relation(fields: [destinationId], references: [id])
-
-  detail                          UniversityDetail? @relation("UniversityToDetail")
-  countries                       UniversityCountry[]
-  courses                         Course[]
-  events                          Event[]
-  scholarships                    Scholarship[]
-  blogLinks                       BlogUniversity[]
-  faqLinks                        FAQUniversity[]
-  testimonials                    TestimonialUniversity[]
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
+  createdBy       String?
+  updatedBy       String?
+  destinationId   String
+  blogLinks       BlogUniversity[]
+  courses         Course[]
+  events          Event[]
+  faqLinks        FAQUniversity[]
+  scholarships    Scholarship[]
+  testimonials    TestimonialUniversity[]
+  destination     Destination             @relation(fields: [destinationId], references: [id])
+  countries       UniversityCountry[]
+  detail          UniversityDetail?       @relation("UniversityToDetail")
 
   @@index([destinationId])
   @@index([isFeatured, isActive])
 }
 
-// University Detail (Extended Information)
 model UniversityDetail {
   id                  String     @id @default(cuid())
   universityId        String     @unique
-  university          University @relation("UniversityToDetail", fields: [universityId], references: [id], onDelete: Cascade)
-  overview            String     @db.Text
-  ranking             String?    @db.Text
+  overview            String
+  ranking             String?
   tuitionFees         String?
-  famousFor           String?    @db.Text
+  famousFor           String?
   servicesHeading     String?
-  servicesDescription String?    @db.Text
+  servicesDescription String?
   servicesImage       String?
-  entryRequirements   String     @db.Text
-  description         String?    @db.Text
-  accommodation       String?    @db.Text
-  accommodationImage  String?
+  entryRequirements   String
   createdAt           DateTime   @default(now())
   updatedAt           DateTime   @updatedAt
+  accommodation       String?
+  accommodationImage  String?
+  description         String?
+  university          University @relation("UniversityToDetail", fields: [universityId], references: [id], onDelete: Cascade)
 
   @@index([universityId])
 }

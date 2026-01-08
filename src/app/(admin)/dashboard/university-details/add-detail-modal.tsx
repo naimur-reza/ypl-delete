@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
 import { useAppForm } from "@/hooks/use-field-context";
 import { toast } from "sonner";
@@ -69,6 +70,7 @@ const UniversityDetailModal = ({
     selectedDetail?.accommodationImage || ""
   );
   const [isUploading, setIsUploading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [activeTab, setActiveTab] = useState("general");
 
   useEffect(() => {
@@ -117,6 +119,7 @@ const UniversityDetailModal = ({
     defaultValues: getDefaultValues,
     validators: { onSubmit: detailSchema },
     onSubmit: async ({ value }) => {
+      setIsSubmitting(true);
       try {
         const endpoint = "/api/university-details";
         let response;
@@ -159,6 +162,8 @@ const UniversityDetailModal = ({
       } catch (err) {
         toast.error("Request failed");
         console.error(err);
+      } finally {
+        setIsSubmitting(false);
       }
     },
   });
@@ -237,25 +242,15 @@ const UniversityDetailModal = ({
           <TabsContent value="academic" className="space-y-4">
             <FieldGroup>
               <form.AppField name="ranking">
-                {(field) => (
-                  <field.RichText
-                    label="Ranking"
-                    placeholder="Enter university rankings information..."
-                  />
-                )}
+                {(field) => <field.RichText label="Ranking" />}
               </form.AppField>
 
               <form.AppField name="famousFor">
-                {(field) => (
-                  <field.RichText
-                    label="Famous For"
-                    placeholder="Enter what this university is famous for..."
-                  />
-                )}
+                {(field) => <field.RichText label="Famous For" />}
               </form.AppField>
 
               <form.AppField name="tuitionFees">
-                {(field) => <field.Input label="Tuition Fees" />}
+                {(field) => <field.RichText label="Tuition Fees" />}
               </form.AppField>
             </FieldGroup>
           </TabsContent>
@@ -323,12 +318,20 @@ const UniversityDetailModal = ({
         </Tabs>
 
         <div className="flex gap-2 justify-end mt-6 pt-4 border-t border-slate-200">
-          <Button type="button" variant="outline" onClick={onClose}>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={onClose}
+            disabled={isSubmitting}
+          >
             Cancel
           </Button>
-          <Button type="submit" disabled={isUploading}>
-            {isUploading ? "Uploading..." : isEditing ? "Update" : "Create"}
-          </Button>
+          <SubmitButton
+            isSubmitting={isSubmitting}
+            isUploading={isUploading}
+            submitText={isEditing ? "Update" : "Create"}
+            submittingText={isEditing ? "Updating..." : "Creating..."}
+          />
         </div>
       </form>
     </Modal>

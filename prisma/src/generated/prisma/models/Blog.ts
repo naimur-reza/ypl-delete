@@ -280,8 +280,8 @@ export type BlogWhereInput = {
   destinationId?: Prisma.StringFilter<"Blog"> | string
   destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
   countries?: Prisma.BlogCountryListRelationFilter
-  universities?: Prisma.BlogUniversityListRelationFilter
   courses?: Prisma.BlogCourseListRelationFilter
+  universities?: Prisma.BlogUniversityListRelationFilter
 }
 
 export type BlogOrderByWithRelationInput = {
@@ -304,8 +304,8 @@ export type BlogOrderByWithRelationInput = {
   destinationId?: Prisma.SortOrder
   destination?: Prisma.DestinationOrderByWithRelationInput
   countries?: Prisma.BlogCountryOrderByRelationAggregateInput
-  universities?: Prisma.BlogUniversityOrderByRelationAggregateInput
   courses?: Prisma.BlogCourseOrderByRelationAggregateInput
+  universities?: Prisma.BlogUniversityOrderByRelationAggregateInput
 }
 
 export type BlogWhereUniqueInput = Prisma.AtLeast<{
@@ -331,8 +331,8 @@ export type BlogWhereUniqueInput = Prisma.AtLeast<{
   destinationId?: Prisma.StringFilter<"Blog"> | string
   destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
   countries?: Prisma.BlogCountryListRelationFilter
-  universities?: Prisma.BlogUniversityListRelationFilter
   courses?: Prisma.BlogCourseListRelationFilter
+  universities?: Prisma.BlogUniversityListRelationFilter
 }, "id" | "slug">
 
 export type BlogOrderByWithAggregationInput = {
@@ -400,8 +400,8 @@ export type BlogCreateInput = {
   updatedBy?: string | null
   destination: Prisma.DestinationCreateNestedOneWithoutBlogsInput
   countries?: Prisma.BlogCountryCreateNestedManyWithoutBlogInput
-  universities?: Prisma.BlogUniversityCreateNestedManyWithoutBlogInput
   courses?: Prisma.BlogCourseCreateNestedManyWithoutBlogInput
+  universities?: Prisma.BlogUniversityCreateNestedManyWithoutBlogInput
 }
 
 export type BlogUncheckedCreateInput = {
@@ -423,8 +423,8 @@ export type BlogUncheckedCreateInput = {
   updatedBy?: string | null
   destinationId: string
   countries?: Prisma.BlogCountryUncheckedCreateNestedManyWithoutBlogInput
-  universities?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutBlogInput
   courses?: Prisma.BlogCourseUncheckedCreateNestedManyWithoutBlogInput
+  universities?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutBlogInput
 }
 
 export type BlogUpdateInput = {
@@ -446,8 +446,8 @@ export type BlogUpdateInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destination?: Prisma.DestinationUpdateOneRequiredWithoutBlogsNestedInput
   countries?: Prisma.BlogCountryUpdateManyWithoutBlogNestedInput
-  universities?: Prisma.BlogUniversityUpdateManyWithoutBlogNestedInput
   courses?: Prisma.BlogCourseUpdateManyWithoutBlogNestedInput
+  universities?: Prisma.BlogUniversityUpdateManyWithoutBlogNestedInput
 }
 
 export type BlogUncheckedUpdateInput = {
@@ -469,8 +469,8 @@ export type BlogUncheckedUpdateInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   countries?: Prisma.BlogCountryUncheckedUpdateManyWithoutBlogNestedInput
-  universities?: Prisma.BlogUniversityUncheckedUpdateManyWithoutBlogNestedInput
   courses?: Prisma.BlogCourseUncheckedUpdateManyWithoutBlogNestedInput
+  universities?: Prisma.BlogUniversityUncheckedUpdateManyWithoutBlogNestedInput
 }
 
 export type BlogCreateManyInput = {
@@ -713,8 +713,8 @@ export type BlogCreateWithoutDestinationInput = {
   createdBy?: string | null
   updatedBy?: string | null
   countries?: Prisma.BlogCountryCreateNestedManyWithoutBlogInput
-  universities?: Prisma.BlogUniversityCreateNestedManyWithoutBlogInput
   courses?: Prisma.BlogCourseCreateNestedManyWithoutBlogInput
+  universities?: Prisma.BlogUniversityCreateNestedManyWithoutBlogInput
 }
 
 export type BlogUncheckedCreateWithoutDestinationInput = {
@@ -735,8 +735,8 @@ export type BlogUncheckedCreateWithoutDestinationInput = {
   createdBy?: string | null
   updatedBy?: string | null
   countries?: Prisma.BlogCountryUncheckedCreateNestedManyWithoutBlogInput
-  universities?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutBlogInput
   courses?: Prisma.BlogCourseUncheckedCreateNestedManyWithoutBlogInput
+  universities?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutBlogInput
 }
 
 export type BlogCreateOrConnectWithoutDestinationInput = {
@@ -806,8 +806,8 @@ export type BlogCreateWithoutCountriesInput = {
   createdBy?: string | null
   updatedBy?: string | null
   destination: Prisma.DestinationCreateNestedOneWithoutBlogsInput
-  universities?: Prisma.BlogUniversityCreateNestedManyWithoutBlogInput
   courses?: Prisma.BlogCourseCreateNestedManyWithoutBlogInput
+  universities?: Prisma.BlogUniversityCreateNestedManyWithoutBlogInput
 }
 
 export type BlogUncheckedCreateWithoutCountriesInput = {
@@ -828,8 +828,8 @@ export type BlogUncheckedCreateWithoutCountriesInput = {
   createdBy?: string | null
   updatedBy?: string | null
   destinationId: string
-  universities?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutBlogInput
   courses?: Prisma.BlogCourseUncheckedCreateNestedManyWithoutBlogInput
+  universities?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutBlogInput
 }
 
 export type BlogCreateOrConnectWithoutCountriesInput = {
@@ -866,8 +866,8 @@ export type BlogUpdateWithoutCountriesInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destination?: Prisma.DestinationUpdateOneRequiredWithoutBlogsNestedInput
-  universities?: Prisma.BlogUniversityUpdateManyWithoutBlogNestedInput
   courses?: Prisma.BlogCourseUpdateManyWithoutBlogNestedInput
+  universities?: Prisma.BlogUniversityUpdateManyWithoutBlogNestedInput
 }
 
 export type BlogUncheckedUpdateWithoutCountriesInput = {
@@ -888,8 +888,8 @@ export type BlogUncheckedUpdateWithoutCountriesInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
-  universities?: Prisma.BlogUniversityUncheckedUpdateManyWithoutBlogNestedInput
   courses?: Prisma.BlogCourseUncheckedUpdateManyWithoutBlogNestedInput
+  universities?: Prisma.BlogUniversityUncheckedUpdateManyWithoutBlogNestedInput
 }
 
 export type BlogCreateWithoutUniversitiesInput = {
@@ -1137,8 +1137,8 @@ export type BlogUpdateWithoutDestinationInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   countries?: Prisma.BlogCountryUpdateManyWithoutBlogNestedInput
-  universities?: Prisma.BlogUniversityUpdateManyWithoutBlogNestedInput
   courses?: Prisma.BlogCourseUpdateManyWithoutBlogNestedInput
+  universities?: Prisma.BlogUniversityUpdateManyWithoutBlogNestedInput
 }
 
 export type BlogUncheckedUpdateWithoutDestinationInput = {
@@ -1159,8 +1159,8 @@ export type BlogUncheckedUpdateWithoutDestinationInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   countries?: Prisma.BlogCountryUncheckedUpdateManyWithoutBlogNestedInput
-  universities?: Prisma.BlogUniversityUncheckedUpdateManyWithoutBlogNestedInput
   courses?: Prisma.BlogCourseUncheckedUpdateManyWithoutBlogNestedInput
+  universities?: Prisma.BlogUniversityUncheckedUpdateManyWithoutBlogNestedInput
 }
 
 export type BlogUncheckedUpdateManyWithoutDestinationInput = {
@@ -1189,14 +1189,14 @@ export type BlogUncheckedUpdateManyWithoutDestinationInput = {
 
 export type BlogCountOutputType = {
   countries: number
-  universities: number
   courses: number
+  universities: number
 }
 
 export type BlogCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   countries?: boolean | BlogCountOutputTypeCountCountriesArgs
-  universities?: boolean | BlogCountOutputTypeCountUniversitiesArgs
   courses?: boolean | BlogCountOutputTypeCountCoursesArgs
+  universities?: boolean | BlogCountOutputTypeCountUniversitiesArgs
 }
 
 /**
@@ -1219,15 +1219,15 @@ export type BlogCountOutputTypeCountCountriesArgs<ExtArgs extends runtime.Types.
 /**
  * BlogCountOutputType without action
  */
-export type BlogCountOutputTypeCountUniversitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.BlogUniversityWhereInput
+export type BlogCountOutputTypeCountCoursesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BlogCourseWhereInput
 }
 
 /**
  * BlogCountOutputType without action
  */
-export type BlogCountOutputTypeCountCoursesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.BlogCourseWhereInput
+export type BlogCountOutputTypeCountUniversitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BlogUniversityWhereInput
 }
 
 
@@ -1251,8 +1251,8 @@ export type BlogSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   destinationId?: boolean
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
   countries?: boolean | Prisma.Blog$countriesArgs<ExtArgs>
-  universities?: boolean | Prisma.Blog$universitiesArgs<ExtArgs>
   courses?: boolean | Prisma.Blog$coursesArgs<ExtArgs>
+  universities?: boolean | Prisma.Blog$universitiesArgs<ExtArgs>
   _count?: boolean | Prisma.BlogCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["blog"]>
 
@@ -1322,8 +1322,8 @@ export type BlogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type BlogInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
   countries?: boolean | Prisma.Blog$countriesArgs<ExtArgs>
-  universities?: boolean | Prisma.Blog$universitiesArgs<ExtArgs>
   courses?: boolean | Prisma.Blog$coursesArgs<ExtArgs>
+  universities?: boolean | Prisma.Blog$universitiesArgs<ExtArgs>
   _count?: boolean | Prisma.BlogCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BlogIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1338,8 +1338,8 @@ export type $BlogPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     destination: Prisma.$DestinationPayload<ExtArgs>
     countries: Prisma.$BlogCountryPayload<ExtArgs>[]
-    universities: Prisma.$BlogUniversityPayload<ExtArgs>[]
     courses: Prisma.$BlogCoursePayload<ExtArgs>[]
+    universities: Prisma.$BlogUniversityPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1755,8 +1755,8 @@ export interface Prisma__BlogClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   destination<T extends Prisma.DestinationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DestinationDefaultArgs<ExtArgs>>): Prisma.Prisma__DestinationClient<runtime.Types.Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   countries<T extends Prisma.Blog$countriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Blog$countriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BlogCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  universities<T extends Prisma.Blog$universitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Blog$universitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BlogUniversityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   courses<T extends Prisma.Blog$coursesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Blog$coursesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BlogCoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  universities<T extends Prisma.Blog$universitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Blog$universitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BlogUniversityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2223,30 +2223,6 @@ export type Blog$countriesArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * Blog.universities
- */
-export type Blog$universitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the BlogUniversity
-   */
-  select?: Prisma.BlogUniversitySelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the BlogUniversity
-   */
-  omit?: Prisma.BlogUniversityOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.BlogUniversityInclude<ExtArgs> | null
-  where?: Prisma.BlogUniversityWhereInput
-  orderBy?: Prisma.BlogUniversityOrderByWithRelationInput | Prisma.BlogUniversityOrderByWithRelationInput[]
-  cursor?: Prisma.BlogUniversityWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.BlogUniversityScalarFieldEnum | Prisma.BlogUniversityScalarFieldEnum[]
-}
-
-/**
  * Blog.courses
  */
 export type Blog$coursesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2268,6 +2244,30 @@ export type Blog$coursesArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.BlogCourseScalarFieldEnum | Prisma.BlogCourseScalarFieldEnum[]
+}
+
+/**
+ * Blog.universities
+ */
+export type Blog$universitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BlogUniversity
+   */
+  select?: Prisma.BlogUniversitySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BlogUniversity
+   */
+  omit?: Prisma.BlogUniversityOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BlogUniversityInclude<ExtArgs> | null
+  where?: Prisma.BlogUniversityWhereInput
+  orderBy?: Prisma.BlogUniversityOrderByWithRelationInput | Prisma.BlogUniversityOrderByWithRelationInput[]
+  cursor?: Prisma.BlogUniversityWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BlogUniversityScalarFieldEnum | Prisma.BlogUniversityScalarFieldEnum[]
 }
 
 /**

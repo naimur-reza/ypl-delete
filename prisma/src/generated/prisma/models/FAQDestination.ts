@@ -166,16 +166,16 @@ export type FAQDestinationWhereInput = {
   id?: Prisma.StringFilter<"FAQDestination"> | string
   faqId?: Prisma.StringFilter<"FAQDestination"> | string
   destinationId?: Prisma.StringFilter<"FAQDestination"> | string
-  faq?: Prisma.XOR<Prisma.FAQScalarRelationFilter, Prisma.FAQWhereInput>
   destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
+  faq?: Prisma.XOR<Prisma.FAQScalarRelationFilter, Prisma.FAQWhereInput>
 }
 
 export type FAQDestinationOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   faqId?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
-  faq?: Prisma.FAQOrderByWithRelationInput
   destination?: Prisma.DestinationOrderByWithRelationInput
+  faq?: Prisma.FAQOrderByWithRelationInput
 }
 
 export type FAQDestinationWhereUniqueInput = Prisma.AtLeast<{
@@ -186,8 +186,8 @@ export type FAQDestinationWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.FAQDestinationWhereInput | Prisma.FAQDestinationWhereInput[]
   faqId?: Prisma.StringFilter<"FAQDestination"> | string
   destinationId?: Prisma.StringFilter<"FAQDestination"> | string
-  faq?: Prisma.XOR<Prisma.FAQScalarRelationFilter, Prisma.FAQWhereInput>
   destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
+  faq?: Prisma.XOR<Prisma.FAQScalarRelationFilter, Prisma.FAQWhereInput>
 }, "id" | "faqId_destinationId">
 
 export type FAQDestinationOrderByWithAggregationInput = {
@@ -210,8 +210,8 @@ export type FAQDestinationScalarWhereWithAggregatesInput = {
 
 export type FAQDestinationCreateInput = {
   id?: string
-  faq: Prisma.FAQCreateNestedOneWithoutDestinationsInput
   destination: Prisma.DestinationCreateNestedOneWithoutFaqLinksInput
+  faq: Prisma.FAQCreateNestedOneWithoutDestinationsInput
 }
 
 export type FAQDestinationUncheckedCreateInput = {
@@ -222,8 +222,8 @@ export type FAQDestinationUncheckedCreateInput = {
 
 export type FAQDestinationUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  faq?: Prisma.FAQUpdateOneRequiredWithoutDestinationsNestedInput
   destination?: Prisma.DestinationUpdateOneRequiredWithoutFaqLinksNestedInput
+  faq?: Prisma.FAQUpdateOneRequiredWithoutDestinationsNestedInput
 }
 
 export type FAQDestinationUncheckedUpdateInput = {
@@ -492,24 +492,24 @@ export type FAQDestinationSelect<ExtArgs extends runtime.Types.Extensions.Intern
   id?: boolean
   faqId?: boolean
   destinationId?: boolean
-  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["fAQDestination"]>
 
 export type FAQDestinationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   faqId?: boolean
   destinationId?: boolean
-  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["fAQDestination"]>
 
 export type FAQDestinationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   faqId?: boolean
   destinationId?: boolean
-  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["fAQDestination"]>
 
 export type FAQDestinationSelectScalar = {
@@ -520,23 +520,23 @@ export type FAQDestinationSelectScalar = {
 
 export type FAQDestinationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "faqId" | "destinationId", ExtArgs["result"]["fAQDestination"]>
 export type FAQDestinationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
 }
 export type FAQDestinationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
 }
 export type FAQDestinationIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
 }
 
 export type $FAQDestinationPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "FAQDestination"
   objects: {
-    faq: Prisma.$FAQPayload<ExtArgs>
     destination: Prisma.$DestinationPayload<ExtArgs>
+    faq: Prisma.$FAQPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -936,8 +936,8 @@ readonly fields: FAQDestinationFieldRefs;
  */
 export interface Prisma__FAQDestinationClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  faq<T extends Prisma.FAQDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FAQDefaultArgs<ExtArgs>>): Prisma.Prisma__FAQClient<runtime.Types.Result.GetResult<Prisma.$FAQPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   destination<T extends Prisma.DestinationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DestinationDefaultArgs<ExtArgs>>): Prisma.Prisma__DestinationClient<runtime.Types.Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  faq<T extends Prisma.FAQDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FAQDefaultArgs<ExtArgs>>): Prisma.Prisma__FAQClient<runtime.Types.Result.GetResult<Prisma.$FAQPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

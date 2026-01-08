@@ -166,16 +166,16 @@ export type GalleryCountryWhereInput = {
   id?: Prisma.StringFilter<"GalleryCountry"> | string
   galleryId?: Prisma.StringFilter<"GalleryCountry"> | string
   countryId?: Prisma.StringFilter<"GalleryCountry"> | string
-  gallery?: Prisma.XOR<Prisma.GalleryScalarRelationFilter, Prisma.GalleryWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
+  gallery?: Prisma.XOR<Prisma.GalleryScalarRelationFilter, Prisma.GalleryWhereInput>
 }
 
 export type GalleryCountryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   galleryId?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
-  gallery?: Prisma.GalleryOrderByWithRelationInput
   country?: Prisma.CountryOrderByWithRelationInput
+  gallery?: Prisma.GalleryOrderByWithRelationInput
 }
 
 export type GalleryCountryWhereUniqueInput = Prisma.AtLeast<{
@@ -186,8 +186,8 @@ export type GalleryCountryWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.GalleryCountryWhereInput | Prisma.GalleryCountryWhereInput[]
   galleryId?: Prisma.StringFilter<"GalleryCountry"> | string
   countryId?: Prisma.StringFilter<"GalleryCountry"> | string
-  gallery?: Prisma.XOR<Prisma.GalleryScalarRelationFilter, Prisma.GalleryWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
+  gallery?: Prisma.XOR<Prisma.GalleryScalarRelationFilter, Prisma.GalleryWhereInput>
 }, "id" | "galleryId_countryId">
 
 export type GalleryCountryOrderByWithAggregationInput = {
@@ -210,8 +210,8 @@ export type GalleryCountryScalarWhereWithAggregatesInput = {
 
 export type GalleryCountryCreateInput = {
   id?: string
-  gallery: Prisma.GalleryCreateNestedOneWithoutCountriesInput
   country: Prisma.CountryCreateNestedOneWithoutGalleriesInput
+  gallery: Prisma.GalleryCreateNestedOneWithoutCountriesInput
 }
 
 export type GalleryCountryUncheckedCreateInput = {
@@ -222,8 +222,8 @@ export type GalleryCountryUncheckedCreateInput = {
 
 export type GalleryCountryUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  gallery?: Prisma.GalleryUpdateOneRequiredWithoutCountriesNestedInput
   country?: Prisma.CountryUpdateOneRequiredWithoutGalleriesNestedInput
+  gallery?: Prisma.GalleryUpdateOneRequiredWithoutCountriesNestedInput
 }
 
 export type GalleryCountryUncheckedUpdateInput = {
@@ -492,24 +492,24 @@ export type GalleryCountrySelect<ExtArgs extends runtime.Types.Extensions.Intern
   id?: boolean
   galleryId?: boolean
   countryId?: boolean
-  gallery?: boolean | Prisma.GalleryDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  gallery?: boolean | Prisma.GalleryDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["galleryCountry"]>
 
 export type GalleryCountrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   galleryId?: boolean
   countryId?: boolean
-  gallery?: boolean | Prisma.GalleryDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  gallery?: boolean | Prisma.GalleryDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["galleryCountry"]>
 
 export type GalleryCountrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   galleryId?: boolean
   countryId?: boolean
-  gallery?: boolean | Prisma.GalleryDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  gallery?: boolean | Prisma.GalleryDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["galleryCountry"]>
 
 export type GalleryCountrySelectScalar = {
@@ -520,23 +520,23 @@ export type GalleryCountrySelectScalar = {
 
 export type GalleryCountryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "galleryId" | "countryId", ExtArgs["result"]["galleryCountry"]>
 export type GalleryCountryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  gallery?: boolean | Prisma.GalleryDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  gallery?: boolean | Prisma.GalleryDefaultArgs<ExtArgs>
 }
 export type GalleryCountryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  gallery?: boolean | Prisma.GalleryDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  gallery?: boolean | Prisma.GalleryDefaultArgs<ExtArgs>
 }
 export type GalleryCountryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  gallery?: boolean | Prisma.GalleryDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  gallery?: boolean | Prisma.GalleryDefaultArgs<ExtArgs>
 }
 
 export type $GalleryCountryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "GalleryCountry"
   objects: {
-    gallery: Prisma.$GalleryPayload<ExtArgs>
     country: Prisma.$CountryPayload<ExtArgs>
+    gallery: Prisma.$GalleryPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -936,8 +936,8 @@ readonly fields: GalleryCountryFieldRefs;
  */
 export interface Prisma__GalleryCountryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  gallery<T extends Prisma.GalleryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GalleryDefaultArgs<ExtArgs>>): Prisma.Prisma__GalleryClient<runtime.Types.Result.GetResult<Prisma.$GalleryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   country<T extends Prisma.CountryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CountryDefaultArgs<ExtArgs>>): Prisma.Prisma__CountryClient<runtime.Types.Result.GetResult<Prisma.$CountryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  gallery<T extends Prisma.GalleryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GalleryDefaultArgs<ExtArgs>>): Prisma.Prisma__GalleryClient<runtime.Types.Result.GetResult<Prisma.$GalleryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

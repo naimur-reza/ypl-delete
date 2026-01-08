@@ -4,17 +4,28 @@
 import { useEffect, useState } from "react";
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
 import { useAppForm } from "@/hooks/hooks";
+import { useAutoSlug } from "@/hooks/use-auto-slug";
 import { destinationSchema } from "@/schemas/destination";
 import { toast } from "sonner";
 import z from "zod";
 import { createEntityApi, apiClient } from "@/lib/api-client";
+import { generateSlug } from "@/lib/utils";
 import { CountrySelect } from "@/components/ui/region-select";
 import { ImageUpload } from "@/components/ui/image-upload";
 import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { Destination } from "../../../../../prisma/src/generated/prisma/browser";
-import { Plus, Trash2, GripVertical, ChevronDown, ChevronUp } from "lucide-react";
+import { FormBase } from "@/components/form/FormBase";
+import { Input } from "@/components/ui/input";
+import {
+  Plus,
+  Trash2,
+  GripVertical,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type FormData = z.infer<typeof destinationSchema>;
@@ -50,6 +61,7 @@ const DestinationFormModal = ({
   const isOpen = true;
   const [countryIds, setCountryIds] = useState<string[]>([]);
   const [isUploading, setIsUploading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [sections, setSections] = useState<DestinationSection[]>([]);
   const [expandedSection, setExpandedSection] = useState<number | null>(null);
 
@@ -57,7 +69,8 @@ const DestinationFormModal = ({
     defaultValues: {
       name: selectedDestination?.name || "",
       slug: selectedDestination?.slug || "",
-      countryIds: selectedDestination?.countries?.map((c) => c.country.id) || [],
+      countryIds:
+        selectedDestination?.countries?.map((c) => c.country.id) || [],
       heroTitle: selectedDestination?.heroTitle || "",
       heroSubtitle: selectedDestination?.heroSubtitle || "",
       thumbnail: selectedDestination?.thumbnail || "",
@@ -71,6 +84,7 @@ const DestinationFormModal = ({
     } satisfies FormData as FormData,
     validators: { onSubmit: destinationSchema },
     onSubmit: async ({ value }) => {
+      setIsSubmitting(true);
       try {
         let response;
         const submitData = {
@@ -111,6 +125,8 @@ const DestinationFormModal = ({
       } catch (err) {
         toast.error("Request failed");
         console.error(err);
+      } finally {
+        setIsSubmitting(false);
       }
     },
   });
@@ -172,10 +188,14 @@ const DestinationFormModal = ({
     }
   };
 
-  const updateSection = (index: number, field: keyof DestinationSection, value: any) => {
+  const updateSection = (
+    index: number,
+    field: keyof DestinationSection,
+    value: any
+  ) => {
     const updated = [...sections];
     updated[index] = { ...updated[index], [field]: value };
-    
+
     // Auto-generate slug from title
     if (field === "title") {
       updated[index].slug = value
@@ -183,19 +203,26 @@ const DestinationFormModal = ({
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/(^-|-$)/g, "");
     }
-    
+
     setSections(updated);
   };
 
   const moveSection = (index: number, direction: "up" | "down") => {
     const newIndex = direction === "up" ? index - 1 : index + 1;
     if (newIndex < 0 || newIndex >= sections.length) return;
-    
+
     const updated = [...sections];
     [updated[index], updated[newIndex]] = [updated[newIndex], updated[index]];
     setSections(updated);
     setExpandedSection(newIndex);
   };
+
+  // Auto-slug generation from name
+  const { handleTitleChange, handleSlugChange } = useAutoSlug({
+    getSlugValue: () => form.getFieldValue("slug") || "",
+    setSlugValue: (value) => form.setFieldValue("slug", value),
+    isEditing: !!isEditing,
+  });
 
   return (
     <Modal
@@ -216,10 +243,42 @@ const DestinationFormModal = ({
               Basic Information
             </h3>
             <form.AppField name="name">
-              {(field) => <field.Input label="Name" />}
+              {(field) => (
+                <FormBase label="Name">
+                  <Input
+                    id={field.name}
+                    name={field.name}
+                    value={field.state.value}
+                    onChange={(e) => {
+                      field.handleChange(e.target.value);
+                      handleTitleChange(e.target.value);
+                    }}
+                    onBlur={field.handleBlur}
+                    placeholder="e.g., Study in Australia"
+                  />
+                </FormBase>
+              )}
             </form.AppField>
             <form.AppField name="slug">
-              {(field) => <field.Input label="Slug" />}
+              {(field) => (
+                <FormBase
+                  label="Slug"
+                  description="Auto-generated from name. You can edit if needed."
+                >
+                  <Input
+                    id={field.name}
+                    name={field.name}
+                    value={field.state.value}
+                    onChange={(e) => {
+                      const slugValue = generateSlug(e.target.value);
+                      field.handleChange(slugValue);
+                      handleSlugChange(slugValue);
+                    }}
+                    onBlur={field.handleBlur}
+                    placeholder="e.g., study-in-australia"
+                  />
+                </FormBase>
+              )}
             </form.AppField>
             <form.AppField name="countryIds">
               {(field) => (
@@ -260,7 +319,7 @@ const DestinationFormModal = ({
           </div>
 
           {/* Why Choose Sections - Dynamic Tabs */}
-          <div className="space-y-4 pt-6 border-t border-black/10">
+          <div className="space-y-4 pt-6 border-t border-border">
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
                 Why Choose Sections (Tabs)
@@ -283,7 +342,8 @@ const DestinationFormModal = ({
                   No sections added yet
                 </p>
                 <p className="text-muted-foreground text-xs">
-                  Add tabs like &quot;Top Universities&quot;, &quot;Campus Life&quot;, etc.
+                  Add tabs like &quot;Top Universities&quot;, &quot;Campus
+                  Life&quot;, etc.
                 </p>
               </div>
             ) : (
@@ -300,7 +360,9 @@ const DestinationFormModal = ({
                         expandedSection === index && "bg-muted/50"
                       )}
                       onClick={() =>
-                        setExpandedSection(expandedSection === index ? null : index)
+                        setExpandedSection(
+                          expandedSection === index ? null : index
+                        )
                       }
                     >
                       <GripVertical className="w-4 h-4 text-muted-foreground" />
@@ -354,7 +416,9 @@ const DestinationFormModal = ({
                       <div className="p-4 border-t space-y-4 bg-background">
                         <div className="grid grid-cols-2 gap-4">
                           <div className="space-y-2">
-                            <label className="text-sm font-medium">Tab Title</label>
+                            <label className="text-sm font-medium">
+                              Tab Title
+                            </label>
                             <input
                               type="text"
                               className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
@@ -388,7 +452,9 @@ const DestinationFormModal = ({
 
                         <RichTextEditor
                           value={section.content}
-                          onChange={(val) => updateSection(index, "content", val)}
+                          onChange={(val) =>
+                            updateSection(index, "content", val)
+                          }
                           label="Content"
                           placeholder="Write section content..."
                         />
@@ -435,12 +501,20 @@ const DestinationFormModal = ({
           </div>
 
           <div className="flex gap-2 justify-end pt-6 border-t">
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onClose}
+              disabled={isSubmitting}
+            >
               Cancel
             </Button>
-            <Button type="submit" disabled={isUploading}>
-              {isUploading ? "Uploading..." : isEditing ? "Update" : "Create"}
-            </Button>
+            <SubmitButton
+              isSubmitting={isSubmitting}
+              isUploading={isUploading}
+              submitText={isEditing ? "Update" : "Create"}
+              submittingText={isEditing ? "Updating..." : "Creating..."}
+            />
           </div>
         </FieldGroup>
       </form>

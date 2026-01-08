@@ -1,3 +1,4 @@
+import { CountryAwareLink } from "@/components/common/navbar/country-aware-link";
 import { prisma } from "@/lib/prisma";
 import {
   MapPin,
@@ -34,11 +35,23 @@ const iconMap: Record<string, LucideIcon> = {
 // Color mapping for dynamic colors
 const colorMap: Record<string, { color: string; lightColor: string }> = {
   pink: { color: "bg-pink-500", lightColor: "bg-pink-100 text-pink-600" },
-  emerald: { color: "bg-emerald-500", lightColor: "bg-emerald-100 text-emerald-600" },
+  emerald: {
+    color: "bg-emerald-500",
+    lightColor: "bg-emerald-100 text-emerald-600",
+  },
   blue: { color: "bg-blue-500", lightColor: "bg-blue-100 text-blue-600" },
-  indigo: { color: "bg-indigo-500", lightColor: "bg-indigo-100 text-indigo-600" },
-  purple: { color: "bg-purple-500", lightColor: "bg-purple-100 text-purple-600" },
-  orange: { color: "bg-orange-500", lightColor: "bg-orange-100 text-orange-600" },
+  indigo: {
+    color: "bg-indigo-500",
+    lightColor: "bg-indigo-100 text-indigo-600",
+  },
+  purple: {
+    color: "bg-purple-500",
+    lightColor: "bg-purple-100 text-purple-600",
+  },
+  orange: {
+    color: "bg-orange-500",
+    lightColor: "bg-orange-100 text-orange-600",
+  },
   red: { color: "bg-red-500", lightColor: "bg-red-100 text-red-600" },
   green: { color: "bg-green-500", lightColor: "bg-green-100 text-green-600" },
   cyan: { color: "bg-cyan-500", lightColor: "bg-cyan-100 text-cyan-600" },
@@ -88,21 +101,23 @@ export async function AboutSection() {
   });
 
   // Map database stats to card format
-  const cards = stats.length > 0
-    ? stats.map((stat, idx) => {
-        const iconName = stat.icon || "GraduationCap";
-        const colorName = stat.color || ["pink", "emerald", "blue", "indigo"][idx % 4];
-        const colors = colorMap[colorName] || colorMap.blue;
-        
-        return {
-          icon: iconMap[iconName] || GraduationCap,
-          title: stat.title,
-          subtitle: stat.subtitle,
-          color: colors.color,
-          lightColor: colors.lightColor,
-        };
-      })
-    : defaultCards;
+  const cards =
+    stats.length > 0
+      ? stats.map((stat, idx) => {
+          const iconName = stat.icon || "GraduationCap";
+          const colorName =
+            stat.color || ["pink", "emerald", "blue", "indigo"][idx % 4];
+          const colors = colorMap[colorName] || colorMap.blue;
+
+          return {
+            icon: iconMap[iconName] || GraduationCap,
+            title: stat.title,
+            subtitle: stat.subtitle,
+            color: colors.color,
+            lightColor: colors.lightColor,
+          };
+        })
+      : defaultCards;
 
   return (
     <section className="relative bg-white py-16 overflow-hidden">
@@ -115,9 +130,9 @@ export async function AboutSection() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Content - Text */}
-          <div className="space-y-8 text-gray-800">
+          <div className="space-y-5 text-gray-800">
             <div>
-              <h2 className="text-5xl md:text-5xl font-extrabold leading-tight text-gray-900">
+              <h2 className="text-4xl md:text-5xl font-extrabold leading-tight text-gray-900">
                 Achieve Your UK Study Dreams with{" "}
                 <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-red-600">
                   NWC.
@@ -133,10 +148,13 @@ export async function AboutSection() {
             </p>
 
             <div className="pt-4">
-              <button className="group flex items-center gap-3 text-red-600 font-bold border-b-2 border-red-500 pb-1 hover:text-red-700 transition-colors duration-300">
+              <CountryAwareLink
+                href="/apply-now"
+                className="group flex items-center gap-3 w-fit text-red-600 font-bold border-b-2 border-red-500 pb-1 hover:text-red-700 transition-colors duration-300"
+              >
                 Discover Our Expert Consultants
                 <ArrowLeftRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
-              </button>
+              </CountryAwareLink>
             </div>
           </div>
 

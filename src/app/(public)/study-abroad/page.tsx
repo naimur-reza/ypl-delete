@@ -1,5 +1,5 @@
 import { StudyAbroadHero } from "./components/hero-section";
-import { UniversityFilter } from "@/components/filters/university-filter";
+
 import { StudyAbroadCountries } from "./components/countries-section";
 import { PopularCourses } from "./components/popular-courses";
 import { ScholarshipSlider } from "./components/scholarship-slider";
@@ -16,12 +16,16 @@ import {
   EventsSection,
   IntakeFeature,
 } from "@/app/[country]/(public)/(home)/components";
+import { UniversityFilterWithWizard } from "@/components/filters/university-filter-with-wizard";
 
 export const metadata = {
   title: "Study Abroad - NWC Education",
   description:
     "Explore study abroad opportunities with NWC Education. Find universities, scholarships, and get expert guidance.",
 };
+
+// Enable ISR with 1 hour revalidation for SSG
+export const revalidate = 3600;
 
 type StudyAbroadPageProps = {
   params: Promise<{
@@ -53,13 +57,35 @@ const StudyAbroadPage = async ({ params }: StudyAbroadPageProps) => {
     },
   });
 
+  const countries = await prisma.country.findMany({});
+  const destinations = await prisma.destination.findMany({
+    where: {
+      countries: {
+        some: {
+          country: {
+            slug: country,
+          },
+        },
+      },
+    },
+  });
+
   // Fetch scholarships for the slider
   // TODO: Add "isActive: true" filter after running prisma db push
   const scholarships = await prisma.scholarship.findMany({
+    where: {
+      countries: {
+        some: {
+          country: {
+            slug: country,
+          },
+        },
+      },
+    },
     select: {
       id: true,
       title: true,
-      description: true,  
+      description: true,
       slug: true,
       createdAt: true,
     },
@@ -75,13 +101,16 @@ const StudyAbroadPage = async ({ params }: StudyAbroadPageProps) => {
       <StudyAbroadHero />
 
       {/* 2. Filter Section */}
-      <UniversityFilter />
+      <UniversityFilterWithWizard
+        countries={countries}
+        destinations={destinations}
+      />
 
       {/* 3. Country Section */}
       <StudyAbroadCountries countrySlug={country} />
 
       {/* 4. Popular Courses - Dynamic */}
-      <PopularCourses  />
+      <PopularCourses />
 
       {/* 5. University Partners */}
       <AccredianSection

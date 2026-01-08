@@ -1,31 +1,25 @@
-// Blog/Articles Management
 model Blog {
-  id          String    @id @default(cuid())
-  title       String
-  slug        String    @unique
-  excerpt     String?
-  content     String?
-  image       String?
-  author      String?
-  publishedAt DateTime?
-  isFeatured  Boolean   @default(false)
-
-  // SEO Fields
+  id              String           @id @default(cuid())
+  title           String
+  slug            String           @unique
+  excerpt         String?
+  content         String?
+  image           String?
+  author          String?
+  publishedAt     DateTime?
+  isFeatured      Boolean          @default(false)
   metaTitle       String?
   metaDescription String?
   metaKeywords    String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  createdBy String?
-  updatedBy String?
-
-  destinationId String
-  destination   Destination @relation(fields: [destinationId], references: [id])
-
-  countries    BlogCountry[]
-  universities BlogUniversity[]
-  courses      BlogCourse[]
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  createdBy       String?
+  updatedBy       String?
+  destinationId   String
+  destination     Destination      @relation(fields: [destinationId], references: [id])
+  countries       BlogCountry[]
+  courses         BlogCourse[]
+  universities    BlogUniversity[]
 
   @@index([destinationId])
 }

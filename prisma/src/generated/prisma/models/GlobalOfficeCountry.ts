@@ -166,16 +166,16 @@ export type GlobalOfficeCountryWhereInput = {
   id?: Prisma.StringFilter<"GlobalOfficeCountry"> | string
   globalOfficeId?: Prisma.StringFilter<"GlobalOfficeCountry"> | string
   countryId?: Prisma.StringFilter<"GlobalOfficeCountry"> | string
-  globalOffice?: Prisma.XOR<Prisma.GlobalOfficeScalarRelationFilter, Prisma.GlobalOfficeWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
+  globalOffice?: Prisma.XOR<Prisma.GlobalOfficeScalarRelationFilter, Prisma.GlobalOfficeWhereInput>
 }
 
 export type GlobalOfficeCountryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   globalOfficeId?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
-  globalOffice?: Prisma.GlobalOfficeOrderByWithRelationInput
   country?: Prisma.CountryOrderByWithRelationInput
+  globalOffice?: Prisma.GlobalOfficeOrderByWithRelationInput
 }
 
 export type GlobalOfficeCountryWhereUniqueInput = Prisma.AtLeast<{
@@ -186,8 +186,8 @@ export type GlobalOfficeCountryWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.GlobalOfficeCountryWhereInput | Prisma.GlobalOfficeCountryWhereInput[]
   globalOfficeId?: Prisma.StringFilter<"GlobalOfficeCountry"> | string
   countryId?: Prisma.StringFilter<"GlobalOfficeCountry"> | string
-  globalOffice?: Prisma.XOR<Prisma.GlobalOfficeScalarRelationFilter, Prisma.GlobalOfficeWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
+  globalOffice?: Prisma.XOR<Prisma.GlobalOfficeScalarRelationFilter, Prisma.GlobalOfficeWhereInput>
 }, "id" | "globalOfficeId_countryId">
 
 export type GlobalOfficeCountryOrderByWithAggregationInput = {
@@ -210,8 +210,8 @@ export type GlobalOfficeCountryScalarWhereWithAggregatesInput = {
 
 export type GlobalOfficeCountryCreateInput = {
   id?: string
-  globalOffice: Prisma.GlobalOfficeCreateNestedOneWithoutCountriesInput
   country: Prisma.CountryCreateNestedOneWithoutGlobalOfficesInput
+  globalOffice: Prisma.GlobalOfficeCreateNestedOneWithoutCountriesInput
 }
 
 export type GlobalOfficeCountryUncheckedCreateInput = {
@@ -222,8 +222,8 @@ export type GlobalOfficeCountryUncheckedCreateInput = {
 
 export type GlobalOfficeCountryUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  globalOffice?: Prisma.GlobalOfficeUpdateOneRequiredWithoutCountriesNestedInput
   country?: Prisma.CountryUpdateOneRequiredWithoutGlobalOfficesNestedInput
+  globalOffice?: Prisma.GlobalOfficeUpdateOneRequiredWithoutCountriesNestedInput
 }
 
 export type GlobalOfficeCountryUncheckedUpdateInput = {
@@ -492,24 +492,24 @@ export type GlobalOfficeCountrySelect<ExtArgs extends runtime.Types.Extensions.I
   id?: boolean
   globalOfficeId?: boolean
   countryId?: boolean
-  globalOffice?: boolean | Prisma.GlobalOfficeDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  globalOffice?: boolean | Prisma.GlobalOfficeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["globalOfficeCountry"]>
 
 export type GlobalOfficeCountrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   globalOfficeId?: boolean
   countryId?: boolean
-  globalOffice?: boolean | Prisma.GlobalOfficeDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  globalOffice?: boolean | Prisma.GlobalOfficeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["globalOfficeCountry"]>
 
 export type GlobalOfficeCountrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   globalOfficeId?: boolean
   countryId?: boolean
-  globalOffice?: boolean | Prisma.GlobalOfficeDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  globalOffice?: boolean | Prisma.GlobalOfficeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["globalOfficeCountry"]>
 
 export type GlobalOfficeCountrySelectScalar = {
@@ -520,23 +520,23 @@ export type GlobalOfficeCountrySelectScalar = {
 
 export type GlobalOfficeCountryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "globalOfficeId" | "countryId", ExtArgs["result"]["globalOfficeCountry"]>
 export type GlobalOfficeCountryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  globalOffice?: boolean | Prisma.GlobalOfficeDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  globalOffice?: boolean | Prisma.GlobalOfficeDefaultArgs<ExtArgs>
 }
 export type GlobalOfficeCountryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  globalOffice?: boolean | Prisma.GlobalOfficeDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  globalOffice?: boolean | Prisma.GlobalOfficeDefaultArgs<ExtArgs>
 }
 export type GlobalOfficeCountryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  globalOffice?: boolean | Prisma.GlobalOfficeDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  globalOffice?: boolean | Prisma.GlobalOfficeDefaultArgs<ExtArgs>
 }
 
 export type $GlobalOfficeCountryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "GlobalOfficeCountry"
   objects: {
-    globalOffice: Prisma.$GlobalOfficePayload<ExtArgs>
     country: Prisma.$CountryPayload<ExtArgs>
+    globalOffice: Prisma.$GlobalOfficePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -936,8 +936,8 @@ readonly fields: GlobalOfficeCountryFieldRefs;
  */
 export interface Prisma__GlobalOfficeCountryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  globalOffice<T extends Prisma.GlobalOfficeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GlobalOfficeDefaultArgs<ExtArgs>>): Prisma.Prisma__GlobalOfficeClient<runtime.Types.Result.GetResult<Prisma.$GlobalOfficePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   country<T extends Prisma.CountryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CountryDefaultArgs<ExtArgs>>): Prisma.Prisma__CountryClient<runtime.Types.Result.GetResult<Prisma.$CountryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  globalOffice<T extends Prisma.GlobalOfficeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GlobalOfficeDefaultArgs<ExtArgs>>): Prisma.Prisma__GlobalOfficeClient<runtime.Types.Result.GetResult<Prisma.$GlobalOfficePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

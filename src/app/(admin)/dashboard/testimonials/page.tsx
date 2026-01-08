@@ -15,7 +15,7 @@ import {
 import { DataTable } from "@/components/table/data-table";
 import { useDataTable } from "@/hooks/use-data-table";
 import { toast } from "sonner";
-import { createEntityApi } from "@/lib/api-client";
+import { createRestEntityApi } from "@/lib/api-client";
 import Image from "next/image";
 import TestimonialFormModal from "./add-testimonial-modal";
 import { Testimonial } from "../../../../../prisma/src/generated/prisma/client";
@@ -24,7 +24,7 @@ import { useConfirmDialog } from "@/hooks/use-confirm-dialog";
 
 // Interface matching the Prisma Testimonial schema
 
-const testimonialApi = createEntityApi<Testimonial>("/api/testimonials");
+const testimonialApi = createRestEntityApi<Testimonial>("/api/testimonials");
 
 const TestimonialsPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

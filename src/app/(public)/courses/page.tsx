@@ -1,6 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { CoursesHero } from "./components/courses-hero";
-import { CourseListing } from "./components/course-listing";
+
 import { ReviewSection } from "@/components/sections/review-section";
 import { FaqSection } from "@/components/sections/faq-section";
 import CallToActionBanner from "@/components/CallToActionBanner";
@@ -10,14 +9,11 @@ import { buildMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 import { fetchFaqsForCoursesPage } from "@/lib/faqs";
 import { Prisma } from "../../../../prisma/src/generated/prisma/client";
+import { CoursesHero } from "@/app/[country]/(public)/courses/components/courses-hero";
+import { CourseListing } from "@/app/[country]/(public)/courses/components/course-listing";
 
-export const metadata = {
-  title: "Courses - NWC Education",
-  description:
-    "Explore world-class courses at top universities. Find your perfect program.",
-};
-
-export const dynamic = "force-dynamic";
+// Enable ISR with 1 hour revalidation for SSG
+export const revalidate = 3600;
 
 export const generateMetadata = async (): Promise<Metadata> =>
   buildMetadata({
@@ -59,6 +55,11 @@ const CoursesPage = async ({
         },
       },
       destination: true,
+      intakes: {
+        select: {
+          intake: true,
+        },
+      },
     },
     orderBy: { title: "asc" },
     take: 50,

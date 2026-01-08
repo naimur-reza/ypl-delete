@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { UniversityFilter } from "@/components/filters/university-filter";
 
+export const revalidate = 3600;
+
 import { FaqSection } from "@/components/sections/faq-section";
 import { RepresentativeVideoSlider } from "@/components/sections/representative-video-slider";
 import { ReviewSection } from "@/components/sections/review-section";
@@ -17,6 +19,8 @@ import { WhyChooseCountry } from "../components/why-choose-country";
 import { PopularCourses } from "../components/popular-courses";
 import { ScholarshipSlider } from "../components/scholarship-slider";
 import { EssentialStudySection } from "../components/essential-study-section";
+import { buildMetadata } from "@/lib/metadata";
+import type { Metadata } from "next";
 
 interface PageProps {
   params: Promise<{
@@ -25,17 +29,67 @@ interface PageProps {
   }>;
 }
 
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const trimmedSlug = slug.trim();
+
+  const destination = await prisma.destination.findFirst({
+    where: {
+      slug: {
+        contains: trimmedSlug,
+      },
+    },
+    select: {
+      name: true,
+      metaTitle: true,
+      metaDescription: true,
+      metaKeywords: true,
+      thumbnail: true,
+    },
+  });
+
+  if (!destination) {
+    return buildMetadata({
+      title: "Study Abroad",
+      description: "Explore study abroad destinations with NWC Education.",
+    });
+  }
+
+  const countryName =
+    trimmedSlug.toUpperCase() === "UK" || trimmedSlug.toUpperCase() === "USA"
+      ? trimmedSlug.toUpperCase()
+      : trimmedSlug.charAt(0).toUpperCase() + trimmedSlug.slice(1);
+
+  return buildMetadata({
+    title: destination.metaTitle || `Study in ${countryName} - NWC Education`,
+    description:
+      destination.metaDescription ||
+      `Discover top universities, scholarships, and courses to study in ${countryName}. Get expert guidance from NWC Education.`,
+    keywords: destination.metaKeywords,
+    images: destination.thumbnail,
+    url: `/study-abroad/${trimmedSlug}`,
+  });
+}
+
 const DestinationDetailsPage = async ({ params }: PageProps) => {
   const { country, slug } = await params;
+  // Trim slug to handle any whitespace issues in database
+  const trimmedSlug = slug.trim();
   // Capitalize slug for display (e.g., "uk" -> "UK", "usa" -> "USA", "canada" -> "Canada")
   const countryName =
-    slug.toUpperCase() === "UK" || slug.toUpperCase() === "USA"
-      ? slug.toUpperCase()
-      : slug.charAt(0).toUpperCase() + slug.slice(1);
+    trimmedSlug.toUpperCase() === "UK" || trimmedSlug.toUpperCase() === "USA"
+      ? trimmedSlug.toUpperCase()
+      : trimmedSlug.charAt(0).toUpperCase() + trimmedSlug.slice(1);
 
   // Fetch destination with sections
-  const destination = await prisma.destination.findUnique({
-    where: { slug },
+  const destination = await prisma.destination.findFirst({
+    where: {
+      slug: {
+        contains: trimmedSlug,
+      },
+    },
     include: {
       sections: {
         where: { isActive: true },
@@ -86,9 +140,12 @@ const DestinationDetailsPage = async ({ params }: PageProps) => {
       <StudyAbroadHero />
       <UniversityFilter />
       <IntakeFeature />
-      <WhyChooseCountry countryName={countryName} sections={destination?.sections || []} />
+      <WhyChooseCountry
+        countryName={countryName}
+        sections={destination?.sections || []}
+      />
       <UniversitySlider universities={universities} />
-      <PopularCourses countryName={countryName} destinationSlug={slug} />
+      <PopularCourses countrySlug={countryName} destinationSlug={slug} />
       <ScholarshipSlider
         scholarships={scholarships}
         title={`Scholarships to Study in ${countryName}`}
@@ -109,4 +166,3 @@ const DestinationDetailsPage = async ({ params }: PageProps) => {
 };
 
 export default DestinationDetailsPage;
-

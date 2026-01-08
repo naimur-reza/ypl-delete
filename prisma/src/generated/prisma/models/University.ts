@@ -310,15 +310,15 @@ export type UniversityWhereInput = {
   createdBy?: Prisma.StringNullableFilter<"University"> | string | null
   updatedBy?: Prisma.StringNullableFilter<"University"> | string | null
   destinationId?: Prisma.StringFilter<"University"> | string
-  destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
-  detail?: Prisma.XOR<Prisma.UniversityDetailNullableScalarRelationFilter, Prisma.UniversityDetailWhereInput> | null
-  countries?: Prisma.UniversityCountryListRelationFilter
+  blogLinks?: Prisma.BlogUniversityListRelationFilter
   courses?: Prisma.CourseListRelationFilter
   events?: Prisma.EventListRelationFilter
-  scholarships?: Prisma.ScholarshipListRelationFilter
-  blogLinks?: Prisma.BlogUniversityListRelationFilter
   faqLinks?: Prisma.FAQUniversityListRelationFilter
+  scholarships?: Prisma.ScholarshipListRelationFilter
   testimonials?: Prisma.TestimonialUniversityListRelationFilter
+  destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
+  countries?: Prisma.UniversityCountryListRelationFilter
+  detail?: Prisma.XOR<Prisma.UniversityDetailNullableScalarRelationFilter, Prisma.UniversityDetailWhereInput> | null
 }
 
 export type UniversityOrderByWithRelationInput = {
@@ -343,15 +343,15 @@ export type UniversityOrderByWithRelationInput = {
   createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   destinationId?: Prisma.SortOrder
-  destination?: Prisma.DestinationOrderByWithRelationInput
-  detail?: Prisma.UniversityDetailOrderByWithRelationInput
-  countries?: Prisma.UniversityCountryOrderByRelationAggregateInput
+  blogLinks?: Prisma.BlogUniversityOrderByRelationAggregateInput
   courses?: Prisma.CourseOrderByRelationAggregateInput
   events?: Prisma.EventOrderByRelationAggregateInput
-  scholarships?: Prisma.ScholarshipOrderByRelationAggregateInput
-  blogLinks?: Prisma.BlogUniversityOrderByRelationAggregateInput
   faqLinks?: Prisma.FAQUniversityOrderByRelationAggregateInput
+  scholarships?: Prisma.ScholarshipOrderByRelationAggregateInput
   testimonials?: Prisma.TestimonialUniversityOrderByRelationAggregateInput
+  destination?: Prisma.DestinationOrderByWithRelationInput
+  countries?: Prisma.UniversityCountryOrderByRelationAggregateInput
+  detail?: Prisma.UniversityDetailOrderByWithRelationInput
 }
 
 export type UniversityWhereUniqueInput = Prisma.AtLeast<{
@@ -379,15 +379,15 @@ export type UniversityWhereUniqueInput = Prisma.AtLeast<{
   createdBy?: Prisma.StringNullableFilter<"University"> | string | null
   updatedBy?: Prisma.StringNullableFilter<"University"> | string | null
   destinationId?: Prisma.StringFilter<"University"> | string
-  destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
-  detail?: Prisma.XOR<Prisma.UniversityDetailNullableScalarRelationFilter, Prisma.UniversityDetailWhereInput> | null
-  countries?: Prisma.UniversityCountryListRelationFilter
+  blogLinks?: Prisma.BlogUniversityListRelationFilter
   courses?: Prisma.CourseListRelationFilter
   events?: Prisma.EventListRelationFilter
-  scholarships?: Prisma.ScholarshipListRelationFilter
-  blogLinks?: Prisma.BlogUniversityListRelationFilter
   faqLinks?: Prisma.FAQUniversityListRelationFilter
+  scholarships?: Prisma.ScholarshipListRelationFilter
   testimonials?: Prisma.TestimonialUniversityListRelationFilter
+  destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
+  countries?: Prisma.UniversityCountryListRelationFilter
+  detail?: Prisma.XOR<Prisma.UniversityDetailNullableScalarRelationFilter, Prisma.UniversityDetailWhereInput> | null
 }, "id" | "slug">
 
 export type UniversityOrderByWithAggregationInput = {
@@ -465,15 +465,15 @@ export type UniversityCreateInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  destination: Prisma.DestinationCreateNestedOneWithoutUniversitiesInput
-  detail?: Prisma.UniversityDetailCreateNestedOneWithoutUniversityInput
-  countries?: Prisma.UniversityCountryCreateNestedManyWithoutUniversityInput
+  blogLinks?: Prisma.BlogUniversityCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventCreateNestedManyWithoutUniversityInput
-  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutUniversityInput
-  blogLinks?: Prisma.BlogUniversityCreateNestedManyWithoutUniversityInput
   faqLinks?: Prisma.FAQUniversityCreateNestedManyWithoutUniversityInput
+  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutUniversityInput
   testimonials?: Prisma.TestimonialUniversityCreateNestedManyWithoutUniversityInput
+  destination: Prisma.DestinationCreateNestedOneWithoutUniversitiesInput
+  countries?: Prisma.UniversityCountryCreateNestedManyWithoutUniversityInput
+  detail?: Prisma.UniversityDetailCreateNestedOneWithoutUniversityInput
 }
 
 export type UniversityUncheckedCreateInput = {
@@ -498,14 +498,14 @@ export type UniversityUncheckedCreateInput = {
   createdBy?: string | null
   updatedBy?: string | null
   destinationId: string
-  detail?: Prisma.UniversityDetailUncheckedCreateNestedOneWithoutUniversityInput
-  countries?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutUniversityInput
+  blogLinks?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUniversityInput
-  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutUniversityInput
-  blogLinks?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutUniversityInput
   faqLinks?: Prisma.FAQUniversityUncheckedCreateNestedManyWithoutUniversityInput
+  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutUniversityInput
   testimonials?: Prisma.TestimonialUniversityUncheckedCreateNestedManyWithoutUniversityInput
+  countries?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutUniversityInput
+  detail?: Prisma.UniversityDetailUncheckedCreateNestedOneWithoutUniversityInput
 }
 
 export type UniversityUpdateInput = {
@@ -529,15 +529,15 @@ export type UniversityUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  destination?: Prisma.DestinationUpdateOneRequiredWithoutUniversitiesNestedInput
-  detail?: Prisma.UniversityDetailUpdateOneWithoutUniversityNestedInput
-  countries?: Prisma.UniversityCountryUpdateManyWithoutUniversityNestedInput
+  blogLinks?: Prisma.BlogUniversityUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUpdateManyWithoutUniversityNestedInput
-  scholarships?: Prisma.ScholarshipUpdateManyWithoutUniversityNestedInput
-  blogLinks?: Prisma.BlogUniversityUpdateManyWithoutUniversityNestedInput
   faqLinks?: Prisma.FAQUniversityUpdateManyWithoutUniversityNestedInput
+  scholarships?: Prisma.ScholarshipUpdateManyWithoutUniversityNestedInput
   testimonials?: Prisma.TestimonialUniversityUpdateManyWithoutUniversityNestedInput
+  destination?: Prisma.DestinationUpdateOneRequiredWithoutUniversitiesNestedInput
+  countries?: Prisma.UniversityCountryUpdateManyWithoutUniversityNestedInput
+  detail?: Prisma.UniversityDetailUpdateOneWithoutUniversityNestedInput
 }
 
 export type UniversityUncheckedUpdateInput = {
@@ -562,14 +562,14 @@ export type UniversityUncheckedUpdateInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
-  detail?: Prisma.UniversityDetailUncheckedUpdateOneWithoutUniversityNestedInput
-  countries?: Prisma.UniversityCountryUncheckedUpdateManyWithoutUniversityNestedInput
+  blogLinks?: Prisma.BlogUniversityUncheckedUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUniversityNestedInput
-  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutUniversityNestedInput
-  blogLinks?: Prisma.BlogUniversityUncheckedUpdateManyWithoutUniversityNestedInput
   faqLinks?: Prisma.FAQUniversityUncheckedUpdateManyWithoutUniversityNestedInput
+  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutUniversityNestedInput
   testimonials?: Prisma.TestimonialUniversityUncheckedUpdateManyWithoutUniversityNestedInput
+  countries?: Prisma.UniversityCountryUncheckedUpdateManyWithoutUniversityNestedInput
+  detail?: Prisma.UniversityDetailUncheckedUpdateOneWithoutUniversityNestedInput
 }
 
 export type UniversityCreateManyInput = {
@@ -918,14 +918,14 @@ export type UniversityCreateWithoutCoursesInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  destination: Prisma.DestinationCreateNestedOneWithoutUniversitiesInput
-  detail?: Prisma.UniversityDetailCreateNestedOneWithoutUniversityInput
-  countries?: Prisma.UniversityCountryCreateNestedManyWithoutUniversityInput
-  events?: Prisma.EventCreateNestedManyWithoutUniversityInput
-  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutUniversityInput
   blogLinks?: Prisma.BlogUniversityCreateNestedManyWithoutUniversityInput
+  events?: Prisma.EventCreateNestedManyWithoutUniversityInput
   faqLinks?: Prisma.FAQUniversityCreateNestedManyWithoutUniversityInput
+  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutUniversityInput
   testimonials?: Prisma.TestimonialUniversityCreateNestedManyWithoutUniversityInput
+  destination: Prisma.DestinationCreateNestedOneWithoutUniversitiesInput
+  countries?: Prisma.UniversityCountryCreateNestedManyWithoutUniversityInput
+  detail?: Prisma.UniversityDetailCreateNestedOneWithoutUniversityInput
 }
 
 export type UniversityUncheckedCreateWithoutCoursesInput = {
@@ -950,13 +950,13 @@ export type UniversityUncheckedCreateWithoutCoursesInput = {
   createdBy?: string | null
   updatedBy?: string | null
   destinationId: string
-  detail?: Prisma.UniversityDetailUncheckedCreateNestedOneWithoutUniversityInput
-  countries?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutUniversityInput
-  events?: Prisma.EventUncheckedCreateNestedManyWithoutUniversityInput
-  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutUniversityInput
   blogLinks?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutUniversityInput
+  events?: Prisma.EventUncheckedCreateNestedManyWithoutUniversityInput
   faqLinks?: Prisma.FAQUniversityUncheckedCreateNestedManyWithoutUniversityInput
+  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutUniversityInput
   testimonials?: Prisma.TestimonialUniversityUncheckedCreateNestedManyWithoutUniversityInput
+  countries?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutUniversityInput
+  detail?: Prisma.UniversityDetailUncheckedCreateNestedOneWithoutUniversityInput
 }
 
 export type UniversityCreateOrConnectWithoutCoursesInput = {
@@ -996,14 +996,14 @@ export type UniversityUpdateWithoutCoursesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  destination?: Prisma.DestinationUpdateOneRequiredWithoutUniversitiesNestedInput
-  detail?: Prisma.UniversityDetailUpdateOneWithoutUniversityNestedInput
-  countries?: Prisma.UniversityCountryUpdateManyWithoutUniversityNestedInput
-  events?: Prisma.EventUpdateManyWithoutUniversityNestedInput
-  scholarships?: Prisma.ScholarshipUpdateManyWithoutUniversityNestedInput
   blogLinks?: Prisma.BlogUniversityUpdateManyWithoutUniversityNestedInput
+  events?: Prisma.EventUpdateManyWithoutUniversityNestedInput
   faqLinks?: Prisma.FAQUniversityUpdateManyWithoutUniversityNestedInput
+  scholarships?: Prisma.ScholarshipUpdateManyWithoutUniversityNestedInput
   testimonials?: Prisma.TestimonialUniversityUpdateManyWithoutUniversityNestedInput
+  destination?: Prisma.DestinationUpdateOneRequiredWithoutUniversitiesNestedInput
+  countries?: Prisma.UniversityCountryUpdateManyWithoutUniversityNestedInput
+  detail?: Prisma.UniversityDetailUpdateOneWithoutUniversityNestedInput
 }
 
 export type UniversityUncheckedUpdateWithoutCoursesInput = {
@@ -1028,13 +1028,13 @@ export type UniversityUncheckedUpdateWithoutCoursesInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
-  detail?: Prisma.UniversityDetailUncheckedUpdateOneWithoutUniversityNestedInput
-  countries?: Prisma.UniversityCountryUncheckedUpdateManyWithoutUniversityNestedInput
-  events?: Prisma.EventUncheckedUpdateManyWithoutUniversityNestedInput
-  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutUniversityNestedInput
   blogLinks?: Prisma.BlogUniversityUncheckedUpdateManyWithoutUniversityNestedInput
+  events?: Prisma.EventUncheckedUpdateManyWithoutUniversityNestedInput
   faqLinks?: Prisma.FAQUniversityUncheckedUpdateManyWithoutUniversityNestedInput
+  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutUniversityNestedInput
   testimonials?: Prisma.TestimonialUniversityUncheckedUpdateManyWithoutUniversityNestedInput
+  countries?: Prisma.UniversityCountryUncheckedUpdateManyWithoutUniversityNestedInput
+  detail?: Prisma.UniversityDetailUncheckedUpdateOneWithoutUniversityNestedInput
 }
 
 export type UniversityCreateWithoutEventsInput = {
@@ -1058,14 +1058,14 @@ export type UniversityCreateWithoutEventsInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  destination: Prisma.DestinationCreateNestedOneWithoutUniversitiesInput
-  detail?: Prisma.UniversityDetailCreateNestedOneWithoutUniversityInput
-  countries?: Prisma.UniversityCountryCreateNestedManyWithoutUniversityInput
-  courses?: Prisma.CourseCreateNestedManyWithoutUniversityInput
-  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutUniversityInput
   blogLinks?: Prisma.BlogUniversityCreateNestedManyWithoutUniversityInput
+  courses?: Prisma.CourseCreateNestedManyWithoutUniversityInput
   faqLinks?: Prisma.FAQUniversityCreateNestedManyWithoutUniversityInput
+  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutUniversityInput
   testimonials?: Prisma.TestimonialUniversityCreateNestedManyWithoutUniversityInput
+  destination: Prisma.DestinationCreateNestedOneWithoutUniversitiesInput
+  countries?: Prisma.UniversityCountryCreateNestedManyWithoutUniversityInput
+  detail?: Prisma.UniversityDetailCreateNestedOneWithoutUniversityInput
 }
 
 export type UniversityUncheckedCreateWithoutEventsInput = {
@@ -1090,13 +1090,13 @@ export type UniversityUncheckedCreateWithoutEventsInput = {
   createdBy?: string | null
   updatedBy?: string | null
   destinationId: string
-  detail?: Prisma.UniversityDetailUncheckedCreateNestedOneWithoutUniversityInput
-  countries?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutUniversityInput
-  courses?: Prisma.CourseUncheckedCreateNestedManyWithoutUniversityInput
-  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutUniversityInput
   blogLinks?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutUniversityInput
+  courses?: Prisma.CourseUncheckedCreateNestedManyWithoutUniversityInput
   faqLinks?: Prisma.FAQUniversityUncheckedCreateNestedManyWithoutUniversityInput
+  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutUniversityInput
   testimonials?: Prisma.TestimonialUniversityUncheckedCreateNestedManyWithoutUniversityInput
+  countries?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutUniversityInput
+  detail?: Prisma.UniversityDetailUncheckedCreateNestedOneWithoutUniversityInput
 }
 
 export type UniversityCreateOrConnectWithoutEventsInput = {
@@ -1136,14 +1136,14 @@ export type UniversityUpdateWithoutEventsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  destination?: Prisma.DestinationUpdateOneRequiredWithoutUniversitiesNestedInput
-  detail?: Prisma.UniversityDetailUpdateOneWithoutUniversityNestedInput
-  countries?: Prisma.UniversityCountryUpdateManyWithoutUniversityNestedInput
-  courses?: Prisma.CourseUpdateManyWithoutUniversityNestedInput
-  scholarships?: Prisma.ScholarshipUpdateManyWithoutUniversityNestedInput
   blogLinks?: Prisma.BlogUniversityUpdateManyWithoutUniversityNestedInput
+  courses?: Prisma.CourseUpdateManyWithoutUniversityNestedInput
   faqLinks?: Prisma.FAQUniversityUpdateManyWithoutUniversityNestedInput
+  scholarships?: Prisma.ScholarshipUpdateManyWithoutUniversityNestedInput
   testimonials?: Prisma.TestimonialUniversityUpdateManyWithoutUniversityNestedInput
+  destination?: Prisma.DestinationUpdateOneRequiredWithoutUniversitiesNestedInput
+  countries?: Prisma.UniversityCountryUpdateManyWithoutUniversityNestedInput
+  detail?: Prisma.UniversityDetailUpdateOneWithoutUniversityNestedInput
 }
 
 export type UniversityUncheckedUpdateWithoutEventsInput = {
@@ -1168,13 +1168,13 @@ export type UniversityUncheckedUpdateWithoutEventsInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
-  detail?: Prisma.UniversityDetailUncheckedUpdateOneWithoutUniversityNestedInput
-  countries?: Prisma.UniversityCountryUncheckedUpdateManyWithoutUniversityNestedInput
-  courses?: Prisma.CourseUncheckedUpdateManyWithoutUniversityNestedInput
-  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutUniversityNestedInput
   blogLinks?: Prisma.BlogUniversityUncheckedUpdateManyWithoutUniversityNestedInput
+  courses?: Prisma.CourseUncheckedUpdateManyWithoutUniversityNestedInput
   faqLinks?: Prisma.FAQUniversityUncheckedUpdateManyWithoutUniversityNestedInput
+  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutUniversityNestedInput
   testimonials?: Prisma.TestimonialUniversityUncheckedUpdateManyWithoutUniversityNestedInput
+  countries?: Prisma.UniversityCountryUncheckedUpdateManyWithoutUniversityNestedInput
+  detail?: Prisma.UniversityDetailUncheckedUpdateOneWithoutUniversityNestedInput
 }
 
 export type UniversityCreateWithoutDestinationInput = {
@@ -1198,14 +1198,14 @@ export type UniversityCreateWithoutDestinationInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  detail?: Prisma.UniversityDetailCreateNestedOneWithoutUniversityInput
-  countries?: Prisma.UniversityCountryCreateNestedManyWithoutUniversityInput
+  blogLinks?: Prisma.BlogUniversityCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventCreateNestedManyWithoutUniversityInput
-  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutUniversityInput
-  blogLinks?: Prisma.BlogUniversityCreateNestedManyWithoutUniversityInput
   faqLinks?: Prisma.FAQUniversityCreateNestedManyWithoutUniversityInput
+  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutUniversityInput
   testimonials?: Prisma.TestimonialUniversityCreateNestedManyWithoutUniversityInput
+  countries?: Prisma.UniversityCountryCreateNestedManyWithoutUniversityInput
+  detail?: Prisma.UniversityDetailCreateNestedOneWithoutUniversityInput
 }
 
 export type UniversityUncheckedCreateWithoutDestinationInput = {
@@ -1229,14 +1229,14 @@ export type UniversityUncheckedCreateWithoutDestinationInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  detail?: Prisma.UniversityDetailUncheckedCreateNestedOneWithoutUniversityInput
-  countries?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutUniversityInput
+  blogLinks?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUniversityInput
-  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutUniversityInput
-  blogLinks?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutUniversityInput
   faqLinks?: Prisma.FAQUniversityUncheckedCreateNestedManyWithoutUniversityInput
+  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutUniversityInput
   testimonials?: Prisma.TestimonialUniversityUncheckedCreateNestedManyWithoutUniversityInput
+  countries?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutUniversityInput
+  detail?: Prisma.UniversityDetailUncheckedCreateNestedOneWithoutUniversityInput
 }
 
 export type UniversityCreateOrConnectWithoutDestinationInput = {
@@ -1313,14 +1313,14 @@ export type UniversityCreateWithoutCountriesInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  destination: Prisma.DestinationCreateNestedOneWithoutUniversitiesInput
-  detail?: Prisma.UniversityDetailCreateNestedOneWithoutUniversityInput
+  blogLinks?: Prisma.BlogUniversityCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventCreateNestedManyWithoutUniversityInput
-  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutUniversityInput
-  blogLinks?: Prisma.BlogUniversityCreateNestedManyWithoutUniversityInput
   faqLinks?: Prisma.FAQUniversityCreateNestedManyWithoutUniversityInput
+  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutUniversityInput
   testimonials?: Prisma.TestimonialUniversityCreateNestedManyWithoutUniversityInput
+  destination: Prisma.DestinationCreateNestedOneWithoutUniversitiesInput
+  detail?: Prisma.UniversityDetailCreateNestedOneWithoutUniversityInput
 }
 
 export type UniversityUncheckedCreateWithoutCountriesInput = {
@@ -1345,13 +1345,13 @@ export type UniversityUncheckedCreateWithoutCountriesInput = {
   createdBy?: string | null
   updatedBy?: string | null
   destinationId: string
-  detail?: Prisma.UniversityDetailUncheckedCreateNestedOneWithoutUniversityInput
+  blogLinks?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUniversityInput
-  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutUniversityInput
-  blogLinks?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutUniversityInput
   faqLinks?: Prisma.FAQUniversityUncheckedCreateNestedManyWithoutUniversityInput
+  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutUniversityInput
   testimonials?: Prisma.TestimonialUniversityUncheckedCreateNestedManyWithoutUniversityInput
+  detail?: Prisma.UniversityDetailUncheckedCreateNestedOneWithoutUniversityInput
 }
 
 export type UniversityCreateOrConnectWithoutCountriesInput = {
@@ -1391,14 +1391,14 @@ export type UniversityUpdateWithoutCountriesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  destination?: Prisma.DestinationUpdateOneRequiredWithoutUniversitiesNestedInput
-  detail?: Prisma.UniversityDetailUpdateOneWithoutUniversityNestedInput
+  blogLinks?: Prisma.BlogUniversityUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUpdateManyWithoutUniversityNestedInput
-  scholarships?: Prisma.ScholarshipUpdateManyWithoutUniversityNestedInput
-  blogLinks?: Prisma.BlogUniversityUpdateManyWithoutUniversityNestedInput
   faqLinks?: Prisma.FAQUniversityUpdateManyWithoutUniversityNestedInput
+  scholarships?: Prisma.ScholarshipUpdateManyWithoutUniversityNestedInput
   testimonials?: Prisma.TestimonialUniversityUpdateManyWithoutUniversityNestedInput
+  destination?: Prisma.DestinationUpdateOneRequiredWithoutUniversitiesNestedInput
+  detail?: Prisma.UniversityDetailUpdateOneWithoutUniversityNestedInput
 }
 
 export type UniversityUncheckedUpdateWithoutCountriesInput = {
@@ -1423,13 +1423,13 @@ export type UniversityUncheckedUpdateWithoutCountriesInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
-  detail?: Prisma.UniversityDetailUncheckedUpdateOneWithoutUniversityNestedInput
+  blogLinks?: Prisma.BlogUniversityUncheckedUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUniversityNestedInput
-  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutUniversityNestedInput
-  blogLinks?: Prisma.BlogUniversityUncheckedUpdateManyWithoutUniversityNestedInput
   faqLinks?: Prisma.FAQUniversityUncheckedUpdateManyWithoutUniversityNestedInput
+  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutUniversityNestedInput
   testimonials?: Prisma.TestimonialUniversityUncheckedUpdateManyWithoutUniversityNestedInput
+  detail?: Prisma.UniversityDetailUncheckedUpdateOneWithoutUniversityNestedInput
 }
 
 export type UniversityCreateWithoutBlogLinksInput = {
@@ -1453,14 +1453,14 @@ export type UniversityCreateWithoutBlogLinksInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  destination: Prisma.DestinationCreateNestedOneWithoutUniversitiesInput
-  detail?: Prisma.UniversityDetailCreateNestedOneWithoutUniversityInput
-  countries?: Prisma.UniversityCountryCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventCreateNestedManyWithoutUniversityInput
-  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutUniversityInput
   faqLinks?: Prisma.FAQUniversityCreateNestedManyWithoutUniversityInput
+  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutUniversityInput
   testimonials?: Prisma.TestimonialUniversityCreateNestedManyWithoutUniversityInput
+  destination: Prisma.DestinationCreateNestedOneWithoutUniversitiesInput
+  countries?: Prisma.UniversityCountryCreateNestedManyWithoutUniversityInput
+  detail?: Prisma.UniversityDetailCreateNestedOneWithoutUniversityInput
 }
 
 export type UniversityUncheckedCreateWithoutBlogLinksInput = {
@@ -1485,13 +1485,13 @@ export type UniversityUncheckedCreateWithoutBlogLinksInput = {
   createdBy?: string | null
   updatedBy?: string | null
   destinationId: string
-  detail?: Prisma.UniversityDetailUncheckedCreateNestedOneWithoutUniversityInput
-  countries?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUniversityInput
-  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutUniversityInput
   faqLinks?: Prisma.FAQUniversityUncheckedCreateNestedManyWithoutUniversityInput
+  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutUniversityInput
   testimonials?: Prisma.TestimonialUniversityUncheckedCreateNestedManyWithoutUniversityInput
+  countries?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutUniversityInput
+  detail?: Prisma.UniversityDetailUncheckedCreateNestedOneWithoutUniversityInput
 }
 
 export type UniversityCreateOrConnectWithoutBlogLinksInput = {
@@ -1531,14 +1531,14 @@ export type UniversityUpdateWithoutBlogLinksInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  destination?: Prisma.DestinationUpdateOneRequiredWithoutUniversitiesNestedInput
-  detail?: Prisma.UniversityDetailUpdateOneWithoutUniversityNestedInput
-  countries?: Prisma.UniversityCountryUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUpdateManyWithoutUniversityNestedInput
-  scholarships?: Prisma.ScholarshipUpdateManyWithoutUniversityNestedInput
   faqLinks?: Prisma.FAQUniversityUpdateManyWithoutUniversityNestedInput
+  scholarships?: Prisma.ScholarshipUpdateManyWithoutUniversityNestedInput
   testimonials?: Prisma.TestimonialUniversityUpdateManyWithoutUniversityNestedInput
+  destination?: Prisma.DestinationUpdateOneRequiredWithoutUniversitiesNestedInput
+  countries?: Prisma.UniversityCountryUpdateManyWithoutUniversityNestedInput
+  detail?: Prisma.UniversityDetailUpdateOneWithoutUniversityNestedInput
 }
 
 export type UniversityUncheckedUpdateWithoutBlogLinksInput = {
@@ -1563,13 +1563,13 @@ export type UniversityUncheckedUpdateWithoutBlogLinksInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
-  detail?: Prisma.UniversityDetailUncheckedUpdateOneWithoutUniversityNestedInput
-  countries?: Prisma.UniversityCountryUncheckedUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUniversityNestedInput
-  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutUniversityNestedInput
   faqLinks?: Prisma.FAQUniversityUncheckedUpdateManyWithoutUniversityNestedInput
+  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutUniversityNestedInput
   testimonials?: Prisma.TestimonialUniversityUncheckedUpdateManyWithoutUniversityNestedInput
+  countries?: Prisma.UniversityCountryUncheckedUpdateManyWithoutUniversityNestedInput
+  detail?: Prisma.UniversityDetailUncheckedUpdateOneWithoutUniversityNestedInput
 }
 
 export type UniversityCreateWithoutFaqLinksInput = {
@@ -1593,14 +1593,14 @@ export type UniversityCreateWithoutFaqLinksInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  destination: Prisma.DestinationCreateNestedOneWithoutUniversitiesInput
-  detail?: Prisma.UniversityDetailCreateNestedOneWithoutUniversityInput
-  countries?: Prisma.UniversityCountryCreateNestedManyWithoutUniversityInput
+  blogLinks?: Prisma.BlogUniversityCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventCreateNestedManyWithoutUniversityInput
   scholarships?: Prisma.ScholarshipCreateNestedManyWithoutUniversityInput
-  blogLinks?: Prisma.BlogUniversityCreateNestedManyWithoutUniversityInput
   testimonials?: Prisma.TestimonialUniversityCreateNestedManyWithoutUniversityInput
+  destination: Prisma.DestinationCreateNestedOneWithoutUniversitiesInput
+  countries?: Prisma.UniversityCountryCreateNestedManyWithoutUniversityInput
+  detail?: Prisma.UniversityDetailCreateNestedOneWithoutUniversityInput
 }
 
 export type UniversityUncheckedCreateWithoutFaqLinksInput = {
@@ -1625,13 +1625,13 @@ export type UniversityUncheckedCreateWithoutFaqLinksInput = {
   createdBy?: string | null
   updatedBy?: string | null
   destinationId: string
-  detail?: Prisma.UniversityDetailUncheckedCreateNestedOneWithoutUniversityInput
-  countries?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutUniversityInput
+  blogLinks?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUniversityInput
   scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutUniversityInput
-  blogLinks?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutUniversityInput
   testimonials?: Prisma.TestimonialUniversityUncheckedCreateNestedManyWithoutUniversityInput
+  countries?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutUniversityInput
+  detail?: Prisma.UniversityDetailUncheckedCreateNestedOneWithoutUniversityInput
 }
 
 export type UniversityCreateOrConnectWithoutFaqLinksInput = {
@@ -1671,14 +1671,14 @@ export type UniversityUpdateWithoutFaqLinksInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  destination?: Prisma.DestinationUpdateOneRequiredWithoutUniversitiesNestedInput
-  detail?: Prisma.UniversityDetailUpdateOneWithoutUniversityNestedInput
-  countries?: Prisma.UniversityCountryUpdateManyWithoutUniversityNestedInput
+  blogLinks?: Prisma.BlogUniversityUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUpdateManyWithoutUniversityNestedInput
   scholarships?: Prisma.ScholarshipUpdateManyWithoutUniversityNestedInput
-  blogLinks?: Prisma.BlogUniversityUpdateManyWithoutUniversityNestedInput
   testimonials?: Prisma.TestimonialUniversityUpdateManyWithoutUniversityNestedInput
+  destination?: Prisma.DestinationUpdateOneRequiredWithoutUniversitiesNestedInput
+  countries?: Prisma.UniversityCountryUpdateManyWithoutUniversityNestedInput
+  detail?: Prisma.UniversityDetailUpdateOneWithoutUniversityNestedInput
 }
 
 export type UniversityUncheckedUpdateWithoutFaqLinksInput = {
@@ -1703,13 +1703,13 @@ export type UniversityUncheckedUpdateWithoutFaqLinksInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
-  detail?: Prisma.UniversityDetailUncheckedUpdateOneWithoutUniversityNestedInput
-  countries?: Prisma.UniversityCountryUncheckedUpdateManyWithoutUniversityNestedInput
+  blogLinks?: Prisma.BlogUniversityUncheckedUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUniversityNestedInput
   scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutUniversityNestedInput
-  blogLinks?: Prisma.BlogUniversityUncheckedUpdateManyWithoutUniversityNestedInput
   testimonials?: Prisma.TestimonialUniversityUncheckedUpdateManyWithoutUniversityNestedInput
+  countries?: Prisma.UniversityCountryUncheckedUpdateManyWithoutUniversityNestedInput
+  detail?: Prisma.UniversityDetailUncheckedUpdateOneWithoutUniversityNestedInput
 }
 
 export type UniversityCreateWithoutTestimonialsInput = {
@@ -1733,14 +1733,14 @@ export type UniversityCreateWithoutTestimonialsInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  destination: Prisma.DestinationCreateNestedOneWithoutUniversitiesInput
-  detail?: Prisma.UniversityDetailCreateNestedOneWithoutUniversityInput
-  countries?: Prisma.UniversityCountryCreateNestedManyWithoutUniversityInput
+  blogLinks?: Prisma.BlogUniversityCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventCreateNestedManyWithoutUniversityInput
-  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutUniversityInput
-  blogLinks?: Prisma.BlogUniversityCreateNestedManyWithoutUniversityInput
   faqLinks?: Prisma.FAQUniversityCreateNestedManyWithoutUniversityInput
+  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutUniversityInput
+  destination: Prisma.DestinationCreateNestedOneWithoutUniversitiesInput
+  countries?: Prisma.UniversityCountryCreateNestedManyWithoutUniversityInput
+  detail?: Prisma.UniversityDetailCreateNestedOneWithoutUniversityInput
 }
 
 export type UniversityUncheckedCreateWithoutTestimonialsInput = {
@@ -1765,13 +1765,13 @@ export type UniversityUncheckedCreateWithoutTestimonialsInput = {
   createdBy?: string | null
   updatedBy?: string | null
   destinationId: string
-  detail?: Prisma.UniversityDetailUncheckedCreateNestedOneWithoutUniversityInput
-  countries?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutUniversityInput
+  blogLinks?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUniversityInput
-  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutUniversityInput
-  blogLinks?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutUniversityInput
   faqLinks?: Prisma.FAQUniversityUncheckedCreateNestedManyWithoutUniversityInput
+  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutUniversityInput
+  countries?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutUniversityInput
+  detail?: Prisma.UniversityDetailUncheckedCreateNestedOneWithoutUniversityInput
 }
 
 export type UniversityCreateOrConnectWithoutTestimonialsInput = {
@@ -1811,14 +1811,14 @@ export type UniversityUpdateWithoutTestimonialsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  destination?: Prisma.DestinationUpdateOneRequiredWithoutUniversitiesNestedInput
-  detail?: Prisma.UniversityDetailUpdateOneWithoutUniversityNestedInput
-  countries?: Prisma.UniversityCountryUpdateManyWithoutUniversityNestedInput
+  blogLinks?: Prisma.BlogUniversityUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUpdateManyWithoutUniversityNestedInput
-  scholarships?: Prisma.ScholarshipUpdateManyWithoutUniversityNestedInput
-  blogLinks?: Prisma.BlogUniversityUpdateManyWithoutUniversityNestedInput
   faqLinks?: Prisma.FAQUniversityUpdateManyWithoutUniversityNestedInput
+  scholarships?: Prisma.ScholarshipUpdateManyWithoutUniversityNestedInput
+  destination?: Prisma.DestinationUpdateOneRequiredWithoutUniversitiesNestedInput
+  countries?: Prisma.UniversityCountryUpdateManyWithoutUniversityNestedInput
+  detail?: Prisma.UniversityDetailUpdateOneWithoutUniversityNestedInput
 }
 
 export type UniversityUncheckedUpdateWithoutTestimonialsInput = {
@@ -1843,13 +1843,13 @@ export type UniversityUncheckedUpdateWithoutTestimonialsInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
-  detail?: Prisma.UniversityDetailUncheckedUpdateOneWithoutUniversityNestedInput
-  countries?: Prisma.UniversityCountryUncheckedUpdateManyWithoutUniversityNestedInput
+  blogLinks?: Prisma.BlogUniversityUncheckedUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUniversityNestedInput
-  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutUniversityNestedInput
-  blogLinks?: Prisma.BlogUniversityUncheckedUpdateManyWithoutUniversityNestedInput
   faqLinks?: Prisma.FAQUniversityUncheckedUpdateManyWithoutUniversityNestedInput
+  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutUniversityNestedInput
+  countries?: Prisma.UniversityCountryUncheckedUpdateManyWithoutUniversityNestedInput
+  detail?: Prisma.UniversityDetailUncheckedUpdateOneWithoutUniversityNestedInput
 }
 
 export type UniversityCreateWithoutScholarshipsInput = {
@@ -1873,14 +1873,14 @@ export type UniversityCreateWithoutScholarshipsInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  destination: Prisma.DestinationCreateNestedOneWithoutUniversitiesInput
-  detail?: Prisma.UniversityDetailCreateNestedOneWithoutUniversityInput
-  countries?: Prisma.UniversityCountryCreateNestedManyWithoutUniversityInput
+  blogLinks?: Prisma.BlogUniversityCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventCreateNestedManyWithoutUniversityInput
-  blogLinks?: Prisma.BlogUniversityCreateNestedManyWithoutUniversityInput
   faqLinks?: Prisma.FAQUniversityCreateNestedManyWithoutUniversityInput
   testimonials?: Prisma.TestimonialUniversityCreateNestedManyWithoutUniversityInput
+  destination: Prisma.DestinationCreateNestedOneWithoutUniversitiesInput
+  countries?: Prisma.UniversityCountryCreateNestedManyWithoutUniversityInput
+  detail?: Prisma.UniversityDetailCreateNestedOneWithoutUniversityInput
 }
 
 export type UniversityUncheckedCreateWithoutScholarshipsInput = {
@@ -1905,13 +1905,13 @@ export type UniversityUncheckedCreateWithoutScholarshipsInput = {
   createdBy?: string | null
   updatedBy?: string | null
   destinationId: string
-  detail?: Prisma.UniversityDetailUncheckedCreateNestedOneWithoutUniversityInput
-  countries?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutUniversityInput
+  blogLinks?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUniversityInput
-  blogLinks?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutUniversityInput
   faqLinks?: Prisma.FAQUniversityUncheckedCreateNestedManyWithoutUniversityInput
   testimonials?: Prisma.TestimonialUniversityUncheckedCreateNestedManyWithoutUniversityInput
+  countries?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutUniversityInput
+  detail?: Prisma.UniversityDetailUncheckedCreateNestedOneWithoutUniversityInput
 }
 
 export type UniversityCreateOrConnectWithoutScholarshipsInput = {
@@ -1951,14 +1951,14 @@ export type UniversityUpdateWithoutScholarshipsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  destination?: Prisma.DestinationUpdateOneRequiredWithoutUniversitiesNestedInput
-  detail?: Prisma.UniversityDetailUpdateOneWithoutUniversityNestedInput
-  countries?: Prisma.UniversityCountryUpdateManyWithoutUniversityNestedInput
+  blogLinks?: Prisma.BlogUniversityUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUpdateManyWithoutUniversityNestedInput
-  blogLinks?: Prisma.BlogUniversityUpdateManyWithoutUniversityNestedInput
   faqLinks?: Prisma.FAQUniversityUpdateManyWithoutUniversityNestedInput
   testimonials?: Prisma.TestimonialUniversityUpdateManyWithoutUniversityNestedInput
+  destination?: Prisma.DestinationUpdateOneRequiredWithoutUniversitiesNestedInput
+  countries?: Prisma.UniversityCountryUpdateManyWithoutUniversityNestedInput
+  detail?: Prisma.UniversityDetailUpdateOneWithoutUniversityNestedInput
 }
 
 export type UniversityUncheckedUpdateWithoutScholarshipsInput = {
@@ -1983,13 +1983,13 @@ export type UniversityUncheckedUpdateWithoutScholarshipsInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
-  detail?: Prisma.UniversityDetailUncheckedUpdateOneWithoutUniversityNestedInput
-  countries?: Prisma.UniversityCountryUncheckedUpdateManyWithoutUniversityNestedInput
+  blogLinks?: Prisma.BlogUniversityUncheckedUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUniversityNestedInput
-  blogLinks?: Prisma.BlogUniversityUncheckedUpdateManyWithoutUniversityNestedInput
   faqLinks?: Prisma.FAQUniversityUncheckedUpdateManyWithoutUniversityNestedInput
   testimonials?: Prisma.TestimonialUniversityUncheckedUpdateManyWithoutUniversityNestedInput
+  countries?: Prisma.UniversityCountryUncheckedUpdateManyWithoutUniversityNestedInput
+  detail?: Prisma.UniversityDetailUncheckedUpdateOneWithoutUniversityNestedInput
 }
 
 export type UniversityCreateWithoutDetailInput = {
@@ -2013,14 +2013,14 @@ export type UniversityCreateWithoutDetailInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  destination: Prisma.DestinationCreateNestedOneWithoutUniversitiesInput
-  countries?: Prisma.UniversityCountryCreateNestedManyWithoutUniversityInput
+  blogLinks?: Prisma.BlogUniversityCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventCreateNestedManyWithoutUniversityInput
-  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutUniversityInput
-  blogLinks?: Prisma.BlogUniversityCreateNestedManyWithoutUniversityInput
   faqLinks?: Prisma.FAQUniversityCreateNestedManyWithoutUniversityInput
+  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutUniversityInput
   testimonials?: Prisma.TestimonialUniversityCreateNestedManyWithoutUniversityInput
+  destination: Prisma.DestinationCreateNestedOneWithoutUniversitiesInput
+  countries?: Prisma.UniversityCountryCreateNestedManyWithoutUniversityInput
 }
 
 export type UniversityUncheckedCreateWithoutDetailInput = {
@@ -2045,13 +2045,13 @@ export type UniversityUncheckedCreateWithoutDetailInput = {
   createdBy?: string | null
   updatedBy?: string | null
   destinationId: string
-  countries?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutUniversityInput
+  blogLinks?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUniversityInput
-  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutUniversityInput
-  blogLinks?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutUniversityInput
   faqLinks?: Prisma.FAQUniversityUncheckedCreateNestedManyWithoutUniversityInput
+  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutUniversityInput
   testimonials?: Prisma.TestimonialUniversityUncheckedCreateNestedManyWithoutUniversityInput
+  countries?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutUniversityInput
 }
 
 export type UniversityCreateOrConnectWithoutDetailInput = {
@@ -2091,14 +2091,14 @@ export type UniversityUpdateWithoutDetailInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  destination?: Prisma.DestinationUpdateOneRequiredWithoutUniversitiesNestedInput
-  countries?: Prisma.UniversityCountryUpdateManyWithoutUniversityNestedInput
+  blogLinks?: Prisma.BlogUniversityUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUpdateManyWithoutUniversityNestedInput
-  scholarships?: Prisma.ScholarshipUpdateManyWithoutUniversityNestedInput
-  blogLinks?: Prisma.BlogUniversityUpdateManyWithoutUniversityNestedInput
   faqLinks?: Prisma.FAQUniversityUpdateManyWithoutUniversityNestedInput
+  scholarships?: Prisma.ScholarshipUpdateManyWithoutUniversityNestedInput
   testimonials?: Prisma.TestimonialUniversityUpdateManyWithoutUniversityNestedInput
+  destination?: Prisma.DestinationUpdateOneRequiredWithoutUniversitiesNestedInput
+  countries?: Prisma.UniversityCountryUpdateManyWithoutUniversityNestedInput
 }
 
 export type UniversityUncheckedUpdateWithoutDetailInput = {
@@ -2123,13 +2123,13 @@ export type UniversityUncheckedUpdateWithoutDetailInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
-  countries?: Prisma.UniversityCountryUncheckedUpdateManyWithoutUniversityNestedInput
+  blogLinks?: Prisma.BlogUniversityUncheckedUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUniversityNestedInput
-  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutUniversityNestedInput
-  blogLinks?: Prisma.BlogUniversityUncheckedUpdateManyWithoutUniversityNestedInput
   faqLinks?: Prisma.FAQUniversityUncheckedUpdateManyWithoutUniversityNestedInput
+  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutUniversityNestedInput
   testimonials?: Prisma.TestimonialUniversityUncheckedUpdateManyWithoutUniversityNestedInput
+  countries?: Prisma.UniversityCountryUncheckedUpdateManyWithoutUniversityNestedInput
 }
 
 export type UniversityCreateManyDestinationInput = {
@@ -2176,14 +2176,14 @@ export type UniversityUpdateWithoutDestinationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  detail?: Prisma.UniversityDetailUpdateOneWithoutUniversityNestedInput
-  countries?: Prisma.UniversityCountryUpdateManyWithoutUniversityNestedInput
+  blogLinks?: Prisma.BlogUniversityUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUpdateManyWithoutUniversityNestedInput
-  scholarships?: Prisma.ScholarshipUpdateManyWithoutUniversityNestedInput
-  blogLinks?: Prisma.BlogUniversityUpdateManyWithoutUniversityNestedInput
   faqLinks?: Prisma.FAQUniversityUpdateManyWithoutUniversityNestedInput
+  scholarships?: Prisma.ScholarshipUpdateManyWithoutUniversityNestedInput
   testimonials?: Prisma.TestimonialUniversityUpdateManyWithoutUniversityNestedInput
+  countries?: Prisma.UniversityCountryUpdateManyWithoutUniversityNestedInput
+  detail?: Prisma.UniversityDetailUpdateOneWithoutUniversityNestedInput
 }
 
 export type UniversityUncheckedUpdateWithoutDestinationInput = {
@@ -2207,14 +2207,14 @@ export type UniversityUncheckedUpdateWithoutDestinationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  detail?: Prisma.UniversityDetailUncheckedUpdateOneWithoutUniversityNestedInput
-  countries?: Prisma.UniversityCountryUncheckedUpdateManyWithoutUniversityNestedInput
+  blogLinks?: Prisma.BlogUniversityUncheckedUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUniversityNestedInput
-  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutUniversityNestedInput
-  blogLinks?: Prisma.BlogUniversityUncheckedUpdateManyWithoutUniversityNestedInput
   faqLinks?: Prisma.FAQUniversityUncheckedUpdateManyWithoutUniversityNestedInput
+  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutUniversityNestedInput
   testimonials?: Prisma.TestimonialUniversityUncheckedUpdateManyWithoutUniversityNestedInput
+  countries?: Prisma.UniversityCountryUncheckedUpdateManyWithoutUniversityNestedInput
+  detail?: Prisma.UniversityDetailUncheckedUpdateOneWithoutUniversityNestedInput
 }
 
 export type UniversityUncheckedUpdateManyWithoutDestinationInput = {
@@ -2246,23 +2246,23 @@ export type UniversityUncheckedUpdateManyWithoutDestinationInput = {
  */
 
 export type UniversityCountOutputType = {
-  countries: number
+  blogLinks: number
   courses: number
   events: number
-  scholarships: number
-  blogLinks: number
   faqLinks: number
+  scholarships: number
   testimonials: number
+  countries: number
 }
 
 export type UniversityCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  countries?: boolean | UniversityCountOutputTypeCountCountriesArgs
+  blogLinks?: boolean | UniversityCountOutputTypeCountBlogLinksArgs
   courses?: boolean | UniversityCountOutputTypeCountCoursesArgs
   events?: boolean | UniversityCountOutputTypeCountEventsArgs
-  scholarships?: boolean | UniversityCountOutputTypeCountScholarshipsArgs
-  blogLinks?: boolean | UniversityCountOutputTypeCountBlogLinksArgs
   faqLinks?: boolean | UniversityCountOutputTypeCountFaqLinksArgs
+  scholarships?: boolean | UniversityCountOutputTypeCountScholarshipsArgs
   testimonials?: boolean | UniversityCountOutputTypeCountTestimonialsArgs
+  countries?: boolean | UniversityCountOutputTypeCountCountriesArgs
 }
 
 /**
@@ -2278,8 +2278,8 @@ export type UniversityCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.E
 /**
  * UniversityCountOutputType without action
  */
-export type UniversityCountOutputTypeCountCountriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.UniversityCountryWhereInput
+export type UniversityCountOutputTypeCountBlogLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BlogUniversityWhereInput
 }
 
 /**
@@ -2299,20 +2299,6 @@ export type UniversityCountOutputTypeCountEventsArgs<ExtArgs extends runtime.Typ
 /**
  * UniversityCountOutputType without action
  */
-export type UniversityCountOutputTypeCountScholarshipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ScholarshipWhereInput
-}
-
-/**
- * UniversityCountOutputType without action
- */
-export type UniversityCountOutputTypeCountBlogLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.BlogUniversityWhereInput
-}
-
-/**
- * UniversityCountOutputType without action
- */
 export type UniversityCountOutputTypeCountFaqLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.FAQUniversityWhereInput
 }
@@ -2320,8 +2306,22 @@ export type UniversityCountOutputTypeCountFaqLinksArgs<ExtArgs extends runtime.T
 /**
  * UniversityCountOutputType without action
  */
+export type UniversityCountOutputTypeCountScholarshipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ScholarshipWhereInput
+}
+
+/**
+ * UniversityCountOutputType without action
+ */
 export type UniversityCountOutputTypeCountTestimonialsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.TestimonialUniversityWhereInput
+}
+
+/**
+ * UniversityCountOutputType without action
+ */
+export type UniversityCountOutputTypeCountCountriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UniversityCountryWhereInput
 }
 
 
@@ -2347,15 +2347,15 @@ export type UniversitySelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   createdBy?: boolean
   updatedBy?: boolean
   destinationId?: boolean
-  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
-  detail?: boolean | Prisma.University$detailArgs<ExtArgs>
-  countries?: boolean | Prisma.University$countriesArgs<ExtArgs>
+  blogLinks?: boolean | Prisma.University$blogLinksArgs<ExtArgs>
   courses?: boolean | Prisma.University$coursesArgs<ExtArgs>
   events?: boolean | Prisma.University$eventsArgs<ExtArgs>
-  scholarships?: boolean | Prisma.University$scholarshipsArgs<ExtArgs>
-  blogLinks?: boolean | Prisma.University$blogLinksArgs<ExtArgs>
   faqLinks?: boolean | Prisma.University$faqLinksArgs<ExtArgs>
+  scholarships?: boolean | Prisma.University$scholarshipsArgs<ExtArgs>
   testimonials?: boolean | Prisma.University$testimonialsArgs<ExtArgs>
+  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  countries?: boolean | Prisma.University$countriesArgs<ExtArgs>
+  detail?: boolean | Prisma.University$detailArgs<ExtArgs>
   _count?: boolean | Prisma.UniversityCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["university"]>
 
@@ -2435,15 +2435,15 @@ export type UniversitySelectScalar = {
 
 export type UniversityOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "logo" | "thumbnail" | "description" | "providerType" | "isFeatured" | "isActive" | "website" | "address" | "phone" | "email" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "destinationId", ExtArgs["result"]["university"]>
 export type UniversityInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
-  detail?: boolean | Prisma.University$detailArgs<ExtArgs>
-  countries?: boolean | Prisma.University$countriesArgs<ExtArgs>
+  blogLinks?: boolean | Prisma.University$blogLinksArgs<ExtArgs>
   courses?: boolean | Prisma.University$coursesArgs<ExtArgs>
   events?: boolean | Prisma.University$eventsArgs<ExtArgs>
-  scholarships?: boolean | Prisma.University$scholarshipsArgs<ExtArgs>
-  blogLinks?: boolean | Prisma.University$blogLinksArgs<ExtArgs>
   faqLinks?: boolean | Prisma.University$faqLinksArgs<ExtArgs>
+  scholarships?: boolean | Prisma.University$scholarshipsArgs<ExtArgs>
   testimonials?: boolean | Prisma.University$testimonialsArgs<ExtArgs>
+  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  countries?: boolean | Prisma.University$countriesArgs<ExtArgs>
+  detail?: boolean | Prisma.University$detailArgs<ExtArgs>
   _count?: boolean | Prisma.UniversityCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UniversityIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2456,15 +2456,15 @@ export type UniversityIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.E
 export type $UniversityPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "University"
   objects: {
-    destination: Prisma.$DestinationPayload<ExtArgs>
-    detail: Prisma.$UniversityDetailPayload<ExtArgs> | null
-    countries: Prisma.$UniversityCountryPayload<ExtArgs>[]
+    blogLinks: Prisma.$BlogUniversityPayload<ExtArgs>[]
     courses: Prisma.$CoursePayload<ExtArgs>[]
     events: Prisma.$EventPayload<ExtArgs>[]
-    scholarships: Prisma.$ScholarshipPayload<ExtArgs>[]
-    blogLinks: Prisma.$BlogUniversityPayload<ExtArgs>[]
     faqLinks: Prisma.$FAQUniversityPayload<ExtArgs>[]
+    scholarships: Prisma.$ScholarshipPayload<ExtArgs>[]
     testimonials: Prisma.$TestimonialUniversityPayload<ExtArgs>[]
+    destination: Prisma.$DestinationPayload<ExtArgs>
+    countries: Prisma.$UniversityCountryPayload<ExtArgs>[]
+    detail: Prisma.$UniversityDetailPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2882,15 +2882,15 @@ readonly fields: UniversityFieldRefs;
  */
 export interface Prisma__UniversityClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  destination<T extends Prisma.DestinationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DestinationDefaultArgs<ExtArgs>>): Prisma.Prisma__DestinationClient<runtime.Types.Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  detail<T extends Prisma.University$detailArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.University$detailArgs<ExtArgs>>): Prisma.Prisma__UniversityDetailClient<runtime.Types.Result.GetResult<Prisma.$UniversityDetailPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  countries<T extends Prisma.University$countriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.University$countriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UniversityCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  blogLinks<T extends Prisma.University$blogLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.University$blogLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BlogUniversityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   courses<T extends Prisma.University$coursesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.University$coursesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   events<T extends Prisma.University$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.University$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  scholarships<T extends Prisma.University$scholarshipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.University$scholarshipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ScholarshipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  blogLinks<T extends Prisma.University$blogLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.University$blogLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BlogUniversityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   faqLinks<T extends Prisma.University$faqLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.University$faqLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FAQUniversityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  scholarships<T extends Prisma.University$scholarshipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.University$scholarshipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ScholarshipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   testimonials<T extends Prisma.University$testimonialsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.University$testimonialsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestimonialUniversityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  destination<T extends Prisma.DestinationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DestinationDefaultArgs<ExtArgs>>): Prisma.Prisma__DestinationClient<runtime.Types.Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  countries<T extends Prisma.University$countriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.University$countriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UniversityCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  detail<T extends Prisma.University$detailArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.University$detailArgs<ExtArgs>>): Prisma.Prisma__UniversityDetailClient<runtime.Types.Result.GetResult<Prisma.$UniversityDetailPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3337,46 +3337,27 @@ export type UniversityDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
- * University.detail
+ * University.blogLinks
  */
-export type University$detailArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type University$blogLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the UniversityDetail
+   * Select specific fields to fetch from the BlogUniversity
    */
-  select?: Prisma.UniversityDetailSelect<ExtArgs> | null
+  select?: Prisma.BlogUniversitySelect<ExtArgs> | null
   /**
-   * Omit specific fields from the UniversityDetail
+   * Omit specific fields from the BlogUniversity
    */
-  omit?: Prisma.UniversityDetailOmit<ExtArgs> | null
+  omit?: Prisma.BlogUniversityOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.UniversityDetailInclude<ExtArgs> | null
-  where?: Prisma.UniversityDetailWhereInput
-}
-
-/**
- * University.countries
- */
-export type University$countriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the UniversityCountry
-   */
-  select?: Prisma.UniversityCountrySelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the UniversityCountry
-   */
-  omit?: Prisma.UniversityCountryOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UniversityCountryInclude<ExtArgs> | null
-  where?: Prisma.UniversityCountryWhereInput
-  orderBy?: Prisma.UniversityCountryOrderByWithRelationInput | Prisma.UniversityCountryOrderByWithRelationInput[]
-  cursor?: Prisma.UniversityCountryWhereUniqueInput
+  include?: Prisma.BlogUniversityInclude<ExtArgs> | null
+  where?: Prisma.BlogUniversityWhereInput
+  orderBy?: Prisma.BlogUniversityOrderByWithRelationInput | Prisma.BlogUniversityOrderByWithRelationInput[]
+  cursor?: Prisma.BlogUniversityWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.UniversityCountryScalarFieldEnum | Prisma.UniversityCountryScalarFieldEnum[]
+  distinct?: Prisma.BlogUniversityScalarFieldEnum | Prisma.BlogUniversityScalarFieldEnum[]
 }
 
 /**
@@ -3428,54 +3409,6 @@ export type University$eventsArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
- * University.scholarships
- */
-export type University$scholarshipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Scholarship
-   */
-  select?: Prisma.ScholarshipSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Scholarship
-   */
-  omit?: Prisma.ScholarshipOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ScholarshipInclude<ExtArgs> | null
-  where?: Prisma.ScholarshipWhereInput
-  orderBy?: Prisma.ScholarshipOrderByWithRelationInput | Prisma.ScholarshipOrderByWithRelationInput[]
-  cursor?: Prisma.ScholarshipWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ScholarshipScalarFieldEnum | Prisma.ScholarshipScalarFieldEnum[]
-}
-
-/**
- * University.blogLinks
- */
-export type University$blogLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the BlogUniversity
-   */
-  select?: Prisma.BlogUniversitySelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the BlogUniversity
-   */
-  omit?: Prisma.BlogUniversityOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.BlogUniversityInclude<ExtArgs> | null
-  where?: Prisma.BlogUniversityWhereInput
-  orderBy?: Prisma.BlogUniversityOrderByWithRelationInput | Prisma.BlogUniversityOrderByWithRelationInput[]
-  cursor?: Prisma.BlogUniversityWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.BlogUniversityScalarFieldEnum | Prisma.BlogUniversityScalarFieldEnum[]
-}
-
-/**
  * University.faqLinks
  */
 export type University$faqLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3500,6 +3433,30 @@ export type University$faqLinksArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 /**
+ * University.scholarships
+ */
+export type University$scholarshipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Scholarship
+   */
+  select?: Prisma.ScholarshipSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Scholarship
+   */
+  omit?: Prisma.ScholarshipOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ScholarshipInclude<ExtArgs> | null
+  where?: Prisma.ScholarshipWhereInput
+  orderBy?: Prisma.ScholarshipOrderByWithRelationInput | Prisma.ScholarshipOrderByWithRelationInput[]
+  cursor?: Prisma.ScholarshipWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ScholarshipScalarFieldEnum | Prisma.ScholarshipScalarFieldEnum[]
+}
+
+/**
  * University.testimonials
  */
 export type University$testimonialsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3521,6 +3478,49 @@ export type University$testimonialsArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.TestimonialUniversityScalarFieldEnum | Prisma.TestimonialUniversityScalarFieldEnum[]
+}
+
+/**
+ * University.countries
+ */
+export type University$countriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UniversityCountry
+   */
+  select?: Prisma.UniversityCountrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UniversityCountry
+   */
+  omit?: Prisma.UniversityCountryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UniversityCountryInclude<ExtArgs> | null
+  where?: Prisma.UniversityCountryWhereInput
+  orderBy?: Prisma.UniversityCountryOrderByWithRelationInput | Prisma.UniversityCountryOrderByWithRelationInput[]
+  cursor?: Prisma.UniversityCountryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UniversityCountryScalarFieldEnum | Prisma.UniversityCountryScalarFieldEnum[]
+}
+
+/**
+ * University.detail
+ */
+export type University$detailArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UniversityDetail
+   */
+  select?: Prisma.UniversityDetailSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UniversityDetail
+   */
+  omit?: Prisma.UniversityDetailOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UniversityDetailInclude<ExtArgs> | null
+  where?: Prisma.UniversityDetailWhereInput
 }
 
 /**

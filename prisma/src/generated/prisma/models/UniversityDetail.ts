@@ -35,11 +35,11 @@ export type UniversityDetailMinAggregateOutputType = {
   servicesDescription: string | null
   servicesImage: string | null
   entryRequirements: string | null
-  description: string | null
-  accommodation: string | null
-  accommodationImage: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  accommodation: string | null
+  accommodationImage: string | null
+  description: string | null
 }
 
 export type UniversityDetailMaxAggregateOutputType = {
@@ -53,11 +53,11 @@ export type UniversityDetailMaxAggregateOutputType = {
   servicesDescription: string | null
   servicesImage: string | null
   entryRequirements: string | null
-  description: string | null
-  accommodation: string | null
-  accommodationImage: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  accommodation: string | null
+  accommodationImage: string | null
+  description: string | null
 }
 
 export type UniversityDetailCountAggregateOutputType = {
@@ -71,11 +71,11 @@ export type UniversityDetailCountAggregateOutputType = {
   servicesDescription: number
   servicesImage: number
   entryRequirements: number
-  description: number
-  accommodation: number
-  accommodationImage: number
   createdAt: number
   updatedAt: number
+  accommodation: number
+  accommodationImage: number
+  description: number
   _all: number
 }
 
@@ -91,11 +91,11 @@ export type UniversityDetailMinAggregateInputType = {
   servicesDescription?: true
   servicesImage?: true
   entryRequirements?: true
-  description?: true
-  accommodation?: true
-  accommodationImage?: true
   createdAt?: true
   updatedAt?: true
+  accommodation?: true
+  accommodationImage?: true
+  description?: true
 }
 
 export type UniversityDetailMaxAggregateInputType = {
@@ -109,11 +109,11 @@ export type UniversityDetailMaxAggregateInputType = {
   servicesDescription?: true
   servicesImage?: true
   entryRequirements?: true
-  description?: true
-  accommodation?: true
-  accommodationImage?: true
   createdAt?: true
   updatedAt?: true
+  accommodation?: true
+  accommodationImage?: true
+  description?: true
 }
 
 export type UniversityDetailCountAggregateInputType = {
@@ -127,11 +127,11 @@ export type UniversityDetailCountAggregateInputType = {
   servicesDescription?: true
   servicesImage?: true
   entryRequirements?: true
-  description?: true
-  accommodation?: true
-  accommodationImage?: true
   createdAt?: true
   updatedAt?: true
+  accommodation?: true
+  accommodationImage?: true
+  description?: true
   _all?: true
 }
 
@@ -218,11 +218,11 @@ export type UniversityDetailGroupByOutputType = {
   servicesDescription: string | null
   servicesImage: string | null
   entryRequirements: string
-  description: string | null
-  accommodation: string | null
-  accommodationImage: string | null
   createdAt: Date
   updatedAt: Date
+  accommodation: string | null
+  accommodationImage: string | null
+  description: string | null
   _count: UniversityDetailCountAggregateOutputType | null
   _min: UniversityDetailMinAggregateOutputType | null
   _max: UniversityDetailMaxAggregateOutputType | null
@@ -257,11 +257,11 @@ export type UniversityDetailWhereInput = {
   servicesDescription?: Prisma.StringNullableFilter<"UniversityDetail"> | string | null
   servicesImage?: Prisma.StringNullableFilter<"UniversityDetail"> | string | null
   entryRequirements?: Prisma.StringFilter<"UniversityDetail"> | string
-  description?: Prisma.StringNullableFilter<"UniversityDetail"> | string | null
-  accommodation?: Prisma.StringNullableFilter<"UniversityDetail"> | string | null
-  accommodationImage?: Prisma.StringNullableFilter<"UniversityDetail"> | string | null
   createdAt?: Prisma.DateTimeFilter<"UniversityDetail"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"UniversityDetail"> | Date | string
+  accommodation?: Prisma.StringNullableFilter<"UniversityDetail"> | string | null
+  accommodationImage?: Prisma.StringNullableFilter<"UniversityDetail"> | string | null
+  description?: Prisma.StringNullableFilter<"UniversityDetail"> | string | null
   university?: Prisma.XOR<Prisma.UniversityScalarRelationFilter, Prisma.UniversityWhereInput>
 }
 
@@ -276,11 +276,11 @@ export type UniversityDetailOrderByWithRelationInput = {
   servicesDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   servicesImage?: Prisma.SortOrderInput | Prisma.SortOrder
   entryRequirements?: Prisma.SortOrder
-  description?: Prisma.SortOrderInput | Prisma.SortOrder
-  accommodation?: Prisma.SortOrderInput | Prisma.SortOrder
-  accommodationImage?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  accommodation?: Prisma.SortOrderInput | Prisma.SortOrder
+  accommodationImage?: Prisma.SortOrderInput | Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
   university?: Prisma.UniversityOrderByWithRelationInput
 }
 
@@ -298,11 +298,11 @@ export type UniversityDetailWhereUniqueInput = Prisma.AtLeast<{
   servicesDescription?: Prisma.StringNullableFilter<"UniversityDetail"> | string | null
   servicesImage?: Prisma.StringNullableFilter<"UniversityDetail"> | string | null
   entryRequirements?: Prisma.StringFilter<"UniversityDetail"> | string
-  description?: Prisma.StringNullableFilter<"UniversityDetail"> | string | null
-  accommodation?: Prisma.StringNullableFilter<"UniversityDetail"> | string | null
-  accommodationImage?: Prisma.StringNullableFilter<"UniversityDetail"> | string | null
   createdAt?: Prisma.DateTimeFilter<"UniversityDetail"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"UniversityDetail"> | Date | string
+  accommodation?: Prisma.StringNullableFilter<"UniversityDetail"> | string | null
+  accommodationImage?: Prisma.StringNullableFilter<"UniversityDetail"> | string | null
+  description?: Prisma.StringNullableFilter<"UniversityDetail"> | string | null
   university?: Prisma.XOR<Prisma.UniversityScalarRelationFilter, Prisma.UniversityWhereInput>
 }, "id" | "universityId">
 
@@ -317,11 +317,11 @@ export type UniversityDetailOrderByWithAggregationInput = {
   servicesDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   servicesImage?: Prisma.SortOrderInput | Prisma.SortOrder
   entryRequirements?: Prisma.SortOrder
-  description?: Prisma.SortOrderInput | Prisma.SortOrder
-  accommodation?: Prisma.SortOrderInput | Prisma.SortOrder
-  accommodationImage?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  accommodation?: Prisma.SortOrderInput | Prisma.SortOrder
+  accommodationImage?: Prisma.SortOrderInput | Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UniversityDetailCountOrderByAggregateInput
   _max?: Prisma.UniversityDetailMaxOrderByAggregateInput
   _min?: Prisma.UniversityDetailMinOrderByAggregateInput
@@ -341,11 +341,11 @@ export type UniversityDetailScalarWhereWithAggregatesInput = {
   servicesDescription?: Prisma.StringNullableWithAggregatesFilter<"UniversityDetail"> | string | null
   servicesImage?: Prisma.StringNullableWithAggregatesFilter<"UniversityDetail"> | string | null
   entryRequirements?: Prisma.StringWithAggregatesFilter<"UniversityDetail"> | string
-  description?: Prisma.StringNullableWithAggregatesFilter<"UniversityDetail"> | string | null
-  accommodation?: Prisma.StringNullableWithAggregatesFilter<"UniversityDetail"> | string | null
-  accommodationImage?: Prisma.StringNullableWithAggregatesFilter<"UniversityDetail"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"UniversityDetail"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"UniversityDetail"> | Date | string
+  accommodation?: Prisma.StringNullableWithAggregatesFilter<"UniversityDetail"> | string | null
+  accommodationImage?: Prisma.StringNullableWithAggregatesFilter<"UniversityDetail"> | string | null
+  description?: Prisma.StringNullableWithAggregatesFilter<"UniversityDetail"> | string | null
 }
 
 export type UniversityDetailCreateInput = {
@@ -358,11 +358,11 @@ export type UniversityDetailCreateInput = {
   servicesDescription?: string | null
   servicesImage?: string | null
   entryRequirements: string
-  description?: string | null
-  accommodation?: string | null
-  accommodationImage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  accommodation?: string | null
+  accommodationImage?: string | null
+  description?: string | null
   university: Prisma.UniversityCreateNestedOneWithoutDetailInput
 }
 
@@ -377,11 +377,11 @@ export type UniversityDetailUncheckedCreateInput = {
   servicesDescription?: string | null
   servicesImage?: string | null
   entryRequirements: string
-  description?: string | null
-  accommodation?: string | null
-  accommodationImage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  accommodation?: string | null
+  accommodationImage?: string | null
+  description?: string | null
 }
 
 export type UniversityDetailUpdateInput = {
@@ -394,11 +394,11 @@ export type UniversityDetailUpdateInput = {
   servicesDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   servicesImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   entryRequirements?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  accommodation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  accommodationImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accommodation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accommodationImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   university?: Prisma.UniversityUpdateOneRequiredWithoutDetailNestedInput
 }
 
@@ -413,11 +413,11 @@ export type UniversityDetailUncheckedUpdateInput = {
   servicesDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   servicesImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   entryRequirements?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  accommodation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  accommodationImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accommodation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accommodationImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UniversityDetailCreateManyInput = {
@@ -431,11 +431,11 @@ export type UniversityDetailCreateManyInput = {
   servicesDescription?: string | null
   servicesImage?: string | null
   entryRequirements: string
-  description?: string | null
-  accommodation?: string | null
-  accommodationImage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  accommodation?: string | null
+  accommodationImage?: string | null
+  description?: string | null
 }
 
 export type UniversityDetailUpdateManyMutationInput = {
@@ -448,11 +448,11 @@ export type UniversityDetailUpdateManyMutationInput = {
   servicesDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   servicesImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   entryRequirements?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  accommodation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  accommodationImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accommodation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accommodationImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UniversityDetailUncheckedUpdateManyInput = {
@@ -466,11 +466,11 @@ export type UniversityDetailUncheckedUpdateManyInput = {
   servicesDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   servicesImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   entryRequirements?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  accommodation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  accommodationImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accommodation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accommodationImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UniversityDetailNullableScalarRelationFilter = {
@@ -489,11 +489,11 @@ export type UniversityDetailCountOrderByAggregateInput = {
   servicesDescription?: Prisma.SortOrder
   servicesImage?: Prisma.SortOrder
   entryRequirements?: Prisma.SortOrder
-  description?: Prisma.SortOrder
-  accommodation?: Prisma.SortOrder
-  accommodationImage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  accommodation?: Prisma.SortOrder
+  accommodationImage?: Prisma.SortOrder
+  description?: Prisma.SortOrder
 }
 
 export type UniversityDetailMaxOrderByAggregateInput = {
@@ -507,11 +507,11 @@ export type UniversityDetailMaxOrderByAggregateInput = {
   servicesDescription?: Prisma.SortOrder
   servicesImage?: Prisma.SortOrder
   entryRequirements?: Prisma.SortOrder
-  description?: Prisma.SortOrder
-  accommodation?: Prisma.SortOrder
-  accommodationImage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  accommodation?: Prisma.SortOrder
+  accommodationImage?: Prisma.SortOrder
+  description?: Prisma.SortOrder
 }
 
 export type UniversityDetailMinOrderByAggregateInput = {
@@ -525,11 +525,11 @@ export type UniversityDetailMinOrderByAggregateInput = {
   servicesDescription?: Prisma.SortOrder
   servicesImage?: Prisma.SortOrder
   entryRequirements?: Prisma.SortOrder
-  description?: Prisma.SortOrder
-  accommodation?: Prisma.SortOrder
-  accommodationImage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  accommodation?: Prisma.SortOrder
+  accommodationImage?: Prisma.SortOrder
+  description?: Prisma.SortOrder
 }
 
 export type UniversityDetailCreateNestedOneWithoutUniversityInput = {
@@ -574,11 +574,11 @@ export type UniversityDetailCreateWithoutUniversityInput = {
   servicesDescription?: string | null
   servicesImage?: string | null
   entryRequirements: string
-  description?: string | null
-  accommodation?: string | null
-  accommodationImage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  accommodation?: string | null
+  accommodationImage?: string | null
+  description?: string | null
 }
 
 export type UniversityDetailUncheckedCreateWithoutUniversityInput = {
@@ -591,11 +591,11 @@ export type UniversityDetailUncheckedCreateWithoutUniversityInput = {
   servicesDescription?: string | null
   servicesImage?: string | null
   entryRequirements: string
-  description?: string | null
-  accommodation?: string | null
-  accommodationImage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  accommodation?: string | null
+  accommodationImage?: string | null
+  description?: string | null
 }
 
 export type UniversityDetailCreateOrConnectWithoutUniversityInput = {
@@ -624,11 +624,11 @@ export type UniversityDetailUpdateWithoutUniversityInput = {
   servicesDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   servicesImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   entryRequirements?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  accommodation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  accommodationImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accommodation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accommodationImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UniversityDetailUncheckedUpdateWithoutUniversityInput = {
@@ -641,11 +641,11 @@ export type UniversityDetailUncheckedUpdateWithoutUniversityInput = {
   servicesDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   servicesImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   entryRequirements?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  accommodation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  accommodationImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accommodation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accommodationImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -661,11 +661,11 @@ export type UniversityDetailSelect<ExtArgs extends runtime.Types.Extensions.Inte
   servicesDescription?: boolean
   servicesImage?: boolean
   entryRequirements?: boolean
-  description?: boolean
-  accommodation?: boolean
-  accommodationImage?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  accommodation?: boolean
+  accommodationImage?: boolean
+  description?: boolean
   university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["universityDetail"]>
 
@@ -680,11 +680,11 @@ export type UniversityDetailSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   servicesDescription?: boolean
   servicesImage?: boolean
   entryRequirements?: boolean
-  description?: boolean
-  accommodation?: boolean
-  accommodationImage?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  accommodation?: boolean
+  accommodationImage?: boolean
+  description?: boolean
   university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["universityDetail"]>
 
@@ -699,11 +699,11 @@ export type UniversityDetailSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   servicesDescription?: boolean
   servicesImage?: boolean
   entryRequirements?: boolean
-  description?: boolean
-  accommodation?: boolean
-  accommodationImage?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  accommodation?: boolean
+  accommodationImage?: boolean
+  description?: boolean
   university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["universityDetail"]>
 
@@ -718,14 +718,14 @@ export type UniversityDetailSelectScalar = {
   servicesDescription?: boolean
   servicesImage?: boolean
   entryRequirements?: boolean
-  description?: boolean
-  accommodation?: boolean
-  accommodationImage?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  accommodation?: boolean
+  accommodationImage?: boolean
+  description?: boolean
 }
 
-export type UniversityDetailOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "universityId" | "overview" | "ranking" | "tuitionFees" | "famousFor" | "servicesHeading" | "servicesDescription" | "servicesImage" | "entryRequirements" | "description" | "accommodation" | "accommodationImage" | "createdAt" | "updatedAt", ExtArgs["result"]["universityDetail"]>
+export type UniversityDetailOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "universityId" | "overview" | "ranking" | "tuitionFees" | "famousFor" | "servicesHeading" | "servicesDescription" | "servicesImage" | "entryRequirements" | "createdAt" | "updatedAt" | "accommodation" | "accommodationImage" | "description", ExtArgs["result"]["universityDetail"]>
 export type UniversityDetailInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
 }
@@ -752,11 +752,11 @@ export type $UniversityDetailPayload<ExtArgs extends runtime.Types.Extensions.In
     servicesDescription: string | null
     servicesImage: string | null
     entryRequirements: string
-    description: string | null
-    accommodation: string | null
-    accommodationImage: string | null
     createdAt: Date
     updatedAt: Date
+    accommodation: string | null
+    accommodationImage: string | null
+    description: string | null
   }, ExtArgs["result"]["universityDetail"]>
   composites: {}
 }
@@ -1191,11 +1191,11 @@ export interface UniversityDetailFieldRefs {
   readonly servicesDescription: Prisma.FieldRef<"UniversityDetail", 'String'>
   readonly servicesImage: Prisma.FieldRef<"UniversityDetail", 'String'>
   readonly entryRequirements: Prisma.FieldRef<"UniversityDetail", 'String'>
-  readonly description: Prisma.FieldRef<"UniversityDetail", 'String'>
-  readonly accommodation: Prisma.FieldRef<"UniversityDetail", 'String'>
-  readonly accommodationImage: Prisma.FieldRef<"UniversityDetail", 'String'>
   readonly createdAt: Prisma.FieldRef<"UniversityDetail", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"UniversityDetail", 'DateTime'>
+  readonly accommodation: Prisma.FieldRef<"UniversityDetail", 'String'>
+  readonly accommodationImage: Prisma.FieldRef<"UniversityDetail", 'String'>
+  readonly description: Prisma.FieldRef<"UniversityDetail", 'String'>
 }
     
 

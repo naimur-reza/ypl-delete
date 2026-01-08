@@ -20,7 +20,9 @@ export const generateMetadata = async (): Promise<Metadata> =>
     url: "/blogs",
   });
 
-export const dynamic = "force-dynamic";
+// Keep dynamic for searchParams support, but with short revalidation
+export const revalidate = 300;
+export const dynamicParams = true;
 
 type PageProps = {
   params?: Promise<{ country?: string }>;

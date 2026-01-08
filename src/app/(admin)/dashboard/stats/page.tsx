@@ -45,6 +45,7 @@ const SECTION_LABELS: Record<string, string> = {
   hero: "Hero Slider",
   faq: "FAQ Section",
   event: "Events",
+  "why-choose-us": "Why Choose Us",
 };
 
 const SECTION_VARIANTS: Record<
@@ -55,6 +56,7 @@ const SECTION_VARIANTS: Record<
   hero: "secondary",
   faq: "outline",
   event: "destructive",
+  "why-choose-us": "default",
 };
 
 const StatsPage = () => {

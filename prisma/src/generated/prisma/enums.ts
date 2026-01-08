@@ -9,6 +9,17 @@
 * 🟢 You can import this file directly.
 */
 
+export const JobApplicationStatus = {
+  PENDING: 'PENDING',
+  REVIEWING: 'REVIEWING',
+  SHORTLISTED: 'SHORTLISTED',
+  REJECTED: 'REJECTED',
+  HIRED: 'HIRED'
+} as const
+
+export type JobApplicationStatus = (typeof JobApplicationStatus)[keyof typeof JobApplicationStatus]
+
+
 export const AccreditationType = {
   NEWS: 'NEWS',
   PARTNER: 'PARTNER',
@@ -67,6 +78,39 @@ export const IntakeMonth = {
 } as const
 
 export type IntakeMonth = (typeof IntakeMonth)[keyof typeof IntakeMonth]
+
+
+export const StudyLevel = {
+  FOUNDATION: 'FOUNDATION',
+  BACHELOR: 'BACHELOR',
+  MASTER: 'MASTER',
+  PHD: 'PHD',
+  DIPLOMA: 'DIPLOMA',
+  CERTIFICATE: 'CERTIFICATE',
+  PATHWAY: 'PATHWAY'
+} as const
+
+export type StudyLevel = (typeof StudyLevel)[keyof typeof StudyLevel]
+
+
+export const Faculty = {
+  ENGINEERING: 'ENGINEERING',
+  BUSINESS: 'BUSINESS',
+  ARTS_HUMANITIES: 'ARTS_HUMANITIES',
+  SCIENCE: 'SCIENCE',
+  MEDICINE_HEALTH: 'MEDICINE_HEALTH',
+  LAW: 'LAW',
+  EDUCATION: 'EDUCATION',
+  SOCIAL_SCIENCES: 'SOCIAL_SCIENCES',
+  IT_COMPUTING: 'IT_COMPUTING',
+  ARCHITECTURE: 'ARCHITECTURE',
+  AGRICULTURE: 'AGRICULTURE',
+  HOSPITALITY_TOURISM: 'HOSPITALITY_TOURISM',
+  MEDIA_COMMUNICATION: 'MEDIA_COMMUNICATION',
+  OTHER: 'OTHER'
+} as const
+
+export type Faculty = (typeof Faculty)[keyof typeof Faculty]
 
 
 export const ReviewType = {

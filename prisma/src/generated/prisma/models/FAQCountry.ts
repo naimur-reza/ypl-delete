@@ -166,16 +166,16 @@ export type FAQCountryWhereInput = {
   id?: Prisma.StringFilter<"FAQCountry"> | string
   faqId?: Prisma.StringFilter<"FAQCountry"> | string
   countryId?: Prisma.StringFilter<"FAQCountry"> | string
-  faq?: Prisma.XOR<Prisma.FAQScalarRelationFilter, Prisma.FAQWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
+  faq?: Prisma.XOR<Prisma.FAQScalarRelationFilter, Prisma.FAQWhereInput>
 }
 
 export type FAQCountryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   faqId?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
-  faq?: Prisma.FAQOrderByWithRelationInput
   country?: Prisma.CountryOrderByWithRelationInput
+  faq?: Prisma.FAQOrderByWithRelationInput
 }
 
 export type FAQCountryWhereUniqueInput = Prisma.AtLeast<{
@@ -186,8 +186,8 @@ export type FAQCountryWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.FAQCountryWhereInput | Prisma.FAQCountryWhereInput[]
   faqId?: Prisma.StringFilter<"FAQCountry"> | string
   countryId?: Prisma.StringFilter<"FAQCountry"> | string
-  faq?: Prisma.XOR<Prisma.FAQScalarRelationFilter, Prisma.FAQWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
+  faq?: Prisma.XOR<Prisma.FAQScalarRelationFilter, Prisma.FAQWhereInput>
 }, "id" | "faqId_countryId">
 
 export type FAQCountryOrderByWithAggregationInput = {
@@ -210,8 +210,8 @@ export type FAQCountryScalarWhereWithAggregatesInput = {
 
 export type FAQCountryCreateInput = {
   id?: string
-  faq: Prisma.FAQCreateNestedOneWithoutCountriesInput
   country: Prisma.CountryCreateNestedOneWithoutFaqsInput
+  faq: Prisma.FAQCreateNestedOneWithoutCountriesInput
 }
 
 export type FAQCountryUncheckedCreateInput = {
@@ -222,8 +222,8 @@ export type FAQCountryUncheckedCreateInput = {
 
 export type FAQCountryUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  faq?: Prisma.FAQUpdateOneRequiredWithoutCountriesNestedInput
   country?: Prisma.CountryUpdateOneRequiredWithoutFaqsNestedInput
+  faq?: Prisma.FAQUpdateOneRequiredWithoutCountriesNestedInput
 }
 
 export type FAQCountryUncheckedUpdateInput = {
@@ -492,24 +492,24 @@ export type FAQCountrySelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   id?: boolean
   faqId?: boolean
   countryId?: boolean
-  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["fAQCountry"]>
 
 export type FAQCountrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   faqId?: boolean
   countryId?: boolean
-  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["fAQCountry"]>
 
 export type FAQCountrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   faqId?: boolean
   countryId?: boolean
-  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["fAQCountry"]>
 
 export type FAQCountrySelectScalar = {
@@ -520,23 +520,23 @@ export type FAQCountrySelectScalar = {
 
 export type FAQCountryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "faqId" | "countryId", ExtArgs["result"]["fAQCountry"]>
 export type FAQCountryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
 }
 export type FAQCountryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
 }
 export type FAQCountryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
 }
 
 export type $FAQCountryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "FAQCountry"
   objects: {
-    faq: Prisma.$FAQPayload<ExtArgs>
     country: Prisma.$CountryPayload<ExtArgs>
+    faq: Prisma.$FAQPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -936,8 +936,8 @@ readonly fields: FAQCountryFieldRefs;
  */
 export interface Prisma__FAQCountryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  faq<T extends Prisma.FAQDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FAQDefaultArgs<ExtArgs>>): Prisma.Prisma__FAQClient<runtime.Types.Result.GetResult<Prisma.$FAQPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   country<T extends Prisma.CountryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CountryDefaultArgs<ExtArgs>>): Prisma.Prisma__CountryClient<runtime.Types.Result.GetResult<Prisma.$CountryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  faq<T extends Prisma.FAQDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FAQDefaultArgs<ExtArgs>>): Prisma.Prisma__FAQClient<runtime.Types.Result.GetResult<Prisma.$FAQPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

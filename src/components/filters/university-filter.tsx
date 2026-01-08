@@ -66,14 +66,15 @@ export function UniversityFilter({ onOpenWizard }: UniversityFilterProps = {}) {
   };
 
   return (
-    <section className="w-full px-3 sm:px-4 md:px-6  relative z-20 pb-8 md:pb-12  -mt-22 ">
+    <section className="w-full px-3 sm:px-4 md:px-6  relative z-20 pb-8 md:pb-12  md:-mt-10 mt-5  ">
       <div className="max-w-6xl mx-auto">
         {/* Filter Card */}
         <div className="bg-gray-50  dark:bg-gray-900 rounded-xl sm:rounded-2xl shadow-xl sm:shadow-2xl shadow-gray-300/30 dark:shadow-black/40 border border-gray-200 dark:border-gray-800 overflow-visible">
-          
           {/* Mobile Header - only show on mobile */}
           <div className="block md:hidden text-center py-4 border-b border-gray-200 dark:border-gray-700">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white">Explore</h2>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+              Explore
+            </h2>
           </div>
 
           {/* Tabs - Grid on mobile, horizontal scroll on desktop */}

@@ -9,10 +9,11 @@ import {
 
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { setCookie, getCookie } from "cookies-next";
+import { setCookie, getCookie, deleteCookie } from "cookies-next";
 import Globe from "@/assets/icons/globe.svg";
 import { useCountry } from "@/lib/country-context";
-import { useState } from "react";
+import { useState, useTransition } from "react";
+import { Globe as GlobeIcon, Loader2 } from "lucide-react";
 
 type Country = {
   id: string;
@@ -26,10 +27,14 @@ type CountryModalClientProps = {
   currentCountrySlug?: string | null;
 };
 
-const CountryModalClient = ({ countries, currentCountrySlug }: CountryModalClientProps) => {
+const CountryModalClient = ({
+  countries,
+  currentCountrySlug,
+}: CountryModalClientProps) => {
   const pathname = usePathname();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const { country: currentCountry, isCountrySpecific } = useCountry();
 
   // Get current country flag (use context first, fallback to cookie, then prop)
@@ -37,7 +42,8 @@ const CountryModalClient = ({ countries, currentCountrySlug }: CountryModalClien
     typeof window !== "undefined"
       ? getCookie("user-country")?.toString()
       : null;
-  const activeCountrySlug = currentCountry || countryFromCookie || currentCountrySlug;
+  const activeCountrySlug =
+    currentCountry || countryFromCookie || currentCountrySlug;
   const currentCountryData = countries.find(
     (c) => c.slug === activeCountrySlug
   );
@@ -50,29 +56,56 @@ const CountryModalClient = ({ countries, currentCountrySlug }: CountryModalClien
       path: "/",
     });
 
-    let newPath: string;
+    // Clear global preference when selecting a specific country
+    deleteCookie("country-preference", { path: "/" });
 
-    if (isCountrySpecific && currentCountry) {
-      // We're on a country-specific route - replace the country
-      const pathSegments = pathname.split("/").filter(Boolean);
-      pathSegments[0] = country.slug; // Replace first segment (current country)
-      newPath = "/" + pathSegments.join("/");
-    } else {
-      // We're on a global route - prepend country
-      newPath = `/${country.slug}${pathname}`;
-    }
+    // Always navigate to country home page
+    const newPath = `/${country.slug}`;
 
     console.log("🔄 Switching country:", {
       from: currentCountry,
       to: country.slug,
+      newPath: newPath,
+    });
+
+    // Close modal first
+    setIsOpen(false);
+
+    // Use startTransition for smoother navigation and refresh router cache
+    startTransition(() => {
+      router.push(newPath);
+      router.refresh(); // Clear router cache to ensure fresh data
+    });
+  };
+
+  const handleGoGlobal = () => {
+    // Delete the user-country cookie completely
+    deleteCookie("user-country", { path: "/" });
+
+    // Also set an explicit "global" preference cookie to prevent auto-redirect
+    setCookie("country-preference", "global", {
+      maxAge: 60 * 60 * 24 * 30, // 30 days
+      path: "/",
+    });
+
+    // Always navigate to global home page
+    const newPath = "/";
+
+    console.log("🌐 Switching to global:", {
+      from: currentCountry,
       isCountrySpecific,
       oldPath: pathname,
       newPath: newPath,
     });
 
-    // Close modal and navigate
+    // Close modal first
     setIsOpen(false);
-    router.push(newPath);
+
+    // Use startTransition for smoother navigation and refresh router cache
+    startTransition(() => {
+      router.push(newPath);
+      router.refresh(); // Clear router cache to ensure fresh data
+    });
   };
 
   return (
@@ -104,16 +137,54 @@ const CountryModalClient = ({ countries, currentCountrySlug }: CountryModalClien
           </DialogTitle>
         </DialogHeader>
 
+        {/* Loading Overlay */}
+        {isPending && (
+          <div className="absolute inset-0 bg-white/80 flex items-center justify-center z-10 rounded-xl">
+            <Loader2 className="size-8 animate-spin text-primary" />
+          </div>
+        )}
+
         {/* Country Grid */}
         {countries.length > 0 && (
           <div className="mt-6 grid grid-cols-3 gap-6 place-items-center">
+            {/* Global Option */}
+            <button
+              className="flex flex-col items-center gap-2 hover:scale-105 transition-transform cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              onClick={handleGoGlobal}
+              disabled={isPending}
+            >
+              <div
+                className={`size-15 rounded-full overflow-hidden border-2 bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center transition-all ${
+                  !activeCountrySlug
+                    ? "ring-2 ring-primary ring-offset-2 border-primary"
+                    : "border-transparent hover:border-primary/50"
+                }`}
+              >
+                <GlobeIcon className="size-8 text-white" />
+              </div>
+              <span
+                className={`text-sm font-medium ${
+                  !activeCountrySlug ? "text-primary" : ""
+                }`}
+              >
+                Global
+              </span>
+            </button>
+
             {countries.map((country) => (
               <button
                 key={country.id}
-                className="flex flex-col items-center gap-2 hover:scale-105 transition-transform cursor-pointer"
+                className="flex flex-col items-center gap-2 hover:scale-105 transition-transform cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 onClick={() => handleCountryChange(country)}
+                disabled={isPending}
               >
-                <div className="size-15 rounded-full overflow-hidden border">
+                <div
+                  className={`size-15 rounded-full overflow-hidden border-2 transition-all ${
+                    activeCountrySlug === country.slug
+                      ? "ring-2 ring-primary ring-offset-2 border-primary"
+                      : "border-transparent hover:border-primary/50"
+                  }`}
+                >
                   <Image
                     src={country.flag || "/placeholder-flag.png"}
                     alt={country.name}
@@ -122,7 +193,13 @@ const CountryModalClient = ({ countries, currentCountrySlug }: CountryModalClien
                     className="size-full object-cover"
                   />
                 </div>
-                <span className="text-sm font-medium">{country.name}</span>
+                <span
+                  className={`text-sm font-medium ${
+                    activeCountrySlug === country.slug ? "text-primary" : ""
+                  }`}
+                >
+                  {country.name}
+                </span>
               </button>
             ))}
           </div>
@@ -140,4 +217,3 @@ const CountryModalClient = ({ countries, currentCountrySlug }: CountryModalClien
 };
 
 export default CountryModalClient;
-

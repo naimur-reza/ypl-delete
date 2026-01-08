@@ -15,8 +15,12 @@ import {
   CalendarDays,
   ClipboardCheck,
   Plus,
+  ArrowRight,
+  TrendingUp,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import Link from "next/link";
+import { ChartsWrapper } from "./components/charts-wrapper";
 
 const numberFormatter = new Intl.NumberFormat("en-US");
 const shortDateFormatter = new Intl.DateTimeFormat("en-US", {
@@ -53,22 +57,35 @@ const formatStatus = (status: string) =>
 
 async function getDashboardData() {
   const now = new Date();
+  const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+  const startOfYear = new Date(now.getFullYear(), 0, 1);
+  const startOfLastYear = new Date(now.getFullYear() - 1, 0, 1);
+  const endOfLastYear = new Date(now.getFullYear() - 1, 11, 31);
 
   const [
     totalEvents,
     upcomingEvents,
     totalRegistrations,
     pendingRegistrations,
+    confirmedRegistrations,
+    cancelledRegistrations,
     totalAppointments,
     pendingAppointments,
     upcomingEventsList,
     recentRegistrations,
     recentAppointments,
+    registrationsLast7Days,
+    appointmentsLast7Days,
+    eventsWithDates,
+    thisYearRegistrations,
+    lastYearRegistrations,
   ] = await Promise.all([
     prisma.event.count(),
     prisma.event.count({ where: { startDate: { gte: now } } }),
     prisma.eventRegistration.count(),
     prisma.eventRegistration.count({ where: { status: "PENDING" } }),
+    prisma.eventRegistration.count({ where: { status: "CONFIRMED" } }),
+    prisma.eventRegistration.count({ where: { status: "CANCELLED" } }),
     prisma.appointment.count(),
     prisma.appointment.count({ where: { status: "PENDING" } }),
     prisma.event.findMany({
@@ -106,7 +123,106 @@ async function getDashboardData() {
         event: { select: { title: true } },
       },
     }),
+    // Last 7 days registrations for trend chart
+    prisma.eventRegistration.findMany({
+      where: { createdAt: { gte: sevenDaysAgo } },
+      select: { createdAt: true },
+    }),
+    // Last 7 days appointments for trend chart
+    prisma.appointment.findMany({
+      where: { createdAt: { gte: sevenDaysAgo } },
+      select: { createdAt: true },
+    }),
+    // Events for weekly activity
+    prisma.event.findMany({
+      where: { createdAt: { gte: sevenDaysAgo } },
+      select: { createdAt: true },
+    }),
+    // This year registrations by month
+    prisma.eventRegistration.findMany({
+      where: { createdAt: { gte: startOfYear } },
+      select: { createdAt: true },
+    }),
+    // Last year registrations by month
+    prisma.eventRegistration.findMany({
+      where: {
+        createdAt: { gte: startOfLastYear, lte: endOfLastYear },
+      },
+      select: { createdAt: true },
+    }),
   ]);
+
+  // Process data for charts
+  const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  // Generate last 7 days trend data
+  const registrationsTrend = [];
+  for (let i = 6; i >= 0; i--) {
+    const date = new Date(now.getTime() - i * 24 * 60 * 60 * 1000);
+    const dateStr = date.toLocaleDateString("en-US", {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+    });
+    const dayStart = new Date(date.setHours(0, 0, 0, 0));
+    const dayEnd = new Date(date.setHours(23, 59, 59, 999));
+
+    const dayRegistrations = registrationsLast7Days.filter(
+      (r) => r.createdAt >= dayStart && r.createdAt <= dayEnd
+    ).length;
+    const dayAppointments = appointmentsLast7Days.filter(
+      (a) => a.createdAt >= dayStart && a.createdAt <= dayEnd
+    ).length;
+
+    registrationsTrend.push({
+      date: dateStr,
+      registrations: dayRegistrations,
+      appointments: dayAppointments,
+    });
+  }
+
+  // Status distribution for pie chart
+  const statusDistribution = [
+    { name: "Pending", value: pendingRegistrations, color: "#f59e0b" },
+    { name: "Confirmed", value: confirmedRegistrations, color: "#10b981" },
+    { name: "Cancelled", value: cancelledRegistrations, color: "#94a3b8" },
+  ].filter((s) => s.value > 0);
+
+  // Weekly activity
+  const weeklyActivity = dayNames.map((day, index) => {
+    const dayEvents = eventsWithDates.filter(
+      (e) => e.createdAt.getDay() === index
+    ).length;
+    const dayRegs = registrationsLast7Days.filter(
+      (r) => r.createdAt.getDay() === index
+    ).length;
+    return { day, events: dayEvents, registrations: dayRegs };
+  });
+
+  // Monthly comparison
+  const monthlyComparison = monthNames.map((month, index) => {
+    const thisYearCount = thisYearRegistrations.filter(
+      (r) => r.createdAt.getMonth() === index
+    ).length;
+    const lastYearCount = lastYearRegistrations.filter(
+      (r) => r.createdAt.getMonth() === index
+    ).length;
+    return { month, thisYear: thisYearCount, lastYear: lastYearCount };
+  });
 
   return {
     totalEvents,
@@ -118,6 +234,12 @@ async function getDashboardData() {
     upcomingEventsList,
     recentRegistrations,
     recentAppointments,
+    chartData: {
+      registrationsTrend,
+      statusDistribution,
+      weeklyActivity,
+      monthlyComparison,
+    },
   };
 }
 
@@ -145,30 +267,35 @@ export default async function Dashboard() {
     value: number;
     helper: string;
     icon: LucideIcon;
+    href: string;
   }> = [
     {
       title: "Events Published",
       value: data.totalEvents,
       helper: `${data.upcomingEvents} upcoming`,
       icon: CalendarDays,
+      href: "/dashboard/events",
     },
     {
       title: "Event Applications",
       value: data.totalRegistrations,
       helper: `${data.pendingRegistrations} pending review`,
       icon: ClipboardCheck,
+      href: "/dashboard/registrations",
     },
     {
       title: "Appointments",
       value: data.totalAppointments,
       helper: `${data.pendingAppointments} awaiting confirmation`,
       icon: CalendarClock,
+      href: "/dashboard/appointments",
     },
     {
       title: "Engagement Volume",
       value: totalEngagements,
       helper: "Registrations + bookings",
       icon: Activity,
+      href: "/dashboard/registrations",
     },
   ];
 
@@ -188,39 +315,49 @@ export default async function Dashboard() {
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {statCards.map((stat) => (
-            <Card key={stat.title} className="border-border/70">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  {stat.title}
-                </CardTitle>
-                <StatIcon icon={stat.icon} />
-              </CardHeader>
-              <CardContent>
-                <div className="text-3xl font-bold">
-                  {numberFormatter.format(stat.value)}
-                </div>
-                <p className="text-xs text-muted-foreground">{stat.helper}</p>
-              </CardContent>
-            </Card>
+            <Link key={stat.title} href={stat.href}>
+              <Card className="border-border/70 hover:border-primary/50 hover:shadow-md transition-all cursor-pointer group">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium group-hover:text-primary transition-colors">
+                    {stat.title}
+                  </CardTitle>
+                  <StatIcon icon={stat.icon} />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold">
+                    {numberFormatter.format(stat.value)}
+                  </div>
+                  <p className="text-xs text-muted-foreground">{stat.helper}</p>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
 
         <div className="grid gap-4 lg:grid-cols-7">
           <Card className="col-span-7 lg:col-span-4 border-border/70">
-            <CardHeader>
-              <CardTitle>Upcoming Events</CardTitle>
-              <CardDescription>
-                Sessions scheduled in the next few weeks with registration
-                status.
-              </CardDescription>
+            <CardHeader className="flex flex-row items-center justify-between">
+              <div>
+                <CardTitle>Upcoming Events</CardTitle>
+                <CardDescription>
+                  Sessions scheduled in the next few weeks with registration
+                  status.
+                </CardDescription>
+              </div>
+              <Link href="/dashboard/events">
+                <Button variant="outline" size="sm" className="gap-1">
+                  View All <ArrowRight className="h-3 w-3" />
+                </Button>
+              </Link>
             </CardHeader>
             <CardContent>
               {data.upcomingEventsList.length ? (
                 <div className="space-y-3">
                   {data.upcomingEventsList.map((event) => (
-                    <div
+                    <Link
                       key={event.id}
-                      className="flex items-center justify-between rounded-lg border border-border/80 px-4 py-3"
+                      href={`/dashboard/events/${event.id}`}
+                      className="flex items-center justify-between rounded-lg border border-border/80 px-4 py-3 hover:border-primary/50 hover:bg-muted/50 transition-all"
                     >
                       <div>
                         <p className="text-sm font-semibold">{event.title}</p>
@@ -237,7 +374,7 @@ export default async function Dashboard() {
                       >
                         {event.isRegistrationOpen ? "Open" : "Closed"}
                       </Badge>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               ) : (
@@ -256,7 +393,10 @@ export default async function Dashboard() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="rounded-lg border border-border/80 p-4">
+              <Link
+                href="/dashboard/event-registrations"
+                className="block rounded-lg border border-border/80 p-4 hover:border-primary/50 hover:bg-muted/50 transition-all"
+              >
                 <p className="text-sm font-medium">Event Applications</p>
                 <div className="mt-2 flex items-baseline justify-between">
                   <span className="text-2xl font-bold">
@@ -266,8 +406,11 @@ export default async function Dashboard() {
                     {data.pendingRegistrations} pending
                   </Badge>
                 </div>
-              </div>
-              <div className="rounded-lg border border-border/80 p-4">
+              </Link>
+              <Link
+                href="/dashboard/appointments"
+                className="block rounded-lg border border-border/80 p-4 hover:border-primary/50 hover:bg-muted/50 transition-all"
+              >
                 <p className="text-sm font-medium">Appointments</p>
                 <div className="mt-2 flex items-baseline justify-between">
                   <span className="text-2xl font-bold">
@@ -277,8 +420,8 @@ export default async function Dashboard() {
                     {data.pendingAppointments} awaiting confirmation
                   </Badge>
                 </div>
-              </div>
-              <div className="rounded-lg border border-border/80 p-4">
+              </Link>
+              <div className="rounded-lg border border-border/80 p-4 bg-linear-to-r from-primary/5 to-primary/10">
                 <p className="text-sm font-medium">Completion Rate</p>
                 <div className="mt-2 flex items-baseline justify-between">
                   <span className="text-2xl font-bold">{completionRate}%</span>
@@ -291,21 +434,32 @@ export default async function Dashboard() {
           </Card>
         </div>
 
+        {/* Charts Section */}
+        <ChartsWrapper data={data.chartData as any} />
+
         <div className="grid gap-4 lg:grid-cols-2">
           <Card className="border-border/70">
-            <CardHeader>
-              <CardTitle>Recent Event Applications</CardTitle>
-              <CardDescription>
-                Latest submissions across all live events.
-              </CardDescription>
+            <CardHeader className="flex flex-row items-center justify-between">
+              <div>
+                <CardTitle>Recent Event Applications</CardTitle>
+                <CardDescription>
+                  Latest submissions across all live events.
+                </CardDescription>
+              </div>
+              <Link href="/dashboard/registrations">
+                <Button variant="outline" size="sm" className="gap-1">
+                  View All <ArrowRight className="h-3 w-3" />
+                </Button>
+              </Link>
             </CardHeader>
             <CardContent>
               {data.recentRegistrations.length ? (
                 <div className="space-y-3">
                   {data.recentRegistrations.map((registration) => (
-                    <div
+                    <Link
                       key={registration.id}
-                      className="flex items-center justify-between rounded-lg border border-border/80 px-4 py-3"
+                      href={`/dashboard/event-registrations/${registration.id}`}
+                      className="flex items-center justify-between rounded-lg border border-border/80 px-4 py-3 hover:border-primary/50 hover:bg-muted/50 transition-all"
                     >
                       <div>
                         <p className="text-sm font-semibold">
@@ -324,7 +478,7 @@ export default async function Dashboard() {
                       >
                         {formatStatus(registration.status)}
                       </Badge>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               ) : (
@@ -336,19 +490,27 @@ export default async function Dashboard() {
           </Card>
 
           <Card className="border-border/70">
-            <CardHeader>
-              <CardTitle>Recent Appointments</CardTitle>
-              <CardDescription>
-                Booking requests along with preferred consultation times.
-              </CardDescription>
+            <CardHeader className="flex flex-row items-center justify-between">
+              <div>
+                <CardTitle>Recent Appointments</CardTitle>
+                <CardDescription>
+                  Booking requests along with preferred consultation times.
+                </CardDescription>
+              </div>
+              <Link href="/dashboard/appointments">
+                <Button variant="outline" size="sm" className="gap-1">
+                  View All <ArrowRight className="h-3 w-3" />
+                </Button>
+              </Link>
             </CardHeader>
             <CardContent>
               {data.recentAppointments.length ? (
                 <div className="space-y-3">
                   {data.recentAppointments.map((appointment) => (
-                    <div
+                    <Link
                       key={appointment.id}
-                      className="flex items-center justify-between rounded-lg border border-border/80 px-4 py-3"
+                      href={`/dashboard/appointments/${appointment.id}`}
+                      className="flex items-center justify-between rounded-lg border border-border/80 px-4 py-3 hover:border-primary/50 hover:bg-muted/50 transition-all"
                     >
                       <div>
                         <p className="text-sm font-semibold">
@@ -369,7 +531,7 @@ export default async function Dashboard() {
                       >
                         {formatStatus(appointment.status)}
                       </Badge>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               ) : (

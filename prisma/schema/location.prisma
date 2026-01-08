@@ -1,80 +1,59 @@
-// Global Offices and Office Locations
 model GlobalOffice {
-  id       String  @id @default(cuid())
-  name     String  @unique
-  subtitle String?
-  slug     String  @unique
-
-  // Contact Details
-  email String?
-  phone String?
-
-  // Location Details
-  address     String?
-  latitude    Float?
-  longitude   Float?
-  mapEmbedUrl String?
-
-  // Opening Hours (stored as JSON string)
-  openingHours Json?
-
-  // Content
-  content String? @db.Text
-
-  // SEO Fields
+  id              String                @id @default(cuid())
+  name            String                @unique
+  subtitle        String?
+  slug            String                @unique
+  email           String?
+  phone           String?
+  address         String?
+  latitude        Float?
+  longitude       Float?
+  mapEmbedUrl     String?
+  openingHours    Json?
+  content         String?
   metaTitle       String?
   metaDescription String?
   metaKeywords    String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  countries GlobalOfficeCountry[]
+  createdAt       DateTime              @default(now())
+  updatedAt       DateTime              @updatedAt
+  countries       GlobalOfficeCountry[]
 }
 
-// Countries
 model Country {
-  id       String  @id @default(cuid())
-  name     String
-  slug     String  @unique
-  isoCode  String  @unique
-  flag     String?
-  isActive Boolean @default(true)
-
-  // SEO Fields
-  metaTitle       String?
-  metaDescription String?
-  metaKeywords    String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  universities                 UniversityCountry[]
-  courses                      CourseCountry[]
-  scholarships                 ScholarshipCountry[]
-  destinations                 DestinationCountry[]
-  globalOffices                GlobalOfficeCountry[]
-  blogs                        BlogCountry[]
-  faqs                         FAQCountry[]
-  events                       EventCountry[]
-  testimonials                 TestimonialCountry[]
-  accreditation                AccreditationCountry[]
-  galleries                    GalleryCountry[]
-  heroes                       HeroCountry[]
-  leads                        Lead[]
-  appointments                 Appointment[]
-  eventRegistrations           EventRegistration[]
-  intakeSeasons                IntakeSeasonCountry[]
-  stats                        StatCountry[]
+  id                 String                 @id @default(cuid())
+  name               String
+  slug               String                 @unique
+  isoCode            String                 @unique
+  flag               String?
+  isActive           Boolean                @default(true)
+  metaTitle          String?
+  metaDescription    String?
+  metaKeywords       String?
+  createdAt          DateTime               @default(now())
+  updatedAt          DateTime               @updatedAt
+  accreditation      AccreditationCountry[]
+  appointments       Appointment[]
+  blogs              BlogCountry[]
+  courses            CourseCountry[]
+  destinations       DestinationCountry[]
+  events             EventCountry[]
+  eventRegistrations EventRegistration[]
+  faqs               FAQCountry[]
+  galleries          GalleryCountry[]
+  globalOffices      GlobalOfficeCountry[]
+  heroes             HeroCountry[]
+  intakeSeasons      IntakeSeasonCountry[]
+  leads              Lead[]
+  scholarships       ScholarshipCountry[]
+  stats              StatCountry[]
+  testimonials       TestimonialCountry[]
+  universities       UniversityCountry[]
 }
 
-// Study Destinations
 model Destination {
-  id   String @id @default(cuid())
-  name String
-  slug String @unique
-
-  // Destination Content Fields
+  id                 String                   @id @default(cuid())
+  name               String
+  slug               String                   @unique
   heroTitle          String?
   thumbnail          String?
   heroSubtitle       String?
@@ -82,30 +61,25 @@ model Destination {
   topUniversities    String?
   campusAndCommunity String?
   destinationLife    String?
-
-  // SEO Fields
-  metaTitle       String?
-  metaDescription String?
-  metaKeywords    String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  universities                    University[]
-  blogs                           Blog[]
-  events                          Event[]
-  scholarships                    Scholarship[]
-  courses                         Course[]
-  essentialStudies                EssentialStudy[]
-  sections                        DestinationSection[]
-  countries                       DestinationCountry[]
-  faqLinks                        FAQDestination[]
-  testimonials                    TestimonialDestination[]
-  leads                           Lead[]
-  intakePages                     IntakePage[]
+  metaTitle          String?
+  metaDescription    String?
+  metaKeywords       String?
+  createdAt          DateTime                 @default(now())
+  updatedAt          DateTime                 @updatedAt
+  blogs              Blog[]
+  courses            Course[]
+  countries          DestinationCountry[]
+  sections           DestinationSection[]
+  essentialStudies   EssentialStudy[]
+  events             Event[]
+  faqLinks           FAQDestination[]
+  intakePages        IntakePage[]
+  leads              Lead[]
+  scholarships       Scholarship[]
+  testimonials       TestimonialDestination[]
+  universities       University[]
 }
 
-// Essential Study Information
 model EssentialStudy {
   id            String      @id @default(cuid())
   title         String
@@ -113,29 +87,25 @@ model EssentialStudy {
   description   String?
   content       String?
   destinationId String
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
   destination   Destination @relation(fields: [destinationId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
   @@index([destinationId])
 }
 
-// Dynamic Sections for Destination (Why Choose tabs)
 model DestinationSection {
   id            String      @id @default(cuid())
   title         String
   slug          String
   image         String?
-  content       String?     @db.Text
+  content       String?
   displayOrder  Int         @default(0)
   isActive      Boolean     @default(true)
-  
   destinationId String
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
   destination   Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
   @@unique([destinationId, slug])
   @@index([destinationId])

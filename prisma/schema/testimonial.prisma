@@ -1,29 +1,20 @@
-// Unified Testimonial Management
 model Testimonial {
-  id        String          @id @default(cuid())
-  type      TestimonialType @default(STUDENT) // Enum: STUDENT | REPRESENTATIVE
-  mediaType MediaType       @default(TEXT_ONLY) // Enum: IMAGE | VIDEO | TEXT_ONLY
-
-  name    String // Author name or Representative name
-  role    String? // e.g. "Student by NWC", "Regional Manager"
-  content String? @db.Text // Review text or video description
-  rating  Int? // 1-5, mostly for Student reviews
-
-  // Media
-  avatar   String? // Profile pic or Thumbnail
-  videoUrl String? // For video testimonials
-  url      String? // Link to original source (e.g. GMB review link)
-
-  // Visibility / Order
-  isFeatured Boolean @default(false)
-  order      Int     @default(0)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // Relations
-  countries     TestimonialCountry[]
-  destinations  TestimonialDestination[]
-  universities  TestimonialUniversity[]
-  events        TestimonialEvent[]
+  id           String                   @id @default(cuid())
+  type         TestimonialType          @default(STUDENT)
+  mediaType    MediaType                @default(TEXT_ONLY)
+  name         String
+  role         String?
+  content      String?
+  rating       Int?
+  avatar       String?
+  videoUrl     String?
+  url          String?
+  isFeatured   Boolean                  @default(false)
+  order        Int                      @default(0)
+  createdAt    DateTime                 @default(now())
+  updatedAt    DateTime                 @updatedAt
+  countries    TestimonialCountry[]
+  destinations TestimonialDestination[]
+  events       TestimonialEvent[]
+  universities TestimonialUniversity[]
 }

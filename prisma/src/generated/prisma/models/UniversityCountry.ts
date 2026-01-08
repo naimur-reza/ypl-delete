@@ -166,16 +166,16 @@ export type UniversityCountryWhereInput = {
   id?: Prisma.StringFilter<"UniversityCountry"> | string
   universityId?: Prisma.StringFilter<"UniversityCountry"> | string
   countryId?: Prisma.StringFilter<"UniversityCountry"> | string
-  university?: Prisma.XOR<Prisma.UniversityScalarRelationFilter, Prisma.UniversityWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
+  university?: Prisma.XOR<Prisma.UniversityScalarRelationFilter, Prisma.UniversityWhereInput>
 }
 
 export type UniversityCountryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   universityId?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
-  university?: Prisma.UniversityOrderByWithRelationInput
   country?: Prisma.CountryOrderByWithRelationInput
+  university?: Prisma.UniversityOrderByWithRelationInput
 }
 
 export type UniversityCountryWhereUniqueInput = Prisma.AtLeast<{
@@ -186,8 +186,8 @@ export type UniversityCountryWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UniversityCountryWhereInput | Prisma.UniversityCountryWhereInput[]
   universityId?: Prisma.StringFilter<"UniversityCountry"> | string
   countryId?: Prisma.StringFilter<"UniversityCountry"> | string
-  university?: Prisma.XOR<Prisma.UniversityScalarRelationFilter, Prisma.UniversityWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
+  university?: Prisma.XOR<Prisma.UniversityScalarRelationFilter, Prisma.UniversityWhereInput>
 }, "id" | "universityId_countryId">
 
 export type UniversityCountryOrderByWithAggregationInput = {
@@ -210,8 +210,8 @@ export type UniversityCountryScalarWhereWithAggregatesInput = {
 
 export type UniversityCountryCreateInput = {
   id?: string
-  university: Prisma.UniversityCreateNestedOneWithoutCountriesInput
   country: Prisma.CountryCreateNestedOneWithoutUniversitiesInput
+  university: Prisma.UniversityCreateNestedOneWithoutCountriesInput
 }
 
 export type UniversityCountryUncheckedCreateInput = {
@@ -222,8 +222,8 @@ export type UniversityCountryUncheckedCreateInput = {
 
 export type UniversityCountryUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  university?: Prisma.UniversityUpdateOneRequiredWithoutCountriesNestedInput
   country?: Prisma.CountryUpdateOneRequiredWithoutUniversitiesNestedInput
+  university?: Prisma.UniversityUpdateOneRequiredWithoutCountriesNestedInput
 }
 
 export type UniversityCountryUncheckedUpdateInput = {
@@ -492,24 +492,24 @@ export type UniversityCountrySelect<ExtArgs extends runtime.Types.Extensions.Int
   id?: boolean
   universityId?: boolean
   countryId?: boolean
-  university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["universityCountry"]>
 
 export type UniversityCountrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   universityId?: boolean
   countryId?: boolean
-  university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["universityCountry"]>
 
 export type UniversityCountrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   universityId?: boolean
   countryId?: boolean
-  university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["universityCountry"]>
 
 export type UniversityCountrySelectScalar = {
@@ -520,23 +520,23 @@ export type UniversityCountrySelectScalar = {
 
 export type UniversityCountryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "universityId" | "countryId", ExtArgs["result"]["universityCountry"]>
 export type UniversityCountryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
 }
 export type UniversityCountryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
 }
 export type UniversityCountryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
 }
 
 export type $UniversityCountryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "UniversityCountry"
   objects: {
-    university: Prisma.$UniversityPayload<ExtArgs>
     country: Prisma.$CountryPayload<ExtArgs>
+    university: Prisma.$UniversityPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -936,8 +936,8 @@ readonly fields: UniversityCountryFieldRefs;
  */
 export interface Prisma__UniversityCountryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  university<T extends Prisma.UniversityDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UniversityDefaultArgs<ExtArgs>>): Prisma.Prisma__UniversityClient<runtime.Types.Result.GetResult<Prisma.$UniversityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   country<T extends Prisma.CountryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CountryDefaultArgs<ExtArgs>>): Prisma.Prisma__CountryClient<runtime.Types.Result.GetResult<Prisma.$CountryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  university<T extends Prisma.UniversityDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UniversityDefaultArgs<ExtArgs>>): Prisma.Prisma__UniversityClient<runtime.Types.Result.GetResult<Prisma.$UniversityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

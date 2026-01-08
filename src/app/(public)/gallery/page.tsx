@@ -1,11 +1,16 @@
 import { prisma } from "@/lib/prisma";
 import { resolveCountryContext } from "@/lib/country-resolver";
 import { GallerySection } from "@/app/[country]/(public)/(home)/components";
+import CallToActionBanner from "@/components/CallToActionBanner";
 
 export const metadata = {
   title: "Gallery | NWC Education",
-  description: "Explore our collection of visa success stories, team moments, and memorable events.",
+  description:
+    "Explore our collection of visa success stories, team moments, and memorable events.",
 };
+
+// Enable ISR with 1 hour revalidation for SSG
+export const revalidate = 3600;
 
 type PageProps = {
   params?: Promise<{ country?: string }>;
@@ -42,6 +47,7 @@ export default async function GalleryPage({ params }: PageProps) {
   return (
     <div className="min-h-screen">
       <GallerySection gallery={gallery} />
+      <CallToActionBanner />
     </div>
   );
 }

@@ -6,15 +6,24 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Pagination } from "@/components/ui/pagination";
 import { UniversityCard } from "./university-card";
 import { ReusableFilter } from "@/components/filters/reusable-filter";
-import { extractUniversityFilterOptions } from "@/lib/university-filters";
+import {
+  extractUniversityFilterOptions,
+  extractCity,
+} from "@/lib/university-filters";
 import { useFilter } from "@/hooks/use-filter";
-import { University } from "../../../../../prisma/src/generated/prisma/client";
+import {
+  University,
+  ProviderType,
+} from "../../../../../prisma/src/generated/prisma/client";
 
 const ITEMS_PER_PAGE = 9;
 
 interface UniversityListingProps {
   universities: Array<
-    University & { destination?: { id: string; name: string } | null }
+    University & {
+      destination?: { id: string; name: string } | null;
+      scholarships?: Array<{ id: string }>;
+    }
   >;
 }
 
@@ -39,6 +48,24 @@ export function UniversityListing({ universities }: UniversityListingProps) {
       destination: {
         getValue: (uni) => uni.destination?.id,
         matchType: "exact",
+      },
+      providerType: {
+        getValue: (uni) => uni.providerType,
+        matchType: "exact",
+      },
+      city: {
+        getValue: (uni) => extractCity(uni.address),
+        matchType: "exact",
+      },
+      special: {
+        getValue: (uni) => {
+          const specials: string[] = [];
+          if (uni.isFeatured) specials.push("featured");
+          if (uni.scholarships && uni.scholarships.length > 0)
+            specials.push("hasScholarships");
+          return specials;
+        },
+        matchType: "array",
       },
     },
     searchFields: [
@@ -75,7 +102,7 @@ export function UniversityListing({ universities }: UniversityListingProps) {
               searchPlaceholder="Search universities..."
               searchValue={searchQuery}
               onSearchChange={setSearchQuery}
-              defaultOpenSections={["destination"]}
+              defaultOpenSections={["destination", "providerType"]}
             />
           </div>
 

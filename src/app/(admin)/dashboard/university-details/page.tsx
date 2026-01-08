@@ -140,24 +140,7 @@ export default function UniversityDetailsPage() {
         header: "Tuition Fees",
         cell: ({ row }) => row.original.tuitionFees || "—",
       },
-      {
-        accessorKey: "famousFor",
-        header: "Famous For",
-        cell: ({ row }) => (
-          <span title={stripHtml(row.original.famousFor || "")}>
-            {formatCellContent(row.original.famousFor, 50)}
-          </span>
-        ),
-      },
-      {
-        accessorKey: "entryRequirements",
-        header: "Entry Requirements",
-        cell: ({ row }) => (
-          <span title={stripHtml(row.original.entryRequirements || "")}>
-            {formatCellContent(row.original.entryRequirements, 50)}
-          </span>
-        ),
-      },
+
       {
         id: "actions",
         header: "Actions",

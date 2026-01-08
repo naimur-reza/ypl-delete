@@ -434,6 +434,7 @@ export const ModelName = {
   AccreditationCountry: 'AccreditationCountry',
   GalleryCountry: 'GalleryCountry',
   Scholarship: 'Scholarship',
+  Settings: 'Settings',
   Stat: 'Stat',
   StatCountry: 'StatCountry',
   Testimonial: 'Testimonial',
@@ -455,7 +456,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "appointment" | "blog" | "service" | "accreditation" | "career" | "jobApplication" | "course" | "courseIntake" | "intakePage" | "event" | "eventMedia" | "eventRegistration" | "fAQ" | "gallery" | "hero" | "heroCountry" | "intakeSeason" | "intakeSeasonCountry" | "intakePageBenefit" | "lead" | "offerRequest" | "recommendation" | "globalOffice" | "country" | "destination" | "essentialStudy" | "destinationSection" | "universityCountry" | "courseCountry" | "scholarshipCountry" | "eventCountry" | "blogCountry" | "blogUniversity" | "blogCourse" | "fAQCountry" | "fAQDestination" | "fAQUniversity" | "fAQEvent" | "fAQCourse" | "fAQScholarship" | "fAQIntakePage" | "globalOfficeCountry" | "destinationCountry" | "testimonialCountry" | "testimonialDestination" | "testimonialUniversity" | "testimonialEvent" | "accreditationCountry" | "galleryCountry" | "scholarship" | "stat" | "statCountry" | "testimonial" | "university" | "universityDetail" | "user"
+    modelProps: "appointment" | "blog" | "service" | "accreditation" | "career" | "jobApplication" | "course" | "courseIntake" | "intakePage" | "event" | "eventMedia" | "eventRegistration" | "fAQ" | "gallery" | "hero" | "heroCountry" | "intakeSeason" | "intakeSeasonCountry" | "intakePageBenefit" | "lead" | "offerRequest" | "recommendation" | "globalOffice" | "country" | "destination" | "essentialStudy" | "destinationSection" | "universityCountry" | "courseCountry" | "scholarshipCountry" | "eventCountry" | "blogCountry" | "blogUniversity" | "blogCourse" | "fAQCountry" | "fAQDestination" | "fAQUniversity" | "fAQEvent" | "fAQCourse" | "fAQScholarship" | "fAQIntakePage" | "globalOfficeCountry" | "destinationCountry" | "testimonialCountry" | "testimonialDestination" | "testimonialUniversity" | "testimonialEvent" | "accreditationCountry" | "galleryCountry" | "scholarship" | "settings" | "stat" | "statCountry" | "testimonial" | "university" | "universityDetail" | "user"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -4159,6 +4160,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Settings: {
+      payload: Prisma.$SettingsPayload<ExtArgs>
+      fields: Prisma.SettingsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SettingsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SettingsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsPayload>
+        }
+        findFirst: {
+          args: Prisma.SettingsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SettingsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsPayload>
+        }
+        findMany: {
+          args: Prisma.SettingsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsPayload>[]
+        }
+        create: {
+          args: Prisma.SettingsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsPayload>
+        }
+        createMany: {
+          args: Prisma.SettingsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SettingsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsPayload>[]
+        }
+        delete: {
+          args: Prisma.SettingsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsPayload>
+        }
+        update: {
+          args: Prisma.SettingsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsPayload>
+        }
+        deleteMany: {
+          args: Prisma.SettingsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SettingsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SettingsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsPayload>[]
+        }
+        upsert: {
+          args: Prisma.SettingsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsPayload>
+        }
+        aggregate: {
+          args: Prisma.SettingsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSettings>
+        }
+        groupBy: {
+          args: Prisma.SettingsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SettingsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SettingsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SettingsCountAggregateOutputType> | number
+        }
+      }
+    }
     Stat: {
       payload: Prisma.$StatPayload<ExtArgs>
       fields: Prisma.StatFieldRefs
@@ -4704,10 +4779,10 @@ export const AccreditationScalarFieldEnum = {
   name: 'name',
   logo: 'logo',
   website: 'website',
-  type: 'type',
   sortOrder: 'sortOrder',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  type: 'type'
 } as const
 
 export type AccreditationScalarFieldEnum = (typeof AccreditationScalarFieldEnum)[keyof typeof AccreditationScalarFieldEnum]
@@ -4744,8 +4819,7 @@ export type CareerScalarFieldEnum = (typeof CareerScalarFieldEnum)[keyof typeof 
 export const JobApplicationScalarFieldEnum = {
   id: 'id',
   careerId: 'careerId',
-  firstName: 'firstName',
-  lastName: 'lastName',
+  name: 'name',
   email: 'email',
   phone: 'phone',
   coverLetter: 'coverLetter',
@@ -4770,12 +4844,10 @@ export const CourseScalarFieldEnum = {
   title: 'title',
   slug: 'slug',
   description: 'description',
-  summary: 'summary',
   duration: 'duration',
   tuitionMin: 'tuitionMin',
   tuitionMax: 'tuitionMax',
   currency: 'currency',
-  icon: 'icon',
   sections: 'sections',
   isFeatured: 'isFeatured',
   isActive: 'isActive',
@@ -4787,7 +4859,11 @@ export const CourseScalarFieldEnum = {
   createdBy: 'createdBy',
   updatedBy: 'updatedBy',
   universityId: 'universityId',
-  destinationId: 'destinationId'
+  destinationId: 'destinationId',
+  icon: 'icon',
+  summary: 'summary',
+  studyLevel: 'studyLevel',
+  faculty: 'faculty'
 } as const
 
 export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof CourseScalarFieldEnum]
@@ -4813,18 +4889,18 @@ export const IntakePageScalarFieldEnum = {
   timelineJson: 'timelineJson',
   ctaLabel: 'ctaLabel',
   ctaUrl: 'ctaUrl',
-  whyChooseTitle: 'whyChooseTitle',
-  whyChooseDescription: 'whyChooseDescription',
-  heroTitle: 'heroTitle',
-  heroSubtitle: 'heroSubtitle',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  isActive: 'isActive',
   heroCTALabel: 'heroCTALabel',
   heroCTAUrl: 'heroCTAUrl',
-  metaTitle: 'metaTitle',
+  heroSubtitle: 'heroSubtitle',
+  heroTitle: 'heroTitle',
   metaDescription: 'metaDescription',
   metaKeywords: 'metaKeywords',
-  isActive: 'isActive',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  metaTitle: 'metaTitle',
+  whyChooseDescription: 'whyChooseDescription',
+  whyChooseTitle: 'whyChooseTitle'
 } as const
 
 export type IntakePageScalarFieldEnum = (typeof IntakePageScalarFieldEnum)[keyof typeof IntakePageScalarFieldEnum]
@@ -4894,11 +4970,11 @@ export const FAQScalarFieldEnum = {
   id: 'id',
   question: 'question',
   answer: 'answer',
-  isGlobal: 'isGlobal',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   createdBy: 'createdBy',
-  updatedBy: 'updatedBy'
+  updatedBy: 'updatedBy',
+  isGlobal: 'isGlobal'
 } as const
 
 export type FAQScalarFieldEnum = (typeof FAQScalarFieldEnum)[keyof typeof FAQScalarFieldEnum]
@@ -5296,8 +5372,8 @@ export type TestimonialEventScalarFieldEnum = (typeof TestimonialEventScalarFiel
 
 export const AccreditationCountryScalarFieldEnum = {
   id: 'id',
-  accreditationId: 'accreditationId',
-  countryId: 'countryId'
+  countryId: 'countryId',
+  accreditationId: 'accreditationId'
 } as const
 
 export type AccreditationCountryScalarFieldEnum = (typeof AccreditationCountryScalarFieldEnum)[keyof typeof AccreditationCountryScalarFieldEnum]
@@ -5318,10 +5394,8 @@ export const ScholarshipScalarFieldEnum = {
   slug: 'slug',
   image: 'image',
   description: 'description',
-  summary: 'summary',
   amount: 'amount',
   deadline: 'deadline',
-  isActive: 'isActive',
   metaTitle: 'metaTitle',
   metaDescription: 'metaDescription',
   metaKeywords: 'metaKeywords',
@@ -5337,10 +5411,36 @@ export const ScholarshipScalarFieldEnum = {
   createdBy: 'createdBy',
   updatedBy: 'updatedBy',
   universityId: 'universityId',
-  destinationId: 'destinationId'
+  destinationId: 'destinationId',
+  isActive: 'isActive',
+  summary: 'summary'
 } as const
 
 export type ScholarshipScalarFieldEnum = (typeof ScholarshipScalarFieldEnum)[keyof typeof ScholarshipScalarFieldEnum]
+
+
+export const SettingsScalarFieldEnum = {
+  id: 'id',
+  key: 'key',
+  footerDestinations: 'footerDestinations',
+  contactPhone: 'contactPhone',
+  contactEmail: 'contactEmail',
+  contactAddress: 'contactAddress',
+  quickLinks: 'quickLinks',
+  socialFacebook: 'socialFacebook',
+  socialYoutube: 'socialYoutube',
+  socialLinkedin: 'socialLinkedin',
+  socialTwitter: 'socialTwitter',
+  socialInstagram: 'socialInstagram',
+  privacyPolicyUrl: 'privacyPolicyUrl',
+  termsOfServiceUrl: 'termsOfServiceUrl',
+  cookiePolicyUrl: 'cookiePolicyUrl',
+  footerDescription: 'footerDescription',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SettingsScalarFieldEnum = (typeof SettingsScalarFieldEnum)[keyof typeof SettingsScalarFieldEnum]
 
 
 export const StatScalarFieldEnum = {
@@ -5427,11 +5527,11 @@ export const UniversityDetailScalarFieldEnum = {
   servicesDescription: 'servicesDescription',
   servicesImage: 'servicesImage',
   entryRequirements: 'entryRequirements',
-  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
   accommodation: 'accommodation',
   accommodationImage: 'accommodationImage',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  description: 'description'
 } as const
 
 export type UniversityDetailScalarFieldEnum = (typeof UniversityDetailScalarFieldEnum)[keyof typeof UniversityDetailScalarFieldEnum]
@@ -5554,6 +5654,20 @@ export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
+ * Reference to a field of type 'Int'
+ */
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
+ * Reference to a field of type 'Int[]'
+ */
+export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
  * Reference to a field of type 'AccreditationType'
  */
 export type EnumAccreditationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AccreditationType'>
@@ -5568,16 +5682,16 @@ export type ListEnumAccreditationTypeFieldRefInput<$PrismaModel> = FieldRefInput
 
 
 /**
- * Reference to a field of type 'Int'
+ * Reference to a field of type 'JobApplicationStatus'
  */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+export type EnumJobApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobApplicationStatus'>
     
 
 
 /**
- * Reference to a field of type 'Int[]'
+ * Reference to a field of type 'JobApplicationStatus[]'
  */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+export type ListEnumJobApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobApplicationStatus[]'>
     
 
 
@@ -5606,6 +5720,34 @@ export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'J
  * Reference to a field of type 'QueryMode'
  */
 export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+/**
+ * Reference to a field of type 'StudyLevel'
+ */
+export type EnumStudyLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StudyLevel'>
+    
+
+
+/**
+ * Reference to a field of type 'StudyLevel[]'
+ */
+export type ListEnumStudyLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StudyLevel[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Faculty'
+ */
+export type EnumFacultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Faculty'>
+    
+
+
+/**
+ * Reference to a field of type 'Faculty[]'
+ */
+export type ListEnumFacultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Faculty[]'>
     
 
 
@@ -5879,6 +6021,7 @@ export type GlobalOmitConfig = {
   accreditationCountry?: Prisma.AccreditationCountryOmit
   galleryCountry?: Prisma.GalleryCountryOmit
   scholarship?: Prisma.ScholarshipOmit
+  settings?: Prisma.SettingsOmit
   stat?: Prisma.StatOmit
   statCountry?: Prisma.StatCountryOmit
   testimonial?: Prisma.TestimonialOmit

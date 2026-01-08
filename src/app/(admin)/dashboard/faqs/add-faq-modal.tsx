@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
 import { useAppForm } from "@/hooks/hooks";
 import { faqSchema } from "@/schemas/faq";
@@ -61,6 +62,7 @@ const FAQFormModal = ({
   onSuccess?: () => void;
 }) => {
   const isOpen = true;
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [countryIds, setCountryIds] = useState<string[]>(
     selectedFAQ?.countries?.map(
       (r: { country?: { id: string }; countryId?: string }) =>
@@ -332,6 +334,7 @@ const FAQFormModal = ({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     validators: { onSubmit: faqSchema as any },
     onSubmit: async ({ value }) => {
+      setIsSubmitting(true);
       try {
         let response;
         const submitData = {
@@ -373,6 +376,8 @@ const FAQFormModal = ({
       } catch (err) {
         toast.error("Request failed");
         console.error(err);
+      } finally {
+        setIsSubmitting(false);
       }
     },
   });
@@ -712,10 +717,19 @@ const FAQFormModal = ({
           </div>
 
           <div className="flex gap-2 justify-end">
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onClose}
+              disabled={isSubmitting}
+            >
               Cancel
             </Button>
-            <Button type="submit">{isEditing ? "Update" : "Create"}</Button>
+            <SubmitButton
+              isSubmitting={isSubmitting}
+              submitText={isEditing ? "Update" : "Create"}
+              submittingText={isEditing ? "Updating..." : "Creating..."}
+            />
           </div>
         </FieldGroup>
       </form>

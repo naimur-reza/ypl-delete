@@ -1,7 +1,6 @@
 import { EventHero } from "@/app/[country]/(public)/events/components/event-hero";
 import { EventListing } from "@/app/[country]/(public)/events/components/event-listing";
 import { WhyAttendSection } from "@/app/[country]/(public)/events/components/why-attend-section";
-import { EventRegistrationForm } from "@/app/[country]/(public)/events/components/event-registration-form";
 import { PastEventsSection } from "@/app/[country]/(public)/events/components/past-events-section";
 import { FaqSection } from "@/components/sections/faq-section";
 import { RepresentativeVideoSlider } from "@/components/sections/representative-video-slider";
@@ -13,13 +12,8 @@ import { fetchFaqsForEventsPage } from "@/lib/faqs";
 import { buildMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 
-export const metadata = {
-  title: "Events - NWC Education",
-  description:
-    "Join our education fairs, webinars, and university events. Connect with top institutions worldwide.",
-};
-
-export const dynamic = "force-dynamic";
+// Events are time-sensitive, use shorter revalidation (5 minutes)
+export const revalidate = 300;
 
 export const generateMetadata = async (): Promise<Metadata> =>
   buildMetadata({

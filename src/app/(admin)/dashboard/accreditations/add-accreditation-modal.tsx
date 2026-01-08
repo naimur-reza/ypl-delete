@@ -3,13 +3,14 @@
 
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
 import { useAppForm } from "@/hooks/hooks";
 import { toast } from "sonner";
 import z from "zod";
 import { createEntityApi } from "@/lib/api-client";
 import { CountrySelect } from "@/components/ui/region-select";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Select,
   SelectContent,
@@ -29,7 +30,10 @@ const accreditationTypeOptions = [
 const accreditationSchema = z.object({
   name: z.string().min(1, "Name is required").max(150),
   logo: z.string().optional().nullable(),
-  website: z.string().url().optional().nullable(),
+  website: z
+    .union([z.string().url(), z.literal(""), z.null()])
+    .optional()
+    .nullable(),
   type: z.enum(["NEWS", "PARTNER", "ACCREDITATION"]).default("NEWS"),
   sortOrder: z.number().int().optional().nullable(),
   countryIds: z.array(z.string().min(1)).min(1, "Select at least one country"),
@@ -64,6 +68,7 @@ export default function AccreditationFormModal({
 
   const [typeValue, setTypeValue] = useState<string>(selected?.type || "NEWS");
   const [isUploading, setIsUploading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useAppForm({
     defaultValues: {
@@ -72,15 +77,23 @@ export default function AccreditationFormModal({
       website: selected?.website || "",
       type: selected?.type || "NEWS",
       sortOrder: selected?.sortOrder ?? null,
-      countryIds: selected?.countryIds ?? [],
+      countryIds:
+        countryIds.length > 0 ? countryIds : selected?.countryIds ?? [],
     } as unknown as FormData,
     validators: { onSubmit: accreditationSchema as any },
     onSubmit: async ({ value }) => {
+      setIsSubmitting(true);
       try {
+        // Ensure countryIds from state is used
+        const finalCountryIds =
+          countryIds.length > 0 ? countryIds : value.countryIds || [];
+
         const payload = {
           ...value,
+          countryIds: finalCountryIds,
           logo: value.logo || null,
-          website: value.website || null,
+          website:
+            value.website && value.website.trim() !== "" ? value.website : null,
           sortOrder:
             typeof value.sortOrder === "number" ? value.sortOrder : null,
         } as Record<string, unknown>;
@@ -90,20 +103,47 @@ export default function AccreditationFormModal({
             ? await api.update(selected.id, payload)
             : await api.create(payload);
 
-        if (res.error) return toast.error(res.error);
+        if (res.error) {
+          toast.error(res.error);
+          return;
+        }
+
         toast.success(
           isEditing ? "Accreditation updated" : "Accreditation created"
         );
         onClose();
         onSuccess?.();
         setCountryIds([]);
-      } catch (e) {
+      } catch (e: any) {
+        // Handle Zod validation errors
+        if (e?.issues && Array.isArray(e.issues)) {
+          const firstError = e.issues[0];
+          toast.error(firstError.message || "Validation error");
+          return;
+        }
+
         toast.error("Request failed");
         console.error(e);
         setCountryIds([]);
+      } finally {
+        setIsSubmitting(false);
       }
     },
   });
+
+  // Sync countryIds when selected changes
+  useEffect(() => {
+    if (selected?.countries) {
+      const ids = selected.countries
+        .map(
+          (r: { country?: { id: string }; countryId?: string }) =>
+            r.country?.id || r.countryId || ""
+        )
+        .filter((id: string) => id !== "");
+      setCountryIds(ids);
+      form.setFieldValue("countryIds", ids);
+    }
+  }, [selected, form]);
 
   return (
     <Modal
@@ -133,7 +173,7 @@ export default function AccreditationFormModal({
                 />
                 <div className="relative">
                   <div className="absolute inset-0 flex items-center">
-                    <span className="w-full border-t border-black/10" />
+                    <span className="w-full border-t border-border" />
                   </div>
                   <div className="relative flex justify-center text-xs uppercase">
                     <span className="bg-background px-2 text-muted-foreground">
@@ -198,13 +238,27 @@ export default function AccreditationFormModal({
               />
             )}
           </form.AppField>
+          {form.state.errors && form.state.errors.length > 0 && (
+            <p className="text-sm text-red-500 mt-1">
+              {form.state.errors.find((e: any) => e?.name === "countryIds")
+                ?.message || "Please select at least one country"}
+            </p>
+          )}
           <div className="flex gap-2 justify-end">
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onClose}
+              disabled={isSubmitting}
+            >
               Cancel
             </Button>
-            <Button type="submit" disabled={isUploading}>
-              {isUploading ? "Uploading..." : isEditing ? "Update" : "Create"}
-            </Button>
+            <SubmitButton
+              isSubmitting={isSubmitting}
+              isUploading={isUploading}
+              submitText={isEditing ? "Update" : "Create"}
+              submittingText={isEditing ? "Updating..." : "Creating..."}
+            />
           </div>
         </FieldGroup>
       </form>

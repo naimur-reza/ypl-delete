@@ -166,16 +166,16 @@ export type ScholarshipCountryWhereInput = {
   id?: Prisma.StringFilter<"ScholarshipCountry"> | string
   scholarshipId?: Prisma.StringFilter<"ScholarshipCountry"> | string
   countryId?: Prisma.StringFilter<"ScholarshipCountry"> | string
-  scholarship?: Prisma.XOR<Prisma.ScholarshipScalarRelationFilter, Prisma.ScholarshipWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
+  scholarship?: Prisma.XOR<Prisma.ScholarshipScalarRelationFilter, Prisma.ScholarshipWhereInput>
 }
 
 export type ScholarshipCountryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   scholarshipId?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
-  scholarship?: Prisma.ScholarshipOrderByWithRelationInput
   country?: Prisma.CountryOrderByWithRelationInput
+  scholarship?: Prisma.ScholarshipOrderByWithRelationInput
 }
 
 export type ScholarshipCountryWhereUniqueInput = Prisma.AtLeast<{
@@ -186,8 +186,8 @@ export type ScholarshipCountryWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ScholarshipCountryWhereInput | Prisma.ScholarshipCountryWhereInput[]
   scholarshipId?: Prisma.StringFilter<"ScholarshipCountry"> | string
   countryId?: Prisma.StringFilter<"ScholarshipCountry"> | string
-  scholarship?: Prisma.XOR<Prisma.ScholarshipScalarRelationFilter, Prisma.ScholarshipWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
+  scholarship?: Prisma.XOR<Prisma.ScholarshipScalarRelationFilter, Prisma.ScholarshipWhereInput>
 }, "id" | "scholarshipId_countryId">
 
 export type ScholarshipCountryOrderByWithAggregationInput = {
@@ -210,8 +210,8 @@ export type ScholarshipCountryScalarWhereWithAggregatesInput = {
 
 export type ScholarshipCountryCreateInput = {
   id?: string
-  scholarship: Prisma.ScholarshipCreateNestedOneWithoutCountriesInput
   country: Prisma.CountryCreateNestedOneWithoutScholarshipsInput
+  scholarship: Prisma.ScholarshipCreateNestedOneWithoutCountriesInput
 }
 
 export type ScholarshipCountryUncheckedCreateInput = {
@@ -222,8 +222,8 @@ export type ScholarshipCountryUncheckedCreateInput = {
 
 export type ScholarshipCountryUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  scholarship?: Prisma.ScholarshipUpdateOneRequiredWithoutCountriesNestedInput
   country?: Prisma.CountryUpdateOneRequiredWithoutScholarshipsNestedInput
+  scholarship?: Prisma.ScholarshipUpdateOneRequiredWithoutCountriesNestedInput
 }
 
 export type ScholarshipCountryUncheckedUpdateInput = {
@@ -492,24 +492,24 @@ export type ScholarshipCountrySelect<ExtArgs extends runtime.Types.Extensions.In
   id?: boolean
   scholarshipId?: boolean
   countryId?: boolean
-  scholarship?: boolean | Prisma.ScholarshipDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  scholarship?: boolean | Prisma.ScholarshipDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["scholarshipCountry"]>
 
 export type ScholarshipCountrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   scholarshipId?: boolean
   countryId?: boolean
-  scholarship?: boolean | Prisma.ScholarshipDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  scholarship?: boolean | Prisma.ScholarshipDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["scholarshipCountry"]>
 
 export type ScholarshipCountrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   scholarshipId?: boolean
   countryId?: boolean
-  scholarship?: boolean | Prisma.ScholarshipDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  scholarship?: boolean | Prisma.ScholarshipDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["scholarshipCountry"]>
 
 export type ScholarshipCountrySelectScalar = {
@@ -520,23 +520,23 @@ export type ScholarshipCountrySelectScalar = {
 
 export type ScholarshipCountryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "scholarshipId" | "countryId", ExtArgs["result"]["scholarshipCountry"]>
 export type ScholarshipCountryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  scholarship?: boolean | Prisma.ScholarshipDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  scholarship?: boolean | Prisma.ScholarshipDefaultArgs<ExtArgs>
 }
 export type ScholarshipCountryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  scholarship?: boolean | Prisma.ScholarshipDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  scholarship?: boolean | Prisma.ScholarshipDefaultArgs<ExtArgs>
 }
 export type ScholarshipCountryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  scholarship?: boolean | Prisma.ScholarshipDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  scholarship?: boolean | Prisma.ScholarshipDefaultArgs<ExtArgs>
 }
 
 export type $ScholarshipCountryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ScholarshipCountry"
   objects: {
-    scholarship: Prisma.$ScholarshipPayload<ExtArgs>
     country: Prisma.$CountryPayload<ExtArgs>
+    scholarship: Prisma.$ScholarshipPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -936,8 +936,8 @@ readonly fields: ScholarshipCountryFieldRefs;
  */
 export interface Prisma__ScholarshipCountryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  scholarship<T extends Prisma.ScholarshipDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ScholarshipDefaultArgs<ExtArgs>>): Prisma.Prisma__ScholarshipClient<runtime.Types.Result.GetResult<Prisma.$ScholarshipPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   country<T extends Prisma.CountryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CountryDefaultArgs<ExtArgs>>): Prisma.Prisma__CountryClient<runtime.Types.Result.GetResult<Prisma.$CountryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  scholarship<T extends Prisma.ScholarshipDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ScholarshipDefaultArgs<ExtArgs>>): Prisma.Prisma__ScholarshipClient<runtime.Types.Result.GetResult<Prisma.$ScholarshipPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

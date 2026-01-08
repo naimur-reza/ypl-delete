@@ -11,7 +11,11 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { ReusableFilter } from "@/components/filters/reusable-filter";
-import { extractScholarshipFilterOptions } from "@/lib/scholarship-filters";
+import {
+  extractScholarshipFilterOptions,
+  parseAmountCategory,
+  parseDeadlineStatus,
+} from "@/lib/scholarship-filters";
 import { useFilter } from "@/hooks/use-filter";
 import { cn } from "@/lib/utils";
 
@@ -64,6 +68,14 @@ export default function ScholarshipList({
       },
       university: {
         getValue: (scholarship) => scholarship.university?.id,
+        matchType: "exact",
+      },
+      amount: {
+        getValue: (scholarship) => parseAmountCategory(scholarship.amount),
+        matchType: "exact",
+      },
+      deadline: {
+        getValue: (scholarship) => parseDeadlineStatus(scholarship.deadline),
         matchType: "exact",
       },
     },

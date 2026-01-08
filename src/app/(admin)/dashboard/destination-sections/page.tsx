@@ -21,7 +21,7 @@ import {
 import { DataTable } from "@/components/table/data-table";
 import { useDataTable } from "@/hooks/use-data-table";
 import { toast } from "sonner";
-import { createEntityApi } from "@/lib/api-client";
+import { createRestEntityApi } from "@/lib/api-client";
 import { Badge } from "@/components/ui/badge";
 import DestinationSectionFormModal from "./add-destination-section-modal";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
@@ -45,7 +45,7 @@ interface DestinationSection {
   createdAt: string;
 }
 
-const sectionApi = createEntityApi<DestinationSection>(
+const sectionApi = createRestEntityApi<DestinationSection>(
   "/api/destination-sections"
 );
 

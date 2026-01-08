@@ -9,6 +9,12 @@ export const FILTER_TABS = [
 
 export type FilterTabType = (typeof FILTER_TABS)[number]["id"];
 
+export type SuggestionType =
+  | "universities"
+  | "courses"
+  | "scholarships"
+  | "events";
+
 export interface FilterOption {
   id: string;
   label: string;
@@ -23,6 +29,7 @@ export interface FilterOption {
     | "eventTypes"; // API data source
   options?: string[]; // Static options (fallback)
   multiple?: boolean;
+  suggestionType?: SuggestionType; // For autocomplete suggestions on input fields
 }
 
 export interface FilterTabConfig {
@@ -41,6 +48,7 @@ const FILTER_CONFIGS: Record<FilterTabType, FilterTabConfig> = {
         label: "University Name",
         placeholder: "Enter university name",
         type: "input",
+        suggestionType: "universities",
       },
     ],
   },
@@ -52,6 +60,7 @@ const FILTER_CONFIGS: Record<FilterTabType, FilterTabConfig> = {
         label: "Course Subject",
         placeholder: "e.g., Law, Engineering, Business",
         type: "input",
+        suggestionType: "courses",
       },
       {
         id: "studyLevel",
@@ -73,6 +82,13 @@ const FILTER_CONFIGS: Record<FilterTabType, FilterTabConfig> = {
     hasSearchButton: true,
     filters: [
       {
+        id: "scholarshipName",
+        label: "Scholarship Name",
+        placeholder: "Search scholarships...",
+        type: "input",
+        suggestionType: "scholarships",
+      },
+      {
         id: "studyLevel",
         label: "Study Level",
         placeholder: "Select study level",
@@ -92,6 +108,13 @@ const FILTER_CONFIGS: Record<FilterTabType, FilterTabConfig> = {
     hasSearchButton: true,
     filters: [
       {
+        id: "eventName",
+        label: "Event Name",
+        placeholder: "Search events...",
+        type: "input",
+        suggestionType: "events",
+      },
+      {
         id: "city",
         label: "City",
         placeholder: "Select city",
@@ -104,13 +127,6 @@ const FILTER_CONFIGS: Record<FilterTabType, FilterTabConfig> = {
         placeholder: "Select month",
         type: "select",
         dataSource: "months",
-      },
-      {
-        id: "studyDestination",
-        label: "Study Destination",
-        placeholder: "Select study destination",
-        type: "select",
-        dataSource: "destinations",
       },
     ],
   },

@@ -72,7 +72,7 @@ export default function BlogSection({ blogs }: BlogSectionProps) {
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent opacity-90 transition-opacity group-hover:opacity-100" />
+              <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-slate-950/80 to-transparent opacity-90 transition-opacity group-hover:opacity-100" />
               <div className="relative z-20 h-full flex flex-col justify-between p-6 md:p-8">
                 <div className="flex justify-between items-start">
                   <span className="px-3 py-1 text-xs font-semibold rounded-full bg-white/10 text-white backdrop-blur-md border border-white/10">

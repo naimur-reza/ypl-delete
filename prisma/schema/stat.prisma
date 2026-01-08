@@ -1,25 +1,17 @@
-// Stat Model for managing dynamic statistics displayed across the website
 model Stat {
-  id          String   @id @default(cuid())
-  title       String   // e.g., "Located in", "End to End", "500+"
-  subtitle    String   // e.g., "15+ Countries", "Services", "Universities Covered"
-  icon        String?  // Lucide icon name: "MapPin", "ArrowLeftRight", etc.
-  color       String?  // Tailwind color: "pink", "emerald", "blue", "indigo"
-  
-  // Categorization
-  section     String   // "about", "hero", "faq", "event" - where to display
-  slideIndex  Int?     // For hero slider stats - which slide (0, 1, 2, etc.)
-  
-  // Ordering & Status
-  sortOrder   Int      @default(0)
-  isActive    Boolean  @default(true)
-  
-  // Optional country relation for country-specific stats
-  countries   StatCountry[]
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  
+  id         String        @id @default(cuid())
+  title      String
+  subtitle   String
+  icon       String?
+  color      String?
+  section    String
+  slideIndex Int?
+  sortOrder  Int           @default(0)
+  isActive   Boolean       @default(true)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+  countries  StatCountry[]
+
   @@index([section])
   @@index([isActive])
 }
@@ -28,9 +20,8 @@ model StatCountry {
   id        String  @id @default(cuid())
   statId    String
   countryId String
-  
-  stat      Stat    @relation(fields: [statId], references: [id], onDelete: Cascade)
   country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
-  
+  stat      Stat    @relation(fields: [statId], references: [id], onDelete: Cascade)
+
   @@unique([statId, countryId])
 }

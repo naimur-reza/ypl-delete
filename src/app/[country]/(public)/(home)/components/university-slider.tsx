@@ -106,14 +106,22 @@ export function UniversitySlider({ universities }: UniversitySliderProps) {
               >
                 <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-xl hover:border-blue-100 transition-all duration-300 h-full flex flex-col">
                   {/* Image Container */}
-                  <div className="relative h-48 overflow-hidden">
-                    <Image
-                      src={uni.thumbnail || ""}
-                      alt={uni.name}
-                      width={340}
-                      height={200}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
+                  <div className="relative h-48 overflow-hidden bg-slate-100">
+                    {uni.thumbnail ? (
+                      <Image
+                        src={uni.thumbnail}
+                        alt={uni.name}
+                        width={340}
+                        height={200}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-linear-to-br from-blue-50 to-slate-100">
+                        <span className="text-4xl font-bold text-blue-200">
+                          {uni.name.charAt(0)}
+                        </span>
+                      </div>
+                    )}
 
                     {/* Location Badge (Mock data if not in schema) */}
                     <div className="absolute bottom-3 left-3 flex items-center gap-1 text-white text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">
@@ -132,7 +140,10 @@ export function UniversitySlider({ universities }: UniversitySliderProps) {
                         "A leading institution known for academic excellence and research innovation."}
                     </p>
 
-                    <CountryAwareLink href={`/universities/${uni.slug}`} className="pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <CountryAwareLink
+                      href={`/universities/${uni.slug}`}
+                      className="pt-4 border-t border-slate-100 flex items-center justify-between"
+                    >
                       <span className="text-slate-400 text-sm group-hover:translate-x-1 transition-transform duration-300">
                         View details →
                       </span>
@@ -148,7 +159,9 @@ export function UniversitySlider({ universities }: UniversitySliderProps) {
         <div className="flex justify-center mt-12">
           <CountryAwareLink href="/universities">
             <GradientButton variant="secondary" className="px-8">
-              Explore all universities
+              <CountryAwareLink href="/universities">
+                Explore All Universities
+              </CountryAwareLink>
             </GradientButton>
           </CountryAwareLink>
         </div>

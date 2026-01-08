@@ -3,19 +3,21 @@
 import { useEffect, useState } from "react";
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
 import { useAppForm } from "@/hooks/hooks";
+import { useAutoSlug } from "@/hooks/use-auto-slug";
 import { countrySchema } from "@/schemas/country";
 import { toast } from "sonner";
 import z from "zod";
 import { createEntityApi } from "@/lib/api-client";
+import { generateSlug } from "@/lib/utils";
 import { Country } from "../../../../../prisma/src/generated/prisma/browser";
 import { ImageUpload } from "@/components/ui/image-upload";
- 
+import { FormBase } from "@/components/form/FormBase";
+import { Input } from "@/components/ui/input";
 
 type FormData = z.infer<typeof countrySchema>;
-
-
 
 const countryApi = createEntityApi<Country>("/api/countries");
 
@@ -34,6 +36,7 @@ const CountryFormModal = ({
     selectedCountry?.flag || ""
   );
   const [isUploading, setIsUploading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const isOpen = true;
   const form = useAppForm({
     defaultValues: {
@@ -47,6 +50,7 @@ const CountryFormModal = ({
     } satisfies FormData as FormData,
     validators: { onSubmit: countrySchema },
     onSubmit: async ({ value }) => {
+      setIsSubmitting(true);
       try {
         let response;
         const submitData = {
@@ -80,6 +84,8 @@ const CountryFormModal = ({
       } catch (err) {
         toast.error("Request failed");
         console.error(err);
+      } finally {
+        setIsSubmitting(false);
       }
     },
   });
@@ -102,6 +108,13 @@ const CountryFormModal = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCountry]);
 
+  // Auto-slug generation from name
+  const { handleTitleChange, handleSlugChange } = useAutoSlug({
+    getSlugValue: () => form.getFieldValue("slug") || "",
+    setSlugValue: (value) => form.setFieldValue("slug", value),
+    isEditing: !!isEditing,
+  });
+
   return (
     <Modal
       isOpen={isOpen}
@@ -116,10 +129,42 @@ const CountryFormModal = ({
       >
         <FieldGroup>
           <form.AppField name="name">
-            {(field) => <field.Input label="Name" />}
+            {(field) => (
+              <FormBase label="Name">
+                <Input
+                  id={field.name}
+                  name={field.name}
+                  value={field.state.value}
+                  onChange={(e) => {
+                    field.handleChange(e.target.value);
+                    handleTitleChange(e.target.value);
+                  }}
+                  onBlur={field.handleBlur}
+                  placeholder="e.g., Australia"
+                />
+              </FormBase>
+            )}
           </form.AppField>
           <form.AppField name="slug">
-            {(field) => <field.Input label="Slug" />}
+            {(field) => (
+              <FormBase
+                label="Slug"
+                description="Auto-generated from name. You can edit if needed."
+              >
+                <Input
+                  id={field.name}
+                  name={field.name}
+                  value={field.state.value}
+                  onChange={(e) => {
+                    const slugValue = generateSlug(e.target.value);
+                    field.handleChange(slugValue);
+                    handleSlugChange(slugValue);
+                  }}
+                  onBlur={field.handleBlur}
+                  placeholder="e.g., australia"
+                />
+              </FormBase>
+            )}
           </form.AppField>
           <form.AppField name="isoCode">
             {(field) => <field.Input label="ISO Code" />}
@@ -141,12 +186,20 @@ const CountryFormModal = ({
             {(field) => <field.Input label="Meta Keywords" />}
           </form.AppField>
           <div className="flex gap-2 justify-end">
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onClose}
+              disabled={isSubmitting}
+            >
               Cancel
             </Button>
-            <Button type="submit" disabled={isUploading}>
-              {isUploading ? "Uploading..." : isEditing ? "Update" : "Create"}
-            </Button>
+            <SubmitButton
+              isSubmitting={isSubmitting}
+              isUploading={isUploading}
+              submitText={isEditing ? "Update" : "Create"}
+              submittingText={isEditing ? "Updating..." : "Creating..."}
+            />
           </div>
         </FieldGroup>
       </form>

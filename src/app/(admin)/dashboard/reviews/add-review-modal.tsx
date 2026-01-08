@@ -3,13 +3,14 @@
 
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
 import { apiClient } from "@/lib/api-client";
 import { useEffect, useState } from "react";
 import { useAppForm } from "@/hooks/hooks";
 import { toast } from "sonner";
 import z from "zod";
-import { createEntityApi } from "@/lib/api-client";
+import { createRestEntityApi } from "@/lib/api-client";
 
 const schema = z.object({
   author: z.string().optional().nullable(),
@@ -23,7 +24,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const api = createEntityApi<{ id: string }>("/api/gmb-reviews");
+const api = createRestEntityApi<{ id: string }>("/api/gmb-reviews");
 
 export default function ReviewFormModal({
   isEditing,
@@ -37,6 +38,7 @@ export default function ReviewFormModal({
   onSuccess?: () => void;
 }) {
   const isOpen = true;
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [countries, setCountries] = useState<{ id: string; name: string }[]>(
     []
   );
@@ -88,6 +90,7 @@ export default function ReviewFormModal({
     } as unknown as FormData,
     validators: { onSubmit: schema as any },
     onSubmit: async ({ value }) => {
+      setIsSubmitting(true);
       try {
         const payload = {
           ...value,
@@ -107,13 +110,18 @@ export default function ReviewFormModal({
             ? await api.update(selected.id, payload)
             : await api.create(payload);
 
-        if (res.error) return toast.error(res.error);
+        if (res.error) {
+          toast.error(res.error);
+          return;
+        }
         toast.success(isEditing ? "Review updated" : "Review created");
         onClose();
         onSuccess?.();
       } catch (e) {
         toast.error("Request failed");
         console.error(e);
+      } finally {
+        setIsSubmitting(false);
       }
     },
   });
@@ -183,10 +191,19 @@ export default function ReviewFormModal({
             </select>
           </div>
           <div className="flex gap-2 justify-end">
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onClose}
+              disabled={isSubmitting}
+            >
               Cancel
             </Button>
-            <Button type="submit">{isEditing ? "Update" : "Create"}</Button>
+            <SubmitButton
+              isSubmitting={isSubmitting}
+              submitText={isEditing ? "Update" : "Create"}
+              submittingText={isEditing ? "Updating..." : "Creating..."}
+            />
           </div>
         </FieldGroup>
       </form>

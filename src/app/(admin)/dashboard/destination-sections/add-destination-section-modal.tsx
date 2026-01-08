@@ -4,14 +4,19 @@
 import { useEffect, useState } from "react";
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
 import { useAppForm } from "@/hooks/hooks";
+import { useAutoSlug } from "@/hooks/use-auto-slug";
 import { toast } from "sonner";
 import { z } from "zod";
-import { createEntityApi, apiClient } from "@/lib/api-client";
+import { createRestEntityApi, apiClient } from "@/lib/api-client";
+import { generateSlug } from "@/lib/utils";
 import { SelectItem } from "@/components/ui/select";
 import { ImageUpload } from "@/components/ui/image-upload";
 import { RichTextEditor } from "@/components/ui/rich-text-editor";
+import { FormBase } from "@/components/form/FormBase";
+import { Input } from "@/components/ui/input";
 
 // Form schema (without defaults for form handling)
 const formSchema = z.object({
@@ -25,9 +30,9 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-const sectionApi = createEntityApi<FormData & { id: string; content?: string | null }>(
-  "/api/destination-sections"
-);
+const sectionApi = createRestEntityApi<
+  FormData & { id: string; content?: string | null }
+>("/api/destination-sections");
 
 interface DestinationOption {
   id: string;
@@ -61,6 +66,7 @@ const DestinationSectionFormModal = ({
   const [destinations, setDestinations] = useState<DestinationOption[]>([]);
   const [loadingDestinations, setLoadingDestinations] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [content, setContent] = useState<string>(selected?.content || "");
 
   useEffect(() => {
@@ -98,6 +104,7 @@ const DestinationSectionFormModal = ({
     } as FormData,
     validators: { onSubmit: formSchema },
     onSubmit: async ({ value }) => {
+      setIsSubmitting(true);
       try {
         let response;
         const submitData = {
@@ -129,21 +136,18 @@ const DestinationSectionFormModal = ({
       } catch (err) {
         toast.error("Request failed");
         console.error(err);
+      } finally {
+        setIsSubmitting(false);
       }
     },
   });
 
-  // Auto-generate slug from title
-  const handleTitleChange = (title: string) => {
-    form.setFieldValue("title", title);
-    if (!isEditing) {
-      const slug = title
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/(^-|-$)/g, "");
-      form.setFieldValue("slug", slug);
-    }
-  };
+  // Auto-slug generation from title
+  const { handleTitleChange, handleSlugChange } = useAutoSlug({
+    getSlugValue: () => form.getFieldValue("slug") || "",
+    setSlugValue: (value) => form.setFieldValue("slug", value),
+    isEditing: !!isEditing,
+  });
 
   useEffect(() => {
     if (selected) {
@@ -198,21 +202,42 @@ const DestinationSectionFormModal = ({
 
           <form.AppField name="title">
             {(field) => (
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Title</label>
-                <input
-                  type="text"
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              <FormBase label="Title">
+                <Input
+                  id={field.name}
+                  name={field.name}
                   value={field.state.value}
-                  onChange={(e) => handleTitleChange(e.target.value)}
+                  onChange={(e) => {
+                    field.handleChange(e.target.value);
+                    handleTitleChange(e.target.value);
+                  }}
+                  onBlur={field.handleBlur}
                   placeholder="Enter section title"
                 />
-              </div>
+              </FormBase>
             )}
           </form.AppField>
 
           <form.AppField name="slug">
-            {(field) => <field.Input label="Slug" />}
+            {(field) => (
+              <FormBase
+                label="Slug"
+                description="Auto-generated from title. You can edit if needed."
+              >
+                <Input
+                  id={field.name}
+                  name={field.name}
+                  value={field.state.value}
+                  onChange={(e) => {
+                    const slugValue = generateSlug(e.target.value);
+                    field.handleChange(slugValue);
+                    handleSlugChange(slugValue);
+                  }}
+                  onBlur={field.handleBlur}
+                  placeholder="e.g., section-title"
+                />
+              </FormBase>
+            )}
           </form.AppField>
 
           <form.AppField name="image">
@@ -245,7 +270,9 @@ const DestinationSectionFormModal = ({
                     type="number"
                     className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     value={field.state.value}
-                    onChange={(e) => field.handleChange(parseInt(e.target.value) || 0)}
+                    onChange={(e) =>
+                      field.handleChange(parseInt(e.target.value) || 0)
+                    }
                     min={0}
                   />
                 </div>
@@ -258,12 +285,20 @@ const DestinationSectionFormModal = ({
           </div>
 
           <div className="flex gap-2 justify-end">
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onClose}
+              disabled={isSubmitting}
+            >
               Cancel
             </Button>
-            <Button type="submit" disabled={isUploading}>
-              {isUploading ? "Uploading..." : isEditing ? "Update" : "Create"}
-            </Button>
+            <SubmitButton
+              isSubmitting={isSubmitting}
+              isUploading={isUploading}
+              submitText={isEditing ? "Update" : "Create"}
+              submittingText={isEditing ? "Updating..." : "Creating..."}
+            />
           </div>
         </FieldGroup>
       </form>

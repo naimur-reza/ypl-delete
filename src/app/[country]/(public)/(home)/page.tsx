@@ -4,7 +4,6 @@ import {
   HeroSlider,
   CountriesSection,
   UniversitySlider,
-  AboutSection,
   AccredianSection,
   WhyChooseUs,
   EventsSection,
@@ -22,6 +21,10 @@ import { fetchFaqsForHomePage } from "@/lib/faqs";
 import { UniversityFilterWithWizard } from "@/components/filters/university-filter-with-wizard";
 import { buildMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
+import { AboutSection } from "@/components/home/about-section";
+
+// Enable ISR with 1 hour revalidation for SSG
+export const revalidate = 3600;
 
 type PageProps = {
   params?: Promise<{ country?: string }>;
@@ -92,7 +95,8 @@ const HomePage = async ({ params }: PageProps) => {
       take: 12,
       orderBy: { updatedAt: "desc" },
     }),
-    fetchUpcomingEvents({ countrySlug }),
+    // Country home page: show only featured upcoming events
+    fetchUpcomingEvents({ countrySlug, featuredOnly: true }),
     fetchLatestBlogs(countrySlug ?? undefined, 4),
     fetchFaqsForHomePage(countrySlug, 6),
     fetchRepresentativeVideos(countrySlug),
@@ -147,13 +151,13 @@ const HomePage = async ({ params }: PageProps) => {
 
   return (
     <div>
-      <HeroSlider />
+      <HeroSlider countrySlug={countrySlug} />
       <UniversityFilterWithWizard
         countries={countries}
         destinations={destinations}
       />
-      <AboutSection />
-      <IntakeFeature />
+      <AboutSection countryId={countrySlug} />
+      <IntakeFeature countrySlug={countrySlug} />
       <CountriesSection destination={destinations} />
       <UniversitySlider universities={universities} />
       <WhyChooseUs />

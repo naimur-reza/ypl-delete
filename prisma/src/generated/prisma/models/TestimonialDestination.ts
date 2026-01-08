@@ -166,16 +166,16 @@ export type TestimonialDestinationWhereInput = {
   id?: Prisma.StringFilter<"TestimonialDestination"> | string
   testimonialId?: Prisma.StringFilter<"TestimonialDestination"> | string
   destinationId?: Prisma.StringFilter<"TestimonialDestination"> | string
-  testimonial?: Prisma.XOR<Prisma.TestimonialScalarRelationFilter, Prisma.TestimonialWhereInput>
   destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
+  testimonial?: Prisma.XOR<Prisma.TestimonialScalarRelationFilter, Prisma.TestimonialWhereInput>
 }
 
 export type TestimonialDestinationOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   testimonialId?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
-  testimonial?: Prisma.TestimonialOrderByWithRelationInput
   destination?: Prisma.DestinationOrderByWithRelationInput
+  testimonial?: Prisma.TestimonialOrderByWithRelationInput
 }
 
 export type TestimonialDestinationWhereUniqueInput = Prisma.AtLeast<{
@@ -186,8 +186,8 @@ export type TestimonialDestinationWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.TestimonialDestinationWhereInput | Prisma.TestimonialDestinationWhereInput[]
   testimonialId?: Prisma.StringFilter<"TestimonialDestination"> | string
   destinationId?: Prisma.StringFilter<"TestimonialDestination"> | string
-  testimonial?: Prisma.XOR<Prisma.TestimonialScalarRelationFilter, Prisma.TestimonialWhereInput>
   destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
+  testimonial?: Prisma.XOR<Prisma.TestimonialScalarRelationFilter, Prisma.TestimonialWhereInput>
 }, "id" | "testimonialId_destinationId">
 
 export type TestimonialDestinationOrderByWithAggregationInput = {
@@ -210,8 +210,8 @@ export type TestimonialDestinationScalarWhereWithAggregatesInput = {
 
 export type TestimonialDestinationCreateInput = {
   id?: string
-  testimonial: Prisma.TestimonialCreateNestedOneWithoutDestinationsInput
   destination: Prisma.DestinationCreateNestedOneWithoutTestimonialsInput
+  testimonial: Prisma.TestimonialCreateNestedOneWithoutDestinationsInput
 }
 
 export type TestimonialDestinationUncheckedCreateInput = {
@@ -222,8 +222,8 @@ export type TestimonialDestinationUncheckedCreateInput = {
 
 export type TestimonialDestinationUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  testimonial?: Prisma.TestimonialUpdateOneRequiredWithoutDestinationsNestedInput
   destination?: Prisma.DestinationUpdateOneRequiredWithoutTestimonialsNestedInput
+  testimonial?: Prisma.TestimonialUpdateOneRequiredWithoutDestinationsNestedInput
 }
 
 export type TestimonialDestinationUncheckedUpdateInput = {
@@ -492,24 +492,24 @@ export type TestimonialDestinationSelect<ExtArgs extends runtime.Types.Extension
   id?: boolean
   testimonialId?: boolean
   destinationId?: boolean
-  testimonial?: boolean | Prisma.TestimonialDefaultArgs<ExtArgs>
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  testimonial?: boolean | Prisma.TestimonialDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["testimonialDestination"]>
 
 export type TestimonialDestinationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   testimonialId?: boolean
   destinationId?: boolean
-  testimonial?: boolean | Prisma.TestimonialDefaultArgs<ExtArgs>
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  testimonial?: boolean | Prisma.TestimonialDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["testimonialDestination"]>
 
 export type TestimonialDestinationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   testimonialId?: boolean
   destinationId?: boolean
-  testimonial?: boolean | Prisma.TestimonialDefaultArgs<ExtArgs>
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  testimonial?: boolean | Prisma.TestimonialDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["testimonialDestination"]>
 
 export type TestimonialDestinationSelectScalar = {
@@ -520,23 +520,23 @@ export type TestimonialDestinationSelectScalar = {
 
 export type TestimonialDestinationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "testimonialId" | "destinationId", ExtArgs["result"]["testimonialDestination"]>
 export type TestimonialDestinationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  testimonial?: boolean | Prisma.TestimonialDefaultArgs<ExtArgs>
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  testimonial?: boolean | Prisma.TestimonialDefaultArgs<ExtArgs>
 }
 export type TestimonialDestinationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  testimonial?: boolean | Prisma.TestimonialDefaultArgs<ExtArgs>
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  testimonial?: boolean | Prisma.TestimonialDefaultArgs<ExtArgs>
 }
 export type TestimonialDestinationIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  testimonial?: boolean | Prisma.TestimonialDefaultArgs<ExtArgs>
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  testimonial?: boolean | Prisma.TestimonialDefaultArgs<ExtArgs>
 }
 
 export type $TestimonialDestinationPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "TestimonialDestination"
   objects: {
-    testimonial: Prisma.$TestimonialPayload<ExtArgs>
     destination: Prisma.$DestinationPayload<ExtArgs>
+    testimonial: Prisma.$TestimonialPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -936,8 +936,8 @@ readonly fields: TestimonialDestinationFieldRefs;
  */
 export interface Prisma__TestimonialDestinationClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  testimonial<T extends Prisma.TestimonialDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestimonialDefaultArgs<ExtArgs>>): Prisma.Prisma__TestimonialClient<runtime.Types.Result.GetResult<Prisma.$TestimonialPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   destination<T extends Prisma.DestinationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DestinationDefaultArgs<ExtArgs>>): Prisma.Prisma__DestinationClient<runtime.Types.Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  testimonial<T extends Prisma.TestimonialDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestimonialDefaultArgs<ExtArgs>>): Prisma.Prisma__TestimonialClient<runtime.Types.Result.GetResult<Prisma.$TestimonialPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

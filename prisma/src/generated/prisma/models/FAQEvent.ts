@@ -166,16 +166,16 @@ export type FAQEventWhereInput = {
   id?: Prisma.StringFilter<"FAQEvent"> | string
   faqId?: Prisma.StringFilter<"FAQEvent"> | string
   eventId?: Prisma.StringFilter<"FAQEvent"> | string
-  faq?: Prisma.XOR<Prisma.FAQScalarRelationFilter, Prisma.FAQWhereInput>
   event?: Prisma.XOR<Prisma.EventScalarRelationFilter, Prisma.EventWhereInput>
+  faq?: Prisma.XOR<Prisma.FAQScalarRelationFilter, Prisma.FAQWhereInput>
 }
 
 export type FAQEventOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   faqId?: Prisma.SortOrder
   eventId?: Prisma.SortOrder
-  faq?: Prisma.FAQOrderByWithRelationInput
   event?: Prisma.EventOrderByWithRelationInput
+  faq?: Prisma.FAQOrderByWithRelationInput
 }
 
 export type FAQEventWhereUniqueInput = Prisma.AtLeast<{
@@ -186,8 +186,8 @@ export type FAQEventWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.FAQEventWhereInput | Prisma.FAQEventWhereInput[]
   faqId?: Prisma.StringFilter<"FAQEvent"> | string
   eventId?: Prisma.StringFilter<"FAQEvent"> | string
-  faq?: Prisma.XOR<Prisma.FAQScalarRelationFilter, Prisma.FAQWhereInput>
   event?: Prisma.XOR<Prisma.EventScalarRelationFilter, Prisma.EventWhereInput>
+  faq?: Prisma.XOR<Prisma.FAQScalarRelationFilter, Prisma.FAQWhereInput>
 }, "id" | "faqId_eventId">
 
 export type FAQEventOrderByWithAggregationInput = {
@@ -210,8 +210,8 @@ export type FAQEventScalarWhereWithAggregatesInput = {
 
 export type FAQEventCreateInput = {
   id?: string
-  faq: Prisma.FAQCreateNestedOneWithoutEventsInput
   event: Prisma.EventCreateNestedOneWithoutFaqsInput
+  faq: Prisma.FAQCreateNestedOneWithoutEventsInput
 }
 
 export type FAQEventUncheckedCreateInput = {
@@ -222,8 +222,8 @@ export type FAQEventUncheckedCreateInput = {
 
 export type FAQEventUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  faq?: Prisma.FAQUpdateOneRequiredWithoutEventsNestedInput
   event?: Prisma.EventUpdateOneRequiredWithoutFaqsNestedInput
+  faq?: Prisma.FAQUpdateOneRequiredWithoutEventsNestedInput
 }
 
 export type FAQEventUncheckedUpdateInput = {
@@ -492,24 +492,24 @@ export type FAQEventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   id?: boolean
   faqId?: boolean
   eventId?: boolean
-  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
   event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
+  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["fAQEvent"]>
 
 export type FAQEventSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   faqId?: boolean
   eventId?: boolean
-  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
   event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
+  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["fAQEvent"]>
 
 export type FAQEventSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   faqId?: boolean
   eventId?: boolean
-  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
   event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
+  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["fAQEvent"]>
 
 export type FAQEventSelectScalar = {
@@ -520,23 +520,23 @@ export type FAQEventSelectScalar = {
 
 export type FAQEventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "faqId" | "eventId", ExtArgs["result"]["fAQEvent"]>
 export type FAQEventInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
   event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
+  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
 }
 export type FAQEventIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
   event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
+  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
 }
 export type FAQEventIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
   event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
+  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
 }
 
 export type $FAQEventPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "FAQEvent"
   objects: {
-    faq: Prisma.$FAQPayload<ExtArgs>
     event: Prisma.$EventPayload<ExtArgs>
+    faq: Prisma.$FAQPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -936,8 +936,8 @@ readonly fields: FAQEventFieldRefs;
  */
 export interface Prisma__FAQEventClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  faq<T extends Prisma.FAQDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FAQDefaultArgs<ExtArgs>>): Prisma.Prisma__FAQClient<runtime.Types.Result.GetResult<Prisma.$FAQPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   event<T extends Prisma.EventDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EventDefaultArgs<ExtArgs>>): Prisma.Prisma__EventClient<runtime.Types.Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  faq<T extends Prisma.FAQDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FAQDefaultArgs<ExtArgs>>): Prisma.Prisma__FAQClient<runtime.Types.Result.GetResult<Prisma.$FAQPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

@@ -1,9 +1,9 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
-  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+  provider        = "prisma-client"
+  output          = "../src/generated/prisma"
   previewFeatures = ["prismaSchemaFolder"]
-  engineType   = "library"
+  binaryTargets   = ["native", "rhel-openssl-3.0.x"]
+  engineType      = "library"
 }
 
 datasource db {
@@ -11,9 +11,9 @@ datasource db {
 }
 
 enum Role {
-  SUPERADMIN  // Can manage users, full access
-  ADMIN       // Full content access, no user management  
-  MANAGER     // Limited content access
+  SUPERADMIN
+  ADMIN
+  MANAGER
 }
 
 enum ProviderType {
@@ -36,6 +36,33 @@ enum IntakeMonth {
   JANUARY
   MAY
   SEPTEMBER
+}
+
+enum StudyLevel {
+  FOUNDATION
+  BACHELOR
+  MASTER
+  PHD
+  DIPLOMA
+  CERTIFICATE
+  PATHWAY
+}
+
+enum Faculty {
+  ENGINEERING
+  BUSINESS
+  ARTS_HUMANITIES
+  SCIENCE
+  MEDICINE_HEALTH
+  LAW
+  EDUCATION
+  SOCIAL_SCIENCES
+  IT_COMPUTING
+  ARCHITECTURE
+  AGRICULTURE
+  HOSPITALITY_TOURISM
+  MEDIA_COMMUNICATION
+  OTHER
 }
 
 enum ReviewType {

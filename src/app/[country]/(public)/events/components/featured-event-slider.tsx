@@ -2,7 +2,13 @@
 
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
-import { Calendar, MapPin, Clock, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  Calendar,
+  MapPin,
+  Clock,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import { Event } from "@/generated/prisma/client";
 import { GradientButton } from "@/components/ui/gradient-button";
 
@@ -12,7 +18,12 @@ interface FeaturedEventSliderProps {
 
 export function FeaturedEventSlider({ events }: FeaturedEventSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [countdown, setCountdown] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const currentEvent = events[currentIndex];
@@ -29,7 +40,9 @@ export function FeaturedEventSlider({ events }: FeaturedEventSliderProps) {
       if (difference > 0) {
         setCountdown({
           days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          hours: Math.floor(
+            (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          ),
           minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
           seconds: Math.floor((difference % (1000 * 60)) / 1000),
         });
@@ -63,7 +76,7 @@ export function FeaturedEventSlider({ events }: FeaturedEventSliderProps) {
             className="object-cover opacity-30"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-slate-900/40" />
+          <div className="absolute inset-0 bg-linear-to-t from-slate-900 via-slate-900/80 to-slate-900/40" />
         </div>
 
         {/* Content */}
@@ -72,9 +85,11 @@ export function FeaturedEventSlider({ events }: FeaturedEventSliderProps) {
             {/* Left: Event Info */}
             <div className="text-white">
               <div className="inline-block bg-primary px-4 py-2 rounded-full mb-6">
-                <span className="text-sm font-bold uppercase tracking-wider">Featured Event</span>
+                <span className="text-sm font-bold uppercase tracking-wider">
+                  Featured Event
+                </span>
               </div>
-              
+
               <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
                 {currentEvent.title}
               </h1>
@@ -82,7 +97,17 @@ export function FeaturedEventSlider({ events }: FeaturedEventSliderProps) {
               <div className="space-y-4 mb-8">
                 <div className="flex items-center gap-3 text-lg">
                   <Calendar className="w-5 h-5 text-primary" />
-                  <span>{new Date(currentEvent.startDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                  <span>
+                    {new Date(currentEvent.startDate).toLocaleDateString(
+                      "en-US",
+                      {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      }
+                    )}
+                  </span>
                 </div>
                 {currentEvent.location && (
                   <div className="flex items-center gap-3 text-lg">
@@ -92,32 +117,39 @@ export function FeaturedEventSlider({ events }: FeaturedEventSliderProps) {
                 )}
                 <div className="flex items-center gap-3 text-lg">
                   <Clock className="w-5 h-5 text-primary" />
-                  <span>{new Date(currentEvent.startDate).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>
+                  <span>
+                    {new Date(currentEvent.startDate).toLocaleTimeString(
+                      "en-US",
+                      { hour: "2-digit", minute: "2-digit" }
+                    )}
+                  </span>
                 </div>
               </div>
 
-              <GradientButton   className="px-8">
-                Register Now
-              </GradientButton>
+              <GradientButton className="px-8">Register Now</GradientButton>
             </div>
 
             {/* Right: Countdown */}
             <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl p-8 md:p-10">
-              <h3 className="text-white text-2xl font-bold mb-8 text-center">Event Starts In</h3>
+              <h3 className="text-white text-2xl font-bold mb-8 text-center">
+                Event Starts In
+              </h3>
               <div className="grid grid-cols-4 gap-4">
                 {[
-                  { label: 'Days', value: countdown.days },
-                  { label: 'Hours', value: countdown.hours },
-                  { label: 'Minutes', value: countdown.minutes },
-                  { label: 'Seconds', value: countdown.seconds },
+                  { label: "Days", value: countdown.days },
+                  { label: "Hours", value: countdown.hours },
+                  { label: "Minutes", value: countdown.minutes },
+                  { label: "Seconds", value: countdown.seconds },
                 ].map((item) => (
                   <div key={item.label} className="text-center">
                     <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 mb-2">
                       <span className="text-4xl md:text-5xl font-bold text-white block">
-                        {item.value.toString().padStart(2, '0')}
+                        {item.value.toString().padStart(2, "0")}
                       </span>
                     </div>
-                    <span className="text-white/80 text-sm uppercase tracking-wider">{item.label}</span>
+                    <span className="text-white/80 text-sm uppercase tracking-wider">
+                      {item.label}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -151,7 +183,7 @@ export function FeaturedEventSlider({ events }: FeaturedEventSliderProps) {
                 key={index}
                 onClick={() => setCurrentIndex(index)}
                 className={`h-2 rounded-full transition-all ${
-                  index === currentIndex ? 'w-8 bg-primary' : 'w-2 bg-white/40'
+                  index === currentIndex ? "w-8 bg-primary" : "w-2 bg-white/40"
                 }`}
               />
             ))}

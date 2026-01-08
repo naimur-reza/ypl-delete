@@ -1,48 +1,43 @@
-// Course and Intake Management
 model Course {
-  id          String  @id @default(cuid())
-  title       String
-  slug        String  @unique
-  description String?
-  duration    String?
-  tuitionMin  Float?
-  tuitionMax  Float?
-
-  currency String? @default("USD")
-
-  sections Json?
-
-  isFeatured Boolean @default(false)
-  isActive   Boolean @default(true)
-
-  // SEO Fields
+  id              String          @id @default(cuid())
+  title           String
+  slug            String          @unique
+  description     String?
+  duration        String?
+  tuitionMin      Float?
+  tuitionMax      Float?
+  currency        String?         @default("USD")
+  sections        Json?
+  isFeatured      Boolean         @default(false)
+  isActive        Boolean         @default(true)
   metaTitle       String?
   metaDescription String?
   metaKeywords    String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  createdBy String?
-  updatedBy String?
-
-  universityId String
-  university   University @relation(fields: [universityId], references: [id])
-
-  destinationId String
-  destination   Destination @relation(fields: [destinationId], references: [id])
-
-  countries    CourseCountry[]
-  scholarships Scholarship[]
-  intakes      CourseIntake[]
-  blogLinks    BlogCourse[]
-  faqs         FAQCourse[]
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  createdBy       String?
+  updatedBy       String?
+  universityId    String
+  destinationId   String
+  icon            String?
+  summary         String?
+  studyLevel      StudyLevel?
+  faculty         Faculty?
+  blogLinks       BlogCourse[]
+  destination     Destination     @relation(fields: [destinationId], references: [id])
+  university      University      @relation(fields: [universityId], references: [id])
+  countries       CourseCountry[]
+  intakes         CourseIntake[]
+  faqs            FAQCourse[]
+  scholarships    Scholarship[]   @relation("CourseToScholarship")
 
   @@index([universityId])
   @@index([destinationId])
   @@index([isActive])
+  @@index([studyLevel])
+  @@index([faculty])
 }
 
-// Course Intake Periods
 model CourseIntake {
   id       String      @id @default(cuid())
   courseId String
@@ -52,23 +47,33 @@ model CourseIntake {
   @@unique([courseId, intake])
 }
 
-// Intake Page Information
 model IntakePage {
-  id            String      @id @default(cuid())
-  destinationId String
-  destination   Destination @relation(fields: [destinationId], references: [id])
-  intake        IntakeMonth
-  title         String
-  description   String?
-  heroMedia     String?
-  eligibility   String?
-  timelineJson  Json?
-  ctaLabel      String?
-  ctaUrl        String?
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-
-  faqs FAQIntakePage[]
+  id                   String              @id @default(cuid())
+  destinationId        String
+  intake               IntakeMonth
+  title                String
+  description          String?
+  heroMedia            String?
+  eligibility          String?
+  timelineJson         Json?
+  ctaLabel             String?
+  ctaUrl               String?
+  createdAt            DateTime            @default(now())
+  updatedAt            DateTime            @updatedAt
+  isActive             Boolean?            @default(true)
+  heroCTALabel         String?
+  heroCTAUrl           String?
+  heroSubtitle         String?
+  heroTitle            String?
+  metaDescription      String?
+  metaKeywords         String?
+  metaTitle            String?
+  whyChooseDescription String?
+  whyChooseTitle       String?
+  faqs                 FAQIntakePage[]
+  destination          Destination         @relation(fields: [destinationId], references: [id])
+  intakePageBenefits   IntakePageBenefit[]
 
   @@unique([destinationId, intake])
+  @@index([isActive])
 }

@@ -240,7 +240,7 @@ export function Step8Results({ wizardData, onClose }: Step8ResultsProps) {
           disabled={!email.trim() || isLoading}
           className={cn(
             "w-full h-12 text-base font-semibold",
-            "bg-gradient-to-r from-purple-600 to-purple-400 hover:from-purple-700 hover:to-purple-500",
+            "bg-linear-to-r from-purple-600 to-purple-400 hover:from-purple-700 hover:to-purple-500",
             "text-white disabled:opacity-50 disabled:cursor-not-allowed"
           )}
         >

@@ -166,16 +166,16 @@ export type FAQCourseWhereInput = {
   id?: Prisma.StringFilter<"FAQCourse"> | string
   faqId?: Prisma.StringFilter<"FAQCourse"> | string
   courseId?: Prisma.StringFilter<"FAQCourse"> | string
-  faq?: Prisma.XOR<Prisma.FAQScalarRelationFilter, Prisma.FAQWhereInput>
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
+  faq?: Prisma.XOR<Prisma.FAQScalarRelationFilter, Prisma.FAQWhereInput>
 }
 
 export type FAQCourseOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   faqId?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
-  faq?: Prisma.FAQOrderByWithRelationInput
   course?: Prisma.CourseOrderByWithRelationInput
+  faq?: Prisma.FAQOrderByWithRelationInput
 }
 
 export type FAQCourseWhereUniqueInput = Prisma.AtLeast<{
@@ -186,8 +186,8 @@ export type FAQCourseWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.FAQCourseWhereInput | Prisma.FAQCourseWhereInput[]
   faqId?: Prisma.StringFilter<"FAQCourse"> | string
   courseId?: Prisma.StringFilter<"FAQCourse"> | string
-  faq?: Prisma.XOR<Prisma.FAQScalarRelationFilter, Prisma.FAQWhereInput>
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
+  faq?: Prisma.XOR<Prisma.FAQScalarRelationFilter, Prisma.FAQWhereInput>
 }, "id" | "faqId_courseId">
 
 export type FAQCourseOrderByWithAggregationInput = {
@@ -210,8 +210,8 @@ export type FAQCourseScalarWhereWithAggregatesInput = {
 
 export type FAQCourseCreateInput = {
   id?: string
-  faq: Prisma.FAQCreateNestedOneWithoutCoursesInput
   course: Prisma.CourseCreateNestedOneWithoutFaqsInput
+  faq: Prisma.FAQCreateNestedOneWithoutCoursesInput
 }
 
 export type FAQCourseUncheckedCreateInput = {
@@ -222,8 +222,8 @@ export type FAQCourseUncheckedCreateInput = {
 
 export type FAQCourseUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  faq?: Prisma.FAQUpdateOneRequiredWithoutCoursesNestedInput
   course?: Prisma.CourseUpdateOneRequiredWithoutFaqsNestedInput
+  faq?: Prisma.FAQUpdateOneRequiredWithoutCoursesNestedInput
 }
 
 export type FAQCourseUncheckedUpdateInput = {
@@ -492,24 +492,24 @@ export type FAQCourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   id?: boolean
   faqId?: boolean
   courseId?: boolean
-  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["fAQCourse"]>
 
 export type FAQCourseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   faqId?: boolean
   courseId?: boolean
-  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["fAQCourse"]>
 
 export type FAQCourseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   faqId?: boolean
   courseId?: boolean
-  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["fAQCourse"]>
 
 export type FAQCourseSelectScalar = {
@@ -520,23 +520,23 @@ export type FAQCourseSelectScalar = {
 
 export type FAQCourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "faqId" | "courseId", ExtArgs["result"]["fAQCourse"]>
 export type FAQCourseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
 }
 export type FAQCourseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
 }
 export type FAQCourseIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  faq?: boolean | Prisma.FAQDefaultArgs<ExtArgs>
 }
 
 export type $FAQCoursePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "FAQCourse"
   objects: {
-    faq: Prisma.$FAQPayload<ExtArgs>
     course: Prisma.$CoursePayload<ExtArgs>
+    faq: Prisma.$FAQPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -936,8 +936,8 @@ readonly fields: FAQCourseFieldRefs;
  */
 export interface Prisma__FAQCourseClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  faq<T extends Prisma.FAQDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FAQDefaultArgs<ExtArgs>>): Prisma.Prisma__FAQClient<runtime.Types.Result.GetResult<Prisma.$FAQPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   course<T extends Prisma.CourseDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CourseDefaultArgs<ExtArgs>>): Prisma.Prisma__CourseClient<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  faq<T extends Prisma.FAQDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FAQDefaultArgs<ExtArgs>>): Prisma.Prisma__FAQClient<runtime.Types.Result.GetResult<Prisma.$FAQPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

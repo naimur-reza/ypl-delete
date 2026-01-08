@@ -5,6 +5,7 @@ import type React from "react";
 import { useState } from "react";
 
 import { FilterDropdown } from "./filter-dropdown";
+import { SearchInputWithSuggestions } from "./search-input-with-suggestions";
 import { FilterTabType, getFilterConfig } from "@/lib/filter-config";
 import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -224,30 +225,49 @@ export function FilterContent({
           {config.filters.map((filter) => {
             if (filter.type === "input") {
               return (
-                <div key={filter.id} className="flex-1 min-w-0 md:min-w-[200px]">
+                <div
+                  key={filter.id}
+                  className="flex-1 min-w-0 md:min-w-[200px]"
+                >
                   <label className="block text-[10px] md:text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1.5 md:mb-2.5 ml-1">
                     {filter.label}
                   </label>
-                  <input
-                    type="text"
-                    value={filterValues[filter.id] || ""}
-                    onChange={(e) =>
-                      handleFilterChange(filter.id, e.target.value)
-                    }
-                    onKeyDown={handleKeyDown}
-                    placeholder={filter.placeholder}
-                    className={cn(
-                      "w-full px-3 md:px-4 py-3 md:py-3.5 rounded-lg border transition-all duration-300 text-sm",
-                      "bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500",
-                      "focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none",
-                      "border-gray-300 dark:border-gray-600"
-                    )}
-                  />
+                  {filter.suggestionType ? (
+                    <SearchInputWithSuggestions
+                      value={filterValues[filter.id] || ""}
+                      onChange={(value) => handleFilterChange(filter.id, value)}
+                      onKeyDown={handleKeyDown}
+                      placeholder={filter.placeholder}
+                      suggestionType={filter.suggestionType}
+                      onSuggestionSelect={(suggestion) => {
+                        handleFilterChange(filter.id, suggestion.name);
+                      }}
+                    />
+                  ) : (
+                    <input
+                      type="text"
+                      value={filterValues[filter.id] || ""}
+                      onChange={(e) =>
+                        handleFilterChange(filter.id, e.target.value)
+                      }
+                      onKeyDown={handleKeyDown}
+                      placeholder={filter.placeholder}
+                      className={cn(
+                        "w-full px-3 md:px-4 py-3 md:py-3.5 rounded-lg border transition-all duration-300 text-sm",
+                        "bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500",
+                        "focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none",
+                        "border-gray-300 dark:border-gray-600"
+                      )}
+                    />
+                  )}
                 </div>
               );
             } else {
               return (
-                <div key={filter.id} className="flex-1 min-w-0 md:min-w-[200px]">
+                <div
+                  key={filter.id}
+                  className="flex-1 min-w-0 md:min-w-[200px]"
+                >
                   <label className="block text-[10px] md:text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1.5 md:mb-2.5 ml-1">
                     {filter.label}
                   </label>

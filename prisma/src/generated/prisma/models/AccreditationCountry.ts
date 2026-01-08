@@ -26,40 +26,40 @@ export type AggregateAccreditationCountry = {
 
 export type AccreditationCountryMinAggregateOutputType = {
   id: string | null
-  accreditationId: string | null
   countryId: string | null
+  accreditationId: string | null
 }
 
 export type AccreditationCountryMaxAggregateOutputType = {
   id: string | null
-  accreditationId: string | null
   countryId: string | null
+  accreditationId: string | null
 }
 
 export type AccreditationCountryCountAggregateOutputType = {
   id: number
-  accreditationId: number
   countryId: number
+  accreditationId: number
   _all: number
 }
 
 
 export type AccreditationCountryMinAggregateInputType = {
   id?: true
-  accreditationId?: true
   countryId?: true
+  accreditationId?: true
 }
 
 export type AccreditationCountryMaxAggregateInputType = {
   id?: true
-  accreditationId?: true
   countryId?: true
+  accreditationId?: true
 }
 
 export type AccreditationCountryCountAggregateInputType = {
   id?: true
-  accreditationId?: true
   countryId?: true
+  accreditationId?: true
   _all?: true
 }
 
@@ -137,8 +137,8 @@ export type AccreditationCountryGroupByArgs<ExtArgs extends runtime.Types.Extens
 
 export type AccreditationCountryGroupByOutputType = {
   id: string
-  accreditationId: string
   countryId: string
+  accreditationId: string
   _count: AccreditationCountryCountAggregateOutputType | null
   _min: AccreditationCountryMinAggregateOutputType | null
   _max: AccreditationCountryMaxAggregateOutputType | null
@@ -164,16 +164,16 @@ export type AccreditationCountryWhereInput = {
   OR?: Prisma.AccreditationCountryWhereInput[]
   NOT?: Prisma.AccreditationCountryWhereInput | Prisma.AccreditationCountryWhereInput[]
   id?: Prisma.StringFilter<"AccreditationCountry"> | string
-  accreditationId?: Prisma.StringFilter<"AccreditationCountry"> | string
   countryId?: Prisma.StringFilter<"AccreditationCountry"> | string
+  accreditationId?: Prisma.StringFilter<"AccreditationCountry"> | string
   accreditation?: Prisma.XOR<Prisma.AccreditationScalarRelationFilter, Prisma.AccreditationWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
 }
 
 export type AccreditationCountryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  accreditationId?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
+  accreditationId?: Prisma.SortOrder
   accreditation?: Prisma.AccreditationOrderByWithRelationInput
   country?: Prisma.CountryOrderByWithRelationInput
 }
@@ -184,16 +184,16 @@ export type AccreditationCountryWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.AccreditationCountryWhereInput | Prisma.AccreditationCountryWhereInput[]
   OR?: Prisma.AccreditationCountryWhereInput[]
   NOT?: Prisma.AccreditationCountryWhereInput | Prisma.AccreditationCountryWhereInput[]
-  accreditationId?: Prisma.StringFilter<"AccreditationCountry"> | string
   countryId?: Prisma.StringFilter<"AccreditationCountry"> | string
+  accreditationId?: Prisma.StringFilter<"AccreditationCountry"> | string
   accreditation?: Prisma.XOR<Prisma.AccreditationScalarRelationFilter, Prisma.AccreditationWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
 }, "id" | "accreditationId_countryId">
 
 export type AccreditationCountryOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  accreditationId?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
+  accreditationId?: Prisma.SortOrder
   _count?: Prisma.AccreditationCountryCountOrderByAggregateInput
   _max?: Prisma.AccreditationCountryMaxOrderByAggregateInput
   _min?: Prisma.AccreditationCountryMinOrderByAggregateInput
@@ -204,8 +204,8 @@ export type AccreditationCountryScalarWhereWithAggregatesInput = {
   OR?: Prisma.AccreditationCountryScalarWhereWithAggregatesInput[]
   NOT?: Prisma.AccreditationCountryScalarWhereWithAggregatesInput | Prisma.AccreditationCountryScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"AccreditationCountry"> | string
-  accreditationId?: Prisma.StringWithAggregatesFilter<"AccreditationCountry"> | string
   countryId?: Prisma.StringWithAggregatesFilter<"AccreditationCountry"> | string
+  accreditationId?: Prisma.StringWithAggregatesFilter<"AccreditationCountry"> | string
 }
 
 export type AccreditationCountryCreateInput = {
@@ -216,8 +216,8 @@ export type AccreditationCountryCreateInput = {
 
 export type AccreditationCountryUncheckedCreateInput = {
   id?: string
-  accreditationId: string
   countryId: string
+  accreditationId: string
 }
 
 export type AccreditationCountryUpdateInput = {
@@ -228,14 +228,14 @@ export type AccreditationCountryUpdateInput = {
 
 export type AccreditationCountryUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  accreditationId?: Prisma.StringFieldUpdateOperationsInput | string
   countryId?: Prisma.StringFieldUpdateOperationsInput | string
+  accreditationId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type AccreditationCountryCreateManyInput = {
   id?: string
-  accreditationId: string
   countryId: string
+  accreditationId: string
 }
 
 export type AccreditationCountryUpdateManyMutationInput = {
@@ -244,8 +244,8 @@ export type AccreditationCountryUpdateManyMutationInput = {
 
 export type AccreditationCountryUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  accreditationId?: Prisma.StringFieldUpdateOperationsInput | string
   countryId?: Prisma.StringFieldUpdateOperationsInput | string
+  accreditationId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type AccreditationCountryListRelationFilter = {
@@ -265,20 +265,20 @@ export type AccreditationCountryAccreditationIdCountryIdCompoundUniqueInput = {
 
 export type AccreditationCountryCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  accreditationId?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
+  accreditationId?: Prisma.SortOrder
 }
 
 export type AccreditationCountryMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  accreditationId?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
+  accreditationId?: Prisma.SortOrder
 }
 
 export type AccreditationCountryMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  accreditationId?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
+  accreditationId?: Prisma.SortOrder
 }
 
 export type AccreditationCountryCreateNestedManyWithoutAccreditationInput = {
@@ -406,8 +406,8 @@ export type AccreditationCountryScalarWhereInput = {
   OR?: Prisma.AccreditationCountryScalarWhereInput[]
   NOT?: Prisma.AccreditationCountryScalarWhereInput | Prisma.AccreditationCountryScalarWhereInput[]
   id?: Prisma.StringFilter<"AccreditationCountry"> | string
-  accreditationId?: Prisma.StringFilter<"AccreditationCountry"> | string
   countryId?: Prisma.StringFilter<"AccreditationCountry"> | string
+  accreditationId?: Prisma.StringFilter<"AccreditationCountry"> | string
 }
 
 export type AccreditationCountryCreateWithoutCountryInput = {
@@ -490,35 +490,35 @@ export type AccreditationCountryUncheckedUpdateManyWithoutCountryInput = {
 
 export type AccreditationCountrySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  accreditationId?: boolean
   countryId?: boolean
+  accreditationId?: boolean
   accreditation?: boolean | Prisma.AccreditationDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["accreditationCountry"]>
 
 export type AccreditationCountrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  accreditationId?: boolean
   countryId?: boolean
+  accreditationId?: boolean
   accreditation?: boolean | Prisma.AccreditationDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["accreditationCountry"]>
 
 export type AccreditationCountrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  accreditationId?: boolean
   countryId?: boolean
+  accreditationId?: boolean
   accreditation?: boolean | Prisma.AccreditationDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["accreditationCountry"]>
 
 export type AccreditationCountrySelectScalar = {
   id?: boolean
-  accreditationId?: boolean
   countryId?: boolean
+  accreditationId?: boolean
 }
 
-export type AccreditationCountryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "accreditationId" | "countryId", ExtArgs["result"]["accreditationCountry"]>
+export type AccreditationCountryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "countryId" | "accreditationId", ExtArgs["result"]["accreditationCountry"]>
 export type AccreditationCountryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accreditation?: boolean | Prisma.AccreditationDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
@@ -540,8 +540,8 @@ export type $AccreditationCountryPayload<ExtArgs extends runtime.Types.Extension
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    accreditationId: string
     countryId: string
+    accreditationId: string
   }, ExtArgs["result"]["accreditationCountry"]>
   composites: {}
 }
@@ -968,8 +968,8 @@ export interface Prisma__AccreditationCountryClient<T, Null = never, ExtArgs ext
  */
 export interface AccreditationCountryFieldRefs {
   readonly id: Prisma.FieldRef<"AccreditationCountry", 'String'>
-  readonly accreditationId: Prisma.FieldRef<"AccreditationCountry", 'String'>
   readonly countryId: Prisma.FieldRef<"AccreditationCountry", 'String'>
+  readonly accreditationId: Prisma.FieldRef<"AccreditationCountry", 'String'>
 }
     
 

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ReactNode, useMemo, useState } from "react";
+import { ReactNode, useMemo, useState, useEffect } from "react";
 import { useCountry as useCountryContext } from "@/lib/country-context";
 
 interface CountryAwareLinkProps {
@@ -54,6 +54,7 @@ const getCookie = (name: string): string | null => {
  * Country-aware Link
  * - preserves country slug for internal navigation
  * - uses cookie as fallback when country context is null
+ * - respects user's explicit global preference
  * - leaves hash/absolute links untouched
  */
 export function CountryAwareLink({
@@ -63,19 +64,34 @@ export function CountryAwareLink({
   ...props
 }: CountryAwareLinkProps) {
   const { country: contextCountry } = useCountryContext();
-  const [cookieCountry] = useState<string | null>(() => {
-    if (typeof document === "undefined") return null;
-    return getCookie("user-country");
-  });
+  // Initialize cookie country as null to match server render
+  // This prevents hydration mismatch
+  const [cookieCountry, setCookieCountry] = useState<string | null>(null);
+  const [isGlobalPreference, setIsGlobalPreference] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
 
-  // Use context country first, fallback to cookie
-  const country = contextCountry || cookieCountry;
+  // Read cookie only after hydration to prevent mismatch
+  useEffect(() => {
+    setIsHydrated(true);
+    if (!contextCountry) {
+      setCookieCountry(getCookie("user-country"));
+    }
+    // Check if user explicitly chose global
+    setIsGlobalPreference(getCookie("country-preference") === "global");
+  }, [contextCountry]);
+
+  // Use context country first, only use cookie after hydration and if no context
+  // Don't use cookie country if user explicitly chose global
+  const country = isGlobalPreference
+    ? null
+    : contextCountry || (isHydrated ? cookieCountry : null);
 
   const finalHref = useMemo(() => {
     // Don't add country prefix for:
     // - External links
     // - Hash links
     // - Admin/system routes (dashboard, auth, login, api, etc.)
+    // - When user explicitly chose global
     if (!country || isExternal(href) || isHash(href) || isAdminRoute(href)) {
       return href;
     }

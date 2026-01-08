@@ -41,12 +41,10 @@ export type CourseMinAggregateOutputType = {
   title: string | null
   slug: string | null
   description: string | null
-  summary: string | null
   duration: string | null
   tuitionMin: number | null
   tuitionMax: number | null
   currency: string | null
-  icon: string | null
   isFeatured: boolean | null
   isActive: boolean | null
   metaTitle: string | null
@@ -58,6 +56,10 @@ export type CourseMinAggregateOutputType = {
   updatedBy: string | null
   universityId: string | null
   destinationId: string | null
+  icon: string | null
+  summary: string | null
+  studyLevel: $Enums.StudyLevel | null
+  faculty: $Enums.Faculty | null
 }
 
 export type CourseMaxAggregateOutputType = {
@@ -65,12 +67,10 @@ export type CourseMaxAggregateOutputType = {
   title: string | null
   slug: string | null
   description: string | null
-  summary: string | null
   duration: string | null
   tuitionMin: number | null
   tuitionMax: number | null
   currency: string | null
-  icon: string | null
   isFeatured: boolean | null
   isActive: boolean | null
   metaTitle: string | null
@@ -82,6 +82,10 @@ export type CourseMaxAggregateOutputType = {
   updatedBy: string | null
   universityId: string | null
   destinationId: string | null
+  icon: string | null
+  summary: string | null
+  studyLevel: $Enums.StudyLevel | null
+  faculty: $Enums.Faculty | null
 }
 
 export type CourseCountAggregateOutputType = {
@@ -89,12 +93,10 @@ export type CourseCountAggregateOutputType = {
   title: number
   slug: number
   description: number
-  summary: number
   duration: number
   tuitionMin: number
   tuitionMax: number
   currency: number
-  icon: number
   sections: number
   isFeatured: number
   isActive: number
@@ -107,6 +109,10 @@ export type CourseCountAggregateOutputType = {
   updatedBy: number
   universityId: number
   destinationId: number
+  icon: number
+  summary: number
+  studyLevel: number
+  faculty: number
   _all: number
 }
 
@@ -126,12 +132,10 @@ export type CourseMinAggregateInputType = {
   title?: true
   slug?: true
   description?: true
-  summary?: true
   duration?: true
   tuitionMin?: true
   tuitionMax?: true
   currency?: true
-  icon?: true
   isFeatured?: true
   isActive?: true
   metaTitle?: true
@@ -143,6 +147,10 @@ export type CourseMinAggregateInputType = {
   updatedBy?: true
   universityId?: true
   destinationId?: true
+  icon?: true
+  summary?: true
+  studyLevel?: true
+  faculty?: true
 }
 
 export type CourseMaxAggregateInputType = {
@@ -150,12 +158,10 @@ export type CourseMaxAggregateInputType = {
   title?: true
   slug?: true
   description?: true
-  summary?: true
   duration?: true
   tuitionMin?: true
   tuitionMax?: true
   currency?: true
-  icon?: true
   isFeatured?: true
   isActive?: true
   metaTitle?: true
@@ -167,6 +173,10 @@ export type CourseMaxAggregateInputType = {
   updatedBy?: true
   universityId?: true
   destinationId?: true
+  icon?: true
+  summary?: true
+  studyLevel?: true
+  faculty?: true
 }
 
 export type CourseCountAggregateInputType = {
@@ -174,12 +184,10 @@ export type CourseCountAggregateInputType = {
   title?: true
   slug?: true
   description?: true
-  summary?: true
   duration?: true
   tuitionMin?: true
   tuitionMax?: true
   currency?: true
-  icon?: true
   sections?: true
   isFeatured?: true
   isActive?: true
@@ -192,6 +200,10 @@ export type CourseCountAggregateInputType = {
   updatedBy?: true
   universityId?: true
   destinationId?: true
+  icon?: true
+  summary?: true
+  studyLevel?: true
+  faculty?: true
   _all?: true
 }
 
@@ -286,12 +298,10 @@ export type CourseGroupByOutputType = {
   title: string
   slug: string
   description: string | null
-  summary: string | null
   duration: string | null
   tuitionMin: number | null
   tuitionMax: number | null
   currency: string | null
-  icon: string | null
   sections: runtime.JsonValue | null
   isFeatured: boolean
   isActive: boolean
@@ -304,6 +314,10 @@ export type CourseGroupByOutputType = {
   updatedBy: string | null
   universityId: string
   destinationId: string
+  icon: string | null
+  summary: string | null
+  studyLevel: $Enums.StudyLevel | null
+  faculty: $Enums.Faculty | null
   _count: CourseCountAggregateOutputType | null
   _avg: CourseAvgAggregateOutputType | null
   _sum: CourseSumAggregateOutputType | null
@@ -334,12 +348,10 @@ export type CourseWhereInput = {
   title?: Prisma.StringFilter<"Course"> | string
   slug?: Prisma.StringFilter<"Course"> | string
   description?: Prisma.StringNullableFilter<"Course"> | string | null
-  summary?: Prisma.StringNullableFilter<"Course"> | string | null
   duration?: Prisma.StringNullableFilter<"Course"> | string | null
   tuitionMin?: Prisma.FloatNullableFilter<"Course"> | number | null
   tuitionMax?: Prisma.FloatNullableFilter<"Course"> | number | null
   currency?: Prisma.StringNullableFilter<"Course"> | string | null
-  icon?: Prisma.StringNullableFilter<"Course"> | string | null
   sections?: Prisma.JsonNullableFilter<"Course">
   isFeatured?: Prisma.BoolFilter<"Course"> | boolean
   isActive?: Prisma.BoolFilter<"Course"> | boolean
@@ -352,13 +364,17 @@ export type CourseWhereInput = {
   updatedBy?: Prisma.StringNullableFilter<"Course"> | string | null
   universityId?: Prisma.StringFilter<"Course"> | string
   destinationId?: Prisma.StringFilter<"Course"> | string
-  university?: Prisma.XOR<Prisma.UniversityScalarRelationFilter, Prisma.UniversityWhereInput>
-  destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
-  countries?: Prisma.CourseCountryListRelationFilter
-  scholarships?: Prisma.ScholarshipListRelationFilter
-  intakes?: Prisma.CourseIntakeListRelationFilter
+  icon?: Prisma.StringNullableFilter<"Course"> | string | null
+  summary?: Prisma.StringNullableFilter<"Course"> | string | null
+  studyLevel?: Prisma.EnumStudyLevelNullableFilter<"Course"> | $Enums.StudyLevel | null
+  faculty?: Prisma.EnumFacultyNullableFilter<"Course"> | $Enums.Faculty | null
   blogLinks?: Prisma.BlogCourseListRelationFilter
+  destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
+  university?: Prisma.XOR<Prisma.UniversityScalarRelationFilter, Prisma.UniversityWhereInput>
+  countries?: Prisma.CourseCountryListRelationFilter
+  intakes?: Prisma.CourseIntakeListRelationFilter
   faqs?: Prisma.FAQCourseListRelationFilter
+  scholarships?: Prisma.ScholarshipListRelationFilter
 }
 
 export type CourseOrderByWithRelationInput = {
@@ -366,12 +382,10 @@ export type CourseOrderByWithRelationInput = {
   title?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  summary?: Prisma.SortOrderInput | Prisma.SortOrder
   duration?: Prisma.SortOrderInput | Prisma.SortOrder
   tuitionMin?: Prisma.SortOrderInput | Prisma.SortOrder
   tuitionMax?: Prisma.SortOrderInput | Prisma.SortOrder
   currency?: Prisma.SortOrderInput | Prisma.SortOrder
-  icon?: Prisma.SortOrderInput | Prisma.SortOrder
   sections?: Prisma.SortOrderInput | Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -384,13 +398,17 @@ export type CourseOrderByWithRelationInput = {
   updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   universityId?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
-  university?: Prisma.UniversityOrderByWithRelationInput
-  destination?: Prisma.DestinationOrderByWithRelationInput
-  countries?: Prisma.CourseCountryOrderByRelationAggregateInput
-  scholarships?: Prisma.ScholarshipOrderByRelationAggregateInput
-  intakes?: Prisma.CourseIntakeOrderByRelationAggregateInput
+  icon?: Prisma.SortOrderInput | Prisma.SortOrder
+  summary?: Prisma.SortOrderInput | Prisma.SortOrder
+  studyLevel?: Prisma.SortOrderInput | Prisma.SortOrder
+  faculty?: Prisma.SortOrderInput | Prisma.SortOrder
   blogLinks?: Prisma.BlogCourseOrderByRelationAggregateInput
+  destination?: Prisma.DestinationOrderByWithRelationInput
+  university?: Prisma.UniversityOrderByWithRelationInput
+  countries?: Prisma.CourseCountryOrderByRelationAggregateInput
+  intakes?: Prisma.CourseIntakeOrderByRelationAggregateInput
   faqs?: Prisma.FAQCourseOrderByRelationAggregateInput
+  scholarships?: Prisma.ScholarshipOrderByRelationAggregateInput
 }
 
 export type CourseWhereUniqueInput = Prisma.AtLeast<{
@@ -401,12 +419,10 @@ export type CourseWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.CourseWhereInput | Prisma.CourseWhereInput[]
   title?: Prisma.StringFilter<"Course"> | string
   description?: Prisma.StringNullableFilter<"Course"> | string | null
-  summary?: Prisma.StringNullableFilter<"Course"> | string | null
   duration?: Prisma.StringNullableFilter<"Course"> | string | null
   tuitionMin?: Prisma.FloatNullableFilter<"Course"> | number | null
   tuitionMax?: Prisma.FloatNullableFilter<"Course"> | number | null
   currency?: Prisma.StringNullableFilter<"Course"> | string | null
-  icon?: Prisma.StringNullableFilter<"Course"> | string | null
   sections?: Prisma.JsonNullableFilter<"Course">
   isFeatured?: Prisma.BoolFilter<"Course"> | boolean
   isActive?: Prisma.BoolFilter<"Course"> | boolean
@@ -419,13 +435,17 @@ export type CourseWhereUniqueInput = Prisma.AtLeast<{
   updatedBy?: Prisma.StringNullableFilter<"Course"> | string | null
   universityId?: Prisma.StringFilter<"Course"> | string
   destinationId?: Prisma.StringFilter<"Course"> | string
-  university?: Prisma.XOR<Prisma.UniversityScalarRelationFilter, Prisma.UniversityWhereInput>
-  destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
-  countries?: Prisma.CourseCountryListRelationFilter
-  scholarships?: Prisma.ScholarshipListRelationFilter
-  intakes?: Prisma.CourseIntakeListRelationFilter
+  icon?: Prisma.StringNullableFilter<"Course"> | string | null
+  summary?: Prisma.StringNullableFilter<"Course"> | string | null
+  studyLevel?: Prisma.EnumStudyLevelNullableFilter<"Course"> | $Enums.StudyLevel | null
+  faculty?: Prisma.EnumFacultyNullableFilter<"Course"> | $Enums.Faculty | null
   blogLinks?: Prisma.BlogCourseListRelationFilter
+  destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
+  university?: Prisma.XOR<Prisma.UniversityScalarRelationFilter, Prisma.UniversityWhereInput>
+  countries?: Prisma.CourseCountryListRelationFilter
+  intakes?: Prisma.CourseIntakeListRelationFilter
   faqs?: Prisma.FAQCourseListRelationFilter
+  scholarships?: Prisma.ScholarshipListRelationFilter
 }, "id" | "slug">
 
 export type CourseOrderByWithAggregationInput = {
@@ -433,12 +453,10 @@ export type CourseOrderByWithAggregationInput = {
   title?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  summary?: Prisma.SortOrderInput | Prisma.SortOrder
   duration?: Prisma.SortOrderInput | Prisma.SortOrder
   tuitionMin?: Prisma.SortOrderInput | Prisma.SortOrder
   tuitionMax?: Prisma.SortOrderInput | Prisma.SortOrder
   currency?: Prisma.SortOrderInput | Prisma.SortOrder
-  icon?: Prisma.SortOrderInput | Prisma.SortOrder
   sections?: Prisma.SortOrderInput | Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -451,6 +469,10 @@ export type CourseOrderByWithAggregationInput = {
   updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   universityId?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
+  icon?: Prisma.SortOrderInput | Prisma.SortOrder
+  summary?: Prisma.SortOrderInput | Prisma.SortOrder
+  studyLevel?: Prisma.SortOrderInput | Prisma.SortOrder
+  faculty?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.CourseCountOrderByAggregateInput
   _avg?: Prisma.CourseAvgOrderByAggregateInput
   _max?: Prisma.CourseMaxOrderByAggregateInput
@@ -466,12 +488,10 @@ export type CourseScalarWhereWithAggregatesInput = {
   title?: Prisma.StringWithAggregatesFilter<"Course"> | string
   slug?: Prisma.StringWithAggregatesFilter<"Course"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Course"> | string | null
-  summary?: Prisma.StringNullableWithAggregatesFilter<"Course"> | string | null
   duration?: Prisma.StringNullableWithAggregatesFilter<"Course"> | string | null
   tuitionMin?: Prisma.FloatNullableWithAggregatesFilter<"Course"> | number | null
   tuitionMax?: Prisma.FloatNullableWithAggregatesFilter<"Course"> | number | null
   currency?: Prisma.StringNullableWithAggregatesFilter<"Course"> | string | null
-  icon?: Prisma.StringNullableWithAggregatesFilter<"Course"> | string | null
   sections?: Prisma.JsonNullableWithAggregatesFilter<"Course">
   isFeatured?: Prisma.BoolWithAggregatesFilter<"Course"> | boolean
   isActive?: Prisma.BoolWithAggregatesFilter<"Course"> | boolean
@@ -484,6 +504,10 @@ export type CourseScalarWhereWithAggregatesInput = {
   updatedBy?: Prisma.StringNullableWithAggregatesFilter<"Course"> | string | null
   universityId?: Prisma.StringWithAggregatesFilter<"Course"> | string
   destinationId?: Prisma.StringWithAggregatesFilter<"Course"> | string
+  icon?: Prisma.StringNullableWithAggregatesFilter<"Course"> | string | null
+  summary?: Prisma.StringNullableWithAggregatesFilter<"Course"> | string | null
+  studyLevel?: Prisma.EnumStudyLevelNullableWithAggregatesFilter<"Course"> | $Enums.StudyLevel | null
+  faculty?: Prisma.EnumFacultyNullableWithAggregatesFilter<"Course"> | $Enums.Faculty | null
 }
 
 export type CourseCreateInput = {
@@ -491,12 +515,10 @@ export type CourseCreateInput = {
   title: string
   slug: string
   description?: string | null
-  summary?: string | null
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
   currency?: string | null
-  icon?: string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: boolean
   isActive?: boolean
@@ -507,13 +529,17 @@ export type CourseCreateInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  university: Prisma.UniversityCreateNestedOneWithoutCoursesInput
-  destination: Prisma.DestinationCreateNestedOneWithoutCoursesInput
-  countries?: Prisma.CourseCountryCreateNestedManyWithoutCourseInput
-  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutCoursesInput
-  intakes?: Prisma.CourseIntakeCreateNestedManyWithoutCourseInput
+  icon?: string | null
+  summary?: string | null
+  studyLevel?: $Enums.StudyLevel | null
+  faculty?: $Enums.Faculty | null
   blogLinks?: Prisma.BlogCourseCreateNestedManyWithoutCourseInput
+  destination: Prisma.DestinationCreateNestedOneWithoutCoursesInput
+  university: Prisma.UniversityCreateNestedOneWithoutCoursesInput
+  countries?: Prisma.CourseCountryCreateNestedManyWithoutCourseInput
+  intakes?: Prisma.CourseIntakeCreateNestedManyWithoutCourseInput
   faqs?: Prisma.FAQCourseCreateNestedManyWithoutCourseInput
+  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutCoursesInput
 }
 
 export type CourseUncheckedCreateInput = {
@@ -521,12 +547,10 @@ export type CourseUncheckedCreateInput = {
   title: string
   slug: string
   description?: string | null
-  summary?: string | null
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
   currency?: string | null
-  icon?: string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: boolean
   isActive?: boolean
@@ -539,11 +563,15 @@ export type CourseUncheckedCreateInput = {
   updatedBy?: string | null
   universityId: string
   destinationId: string
-  countries?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCourseInput
-  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutCoursesInput
-  intakes?: Prisma.CourseIntakeUncheckedCreateNestedManyWithoutCourseInput
+  icon?: string | null
+  summary?: string | null
+  studyLevel?: $Enums.StudyLevel | null
+  faculty?: $Enums.Faculty | null
   blogLinks?: Prisma.BlogCourseUncheckedCreateNestedManyWithoutCourseInput
+  countries?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCourseInput
+  intakes?: Prisma.CourseIntakeUncheckedCreateNestedManyWithoutCourseInput
   faqs?: Prisma.FAQCourseUncheckedCreateNestedManyWithoutCourseInput
+  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutCoursesInput
 }
 
 export type CourseUpdateInput = {
@@ -551,12 +579,10 @@ export type CourseUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -567,13 +593,17 @@ export type CourseUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  university?: Prisma.UniversityUpdateOneRequiredWithoutCoursesNestedInput
-  destination?: Prisma.DestinationUpdateOneRequiredWithoutCoursesNestedInput
-  countries?: Prisma.CourseCountryUpdateManyWithoutCourseNestedInput
-  scholarships?: Prisma.ScholarshipUpdateManyWithoutCoursesNestedInput
-  intakes?: Prisma.CourseIntakeUpdateManyWithoutCourseNestedInput
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
+  faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   blogLinks?: Prisma.BlogCourseUpdateManyWithoutCourseNestedInput
+  destination?: Prisma.DestinationUpdateOneRequiredWithoutCoursesNestedInput
+  university?: Prisma.UniversityUpdateOneRequiredWithoutCoursesNestedInput
+  countries?: Prisma.CourseCountryUpdateManyWithoutCourseNestedInput
+  intakes?: Prisma.CourseIntakeUpdateManyWithoutCourseNestedInput
   faqs?: Prisma.FAQCourseUpdateManyWithoutCourseNestedInput
+  scholarships?: Prisma.ScholarshipUpdateManyWithoutCoursesNestedInput
 }
 
 export type CourseUncheckedUpdateInput = {
@@ -581,12 +611,10 @@ export type CourseUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -599,11 +627,15 @@ export type CourseUncheckedUpdateInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.StringFieldUpdateOperationsInput | string
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
-  countries?: Prisma.CourseCountryUncheckedUpdateManyWithoutCourseNestedInput
-  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutCoursesNestedInput
-  intakes?: Prisma.CourseIntakeUncheckedUpdateManyWithoutCourseNestedInput
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
+  faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   blogLinks?: Prisma.BlogCourseUncheckedUpdateManyWithoutCourseNestedInput
+  countries?: Prisma.CourseCountryUncheckedUpdateManyWithoutCourseNestedInput
+  intakes?: Prisma.CourseIntakeUncheckedUpdateManyWithoutCourseNestedInput
   faqs?: Prisma.FAQCourseUncheckedUpdateManyWithoutCourseNestedInput
+  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutCoursesNestedInput
 }
 
 export type CourseCreateManyInput = {
@@ -611,12 +643,10 @@ export type CourseCreateManyInput = {
   title: string
   slug: string
   description?: string | null
-  summary?: string | null
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
   currency?: string | null
-  icon?: string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: boolean
   isActive?: boolean
@@ -629,6 +659,10 @@ export type CourseCreateManyInput = {
   updatedBy?: string | null
   universityId: string
   destinationId: string
+  icon?: string | null
+  summary?: string | null
+  studyLevel?: $Enums.StudyLevel | null
+  faculty?: $Enums.Faculty | null
 }
 
 export type CourseUpdateManyMutationInput = {
@@ -636,12 +670,10 @@ export type CourseUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -652,6 +684,10 @@ export type CourseUpdateManyMutationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
+  faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
 }
 
 export type CourseUncheckedUpdateManyInput = {
@@ -659,12 +695,10 @@ export type CourseUncheckedUpdateManyInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -677,6 +711,10 @@ export type CourseUncheckedUpdateManyInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.StringFieldUpdateOperationsInput | string
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
+  faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
 }
 
 export type CourseCountOrderByAggregateInput = {
@@ -684,12 +722,10 @@ export type CourseCountOrderByAggregateInput = {
   title?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  summary?: Prisma.SortOrder
   duration?: Prisma.SortOrder
   tuitionMin?: Prisma.SortOrder
   tuitionMax?: Prisma.SortOrder
   currency?: Prisma.SortOrder
-  icon?: Prisma.SortOrder
   sections?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -702,6 +738,10 @@ export type CourseCountOrderByAggregateInput = {
   updatedBy?: Prisma.SortOrder
   universityId?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
+  icon?: Prisma.SortOrder
+  summary?: Prisma.SortOrder
+  studyLevel?: Prisma.SortOrder
+  faculty?: Prisma.SortOrder
 }
 
 export type CourseAvgOrderByAggregateInput = {
@@ -714,12 +754,10 @@ export type CourseMaxOrderByAggregateInput = {
   title?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  summary?: Prisma.SortOrder
   duration?: Prisma.SortOrder
   tuitionMin?: Prisma.SortOrder
   tuitionMax?: Prisma.SortOrder
   currency?: Prisma.SortOrder
-  icon?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrder
@@ -731,6 +769,10 @@ export type CourseMaxOrderByAggregateInput = {
   updatedBy?: Prisma.SortOrder
   universityId?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
+  icon?: Prisma.SortOrder
+  summary?: Prisma.SortOrder
+  studyLevel?: Prisma.SortOrder
+  faculty?: Prisma.SortOrder
 }
 
 export type CourseMinOrderByAggregateInput = {
@@ -738,12 +780,10 @@ export type CourseMinOrderByAggregateInput = {
   title?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  summary?: Prisma.SortOrder
   duration?: Prisma.SortOrder
   tuitionMin?: Prisma.SortOrder
   tuitionMax?: Prisma.SortOrder
   currency?: Prisma.SortOrder
-  icon?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrder
@@ -755,6 +795,10 @@ export type CourseMinOrderByAggregateInput = {
   updatedBy?: Prisma.SortOrder
   universityId?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
+  icon?: Prisma.SortOrder
+  summary?: Prisma.SortOrder
+  studyLevel?: Prisma.SortOrder
+  faculty?: Prisma.SortOrder
 }
 
 export type CourseSumOrderByAggregateInput = {
@@ -783,6 +827,14 @@ export type NullableFloatFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type NullableEnumStudyLevelFieldUpdateOperationsInput = {
+  set?: $Enums.StudyLevel | null
+}
+
+export type NullableEnumFacultyFieldUpdateOperationsInput = {
+  set?: $Enums.Faculty | null
 }
 
 export type CourseCreateNestedOneWithoutIntakesInput = {
@@ -968,12 +1020,10 @@ export type CourseCreateWithoutIntakesInput = {
   title: string
   slug: string
   description?: string | null
-  summary?: string | null
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
   currency?: string | null
-  icon?: string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: boolean
   isActive?: boolean
@@ -984,12 +1034,16 @@ export type CourseCreateWithoutIntakesInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  university: Prisma.UniversityCreateNestedOneWithoutCoursesInput
-  destination: Prisma.DestinationCreateNestedOneWithoutCoursesInput
-  countries?: Prisma.CourseCountryCreateNestedManyWithoutCourseInput
-  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutCoursesInput
+  icon?: string | null
+  summary?: string | null
+  studyLevel?: $Enums.StudyLevel | null
+  faculty?: $Enums.Faculty | null
   blogLinks?: Prisma.BlogCourseCreateNestedManyWithoutCourseInput
+  destination: Prisma.DestinationCreateNestedOneWithoutCoursesInput
+  university: Prisma.UniversityCreateNestedOneWithoutCoursesInput
+  countries?: Prisma.CourseCountryCreateNestedManyWithoutCourseInput
   faqs?: Prisma.FAQCourseCreateNestedManyWithoutCourseInput
+  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutCoursesInput
 }
 
 export type CourseUncheckedCreateWithoutIntakesInput = {
@@ -997,12 +1051,10 @@ export type CourseUncheckedCreateWithoutIntakesInput = {
   title: string
   slug: string
   description?: string | null
-  summary?: string | null
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
   currency?: string | null
-  icon?: string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: boolean
   isActive?: boolean
@@ -1015,10 +1067,14 @@ export type CourseUncheckedCreateWithoutIntakesInput = {
   updatedBy?: string | null
   universityId: string
   destinationId: string
-  countries?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCourseInput
-  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutCoursesInput
+  icon?: string | null
+  summary?: string | null
+  studyLevel?: $Enums.StudyLevel | null
+  faculty?: $Enums.Faculty | null
   blogLinks?: Prisma.BlogCourseUncheckedCreateNestedManyWithoutCourseInput
+  countries?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCourseInput
   faqs?: Prisma.FAQCourseUncheckedCreateNestedManyWithoutCourseInput
+  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutCoursesInput
 }
 
 export type CourseCreateOrConnectWithoutIntakesInput = {
@@ -1042,12 +1098,10 @@ export type CourseUpdateWithoutIntakesInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1058,12 +1112,16 @@ export type CourseUpdateWithoutIntakesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  university?: Prisma.UniversityUpdateOneRequiredWithoutCoursesNestedInput
-  destination?: Prisma.DestinationUpdateOneRequiredWithoutCoursesNestedInput
-  countries?: Prisma.CourseCountryUpdateManyWithoutCourseNestedInput
-  scholarships?: Prisma.ScholarshipUpdateManyWithoutCoursesNestedInput
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
+  faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   blogLinks?: Prisma.BlogCourseUpdateManyWithoutCourseNestedInput
+  destination?: Prisma.DestinationUpdateOneRequiredWithoutCoursesNestedInput
+  university?: Prisma.UniversityUpdateOneRequiredWithoutCoursesNestedInput
+  countries?: Prisma.CourseCountryUpdateManyWithoutCourseNestedInput
   faqs?: Prisma.FAQCourseUpdateManyWithoutCourseNestedInput
+  scholarships?: Prisma.ScholarshipUpdateManyWithoutCoursesNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutIntakesInput = {
@@ -1071,12 +1129,10 @@ export type CourseUncheckedUpdateWithoutIntakesInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1089,10 +1145,14 @@ export type CourseUncheckedUpdateWithoutIntakesInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.StringFieldUpdateOperationsInput | string
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
-  countries?: Prisma.CourseCountryUncheckedUpdateManyWithoutCourseNestedInput
-  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutCoursesNestedInput
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
+  faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   blogLinks?: Prisma.BlogCourseUncheckedUpdateManyWithoutCourseNestedInput
+  countries?: Prisma.CourseCountryUncheckedUpdateManyWithoutCourseNestedInput
   faqs?: Prisma.FAQCourseUncheckedUpdateManyWithoutCourseNestedInput
+  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutCoursesNestedInput
 }
 
 export type CourseCreateWithoutDestinationInput = {
@@ -1100,12 +1160,10 @@ export type CourseCreateWithoutDestinationInput = {
   title: string
   slug: string
   description?: string | null
-  summary?: string | null
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
   currency?: string | null
-  icon?: string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: boolean
   isActive?: boolean
@@ -1116,12 +1174,16 @@ export type CourseCreateWithoutDestinationInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  icon?: string | null
+  summary?: string | null
+  studyLevel?: $Enums.StudyLevel | null
+  faculty?: $Enums.Faculty | null
+  blogLinks?: Prisma.BlogCourseCreateNestedManyWithoutCourseInput
   university: Prisma.UniversityCreateNestedOneWithoutCoursesInput
   countries?: Prisma.CourseCountryCreateNestedManyWithoutCourseInput
-  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutCoursesInput
   intakes?: Prisma.CourseIntakeCreateNestedManyWithoutCourseInput
-  blogLinks?: Prisma.BlogCourseCreateNestedManyWithoutCourseInput
   faqs?: Prisma.FAQCourseCreateNestedManyWithoutCourseInput
+  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutCoursesInput
 }
 
 export type CourseUncheckedCreateWithoutDestinationInput = {
@@ -1129,12 +1191,10 @@ export type CourseUncheckedCreateWithoutDestinationInput = {
   title: string
   slug: string
   description?: string | null
-  summary?: string | null
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
   currency?: string | null
-  icon?: string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: boolean
   isActive?: boolean
@@ -1146,11 +1206,15 @@ export type CourseUncheckedCreateWithoutDestinationInput = {
   createdBy?: string | null
   updatedBy?: string | null
   universityId: string
-  countries?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCourseInput
-  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutCoursesInput
-  intakes?: Prisma.CourseIntakeUncheckedCreateNestedManyWithoutCourseInput
+  icon?: string | null
+  summary?: string | null
+  studyLevel?: $Enums.StudyLevel | null
+  faculty?: $Enums.Faculty | null
   blogLinks?: Prisma.BlogCourseUncheckedCreateNestedManyWithoutCourseInput
+  countries?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCourseInput
+  intakes?: Prisma.CourseIntakeUncheckedCreateNestedManyWithoutCourseInput
   faqs?: Prisma.FAQCourseUncheckedCreateNestedManyWithoutCourseInput
+  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutCoursesInput
 }
 
 export type CourseCreateOrConnectWithoutDestinationInput = {
@@ -1187,12 +1251,10 @@ export type CourseScalarWhereInput = {
   title?: Prisma.StringFilter<"Course"> | string
   slug?: Prisma.StringFilter<"Course"> | string
   description?: Prisma.StringNullableFilter<"Course"> | string | null
-  summary?: Prisma.StringNullableFilter<"Course"> | string | null
   duration?: Prisma.StringNullableFilter<"Course"> | string | null
   tuitionMin?: Prisma.FloatNullableFilter<"Course"> | number | null
   tuitionMax?: Prisma.FloatNullableFilter<"Course"> | number | null
   currency?: Prisma.StringNullableFilter<"Course"> | string | null
-  icon?: Prisma.StringNullableFilter<"Course"> | string | null
   sections?: Prisma.JsonNullableFilter<"Course">
   isFeatured?: Prisma.BoolFilter<"Course"> | boolean
   isActive?: Prisma.BoolFilter<"Course"> | boolean
@@ -1205,6 +1267,10 @@ export type CourseScalarWhereInput = {
   updatedBy?: Prisma.StringNullableFilter<"Course"> | string | null
   universityId?: Prisma.StringFilter<"Course"> | string
   destinationId?: Prisma.StringFilter<"Course"> | string
+  icon?: Prisma.StringNullableFilter<"Course"> | string | null
+  summary?: Prisma.StringNullableFilter<"Course"> | string | null
+  studyLevel?: Prisma.EnumStudyLevelNullableFilter<"Course"> | $Enums.StudyLevel | null
+  faculty?: Prisma.EnumFacultyNullableFilter<"Course"> | $Enums.Faculty | null
 }
 
 export type CourseCreateWithoutCountriesInput = {
@@ -1212,12 +1278,10 @@ export type CourseCreateWithoutCountriesInput = {
   title: string
   slug: string
   description?: string | null
-  summary?: string | null
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
   currency?: string | null
-  icon?: string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: boolean
   isActive?: boolean
@@ -1228,12 +1292,16 @@ export type CourseCreateWithoutCountriesInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  university: Prisma.UniversityCreateNestedOneWithoutCoursesInput
-  destination: Prisma.DestinationCreateNestedOneWithoutCoursesInput
-  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutCoursesInput
-  intakes?: Prisma.CourseIntakeCreateNestedManyWithoutCourseInput
+  icon?: string | null
+  summary?: string | null
+  studyLevel?: $Enums.StudyLevel | null
+  faculty?: $Enums.Faculty | null
   blogLinks?: Prisma.BlogCourseCreateNestedManyWithoutCourseInput
+  destination: Prisma.DestinationCreateNestedOneWithoutCoursesInput
+  university: Prisma.UniversityCreateNestedOneWithoutCoursesInput
+  intakes?: Prisma.CourseIntakeCreateNestedManyWithoutCourseInput
   faqs?: Prisma.FAQCourseCreateNestedManyWithoutCourseInput
+  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutCoursesInput
 }
 
 export type CourseUncheckedCreateWithoutCountriesInput = {
@@ -1241,12 +1309,10 @@ export type CourseUncheckedCreateWithoutCountriesInput = {
   title: string
   slug: string
   description?: string | null
-  summary?: string | null
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
   currency?: string | null
-  icon?: string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: boolean
   isActive?: boolean
@@ -1259,10 +1325,14 @@ export type CourseUncheckedCreateWithoutCountriesInput = {
   updatedBy?: string | null
   universityId: string
   destinationId: string
-  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutCoursesInput
-  intakes?: Prisma.CourseIntakeUncheckedCreateNestedManyWithoutCourseInput
+  icon?: string | null
+  summary?: string | null
+  studyLevel?: $Enums.StudyLevel | null
+  faculty?: $Enums.Faculty | null
   blogLinks?: Prisma.BlogCourseUncheckedCreateNestedManyWithoutCourseInput
+  intakes?: Prisma.CourseIntakeUncheckedCreateNestedManyWithoutCourseInput
   faqs?: Prisma.FAQCourseUncheckedCreateNestedManyWithoutCourseInput
+  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutCoursesInput
 }
 
 export type CourseCreateOrConnectWithoutCountriesInput = {
@@ -1286,12 +1356,10 @@ export type CourseUpdateWithoutCountriesInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1302,12 +1370,16 @@ export type CourseUpdateWithoutCountriesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  university?: Prisma.UniversityUpdateOneRequiredWithoutCoursesNestedInput
-  destination?: Prisma.DestinationUpdateOneRequiredWithoutCoursesNestedInput
-  scholarships?: Prisma.ScholarshipUpdateManyWithoutCoursesNestedInput
-  intakes?: Prisma.CourseIntakeUpdateManyWithoutCourseNestedInput
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
+  faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   blogLinks?: Prisma.BlogCourseUpdateManyWithoutCourseNestedInput
+  destination?: Prisma.DestinationUpdateOneRequiredWithoutCoursesNestedInput
+  university?: Prisma.UniversityUpdateOneRequiredWithoutCoursesNestedInput
+  intakes?: Prisma.CourseIntakeUpdateManyWithoutCourseNestedInput
   faqs?: Prisma.FAQCourseUpdateManyWithoutCourseNestedInput
+  scholarships?: Prisma.ScholarshipUpdateManyWithoutCoursesNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutCountriesInput = {
@@ -1315,12 +1387,10 @@ export type CourseUncheckedUpdateWithoutCountriesInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1333,10 +1403,14 @@ export type CourseUncheckedUpdateWithoutCountriesInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.StringFieldUpdateOperationsInput | string
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
-  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutCoursesNestedInput
-  intakes?: Prisma.CourseIntakeUncheckedUpdateManyWithoutCourseNestedInput
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
+  faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   blogLinks?: Prisma.BlogCourseUncheckedUpdateManyWithoutCourseNestedInput
+  intakes?: Prisma.CourseIntakeUncheckedUpdateManyWithoutCourseNestedInput
   faqs?: Prisma.FAQCourseUncheckedUpdateManyWithoutCourseNestedInput
+  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutCoursesNestedInput
 }
 
 export type CourseCreateWithoutBlogLinksInput = {
@@ -1344,12 +1418,10 @@ export type CourseCreateWithoutBlogLinksInput = {
   title: string
   slug: string
   description?: string | null
-  summary?: string | null
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
   currency?: string | null
-  icon?: string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: boolean
   isActive?: boolean
@@ -1360,12 +1432,16 @@ export type CourseCreateWithoutBlogLinksInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  university: Prisma.UniversityCreateNestedOneWithoutCoursesInput
+  icon?: string | null
+  summary?: string | null
+  studyLevel?: $Enums.StudyLevel | null
+  faculty?: $Enums.Faculty | null
   destination: Prisma.DestinationCreateNestedOneWithoutCoursesInput
+  university: Prisma.UniversityCreateNestedOneWithoutCoursesInput
   countries?: Prisma.CourseCountryCreateNestedManyWithoutCourseInput
-  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutCoursesInput
   intakes?: Prisma.CourseIntakeCreateNestedManyWithoutCourseInput
   faqs?: Prisma.FAQCourseCreateNestedManyWithoutCourseInput
+  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutCoursesInput
 }
 
 export type CourseUncheckedCreateWithoutBlogLinksInput = {
@@ -1373,12 +1449,10 @@ export type CourseUncheckedCreateWithoutBlogLinksInput = {
   title: string
   slug: string
   description?: string | null
-  summary?: string | null
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
   currency?: string | null
-  icon?: string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: boolean
   isActive?: boolean
@@ -1391,10 +1465,14 @@ export type CourseUncheckedCreateWithoutBlogLinksInput = {
   updatedBy?: string | null
   universityId: string
   destinationId: string
+  icon?: string | null
+  summary?: string | null
+  studyLevel?: $Enums.StudyLevel | null
+  faculty?: $Enums.Faculty | null
   countries?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCourseInput
-  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutCoursesInput
   intakes?: Prisma.CourseIntakeUncheckedCreateNestedManyWithoutCourseInput
   faqs?: Prisma.FAQCourseUncheckedCreateNestedManyWithoutCourseInput
+  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutCoursesInput
 }
 
 export type CourseCreateOrConnectWithoutBlogLinksInput = {
@@ -1418,12 +1496,10 @@ export type CourseUpdateWithoutBlogLinksInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1434,12 +1510,16 @@ export type CourseUpdateWithoutBlogLinksInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  university?: Prisma.UniversityUpdateOneRequiredWithoutCoursesNestedInput
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
+  faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   destination?: Prisma.DestinationUpdateOneRequiredWithoutCoursesNestedInput
+  university?: Prisma.UniversityUpdateOneRequiredWithoutCoursesNestedInput
   countries?: Prisma.CourseCountryUpdateManyWithoutCourseNestedInput
-  scholarships?: Prisma.ScholarshipUpdateManyWithoutCoursesNestedInput
   intakes?: Prisma.CourseIntakeUpdateManyWithoutCourseNestedInput
   faqs?: Prisma.FAQCourseUpdateManyWithoutCourseNestedInput
+  scholarships?: Prisma.ScholarshipUpdateManyWithoutCoursesNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutBlogLinksInput = {
@@ -1447,12 +1527,10 @@ export type CourseUncheckedUpdateWithoutBlogLinksInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1465,10 +1543,14 @@ export type CourseUncheckedUpdateWithoutBlogLinksInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.StringFieldUpdateOperationsInput | string
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
+  faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   countries?: Prisma.CourseCountryUncheckedUpdateManyWithoutCourseNestedInput
-  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutCoursesNestedInput
   intakes?: Prisma.CourseIntakeUncheckedUpdateManyWithoutCourseNestedInput
   faqs?: Prisma.FAQCourseUncheckedUpdateManyWithoutCourseNestedInput
+  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutCoursesNestedInput
 }
 
 export type CourseCreateWithoutFaqsInput = {
@@ -1476,12 +1558,10 @@ export type CourseCreateWithoutFaqsInput = {
   title: string
   slug: string
   description?: string | null
-  summary?: string | null
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
   currency?: string | null
-  icon?: string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: boolean
   isActive?: boolean
@@ -1492,12 +1572,16 @@ export type CourseCreateWithoutFaqsInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  university: Prisma.UniversityCreateNestedOneWithoutCoursesInput
-  destination: Prisma.DestinationCreateNestedOneWithoutCoursesInput
-  countries?: Prisma.CourseCountryCreateNestedManyWithoutCourseInput
-  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutCoursesInput
-  intakes?: Prisma.CourseIntakeCreateNestedManyWithoutCourseInput
+  icon?: string | null
+  summary?: string | null
+  studyLevel?: $Enums.StudyLevel | null
+  faculty?: $Enums.Faculty | null
   blogLinks?: Prisma.BlogCourseCreateNestedManyWithoutCourseInput
+  destination: Prisma.DestinationCreateNestedOneWithoutCoursesInput
+  university: Prisma.UniversityCreateNestedOneWithoutCoursesInput
+  countries?: Prisma.CourseCountryCreateNestedManyWithoutCourseInput
+  intakes?: Prisma.CourseIntakeCreateNestedManyWithoutCourseInput
+  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutCoursesInput
 }
 
 export type CourseUncheckedCreateWithoutFaqsInput = {
@@ -1505,12 +1589,10 @@ export type CourseUncheckedCreateWithoutFaqsInput = {
   title: string
   slug: string
   description?: string | null
-  summary?: string | null
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
   currency?: string | null
-  icon?: string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: boolean
   isActive?: boolean
@@ -1523,10 +1605,14 @@ export type CourseUncheckedCreateWithoutFaqsInput = {
   updatedBy?: string | null
   universityId: string
   destinationId: string
-  countries?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCourseInput
-  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutCoursesInput
-  intakes?: Prisma.CourseIntakeUncheckedCreateNestedManyWithoutCourseInput
+  icon?: string | null
+  summary?: string | null
+  studyLevel?: $Enums.StudyLevel | null
+  faculty?: $Enums.Faculty | null
   blogLinks?: Prisma.BlogCourseUncheckedCreateNestedManyWithoutCourseInput
+  countries?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCourseInput
+  intakes?: Prisma.CourseIntakeUncheckedCreateNestedManyWithoutCourseInput
+  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutCoursesInput
 }
 
 export type CourseCreateOrConnectWithoutFaqsInput = {
@@ -1550,12 +1636,10 @@ export type CourseUpdateWithoutFaqsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1566,12 +1650,16 @@ export type CourseUpdateWithoutFaqsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  university?: Prisma.UniversityUpdateOneRequiredWithoutCoursesNestedInput
-  destination?: Prisma.DestinationUpdateOneRequiredWithoutCoursesNestedInput
-  countries?: Prisma.CourseCountryUpdateManyWithoutCourseNestedInput
-  scholarships?: Prisma.ScholarshipUpdateManyWithoutCoursesNestedInput
-  intakes?: Prisma.CourseIntakeUpdateManyWithoutCourseNestedInput
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
+  faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   blogLinks?: Prisma.BlogCourseUpdateManyWithoutCourseNestedInput
+  destination?: Prisma.DestinationUpdateOneRequiredWithoutCoursesNestedInput
+  university?: Prisma.UniversityUpdateOneRequiredWithoutCoursesNestedInput
+  countries?: Prisma.CourseCountryUpdateManyWithoutCourseNestedInput
+  intakes?: Prisma.CourseIntakeUpdateManyWithoutCourseNestedInput
+  scholarships?: Prisma.ScholarshipUpdateManyWithoutCoursesNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutFaqsInput = {
@@ -1579,12 +1667,10 @@ export type CourseUncheckedUpdateWithoutFaqsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1597,10 +1683,14 @@ export type CourseUncheckedUpdateWithoutFaqsInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.StringFieldUpdateOperationsInput | string
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
-  countries?: Prisma.CourseCountryUncheckedUpdateManyWithoutCourseNestedInput
-  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutCoursesNestedInput
-  intakes?: Prisma.CourseIntakeUncheckedUpdateManyWithoutCourseNestedInput
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
+  faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   blogLinks?: Prisma.BlogCourseUncheckedUpdateManyWithoutCourseNestedInput
+  countries?: Prisma.CourseCountryUncheckedUpdateManyWithoutCourseNestedInput
+  intakes?: Prisma.CourseIntakeUncheckedUpdateManyWithoutCourseNestedInput
+  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutCoursesNestedInput
 }
 
 export type CourseCreateWithoutScholarshipsInput = {
@@ -1608,12 +1698,10 @@ export type CourseCreateWithoutScholarshipsInput = {
   title: string
   slug: string
   description?: string | null
-  summary?: string | null
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
   currency?: string | null
-  icon?: string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: boolean
   isActive?: boolean
@@ -1624,11 +1712,15 @@ export type CourseCreateWithoutScholarshipsInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  university: Prisma.UniversityCreateNestedOneWithoutCoursesInput
+  icon?: string | null
+  summary?: string | null
+  studyLevel?: $Enums.StudyLevel | null
+  faculty?: $Enums.Faculty | null
+  blogLinks?: Prisma.BlogCourseCreateNestedManyWithoutCourseInput
   destination: Prisma.DestinationCreateNestedOneWithoutCoursesInput
+  university: Prisma.UniversityCreateNestedOneWithoutCoursesInput
   countries?: Prisma.CourseCountryCreateNestedManyWithoutCourseInput
   intakes?: Prisma.CourseIntakeCreateNestedManyWithoutCourseInput
-  blogLinks?: Prisma.BlogCourseCreateNestedManyWithoutCourseInput
   faqs?: Prisma.FAQCourseCreateNestedManyWithoutCourseInput
 }
 
@@ -1637,12 +1729,10 @@ export type CourseUncheckedCreateWithoutScholarshipsInput = {
   title: string
   slug: string
   description?: string | null
-  summary?: string | null
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
   currency?: string | null
-  icon?: string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: boolean
   isActive?: boolean
@@ -1655,9 +1745,13 @@ export type CourseUncheckedCreateWithoutScholarshipsInput = {
   updatedBy?: string | null
   universityId: string
   destinationId: string
+  icon?: string | null
+  summary?: string | null
+  studyLevel?: $Enums.StudyLevel | null
+  faculty?: $Enums.Faculty | null
+  blogLinks?: Prisma.BlogCourseUncheckedCreateNestedManyWithoutCourseInput
   countries?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCourseInput
   intakes?: Prisma.CourseIntakeUncheckedCreateNestedManyWithoutCourseInput
-  blogLinks?: Prisma.BlogCourseUncheckedCreateNestedManyWithoutCourseInput
   faqs?: Prisma.FAQCourseUncheckedCreateNestedManyWithoutCourseInput
 }
 
@@ -1687,12 +1781,10 @@ export type CourseCreateWithoutUniversityInput = {
   title: string
   slug: string
   description?: string | null
-  summary?: string | null
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
   currency?: string | null
-  icon?: string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: boolean
   isActive?: boolean
@@ -1703,12 +1795,16 @@ export type CourseCreateWithoutUniversityInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  icon?: string | null
+  summary?: string | null
+  studyLevel?: $Enums.StudyLevel | null
+  faculty?: $Enums.Faculty | null
+  blogLinks?: Prisma.BlogCourseCreateNestedManyWithoutCourseInput
   destination: Prisma.DestinationCreateNestedOneWithoutCoursesInput
   countries?: Prisma.CourseCountryCreateNestedManyWithoutCourseInput
-  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutCoursesInput
   intakes?: Prisma.CourseIntakeCreateNestedManyWithoutCourseInput
-  blogLinks?: Prisma.BlogCourseCreateNestedManyWithoutCourseInput
   faqs?: Prisma.FAQCourseCreateNestedManyWithoutCourseInput
+  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutCoursesInput
 }
 
 export type CourseUncheckedCreateWithoutUniversityInput = {
@@ -1716,12 +1812,10 @@ export type CourseUncheckedCreateWithoutUniversityInput = {
   title: string
   slug: string
   description?: string | null
-  summary?: string | null
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
   currency?: string | null
-  icon?: string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: boolean
   isActive?: boolean
@@ -1733,11 +1827,15 @@ export type CourseUncheckedCreateWithoutUniversityInput = {
   createdBy?: string | null
   updatedBy?: string | null
   destinationId: string
-  countries?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCourseInput
-  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutCoursesInput
-  intakes?: Prisma.CourseIntakeUncheckedCreateNestedManyWithoutCourseInput
+  icon?: string | null
+  summary?: string | null
+  studyLevel?: $Enums.StudyLevel | null
+  faculty?: $Enums.Faculty | null
   blogLinks?: Prisma.BlogCourseUncheckedCreateNestedManyWithoutCourseInput
+  countries?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCourseInput
+  intakes?: Prisma.CourseIntakeUncheckedCreateNestedManyWithoutCourseInput
   faqs?: Prisma.FAQCourseUncheckedCreateNestedManyWithoutCourseInput
+  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutCoursesInput
 }
 
 export type CourseCreateOrConnectWithoutUniversityInput = {
@@ -1771,12 +1869,10 @@ export type CourseCreateManyDestinationInput = {
   title: string
   slug: string
   description?: string | null
-  summary?: string | null
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
   currency?: string | null
-  icon?: string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: boolean
   isActive?: boolean
@@ -1788,6 +1884,10 @@ export type CourseCreateManyDestinationInput = {
   createdBy?: string | null
   updatedBy?: string | null
   universityId: string
+  icon?: string | null
+  summary?: string | null
+  studyLevel?: $Enums.StudyLevel | null
+  faculty?: $Enums.Faculty | null
 }
 
 export type CourseUpdateWithoutDestinationInput = {
@@ -1795,12 +1895,10 @@ export type CourseUpdateWithoutDestinationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1811,12 +1909,16 @@ export type CourseUpdateWithoutDestinationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
+  faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
+  blogLinks?: Prisma.BlogCourseUpdateManyWithoutCourseNestedInput
   university?: Prisma.UniversityUpdateOneRequiredWithoutCoursesNestedInput
   countries?: Prisma.CourseCountryUpdateManyWithoutCourseNestedInput
-  scholarships?: Prisma.ScholarshipUpdateManyWithoutCoursesNestedInput
   intakes?: Prisma.CourseIntakeUpdateManyWithoutCourseNestedInput
-  blogLinks?: Prisma.BlogCourseUpdateManyWithoutCourseNestedInput
   faqs?: Prisma.FAQCourseUpdateManyWithoutCourseNestedInput
+  scholarships?: Prisma.ScholarshipUpdateManyWithoutCoursesNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutDestinationInput = {
@@ -1824,12 +1926,10 @@ export type CourseUncheckedUpdateWithoutDestinationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1841,11 +1941,15 @@ export type CourseUncheckedUpdateWithoutDestinationInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.StringFieldUpdateOperationsInput | string
-  countries?: Prisma.CourseCountryUncheckedUpdateManyWithoutCourseNestedInput
-  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutCoursesNestedInput
-  intakes?: Prisma.CourseIntakeUncheckedUpdateManyWithoutCourseNestedInput
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
+  faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   blogLinks?: Prisma.BlogCourseUncheckedUpdateManyWithoutCourseNestedInput
+  countries?: Prisma.CourseCountryUncheckedUpdateManyWithoutCourseNestedInput
+  intakes?: Prisma.CourseIntakeUncheckedUpdateManyWithoutCourseNestedInput
   faqs?: Prisma.FAQCourseUncheckedUpdateManyWithoutCourseNestedInput
+  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutCoursesNestedInput
 }
 
 export type CourseUncheckedUpdateManyWithoutDestinationInput = {
@@ -1853,12 +1957,10 @@ export type CourseUncheckedUpdateManyWithoutDestinationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1870,6 +1972,10 @@ export type CourseUncheckedUpdateManyWithoutDestinationInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.StringFieldUpdateOperationsInput | string
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
+  faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
 }
 
 export type CourseUpdateWithoutScholarshipsInput = {
@@ -1877,12 +1983,10 @@ export type CourseUpdateWithoutScholarshipsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1893,11 +1997,15 @@ export type CourseUpdateWithoutScholarshipsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  university?: Prisma.UniversityUpdateOneRequiredWithoutCoursesNestedInput
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
+  faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
+  blogLinks?: Prisma.BlogCourseUpdateManyWithoutCourseNestedInput
   destination?: Prisma.DestinationUpdateOneRequiredWithoutCoursesNestedInput
+  university?: Prisma.UniversityUpdateOneRequiredWithoutCoursesNestedInput
   countries?: Prisma.CourseCountryUpdateManyWithoutCourseNestedInput
   intakes?: Prisma.CourseIntakeUpdateManyWithoutCourseNestedInput
-  blogLinks?: Prisma.BlogCourseUpdateManyWithoutCourseNestedInput
   faqs?: Prisma.FAQCourseUpdateManyWithoutCourseNestedInput
 }
 
@@ -1906,12 +2014,10 @@ export type CourseUncheckedUpdateWithoutScholarshipsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1924,9 +2030,13 @@ export type CourseUncheckedUpdateWithoutScholarshipsInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.StringFieldUpdateOperationsInput | string
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
+  faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
+  blogLinks?: Prisma.BlogCourseUncheckedUpdateManyWithoutCourseNestedInput
   countries?: Prisma.CourseCountryUncheckedUpdateManyWithoutCourseNestedInput
   intakes?: Prisma.CourseIntakeUncheckedUpdateManyWithoutCourseNestedInput
-  blogLinks?: Prisma.BlogCourseUncheckedUpdateManyWithoutCourseNestedInput
   faqs?: Prisma.FAQCourseUncheckedUpdateManyWithoutCourseNestedInput
 }
 
@@ -1935,12 +2045,10 @@ export type CourseUncheckedUpdateManyWithoutScholarshipsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1953,6 +2061,10 @@ export type CourseUncheckedUpdateManyWithoutScholarshipsInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.StringFieldUpdateOperationsInput | string
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
+  faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
 }
 
 export type CourseCreateManyUniversityInput = {
@@ -1960,12 +2072,10 @@ export type CourseCreateManyUniversityInput = {
   title: string
   slug: string
   description?: string | null
-  summary?: string | null
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
   currency?: string | null
-  icon?: string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: boolean
   isActive?: boolean
@@ -1977,6 +2087,10 @@ export type CourseCreateManyUniversityInput = {
   createdBy?: string | null
   updatedBy?: string | null
   destinationId: string
+  icon?: string | null
+  summary?: string | null
+  studyLevel?: $Enums.StudyLevel | null
+  faculty?: $Enums.Faculty | null
 }
 
 export type CourseUpdateWithoutUniversityInput = {
@@ -1984,12 +2098,10 @@ export type CourseUpdateWithoutUniversityInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2000,12 +2112,16 @@ export type CourseUpdateWithoutUniversityInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
+  faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
+  blogLinks?: Prisma.BlogCourseUpdateManyWithoutCourseNestedInput
   destination?: Prisma.DestinationUpdateOneRequiredWithoutCoursesNestedInput
   countries?: Prisma.CourseCountryUpdateManyWithoutCourseNestedInput
-  scholarships?: Prisma.ScholarshipUpdateManyWithoutCoursesNestedInput
   intakes?: Prisma.CourseIntakeUpdateManyWithoutCourseNestedInput
-  blogLinks?: Prisma.BlogCourseUpdateManyWithoutCourseNestedInput
   faqs?: Prisma.FAQCourseUpdateManyWithoutCourseNestedInput
+  scholarships?: Prisma.ScholarshipUpdateManyWithoutCoursesNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutUniversityInput = {
@@ -2013,12 +2129,10 @@ export type CourseUncheckedUpdateWithoutUniversityInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2030,11 +2144,15 @@ export type CourseUncheckedUpdateWithoutUniversityInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
-  countries?: Prisma.CourseCountryUncheckedUpdateManyWithoutCourseNestedInput
-  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutCoursesNestedInput
-  intakes?: Prisma.CourseIntakeUncheckedUpdateManyWithoutCourseNestedInput
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
+  faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   blogLinks?: Prisma.BlogCourseUncheckedUpdateManyWithoutCourseNestedInput
+  countries?: Prisma.CourseCountryUncheckedUpdateManyWithoutCourseNestedInput
+  intakes?: Prisma.CourseIntakeUncheckedUpdateManyWithoutCourseNestedInput
   faqs?: Prisma.FAQCourseUncheckedUpdateManyWithoutCourseNestedInput
+  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutCoursesNestedInput
 }
 
 export type CourseUncheckedUpdateManyWithoutUniversityInput = {
@@ -2042,12 +2160,10 @@ export type CourseUncheckedUpdateManyWithoutUniversityInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2059,6 +2175,10 @@ export type CourseUncheckedUpdateManyWithoutUniversityInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
+  faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
 }
 
 
@@ -2067,19 +2187,19 @@ export type CourseUncheckedUpdateManyWithoutUniversityInput = {
  */
 
 export type CourseCountOutputType = {
-  countries: number
-  scholarships: number
-  intakes: number
   blogLinks: number
+  countries: number
+  intakes: number
   faqs: number
+  scholarships: number
 }
 
 export type CourseCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  countries?: boolean | CourseCountOutputTypeCountCountriesArgs
-  scholarships?: boolean | CourseCountOutputTypeCountScholarshipsArgs
-  intakes?: boolean | CourseCountOutputTypeCountIntakesArgs
   blogLinks?: boolean | CourseCountOutputTypeCountBlogLinksArgs
+  countries?: boolean | CourseCountOutputTypeCountCountriesArgs
+  intakes?: boolean | CourseCountOutputTypeCountIntakesArgs
   faqs?: boolean | CourseCountOutputTypeCountFaqsArgs
+  scholarships?: boolean | CourseCountOutputTypeCountScholarshipsArgs
 }
 
 /**
@@ -2095,15 +2215,15 @@ export type CourseCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exten
 /**
  * CourseCountOutputType without action
  */
-export type CourseCountOutputTypeCountCountriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.CourseCountryWhereInput
+export type CourseCountOutputTypeCountBlogLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BlogCourseWhereInput
 }
 
 /**
  * CourseCountOutputType without action
  */
-export type CourseCountOutputTypeCountScholarshipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ScholarshipWhereInput
+export type CourseCountOutputTypeCountCountriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CourseCountryWhereInput
 }
 
 /**
@@ -2116,15 +2236,15 @@ export type CourseCountOutputTypeCountIntakesArgs<ExtArgs extends runtime.Types.
 /**
  * CourseCountOutputType without action
  */
-export type CourseCountOutputTypeCountBlogLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.BlogCourseWhereInput
+export type CourseCountOutputTypeCountFaqsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FAQCourseWhereInput
 }
 
 /**
  * CourseCountOutputType without action
  */
-export type CourseCountOutputTypeCountFaqsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.FAQCourseWhereInput
+export type CourseCountOutputTypeCountScholarshipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ScholarshipWhereInput
 }
 
 
@@ -2133,12 +2253,10 @@ export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   title?: boolean
   slug?: boolean
   description?: boolean
-  summary?: boolean
   duration?: boolean
   tuitionMin?: boolean
   tuitionMax?: boolean
   currency?: boolean
-  icon?: boolean
   sections?: boolean
   isFeatured?: boolean
   isActive?: boolean
@@ -2151,13 +2269,17 @@ export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   updatedBy?: boolean
   universityId?: boolean
   destinationId?: boolean
-  university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
-  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
-  countries?: boolean | Prisma.Course$countriesArgs<ExtArgs>
-  scholarships?: boolean | Prisma.Course$scholarshipsArgs<ExtArgs>
-  intakes?: boolean | Prisma.Course$intakesArgs<ExtArgs>
+  icon?: boolean
+  summary?: boolean
+  studyLevel?: boolean
+  faculty?: boolean
   blogLinks?: boolean | Prisma.Course$blogLinksArgs<ExtArgs>
+  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
+  countries?: boolean | Prisma.Course$countriesArgs<ExtArgs>
+  intakes?: boolean | Prisma.Course$intakesArgs<ExtArgs>
   faqs?: boolean | Prisma.Course$faqsArgs<ExtArgs>
+  scholarships?: boolean | Prisma.Course$scholarshipsArgs<ExtArgs>
   _count?: boolean | Prisma.CourseCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["course"]>
 
@@ -2166,12 +2288,10 @@ export type CourseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   title?: boolean
   slug?: boolean
   description?: boolean
-  summary?: boolean
   duration?: boolean
   tuitionMin?: boolean
   tuitionMax?: boolean
   currency?: boolean
-  icon?: boolean
   sections?: boolean
   isFeatured?: boolean
   isActive?: boolean
@@ -2184,8 +2304,12 @@ export type CourseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   updatedBy?: boolean
   universityId?: boolean
   destinationId?: boolean
-  university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
+  icon?: boolean
+  summary?: boolean
+  studyLevel?: boolean
+  faculty?: boolean
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["course"]>
 
 export type CourseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -2193,12 +2317,10 @@ export type CourseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   title?: boolean
   slug?: boolean
   description?: boolean
-  summary?: boolean
   duration?: boolean
   tuitionMin?: boolean
   tuitionMax?: boolean
   currency?: boolean
-  icon?: boolean
   sections?: boolean
   isFeatured?: boolean
   isActive?: boolean
@@ -2211,8 +2333,12 @@ export type CourseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   updatedBy?: boolean
   universityId?: boolean
   destinationId?: boolean
-  university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
+  icon?: boolean
+  summary?: boolean
+  studyLevel?: boolean
+  faculty?: boolean
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["course"]>
 
 export type CourseSelectScalar = {
@@ -2220,12 +2346,10 @@ export type CourseSelectScalar = {
   title?: boolean
   slug?: boolean
   description?: boolean
-  summary?: boolean
   duration?: boolean
   tuitionMin?: boolean
   tuitionMax?: boolean
   currency?: boolean
-  icon?: boolean
   sections?: boolean
   isFeatured?: boolean
   isActive?: boolean
@@ -2238,50 +2362,52 @@ export type CourseSelectScalar = {
   updatedBy?: boolean
   universityId?: boolean
   destinationId?: boolean
+  icon?: boolean
+  summary?: boolean
+  studyLevel?: boolean
+  faculty?: boolean
 }
 
-export type CourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "description" | "summary" | "duration" | "tuitionMin" | "tuitionMax" | "currency" | "icon" | "sections" | "isFeatured" | "isActive" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "universityId" | "destinationId", ExtArgs["result"]["course"]>
+export type CourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "description" | "duration" | "tuitionMin" | "tuitionMax" | "currency" | "sections" | "isFeatured" | "isActive" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "universityId" | "destinationId" | "icon" | "summary" | "studyLevel" | "faculty", ExtArgs["result"]["course"]>
 export type CourseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
-  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
-  countries?: boolean | Prisma.Course$countriesArgs<ExtArgs>
-  scholarships?: boolean | Prisma.Course$scholarshipsArgs<ExtArgs>
-  intakes?: boolean | Prisma.Course$intakesArgs<ExtArgs>
   blogLinks?: boolean | Prisma.Course$blogLinksArgs<ExtArgs>
+  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
+  countries?: boolean | Prisma.Course$countriesArgs<ExtArgs>
+  intakes?: boolean | Prisma.Course$intakesArgs<ExtArgs>
   faqs?: boolean | Prisma.Course$faqsArgs<ExtArgs>
+  scholarships?: boolean | Prisma.Course$scholarshipsArgs<ExtArgs>
   _count?: boolean | Prisma.CourseCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CourseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
 }
 export type CourseIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
 }
 
 export type $CoursePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Course"
   objects: {
-    university: Prisma.$UniversityPayload<ExtArgs>
-    destination: Prisma.$DestinationPayload<ExtArgs>
-    countries: Prisma.$CourseCountryPayload<ExtArgs>[]
-    scholarships: Prisma.$ScholarshipPayload<ExtArgs>[]
-    intakes: Prisma.$CourseIntakePayload<ExtArgs>[]
     blogLinks: Prisma.$BlogCoursePayload<ExtArgs>[]
+    destination: Prisma.$DestinationPayload<ExtArgs>
+    university: Prisma.$UniversityPayload<ExtArgs>
+    countries: Prisma.$CourseCountryPayload<ExtArgs>[]
+    intakes: Prisma.$CourseIntakePayload<ExtArgs>[]
     faqs: Prisma.$FAQCoursePayload<ExtArgs>[]
+    scholarships: Prisma.$ScholarshipPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     title: string
     slug: string
     description: string | null
-    summary: string | null
     duration: string | null
     tuitionMin: number | null
     tuitionMax: number | null
     currency: string | null
-    icon: string | null
     sections: runtime.JsonValue | null
     isFeatured: boolean
     isActive: boolean
@@ -2294,6 +2420,10 @@ export type $CoursePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     updatedBy: string | null
     universityId: string
     destinationId: string
+    icon: string | null
+    summary: string | null
+    studyLevel: $Enums.StudyLevel | null
+    faculty: $Enums.Faculty | null
   }, ExtArgs["result"]["course"]>
   composites: {}
 }
@@ -2688,13 +2818,13 @@ readonly fields: CourseFieldRefs;
  */
 export interface Prisma__CourseClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  university<T extends Prisma.UniversityDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UniversityDefaultArgs<ExtArgs>>): Prisma.Prisma__UniversityClient<runtime.Types.Result.GetResult<Prisma.$UniversityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  destination<T extends Prisma.DestinationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DestinationDefaultArgs<ExtArgs>>): Prisma.Prisma__DestinationClient<runtime.Types.Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  countries<T extends Prisma.Course$countriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$countriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CourseCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  scholarships<T extends Prisma.Course$scholarshipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$scholarshipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ScholarshipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  intakes<T extends Prisma.Course$intakesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$intakesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CourseIntakePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   blogLinks<T extends Prisma.Course$blogLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$blogLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BlogCoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  destination<T extends Prisma.DestinationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DestinationDefaultArgs<ExtArgs>>): Prisma.Prisma__DestinationClient<runtime.Types.Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  university<T extends Prisma.UniversityDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UniversityDefaultArgs<ExtArgs>>): Prisma.Prisma__UniversityClient<runtime.Types.Result.GetResult<Prisma.$UniversityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  countries<T extends Prisma.Course$countriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$countriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CourseCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  intakes<T extends Prisma.Course$intakesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$intakesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CourseIntakePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   faqs<T extends Prisma.Course$faqsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$faqsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FAQCoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  scholarships<T extends Prisma.Course$scholarshipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$scholarshipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ScholarshipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2728,12 +2858,10 @@ export interface CourseFieldRefs {
   readonly title: Prisma.FieldRef<"Course", 'String'>
   readonly slug: Prisma.FieldRef<"Course", 'String'>
   readonly description: Prisma.FieldRef<"Course", 'String'>
-  readonly summary: Prisma.FieldRef<"Course", 'String'>
   readonly duration: Prisma.FieldRef<"Course", 'String'>
   readonly tuitionMin: Prisma.FieldRef<"Course", 'Float'>
   readonly tuitionMax: Prisma.FieldRef<"Course", 'Float'>
   readonly currency: Prisma.FieldRef<"Course", 'String'>
-  readonly icon: Prisma.FieldRef<"Course", 'String'>
   readonly sections: Prisma.FieldRef<"Course", 'Json'>
   readonly isFeatured: Prisma.FieldRef<"Course", 'Boolean'>
   readonly isActive: Prisma.FieldRef<"Course", 'Boolean'>
@@ -2746,6 +2874,10 @@ export interface CourseFieldRefs {
   readonly updatedBy: Prisma.FieldRef<"Course", 'String'>
   readonly universityId: Prisma.FieldRef<"Course", 'String'>
   readonly destinationId: Prisma.FieldRef<"Course", 'String'>
+  readonly icon: Prisma.FieldRef<"Course", 'String'>
+  readonly summary: Prisma.FieldRef<"Course", 'String'>
+  readonly studyLevel: Prisma.FieldRef<"Course", 'StudyLevel'>
+  readonly faculty: Prisma.FieldRef<"Course", 'Faculty'>
 }
     
 
@@ -3142,6 +3274,30 @@ export type CourseDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
+ * Course.blogLinks
+ */
+export type Course$blogLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BlogCourse
+   */
+  select?: Prisma.BlogCourseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BlogCourse
+   */
+  omit?: Prisma.BlogCourseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BlogCourseInclude<ExtArgs> | null
+  where?: Prisma.BlogCourseWhereInput
+  orderBy?: Prisma.BlogCourseOrderByWithRelationInput | Prisma.BlogCourseOrderByWithRelationInput[]
+  cursor?: Prisma.BlogCourseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BlogCourseScalarFieldEnum | Prisma.BlogCourseScalarFieldEnum[]
+}
+
+/**
  * Course.countries
  */
 export type Course$countriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3163,30 +3319,6 @@ export type Course$countriesArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.CourseCountryScalarFieldEnum | Prisma.CourseCountryScalarFieldEnum[]
-}
-
-/**
- * Course.scholarships
- */
-export type Course$scholarshipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Scholarship
-   */
-  select?: Prisma.ScholarshipSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Scholarship
-   */
-  omit?: Prisma.ScholarshipOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ScholarshipInclude<ExtArgs> | null
-  where?: Prisma.ScholarshipWhereInput
-  orderBy?: Prisma.ScholarshipOrderByWithRelationInput | Prisma.ScholarshipOrderByWithRelationInput[]
-  cursor?: Prisma.ScholarshipWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ScholarshipScalarFieldEnum | Prisma.ScholarshipScalarFieldEnum[]
 }
 
 /**
@@ -3214,30 +3346,6 @@ export type Course$intakesArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * Course.blogLinks
- */
-export type Course$blogLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the BlogCourse
-   */
-  select?: Prisma.BlogCourseSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the BlogCourse
-   */
-  omit?: Prisma.BlogCourseOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.BlogCourseInclude<ExtArgs> | null
-  where?: Prisma.BlogCourseWhereInput
-  orderBy?: Prisma.BlogCourseOrderByWithRelationInput | Prisma.BlogCourseOrderByWithRelationInput[]
-  cursor?: Prisma.BlogCourseWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.BlogCourseScalarFieldEnum | Prisma.BlogCourseScalarFieldEnum[]
-}
-
-/**
  * Course.faqs
  */
 export type Course$faqsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3259,6 +3367,30 @@ export type Course$faqsArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   distinct?: Prisma.FAQCourseScalarFieldEnum | Prisma.FAQCourseScalarFieldEnum[]
+}
+
+/**
+ * Course.scholarships
+ */
+export type Course$scholarshipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Scholarship
+   */
+  select?: Prisma.ScholarshipSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Scholarship
+   */
+  omit?: Prisma.ScholarshipOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ScholarshipInclude<ExtArgs> | null
+  where?: Prisma.ScholarshipWhereInput
+  orderBy?: Prisma.ScholarshipOrderByWithRelationInput | Prisma.ScholarshipOrderByWithRelationInput[]
+  cursor?: Prisma.ScholarshipWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ScholarshipScalarFieldEnum | Prisma.ScholarshipScalarFieldEnum[]
 }
 
 /**

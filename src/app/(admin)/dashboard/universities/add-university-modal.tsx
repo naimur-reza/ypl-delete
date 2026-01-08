@@ -3,17 +3,22 @@
 import { useEffect, useState } from "react";
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
 import { useAppForm } from "@/hooks/hooks";
+import { useAutoSlug } from "@/hooks/use-auto-slug";
 import { universitySchema } from "@/schemas/university";
 import { toast } from "sonner";
 import z from "zod";
 import { createEntityApi } from "@/lib/api-client";
+import { generateSlug } from "@/lib/utils";
 import { SelectItem } from "@/components/ui/select";
 import { apiClient } from "@/lib/api-client";
 import { ImageUpload } from "@/components/ui/image-upload";
 import { CountrySelect } from "@/components/ui/region-select";
 import { University } from "../../../../../prisma/src/generated/prisma/browser";
+import { FormBase } from "@/components/form/FormBase";
+import { Input } from "@/components/ui/input";
 
 type FormData = z.infer<typeof universitySchema>;
 
@@ -76,6 +81,7 @@ const UniversityFormModal = ({
   const [imageUrl, setImageUrl] = useState<string>("");
   const [countryIds, setCountryIds] = useState<string[]>([]);
   const [isUploading, setIsUploading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const getDefaultValues = (): FormData => ({
     name: selectedUniversity?.name || "",
@@ -101,6 +107,7 @@ const UniversityFormModal = ({
     defaultValues: getDefaultValues(),
     validators: { onSubmit: universitySchema },
     onSubmit: async ({ value }) => {
+      setIsSubmitting(true);
       try {
         const transformToNullable = (data: FormData) => ({
           ...data,
@@ -151,6 +158,8 @@ const UniversityFormModal = ({
       } catch (err) {
         toast.error("Request failed");
         console.error(err);
+      } finally {
+        setIsSubmitting(false);
       }
     },
   });
@@ -170,6 +179,13 @@ const UniversityFormModal = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedUniversity]);
 
+  // Auto-slug generation from name
+  const { handleTitleChange, handleSlugChange } = useAutoSlug({
+    getSlugValue: () => form.getFieldValue("slug") || "",
+    setSlugValue: (value) => form.setFieldValue("slug", value),
+    isEditing: !!isEditing,
+  });
+
   return (
     <Modal
       isOpen
@@ -184,10 +200,42 @@ const UniversityFormModal = ({
       >
         <FieldGroup>
           <form.AppField name="name">
-            {(field) => <field.Input label="Name" />}
+            {(field) => (
+              <FormBase label="Name">
+                <Input
+                  id={field.name}
+                  name={field.name}
+                  value={field.state.value}
+                  onChange={(e) => {
+                    field.handleChange(e.target.value);
+                    handleTitleChange(e.target.value);
+                  }}
+                  onBlur={field.handleBlur}
+                  placeholder="e.g., University of Melbourne"
+                />
+              </FormBase>
+            )}
           </form.AppField>
           <form.AppField name="slug">
-            {(field) => <field.Input label="Slug" />}
+            {(field) => (
+              <FormBase
+                label="Slug"
+                description="Auto-generated from name. You can edit if needed."
+              >
+                <Input
+                  id={field.name}
+                  name={field.name}
+                  value={field.state.value}
+                  onChange={(e) => {
+                    const slugValue = generateSlug(e.target.value);
+                    field.handleChange(slugValue);
+                    handleSlugChange(slugValue);
+                  }}
+                  onBlur={field.handleBlur}
+                  placeholder="e.g., university-of-melbourne"
+                />
+              </FormBase>
+            )}
           </form.AppField>
           <form.AppField name="logo">
             {(field) => <field.Input label="Logo URL" />}
@@ -274,12 +322,20 @@ const UniversityFormModal = ({
             {(field) => <field.Input label="Meta Keywords" />}
           </form.AppField>
           <div className="flex gap-2 justify-end">
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onClose}
+              disabled={isSubmitting}
+            >
               Cancel
             </Button>
-            <Button type="submit" disabled={isUploading}>
-              {isUploading ? "Uploading..." : isEditing ? "Update" : "Create"}
-            </Button>
+            <SubmitButton
+              isSubmitting={isSubmitting}
+              isUploading={isUploading}
+              submitText={isEditing ? "Update" : "Create"}
+              submittingText={isEditing ? "Updating..." : "Creating..."}
+            />
           </div>
         </FieldGroup>
       </form>

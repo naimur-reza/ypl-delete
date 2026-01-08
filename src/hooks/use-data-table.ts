@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import {
   type ColumnDef,
   type SortingState,
@@ -14,6 +14,7 @@ import {
   useReactTable,
   type PaginationState,
 } from "@tanstack/react-table";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiClient, type PaginationParams } from "@/lib/api-client";
 
 export interface UseDataTableOptions<T> {
@@ -53,9 +54,7 @@ export function useDataTable<T extends { id: string }>({
   pageSize = 10,
   filterColumnKey,
 }: UseDataTableOptions<T>): UseDataTableReturn<T> {
-  const [data, setData] = useState<T[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const queryClient = useQueryClient();
   const [sorting, setSorting] = useState<SortingState>(initialSorting);
   const [columnFilters, setColumnFilters] =
     useState<ColumnFiltersState>(initialColumnFilters);
@@ -65,81 +64,52 @@ export function useDataTable<T extends { id: string }>({
     pageIndex: 0,
     pageSize,
   });
-  const [serverPagination, setServerPagination] = useState<{
-    page: number;
-    limit: number;
-    total: number;
-    totalPages: number;
-  } | null>(null);
+
+  // Build query key based on all parameters that affect the data
+  const queryKey = [
+    "data-table",
+    endpoint,
+    enableServerSidePagination ? pagination.pageIndex : null,
+    enableServerSidePagination ? pagination.pageSize : null,
+    enableServerSideSorting ? sorting : null,
+    enableServerSideFiltering ? columnFilters : null,
+  ];
 
   const fetchData = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
+    const params: PaginationParams = {};
 
-    try {
-      const params: PaginationParams = {};
-
-      if (enableServerSidePagination) {
-        params.page = pagination.pageIndex + 1;
-        params.limit = pagination.pageSize;
-      }
-
-      if (enableServerSideSorting && sorting.length > 0) {
-        const sort = sorting[0];
-        params.sortBy = sort.id;
-        params.sortOrder = sort.desc ? "desc" : "asc";
-      }
-
-      if (
-        enableServerSideFiltering &&
-        columnFilters.length > 0 &&
-        filterColumnKey
-      ) {
-        const filter = columnFilters.find((f) => f.id === filterColumnKey);
-        if (filter?.value) {
-          params.search = String(filter.value);
-        }
-      }
-
-      const response = await apiClient.get<
-        T[] | { data: T[]; pagination: any }
-      >(endpoint, params as Record<string, string | number | undefined>);
-
-      if (response.error) {
-        setError(response.error);
-        setData([]);
-        return;
-      }
-
-      if (response.data) {
-        // Check if response has pagination structure
-        if (
-          typeof response.data === "object" &&
-          "data" in response.data &&
-          "pagination" in response.data
-        ) {
-          const paginatedData = response.data as {
-            data: T[];
-            pagination: any;
-          };
-          setData(paginatedData.data);
-          setServerPagination({
-            page: paginatedData.pagination.page,
-            limit: paginatedData.pagination.limit,
-            total: paginatedData.pagination.total,
-            totalPages: paginatedData.pagination.totalPages,
-          });
-        } else {
-          setData(response.data as T[]);
-          setServerPagination(null);
-        }
-      }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to fetch data");
-      setData([]);
-    } finally {
-      setIsLoading(false);
+    if (enableServerSidePagination) {
+      params.page = pagination.pageIndex + 1;
+      params.limit = pagination.pageSize;
     }
+
+    if (enableServerSideSorting && sorting.length > 0) {
+      const sort = sorting[0];
+      params.sortBy = sort.id;
+      params.sortOrder = sort.desc ? "desc" : "asc";
+    }
+
+    if (
+      enableServerSideFiltering &&
+      columnFilters.length > 0 &&
+      filterColumnKey
+    ) {
+      const filter = columnFilters.find((f) => f.id === filterColumnKey);
+      if (filter?.value) {
+        params.search = String(filter.value);
+      }
+    }
+
+    const response = await apiClient.get<T[] | { data: T[]; pagination: any }>(
+      endpoint,
+      params as Record<string, string | number | undefined>
+    );
+
+    if (response.error) {
+      throw new Error(response.error);
+    }
+
+    return response.data;
   }, [
     endpoint,
     enableServerSidePagination,
@@ -151,12 +121,47 @@ export function useDataTable<T extends { id: string }>({
     filterColumnKey,
   ]);
 
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+  const {
+    data: queryData,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey,
+    queryFn: fetchData,
+    staleTime: 5 * 60 * 1000, // 5 minutes - data stays fresh
+  });
+
+  // Parse the response data
+  let tableData: T[] = [];
+  let serverPagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  } | null = null;
+
+  if (queryData) {
+    if (
+      typeof queryData === "object" &&
+      "data" in queryData &&
+      "pagination" in queryData
+    ) {
+      const paginatedData = queryData as { data: T[]; pagination: any };
+      tableData = paginatedData.data;
+      serverPagination = {
+        page: paginatedData.pagination.page,
+        limit: paginatedData.pagination.limit,
+        total: paginatedData.pagination.total,
+        totalPages: paginatedData.pagination.totalPages,
+      };
+    } else {
+      tableData = queryData as T[];
+    }
+  }
 
   const table = useReactTable({
-    data,
+    data: tableData,
     columns,
     pageCount: serverPagination?.totalPages,
     onSortingChange: setSorting,
@@ -186,12 +191,18 @@ export function useDataTable<T extends { id: string }>({
     },
   });
 
+  const handleRefetch = useCallback(async () => {
+    // Invalidate all queries for this endpoint to ensure fresh data
+    await queryClient.invalidateQueries({ queryKey: ["data-table", endpoint] });
+    await refetch();
+  }, [queryClient, endpoint, refetch]);
+
   return {
     table,
-    data,
+    data: tableData,
     isLoading,
-    error,
+    error: error?.message || null,
     pagination: serverPagination,
-    refetch: fetchData,
+    refetch: handleRefetch,
   };
 }

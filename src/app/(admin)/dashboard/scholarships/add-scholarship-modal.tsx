@@ -3,13 +3,16 @@
 import { useEffect, useState } from "react";
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
 import { useAppForm } from "@/hooks/use-field-context";
+import { useAutoSlug } from "@/hooks/use-auto-slug";
 import { scholarshipSchema } from "@/schemas/scholarship";
 import { toast } from "sonner";
 import z from "zod";
 import { createEntityApi } from "@/lib/api-client";
 import { apiClient } from "@/lib/api-client";
+import { generateSlug } from "@/lib/utils";
 import { FormBase } from "@/components/form/FormBase";
 import { Input } from "@/components/ui/input";
 import { SelectItem } from "@/components/ui/select";
@@ -73,6 +76,7 @@ const ScholarshipFormModal = ({
     selectedScholarship?.image || ""
   );
   const [isUploading, setIsUploading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -129,6 +133,7 @@ const ScholarshipFormModal = ({
     } satisfies Partial<FormData> as Partial<FormData>,
     validators: { onSubmit: scholarshipSchema },
     onSubmit: async ({ value }) => {
+      setIsSubmitting(true);
       try {
         let response;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -178,6 +183,8 @@ const ScholarshipFormModal = ({
       } catch (err) {
         toast.error("Request failed");
         console.error(err);
+      } finally {
+        setIsSubmitting(false);
       }
     },
   });
@@ -245,6 +252,13 @@ const ScholarshipFormModal = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedScholarship]);
 
+  // Auto-slug generation from title
+  const { handleTitleChange, handleSlugChange } = useAutoSlug({
+    getSlugValue: () => form.getFieldValue("slug") || "",
+    setSlugValue: (value) => form.setFieldValue("slug", value),
+    isEditing: !!isEditing,
+  });
+
   return (
     <Modal
       isOpen={isOpen}
@@ -268,10 +282,42 @@ const ScholarshipFormModal = ({
             {/* Basic Info Tab */}
             <TabsContent value="basic" className="space-y-4">
               <form.AppField name="title">
-                {(field) => <field.Input label="Title" />}
+                {(field) => (
+                  <FormBase label="Title">
+                    <Input
+                      id={field.name}
+                      name={field.name}
+                      value={field.state.value}
+                      onChange={(e) => {
+                        field.handleChange(e.target.value);
+                        handleTitleChange(e.target.value);
+                      }}
+                      onBlur={field.handleBlur}
+                      placeholder="e.g., Merit Scholarship 2025"
+                    />
+                  </FormBase>
+                )}
               </form.AppField>
               <form.AppField name="slug">
-                {(field) => <field.Input label="Slug" />}
+                {(field) => (
+                  <FormBase
+                    label="Slug"
+                    description="Auto-generated from title. You can edit if needed."
+                  >
+                    <Input
+                      id={field.name}
+                      name={field.name}
+                      value={field.state.value}
+                      onChange={(e) => {
+                        const slugValue = generateSlug(e.target.value);
+                        field.handleChange(slugValue);
+                        handleSlugChange(slugValue);
+                      }}
+                      onBlur={field.handleBlur}
+                      placeholder="e.g., merit-scholarship-2025"
+                    />
+                  </FormBase>
+                )}
               </form.AppField>
               <form.AppField name="destinationId">
                 {(field) => (
@@ -337,13 +383,27 @@ const ScholarshipFormModal = ({
                 <h3 className="text-lg font-medium">Scholarship Details</h3>
                 <Tabs defaultValue="overview" className="w-full">
                   <TabsList className="grid w-full grid-cols-4 lg:grid-cols-7 h-auto">
-                    <TabsTrigger value="overview" className="text-xs">Overview</TabsTrigger>
-                    <TabsTrigger value="benefits" className="text-xs">Benefits</TabsTrigger>
-                    <TabsTrigger value="eligibility" className="text-xs">Eligibility</TabsTrigger>
-                    <TabsTrigger value="level" className="text-xs">Level & Field</TabsTrigger>
-                    <TabsTrigger value="provider" className="text-xs">Provider</TabsTrigger>
-                    <TabsTrigger value="documents" className="text-xs">Documents</TabsTrigger>
-                    <TabsTrigger value="apply" className="text-xs">How to Apply</TabsTrigger>
+                    <TabsTrigger value="overview" className="text-xs">
+                      Overview
+                    </TabsTrigger>
+                    <TabsTrigger value="benefits" className="text-xs">
+                      Benefits
+                    </TabsTrigger>
+                    <TabsTrigger value="eligibility" className="text-xs">
+                      Eligibility
+                    </TabsTrigger>
+                    <TabsTrigger value="level" className="text-xs">
+                      Level & Field
+                    </TabsTrigger>
+                    <TabsTrigger value="provider" className="text-xs">
+                      Provider
+                    </TabsTrigger>
+                    <TabsTrigger value="documents" className="text-xs">
+                      Documents
+                    </TabsTrigger>
+                    <TabsTrigger value="apply" className="text-xs">
+                      How to Apply
+                    </TabsTrigger>
                   </TabsList>
 
                   <TabsContent value="overview" className="mt-4">
@@ -441,12 +501,20 @@ const ScholarshipFormModal = ({
           </Tabs>
 
           <div className="flex gap-2 justify-end mt-6">
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onClose}
+              disabled={isSubmitting}
+            >
               Cancel
             </Button>
-            <Button type="submit" disabled={isUploading}>
-              {isUploading ? "Uploading..." : isEditing ? "Update" : "Create"}
-            </Button>
+            <SubmitButton
+              isSubmitting={isSubmitting}
+              isUploading={isUploading}
+              submitText={isEditing ? "Update" : "Create"}
+              submittingText={isEditing ? "Updating..." : "Creating..."}
+            />
           </div>
         </FieldGroup>
       </form>

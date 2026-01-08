@@ -294,8 +294,8 @@ export type TestimonialWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Testimonial"> | Date | string
   countries?: Prisma.TestimonialCountryListRelationFilter
   destinations?: Prisma.TestimonialDestinationListRelationFilter
-  universities?: Prisma.TestimonialUniversityListRelationFilter
   events?: Prisma.TestimonialEventListRelationFilter
+  universities?: Prisma.TestimonialUniversityListRelationFilter
 }
 
 export type TestimonialOrderByWithRelationInput = {
@@ -315,8 +315,8 @@ export type TestimonialOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   countries?: Prisma.TestimonialCountryOrderByRelationAggregateInput
   destinations?: Prisma.TestimonialDestinationOrderByRelationAggregateInput
-  universities?: Prisma.TestimonialUniversityOrderByRelationAggregateInput
   events?: Prisma.TestimonialEventOrderByRelationAggregateInput
+  universities?: Prisma.TestimonialUniversityOrderByRelationAggregateInput
 }
 
 export type TestimonialWhereUniqueInput = Prisma.AtLeast<{
@@ -339,8 +339,8 @@ export type TestimonialWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Testimonial"> | Date | string
   countries?: Prisma.TestimonialCountryListRelationFilter
   destinations?: Prisma.TestimonialDestinationListRelationFilter
-  universities?: Prisma.TestimonialUniversityListRelationFilter
   events?: Prisma.TestimonialEventListRelationFilter
+  universities?: Prisma.TestimonialUniversityListRelationFilter
 }, "id">
 
 export type TestimonialOrderByWithAggregationInput = {
@@ -402,8 +402,8 @@ export type TestimonialCreateInput = {
   updatedAt?: Date | string
   countries?: Prisma.TestimonialCountryCreateNestedManyWithoutTestimonialInput
   destinations?: Prisma.TestimonialDestinationCreateNestedManyWithoutTestimonialInput
-  universities?: Prisma.TestimonialUniversityCreateNestedManyWithoutTestimonialInput
   events?: Prisma.TestimonialEventCreateNestedManyWithoutTestimonialInput
+  universities?: Prisma.TestimonialUniversityCreateNestedManyWithoutTestimonialInput
 }
 
 export type TestimonialUncheckedCreateInput = {
@@ -423,8 +423,8 @@ export type TestimonialUncheckedCreateInput = {
   updatedAt?: Date | string
   countries?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutTestimonialInput
   destinations?: Prisma.TestimonialDestinationUncheckedCreateNestedManyWithoutTestimonialInput
-  universities?: Prisma.TestimonialUniversityUncheckedCreateNestedManyWithoutTestimonialInput
   events?: Prisma.TestimonialEventUncheckedCreateNestedManyWithoutTestimonialInput
+  universities?: Prisma.TestimonialUniversityUncheckedCreateNestedManyWithoutTestimonialInput
 }
 
 export type TestimonialUpdateInput = {
@@ -444,8 +444,8 @@ export type TestimonialUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   countries?: Prisma.TestimonialCountryUpdateManyWithoutTestimonialNestedInput
   destinations?: Prisma.TestimonialDestinationUpdateManyWithoutTestimonialNestedInput
-  universities?: Prisma.TestimonialUniversityUpdateManyWithoutTestimonialNestedInput
   events?: Prisma.TestimonialEventUpdateManyWithoutTestimonialNestedInput
+  universities?: Prisma.TestimonialUniversityUpdateManyWithoutTestimonialNestedInput
 }
 
 export type TestimonialUncheckedUpdateInput = {
@@ -465,8 +465,8 @@ export type TestimonialUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   countries?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutTestimonialNestedInput
   destinations?: Prisma.TestimonialDestinationUncheckedUpdateManyWithoutTestimonialNestedInput
-  universities?: Prisma.TestimonialUniversityUncheckedUpdateManyWithoutTestimonialNestedInput
   events?: Prisma.TestimonialEventUncheckedUpdateManyWithoutTestimonialNestedInput
+  universities?: Prisma.TestimonialUniversityUncheckedUpdateManyWithoutTestimonialNestedInput
 }
 
 export type TestimonialCreateManyInput = {
@@ -666,8 +666,8 @@ export type TestimonialCreateWithoutCountriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   destinations?: Prisma.TestimonialDestinationCreateNestedManyWithoutTestimonialInput
-  universities?: Prisma.TestimonialUniversityCreateNestedManyWithoutTestimonialInput
   events?: Prisma.TestimonialEventCreateNestedManyWithoutTestimonialInput
+  universities?: Prisma.TestimonialUniversityCreateNestedManyWithoutTestimonialInput
 }
 
 export type TestimonialUncheckedCreateWithoutCountriesInput = {
@@ -686,8 +686,8 @@ export type TestimonialUncheckedCreateWithoutCountriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   destinations?: Prisma.TestimonialDestinationUncheckedCreateNestedManyWithoutTestimonialInput
-  universities?: Prisma.TestimonialUniversityUncheckedCreateNestedManyWithoutTestimonialInput
   events?: Prisma.TestimonialEventUncheckedCreateNestedManyWithoutTestimonialInput
+  universities?: Prisma.TestimonialUniversityUncheckedCreateNestedManyWithoutTestimonialInput
 }
 
 export type TestimonialCreateOrConnectWithoutCountriesInput = {
@@ -722,8 +722,8 @@ export type TestimonialUpdateWithoutCountriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   destinations?: Prisma.TestimonialDestinationUpdateManyWithoutTestimonialNestedInput
-  universities?: Prisma.TestimonialUniversityUpdateManyWithoutTestimonialNestedInput
   events?: Prisma.TestimonialEventUpdateManyWithoutTestimonialNestedInput
+  universities?: Prisma.TestimonialUniversityUpdateManyWithoutTestimonialNestedInput
 }
 
 export type TestimonialUncheckedUpdateWithoutCountriesInput = {
@@ -742,8 +742,8 @@ export type TestimonialUncheckedUpdateWithoutCountriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   destinations?: Prisma.TestimonialDestinationUncheckedUpdateManyWithoutTestimonialNestedInput
-  universities?: Prisma.TestimonialUniversityUncheckedUpdateManyWithoutTestimonialNestedInput
   events?: Prisma.TestimonialEventUncheckedUpdateManyWithoutTestimonialNestedInput
+  universities?: Prisma.TestimonialUniversityUncheckedUpdateManyWithoutTestimonialNestedInput
 }
 
 export type TestimonialCreateWithoutDestinationsInput = {
@@ -762,8 +762,8 @@ export type TestimonialCreateWithoutDestinationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   countries?: Prisma.TestimonialCountryCreateNestedManyWithoutTestimonialInput
-  universities?: Prisma.TestimonialUniversityCreateNestedManyWithoutTestimonialInput
   events?: Prisma.TestimonialEventCreateNestedManyWithoutTestimonialInput
+  universities?: Prisma.TestimonialUniversityCreateNestedManyWithoutTestimonialInput
 }
 
 export type TestimonialUncheckedCreateWithoutDestinationsInput = {
@@ -782,8 +782,8 @@ export type TestimonialUncheckedCreateWithoutDestinationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   countries?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutTestimonialInput
-  universities?: Prisma.TestimonialUniversityUncheckedCreateNestedManyWithoutTestimonialInput
   events?: Prisma.TestimonialEventUncheckedCreateNestedManyWithoutTestimonialInput
+  universities?: Prisma.TestimonialUniversityUncheckedCreateNestedManyWithoutTestimonialInput
 }
 
 export type TestimonialCreateOrConnectWithoutDestinationsInput = {
@@ -818,8 +818,8 @@ export type TestimonialUpdateWithoutDestinationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   countries?: Prisma.TestimonialCountryUpdateManyWithoutTestimonialNestedInput
-  universities?: Prisma.TestimonialUniversityUpdateManyWithoutTestimonialNestedInput
   events?: Prisma.TestimonialEventUpdateManyWithoutTestimonialNestedInput
+  universities?: Prisma.TestimonialUniversityUpdateManyWithoutTestimonialNestedInput
 }
 
 export type TestimonialUncheckedUpdateWithoutDestinationsInput = {
@@ -838,8 +838,8 @@ export type TestimonialUncheckedUpdateWithoutDestinationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   countries?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutTestimonialNestedInput
-  universities?: Prisma.TestimonialUniversityUncheckedUpdateManyWithoutTestimonialNestedInput
   events?: Prisma.TestimonialEventUncheckedUpdateManyWithoutTestimonialNestedInput
+  universities?: Prisma.TestimonialUniversityUncheckedUpdateManyWithoutTestimonialNestedInput
 }
 
 export type TestimonialCreateWithoutUniversitiesInput = {
@@ -1042,15 +1042,15 @@ export type TestimonialUncheckedUpdateWithoutEventsInput = {
 export type TestimonialCountOutputType = {
   countries: number
   destinations: number
-  universities: number
   events: number
+  universities: number
 }
 
 export type TestimonialCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   countries?: boolean | TestimonialCountOutputTypeCountCountriesArgs
   destinations?: boolean | TestimonialCountOutputTypeCountDestinationsArgs
-  universities?: boolean | TestimonialCountOutputTypeCountUniversitiesArgs
   events?: boolean | TestimonialCountOutputTypeCountEventsArgs
+  universities?: boolean | TestimonialCountOutputTypeCountUniversitiesArgs
 }
 
 /**
@@ -1080,15 +1080,15 @@ export type TestimonialCountOutputTypeCountDestinationsArgs<ExtArgs extends runt
 /**
  * TestimonialCountOutputType without action
  */
-export type TestimonialCountOutputTypeCountUniversitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.TestimonialUniversityWhereInput
+export type TestimonialCountOutputTypeCountEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TestimonialEventWhereInput
 }
 
 /**
  * TestimonialCountOutputType without action
  */
-export type TestimonialCountOutputTypeCountEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.TestimonialEventWhereInput
+export type TestimonialCountOutputTypeCountUniversitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TestimonialUniversityWhereInput
 }
 
 
@@ -1109,8 +1109,8 @@ export type TestimonialSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   updatedAt?: boolean
   countries?: boolean | Prisma.Testimonial$countriesArgs<ExtArgs>
   destinations?: boolean | Prisma.Testimonial$destinationsArgs<ExtArgs>
-  universities?: boolean | Prisma.Testimonial$universitiesArgs<ExtArgs>
   events?: boolean | Prisma.Testimonial$eventsArgs<ExtArgs>
+  universities?: boolean | Prisma.Testimonial$universitiesArgs<ExtArgs>
   _count?: boolean | Prisma.TestimonialCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["testimonial"]>
 
@@ -1169,8 +1169,8 @@ export type TestimonialOmit<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type TestimonialInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   countries?: boolean | Prisma.Testimonial$countriesArgs<ExtArgs>
   destinations?: boolean | Prisma.Testimonial$destinationsArgs<ExtArgs>
-  universities?: boolean | Prisma.Testimonial$universitiesArgs<ExtArgs>
   events?: boolean | Prisma.Testimonial$eventsArgs<ExtArgs>
+  universities?: boolean | Prisma.Testimonial$universitiesArgs<ExtArgs>
   _count?: boolean | Prisma.TestimonialCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TestimonialIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1181,8 +1181,8 @@ export type $TestimonialPayload<ExtArgs extends runtime.Types.Extensions.Interna
   objects: {
     countries: Prisma.$TestimonialCountryPayload<ExtArgs>[]
     destinations: Prisma.$TestimonialDestinationPayload<ExtArgs>[]
-    universities: Prisma.$TestimonialUniversityPayload<ExtArgs>[]
     events: Prisma.$TestimonialEventPayload<ExtArgs>[]
+    universities: Prisma.$TestimonialUniversityPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1595,8 +1595,8 @@ export interface Prisma__TestimonialClient<T, Null = never, ExtArgs extends runt
   readonly [Symbol.toStringTag]: "PrismaPromise"
   countries<T extends Prisma.Testimonial$countriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Testimonial$countriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestimonialCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   destinations<T extends Prisma.Testimonial$destinationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Testimonial$destinationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestimonialDestinationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  universities<T extends Prisma.Testimonial$universitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Testimonial$universitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestimonialUniversityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   events<T extends Prisma.Testimonial$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Testimonial$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestimonialEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  universities<T extends Prisma.Testimonial$universitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Testimonial$universitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestimonialUniversityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2076,30 +2076,6 @@ export type Testimonial$destinationsArgs<ExtArgs extends runtime.Types.Extension
 }
 
 /**
- * Testimonial.universities
- */
-export type Testimonial$universitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the TestimonialUniversity
-   */
-  select?: Prisma.TestimonialUniversitySelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the TestimonialUniversity
-   */
-  omit?: Prisma.TestimonialUniversityOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TestimonialUniversityInclude<ExtArgs> | null
-  where?: Prisma.TestimonialUniversityWhereInput
-  orderBy?: Prisma.TestimonialUniversityOrderByWithRelationInput | Prisma.TestimonialUniversityOrderByWithRelationInput[]
-  cursor?: Prisma.TestimonialUniversityWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.TestimonialUniversityScalarFieldEnum | Prisma.TestimonialUniversityScalarFieldEnum[]
-}
-
-/**
  * Testimonial.events
  */
 export type Testimonial$eventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2121,6 +2097,30 @@ export type Testimonial$eventsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.TestimonialEventScalarFieldEnum | Prisma.TestimonialEventScalarFieldEnum[]
+}
+
+/**
+ * Testimonial.universities
+ */
+export type Testimonial$universitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TestimonialUniversity
+   */
+  select?: Prisma.TestimonialUniversitySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TestimonialUniversity
+   */
+  omit?: Prisma.TestimonialUniversityOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TestimonialUniversityInclude<ExtArgs> | null
+  where?: Prisma.TestimonialUniversityWhereInput
+  orderBy?: Prisma.TestimonialUniversityOrderByWithRelationInput | Prisma.TestimonialUniversityOrderByWithRelationInput[]
+  cursor?: Prisma.TestimonialUniversityWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TestimonialUniversityScalarFieldEnum | Prisma.TestimonialUniversityScalarFieldEnum[]
 }
 
 /**

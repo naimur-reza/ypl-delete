@@ -20,7 +20,7 @@ export default function LoginPage() {
     } else if (res?.success) {
       setMessage(res.success);
       setError(null);
-      router.push("/");
+      router.push("/dashboard");
     }
   };
 

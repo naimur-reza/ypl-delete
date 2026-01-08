@@ -90,7 +90,7 @@ const defaultCards = [
 ];
 
 interface AboutSectionProps {
-  countryId?: string;
+  countryId?: string | null;
 }
 
 export async function AboutSection({ countryId }: AboutSectionProps) {
@@ -136,8 +136,8 @@ export async function AboutSection({ countryId }: AboutSectionProps) {
           {/* Left Content - Text */}
           <div className="space-y-8 text-gray-800">
             <div>
-              <h2 className="section-title-large">
-                Achieve Your UK Study Dreams with{" "}
+              <h2 className="section-title">
+                Achieve Your Study Dreams with{" "}
                 <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-red-600">
                   NWC.
                 </span>
@@ -173,20 +173,20 @@ export async function AboutSection({ countryId }: AboutSectionProps) {
                   `}
                 >
                   <div
-                    className={`w-16 h-16 rounded-2xl ${card.lightColor} flex items-center justify-center mb-6 shadow-md`}
+                    className={`size-14 rounded-2xl ${card.lightColor} flex items-center justify-center mb-6 shadow-md`}
                   >
                     <Icon
-                      size={32}
+                      size={28}
                       strokeWidth={2.5}
                       className={card.color.replace("bg-", "text-")}
                     />
                   </div>
 
                   <div>
-                    <h3 className="text-3xl font-extrabold text-gray-900">
+                    <h3 className="text-2xl font-extrabold text-gray-900">
                       {card.title}
                     </h3>
-                    <p className="text-base font-semibold text-gray-600 uppercase tracking-wider mt-2">
+                    <p className="text-sm font-medium text-gray-600 uppercase tracking-wider mt-2">
                       {card.subtitle}
                     </p>
                   </div>

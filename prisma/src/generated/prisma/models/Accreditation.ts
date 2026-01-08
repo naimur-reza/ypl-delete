@@ -39,10 +39,10 @@ export type AccreditationMinAggregateOutputType = {
   name: string | null
   logo: string | null
   website: string | null
-  type: $Enums.AccreditationType | null
   sortOrder: number | null
   createdAt: Date | null
   updatedAt: Date | null
+  type: $Enums.AccreditationType | null
 }
 
 export type AccreditationMaxAggregateOutputType = {
@@ -50,10 +50,10 @@ export type AccreditationMaxAggregateOutputType = {
   name: string | null
   logo: string | null
   website: string | null
-  type: $Enums.AccreditationType | null
   sortOrder: number | null
   createdAt: Date | null
   updatedAt: Date | null
+  type: $Enums.AccreditationType | null
 }
 
 export type AccreditationCountAggregateOutputType = {
@@ -61,10 +61,10 @@ export type AccreditationCountAggregateOutputType = {
   name: number
   logo: number
   website: number
-  type: number
   sortOrder: number
   createdAt: number
   updatedAt: number
+  type: number
   _all: number
 }
 
@@ -82,10 +82,10 @@ export type AccreditationMinAggregateInputType = {
   name?: true
   logo?: true
   website?: true
-  type?: true
   sortOrder?: true
   createdAt?: true
   updatedAt?: true
+  type?: true
 }
 
 export type AccreditationMaxAggregateInputType = {
@@ -93,10 +93,10 @@ export type AccreditationMaxAggregateInputType = {
   name?: true
   logo?: true
   website?: true
-  type?: true
   sortOrder?: true
   createdAt?: true
   updatedAt?: true
+  type?: true
 }
 
 export type AccreditationCountAggregateInputType = {
@@ -104,10 +104,10 @@ export type AccreditationCountAggregateInputType = {
   name?: true
   logo?: true
   website?: true
-  type?: true
   sortOrder?: true
   createdAt?: true
   updatedAt?: true
+  type?: true
   _all?: true
 }
 
@@ -202,10 +202,10 @@ export type AccreditationGroupByOutputType = {
   name: string
   logo: string | null
   website: string | null
-  type: $Enums.AccreditationType
   sortOrder: number | null
   createdAt: Date
   updatedAt: Date
+  type: $Enums.AccreditationType
   _count: AccreditationCountAggregateOutputType | null
   _avg: AccreditationAvgAggregateOutputType | null
   _sum: AccreditationSumAggregateOutputType | null
@@ -236,10 +236,10 @@ export type AccreditationWhereInput = {
   name?: Prisma.StringFilter<"Accreditation"> | string
   logo?: Prisma.StringNullableFilter<"Accreditation"> | string | null
   website?: Prisma.StringNullableFilter<"Accreditation"> | string | null
-  type?: Prisma.EnumAccreditationTypeFilter<"Accreditation"> | $Enums.AccreditationType
   sortOrder?: Prisma.IntNullableFilter<"Accreditation"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Accreditation"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Accreditation"> | Date | string
+  type?: Prisma.EnumAccreditationTypeFilter<"Accreditation"> | $Enums.AccreditationType
   countries?: Prisma.AccreditationCountryListRelationFilter
 }
 
@@ -248,10 +248,10 @@ export type AccreditationOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   logo?: Prisma.SortOrderInput | Prisma.SortOrder
   website?: Prisma.SortOrderInput | Prisma.SortOrder
-  type?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   countries?: Prisma.AccreditationCountryOrderByRelationAggregateInput
 }
 
@@ -263,10 +263,10 @@ export type AccreditationWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Accreditation"> | string
   logo?: Prisma.StringNullableFilter<"Accreditation"> | string | null
   website?: Prisma.StringNullableFilter<"Accreditation"> | string | null
-  type?: Prisma.EnumAccreditationTypeFilter<"Accreditation"> | $Enums.AccreditationType
   sortOrder?: Prisma.IntNullableFilter<"Accreditation"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Accreditation"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Accreditation"> | Date | string
+  type?: Prisma.EnumAccreditationTypeFilter<"Accreditation"> | $Enums.AccreditationType
   countries?: Prisma.AccreditationCountryListRelationFilter
 }, "id">
 
@@ -275,10 +275,10 @@ export type AccreditationOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   logo?: Prisma.SortOrderInput | Prisma.SortOrder
   website?: Prisma.SortOrderInput | Prisma.SortOrder
-  type?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   _count?: Prisma.AccreditationCountOrderByAggregateInput
   _avg?: Prisma.AccreditationAvgOrderByAggregateInput
   _max?: Prisma.AccreditationMaxOrderByAggregateInput
@@ -294,10 +294,10 @@ export type AccreditationScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Accreditation"> | string
   logo?: Prisma.StringNullableWithAggregatesFilter<"Accreditation"> | string | null
   website?: Prisma.StringNullableWithAggregatesFilter<"Accreditation"> | string | null
-  type?: Prisma.EnumAccreditationTypeWithAggregatesFilter<"Accreditation"> | $Enums.AccreditationType
   sortOrder?: Prisma.IntNullableWithAggregatesFilter<"Accreditation"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Accreditation"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Accreditation"> | Date | string
+  type?: Prisma.EnumAccreditationTypeWithAggregatesFilter<"Accreditation"> | $Enums.AccreditationType
 }
 
 export type AccreditationCreateInput = {
@@ -305,10 +305,10 @@ export type AccreditationCreateInput = {
   name: string
   logo?: string | null
   website?: string | null
-  type?: $Enums.AccreditationType
   sortOrder?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  type?: $Enums.AccreditationType
   countries?: Prisma.AccreditationCountryCreateNestedManyWithoutAccreditationInput
 }
 
@@ -317,10 +317,10 @@ export type AccreditationUncheckedCreateInput = {
   name: string
   logo?: string | null
   website?: string | null
-  type?: $Enums.AccreditationType
   sortOrder?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  type?: $Enums.AccreditationType
   countries?: Prisma.AccreditationCountryUncheckedCreateNestedManyWithoutAccreditationInput
 }
 
@@ -329,10 +329,10 @@ export type AccreditationUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.EnumAccreditationTypeFieldUpdateOperationsInput | $Enums.AccreditationType
   sortOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.EnumAccreditationTypeFieldUpdateOperationsInput | $Enums.AccreditationType
   countries?: Prisma.AccreditationCountryUpdateManyWithoutAccreditationNestedInput
 }
 
@@ -341,10 +341,10 @@ export type AccreditationUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.EnumAccreditationTypeFieldUpdateOperationsInput | $Enums.AccreditationType
   sortOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.EnumAccreditationTypeFieldUpdateOperationsInput | $Enums.AccreditationType
   countries?: Prisma.AccreditationCountryUncheckedUpdateManyWithoutAccreditationNestedInput
 }
 
@@ -353,10 +353,10 @@ export type AccreditationCreateManyInput = {
   name: string
   logo?: string | null
   website?: string | null
-  type?: $Enums.AccreditationType
   sortOrder?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  type?: $Enums.AccreditationType
 }
 
 export type AccreditationUpdateManyMutationInput = {
@@ -364,10 +364,10 @@ export type AccreditationUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.EnumAccreditationTypeFieldUpdateOperationsInput | $Enums.AccreditationType
   sortOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.EnumAccreditationTypeFieldUpdateOperationsInput | $Enums.AccreditationType
 }
 
 export type AccreditationUncheckedUpdateManyInput = {
@@ -375,10 +375,10 @@ export type AccreditationUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.EnumAccreditationTypeFieldUpdateOperationsInput | $Enums.AccreditationType
   sortOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.EnumAccreditationTypeFieldUpdateOperationsInput | $Enums.AccreditationType
 }
 
 export type AccreditationCountOrderByAggregateInput = {
@@ -386,10 +386,10 @@ export type AccreditationCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   logo?: Prisma.SortOrder
   website?: Prisma.SortOrder
-  type?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  type?: Prisma.SortOrder
 }
 
 export type AccreditationAvgOrderByAggregateInput = {
@@ -401,10 +401,10 @@ export type AccreditationMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   logo?: Prisma.SortOrder
   website?: Prisma.SortOrder
-  type?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  type?: Prisma.SortOrder
 }
 
 export type AccreditationMinOrderByAggregateInput = {
@@ -412,10 +412,10 @@ export type AccreditationMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   logo?: Prisma.SortOrder
   website?: Prisma.SortOrder
-  type?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  type?: Prisma.SortOrder
 }
 
 export type AccreditationSumOrderByAggregateInput = {
@@ -427,16 +427,16 @@ export type AccreditationScalarRelationFilter = {
   isNot?: Prisma.AccreditationWhereInput
 }
 
-export type EnumAccreditationTypeFieldUpdateOperationsInput = {
-  set?: $Enums.AccreditationType
-}
-
 export type NullableIntFieldUpdateOperationsInput = {
   set?: number | null
   increment?: number
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type EnumAccreditationTypeFieldUpdateOperationsInput = {
+  set?: $Enums.AccreditationType
 }
 
 export type AccreditationCreateNestedOneWithoutCountriesInput = {
@@ -458,10 +458,10 @@ export type AccreditationCreateWithoutCountriesInput = {
   name: string
   logo?: string | null
   website?: string | null
-  type?: $Enums.AccreditationType
   sortOrder?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  type?: $Enums.AccreditationType
 }
 
 export type AccreditationUncheckedCreateWithoutCountriesInput = {
@@ -469,10 +469,10 @@ export type AccreditationUncheckedCreateWithoutCountriesInput = {
   name: string
   logo?: string | null
   website?: string | null
-  type?: $Enums.AccreditationType
   sortOrder?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  type?: $Enums.AccreditationType
 }
 
 export type AccreditationCreateOrConnectWithoutCountriesInput = {
@@ -496,10 +496,10 @@ export type AccreditationUpdateWithoutCountriesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.EnumAccreditationTypeFieldUpdateOperationsInput | $Enums.AccreditationType
   sortOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.EnumAccreditationTypeFieldUpdateOperationsInput | $Enums.AccreditationType
 }
 
 export type AccreditationUncheckedUpdateWithoutCountriesInput = {
@@ -507,10 +507,10 @@ export type AccreditationUncheckedUpdateWithoutCountriesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.EnumAccreditationTypeFieldUpdateOperationsInput | $Enums.AccreditationType
   sortOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.EnumAccreditationTypeFieldUpdateOperationsInput | $Enums.AccreditationType
 }
 
 
@@ -549,10 +549,10 @@ export type AccreditationSelect<ExtArgs extends runtime.Types.Extensions.Interna
   name?: boolean
   logo?: boolean
   website?: boolean
-  type?: boolean
   sortOrder?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  type?: boolean
   countries?: boolean | Prisma.Accreditation$countriesArgs<ExtArgs>
   _count?: boolean | Prisma.AccreditationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["accreditation"]>
@@ -562,10 +562,10 @@ export type AccreditationSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   name?: boolean
   logo?: boolean
   website?: boolean
-  type?: boolean
   sortOrder?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  type?: boolean
 }, ExtArgs["result"]["accreditation"]>
 
 export type AccreditationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -573,10 +573,10 @@ export type AccreditationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   name?: boolean
   logo?: boolean
   website?: boolean
-  type?: boolean
   sortOrder?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  type?: boolean
 }, ExtArgs["result"]["accreditation"]>
 
 export type AccreditationSelectScalar = {
@@ -584,13 +584,13 @@ export type AccreditationSelectScalar = {
   name?: boolean
   logo?: boolean
   website?: boolean
-  type?: boolean
   sortOrder?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  type?: boolean
 }
 
-export type AccreditationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "logo" | "website" | "type" | "sortOrder" | "createdAt" | "updatedAt", ExtArgs["result"]["accreditation"]>
+export type AccreditationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "logo" | "website" | "sortOrder" | "createdAt" | "updatedAt" | "type", ExtArgs["result"]["accreditation"]>
 export type AccreditationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   countries?: boolean | Prisma.Accreditation$countriesArgs<ExtArgs>
   _count?: boolean | Prisma.AccreditationCountOutputTypeDefaultArgs<ExtArgs>
@@ -608,10 +608,10 @@ export type $AccreditationPayload<ExtArgs extends runtime.Types.Extensions.Inter
     name: string
     logo: string | null
     website: string | null
-    type: $Enums.AccreditationType
     sortOrder: number | null
     createdAt: Date
     updatedAt: Date
+    type: $Enums.AccreditationType
   }, ExtArgs["result"]["accreditation"]>
   composites: {}
 }
@@ -1040,10 +1040,10 @@ export interface AccreditationFieldRefs {
   readonly name: Prisma.FieldRef<"Accreditation", 'String'>
   readonly logo: Prisma.FieldRef<"Accreditation", 'String'>
   readonly website: Prisma.FieldRef<"Accreditation", 'String'>
-  readonly type: Prisma.FieldRef<"Accreditation", 'AccreditationType'>
   readonly sortOrder: Prisma.FieldRef<"Accreditation", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Accreditation", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Accreditation", 'DateTime'>
+  readonly type: Prisma.FieldRef<"Accreditation", 'AccreditationType'>
 }
     
 

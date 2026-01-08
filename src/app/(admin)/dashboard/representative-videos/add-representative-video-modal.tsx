@@ -3,6 +3,7 @@
 
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
 import { CountrySelect } from "@/components/ui/region-select";
 import { apiClient } from "@/lib/api-client";
@@ -12,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import { useAppForm } from "@/hooks/hooks";
 import { toast } from "sonner";
 import z from "zod";
-import { createEntityApi } from "@/lib/api-client";
+import { createRestEntityApi } from "@/lib/api-client";
 import { ImageUpload } from "@/components/ui/image-upload";
 
 const schema = z.object({
@@ -27,7 +28,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const api = createEntityApi<{ id: string }>("/api/representative-videos");
+const api = createRestEntityApi<{ id: string }>("/api/representative-videos");
 
 export default function RepresentativeVideoFormModal({
   isEditing,
@@ -51,6 +52,7 @@ export default function RepresentativeVideoFormModal({
   const isOpen = true;
   const [imageUrl, setImageUrl] = useState<string>(selected?.thumbnail || "");
   const [isUploading, setIsUploading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [countryIds, setCountryIds] = useState<string[]>([]);
   const [destinationIds, setDestinationIds] = useState<string[]>([]);
@@ -130,6 +132,7 @@ export default function RepresentativeVideoFormModal({
     } as unknown as FormData,
     validators: { onSubmit: schema as any },
     onSubmit: async ({ value }) => {
+      setIsSubmitting(true);
       try {
         const payload = {
           title: value.title,
@@ -153,6 +156,8 @@ export default function RepresentativeVideoFormModal({
       } catch (e) {
         toast.error("Request failed");
         console.error(e);
+      } finally {
+        setIsSubmitting(false);
       }
     },
   });
@@ -288,12 +293,20 @@ export default function RepresentativeVideoFormModal({
             </div>
           </div>
           <div className="flex gap-2 justify-end">
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onClose}
+              disabled={isSubmitting}
+            >
               Cancel
             </Button>
-            <Button type="submit" disabled={isUploading}>
-              {isUploading ? "Uploading..." : isEditing ? "Update" : "Create"}
-            </Button>
+            <SubmitButton
+              isSubmitting={isSubmitting}
+              isUploading={isUploading}
+              submitText={isEditing ? "Update" : "Create"}
+              submittingText={isEditing ? "Updating..." : "Creating..."}
+            />
           </div>
         </FieldGroup>
       </form>

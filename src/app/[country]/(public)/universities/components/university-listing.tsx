@@ -1,12 +1,15 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
+import { Pagination } from "@/components/ui/pagination";
 import { UniversityCard } from "./university-card";
 import { ReusableFilter } from "@/components/filters/reusable-filter";
 import { extractUniversityFilterOptions } from "@/lib/university-filters";
 import { useFilter } from "@/hooks/use-filter";
 import { University } from "../../../../../../prisma/src/generated/prisma/client";
+
+const ITEMS_PER_PAGE = 9;
 
 interface UniversityListingProps {
   universities: Array<
@@ -15,6 +18,8 @@ interface UniversityListingProps {
 }
 
 export function UniversityListing({ universities }: UniversityListingProps) {
+  const [currentPage, setCurrentPage] = useState(1);
+
   const filterOptions = useMemo(
     () => extractUniversityFilterOptions(universities),
     [universities]
@@ -42,8 +47,19 @@ export function UniversityListing({ universities }: UniversityListingProps) {
     ],
   });
 
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filters, searchQuery]);
+
+  // Pagination calculations
+  const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const paginatedData = filteredData.slice(startIndex, endIndex);
+
   return (
-    <section className="py-16 px-4 md:px-8 bg-slate-50">
+    <section className="py-12 px-4 md:px-8 bg-slate-50">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar */}
@@ -63,8 +79,10 @@ export function UniversityListing({ universities }: UniversityListingProps) {
           {/* Main Content */}
           <div className="lg:col-span-3">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-slate-900">
-                Showing {filteredData.length}{" "}
+              <h2 className="text-lg font-bold text-slate-900">
+                Showing {startIndex + 1}-
+                {Math.min(endIndex, filteredData.length)} of{" "}
+                {filteredData.length}{" "}
                 {filteredData.length === 1 ? "University" : "Universities"}
               </h2>
               <div className="flex items-center gap-2">
@@ -77,9 +95,9 @@ export function UniversityListing({ universities }: UniversityListingProps) {
               </div>
             </div>
 
-            {filteredData.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {filteredData.map((uni) => (
+            {paginatedData.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                {paginatedData.map((uni) => (
                   <UniversityCard key={uni.id} university={uni} />
                 ))}
               </div>
@@ -94,27 +112,14 @@ export function UniversityListing({ universities }: UniversityListingProps) {
               </div>
             )}
 
-            {/* Pagination Mockup */}
-            {filteredData.length > 0 && (
-              <div className="mt-12 flex justify-center gap-2">
-                <button className="px-4 py-2 rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 disabled:opacity-50">
-                  Previous
-                </button>
-                <button className="px-4 py-2 rounded-lg bg-primary text-white">
-                  1
-                </button>
-                <button className="px-4 py-2 rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50">
-                  2
-                </button>
-                <button className="px-4 py-2 rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50">
-                  3
-                </button>
-                <span className="px-2 py-2 text-slate-400">...</span>
-                <button className="px-4 py-2 rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50">
-                  Next
-                </button>
-              </div>
-            )}
+            {/* Pagination */}
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              totalCount={filteredData.length}
+              itemName="universities"
+              onPageChange={setCurrentPage}
+            />
           </div>
         </div>
       </div>

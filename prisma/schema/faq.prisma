@@ -1,19 +1,17 @@
-// FAQ Management
 model FAQ {
-  id        String   @id @default(cuid())
-  question  String
-  answer    String
-  isGlobal  Boolean  @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  createdBy String?
-  updatedBy String?
-
+  id           String           @id @default(cuid())
+  question     String
+  answer       String
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  createdBy    String?
+  updatedBy    String?
+  isGlobal     Boolean          @default(false)
   countries    FAQCountry[]
-  destinations FAQDestination[]
-  universities FAQUniversity[]
-  events       FAQEvent[]
   courses      FAQCourse[]
-  scholarships FAQScholarship[]
+  destinations FAQDestination[]
+  events       FAQEvent[]
   intakePages  FAQIntakePage[]
+  scholarships FAQScholarship[]
+  universities FAQUniversity[]
 }

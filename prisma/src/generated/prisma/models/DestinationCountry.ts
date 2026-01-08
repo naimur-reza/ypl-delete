@@ -166,16 +166,16 @@ export type DestinationCountryWhereInput = {
   id?: Prisma.StringFilter<"DestinationCountry"> | string
   destinationId?: Prisma.StringFilter<"DestinationCountry"> | string
   countryId?: Prisma.StringFilter<"DestinationCountry"> | string
-  destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
+  destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
 }
 
 export type DestinationCountryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
-  destination?: Prisma.DestinationOrderByWithRelationInput
   country?: Prisma.CountryOrderByWithRelationInput
+  destination?: Prisma.DestinationOrderByWithRelationInput
 }
 
 export type DestinationCountryWhereUniqueInput = Prisma.AtLeast<{
@@ -186,8 +186,8 @@ export type DestinationCountryWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.DestinationCountryWhereInput | Prisma.DestinationCountryWhereInput[]
   destinationId?: Prisma.StringFilter<"DestinationCountry"> | string
   countryId?: Prisma.StringFilter<"DestinationCountry"> | string
-  destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
+  destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
 }, "id" | "destinationId_countryId">
 
 export type DestinationCountryOrderByWithAggregationInput = {
@@ -210,8 +210,8 @@ export type DestinationCountryScalarWhereWithAggregatesInput = {
 
 export type DestinationCountryCreateInput = {
   id?: string
-  destination: Prisma.DestinationCreateNestedOneWithoutCountriesInput
   country: Prisma.CountryCreateNestedOneWithoutDestinationsInput
+  destination: Prisma.DestinationCreateNestedOneWithoutCountriesInput
 }
 
 export type DestinationCountryUncheckedCreateInput = {
@@ -222,8 +222,8 @@ export type DestinationCountryUncheckedCreateInput = {
 
 export type DestinationCountryUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  destination?: Prisma.DestinationUpdateOneRequiredWithoutCountriesNestedInput
   country?: Prisma.CountryUpdateOneRequiredWithoutDestinationsNestedInput
+  destination?: Prisma.DestinationUpdateOneRequiredWithoutCountriesNestedInput
 }
 
 export type DestinationCountryUncheckedUpdateInput = {
@@ -492,24 +492,24 @@ export type DestinationCountrySelect<ExtArgs extends runtime.Types.Extensions.In
   id?: boolean
   destinationId?: boolean
   countryId?: boolean
-  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["destinationCountry"]>
 
 export type DestinationCountrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   destinationId?: boolean
   countryId?: boolean
-  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["destinationCountry"]>
 
 export type DestinationCountrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   destinationId?: boolean
   countryId?: boolean
-  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["destinationCountry"]>
 
 export type DestinationCountrySelectScalar = {
@@ -520,23 +520,23 @@ export type DestinationCountrySelectScalar = {
 
 export type DestinationCountryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "destinationId" | "countryId", ExtArgs["result"]["destinationCountry"]>
 export type DestinationCountryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
 }
 export type DestinationCountryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
 }
 export type DestinationCountryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
 }
 
 export type $DestinationCountryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "DestinationCountry"
   objects: {
-    destination: Prisma.$DestinationPayload<ExtArgs>
     country: Prisma.$CountryPayload<ExtArgs>
+    destination: Prisma.$DestinationPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -936,8 +936,8 @@ readonly fields: DestinationCountryFieldRefs;
  */
 export interface Prisma__DestinationCountryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  destination<T extends Prisma.DestinationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DestinationDefaultArgs<ExtArgs>>): Prisma.Prisma__DestinationClient<runtime.Types.Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   country<T extends Prisma.CountryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CountryDefaultArgs<ExtArgs>>): Prisma.Prisma__CountryClient<runtime.Types.Result.GetResult<Prisma.$CountryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  destination<T extends Prisma.DestinationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DestinationDefaultArgs<ExtArgs>>): Prisma.Prisma__DestinationClient<runtime.Types.Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

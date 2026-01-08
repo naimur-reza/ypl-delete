@@ -81,7 +81,7 @@ export default function OurServices() {
 
                 {/* Overlays */}
                 <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-slate-900/30 transition-colors duration-500"></div>
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-transparent"></div>
+                <div className="absolute inset-0 bg-linear-to-t from-slate-900/90 via-transparent to-transparent"></div>
 
                 {/* Play Button */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center">

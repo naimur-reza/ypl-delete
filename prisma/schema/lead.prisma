@@ -1,17 +1,14 @@
-// Lead Management and Recommendations
 model Lead {
-  id            String       @id @default(cuid())
-  name          String
-  email         String?
-  phone         String?
-  countryId     String?
-  country       Country?     @relation(fields: [countryId], references: [id])
-  destinationId String?
-  destination   Destination? @relation(fields: [destinationId], references: [id])
-  interestJson  Json?
-  createdAt     DateTime     @default(now())
-
-  // Back-relations
+  id              String           @id @default(cuid())
+  name            String
+  email           String?
+  phone           String?
+  countryId       String?
+  destinationId   String?
+  interestJson    Json?
+  createdAt       DateTime         @default(now())
+  country         Country?         @relation(fields: [countryId], references: [id])
+  destination     Destination?     @relation(fields: [destinationId], references: [id])
   offerRequests   OfferRequest[]
   recommendations Recommendation[]
 }
@@ -19,17 +16,17 @@ model Lead {
 model OfferRequest {
   id        String   @id @default(cuid())
   leadId    String
-  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
-  status    String   @default("NEW") // NEW | IN_PROGRESS | SENT | CLOSED
+  status    String   @default("NEW")
   notes     String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
 }
 
 model Recommendation {
   id        String   @id @default(cuid())
   leadId    String
-  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
   payload   Json
   createdAt DateTime @default(now())
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
 }

@@ -282,7 +282,7 @@ export type IntakePageBenefitCreateInput = {
   description?: string | null
   icon?: string | null
   sortOrder?: number
-  intakePage: Prisma.IntakePageCreateNestedOneWithoutBenefitsInput
+  intakePage: Prisma.IntakePageCreateNestedOneWithoutIntakePageBenefitsInput
 }
 
 export type IntakePageBenefitUncheckedCreateInput = {
@@ -300,7 +300,7 @@ export type IntakePageBenefitUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
-  intakePage?: Prisma.IntakePageUpdateOneRequiredWithoutBenefitsNestedInput
+  intakePage?: Prisma.IntakePageUpdateOneRequiredWithoutIntakePageBenefitsNestedInput
 }
 
 export type IntakePageBenefitUncheckedUpdateInput = {

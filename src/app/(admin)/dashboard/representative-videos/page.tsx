@@ -5,7 +5,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/table/data-table";
 import { useDataTable } from "@/hooks/use-data-table";
-import { createEntityApi } from "@/lib/api-client";
+import { createRestEntityApi } from "@/lib/api-client";
 import { toast } from "sonner";
 import { MoreHorizontal, Plus, Pencil, Trash2 } from "lucide-react";
 import {
@@ -29,7 +29,7 @@ interface Item {
   createdAt: string;
 }
 
-const api = createEntityApi<Item>("/api/representative-videos");
+const api = createRestEntityApi<Item>("/api/representative-videos");
 
 export default function RepresentativeVideosPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
