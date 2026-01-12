@@ -5,7 +5,22 @@ import Link from "next/link";
 import { ChevronRight, Share2 } from "lucide-react";
 import Image from "next/image";
 
+// SSG with ISR - revalidate every hour
 export const revalidate = 3600;
+export const dynamicParams = true;
+
+// Pre-generate first 30 scholarships at build time for instant loading
+export async function generateStaticParams() {
+  const scholarships = await prisma.scholarship.findMany({
+    select: { slug: true },
+    orderBy: { createdAt: "desc" },
+    take: 30,
+  });
+
+  return scholarships.map((scholarship) => ({
+    slug: scholarship.slug,
+  }));
+}
 
 // Reusable Components
 import { IntakeFeature } from "@/app/(public)/components";

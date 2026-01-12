@@ -285,6 +285,16 @@ export type AccreditationCountry = Prisma.AccreditationCountryModel
  */
 export type GalleryCountry = Prisma.GalleryCountryModel
 /**
+ * Model EssentialStudyCountry
+ * 
+ */
+export type EssentialStudyCountry = Prisma.EssentialStudyCountryModel
+/**
+ * Model ServiceCountry
+ * 
+ */
+export type ServiceCountry = Prisma.ServiceCountryModel
+/**
  * Model Scholarship
  * 
  */

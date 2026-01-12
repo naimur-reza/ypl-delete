@@ -135,13 +135,21 @@ const DestinationDetailsPage = async ({ params }: PageProps) => {
     take: 10,
   });
 
+  // Clean destination name by removing "Study in" prefix
+  const cleanDestinationName = (name: string | undefined) => {
+    if (!name) return countryName;
+    return name.replace(/^Study\s+in\s+/i, '').trim();
+  };
+
   return (
     <div className="bg-white">
-      <StudyAbroadHero />
+      <StudyAbroadHero
+        countrySlug={country}
+      />
       <UniversityFilter />
       <IntakeFeature />
       <WhyChooseCountry
-        countryName={countryName}
+        countryName={cleanDestinationName(destination?.name)}
         sections={destination?.sections || []}
       />
       <UniversitySlider universities={universities} />

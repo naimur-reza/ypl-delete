@@ -33,10 +33,7 @@ export function ImageUpload({
     onUploadingChange?.(isUploading);
   };
 
-  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
+  const handleFileUpload = async (file: File) => {
     // Validate file type
     const allowedTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
     if (!allowedTypes.includes(file.type)) {
@@ -80,6 +77,12 @@ export function ImageUpload({
     }
   };
 
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    await handleFileUpload(file);
+  };
+
   const handleRemove = () => {
     onChange("");
     if (fileInputRef.current) {
@@ -87,9 +90,35 @@ export function ImageUpload({
     }
   };
 
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleDrop = async (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const file = e.dataTransfer.files?.[0];
+    if (!file) return;
+
+    // Directly handle the file upload
+    await handleFileUpload(file);
+  };
+
   return (
     <div className={className}>
       {label && <Label className="mb-2 block">{label}</Label>}
+      
+      {/* Hidden file input - always present */}
+      <Input
+        ref={fileInputRef}
+        type="file"
+        accept="image/jpeg,image/jpg,image/png,image/webp"
+        onChange={handleFileSelect}
+        className="hidden"
+        disabled={uploading}
+      />
       
       <div className="space-y-4">
         {value ? (
@@ -118,16 +147,10 @@ export function ImageUpload({
         ) : (
           <div
             onClick={() => fileInputRef.current?.click()}
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}
             className="relative flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-gray-400 transition-colors bg-gray-50"
           >
-            <Input
-              ref={fileInputRef}
-              type="file"
-              accept="image/jpeg,image/jpg,image/png,image/webp"
-              onChange={handleFileSelect}
-              className="hidden"
-              disabled={uploading}
-            />
             {uploading ? (
               <Loader2 className="h-12 w-12 text-gray-400 animate-spin" />
             ) : (

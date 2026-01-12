@@ -17,6 +17,7 @@ import { SelectItem } from "@/components/ui/select";
 import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { FormBase } from "@/components/form/FormBase";
 import { Input } from "@/components/ui/input";
+import { CountrySelect } from "@/components/ui/region-select";
 
 type FormData = z.infer<typeof essentialSchema>;
 
@@ -52,6 +53,7 @@ const EssentialFormModal = ({
   const [destinations, setDestinations] = useState<DestinationOption[]>([]);
   const [loadingDestinations, setLoadingDestinations] = useState(false);
   const [content, setContent] = useState<string>(selected?.content || "");
+  const [countryIds, setCountryIds] = useState<string[]>([]);
   useEffect(() => {
     const fetchDestinations = async () => {
       setLoadingDestinations(true);
@@ -93,6 +95,7 @@ const EssentialFormModal = ({
           ...value,
           description: value.description || null,
           content: content || null,
+          countryIds,
         };
 
         if (isEditing && selected?.id) {
@@ -113,6 +116,7 @@ const EssentialFormModal = ({
         );
         form.reset();
         setContent("");
+        setCountryIds([]);
         onClose();
         onSuccess?.();
       } catch (err) {
@@ -226,6 +230,13 @@ const EssentialFormModal = ({
               onChange={setContent}
               label="Content"
               placeholder="Write your content with markdown formatting..."
+            />
+          </div>
+          <div className="pt-2">
+            <CountrySelect
+              value={countryIds}
+              onChange={setCountryIds}
+              label="Select Countries"
             />
           </div>
           <div className="flex gap-2 justify-end">

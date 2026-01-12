@@ -68,10 +68,27 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
         take: 10,
       }),
       prisma.globalOffice.findMany({
-        select: { id: true, name: true, slug: true },
         where: countryScopedFilter
           ? { countries: countryScopedFilter }
           : undefined,
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+          phone: true,
+          countries: {
+            select: {
+              country: {
+                select: {
+                  id: true,
+                  name: true,
+                  flag: true,
+                  slug: true,
+                },
+              },
+            },
+          },
+        },
       }),
     ]);
 
@@ -99,10 +116,17 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
     href: `/events/${event.slug}`,
   }));
 
-  const officeItems = globalOffices.map((office) => ({
-    title: office.name,
-    href: `/global-branches/${office.slug}`,
-  }));
+  const officeItems = globalOffices.map((office) => {
+    // Get the first country's flag, name, and slug for display
+    const firstCountry = office.countries?.[0]?.country;
+    return {
+      title: office.name,
+      href: `/global-branches/${firstCountry?.slug || 'global'}/${office.slug}`,
+      phone: office.phone || undefined,
+      countryFlag: firstCountry?.flag || undefined,
+      countryName: firstCountry?.name || undefined,
+    };
+  });
 
   return (
     <nav className="sticky top-0 z-40 w-full border-b border-secondary/10 bg-white">
@@ -120,6 +144,8 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
                 <NavDropdown
                   href="/study-abroad"
                   title="Study Abroad"
+                  heading="Explore study destinations"
+                  viewAllLink="/study-abroad"
                   items={destinationItems}
                 />
               </li>
@@ -127,11 +153,11 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
 
             {universityItems.length > 0 && (
               <li>
-                <NavDropdown
+                <Link
+   className="font-medium  text-muted-foreground transition-colors"
                   href="/universities"
-                  title="Universities"
-                  items={universityItems}
-                />
+                 
+                >Universities</Link>
               </li>
             )}
 
@@ -140,6 +166,8 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
                 <NavDropdown
                   href="/courses"
                   title="Courses"
+                  heading="Discover available courses"
+                  viewAllLink="/courses"
                   items={courseItems}
                 />
               </li>
@@ -147,7 +175,13 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
 
             {eventItems.length > 0 && (
               <li>
-                <NavDropdown href="/events" title="Events" items={eventItems} />
+                <NavDropdown 
+                  href="/events" 
+                  title="Events" 
+                  heading="Upcoming events and webinars"
+                  viewAllLink="/events"
+                  items={eventItems} 
+                />
               </li>
             )}
 
@@ -156,6 +190,8 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
                 <NavDropdown
                   href="/global-branches"
                   title="Global Branches"
+                  heading="Discover our global footprint."
+                  viewAllLink="/global-branches"
                   items={officeItems}
                 />
               </li>
@@ -164,6 +200,8 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
             <NavDropdown
               href={"#"}
               title="Resources"
+              heading="Explore our resources"
+              viewAllLink="/resources"
               items={[
                 {
                   title: "Scholarships",

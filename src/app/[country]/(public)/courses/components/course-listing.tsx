@@ -1,9 +1,10 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 import { CourseCard } from "./course-card";
 import { ReusableFilter } from "@/components/filters/reusable-filter";
+import { Pagination } from "@/components/ui/pagination";
 import {
   extractCourseFilterOptions,
   parseDurationCategory,
@@ -13,6 +14,8 @@ import {
   Course,
   IntakeMonth,
 } from "../../../../../../prisma/src/generated/prisma/client";
+
+const COURSES_PER_PAGE = 10;
 
 interface CourseListingProps {
   courses: Array<
@@ -34,6 +37,8 @@ interface CourseListingProps {
 }
 
 export function CourseListing({ courses }: CourseListingProps) {
+  const [currentPage, setCurrentPage] = useState(1);
+
   const filterOptions = useMemo(
     () => extractCourseFilterOptions(courses),
     [courses]
@@ -77,6 +82,29 @@ export function CourseListing({ courses }: CourseListingProps) {
     searchFields: [(course) => course.title, (course) => course.description],
   });
 
+  // Reset to page 1 when filters change
+  const handleFilterChange = (filterKey: string, value: string) => {
+    setCurrentPage(1);
+    toggleFilter(filterKey, value);
+  };
+
+  const handleClearFilters = () => {
+    setCurrentPage(1);
+    clearFilters();
+  };
+
+  const handleSearchChange = (value: string) => {
+    setCurrentPage(1);
+    setSearchQuery(value);
+  };
+
+  // Pagination calculations
+  const totalCount = filteredData.length;
+  const totalPages = Math.ceil(totalCount / COURSES_PER_PAGE);
+  const startIndex = (currentPage - 1) * COURSES_PER_PAGE;
+  const endIndex = startIndex + COURSES_PER_PAGE;
+  const paginatedCourses = filteredData.slice(startIndex, endIndex);
+
   return (
     <section className="py-16 px-4 md:px-8 bg-slate-50">
       <div className="max-w-7xl mx-auto">
@@ -86,11 +114,11 @@ export function CourseListing({ courses }: CourseListingProps) {
             <ReusableFilter
               filters={filterOptions}
               selectedFilters={filters}
-              onFilterChange={toggleFilter}
-              onClearAll={clearFilters}
+              onFilterChange={handleFilterChange}
+              onClearAll={handleClearFilters}
               searchPlaceholder="Search courses..."
               searchValue={searchQuery}
-              onSearchChange={setSearchQuery}
+              onSearchChange={handleSearchChange}
               defaultOpenSections={["destination", "studyLevel", "faculty"]}
             />
           </div>
@@ -99,8 +127,8 @@ export function CourseListing({ courses }: CourseListingProps) {
           <div className="lg:col-span-3">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold text-slate-900">
-                Showing {filteredData.length}{" "}
-                {filteredData.length === 1 ? "Course" : "Courses"}
+                Showing {paginatedCourses.length} of {totalCount}{" "}
+                {totalCount === 1 ? "Course" : "Courses"}
               </h2>
               <div className="flex items-center gap-2">
                 <span className="text-sm text-slate-500">Sort by:</span>
@@ -113,9 +141,9 @@ export function CourseListing({ courses }: CourseListingProps) {
               </div>
             </div>
 
-            {filteredData.length > 0 ? (
+            {paginatedCourses.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-1 xl:grid-cols-1 gap-4">
-                {filteredData.map((course) => (
+                {paginatedCourses.map((course) => (
                   <CourseCard key={course.id} course={course} />
                 ))}
               </div>
@@ -130,27 +158,14 @@ export function CourseListing({ courses }: CourseListingProps) {
               </div>
             )}
 
-            {/* Pagination Mockup */}
-            {filteredData.length > 0 && (
-              <div className="mt-12 flex justify-center gap-2">
-                <button className="px-4 py-2 rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 disabled:opacity-50">
-                  Previous
-                </button>
-                <button className="px-4 py-2 rounded-lg bg-primary text-white">
-                  1
-                </button>
-                <button className="px-4 py-2 rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50">
-                  2
-                </button>
-                <button className="px-4 py-2 rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50">
-                  3
-                </button>
-                <span className="px-2 py-2 text-slate-400">...</span>
-                <button className="px-4 py-2 rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50">
-                  Next
-                </button>
-              </div>
-            )}
+            {/* Pagination */}
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              totalCount={totalCount}
+              itemName="courses"
+              onPageChange={setCurrentPage}
+            />
           </div>
         </div>
       </div>

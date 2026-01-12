@@ -6,6 +6,7 @@ import { useState } from "react";
 import { GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 import {
   Country,
   Service,
@@ -17,13 +18,17 @@ interface ServicesListProps {
 }
 
 const ServicesList = ({ countries, services }: ServicesListProps) => {
-  const [selectedCountry, setSelectedCountry] = useState(
-    countries[0]?.id || ""
-  );
+  // Country filtering commented out as requested
+  // const [selectedCountry, setSelectedCountry] = useState(
+  //   countries[0]?.id || ""
+  // );
 
-  const filteredServices = services.filter(
-    (service) => selectedCountry === "" || service.id !== selectedCountry
-  );
+  // const filteredServices = services.filter(
+  //   (service) => selectedCountry === "" || service.id !== selectedCountry
+  // );
+
+  // Show all services
+  const filteredServices = services;
 
   return (
     <section className="w-full bg-gray-50 py-16 md:py-24">
@@ -38,8 +43,8 @@ const ServicesList = ({ countries, services }: ServicesListProps) => {
           </p>
         </div>
 
-        {/* Country Tabs */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
+        {/* Country Tabs - COMMENTED OUT AS REQUESTED */}
+        {/* <div className="flex flex-wrap justify-center gap-3 mb-12">
           {countries.map((country) => (
             <button
               key={country.id}
@@ -53,14 +58,15 @@ const ServicesList = ({ countries, services }: ServicesListProps) => {
               {country.name}
             </button>
           ))}
-        </div>
+        </div> */}
 
         {/* Services List */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
           {filteredServices.map((service) => (
-            <div
+            <Link
               key={service.id}
-              className="bg-white border-2 border-gray-200 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 relative overflow-hidden group hover:bg-blue-600 hover:border-blue-600 cursor-pointer"
+              href={`/services/${service.slug}`}
+              className="bg-white border-2 border-gray-200 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 relative overflow-hidden group hover:bg-blue-600 hover:border-blue-600 cursor-pointer block"
             >
               <div className="absolute -bottom-5 -right-5 w-32 h-32 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <svg
@@ -112,7 +118,7 @@ const ServicesList = ({ countries, services }: ServicesListProps) => {
                   Learn More
                 </Button>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

@@ -217,3 +217,31 @@ model GalleryCountry {
 
   @@unique([galleryId, countryId])
 }
+
+model EssentialStudyCountry {
+  id               String         @id @default(cuid())
+  essentialStudyId String
+  countryId        String
+  essentialStudy   EssentialStudy @relation(fields: [essentialStudyId], references: [id], onDelete: Cascade)
+  country          Country        @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  createdAt        DateTime       @default(now())
+
+  @@unique([essentialStudyId, countryId])
+  @@index([essentialStudyId])
+  @@index([countryId])
+  @@map("essential_study_countries")
+}
+
+model ServiceCountry {
+  id        String   @id @default(cuid())
+  serviceId String
+  countryId String
+  service   Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  country   Country  @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([serviceId, countryId])
+  @@index([serviceId])
+  @@index([countryId])
+  @@map("service_countries")
+}

@@ -356,7 +356,7 @@ export default async function Dashboard() {
                   {data.upcomingEventsList.map((event) => (
                     <Link
                       key={event.id}
-                      href={`/dashboard/events/${event.id}`}
+                      href={`/dashboard/events`}
                       className="flex items-center justify-between rounded-lg border border-border/80 px-4 py-3 hover:border-primary/50 hover:bg-muted/50 transition-all"
                     >
                       <div>
@@ -394,7 +394,7 @@ export default async function Dashboard() {
             </CardHeader>
             <CardContent className="space-y-4">
               <Link
-                href="/dashboard/event-registrations"
+                href="/dashboard/registrations"
                 className="block rounded-lg border border-border/80 p-4 hover:border-primary/50 hover:bg-muted/50 transition-all"
               >
                 <p className="text-sm font-medium">Event Applications</p>
@@ -458,7 +458,7 @@ export default async function Dashboard() {
                   {data.recentRegistrations.map((registration) => (
                     <Link
                       key={registration.id}
-                      href={`/dashboard/event-registrations/${registration.id}`}
+                      href={`/dashboard/registrations/${registration.id}`}
                       className="flex items-center justify-between rounded-lg border border-border/80 px-4 py-3 hover:border-primary/50 hover:bg-muted/50 transition-all"
                     >
                       <div>
@@ -509,7 +509,7 @@ export default async function Dashboard() {
                   {data.recentAppointments.map((appointment) => (
                     <Link
                       key={appointment.id}
-                      href={`/dashboard/appointments/${appointment.id}`}
+                      href={`/dashboard/appointments`}
                       className="flex items-center justify-between rounded-lg border border-border/80 px-4 py-3 hover:border-primary/50 hover:bg-muted/50 transition-all"
                     >
                       <div>

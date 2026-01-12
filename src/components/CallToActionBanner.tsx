@@ -4,7 +4,13 @@ import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import Link from "next/link";
 
-export default function CallToActionBanner() {
+interface CallToActionBannerProps {
+}
+
+export default function CallToActionBanner({}: CallToActionBannerProps) {
+  
+  const applyNowUrl = "/apply-now";
+
   return (
     <section className="   bg-white">
       <div className="relative mx-auto  overflow-hidden   bg-slate-900 shadow-2xl">
@@ -43,7 +49,7 @@ export default function CallToActionBanner() {
           </p>
 
           <div className="mt-10 flex flex-col sm:flex-row gap-4">
-            <Link href={"/apply-now"}>
+            <Link href={applyNowUrl}>
               <Button
                 size="lg"
                 className={cn(

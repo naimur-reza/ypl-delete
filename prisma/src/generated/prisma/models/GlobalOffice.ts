@@ -20,20 +20,8 @@ export type GlobalOfficeModel = runtime.Types.Result.DefaultSelection<Prisma.$Gl
 
 export type AggregateGlobalOffice = {
   _count: GlobalOfficeCountAggregateOutputType | null
-  _avg: GlobalOfficeAvgAggregateOutputType | null
-  _sum: GlobalOfficeSumAggregateOutputType | null
   _min: GlobalOfficeMinAggregateOutputType | null
   _max: GlobalOfficeMaxAggregateOutputType | null
-}
-
-export type GlobalOfficeAvgAggregateOutputType = {
-  latitude: number | null
-  longitude: number | null
-}
-
-export type GlobalOfficeSumAggregateOutputType = {
-  latitude: number | null
-  longitude: number | null
 }
 
 export type GlobalOfficeMinAggregateOutputType = {
@@ -44,10 +32,11 @@ export type GlobalOfficeMinAggregateOutputType = {
   email: string | null
   phone: string | null
   address: string | null
-  latitude: number | null
-  longitude: number | null
-  mapEmbedUrl: string | null
+  mapUrl: string | null
   content: string | null
+  image: string | null
+  bannerImage: string | null
+  openingHours: string | null
   metaTitle: string | null
   metaDescription: string | null
   metaKeywords: string | null
@@ -63,10 +52,11 @@ export type GlobalOfficeMaxAggregateOutputType = {
   email: string | null
   phone: string | null
   address: string | null
-  latitude: number | null
-  longitude: number | null
-  mapEmbedUrl: string | null
+  mapUrl: string | null
   content: string | null
+  image: string | null
+  bannerImage: string | null
+  openingHours: string | null
   metaTitle: string | null
   metaDescription: string | null
   metaKeywords: string | null
@@ -82,11 +72,11 @@ export type GlobalOfficeCountAggregateOutputType = {
   email: number
   phone: number
   address: number
-  latitude: number
-  longitude: number
-  mapEmbedUrl: number
-  openingHours: number
+  mapUrl: number
   content: number
+  image: number
+  bannerImage: number
+  openingHours: number
   metaTitle: number
   metaDescription: number
   metaKeywords: number
@@ -96,16 +86,6 @@ export type GlobalOfficeCountAggregateOutputType = {
 }
 
 
-export type GlobalOfficeAvgAggregateInputType = {
-  latitude?: true
-  longitude?: true
-}
-
-export type GlobalOfficeSumAggregateInputType = {
-  latitude?: true
-  longitude?: true
-}
-
 export type GlobalOfficeMinAggregateInputType = {
   id?: true
   name?: true
@@ -114,10 +94,11 @@ export type GlobalOfficeMinAggregateInputType = {
   email?: true
   phone?: true
   address?: true
-  latitude?: true
-  longitude?: true
-  mapEmbedUrl?: true
+  mapUrl?: true
   content?: true
+  image?: true
+  bannerImage?: true
+  openingHours?: true
   metaTitle?: true
   metaDescription?: true
   metaKeywords?: true
@@ -133,10 +114,11 @@ export type GlobalOfficeMaxAggregateInputType = {
   email?: true
   phone?: true
   address?: true
-  latitude?: true
-  longitude?: true
-  mapEmbedUrl?: true
+  mapUrl?: true
   content?: true
+  image?: true
+  bannerImage?: true
+  openingHours?: true
   metaTitle?: true
   metaDescription?: true
   metaKeywords?: true
@@ -152,11 +134,11 @@ export type GlobalOfficeCountAggregateInputType = {
   email?: true
   phone?: true
   address?: true
-  latitude?: true
-  longitude?: true
-  mapEmbedUrl?: true
-  openingHours?: true
+  mapUrl?: true
   content?: true
+  image?: true
+  bannerImage?: true
+  openingHours?: true
   metaTitle?: true
   metaDescription?: true
   metaKeywords?: true
@@ -203,18 +185,6 @@ export type GlobalOfficeAggregateArgs<ExtArgs extends runtime.Types.Extensions.I
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: GlobalOfficeAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: GlobalOfficeSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: GlobalOfficeMinAggregateInputType
@@ -245,8 +215,6 @@ export type GlobalOfficeGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   _count?: GlobalOfficeCountAggregateInputType | true
-  _avg?: GlobalOfficeAvgAggregateInputType
-  _sum?: GlobalOfficeSumAggregateInputType
   _min?: GlobalOfficeMinAggregateInputType
   _max?: GlobalOfficeMaxAggregateInputType
 }
@@ -259,19 +227,17 @@ export type GlobalOfficeGroupByOutputType = {
   email: string | null
   phone: string | null
   address: string | null
-  latitude: number | null
-  longitude: number | null
-  mapEmbedUrl: string | null
-  openingHours: runtime.JsonValue | null
+  mapUrl: string | null
   content: string | null
+  image: string | null
+  bannerImage: string | null
+  openingHours: string | null
   metaTitle: string | null
   metaDescription: string | null
   metaKeywords: string | null
   createdAt: Date
   updatedAt: Date
   _count: GlobalOfficeCountAggregateOutputType | null
-  _avg: GlobalOfficeAvgAggregateOutputType | null
-  _sum: GlobalOfficeSumAggregateOutputType | null
   _min: GlobalOfficeMinAggregateOutputType | null
   _max: GlobalOfficeMaxAggregateOutputType | null
 }
@@ -302,11 +268,11 @@ export type GlobalOfficeWhereInput = {
   email?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   phone?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   address?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
-  latitude?: Prisma.FloatNullableFilter<"GlobalOffice"> | number | null
-  longitude?: Prisma.FloatNullableFilter<"GlobalOffice"> | number | null
-  mapEmbedUrl?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
-  openingHours?: Prisma.JsonNullableFilter<"GlobalOffice">
+  mapUrl?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   content?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
+  image?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
+  bannerImage?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
+  openingHours?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   metaTitle?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   metaDescription?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   metaKeywords?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
@@ -323,11 +289,11 @@ export type GlobalOfficeOrderByWithRelationInput = {
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
-  latitude?: Prisma.SortOrderInput | Prisma.SortOrder
-  longitude?: Prisma.SortOrderInput | Prisma.SortOrder
-  mapEmbedUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  openingHours?: Prisma.SortOrderInput | Prisma.SortOrder
+  mapUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   content?: Prisma.SortOrderInput | Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
+  bannerImage?: Prisma.SortOrderInput | Prisma.SortOrder
+  openingHours?: Prisma.SortOrderInput | Prisma.SortOrder
   metaTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   metaDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   metaKeywords?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -347,11 +313,11 @@ export type GlobalOfficeWhereUniqueInput = Prisma.AtLeast<{
   email?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   phone?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   address?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
-  latitude?: Prisma.FloatNullableFilter<"GlobalOffice"> | number | null
-  longitude?: Prisma.FloatNullableFilter<"GlobalOffice"> | number | null
-  mapEmbedUrl?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
-  openingHours?: Prisma.JsonNullableFilter<"GlobalOffice">
+  mapUrl?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   content?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
+  image?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
+  bannerImage?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
+  openingHours?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   metaTitle?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   metaDescription?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   metaKeywords?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
@@ -368,21 +334,19 @@ export type GlobalOfficeOrderByWithAggregationInput = {
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
-  latitude?: Prisma.SortOrderInput | Prisma.SortOrder
-  longitude?: Prisma.SortOrderInput | Prisma.SortOrder
-  mapEmbedUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  openingHours?: Prisma.SortOrderInput | Prisma.SortOrder
+  mapUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   content?: Prisma.SortOrderInput | Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
+  bannerImage?: Prisma.SortOrderInput | Prisma.SortOrder
+  openingHours?: Prisma.SortOrderInput | Prisma.SortOrder
   metaTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   metaDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   metaKeywords?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.GlobalOfficeCountOrderByAggregateInput
-  _avg?: Prisma.GlobalOfficeAvgOrderByAggregateInput
   _max?: Prisma.GlobalOfficeMaxOrderByAggregateInput
   _min?: Prisma.GlobalOfficeMinOrderByAggregateInput
-  _sum?: Prisma.GlobalOfficeSumOrderByAggregateInput
 }
 
 export type GlobalOfficeScalarWhereWithAggregatesInput = {
@@ -396,11 +360,11 @@ export type GlobalOfficeScalarWhereWithAggregatesInput = {
   email?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
   phone?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
   address?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
-  latitude?: Prisma.FloatNullableWithAggregatesFilter<"GlobalOffice"> | number | null
-  longitude?: Prisma.FloatNullableWithAggregatesFilter<"GlobalOffice"> | number | null
-  mapEmbedUrl?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
-  openingHours?: Prisma.JsonNullableWithAggregatesFilter<"GlobalOffice">
+  mapUrl?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
   content?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
+  image?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
+  bannerImage?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
+  openingHours?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
   metaTitle?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
   metaDescription?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
   metaKeywords?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
@@ -416,11 +380,11 @@ export type GlobalOfficeCreateInput = {
   email?: string | null
   phone?: string | null
   address?: string | null
-  latitude?: number | null
-  longitude?: number | null
-  mapEmbedUrl?: string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  mapUrl?: string | null
   content?: string | null
+  image?: string | null
+  bannerImage?: string | null
+  openingHours?: string | null
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -437,11 +401,11 @@ export type GlobalOfficeUncheckedCreateInput = {
   email?: string | null
   phone?: string | null
   address?: string | null
-  latitude?: number | null
-  longitude?: number | null
-  mapEmbedUrl?: string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  mapUrl?: string | null
   content?: string | null
+  image?: string | null
+  bannerImage?: string | null
+  openingHours?: string | null
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -458,11 +422,11 @@ export type GlobalOfficeUpdateInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  mapEmbedUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  mapUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -479,11 +443,11 @@ export type GlobalOfficeUncheckedUpdateInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  mapEmbedUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  mapUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -500,11 +464,11 @@ export type GlobalOfficeCreateManyInput = {
   email?: string | null
   phone?: string | null
   address?: string | null
-  latitude?: number | null
-  longitude?: number | null
-  mapEmbedUrl?: string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  mapUrl?: string | null
   content?: string | null
+  image?: string | null
+  bannerImage?: string | null
+  openingHours?: string | null
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -520,11 +484,11 @@ export type GlobalOfficeUpdateManyMutationInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  mapEmbedUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  mapUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -540,11 +504,11 @@ export type GlobalOfficeUncheckedUpdateManyInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  mapEmbedUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  mapUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -560,21 +524,16 @@ export type GlobalOfficeCountOrderByAggregateInput = {
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  latitude?: Prisma.SortOrder
-  longitude?: Prisma.SortOrder
-  mapEmbedUrl?: Prisma.SortOrder
-  openingHours?: Prisma.SortOrder
+  mapUrl?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  image?: Prisma.SortOrder
+  bannerImage?: Prisma.SortOrder
+  openingHours?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrder
   metaDescription?: Prisma.SortOrder
   metaKeywords?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type GlobalOfficeAvgOrderByAggregateInput = {
-  latitude?: Prisma.SortOrder
-  longitude?: Prisma.SortOrder
 }
 
 export type GlobalOfficeMaxOrderByAggregateInput = {
@@ -585,10 +544,11 @@ export type GlobalOfficeMaxOrderByAggregateInput = {
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  latitude?: Prisma.SortOrder
-  longitude?: Prisma.SortOrder
-  mapEmbedUrl?: Prisma.SortOrder
+  mapUrl?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  image?: Prisma.SortOrder
+  bannerImage?: Prisma.SortOrder
+  openingHours?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrder
   metaDescription?: Prisma.SortOrder
   metaKeywords?: Prisma.SortOrder
@@ -604,20 +564,16 @@ export type GlobalOfficeMinOrderByAggregateInput = {
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  latitude?: Prisma.SortOrder
-  longitude?: Prisma.SortOrder
-  mapEmbedUrl?: Prisma.SortOrder
+  mapUrl?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  image?: Prisma.SortOrder
+  bannerImage?: Prisma.SortOrder
+  openingHours?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrder
   metaDescription?: Prisma.SortOrder
   metaKeywords?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type GlobalOfficeSumOrderByAggregateInput = {
-  latitude?: Prisma.SortOrder
-  longitude?: Prisma.SortOrder
 }
 
 export type GlobalOfficeScalarRelationFilter = {
@@ -647,11 +603,11 @@ export type GlobalOfficeCreateWithoutCountriesInput = {
   email?: string | null
   phone?: string | null
   address?: string | null
-  latitude?: number | null
-  longitude?: number | null
-  mapEmbedUrl?: string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  mapUrl?: string | null
   content?: string | null
+  image?: string | null
+  bannerImage?: string | null
+  openingHours?: string | null
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -667,11 +623,11 @@ export type GlobalOfficeUncheckedCreateWithoutCountriesInput = {
   email?: string | null
   phone?: string | null
   address?: string | null
-  latitude?: number | null
-  longitude?: number | null
-  mapEmbedUrl?: string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  mapUrl?: string | null
   content?: string | null
+  image?: string | null
+  bannerImage?: string | null
+  openingHours?: string | null
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -703,11 +659,11 @@ export type GlobalOfficeUpdateWithoutCountriesInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  mapEmbedUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  mapUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -723,11 +679,11 @@ export type GlobalOfficeUncheckedUpdateWithoutCountriesInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  mapEmbedUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  mapUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -774,11 +730,11 @@ export type GlobalOfficeSelect<ExtArgs extends runtime.Types.Extensions.Internal
   email?: boolean
   phone?: boolean
   address?: boolean
-  latitude?: boolean
-  longitude?: boolean
-  mapEmbedUrl?: boolean
-  openingHours?: boolean
+  mapUrl?: boolean
   content?: boolean
+  image?: boolean
+  bannerImage?: boolean
+  openingHours?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
@@ -796,11 +752,11 @@ export type GlobalOfficeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   email?: boolean
   phone?: boolean
   address?: boolean
-  latitude?: boolean
-  longitude?: boolean
-  mapEmbedUrl?: boolean
-  openingHours?: boolean
+  mapUrl?: boolean
   content?: boolean
+  image?: boolean
+  bannerImage?: boolean
+  openingHours?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
@@ -816,11 +772,11 @@ export type GlobalOfficeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   email?: boolean
   phone?: boolean
   address?: boolean
-  latitude?: boolean
-  longitude?: boolean
-  mapEmbedUrl?: boolean
-  openingHours?: boolean
+  mapUrl?: boolean
   content?: boolean
+  image?: boolean
+  bannerImage?: boolean
+  openingHours?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
@@ -836,11 +792,11 @@ export type GlobalOfficeSelectScalar = {
   email?: boolean
   phone?: boolean
   address?: boolean
-  latitude?: boolean
-  longitude?: boolean
-  mapEmbedUrl?: boolean
-  openingHours?: boolean
+  mapUrl?: boolean
   content?: boolean
+  image?: boolean
+  bannerImage?: boolean
+  openingHours?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
@@ -848,7 +804,7 @@ export type GlobalOfficeSelectScalar = {
   updatedAt?: boolean
 }
 
-export type GlobalOfficeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "subtitle" | "slug" | "email" | "phone" | "address" | "latitude" | "longitude" | "mapEmbedUrl" | "openingHours" | "content" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt", ExtArgs["result"]["globalOffice"]>
+export type GlobalOfficeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "subtitle" | "slug" | "email" | "phone" | "address" | "mapUrl" | "content" | "image" | "bannerImage" | "openingHours" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt", ExtArgs["result"]["globalOffice"]>
 export type GlobalOfficeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   countries?: boolean | Prisma.GlobalOffice$countriesArgs<ExtArgs>
   _count?: boolean | Prisma.GlobalOfficeCountOutputTypeDefaultArgs<ExtArgs>
@@ -869,11 +825,11 @@ export type $GlobalOfficePayload<ExtArgs extends runtime.Types.Extensions.Intern
     email: string | null
     phone: string | null
     address: string | null
-    latitude: number | null
-    longitude: number | null
-    mapEmbedUrl: string | null
-    openingHours: runtime.JsonValue | null
+    mapUrl: string | null
     content: string | null
+    image: string | null
+    bannerImage: string | null
+    openingHours: string | null
     metaTitle: string | null
     metaDescription: string | null
     metaKeywords: string | null
@@ -1310,11 +1266,11 @@ export interface GlobalOfficeFieldRefs {
   readonly email: Prisma.FieldRef<"GlobalOffice", 'String'>
   readonly phone: Prisma.FieldRef<"GlobalOffice", 'String'>
   readonly address: Prisma.FieldRef<"GlobalOffice", 'String'>
-  readonly latitude: Prisma.FieldRef<"GlobalOffice", 'Float'>
-  readonly longitude: Prisma.FieldRef<"GlobalOffice", 'Float'>
-  readonly mapEmbedUrl: Prisma.FieldRef<"GlobalOffice", 'String'>
-  readonly openingHours: Prisma.FieldRef<"GlobalOffice", 'Json'>
+  readonly mapUrl: Prisma.FieldRef<"GlobalOffice", 'String'>
   readonly content: Prisma.FieldRef<"GlobalOffice", 'String'>
+  readonly image: Prisma.FieldRef<"GlobalOffice", 'String'>
+  readonly bannerImage: Prisma.FieldRef<"GlobalOffice", 'String'>
+  readonly openingHours: Prisma.FieldRef<"GlobalOffice", 'String'>
   readonly metaTitle: Prisma.FieldRef<"GlobalOffice", 'String'>
   readonly metaDescription: Prisma.FieldRef<"GlobalOffice", 'String'>
   readonly metaKeywords: Prisma.FieldRef<"GlobalOffice", 'String'>

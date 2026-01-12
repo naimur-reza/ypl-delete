@@ -2,7 +2,23 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 
+// SSG with ISR - revalidate every hour
 export const revalidate = 3600;
+export const dynamicParams = true;
+
+// Pre-generate first 30 universities at build time for instant loading
+export async function generateStaticParams() {
+  const universities = await prisma.university.findMany({
+    where: { isActive: true },
+    select: { slug: true },
+    orderBy: { updatedAt: "desc" },
+    take: 30,
+  });
+
+  return universities.map((university) => ({
+    slug: university.slug,
+  }));
+}
 
 // Components
 import { UniversityHero } from "@/components/university/UniversityHero";

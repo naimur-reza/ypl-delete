@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { ApplyNowForm } from "@/components/ApplyNowForm";
-import { Mail, Phone, MapPin, Clock, ExternalLink } from "lucide-react";
+import { Mail, Phone, MapPin, ExternalLink } from "lucide-react";
 import { Metadata } from "next";
 import { MarkdownContent } from "@/components/ui/markdown-content";
 
@@ -35,12 +35,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function GlobalOfficePage({ params }: PageProps) {
-  const { office_slug , country: country_slug} = await params;
+  const { office_slug, country: country_slug } = await params;
 
   const destinations = await prisma.destination.findMany({
-    where: { countries: {some: {country: {slug: country_slug}}} },
+    where: { countries: { some: { country: { slug: country_slug } } } },
   });
- 
+
   const data = await prisma.globalOffice.findUnique({
     where: { slug: office_slug },
     include: {
@@ -53,7 +53,6 @@ export default async function GlobalOfficePage({ params }: PageProps) {
   if (!data) notFound();
 
   const country = data.countries[0]?.country;
-  const openingHours = data.openingHours as Record<string, any> | null;
 
   return (
     <div className="min-h-screen bg-background">
@@ -88,27 +87,6 @@ export default async function GlobalOfficePage({ params }: PageProps) {
             {/* Left Content */}
             <div className="lg:col-span-2 space-y-8">
               
-              {/* Main Content Area */}
-              <div className="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-sm">
-                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">
-                  Best Study Abroad and Education Consultants in {data.name}
-                </h2>
-
-                {/* NOTE: Your JSON shows 'content' as JS export strings. 
-                    If it's actually HTML, this will work. If it's code, it will render as plain text. */}
-                {data.content ? (
-                  <MarkdownContent
-                    content={data.content}
-                    className="prose-lg max-w-none text-muted-foreground"
-                  />
-                ) : (
-                  <p className="text-muted-foreground">
-                    NWC {data.name} is the leading study abroad and education consultant in{" "}
-                    {data.name}{country ? `, ${country.name}` : ""}.
-                  </p>
-                )}
-              </div>
-
               {/* Contact Information */}
               <div className="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-sm">
                 <h3 className="text-xl font-bold text-foreground mb-6">Contact Information</h3>
@@ -150,42 +128,33 @@ export default async function GlobalOfficePage({ params }: PageProps) {
                     </div>
                   )}
 
-                  {/* Dynamic Opening Hours from JSON */}
-                  {openingHours && (
-                    <div className="flex items-start gap-4 md:col-span-2 border-t border-border pt-6 mt-2">
-                      <div className="shrink-0 w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
-                        <Clock className="w-6 h-6" />
-                      </div>
-                      <div className="w-full">
-                        <h4 className="font-semibold text-foreground mb-3">Opening Hours</h4>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 text-sm">
-                          {["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"].map((day) => {
-                            const hours = openingHours[day];
-                            const isClosed = !hours || hours.closed === true;
-                            
-                            return (
-                              <div key={day} className="flex justify-between items-center py-1 border-b border-border/40 last:border-0">
-                                <span className="font-medium capitalize text-muted-foreground">{day}</span>
-                                <span className={`font-semibold ${isClosed ? 'text-destructive' : 'text-foreground'}`}>
-                                  {isClosed ? "Closed" : `${hours.open} - ${hours.close}`}
-                                </span>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </div>
-                  )}
+ 
                 </div>
               </div>
 
               {/* Map Section */}
-              {data.mapEmbedUrl && (
+              {data.mapUrl && (
                 <div className="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-sm">
                   <h3 className="text-xl font-bold text-foreground mb-6">Location Map</h3>
                   <div className="aspect-video rounded-xl overflow-hidden bg-muted">
                     <iframe
-                      src={data.mapEmbedUrl}
+                      src={(() => {
+                        if (!data.mapUrl) return "";
+                        
+                        // Extract src from iframe if provided
+                        if (data.mapUrl.includes('<iframe')) {
+                          const srcMatch = data.mapUrl.match(/src="([^"]+)"/) || data.mapUrl.match(/src='([^']+)'/);
+                          if (srcMatch && srcMatch[1]) return srcMatch[1];
+                        }
+                        
+                        // If it's already an embed URL, return it
+                        if (data.mapUrl.includes('/embed') || data.mapUrl.includes('output=embed')) {
+                          return data.mapUrl;
+                        }
+
+                        // Fallback: treat as query
+                        return `https://maps.google.com/maps?q=${encodeURIComponent(data.mapUrl)}&output=embed`;
+                      })()}
                       width="100%"
                       height="100%"
                       style={{ border: 0 }}
@@ -194,21 +163,43 @@ export default async function GlobalOfficePage({ params }: PageProps) {
                       title={`Map of ${data.name}`}
                     />
                   </div>
-                  {data.address && (
-                    <div className="mt-4">
-                      <a
-                        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.address)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-primary hover:underline font-medium"
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                        Open in Google Maps
-                      </a>
-                    </div>
-                  )}
+                  <div className="mt-4">
+                    <button
+                      onClick={() => {
+                        const rawUrl = data.mapUrl;
+                        if (!rawUrl) return;
+                        const url = rawUrl.includes('<iframe') 
+                          ? (rawUrl.match(/src="([^"]+)"/)?.[1] || rawUrl)
+                          : rawUrl;
+                        window.open(url as string, '_blank');
+                      }}
+                      className="inline-flex items-center gap-2 text-primary hover:underline font-medium"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      View on Google Maps
+                    </button>
+                  </div>
                 </div>
               )}
+
+              {/* Main Content Area */}
+              <div className="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-sm">
+                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">
+                  Best Study Abroad and Education Consultants in {data.name}
+                </h2>
+
+                {data.content ? (
+                  <MarkdownContent
+                    content={data.content}
+                    className="prose-lg max-w-none text-muted-foreground"
+                  />
+                ) : (
+                  <p className="text-muted-foreground">
+                    NWC {data.name} is the leading study abroad and education consultant in{" "}
+                    {data.name}{country ? `, ${country.name}` : ""}.
+                  </p>
+                )}
+              </div>
             </div>
 
             {/* Right Sidebar */}

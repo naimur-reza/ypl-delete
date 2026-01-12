@@ -13,8 +13,9 @@ interface MarkdownContentProps {
 }
 
 /**
- * Reusable component for rendering markdown content as HTML.
- * Uses the `marked` library for parsing and Tailwind child selectors for styling.
+ * Reusable component for rendering markdown or HTML content.
+ * Automatically detects if content is HTML (from CKEditor) or Markdown (from MDEditor).
+ * Uses the `marked` library for parsing Markdown and Tailwind child selectors for styling.
  * 
  * @example
  * <MarkdownContent content={blogPost.content} />
@@ -25,7 +26,13 @@ export function MarkdownContent({ content, className, generateIds = false }: Mar
   // Memoize the parsed HTML to avoid re-parsing on every render
   const htmlContent = useMemo(() => {
     if (!content) return "";
-    let html = marked.parse(content, { async: false }) as string;
+    
+    // Check if content is already HTML (from CKEditor)
+    // Simple heuristic: if it starts with HTML tags like <p>, <div>, <h1>, etc.
+    const isHTML = /^\s*<[a-z][\s\S]*>/i.test(content.trim());
+    
+    let html = isHTML ? content : (marked.parse(content, { async: false }) as string);
+    
     if (generateIds) {
       html = addHeadingIds(html);
     }
@@ -66,6 +73,12 @@ export function MarkdownContent({ content, className, generateIds = false }: Mar
         "[&_table]:w-full [&_table]:border-collapse [&_table]:my-5",
         "[&_th]:border [&_th]:border-slate-200 [&_th]:bg-slate-50 [&_th]:px-3 [&_th]:py-2 [&_th]:text-left [&_th]:font-semibold",
         "[&_td]:border [&_td]:border-slate-200 [&_td]:px-3 [&_td]:py-2",
+        // Image styles (for CKEditor content)
+        "[&_img]:max-w-full [&_img]:h-auto [&_img]:rounded-lg [&_img]:my-5",
+        "[&_figure]:my-5",
+        "[&_figcaption]:text-sm [&_figcaption]:text-slate-500 [&_figcaption]:text-center [&_figcaption]:mt-2",
+        // Media embed styles (for CKEditor content)
+        "[&_iframe]:w-full [&_iframe]:aspect-video [&_iframe]:my-5 [&_iframe]:rounded-lg",
         // Custom className
         className
       )}
@@ -73,4 +86,5 @@ export function MarkdownContent({ content, className, generateIds = false }: Mar
     />
   );
 }
+
 

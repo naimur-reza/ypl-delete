@@ -15,6 +15,7 @@ import { ImageUpload } from "@/components/ui/image-upload";
 import { FormBase } from "@/components/form/FormBase";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { CountrySelect } from "@/components/ui/region-select";
 
 const serviceSchema = z.object({
   title: z.string().min(1, "Title is required").max(150),
@@ -47,6 +48,7 @@ export default function ServiceFormModal({
   const [imageUrl, setImageUrl] = useState<string>(selected?.image || "");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [countryIds, setCountryIds] = useState<string[]>([]);
 
   const form = useAppForm({
     defaultValues: {
@@ -71,6 +73,7 @@ export default function ServiceFormModal({
           metaTitle: value.metaTitle || null,
           metaDescription: value.metaDescription || null,
           metaKeywords: value.metaKeywords || null,
+          countryIds,
         } as Record<string, unknown>;
 
         const res =
@@ -179,6 +182,13 @@ export default function ServiceFormModal({
           <form.AppField name="metaKeywords">
             {(field) => <field.Input label="Meta Keywords" />}
           </form.AppField>
+          <div className="pt-2">
+            <CountrySelect
+              value={countryIds}
+              onChange={setCountryIds}
+              label="Select Countries"
+            />
+          </div>
           <div className="flex gap-2 justify-end">
             <Button
               type="button"

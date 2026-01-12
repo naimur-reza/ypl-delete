@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import {
   Loader2,
   CheckCircle,
@@ -11,10 +11,25 @@ import {
   FileText,
 } from "lucide-react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useCountry } from "@/lib/country-context";
 
-export default function BookConsultation() {
+function BookConsultationForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const countryContext = useCountry();
+  const searchParams = useSearchParams();
+
+  // Get the country name directly from context
+  const getInitialCountry = () => {
+    if (countryContext.countryName && countryContext.country !== "global") {
+      return countryContext.countryName;
+    }
+    return "";
+  };
+
+  // Get initial destination from query params
+  const initialDestination = searchParams.get("destination") || "";
 
   // Simple form state management
   const [formData, setFormData] = useState({
@@ -22,15 +37,27 @@ export default function BookConsultation() {
     email: "",
     phone: "",
     city: "",
-    country: "",
-    destination: "",
+    country: getInitialCountry(),
+    destination: initialDestination,
     qualification: "",
     englishTest: "",
     testScore: "",
     additionalInfo: "",
   });
 
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  // Update initial fields if context or params change (only if not already set by user)
+  useEffect(() => {
+    if (!formData.country) {
+      const country = getInitialCountry();
+      if (country) setFormData(prev => ({ ...prev, country }));
+    }
+    if (!formData.destination) {
+      const dest = searchParams.get("destination");
+      if (dest) setFormData(prev => ({ ...prev, destination: dest }));
+    }
+  }, [countryContext.countryName, searchParams]);
+
+   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const countries = [
     "Bangladesh",
@@ -44,6 +71,11 @@ export default function BookConsultation() {
     "USA",
     "Canada",
     "Australia",
+    "Germany",
+    "Finland",
+    "Sweden",
+    "Denmark",
+    "Malaysia",
     "Other",
   ];
 
@@ -381,6 +413,18 @@ export default function BookConsultation() {
         </form>
       </div>
     </section>
+  );
+}
+
+export default function BookConsultation() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="w-10 h-10 animate-spin text-primary" />
+      </div>
+    }>
+      <BookConsultationForm />
+    </Suspense>
   );
 }
 

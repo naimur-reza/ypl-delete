@@ -9,7 +9,34 @@ const courseSchema = z.object({
   title: z.string().min(2),
   slug: z.string().min(2),
   description: z.string().optional().nullable(),
+  summary: z.string().max(300).optional().nullable(),
+  icon: z.string().max(50).optional().nullable(),
   duration: z.string().optional().nullable(),
+  studyLevel: z.enum([
+    "FOUNDATION",
+    "BACHELOR",
+    "MASTER",
+    "PHD",
+    "DIPLOMA",
+    "CERTIFICATE",
+    "PATHWAY",
+  ]).optional().nullable(),
+  faculty: z.enum([
+    "ENGINEERING",
+    "BUSINESS",
+    "ARTS_HUMANITIES",
+    "SCIENCE",
+    "MEDICINE_HEALTH",
+    "LAW",
+    "EDUCATION",
+    "SOCIAL_SCIENCES",
+    "IT_COMPUTING",
+    "ARCHITECTURE",
+    "AGRICULTURE",
+    "HOSPITALITY_TOURISM",
+    "MEDIA_COMMUNICATION",
+    "OTHER",
+  ]).optional().nullable(),
   tuitionMin: z.number().optional().nullable(),
   tuitionMax: z.number().optional().nullable(),
   currency: z.string().default("USD"),
@@ -69,7 +96,11 @@ export async function POST(req: NextRequest) {
         title: data.title,
         slug: data.slug,
         description: data.description,
+        summary: data.summary,
+        icon: data.icon,
         duration: data.duration,
+        studyLevel: data.studyLevel,
+        faculty: data.faculty,
         tuitionMin: data.tuitionMin,
         tuitionMax: data.tuitionMax,
         currency: data.currency,
@@ -107,8 +138,15 @@ export async function PUT(req: NextRequest) {
   try {
     const body = await req.json();
 
-    // Validate body
-    const validation = courseSchema.safeParse(body);
+    // Extract ID first before validation
+    const { id, ...dataToValidate } = body;
+
+    if (!id) {
+      return Response.json({ error: "Course ID is required" }, { status: 400 });
+    }
+
+    // Validate body WITHOUT the id field
+    const validation = courseSchema.safeParse(dataToValidate);
     if (!validation.success) {
       return Response.json(
         { error: "Validation failed", details: validation.error.format() },
@@ -116,11 +154,7 @@ export async function PUT(req: NextRequest) {
       );
     }
 
-    const { id, ...data } = body;
-
-    if (!id) {
-      return Response.json({ error: "Course ID is required" }, { status: 400 });
-    }
+    const data = validation.data;
 
     // Check if course exists
     const existing = await prisma.course.findUnique({
@@ -131,14 +165,18 @@ export async function PUT(req: NextRequest) {
       return Response.json({ error: "Course not found" }, { status: 404 });
     }
 
-    // Update course
+    // Update course with ALL fields including the previously missing ones
     const course = await prisma.course.update({
       where: { id },
       data: {
         title: data.title,
         slug: data.slug,
         description: data.description,
+        summary: data.summary,
+        icon: data.icon,
         duration: data.duration,
+        studyLevel: data.studyLevel,
+        faculty: data.faculty,
         tuitionMin: data.tuitionMin,
         tuitionMax: data.tuitionMax,
         currency: data.currency,

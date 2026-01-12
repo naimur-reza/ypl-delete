@@ -119,10 +119,6 @@ export function WhyChooseCountry({
                 </svg>
               </div>
 
-              <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-5">
-                {currentSection?.title}
-              </h3>
-
               {currentSection?.content ? (
                 <div className="prose prose-slate max-w-none text-muted-foreground leading-relaxed">
                   <MarkdownContent content={currentSection.content} />

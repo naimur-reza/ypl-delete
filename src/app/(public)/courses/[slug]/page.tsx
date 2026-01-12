@@ -5,7 +5,23 @@ import Link from "next/link";
 import { ChevronRight, Share2, Clock, DollarSign, MapPin } from "lucide-react";
 import Image from "next/image";
 
+// SSG with ISR - revalidate every hour
 export const revalidate = 3600;
+export const dynamicParams = true;
+
+// Pre-generate first 50 courses at build time for instant loading
+export async function generateStaticParams() {
+  const courses = await prisma.course.findMany({
+    where: { isActive: true },
+    select: { slug: true },
+    orderBy: { updatedAt: "desc" },
+    take: 50,
+  });
+
+  return courses.map((course) => ({
+    slug: course.slug,
+  }));
+}
 
 // Reusable Components
 import { IntakeFeature } from "@/app/(public)/components";

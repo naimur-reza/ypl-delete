@@ -13,7 +13,8 @@ export const metadata = {
     "Find your dream university. Browse top-ranked institutions worldwide.",
 };
 
-// Enable ISR with 1 hour revalidation for SSG
+// Force static generation with ISR - revalidate every hour
+export const dynamic = "force-static";
 export const revalidate = 3600;
 
 const UniversitiesPage = async ({

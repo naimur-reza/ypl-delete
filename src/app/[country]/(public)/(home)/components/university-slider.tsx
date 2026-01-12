@@ -157,13 +157,11 @@ export function UniversitySlider({ universities }: UniversitySliderProps) {
 
         {/* Footer Action */}
         <div className="flex justify-center mt-12">
-          <CountryAwareLink href="/universities">
-            <GradientButton variant="secondary" className="px-8">
-              <CountryAwareLink href="/universities">
-                Explore All Universities
-              </CountryAwareLink>
-            </GradientButton>
-          </CountryAwareLink>
+          <GradientButton variant="secondary" className="px-8" asChild>
+            <CountryAwareLink href="/universities">
+              Explore All Universities
+            </CountryAwareLink>
+          </GradientButton>
         </div>
       </div>
     </section>

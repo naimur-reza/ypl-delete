@@ -207,6 +207,7 @@ export type EssentialStudyWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"EssentialStudy"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EssentialStudy"> | Date | string
   destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
+  countries?: Prisma.EssentialStudyCountryListRelationFilter
 }
 
 export type EssentialStudyOrderByWithRelationInput = {
@@ -219,6 +220,7 @@ export type EssentialStudyOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   destination?: Prisma.DestinationOrderByWithRelationInput
+  countries?: Prisma.EssentialStudyCountryOrderByRelationAggregateInput
 }
 
 export type EssentialStudyWhereUniqueInput = Prisma.AtLeast<{
@@ -234,6 +236,7 @@ export type EssentialStudyWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"EssentialStudy"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EssentialStudy"> | Date | string
   destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
+  countries?: Prisma.EssentialStudyCountryListRelationFilter
 }, "id" | "slug">
 
 export type EssentialStudyOrderByWithAggregationInput = {
@@ -273,6 +276,7 @@ export type EssentialStudyCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   destination: Prisma.DestinationCreateNestedOneWithoutEssentialStudiesInput
+  countries?: Prisma.EssentialStudyCountryCreateNestedManyWithoutEssentialStudyInput
 }
 
 export type EssentialStudyUncheckedCreateInput = {
@@ -284,6 +288,7 @@ export type EssentialStudyUncheckedCreateInput = {
   destinationId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  countries?: Prisma.EssentialStudyCountryUncheckedCreateNestedManyWithoutEssentialStudyInput
 }
 
 export type EssentialStudyUpdateInput = {
@@ -295,6 +300,7 @@ export type EssentialStudyUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   destination?: Prisma.DestinationUpdateOneRequiredWithoutEssentialStudiesNestedInput
+  countries?: Prisma.EssentialStudyCountryUpdateManyWithoutEssentialStudyNestedInput
 }
 
 export type EssentialStudyUncheckedUpdateInput = {
@@ -306,6 +312,7 @@ export type EssentialStudyUncheckedUpdateInput = {
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  countries?: Prisma.EssentialStudyCountryUncheckedUpdateManyWithoutEssentialStudyNestedInput
 }
 
 export type EssentialStudyCreateManyInput = {
@@ -383,6 +390,11 @@ export type EssentialStudyMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type EssentialStudyScalarRelationFilter = {
+  is?: Prisma.EssentialStudyWhereInput
+  isNot?: Prisma.EssentialStudyWhereInput
+}
+
 export type EssentialStudyCreateNestedManyWithoutDestinationInput = {
   create?: Prisma.XOR<Prisma.EssentialStudyCreateWithoutDestinationInput, Prisma.EssentialStudyUncheckedCreateWithoutDestinationInput> | Prisma.EssentialStudyCreateWithoutDestinationInput[] | Prisma.EssentialStudyUncheckedCreateWithoutDestinationInput[]
   connectOrCreate?: Prisma.EssentialStudyCreateOrConnectWithoutDestinationInput | Prisma.EssentialStudyCreateOrConnectWithoutDestinationInput[]
@@ -425,6 +437,20 @@ export type EssentialStudyUncheckedUpdateManyWithoutDestinationNestedInput = {
   deleteMany?: Prisma.EssentialStudyScalarWhereInput | Prisma.EssentialStudyScalarWhereInput[]
 }
 
+export type EssentialStudyCreateNestedOneWithoutCountriesInput = {
+  create?: Prisma.XOR<Prisma.EssentialStudyCreateWithoutCountriesInput, Prisma.EssentialStudyUncheckedCreateWithoutCountriesInput>
+  connectOrCreate?: Prisma.EssentialStudyCreateOrConnectWithoutCountriesInput
+  connect?: Prisma.EssentialStudyWhereUniqueInput
+}
+
+export type EssentialStudyUpdateOneRequiredWithoutCountriesNestedInput = {
+  create?: Prisma.XOR<Prisma.EssentialStudyCreateWithoutCountriesInput, Prisma.EssentialStudyUncheckedCreateWithoutCountriesInput>
+  connectOrCreate?: Prisma.EssentialStudyCreateOrConnectWithoutCountriesInput
+  upsert?: Prisma.EssentialStudyUpsertWithoutCountriesInput
+  connect?: Prisma.EssentialStudyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EssentialStudyUpdateToOneWithWhereWithoutCountriesInput, Prisma.EssentialStudyUpdateWithoutCountriesInput>, Prisma.EssentialStudyUncheckedUpdateWithoutCountriesInput>
+}
+
 export type EssentialStudyCreateWithoutDestinationInput = {
   id?: string
   title: string
@@ -433,6 +459,7 @@ export type EssentialStudyCreateWithoutDestinationInput = {
   content?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  countries?: Prisma.EssentialStudyCountryCreateNestedManyWithoutEssentialStudyInput
 }
 
 export type EssentialStudyUncheckedCreateWithoutDestinationInput = {
@@ -443,6 +470,7 @@ export type EssentialStudyUncheckedCreateWithoutDestinationInput = {
   content?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  countries?: Prisma.EssentialStudyCountryUncheckedCreateNestedManyWithoutEssentialStudyInput
 }
 
 export type EssentialStudyCreateOrConnectWithoutDestinationInput = {
@@ -485,6 +513,66 @@ export type EssentialStudyScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"EssentialStudy"> | Date | string
 }
 
+export type EssentialStudyCreateWithoutCountriesInput = {
+  id?: string
+  title: string
+  slug: string
+  description?: string | null
+  content?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  destination: Prisma.DestinationCreateNestedOneWithoutEssentialStudiesInput
+}
+
+export type EssentialStudyUncheckedCreateWithoutCountriesInput = {
+  id?: string
+  title: string
+  slug: string
+  description?: string | null
+  content?: string | null
+  destinationId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type EssentialStudyCreateOrConnectWithoutCountriesInput = {
+  where: Prisma.EssentialStudyWhereUniqueInput
+  create: Prisma.XOR<Prisma.EssentialStudyCreateWithoutCountriesInput, Prisma.EssentialStudyUncheckedCreateWithoutCountriesInput>
+}
+
+export type EssentialStudyUpsertWithoutCountriesInput = {
+  update: Prisma.XOR<Prisma.EssentialStudyUpdateWithoutCountriesInput, Prisma.EssentialStudyUncheckedUpdateWithoutCountriesInput>
+  create: Prisma.XOR<Prisma.EssentialStudyCreateWithoutCountriesInput, Prisma.EssentialStudyUncheckedCreateWithoutCountriesInput>
+  where?: Prisma.EssentialStudyWhereInput
+}
+
+export type EssentialStudyUpdateToOneWithWhereWithoutCountriesInput = {
+  where?: Prisma.EssentialStudyWhereInput
+  data: Prisma.XOR<Prisma.EssentialStudyUpdateWithoutCountriesInput, Prisma.EssentialStudyUncheckedUpdateWithoutCountriesInput>
+}
+
+export type EssentialStudyUpdateWithoutCountriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  destination?: Prisma.DestinationUpdateOneRequiredWithoutEssentialStudiesNestedInput
+}
+
+export type EssentialStudyUncheckedUpdateWithoutCountriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  destinationId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type EssentialStudyCreateManyDestinationInput = {
   id?: string
   title: string
@@ -503,6 +591,7 @@ export type EssentialStudyUpdateWithoutDestinationInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  countries?: Prisma.EssentialStudyCountryUpdateManyWithoutEssentialStudyNestedInput
 }
 
 export type EssentialStudyUncheckedUpdateWithoutDestinationInput = {
@@ -513,6 +602,7 @@ export type EssentialStudyUncheckedUpdateWithoutDestinationInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  countries?: Prisma.EssentialStudyCountryUncheckedUpdateManyWithoutEssentialStudyNestedInput
 }
 
 export type EssentialStudyUncheckedUpdateManyWithoutDestinationInput = {
@@ -526,6 +616,35 @@ export type EssentialStudyUncheckedUpdateManyWithoutDestinationInput = {
 }
 
 
+/**
+ * Count Type EssentialStudyCountOutputType
+ */
+
+export type EssentialStudyCountOutputType = {
+  countries: number
+}
+
+export type EssentialStudyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  countries?: boolean | EssentialStudyCountOutputTypeCountCountriesArgs
+}
+
+/**
+ * EssentialStudyCountOutputType without action
+ */
+export type EssentialStudyCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EssentialStudyCountOutputType
+   */
+  select?: Prisma.EssentialStudyCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * EssentialStudyCountOutputType without action
+ */
+export type EssentialStudyCountOutputTypeCountCountriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EssentialStudyCountryWhereInput
+}
+
 
 export type EssentialStudySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -537,6 +656,8 @@ export type EssentialStudySelect<ExtArgs extends runtime.Types.Extensions.Intern
   createdAt?: boolean
   updatedAt?: boolean
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  countries?: boolean | Prisma.EssentialStudy$countriesArgs<ExtArgs>
+  _count?: boolean | Prisma.EssentialStudyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["essentialStudy"]>
 
 export type EssentialStudySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -577,6 +698,8 @@ export type EssentialStudySelectScalar = {
 export type EssentialStudyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "description" | "content" | "destinationId" | "createdAt" | "updatedAt", ExtArgs["result"]["essentialStudy"]>
 export type EssentialStudyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  countries?: boolean | Prisma.EssentialStudy$countriesArgs<ExtArgs>
+  _count?: boolean | Prisma.EssentialStudyCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type EssentialStudyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
@@ -589,6 +712,7 @@ export type $EssentialStudyPayload<ExtArgs extends runtime.Types.Extensions.Inte
   name: "EssentialStudy"
   objects: {
     destination: Prisma.$DestinationPayload<ExtArgs>
+    countries: Prisma.$EssentialStudyCountryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -994,6 +1118,7 @@ readonly fields: EssentialStudyFieldRefs;
 export interface Prisma__EssentialStudyClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   destination<T extends Prisma.DestinationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DestinationDefaultArgs<ExtArgs>>): Prisma.Prisma__DestinationClient<runtime.Types.Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  countries<T extends Prisma.EssentialStudy$countriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EssentialStudy$countriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EssentialStudyCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1424,6 +1549,30 @@ export type EssentialStudyDeleteManyArgs<ExtArgs extends runtime.Types.Extension
    * Limit how many EssentialStudies to delete.
    */
   limit?: number
+}
+
+/**
+ * EssentialStudy.countries
+ */
+export type EssentialStudy$countriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EssentialStudyCountry
+   */
+  select?: Prisma.EssentialStudyCountrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EssentialStudyCountry
+   */
+  omit?: Prisma.EssentialStudyCountryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EssentialStudyCountryInclude<ExtArgs> | null
+  where?: Prisma.EssentialStudyCountryWhereInput
+  orderBy?: Prisma.EssentialStudyCountryOrderByWithRelationInput | Prisma.EssentialStudyCountryOrderByWithRelationInput[]
+  cursor?: Prisma.EssentialStudyCountryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EssentialStudyCountryScalarFieldEnum | Prisma.EssentialStudyCountryScalarFieldEnum[]
 }
 
 /**

@@ -221,7 +221,7 @@ export default async function Footer() {
                 {globalOffices.map((office, index) => (
                   <span key={office.id} className="flex items-center gap-3">
                     <CountryAwareLink
-                      href={`/global-branches/${office.slug}`}
+                      href={`/global-branches/${office.countries[0] || 'global'}/${office.slug}`}
                       className="text-slate-400 hover:text-blue-400 transition-colors"
                     >
                       {office.name}

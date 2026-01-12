@@ -2,183 +2,398 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { MapPin, Mail, Phone } from "lucide-react";
+import { MapPin, Mail, Phone, Search, ChevronDown, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 import { Country, GlobalOffice } from "../../../../prisma/src/generated/prisma/client";
 
-type OfficeWithCountries = GlobalOffice & {
-  countries: {
-    id: string;
-    countryId: string;
-    globalOfficeId: string;
-    country: Country;
-  }[];
-};
+// Helper function to extract src from iframe or convert URL to embed format  
+function convertToEmbedUrl(mapUrl: string): string {
+  if (!mapUrl) return "";
 
-type GlobalOfficesClientProps = {
-  offices: OfficeWithCountries[];
-  countryCode: string | null;
-};
+  // If it's an iframe HTML string, extract the src attribute
+  if (mapUrl.trim().startsWith("<iframe")) {
+    const srcMatch = mapUrl.match(/src="([^"]+)"/);
+    if (srcMatch && srcMatch[1]) {
+      return srcMatch[1];
+    }
+    // Try with single quotes
+    const srcMatch2 = mapUrl.match(/src='([^']+)'/);
+    if (srcMatch2 && srcMatch2[1]) {
+      return srcMatch2[1];
+    }
+    return "";
+  }
+
+  // If it's already an embed URL, return as is
+  if (mapUrl.includes("/embed") || mapUrl.includes("output=embed")) {
+    return mapUrl;
+  }
+
+  // For ALL Google Maps URLs, use the simple embed format
+  try {
+    const url = new URL(mapUrl);
+    
+    // If it's a short URL, we can't embed directly
+    if (url.hostname.includes("goo.gl") || url.hostname.includes("maps.app.goo.gl")) {
+      return "";
+    }
+    
+    // Extract coordinates if present
+    const coordMatch = mapUrl.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
+    if (coordMatch) {
+      return `https://maps.google.com/maps?q=${coordMatch[1]},${coordMatch[2]}&output=embed`;
+    }
+    
+    // Extract place name if present
+    const placeMatch = mapUrl.match(/place\/([^\/]+)/);
+    if (placeMatch) {
+      const placeName = decodeURIComponent(placeMatch[1].replace(/\+/g, ' '));
+      return `https://maps.google.com/maps?q=${encodeURIComponent(placeName)}&output=embed`;
+    }
+    
+  } catch (e) {
+    // If URL parsing fails, try simple query
+  }
+  
+  // Fallback: use the URL as search query
+  return `https://maps.google.com/maps?q=${encodeURIComponent(mapUrl)}&output=embed`;
+}
 
 export default function GlobalOfficesClient({
   offices,
   countryCode,
-}: GlobalOfficesClientProps) {
-  // Group offices by country
-  const officesByCountry = useMemo(() => {
-    const grouped: Record<string, { country: Country; offices: GlobalOffice[] }> = {};
+}: {
+  offices: (GlobalOffice & {
+    countries: {
+      id: string;
+      countryId: string;
+      globalOfficeId: string;
+      country: Country;
+    }[];
+  })[];
+  countryCode: string | null;
+}) {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+  const [expandedCountries, setExpandedCountries] = useState<string[]>([]);
+
+  // Extract countries and their cities
+  const countriesWithCities = useMemo(() => {
+    const countryMap = new Map<string, { name: string; cities: Set<string> }>();
 
     offices.forEach((office) => {
-      if (!office.countries || office.countries.length === 0) return;
+      // Extract city from first word of office name
+      const city = office.name.split(" ")[0].trim();
 
-      office.countries.forEach(({ country }) => {
-        if (!country) return;
-
-        const countryName = country.name;
-        if (!grouped[countryName]) {
-          grouped[countryName] = { country, offices: [] };
+      office.countries?.forEach(({ country }) => {
+        if (country) {
+          if (!countryMap.has(country.name)) {
+            countryMap.set(country.name, { name: country.name, cities: new Set() });
+          }
+          countryMap.get(country.name)!.cities.add(city);
         }
-
-        grouped[countryName].offices.push(office);
       });
     });
 
-    // Sort countries alphabetically
-    return Object.entries(grouped)
-      .sort(([a], [b]) => a.localeCompare(b))
-      .reduce((acc, [key, value]) => {
-        acc[key] = value;
-        return acc;
-      }, {} as Record<string, { country: Country; offices: GlobalOffice[] }>);
+    return Array.from(countryMap.entries())
+      .map(([countryName, data]) => ({
+        name: countryName,
+        cities: Array.from(data.cities).sort(),
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name));
   }, [offices]);
 
-  const countryNames = Object.keys(officesByCountry);
-  const [selectedCountryName, setSelectedCountryName] = useState<string>(
-    countryNames[0] || ""
-  );
+  // Filter offices
+  const filteredOffices = useMemo(() => {
+    return offices.filter((office) => {
+      // Search filter
+      if (searchQuery.trim()) {
+        const query = searchQuery.toLowerCase();
+        const matchesSearch =
+          office.name?.toLowerCase().includes(query) ||
+          office.address?.toLowerCase().includes(query) ||
+          office.email?.toLowerCase().includes(query) ||
+          office.phone?.toLowerCase().includes(query);
+        if (!matchesSearch) return false;
+      }
 
-  const selectedCountryData = officesByCountry[selectedCountryName];
+      // Country/City filter
+      if (selectedFilters.length > 0) {
+        // Extract city from first word of office name
+        const city = office.name.split(" ")[0].trim();
+        
+        // Check if office matches any selected filter (country or city)
+        const matchesFilter = selectedFilters.some((filter) => {
+          // Check if it's a city match
+          if (filter.startsWith("city:")) {
+            return city === filter.replace("city:", "");
+          }
+          // Check if it's a country match
+          if (filter.startsWith("country:")) {
+            const countryName = filter.replace("country:", "");
+            return office.countries?.some(({ country }) => country.name === countryName);
+          }
+          return false;
+        });
+
+        if (!matchesFilter) return false;
+      }
+
+      return true;
+    });
+  }, [offices, searchQuery, selectedFilters]);
+
+  // Group offices by country
+  const officesByCountry = useMemo(() => {
+    const grouped: Record<string, typeof offices> = {};
+
+    filteredOffices.forEach((office) => {
+      office.countries?.forEach(({ country }) => {
+        if (country) {
+          if (!grouped[country.name]) {
+            grouped[country.name] = [];
+          }
+          grouped[country.name].push(office);
+        }
+      });
+    });
+
+    return Object.entries(grouped).sort(([a], [b]) => a.localeCompare(b));
+  }, [filteredOffices]);
+
+  const toggleFilter = (filter: string) => {
+    setSelectedFilters((prev) => 
+      prev.includes(filter) ? prev.filter((f) => f !== filter) : [...prev, filter]
+    );
+  };
+
+  const toggleCountryExpand = (country: string) => {
+    setExpandedCountries((prev) =>
+      prev.includes(country) ? prev.filter((c) => c !== country) : [...prev, country]
+    );
+  };
+
+  const resetFilters = () => {
+    setSelectedFilters([]);
+    setSearchQuery("");
+  };
+
+  const getEmbedUrl = (office: any) => {
+    if (!office.mapUrl) return null;
+    return convertToEmbedUrl(office.mapUrl) || null;
+  };
+
+
+ 
 
   return (
-    <div className="flex flex-col md:flex-row min-h-[600px] bg-white rounded-xl overflow-hidden shadow-xs border border-gray-100">
-      {/* Sidebar */}
-      <div className="w-full md:w-72 bg-gray-50/50 border-r border-gray-100 p-6 shrink-0">
-        <div className="space-y-1">
-          {countryNames.map((name) => {
-            const count = officesByCountry[name]?.offices?.length || 0;
-            return (
+    <div className="flex gap-6 max-w-7xl mx-auto">
+      {/* Sidebar Filters */}
+      <div className="w-72 shrink-0">
+        <div className="bg-white rounded-lg border border-gray-200 p-6 sticky top-6">
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="font-semibold text-gray-900">Filters</h3>
+            {selectedFilters.length > 0 && (
               <button
-                key={name}
-                onClick={() => setSelectedCountryName(name)}
-                className={cn(
-                  "w-full text-left px-4 py-3 rounded-lg cursor-pointer font-medium transition-all flex items-center justify-between group",
-                  selectedCountryName === name
-                    ? "bg-blue-50 text-blue-700 shadow-sm ring-1 ring-blue-100"
-                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
-                )}
+                onClick={resetFilters}
+                className="text-sm text-blue-600 hover:text-blue-700"
               >
-                <span>{name}</span>
-                <span
-                  className={cn(
-                    "text-xs px-2 py-0.5 rounded-full transition-colors",
-                    selectedCountryName === name
-                      ? "bg-blue-100 text-blue-700"
-                      : "bg-gray-200 text-gray-600 group-hover:bg-gray-300"
-                  )}
-                >
-                  {count}
-                </span>
+                Reset
               </button>
-            );
-          })}
+            )}
+          </div>
+
+          {/* Hierarchical Countries & Cities or Flat Cities */}
+          <div className="space-y-1 max-h-[600px] overflow-y-auto">
+            {countryCode ? (
+              // On country-specific route: show only cities (flat list)
+              <>
+                {countriesWithCities.flatMap((countryData) =>
+                  countryData.cities.map((city) => (
+                    <label
+                      key={city}
+                      className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded"
+                    >
+                      <Checkbox
+                        checked={selectedFilters.includes(`city:${city}`)}
+                        onCheckedChange={() => toggleFilter(`city:${city}`)}
+                      />
+                      <span className="text-sm text-gray-700">{city}</span>
+                    </label>
+                  ))
+                )}
+              </>
+            ) : (
+              // On global route: show countries with nested cities
+              <>
+            {countriesWithCities.map((countryData) => (
+              <div key={countryData.name}>
+                {/* Country Checkbox */}
+                <div className="flex items-center gap-2 p-1 hover:bg-gray-50 rounded">
+                  <button
+                    onClick={() => toggleCountryExpand(countryData.name)}
+                    className="p-1"
+                  >
+                    {expandedCountries.includes(countryData.name) ? (
+                      <ChevronDown className="w-4 h-4 text-gray-500" />
+                    ) : (
+                      <ChevronRight className="w-4 h-4 text-gray-500" />
+                    )}
+                  </button>
+                  <label className="flex items-center gap-2 cursor-pointer flex-1">
+                    <Checkbox
+                      checked={selectedFilters.includes(`country:${countryData.name}`)}
+                      onCheckedChange={() => toggleFilter(`country:${countryData.name}`)}
+                    />
+                    <span className="text-sm font-medium text-gray-700">
+                      {countryData.name}
+                    </span>
+                  </label>
+                </div>
+
+                {/* Cities under country */}
+                {expandedCountries.includes(countryData.name) && (
+                  <div className="ml-8 mt-1 space-y-1">
+                    {countryData.cities.map((city) => (
+                      <label
+                        key={city}
+                        className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-1 rounded"
+                      >
+                        <Checkbox
+                          checked={selectedFilters.includes(`city:${city}`)}
+                          onCheckedChange={() => toggleFilter(`city:${city}`)}
+                        />
+                        <span className="text-sm text-gray-600">{city}</span>
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+              </>
+            )}
+          </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 p-6 md:p-8 lg:p-10">
-        {selectedCountryData && selectedCountryData.offices.length > 0 ? (
-          <>
-            <div className="mb-8 border-b border-gray-100 pb-6">
-              <h2 className="text-3xl font-serif font-bold text-gray-900 mb-2">
-                {selectedCountryName}
-              </h2>
-              <p className="text-gray-500">
-                We have {selectedCountryData.offices.length} office
-                {selectedCountryData.offices.length !== 1 ? "s" : ""} in{" "}
-                {selectedCountryName}
-              </p>
-            </div>
+      <div className="flex-1">
+        {/* Search Bar */}
+        <div className="mb-6">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <Input
+              type="text"
+              placeholder="Search Offices"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10 h-12"
+            />
+          </div>
+        </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {selectedCountryData.offices.map((office) => (
-                <div
-                  key={office.id}
-                  className="bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-md transition-shadow flex flex-col h-full"
-                >
-                  <div className="mb-6">
-                    <div className="flex items-center gap-2 mb-2">
-              <iframe
-                src={office.mapEmbedUrl || ""}
-                width="100%"
-                height="150"
-                style={{ border: "none" }}
-                allowFullScreen
-              />
-                    </div>
-                    <h3 className="text-2xl font-serif font-medium text-gray-900">
-                      {office.name}
-                    </h3>
-                    {office.subtitle && (
-                      <p className="text-sm text-gray-500 mt-1">
-                        {office.subtitle}
-                      </p>
-                    )}
-                  </div>
+        {/* Results Header */}
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold text-gray-900">
+            Available Offices{" "}
+            <span className="text-gray-500 font-normal">
+              ({filteredOffices.length} Results)
+            </span>
+          </h2>
+        </div>
 
-                  <div className="space-y-4 flex-1 mb-6">
-                    {office.phone && (
-                      <div className="flex items-start gap-3 text-gray-600">
-                        <Phone className="w-5 h-5 text-blue-700 shrink-0 mt-0.5" />
-                        <span className="text-sm">{office.phone}</span>
-                      </div>
-                    )}
-                    {office.email && (
-                      <div className="flex items-start gap-3 text-gray-600">
-                        <Mail className="w-5 h-5 text-blue-700 shrink-0 mt-0.5" />
-                        <span className="text-sm break-all">{office.email}</span>
-                      </div>
-                    )}
-                    {office.address && (
-                      <div className="flex items-start gap-3 text-gray-600">
-                        <MapPin className="w-5 h-5 text-blue-700 shrink-0 mt-0.5" />
-                        <span className="text-sm leading-relaxed">
-                          {office.address}
-                        </span>
-                      </div>
-                    )}
-                  </div>
+        {/* Offices List */}
+        {officesByCountry.length > 0 ? (
+          <div className="space-y-8">
+            {officesByCountry.map(([countryName, countryOffices]) => (
+              <div key={countryName}>
+                {/* Country Header */}
+                {!countryCode && (
+                  <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                    {countryName}
+                  </h3>
+                )}
 
-                  <Link
-                    href={
-                      countryCode
-                        ? `/${countryCode}/global-branches/${office.slug}`
-                        : `/global-branches/${office.slug}`
-                    }
-                    className="block"
-                  >
-                    <Button className="w-full bg-blue-800 hover:bg-blue-900 text-white font-medium py-6 rounded-xl">
-                      View office details
-                    </Button>
-                  </Link>
+                {/* Office Cards */}
+                <div className="space-y-4">
+                  {countryOffices.map((office) => {
+                    const embedUrl = getEmbedUrl(office);
+ 
+                    return (
+                      <div
+                        key={office.id}
+                        className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-md transition-shadow"
+                      >
+                        <div className="flex">
+                          {/* Left Side - Office Details */}
+                          <div className="flex-1 p-6">
+                            <h4 className="text-xl font-semibold text-gray-900 mb-3">
+                              {office.name}
+                            </h4>
+
+                            <div className="space-y-2 mb-4">
+                              {office.address && (
+                                <div className="flex items-start gap-2 text-gray-600">
+                                  <MapPin className="w-4 h-4 mt-0.5 shrink-0" />
+                                  <span className="text-sm">{office.address}</span>
+                                </div>
+                              )}
+                              {office.email && (
+                                <div className="flex items-center gap-2 text-gray-600">
+                                  <Mail className="w-4 h-4 shrink-0" />
+                                  <span className="text-sm">{office.email}</span>
+                                </div>
+                              )}
+                              {office.phone && (
+                                <div className="flex items-center gap-2 text-gray-600">
+                                  <Phone className="w-4 h-4 shrink-0" />
+                                  <span className="text-sm">{office.phone}</span>
+                                </div>
+                              )}
+                            </div>
+
+                            {/* View Office Button */}
+                            <Link
+                              href={
+                                countryCode
+                                  ? `/${countryCode}/global-branches/${office.slug}`
+                                  : `/global-branches/${office.slug}`
+                              }
+                            >
+                              <Button className="bg-[#1e3a8a] hover:bg-[#1e3a8a]/90 text-white">
+                                View Office
+                              </Button>
+                            </Link>
+                          </div>
+
+                          {/* Right Side - Map */}
+                          {embedUrl && (
+                            <div className="w-96 shrink-0">
+                              <iframe
+                                src={embedUrl}
+                                width="100%"
+                                height="100%"
+                                style={{ border: "none", minHeight: "250px" }}
+                                allowFullScreen
+                                loading="lazy"
+                                title={`Map of ${office.name}`}
+                              />
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
-              ))}
-            </div>
-          </>
+              </div>
+            ))}
+          </div>
         ) : (
-          <div className="text-center py-12 bg-gray-50 rounded-xl border border-dashed border-gray-200">
-            <p className="text-gray-500">No offices found.</p>
+          <div className="text-center py-12 bg-gray-50 rounded-lg border border-dashed border-gray-200">
+            <p className="text-gray-500">No offices found matching your criteria.</p>
           </div>
         )}
       </div>

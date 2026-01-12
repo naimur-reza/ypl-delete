@@ -68,7 +68,7 @@ export async function EssentialStudySection({ countryName, countryCode, destinat
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-8 font-serif">
+          <h2 className="text-4xl md:text-5xl font-bold text-secondary mb-8 font-serif">
             Essential study information <br />
             for your journey abroad
           </h2>
@@ -80,7 +80,7 @@ export async function EssentialStudySection({ countryName, countryCode, destinat
               placeholder="Enter keywords"
               className="w-full pl-6 pr-16 py-4 rounded-lg border border-slate-300 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 shadow-sm text-slate-600"
             />
-            <button className="absolute right-2 top-2 bottom-2 bg-pink-600 hover:bg-pink-700 text-white rounded-md px-4 flex items-center justify-center transition-colors">
+            <button className="absolute right-2 top-2 bottom-2 bg-secondary hover:bg-secondary/90 text-secondary-foreground rounded-md px-4 flex items-center justify-center transition-colors">
               <Search className="w-5 h-5" />
             </button>
           </div>
@@ -91,7 +91,7 @@ export async function EssentialStudySection({ countryName, countryCode, destinat
           {displayEssentials.map((item) => (
             <div key={item.id} className="py-10 flex flex-col md:flex-row md:items-center justify-between gap-6 group">
               <div className="max-w-3xl">
-                <h3 className="text-2xl font-bold text-slate-900 mb-3 font-serif group-hover:text-blue-700 transition-colors">
+                <h3 className="text-2xl font-bold text-secondary mb-3 font-serif group-hover:text-secondary/80 transition-colors">
                   {item.title}
                 </h3>
                 <p className="text-slate-600 leading-relaxed text-sm md:text-base">
@@ -101,7 +101,7 @@ export async function EssentialStudySection({ countryName, countryCode, destinat
               <div className="shrink-0">
                 <CountryAwareLink
                   href={`/study-abroad/${destinationSlug}/${item.slug}`}
-                  className="inline-flex items-center justify-center px-6 py-3 bg-blue-700 hover:bg-blue-800 text-white text-sm font-semibold rounded-lg transition-all duration-300 shadow-md hover:shadow-lg min-w-[140px]"
+                  className="inline-flex items-center justify-center px-6 py-3 bg-secondary hover:bg-secondary/90 text-secondary-foreground text-sm font-semibold rounded-lg transition-all duration-300 shadow-md hover:shadow-lg min-w-[140px]"
                 >
                   Learn more
                 </CountryAwareLink>

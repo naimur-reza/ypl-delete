@@ -457,6 +457,7 @@ const DestinationFormModal = ({
                           }
                           label="Content"
                           placeholder="Write section content..."
+                          editorKey={`section-${index}-${section.image || 'no-image'}`}
                         />
 
                         <div className="flex items-center gap-2">

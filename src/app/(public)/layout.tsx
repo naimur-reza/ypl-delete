@@ -1,6 +1,7 @@
 import { CountryProvider } from "@/lib/country-context";
 import Navbar from "@/components/common/navbar/Navbar";
 import Footer from "@/components/common/Footer";
+import ScrollToTop from "@/components/common/ScrollToTop";
 import { resolveCountryContext } from "@/lib/country-resolver";
 import { Toaster } from "sonner";
 
@@ -24,6 +25,7 @@ export default async function PublicLayout({
       <Navbar countrySlug={resolvedCountry.slug} />
       <main className="min-h-screen">{children}</main>
       <Footer />
+      <ScrollToTop />
       <Toaster position="top-right" richColors />
     </CountryProvider>
   );

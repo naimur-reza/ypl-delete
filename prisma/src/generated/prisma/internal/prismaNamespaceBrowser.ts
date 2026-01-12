@@ -100,6 +100,8 @@ export const ModelName = {
   TestimonialEvent: 'TestimonialEvent',
   AccreditationCountry: 'AccreditationCountry',
   GalleryCountry: 'GalleryCountry',
+  EssentialStudyCountry: 'EssentialStudyCountry',
+  ServiceCountry: 'ServiceCountry',
   Scholarship: 'Scholarship',
   Settings: 'Settings',
   Stat: 'Stat',
@@ -177,7 +179,11 @@ export const ServiceScalarFieldEnum = {
   metaDescription: 'metaDescription',
   metaKeywords: 'metaKeywords',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  heroSubtitle: 'heroSubtitle',
+  heroTitle: 'heroTitle',
+  isActive: 'isActive',
+  stats: 'stats'
 } as const
 
 export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
@@ -228,7 +234,6 @@ export type CareerScalarFieldEnum = (typeof CareerScalarFieldEnum)[keyof typeof 
 export const JobApplicationScalarFieldEnum = {
   id: 'id',
   careerId: 'careerId',
-  name: 'name',
   email: 'email',
   phone: 'phone',
   coverLetter: 'coverLetter',
@@ -239,10 +244,11 @@ export const JobApplicationScalarFieldEnum = {
   yearsOfExperience: 'yearsOfExperience',
   expectedSalary: 'expectedSalary',
   availableFrom: 'availableFrom',
-  status: 'status',
   notes: 'notes',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  name: 'name',
+  status: 'status'
 } as const
 
 export type JobApplicationScalarFieldEnum = (typeof JobApplicationScalarFieldEnum)[keyof typeof JobApplicationScalarFieldEnum]
@@ -271,8 +277,8 @@ export const CourseScalarFieldEnum = {
   destinationId: 'destinationId',
   icon: 'icon',
   summary: 'summary',
-  studyLevel: 'studyLevel',
-  faculty: 'faculty'
+  faculty: 'faculty',
+  studyLevel: 'studyLevel'
 } as const
 
 export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof CourseScalarFieldEnum]
@@ -516,11 +522,11 @@ export const GlobalOfficeScalarFieldEnum = {
   email: 'email',
   phone: 'phone',
   address: 'address',
-  latitude: 'latitude',
-  longitude: 'longitude',
-  mapEmbedUrl: 'mapEmbedUrl',
-  openingHours: 'openingHours',
+  mapUrl: 'mapUrl',
   content: 'content',
+  image: 'image',
+  bannerImage: 'bannerImage',
+  openingHours: 'openingHours',
   metaTitle: 'metaTitle',
   metaDescription: 'metaDescription',
   metaKeywords: 'metaKeywords',
@@ -795,6 +801,26 @@ export const GalleryCountryScalarFieldEnum = {
 } as const
 
 export type GalleryCountryScalarFieldEnum = (typeof GalleryCountryScalarFieldEnum)[keyof typeof GalleryCountryScalarFieldEnum]
+
+
+export const EssentialStudyCountryScalarFieldEnum = {
+  id: 'id',
+  essentialStudyId: 'essentialStudyId',
+  countryId: 'countryId',
+  createdAt: 'createdAt'
+} as const
+
+export type EssentialStudyCountryScalarFieldEnum = (typeof EssentialStudyCountryScalarFieldEnum)[keyof typeof EssentialStudyCountryScalarFieldEnum]
+
+
+export const ServiceCountryScalarFieldEnum = {
+  id: 'id',
+  serviceId: 'serviceId',
+  countryId: 'countryId',
+  createdAt: 'createdAt'
+} as const
+
+export type ServiceCountryScalarFieldEnum = (typeof ServiceCountryScalarFieldEnum)[keyof typeof ServiceCountryScalarFieldEnum]
 
 
 export const ScholarshipScalarFieldEnum = {

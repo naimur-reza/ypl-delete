@@ -6,36 +6,39 @@ model GlobalOffice {
   email           String?
   phone           String?
   address         String?
-  latitude        Float?
-  longitude       Float?
-  mapEmbedUrl     String?
-  openingHours    Json?
+  mapUrl          String?
   content         String?
+  image           String?               // Office image
+  bannerImage     String?               // Hero banner image
+  openingHours    String?               // Opening hours text
   metaTitle       String?
   metaDescription String?
   metaKeywords    String?
   createdAt       DateTime              @default(now())
   updatedAt       DateTime              @updatedAt
   countries       GlobalOfficeCountry[]
+
+  @@map("global_offices")
 }
 
 model Country {
-  id                 String                 @id @default(cuid())
+  id                 String                   @id @default(cuid())
   name               String
-  slug               String                 @unique
-  isoCode            String                 @unique
+  slug               String                   @unique
+  isoCode            String                   @unique
   flag               String?
-  isActive           Boolean                @default(true)
+  isActive           Boolean                  @default(true)
   metaTitle          String?
   metaDescription    String?
   metaKeywords       String?
-  createdAt          DateTime               @default(now())
-  updatedAt          DateTime               @updatedAt
+  createdAt          DateTime                 @default(now())
+  updatedAt          DateTime                 @updatedAt
   accreditation      AccreditationCountry[]
   appointments       Appointment[]
   blogs              BlogCountry[]
   courses            CourseCountry[]
   destinations       DestinationCountry[]
+  essentials         EssentialStudyCountry[]
   events             EventCountry[]
   eventRegistrations EventRegistration[]
   faqs               FAQCountry[]
@@ -45,6 +48,7 @@ model Country {
   intakeSeasons      IntakeSeasonCountry[]
   leads              Lead[]
   scholarships       ScholarshipCountry[]
+  services           ServiceCountry[]
   stats              StatCountry[]
   testimonials       TestimonialCountry[]
   universities       UniversityCountry[]
@@ -81,15 +85,16 @@ model Destination {
 }
 
 model EssentialStudy {
-  id            String      @id @default(cuid())
+  id            String                  @id @default(cuid())
   title         String
-  slug          String      @unique
+  slug          String                  @unique
   description   String?
   content       String?
   destinationId String
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  destination   Destination @relation(fields: [destinationId], references: [id])
+  createdAt     DateTime                @default(now())
+  updatedAt     DateTime                @updatedAt
+  destination   Destination             @relation(fields: [destinationId], references: [id])
+  countries     EssentialStudyCountry[]
 
   @@index([destinationId])
 }

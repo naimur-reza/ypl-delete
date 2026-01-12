@@ -235,6 +235,7 @@ export type CountryWhereInput = {
   blogs?: Prisma.BlogCountryListRelationFilter
   courses?: Prisma.CourseCountryListRelationFilter
   destinations?: Prisma.DestinationCountryListRelationFilter
+  essentials?: Prisma.EssentialStudyCountryListRelationFilter
   events?: Prisma.EventCountryListRelationFilter
   eventRegistrations?: Prisma.EventRegistrationListRelationFilter
   faqs?: Prisma.FAQCountryListRelationFilter
@@ -244,6 +245,7 @@ export type CountryWhereInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryListRelationFilter
   leads?: Prisma.LeadListRelationFilter
   scholarships?: Prisma.ScholarshipCountryListRelationFilter
+  services?: Prisma.ServiceCountryListRelationFilter
   stats?: Prisma.StatCountryListRelationFilter
   testimonials?: Prisma.TestimonialCountryListRelationFilter
   universities?: Prisma.UniversityCountryListRelationFilter
@@ -266,6 +268,7 @@ export type CountryOrderByWithRelationInput = {
   blogs?: Prisma.BlogCountryOrderByRelationAggregateInput
   courses?: Prisma.CourseCountryOrderByRelationAggregateInput
   destinations?: Prisma.DestinationCountryOrderByRelationAggregateInput
+  essentials?: Prisma.EssentialStudyCountryOrderByRelationAggregateInput
   events?: Prisma.EventCountryOrderByRelationAggregateInput
   eventRegistrations?: Prisma.EventRegistrationOrderByRelationAggregateInput
   faqs?: Prisma.FAQCountryOrderByRelationAggregateInput
@@ -275,6 +278,7 @@ export type CountryOrderByWithRelationInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryOrderByRelationAggregateInput
   leads?: Prisma.LeadOrderByRelationAggregateInput
   scholarships?: Prisma.ScholarshipCountryOrderByRelationAggregateInput
+  services?: Prisma.ServiceCountryOrderByRelationAggregateInput
   stats?: Prisma.StatCountryOrderByRelationAggregateInput
   testimonials?: Prisma.TestimonialCountryOrderByRelationAggregateInput
   universities?: Prisma.UniversityCountryOrderByRelationAggregateInput
@@ -300,6 +304,7 @@ export type CountryWhereUniqueInput = Prisma.AtLeast<{
   blogs?: Prisma.BlogCountryListRelationFilter
   courses?: Prisma.CourseCountryListRelationFilter
   destinations?: Prisma.DestinationCountryListRelationFilter
+  essentials?: Prisma.EssentialStudyCountryListRelationFilter
   events?: Prisma.EventCountryListRelationFilter
   eventRegistrations?: Prisma.EventRegistrationListRelationFilter
   faqs?: Prisma.FAQCountryListRelationFilter
@@ -309,6 +314,7 @@ export type CountryWhereUniqueInput = Prisma.AtLeast<{
   intakeSeasons?: Prisma.IntakeSeasonCountryListRelationFilter
   leads?: Prisma.LeadListRelationFilter
   scholarships?: Prisma.ScholarshipCountryListRelationFilter
+  services?: Prisma.ServiceCountryListRelationFilter
   stats?: Prisma.StatCountryListRelationFilter
   testimonials?: Prisma.TestimonialCountryListRelationFilter
   universities?: Prisma.UniversityCountryListRelationFilter
@@ -365,6 +371,7 @@ export type CountryCreateInput = {
   blogs?: Prisma.BlogCountryCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryCreateNestedManyWithoutCountryInput
@@ -374,6 +381,7 @@ export type CountryCreateInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryCreateNestedManyWithoutCountryInput
@@ -396,6 +404,7 @@ export type CountryUncheckedCreateInput = {
   blogs?: Prisma.BlogCountryUncheckedCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryUncheckedCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -405,6 +414,7 @@ export type CountryUncheckedCreateInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -427,6 +437,7 @@ export type CountryUpdateInput = {
   blogs?: Prisma.BlogCountryUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUpdateManyWithoutCountryNestedInput
@@ -436,6 +447,7 @@ export type CountryUpdateInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUpdateManyWithoutCountryNestedInput
@@ -458,6 +470,7 @@ export type CountryUncheckedUpdateInput = {
   blogs?: Prisma.BlogCountryUncheckedUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUncheckedUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUncheckedUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUncheckedUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -467,6 +480,7 @@ export type CountryUncheckedUpdateInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -796,6 +810,34 @@ export type CountryUpdateOneRequiredWithoutGalleriesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CountryUpdateToOneWithWhereWithoutGalleriesInput, Prisma.CountryUpdateWithoutGalleriesInput>, Prisma.CountryUncheckedUpdateWithoutGalleriesInput>
 }
 
+export type CountryCreateNestedOneWithoutEssentialsInput = {
+  create?: Prisma.XOR<Prisma.CountryCreateWithoutEssentialsInput, Prisma.CountryUncheckedCreateWithoutEssentialsInput>
+  connectOrCreate?: Prisma.CountryCreateOrConnectWithoutEssentialsInput
+  connect?: Prisma.CountryWhereUniqueInput
+}
+
+export type CountryUpdateOneRequiredWithoutEssentialsNestedInput = {
+  create?: Prisma.XOR<Prisma.CountryCreateWithoutEssentialsInput, Prisma.CountryUncheckedCreateWithoutEssentialsInput>
+  connectOrCreate?: Prisma.CountryCreateOrConnectWithoutEssentialsInput
+  upsert?: Prisma.CountryUpsertWithoutEssentialsInput
+  connect?: Prisma.CountryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CountryUpdateToOneWithWhereWithoutEssentialsInput, Prisma.CountryUpdateWithoutEssentialsInput>, Prisma.CountryUncheckedUpdateWithoutEssentialsInput>
+}
+
+export type CountryCreateNestedOneWithoutServicesInput = {
+  create?: Prisma.XOR<Prisma.CountryCreateWithoutServicesInput, Prisma.CountryUncheckedCreateWithoutServicesInput>
+  connectOrCreate?: Prisma.CountryCreateOrConnectWithoutServicesInput
+  connect?: Prisma.CountryWhereUniqueInput
+}
+
+export type CountryUpdateOneRequiredWithoutServicesNestedInput = {
+  create?: Prisma.XOR<Prisma.CountryCreateWithoutServicesInput, Prisma.CountryUncheckedCreateWithoutServicesInput>
+  connectOrCreate?: Prisma.CountryCreateOrConnectWithoutServicesInput
+  upsert?: Prisma.CountryUpsertWithoutServicesInput
+  connect?: Prisma.CountryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CountryUpdateToOneWithWhereWithoutServicesInput, Prisma.CountryUpdateWithoutServicesInput>, Prisma.CountryUncheckedUpdateWithoutServicesInput>
+}
+
 export type CountryCreateNestedOneWithoutStatsInput = {
   create?: Prisma.XOR<Prisma.CountryCreateWithoutStatsInput, Prisma.CountryUncheckedCreateWithoutStatsInput>
   connectOrCreate?: Prisma.CountryCreateOrConnectWithoutStatsInput
@@ -826,6 +868,7 @@ export type CountryCreateWithoutAppointmentsInput = {
   blogs?: Prisma.BlogCountryCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryCreateNestedManyWithoutCountryInput
@@ -835,6 +878,7 @@ export type CountryCreateWithoutAppointmentsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryCreateNestedManyWithoutCountryInput
@@ -856,6 +900,7 @@ export type CountryUncheckedCreateWithoutAppointmentsInput = {
   blogs?: Prisma.BlogCountryUncheckedCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryUncheckedCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -865,6 +910,7 @@ export type CountryUncheckedCreateWithoutAppointmentsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -902,6 +948,7 @@ export type CountryUpdateWithoutAppointmentsInput = {
   blogs?: Prisma.BlogCountryUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUpdateManyWithoutCountryNestedInput
@@ -911,6 +958,7 @@ export type CountryUpdateWithoutAppointmentsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUpdateManyWithoutCountryNestedInput
@@ -932,6 +980,7 @@ export type CountryUncheckedUpdateWithoutAppointmentsInput = {
   blogs?: Prisma.BlogCountryUncheckedUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUncheckedUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUncheckedUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUncheckedUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -941,6 +990,7 @@ export type CountryUncheckedUpdateWithoutAppointmentsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -963,6 +1013,7 @@ export type CountryCreateWithoutEventRegistrationsInput = {
   blogs?: Prisma.BlogCountryCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryCreateNestedManyWithoutCountryInput
   galleries?: Prisma.GalleryCountryCreateNestedManyWithoutCountryInput
@@ -971,6 +1022,7 @@ export type CountryCreateWithoutEventRegistrationsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryCreateNestedManyWithoutCountryInput
@@ -993,6 +1045,7 @@ export type CountryUncheckedCreateWithoutEventRegistrationsInput = {
   blogs?: Prisma.BlogCountryUncheckedCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryUncheckedCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutCountryInput
   galleries?: Prisma.GalleryCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -1001,6 +1054,7 @@ export type CountryUncheckedCreateWithoutEventRegistrationsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -1039,6 +1093,7 @@ export type CountryUpdateWithoutEventRegistrationsInput = {
   blogs?: Prisma.BlogCountryUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUpdateManyWithoutCountryNestedInput
   galleries?: Prisma.GalleryCountryUpdateManyWithoutCountryNestedInput
@@ -1047,6 +1102,7 @@ export type CountryUpdateWithoutEventRegistrationsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUpdateManyWithoutCountryNestedInput
@@ -1069,6 +1125,7 @@ export type CountryUncheckedUpdateWithoutEventRegistrationsInput = {
   blogs?: Prisma.BlogCountryUncheckedUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUncheckedUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUncheckedUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUncheckedUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUncheckedUpdateManyWithoutCountryNestedInput
   galleries?: Prisma.GalleryCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -1077,6 +1134,7 @@ export type CountryUncheckedUpdateWithoutEventRegistrationsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -1099,6 +1157,7 @@ export type CountryCreateWithoutHeroesInput = {
   blogs?: Prisma.BlogCountryCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryCreateNestedManyWithoutCountryInput
@@ -1107,6 +1166,7 @@ export type CountryCreateWithoutHeroesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryCreateNestedManyWithoutCountryInput
@@ -1129,6 +1189,7 @@ export type CountryUncheckedCreateWithoutHeroesInput = {
   blogs?: Prisma.BlogCountryUncheckedCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryUncheckedCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -1137,6 +1198,7 @@ export type CountryUncheckedCreateWithoutHeroesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -1175,6 +1237,7 @@ export type CountryUpdateWithoutHeroesInput = {
   blogs?: Prisma.BlogCountryUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUpdateManyWithoutCountryNestedInput
@@ -1183,6 +1246,7 @@ export type CountryUpdateWithoutHeroesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUpdateManyWithoutCountryNestedInput
@@ -1205,6 +1269,7 @@ export type CountryUncheckedUpdateWithoutHeroesInput = {
   blogs?: Prisma.BlogCountryUncheckedUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUncheckedUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUncheckedUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUncheckedUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -1213,6 +1278,7 @@ export type CountryUncheckedUpdateWithoutHeroesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -1235,6 +1301,7 @@ export type CountryCreateWithoutIntakeSeasonsInput = {
   blogs?: Prisma.BlogCountryCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryCreateNestedManyWithoutCountryInput
@@ -1243,6 +1310,7 @@ export type CountryCreateWithoutIntakeSeasonsInput = {
   heroes?: Prisma.HeroCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryCreateNestedManyWithoutCountryInput
@@ -1265,6 +1333,7 @@ export type CountryUncheckedCreateWithoutIntakeSeasonsInput = {
   blogs?: Prisma.BlogCountryUncheckedCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryUncheckedCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -1273,6 +1342,7 @@ export type CountryUncheckedCreateWithoutIntakeSeasonsInput = {
   heroes?: Prisma.HeroCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -1311,6 +1381,7 @@ export type CountryUpdateWithoutIntakeSeasonsInput = {
   blogs?: Prisma.BlogCountryUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUpdateManyWithoutCountryNestedInput
@@ -1319,6 +1390,7 @@ export type CountryUpdateWithoutIntakeSeasonsInput = {
   heroes?: Prisma.HeroCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUpdateManyWithoutCountryNestedInput
@@ -1341,6 +1413,7 @@ export type CountryUncheckedUpdateWithoutIntakeSeasonsInput = {
   blogs?: Prisma.BlogCountryUncheckedUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUncheckedUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUncheckedUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUncheckedUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -1349,6 +1422,7 @@ export type CountryUncheckedUpdateWithoutIntakeSeasonsInput = {
   heroes?: Prisma.HeroCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -1371,6 +1445,7 @@ export type CountryCreateWithoutLeadsInput = {
   blogs?: Prisma.BlogCountryCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryCreateNestedManyWithoutCountryInput
@@ -1379,6 +1454,7 @@ export type CountryCreateWithoutLeadsInput = {
   heroes?: Prisma.HeroCountryCreateNestedManyWithoutCountryInput
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryCreateNestedManyWithoutCountryInput
@@ -1401,6 +1477,7 @@ export type CountryUncheckedCreateWithoutLeadsInput = {
   blogs?: Prisma.BlogCountryUncheckedCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryUncheckedCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -1409,6 +1486,7 @@ export type CountryUncheckedCreateWithoutLeadsInput = {
   heroes?: Prisma.HeroCountryUncheckedCreateNestedManyWithoutCountryInput
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -1447,6 +1525,7 @@ export type CountryUpdateWithoutLeadsInput = {
   blogs?: Prisma.BlogCountryUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUpdateManyWithoutCountryNestedInput
@@ -1455,6 +1534,7 @@ export type CountryUpdateWithoutLeadsInput = {
   heroes?: Prisma.HeroCountryUpdateManyWithoutCountryNestedInput
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUpdateManyWithoutCountryNestedInput
@@ -1477,6 +1557,7 @@ export type CountryUncheckedUpdateWithoutLeadsInput = {
   blogs?: Prisma.BlogCountryUncheckedUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUncheckedUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUncheckedUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUncheckedUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -1485,6 +1566,7 @@ export type CountryUncheckedUpdateWithoutLeadsInput = {
   heroes?: Prisma.HeroCountryUncheckedUpdateManyWithoutCountryNestedInput
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -1507,6 +1589,7 @@ export type CountryCreateWithoutUniversitiesInput = {
   blogs?: Prisma.BlogCountryCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryCreateNestedManyWithoutCountryInput
@@ -1516,6 +1599,7 @@ export type CountryCreateWithoutUniversitiesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
 }
@@ -1537,6 +1621,7 @@ export type CountryUncheckedCreateWithoutUniversitiesInput = {
   blogs?: Prisma.BlogCountryUncheckedCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryUncheckedCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -1546,6 +1631,7 @@ export type CountryUncheckedCreateWithoutUniversitiesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
 }
@@ -1583,6 +1669,7 @@ export type CountryUpdateWithoutUniversitiesInput = {
   blogs?: Prisma.BlogCountryUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUpdateManyWithoutCountryNestedInput
@@ -1592,6 +1679,7 @@ export type CountryUpdateWithoutUniversitiesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
 }
@@ -1613,6 +1701,7 @@ export type CountryUncheckedUpdateWithoutUniversitiesInput = {
   blogs?: Prisma.BlogCountryUncheckedUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUncheckedUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUncheckedUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUncheckedUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -1622,6 +1711,7 @@ export type CountryUncheckedUpdateWithoutUniversitiesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
 }
@@ -1642,6 +1732,7 @@ export type CountryCreateWithoutCoursesInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutCountryInput
   blogs?: Prisma.BlogCountryCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryCreateNestedManyWithoutCountryInput
@@ -1651,6 +1742,7 @@ export type CountryCreateWithoutCoursesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryCreateNestedManyWithoutCountryInput
@@ -1672,6 +1764,7 @@ export type CountryUncheckedCreateWithoutCoursesInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCountryInput
   blogs?: Prisma.BlogCountryUncheckedCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryUncheckedCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -1681,6 +1774,7 @@ export type CountryUncheckedCreateWithoutCoursesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -1718,6 +1812,7 @@ export type CountryUpdateWithoutCoursesInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutCountryNestedInput
   blogs?: Prisma.BlogCountryUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUpdateManyWithoutCountryNestedInput
@@ -1727,6 +1822,7 @@ export type CountryUpdateWithoutCoursesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUpdateManyWithoutCountryNestedInput
@@ -1748,6 +1844,7 @@ export type CountryUncheckedUpdateWithoutCoursesInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCountryNestedInput
   blogs?: Prisma.BlogCountryUncheckedUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUncheckedUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUncheckedUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -1757,6 +1854,7 @@ export type CountryUncheckedUpdateWithoutCoursesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -1779,6 +1877,7 @@ export type CountryCreateWithoutScholarshipsInput = {
   blogs?: Prisma.BlogCountryCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryCreateNestedManyWithoutCountryInput
@@ -1787,6 +1886,7 @@ export type CountryCreateWithoutScholarshipsInput = {
   heroes?: Prisma.HeroCountryCreateNestedManyWithoutCountryInput
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryCreateNestedManyWithoutCountryInput
@@ -1809,6 +1909,7 @@ export type CountryUncheckedCreateWithoutScholarshipsInput = {
   blogs?: Prisma.BlogCountryUncheckedCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryUncheckedCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -1817,6 +1918,7 @@ export type CountryUncheckedCreateWithoutScholarshipsInput = {
   heroes?: Prisma.HeroCountryUncheckedCreateNestedManyWithoutCountryInput
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -1855,6 +1957,7 @@ export type CountryUpdateWithoutScholarshipsInput = {
   blogs?: Prisma.BlogCountryUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUpdateManyWithoutCountryNestedInput
@@ -1863,6 +1966,7 @@ export type CountryUpdateWithoutScholarshipsInput = {
   heroes?: Prisma.HeroCountryUpdateManyWithoutCountryNestedInput
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUpdateManyWithoutCountryNestedInput
@@ -1885,6 +1989,7 @@ export type CountryUncheckedUpdateWithoutScholarshipsInput = {
   blogs?: Prisma.BlogCountryUncheckedUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUncheckedUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUncheckedUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUncheckedUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -1893,6 +1998,7 @@ export type CountryUncheckedUpdateWithoutScholarshipsInput = {
   heroes?: Prisma.HeroCountryUncheckedUpdateManyWithoutCountryNestedInput
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -1915,6 +2021,7 @@ export type CountryCreateWithoutEventsInput = {
   blogs?: Prisma.BlogCountryCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryCreateNestedManyWithoutCountryInput
   galleries?: Prisma.GalleryCountryCreateNestedManyWithoutCountryInput
@@ -1923,6 +2030,7 @@ export type CountryCreateWithoutEventsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryCreateNestedManyWithoutCountryInput
@@ -1945,6 +2053,7 @@ export type CountryUncheckedCreateWithoutEventsInput = {
   blogs?: Prisma.BlogCountryUncheckedCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutCountryInput
   galleries?: Prisma.GalleryCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -1953,6 +2062,7 @@ export type CountryUncheckedCreateWithoutEventsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -1991,6 +2101,7 @@ export type CountryUpdateWithoutEventsInput = {
   blogs?: Prisma.BlogCountryUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUpdateManyWithoutCountryNestedInput
   galleries?: Prisma.GalleryCountryUpdateManyWithoutCountryNestedInput
@@ -1999,6 +2110,7 @@ export type CountryUpdateWithoutEventsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUpdateManyWithoutCountryNestedInput
@@ -2021,6 +2133,7 @@ export type CountryUncheckedUpdateWithoutEventsInput = {
   blogs?: Prisma.BlogCountryUncheckedUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUncheckedUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUncheckedUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUncheckedUpdateManyWithoutCountryNestedInput
   galleries?: Prisma.GalleryCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -2029,6 +2142,7 @@ export type CountryUncheckedUpdateWithoutEventsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -2050,6 +2164,7 @@ export type CountryCreateWithoutBlogsInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryCreateNestedManyWithoutCountryInput
@@ -2059,6 +2174,7 @@ export type CountryCreateWithoutBlogsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryCreateNestedManyWithoutCountryInput
@@ -2080,6 +2196,7 @@ export type CountryUncheckedCreateWithoutBlogsInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryUncheckedCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -2089,6 +2206,7 @@ export type CountryUncheckedCreateWithoutBlogsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -2126,6 +2244,7 @@ export type CountryUpdateWithoutBlogsInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUpdateManyWithoutCountryNestedInput
@@ -2135,6 +2254,7 @@ export type CountryUpdateWithoutBlogsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUpdateManyWithoutCountryNestedInput
@@ -2156,6 +2276,7 @@ export type CountryUncheckedUpdateWithoutBlogsInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUncheckedUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUncheckedUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUncheckedUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -2165,6 +2286,7 @@ export type CountryUncheckedUpdateWithoutBlogsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -2187,6 +2309,7 @@ export type CountryCreateWithoutFaqsInput = {
   blogs?: Prisma.BlogCountryCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutCountryInput
   galleries?: Prisma.GalleryCountryCreateNestedManyWithoutCountryInput
@@ -2195,6 +2318,7 @@ export type CountryCreateWithoutFaqsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryCreateNestedManyWithoutCountryInput
@@ -2217,6 +2341,7 @@ export type CountryUncheckedCreateWithoutFaqsInput = {
   blogs?: Prisma.BlogCountryUncheckedCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryUncheckedCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutCountryInput
   galleries?: Prisma.GalleryCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -2225,6 +2350,7 @@ export type CountryUncheckedCreateWithoutFaqsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -2263,6 +2389,7 @@ export type CountryUpdateWithoutFaqsInput = {
   blogs?: Prisma.BlogCountryUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutCountryNestedInput
   galleries?: Prisma.GalleryCountryUpdateManyWithoutCountryNestedInput
@@ -2271,6 +2398,7 @@ export type CountryUpdateWithoutFaqsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUpdateManyWithoutCountryNestedInput
@@ -2293,6 +2421,7 @@ export type CountryUncheckedUpdateWithoutFaqsInput = {
   blogs?: Prisma.BlogCountryUncheckedUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUncheckedUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUncheckedUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUncheckedUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutCountryNestedInput
   galleries?: Prisma.GalleryCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -2301,6 +2430,7 @@ export type CountryUncheckedUpdateWithoutFaqsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -2323,6 +2453,7 @@ export type CountryCreateWithoutGlobalOfficesInput = {
   blogs?: Prisma.BlogCountryCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryCreateNestedManyWithoutCountryInput
@@ -2331,6 +2462,7 @@ export type CountryCreateWithoutGlobalOfficesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryCreateNestedManyWithoutCountryInput
@@ -2353,6 +2485,7 @@ export type CountryUncheckedCreateWithoutGlobalOfficesInput = {
   blogs?: Prisma.BlogCountryUncheckedCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryUncheckedCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -2361,6 +2494,7 @@ export type CountryUncheckedCreateWithoutGlobalOfficesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -2399,6 +2533,7 @@ export type CountryUpdateWithoutGlobalOfficesInput = {
   blogs?: Prisma.BlogCountryUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUpdateManyWithoutCountryNestedInput
@@ -2407,6 +2542,7 @@ export type CountryUpdateWithoutGlobalOfficesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUpdateManyWithoutCountryNestedInput
@@ -2429,6 +2565,7 @@ export type CountryUncheckedUpdateWithoutGlobalOfficesInput = {
   blogs?: Prisma.BlogCountryUncheckedUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUncheckedUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUncheckedUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUncheckedUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -2437,6 +2574,7 @@ export type CountryUncheckedUpdateWithoutGlobalOfficesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -2458,6 +2596,7 @@ export type CountryCreateWithoutDestinationsInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutCountryInput
   blogs?: Prisma.BlogCountryCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryCreateNestedManyWithoutCountryInput
@@ -2467,6 +2606,7 @@ export type CountryCreateWithoutDestinationsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryCreateNestedManyWithoutCountryInput
@@ -2488,6 +2628,7 @@ export type CountryUncheckedCreateWithoutDestinationsInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCountryInput
   blogs?: Prisma.BlogCountryUncheckedCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryUncheckedCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -2497,6 +2638,7 @@ export type CountryUncheckedCreateWithoutDestinationsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -2534,6 +2676,7 @@ export type CountryUpdateWithoutDestinationsInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutCountryNestedInput
   blogs?: Prisma.BlogCountryUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUpdateManyWithoutCountryNestedInput
@@ -2543,6 +2686,7 @@ export type CountryUpdateWithoutDestinationsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUpdateManyWithoutCountryNestedInput
@@ -2564,6 +2708,7 @@ export type CountryUncheckedUpdateWithoutDestinationsInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCountryNestedInput
   blogs?: Prisma.BlogCountryUncheckedUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUncheckedUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUncheckedUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -2573,6 +2718,7 @@ export type CountryUncheckedUpdateWithoutDestinationsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -2595,6 +2741,7 @@ export type CountryCreateWithoutTestimonialsInput = {
   blogs?: Prisma.BlogCountryCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryCreateNestedManyWithoutCountryInput
@@ -2604,6 +2751,7 @@ export type CountryCreateWithoutTestimonialsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryCreateNestedManyWithoutCountryInput
 }
@@ -2625,6 +2773,7 @@ export type CountryUncheckedCreateWithoutTestimonialsInput = {
   blogs?: Prisma.BlogCountryUncheckedCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryUncheckedCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -2634,6 +2783,7 @@ export type CountryUncheckedCreateWithoutTestimonialsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutCountryInput
 }
@@ -2671,6 +2821,7 @@ export type CountryUpdateWithoutTestimonialsInput = {
   blogs?: Prisma.BlogCountryUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUpdateManyWithoutCountryNestedInput
@@ -2680,6 +2831,7 @@ export type CountryUpdateWithoutTestimonialsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUpdateManyWithoutCountryNestedInput
 }
@@ -2701,6 +2853,7 @@ export type CountryUncheckedUpdateWithoutTestimonialsInput = {
   blogs?: Prisma.BlogCountryUncheckedUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUncheckedUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUncheckedUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUncheckedUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -2710,6 +2863,7 @@ export type CountryUncheckedUpdateWithoutTestimonialsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUncheckedUpdateManyWithoutCountryNestedInput
 }
@@ -2730,6 +2884,7 @@ export type CountryCreateWithoutAccreditationInput = {
   blogs?: Prisma.BlogCountryCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryCreateNestedManyWithoutCountryInput
@@ -2739,6 +2894,7 @@ export type CountryCreateWithoutAccreditationInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryCreateNestedManyWithoutCountryInput
@@ -2760,6 +2916,7 @@ export type CountryUncheckedCreateWithoutAccreditationInput = {
   blogs?: Prisma.BlogCountryUncheckedCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryUncheckedCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -2769,6 +2926,7 @@ export type CountryUncheckedCreateWithoutAccreditationInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -2806,6 +2964,7 @@ export type CountryUpdateWithoutAccreditationInput = {
   blogs?: Prisma.BlogCountryUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUpdateManyWithoutCountryNestedInput
@@ -2815,6 +2974,7 @@ export type CountryUpdateWithoutAccreditationInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUpdateManyWithoutCountryNestedInput
@@ -2836,6 +2996,7 @@ export type CountryUncheckedUpdateWithoutAccreditationInput = {
   blogs?: Prisma.BlogCountryUncheckedUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUncheckedUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUncheckedUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUncheckedUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -2845,6 +3006,7 @@ export type CountryUncheckedUpdateWithoutAccreditationInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -2867,6 +3029,7 @@ export type CountryCreateWithoutGalleriesInput = {
   blogs?: Prisma.BlogCountryCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryCreateNestedManyWithoutCountryInput
@@ -2875,6 +3038,7 @@ export type CountryCreateWithoutGalleriesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryCreateNestedManyWithoutCountryInput
@@ -2897,6 +3061,7 @@ export type CountryUncheckedCreateWithoutGalleriesInput = {
   blogs?: Prisma.BlogCountryUncheckedCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryUncheckedCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -2905,6 +3070,7 @@ export type CountryUncheckedCreateWithoutGalleriesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -2943,6 +3109,7 @@ export type CountryUpdateWithoutGalleriesInput = {
   blogs?: Prisma.BlogCountryUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUpdateManyWithoutCountryNestedInput
@@ -2951,6 +3118,7 @@ export type CountryUpdateWithoutGalleriesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUpdateManyWithoutCountryNestedInput
@@ -2973,9 +3141,299 @@ export type CountryUncheckedUpdateWithoutGalleriesInput = {
   blogs?: Prisma.BlogCountryUncheckedUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUncheckedUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUncheckedUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUncheckedUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUncheckedUpdateManyWithoutCountryNestedInput
+  globalOffices?: Prisma.GlobalOfficeCountryUncheckedUpdateManyWithoutCountryNestedInput
+  heroes?: Prisma.HeroCountryUncheckedUpdateManyWithoutCountryNestedInput
+  intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
+  leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
+  scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUncheckedUpdateManyWithoutCountryNestedInput
+  stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
+  testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
+  universities?: Prisma.UniversityCountryUncheckedUpdateManyWithoutCountryNestedInput
+}
+
+export type CountryCreateWithoutEssentialsInput = {
+  id?: string
+  name: string
+  slug: string
+  isoCode: string
+  flag?: string | null
+  isActive?: boolean
+  metaTitle?: string | null
+  metaDescription?: string | null
+  metaKeywords?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accreditation?: Prisma.AccreditationCountryCreateNestedManyWithoutCountryInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutCountryInput
+  blogs?: Prisma.BlogCountryCreateNestedManyWithoutCountryInput
+  courses?: Prisma.CourseCountryCreateNestedManyWithoutCountryInput
+  destinations?: Prisma.DestinationCountryCreateNestedManyWithoutCountryInput
+  events?: Prisma.EventCountryCreateNestedManyWithoutCountryInput
+  eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutCountryInput
+  faqs?: Prisma.FAQCountryCreateNestedManyWithoutCountryInput
+  galleries?: Prisma.GalleryCountryCreateNestedManyWithoutCountryInput
+  globalOffices?: Prisma.GlobalOfficeCountryCreateNestedManyWithoutCountryInput
+  heroes?: Prisma.HeroCountryCreateNestedManyWithoutCountryInput
+  intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
+  leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
+  scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryCreateNestedManyWithoutCountryInput
+  stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
+  testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
+  universities?: Prisma.UniversityCountryCreateNestedManyWithoutCountryInput
+}
+
+export type CountryUncheckedCreateWithoutEssentialsInput = {
+  id?: string
+  name: string
+  slug: string
+  isoCode: string
+  flag?: string | null
+  isActive?: boolean
+  metaTitle?: string | null
+  metaDescription?: string | null
+  metaKeywords?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accreditation?: Prisma.AccreditationCountryUncheckedCreateNestedManyWithoutCountryInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCountryInput
+  blogs?: Prisma.BlogCountryUncheckedCreateNestedManyWithoutCountryInput
+  courses?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCountryInput
+  destinations?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutCountryInput
+  events?: Prisma.EventCountryUncheckedCreateNestedManyWithoutCountryInput
+  eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutCountryInput
+  faqs?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutCountryInput
+  galleries?: Prisma.GalleryCountryUncheckedCreateNestedManyWithoutCountryInput
+  globalOffices?: Prisma.GlobalOfficeCountryUncheckedCreateNestedManyWithoutCountryInput
+  heroes?: Prisma.HeroCountryUncheckedCreateNestedManyWithoutCountryInput
+  intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
+  leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
+  scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryUncheckedCreateNestedManyWithoutCountryInput
+  stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
+  testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
+  universities?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutCountryInput
+}
+
+export type CountryCreateOrConnectWithoutEssentialsInput = {
+  where: Prisma.CountryWhereUniqueInput
+  create: Prisma.XOR<Prisma.CountryCreateWithoutEssentialsInput, Prisma.CountryUncheckedCreateWithoutEssentialsInput>
+}
+
+export type CountryUpsertWithoutEssentialsInput = {
+  update: Prisma.XOR<Prisma.CountryUpdateWithoutEssentialsInput, Prisma.CountryUncheckedUpdateWithoutEssentialsInput>
+  create: Prisma.XOR<Prisma.CountryCreateWithoutEssentialsInput, Prisma.CountryUncheckedCreateWithoutEssentialsInput>
+  where?: Prisma.CountryWhereInput
+}
+
+export type CountryUpdateToOneWithWhereWithoutEssentialsInput = {
+  where?: Prisma.CountryWhereInput
+  data: Prisma.XOR<Prisma.CountryUpdateWithoutEssentialsInput, Prisma.CountryUncheckedUpdateWithoutEssentialsInput>
+}
+
+export type CountryUpdateWithoutEssentialsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  isoCode?: Prisma.StringFieldUpdateOperationsInput | string
+  flag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accreditation?: Prisma.AccreditationCountryUpdateManyWithoutCountryNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutCountryNestedInput
+  blogs?: Prisma.BlogCountryUpdateManyWithoutCountryNestedInput
+  courses?: Prisma.CourseCountryUpdateManyWithoutCountryNestedInput
+  destinations?: Prisma.DestinationCountryUpdateManyWithoutCountryNestedInput
+  events?: Prisma.EventCountryUpdateManyWithoutCountryNestedInput
+  eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutCountryNestedInput
+  faqs?: Prisma.FAQCountryUpdateManyWithoutCountryNestedInput
+  galleries?: Prisma.GalleryCountryUpdateManyWithoutCountryNestedInput
+  globalOffices?: Prisma.GlobalOfficeCountryUpdateManyWithoutCountryNestedInput
+  heroes?: Prisma.HeroCountryUpdateManyWithoutCountryNestedInput
+  intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
+  leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
+  scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUpdateManyWithoutCountryNestedInput
+  stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
+  testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
+  universities?: Prisma.UniversityCountryUpdateManyWithoutCountryNestedInput
+}
+
+export type CountryUncheckedUpdateWithoutEssentialsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  isoCode?: Prisma.StringFieldUpdateOperationsInput | string
+  flag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accreditation?: Prisma.AccreditationCountryUncheckedUpdateManyWithoutCountryNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCountryNestedInput
+  blogs?: Prisma.BlogCountryUncheckedUpdateManyWithoutCountryNestedInput
+  courses?: Prisma.CourseCountryUncheckedUpdateManyWithoutCountryNestedInput
+  destinations?: Prisma.DestinationCountryUncheckedUpdateManyWithoutCountryNestedInput
+  events?: Prisma.EventCountryUncheckedUpdateManyWithoutCountryNestedInput
+  eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutCountryNestedInput
+  faqs?: Prisma.FAQCountryUncheckedUpdateManyWithoutCountryNestedInput
+  galleries?: Prisma.GalleryCountryUncheckedUpdateManyWithoutCountryNestedInput
+  globalOffices?: Prisma.GlobalOfficeCountryUncheckedUpdateManyWithoutCountryNestedInput
+  heroes?: Prisma.HeroCountryUncheckedUpdateManyWithoutCountryNestedInput
+  intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
+  leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
+  scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUncheckedUpdateManyWithoutCountryNestedInput
+  stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
+  testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
+  universities?: Prisma.UniversityCountryUncheckedUpdateManyWithoutCountryNestedInput
+}
+
+export type CountryCreateWithoutServicesInput = {
+  id?: string
+  name: string
+  slug: string
+  isoCode: string
+  flag?: string | null
+  isActive?: boolean
+  metaTitle?: string | null
+  metaDescription?: string | null
+  metaKeywords?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accreditation?: Prisma.AccreditationCountryCreateNestedManyWithoutCountryInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutCountryInput
+  blogs?: Prisma.BlogCountryCreateNestedManyWithoutCountryInput
+  courses?: Prisma.CourseCountryCreateNestedManyWithoutCountryInput
+  destinations?: Prisma.DestinationCountryCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryCreateNestedManyWithoutCountryInput
+  events?: Prisma.EventCountryCreateNestedManyWithoutCountryInput
+  eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutCountryInput
+  faqs?: Prisma.FAQCountryCreateNestedManyWithoutCountryInput
+  galleries?: Prisma.GalleryCountryCreateNestedManyWithoutCountryInput
+  globalOffices?: Prisma.GlobalOfficeCountryCreateNestedManyWithoutCountryInput
+  heroes?: Prisma.HeroCountryCreateNestedManyWithoutCountryInput
+  intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
+  leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
+  scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
+  stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
+  testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
+  universities?: Prisma.UniversityCountryCreateNestedManyWithoutCountryInput
+}
+
+export type CountryUncheckedCreateWithoutServicesInput = {
+  id?: string
+  name: string
+  slug: string
+  isoCode: string
+  flag?: string | null
+  isActive?: boolean
+  metaTitle?: string | null
+  metaDescription?: string | null
+  metaKeywords?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accreditation?: Prisma.AccreditationCountryUncheckedCreateNestedManyWithoutCountryInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCountryInput
+  blogs?: Prisma.BlogCountryUncheckedCreateNestedManyWithoutCountryInput
+  courses?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCountryInput
+  destinations?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedCreateNestedManyWithoutCountryInput
+  events?: Prisma.EventCountryUncheckedCreateNestedManyWithoutCountryInput
+  eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutCountryInput
+  faqs?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutCountryInput
+  galleries?: Prisma.GalleryCountryUncheckedCreateNestedManyWithoutCountryInput
+  globalOffices?: Prisma.GlobalOfficeCountryUncheckedCreateNestedManyWithoutCountryInput
+  heroes?: Prisma.HeroCountryUncheckedCreateNestedManyWithoutCountryInput
+  intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
+  leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
+  scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
+  stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
+  testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
+  universities?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutCountryInput
+}
+
+export type CountryCreateOrConnectWithoutServicesInput = {
+  where: Prisma.CountryWhereUniqueInput
+  create: Prisma.XOR<Prisma.CountryCreateWithoutServicesInput, Prisma.CountryUncheckedCreateWithoutServicesInput>
+}
+
+export type CountryUpsertWithoutServicesInput = {
+  update: Prisma.XOR<Prisma.CountryUpdateWithoutServicesInput, Prisma.CountryUncheckedUpdateWithoutServicesInput>
+  create: Prisma.XOR<Prisma.CountryCreateWithoutServicesInput, Prisma.CountryUncheckedCreateWithoutServicesInput>
+  where?: Prisma.CountryWhereInput
+}
+
+export type CountryUpdateToOneWithWhereWithoutServicesInput = {
+  where?: Prisma.CountryWhereInput
+  data: Prisma.XOR<Prisma.CountryUpdateWithoutServicesInput, Prisma.CountryUncheckedUpdateWithoutServicesInput>
+}
+
+export type CountryUpdateWithoutServicesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  isoCode?: Prisma.StringFieldUpdateOperationsInput | string
+  flag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accreditation?: Prisma.AccreditationCountryUpdateManyWithoutCountryNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutCountryNestedInput
+  blogs?: Prisma.BlogCountryUpdateManyWithoutCountryNestedInput
+  courses?: Prisma.CourseCountryUpdateManyWithoutCountryNestedInput
+  destinations?: Prisma.DestinationCountryUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUpdateManyWithoutCountryNestedInput
+  events?: Prisma.EventCountryUpdateManyWithoutCountryNestedInput
+  eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutCountryNestedInput
+  faqs?: Prisma.FAQCountryUpdateManyWithoutCountryNestedInput
+  galleries?: Prisma.GalleryCountryUpdateManyWithoutCountryNestedInput
+  globalOffices?: Prisma.GlobalOfficeCountryUpdateManyWithoutCountryNestedInput
+  heroes?: Prisma.HeroCountryUpdateManyWithoutCountryNestedInput
+  intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
+  leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
+  scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
+  stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
+  testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
+  universities?: Prisma.UniversityCountryUpdateManyWithoutCountryNestedInput
+}
+
+export type CountryUncheckedUpdateWithoutServicesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  isoCode?: Prisma.StringFieldUpdateOperationsInput | string
+  flag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accreditation?: Prisma.AccreditationCountryUncheckedUpdateManyWithoutCountryNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCountryNestedInput
+  blogs?: Prisma.BlogCountryUncheckedUpdateManyWithoutCountryNestedInput
+  courses?: Prisma.CourseCountryUncheckedUpdateManyWithoutCountryNestedInput
+  destinations?: Prisma.DestinationCountryUncheckedUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedUpdateManyWithoutCountryNestedInput
+  events?: Prisma.EventCountryUncheckedUpdateManyWithoutCountryNestedInput
+  eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutCountryNestedInput
+  faqs?: Prisma.FAQCountryUncheckedUpdateManyWithoutCountryNestedInput
+  galleries?: Prisma.GalleryCountryUncheckedUpdateManyWithoutCountryNestedInput
   globalOffices?: Prisma.GlobalOfficeCountryUncheckedUpdateManyWithoutCountryNestedInput
   heroes?: Prisma.HeroCountryUncheckedUpdateManyWithoutCountryNestedInput
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -3003,6 +3461,7 @@ export type CountryCreateWithoutStatsInput = {
   blogs?: Prisma.BlogCountryCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryCreateNestedManyWithoutCountryInput
@@ -3012,6 +3471,7 @@ export type CountryCreateWithoutStatsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryCreateNestedManyWithoutCountryInput
 }
@@ -3033,6 +3493,7 @@ export type CountryUncheckedCreateWithoutStatsInput = {
   blogs?: Prisma.BlogCountryUncheckedCreateNestedManyWithoutCountryInput
   courses?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCountryInput
   destinations?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedCreateNestedManyWithoutCountryInput
   events?: Prisma.EventCountryUncheckedCreateNestedManyWithoutCountryInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutCountryInput
   faqs?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -3042,6 +3503,7 @@ export type CountryUncheckedCreateWithoutStatsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutCountryInput
 }
@@ -3079,6 +3541,7 @@ export type CountryUpdateWithoutStatsInput = {
   blogs?: Prisma.BlogCountryUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUpdateManyWithoutCountryNestedInput
@@ -3088,6 +3551,7 @@ export type CountryUpdateWithoutStatsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUpdateManyWithoutCountryNestedInput
 }
@@ -3109,6 +3573,7 @@ export type CountryUncheckedUpdateWithoutStatsInput = {
   blogs?: Prisma.BlogCountryUncheckedUpdateManyWithoutCountryNestedInput
   courses?: Prisma.CourseCountryUncheckedUpdateManyWithoutCountryNestedInput
   destinations?: Prisma.DestinationCountryUncheckedUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedUpdateManyWithoutCountryNestedInput
   events?: Prisma.EventCountryUncheckedUpdateManyWithoutCountryNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.FAQCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -3118,6 +3583,7 @@ export type CountryUncheckedUpdateWithoutStatsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUncheckedUpdateManyWithoutCountryNestedInput
 }
@@ -3133,6 +3599,7 @@ export type CountryCountOutputType = {
   blogs: number
   courses: number
   destinations: number
+  essentials: number
   events: number
   eventRegistrations: number
   faqs: number
@@ -3142,6 +3609,7 @@ export type CountryCountOutputType = {
   intakeSeasons: number
   leads: number
   scholarships: number
+  services: number
   stats: number
   testimonials: number
   universities: number
@@ -3153,6 +3621,7 @@ export type CountryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   blogs?: boolean | CountryCountOutputTypeCountBlogsArgs
   courses?: boolean | CountryCountOutputTypeCountCoursesArgs
   destinations?: boolean | CountryCountOutputTypeCountDestinationsArgs
+  essentials?: boolean | CountryCountOutputTypeCountEssentialsArgs
   events?: boolean | CountryCountOutputTypeCountEventsArgs
   eventRegistrations?: boolean | CountryCountOutputTypeCountEventRegistrationsArgs
   faqs?: boolean | CountryCountOutputTypeCountFaqsArgs
@@ -3162,6 +3631,7 @@ export type CountryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   intakeSeasons?: boolean | CountryCountOutputTypeCountIntakeSeasonsArgs
   leads?: boolean | CountryCountOutputTypeCountLeadsArgs
   scholarships?: boolean | CountryCountOutputTypeCountScholarshipsArgs
+  services?: boolean | CountryCountOutputTypeCountServicesArgs
   stats?: boolean | CountryCountOutputTypeCountStatsArgs
   testimonials?: boolean | CountryCountOutputTypeCountTestimonialsArgs
   universities?: boolean | CountryCountOutputTypeCountUniversitiesArgs
@@ -3210,6 +3680,13 @@ export type CountryCountOutputTypeCountCoursesArgs<ExtArgs extends runtime.Types
  */
 export type CountryCountOutputTypeCountDestinationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.DestinationCountryWhereInput
+}
+
+/**
+ * CountryCountOutputType without action
+ */
+export type CountryCountOutputTypeCountEssentialsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EssentialStudyCountryWhereInput
 }
 
 /**
@@ -3278,6 +3755,13 @@ export type CountryCountOutputTypeCountScholarshipsArgs<ExtArgs extends runtime.
 /**
  * CountryCountOutputType without action
  */
+export type CountryCountOutputTypeCountServicesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ServiceCountryWhereInput
+}
+
+/**
+ * CountryCountOutputType without action
+ */
 export type CountryCountOutputTypeCountStatsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.StatCountryWhereInput
 }
@@ -3314,6 +3798,7 @@ export type CountrySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   blogs?: boolean | Prisma.Country$blogsArgs<ExtArgs>
   courses?: boolean | Prisma.Country$coursesArgs<ExtArgs>
   destinations?: boolean | Prisma.Country$destinationsArgs<ExtArgs>
+  essentials?: boolean | Prisma.Country$essentialsArgs<ExtArgs>
   events?: boolean | Prisma.Country$eventsArgs<ExtArgs>
   eventRegistrations?: boolean | Prisma.Country$eventRegistrationsArgs<ExtArgs>
   faqs?: boolean | Prisma.Country$faqsArgs<ExtArgs>
@@ -3323,6 +3808,7 @@ export type CountrySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   intakeSeasons?: boolean | Prisma.Country$intakeSeasonsArgs<ExtArgs>
   leads?: boolean | Prisma.Country$leadsArgs<ExtArgs>
   scholarships?: boolean | Prisma.Country$scholarshipsArgs<ExtArgs>
+  services?: boolean | Prisma.Country$servicesArgs<ExtArgs>
   stats?: boolean | Prisma.Country$statsArgs<ExtArgs>
   testimonials?: boolean | Prisma.Country$testimonialsArgs<ExtArgs>
   universities?: boolean | Prisma.Country$universitiesArgs<ExtArgs>
@@ -3378,6 +3864,7 @@ export type CountryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   blogs?: boolean | Prisma.Country$blogsArgs<ExtArgs>
   courses?: boolean | Prisma.Country$coursesArgs<ExtArgs>
   destinations?: boolean | Prisma.Country$destinationsArgs<ExtArgs>
+  essentials?: boolean | Prisma.Country$essentialsArgs<ExtArgs>
   events?: boolean | Prisma.Country$eventsArgs<ExtArgs>
   eventRegistrations?: boolean | Prisma.Country$eventRegistrationsArgs<ExtArgs>
   faqs?: boolean | Prisma.Country$faqsArgs<ExtArgs>
@@ -3387,6 +3874,7 @@ export type CountryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   intakeSeasons?: boolean | Prisma.Country$intakeSeasonsArgs<ExtArgs>
   leads?: boolean | Prisma.Country$leadsArgs<ExtArgs>
   scholarships?: boolean | Prisma.Country$scholarshipsArgs<ExtArgs>
+  services?: boolean | Prisma.Country$servicesArgs<ExtArgs>
   stats?: boolean | Prisma.Country$statsArgs<ExtArgs>
   testimonials?: boolean | Prisma.Country$testimonialsArgs<ExtArgs>
   universities?: boolean | Prisma.Country$universitiesArgs<ExtArgs>
@@ -3403,6 +3891,7 @@ export type $CountryPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     blogs: Prisma.$BlogCountryPayload<ExtArgs>[]
     courses: Prisma.$CourseCountryPayload<ExtArgs>[]
     destinations: Prisma.$DestinationCountryPayload<ExtArgs>[]
+    essentials: Prisma.$EssentialStudyCountryPayload<ExtArgs>[]
     events: Prisma.$EventCountryPayload<ExtArgs>[]
     eventRegistrations: Prisma.$EventRegistrationPayload<ExtArgs>[]
     faqs: Prisma.$FAQCountryPayload<ExtArgs>[]
@@ -3412,6 +3901,7 @@ export type $CountryPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     intakeSeasons: Prisma.$IntakeSeasonCountryPayload<ExtArgs>[]
     leads: Prisma.$LeadPayload<ExtArgs>[]
     scholarships: Prisma.$ScholarshipCountryPayload<ExtArgs>[]
+    services: Prisma.$ServiceCountryPayload<ExtArgs>[]
     stats: Prisma.$StatCountryPayload<ExtArgs>[]
     testimonials: Prisma.$TestimonialCountryPayload<ExtArgs>[]
     universities: Prisma.$UniversityCountryPayload<ExtArgs>[]
@@ -3827,6 +4317,7 @@ export interface Prisma__CountryClient<T, Null = never, ExtArgs extends runtime.
   blogs<T extends Prisma.Country$blogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Country$blogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BlogCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   courses<T extends Prisma.Country$coursesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Country$coursesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CourseCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   destinations<T extends Prisma.Country$destinationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Country$destinationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DestinationCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  essentials<T extends Prisma.Country$essentialsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Country$essentialsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EssentialStudyCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   events<T extends Prisma.Country$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Country$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   eventRegistrations<T extends Prisma.Country$eventRegistrationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Country$eventRegistrationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventRegistrationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   faqs<T extends Prisma.Country$faqsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Country$faqsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FAQCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3836,6 +4327,7 @@ export interface Prisma__CountryClient<T, Null = never, ExtArgs extends runtime.
   intakeSeasons<T extends Prisma.Country$intakeSeasonsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Country$intakeSeasonsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IntakeSeasonCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   leads<T extends Prisma.Country$leadsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Country$leadsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LeadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   scholarships<T extends Prisma.Country$scholarshipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Country$scholarshipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ScholarshipCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  services<T extends Prisma.Country$servicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Country$servicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ServiceCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   stats<T extends Prisma.Country$statsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Country$statsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StatCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   testimonials<T extends Prisma.Country$testimonialsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Country$testimonialsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestimonialCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   universities<T extends Prisma.Country$universitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Country$universitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UniversityCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -4387,6 +4879,30 @@ export type Country$destinationsArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
+ * Country.essentials
+ */
+export type Country$essentialsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EssentialStudyCountry
+   */
+  select?: Prisma.EssentialStudyCountrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EssentialStudyCountry
+   */
+  omit?: Prisma.EssentialStudyCountryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EssentialStudyCountryInclude<ExtArgs> | null
+  where?: Prisma.EssentialStudyCountryWhereInput
+  orderBy?: Prisma.EssentialStudyCountryOrderByWithRelationInput | Prisma.EssentialStudyCountryOrderByWithRelationInput[]
+  cursor?: Prisma.EssentialStudyCountryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EssentialStudyCountryScalarFieldEnum | Prisma.EssentialStudyCountryScalarFieldEnum[]
+}
+
+/**
  * Country.events
  */
 export type Country$eventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4600,6 +5116,30 @@ export type Country$scholarshipsArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.ScholarshipCountryScalarFieldEnum | Prisma.ScholarshipCountryScalarFieldEnum[]
+}
+
+/**
+ * Country.services
+ */
+export type Country$servicesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ServiceCountry
+   */
+  select?: Prisma.ServiceCountrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ServiceCountry
+   */
+  omit?: Prisma.ServiceCountryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ServiceCountryInclude<ExtArgs> | null
+  where?: Prisma.ServiceCountryWhereInput
+  orderBy?: Prisma.ServiceCountryOrderByWithRelationInput | Prisma.ServiceCountryOrderByWithRelationInput[]
+  cursor?: Prisma.ServiceCountryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ServiceCountryScalarFieldEnum | Prisma.ServiceCountryScalarFieldEnum[]
 }
 
 /**

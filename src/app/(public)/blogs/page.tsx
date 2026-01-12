@@ -20,7 +20,8 @@ export const generateMetadata = async (): Promise<Metadata> =>
     url: "/blogs",
   });
 
-// Keep dynamic for searchParams support, but with short revalidation
+// SSG with ISR - revalidate every 5 minutes for fresh content
+// Using 'auto' for dynamic to allow searchParams while still caching
 export const revalidate = 300;
 export const dynamicParams = true;
 

@@ -12,7 +12,8 @@ import { Prisma } from "../../../../prisma/src/generated/prisma/client";
 import { CoursesHero } from "@/app/[country]/(public)/courses/components/courses-hero";
 import { CourseListing } from "@/app/[country]/(public)/courses/components/course-listing";
 
-// Enable ISR with 1 hour revalidation for SSG
+// Force static generation with ISR - revalidate every hour
+export const dynamic = "force-static";
 export const revalidate = 3600;
 
 export const generateMetadata = async (): Promise<Metadata> =>

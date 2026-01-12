@@ -5,6 +5,24 @@ import Link from "next/link";
 import { ChevronRight, Share2, Clock, DollarSign, MapPin } from "lucide-react";
 import Image from "next/image";
 
+// SSG with ISR - revalidate every hour
+export const revalidate = 3600;
+export const dynamicParams = true;
+
+// Pre-generate first 50 courses at build time for instant loading
+export async function generateStaticParams() {
+  const courses = await prisma.course.findMany({
+    where: { isActive: true },
+    select: { slug: true },
+    orderBy: { updatedAt: "desc" },
+    take: 50,
+  });
+
+  return courses.map((course) => ({
+    slug: course.slug,
+  }));
+}
+
 // Reusable Components
 import { IntakeFeature } from "@/app/(public)/components";
 import { ReviewSection } from "@/components/sections/review-section";
@@ -263,12 +281,14 @@ export default async function CourseDetailsPage({ params }: PageProps) {
                     </span>
                     <span className="font-bold text-blue-600">
                       {course.tuitionMin && course.tuitionMax
-                        ? `${formatCurrency(course.tuitionMin)} - ${formatCurrency(course.tuitionMax)}`
+                        ? `${formatCurrency(
+                            course.tuitionMin
+                          )} - ${formatCurrency(course.tuitionMax)}`
                         : course.tuitionMin
-                          ? `From ${formatCurrency(course.tuitionMin)}`
-                          : course.tuitionMax
-                            ? `Up to ${formatCurrency(course.tuitionMax)}`
-                            : "Contact for details"}
+                        ? `From ${formatCurrency(course.tuitionMin)}`
+                        : course.tuitionMax
+                        ? `Up to ${formatCurrency(course.tuitionMax)}`
+                        : "Contact for details"}
                     </span>
                   </div>
                 </div>
@@ -342,12 +362,16 @@ export default async function CourseDetailsPage({ params }: PageProps) {
               {/* Entry Requirements */}
               {sections.entryRequirements && (
                 <section id="entry-requirements" className="scroll-mt-32">
-                  <CourseEntryRequirements content={sections.entryRequirements} />
+                  <CourseEntryRequirements
+                    content={sections.entryRequirements}
+                  />
                 </section>
               )}
 
               {/* Cost of Study */}
-              {(course.tuitionMin || course.tuitionMax || sections.costOfStudy) && (
+              {(course.tuitionMin ||
+                course.tuitionMax ||
+                sections.costOfStudy) && (
                 <section id="cost-of-study" className="scroll-mt-32">
                   <CourseCostOfStudy
                     tuitionMin={course.tuitionMin}

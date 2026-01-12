@@ -11,7 +11,22 @@ import { RelatedArticles } from "@/components/blog/related-articles";
 import { ReviewSection } from "@/components/sections/review-section";
 import CallToActionBanner from "@/components/CallToActionBanner";
 
+// SSG with ISR - revalidate every 5 minutes
 export const revalidate = 300;
+export const dynamicParams = true;
+
+// Pre-generate first 50 most recent blogs at build time for instant loading
+export async function generateStaticParams() {
+  const blogs = await prisma.blog.findMany({
+    select: { slug: true },
+    orderBy: { publishedAt: "desc" },
+    take: 50,
+  });
+
+  return blogs.map((blog) => ({
+    slug: blog.slug,
+  }));
+}
 
 type PageProps = {
   params: Promise<{ slug: string }>;

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight, Share2 } from "lucide-react";
- 
+
 import { ReviewSection } from "@/components/sections/review-section";
 import { BlogSection } from "@/app/(public)/components";
 import { CountryAwareLink } from "@/components/common/navbar/country-aware-link";
@@ -49,9 +49,10 @@ export default async function EssentialStudyDetailsPage({ params }: PageProps) {
 
   // Capitalize country for display
   // Capitalize country for display (using slug as country/destination name)
-  const countryName = slug.toUpperCase() === "UK" || slug.toUpperCase() === "USA"
-    ? slug.toUpperCase()
-    : slug.charAt(0).toUpperCase() + slug.slice(1);
+  const countryName =
+    slug.toUpperCase() === "UK" || slug.toUpperCase() === "USA"
+      ? slug.toUpperCase()
+      : slug.charAt(0).toUpperCase() + slug.slice(1);
 
   return (
     <div className="bg-slate-50 min-h-screen">
@@ -67,11 +68,20 @@ export default async function EssentialStudyDetailsPage({ params }: PageProps) {
         <div className="absolute inset-0 bg-black/50" />
         <div className="absolute inset-0 flex flex-col justify-center max-w-7xl mx-auto px-6">
           <div className="flex items-center gap-2 text-white/80 text-sm mb-4">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+            <Link href="/" className="hover:text-white transition-colors">
+              Home
+            </Link>
             <ChevronRight className="w-4 h-4" />
-            <Link href={`/${slug}/study-abroad/${slug}`} className="hover:text-white transition-colors">Study Abroad</Link>
+            <Link
+              href={`/${slug}/study-abroad/${slug}`}
+              className="hover:text-white transition-colors"
+            >
+              Study Abroad
+            </Link>
             <ChevronRight className="w-4 h-4" />
-            <span className="text-white font-medium">{essentialStudy.title}</span>
+            <span className="text-white font-medium">
+              {essentialStudy.title}
+            </span>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-white max-w-4xl leading-tight">
             {essentialStudy.title}
@@ -121,14 +131,19 @@ export default async function EssentialStudyDetailsPage({ params }: PageProps) {
                     {countryName.charAt(0)}
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-slate-900">{essentialStudy.title}</h2>
+                    <h2 className="text-2xl font-bold text-slate-900">
+                      {essentialStudy.title}
+                    </h2>
                     <p className="text-slate-500 text-sm">Updated recently</p>
                   </div>
                 </div>
                 <div className="flex gap-3">
-                  <button className="px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors shadow-sm shadow-red-200">
+                  <Link
+                    href="/apply-now"
+                    className="px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors shadow-sm shadow-red-200"
+                  >
                     Apply Now
-                  </button>
+                  </Link>
                   <button className="px-4 py-2.5 border border-slate-200 hover:bg-slate-50 text-slate-700 font-medium rounded-lg transition-colors flex items-center gap-2">
                     <Share2 className="w-4 h-4" />
                     Share
@@ -139,15 +154,22 @@ export default async function EssentialStudyDetailsPage({ params }: PageProps) {
               <div className="prose prose-lg max-w-none prose-slate prose-headings:font-bold prose-headings:text-slate-900 prose-p:text-slate-600 prose-a:text-blue-600 hover:prose-a:text-blue-700">
                 {/* Render content with markdown styling */}
                 {essentialStudy.content ? (
-                  <MarkdownContent content={essentialStudy.content} generateIds />
+                  <MarkdownContent
+                    content={essentialStudy.content}
+                    generateIds
+                  />
                 ) : (
                   <>
                     <h3>Overview</h3>
                     <p>
-                      {essentialStudy.description || "Detailed information about this topic will be available soon."}
+                      {essentialStudy.description ||
+                        "Detailed information about this topic will be available soon."}
                     </p>
                     <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      Sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
                     </p>
                     <h3>Key Highlights</h3>
                     <ul>
@@ -157,7 +179,10 @@ export default async function EssentialStudyDetailsPage({ params }: PageProps) {
                       <li>Tips for a successful journey</li>
                     </ul>
                     <p>
-                      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                      Duis aute irure dolor in reprehenderit in voluptate velit
+                      esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                      sint occaecat cupidatat non proident, sunt in culpa qui
+                      officia deserunt mollit anim id est laborum.
                     </p>
                   </>
                 )}

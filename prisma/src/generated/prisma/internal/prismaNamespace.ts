@@ -433,6 +433,8 @@ export const ModelName = {
   TestimonialEvent: 'TestimonialEvent',
   AccreditationCountry: 'AccreditationCountry',
   GalleryCountry: 'GalleryCountry',
+  EssentialStudyCountry: 'EssentialStudyCountry',
+  ServiceCountry: 'ServiceCountry',
   Scholarship: 'Scholarship',
   Settings: 'Settings',
   Stat: 'Stat',
@@ -456,7 +458,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "appointment" | "blog" | "service" | "accreditation" | "career" | "jobApplication" | "course" | "courseIntake" | "intakePage" | "event" | "eventMedia" | "eventRegistration" | "fAQ" | "gallery" | "hero" | "heroCountry" | "intakeSeason" | "intakeSeasonCountry" | "intakePageBenefit" | "lead" | "offerRequest" | "recommendation" | "globalOffice" | "country" | "destination" | "essentialStudy" | "destinationSection" | "universityCountry" | "courseCountry" | "scholarshipCountry" | "eventCountry" | "blogCountry" | "blogUniversity" | "blogCourse" | "fAQCountry" | "fAQDestination" | "fAQUniversity" | "fAQEvent" | "fAQCourse" | "fAQScholarship" | "fAQIntakePage" | "globalOfficeCountry" | "destinationCountry" | "testimonialCountry" | "testimonialDestination" | "testimonialUniversity" | "testimonialEvent" | "accreditationCountry" | "galleryCountry" | "scholarship" | "settings" | "stat" | "statCountry" | "testimonial" | "university" | "universityDetail" | "user"
+    modelProps: "appointment" | "blog" | "service" | "accreditation" | "career" | "jobApplication" | "course" | "courseIntake" | "intakePage" | "event" | "eventMedia" | "eventRegistration" | "fAQ" | "gallery" | "hero" | "heroCountry" | "intakeSeason" | "intakeSeasonCountry" | "intakePageBenefit" | "lead" | "offerRequest" | "recommendation" | "globalOffice" | "country" | "destination" | "essentialStudy" | "destinationSection" | "universityCountry" | "courseCountry" | "scholarshipCountry" | "eventCountry" | "blogCountry" | "blogUniversity" | "blogCourse" | "fAQCountry" | "fAQDestination" | "fAQUniversity" | "fAQEvent" | "fAQCourse" | "fAQScholarship" | "fAQIntakePage" | "globalOfficeCountry" | "destinationCountry" | "testimonialCountry" | "testimonialDestination" | "testimonialUniversity" | "testimonialEvent" | "accreditationCountry" | "galleryCountry" | "essentialStudyCountry" | "serviceCountry" | "scholarship" | "settings" | "stat" | "statCountry" | "testimonial" | "university" | "universityDetail" | "user"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -4086,6 +4088,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    EssentialStudyCountry: {
+      payload: Prisma.$EssentialStudyCountryPayload<ExtArgs>
+      fields: Prisma.EssentialStudyCountryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EssentialStudyCountryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EssentialStudyCountryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EssentialStudyCountryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EssentialStudyCountryPayload>
+        }
+        findFirst: {
+          args: Prisma.EssentialStudyCountryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EssentialStudyCountryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EssentialStudyCountryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EssentialStudyCountryPayload>
+        }
+        findMany: {
+          args: Prisma.EssentialStudyCountryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EssentialStudyCountryPayload>[]
+        }
+        create: {
+          args: Prisma.EssentialStudyCountryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EssentialStudyCountryPayload>
+        }
+        createMany: {
+          args: Prisma.EssentialStudyCountryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EssentialStudyCountryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EssentialStudyCountryPayload>[]
+        }
+        delete: {
+          args: Prisma.EssentialStudyCountryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EssentialStudyCountryPayload>
+        }
+        update: {
+          args: Prisma.EssentialStudyCountryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EssentialStudyCountryPayload>
+        }
+        deleteMany: {
+          args: Prisma.EssentialStudyCountryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EssentialStudyCountryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EssentialStudyCountryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EssentialStudyCountryPayload>[]
+        }
+        upsert: {
+          args: Prisma.EssentialStudyCountryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EssentialStudyCountryPayload>
+        }
+        aggregate: {
+          args: Prisma.EssentialStudyCountryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEssentialStudyCountry>
+        }
+        groupBy: {
+          args: Prisma.EssentialStudyCountryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EssentialStudyCountryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EssentialStudyCountryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EssentialStudyCountryCountAggregateOutputType> | number
+        }
+      }
+    }
+    ServiceCountry: {
+      payload: Prisma.$ServiceCountryPayload<ExtArgs>
+      fields: Prisma.ServiceCountryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ServiceCountryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServiceCountryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ServiceCountryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServiceCountryPayload>
+        }
+        findFirst: {
+          args: Prisma.ServiceCountryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServiceCountryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ServiceCountryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServiceCountryPayload>
+        }
+        findMany: {
+          args: Prisma.ServiceCountryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServiceCountryPayload>[]
+        }
+        create: {
+          args: Prisma.ServiceCountryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServiceCountryPayload>
+        }
+        createMany: {
+          args: Prisma.ServiceCountryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ServiceCountryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServiceCountryPayload>[]
+        }
+        delete: {
+          args: Prisma.ServiceCountryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServiceCountryPayload>
+        }
+        update: {
+          args: Prisma.ServiceCountryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServiceCountryPayload>
+        }
+        deleteMany: {
+          args: Prisma.ServiceCountryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ServiceCountryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ServiceCountryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServiceCountryPayload>[]
+        }
+        upsert: {
+          args: Prisma.ServiceCountryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServiceCountryPayload>
+        }
+        aggregate: {
+          args: Prisma.ServiceCountryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateServiceCountry>
+        }
+        groupBy: {
+          args: Prisma.ServiceCountryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ServiceCountryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ServiceCountryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ServiceCountryCountAggregateOutputType> | number
+        }
+      }
+    }
     Scholarship: {
       payload: Prisma.$ScholarshipPayload<ExtArgs>
       fields: Prisma.ScholarshipFieldRefs
@@ -4768,7 +4918,11 @@ export const ServiceScalarFieldEnum = {
   metaDescription: 'metaDescription',
   metaKeywords: 'metaKeywords',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  heroSubtitle: 'heroSubtitle',
+  heroTitle: 'heroTitle',
+  isActive: 'isActive',
+  stats: 'stats'
 } as const
 
 export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
@@ -4819,7 +4973,6 @@ export type CareerScalarFieldEnum = (typeof CareerScalarFieldEnum)[keyof typeof 
 export const JobApplicationScalarFieldEnum = {
   id: 'id',
   careerId: 'careerId',
-  name: 'name',
   email: 'email',
   phone: 'phone',
   coverLetter: 'coverLetter',
@@ -4830,10 +4983,11 @@ export const JobApplicationScalarFieldEnum = {
   yearsOfExperience: 'yearsOfExperience',
   expectedSalary: 'expectedSalary',
   availableFrom: 'availableFrom',
-  status: 'status',
   notes: 'notes',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  name: 'name',
+  status: 'status'
 } as const
 
 export type JobApplicationScalarFieldEnum = (typeof JobApplicationScalarFieldEnum)[keyof typeof JobApplicationScalarFieldEnum]
@@ -4862,8 +5016,8 @@ export const CourseScalarFieldEnum = {
   destinationId: 'destinationId',
   icon: 'icon',
   summary: 'summary',
-  studyLevel: 'studyLevel',
-  faculty: 'faculty'
+  faculty: 'faculty',
+  studyLevel: 'studyLevel'
 } as const
 
 export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof CourseScalarFieldEnum]
@@ -5107,11 +5261,11 @@ export const GlobalOfficeScalarFieldEnum = {
   email: 'email',
   phone: 'phone',
   address: 'address',
-  latitude: 'latitude',
-  longitude: 'longitude',
-  mapEmbedUrl: 'mapEmbedUrl',
-  openingHours: 'openingHours',
+  mapUrl: 'mapUrl',
   content: 'content',
+  image: 'image',
+  bannerImage: 'bannerImage',
+  openingHours: 'openingHours',
   metaTitle: 'metaTitle',
   metaDescription: 'metaDescription',
   metaKeywords: 'metaKeywords',
@@ -5388,6 +5542,26 @@ export const GalleryCountryScalarFieldEnum = {
 export type GalleryCountryScalarFieldEnum = (typeof GalleryCountryScalarFieldEnum)[keyof typeof GalleryCountryScalarFieldEnum]
 
 
+export const EssentialStudyCountryScalarFieldEnum = {
+  id: 'id',
+  essentialStudyId: 'essentialStudyId',
+  countryId: 'countryId',
+  createdAt: 'createdAt'
+} as const
+
+export type EssentialStudyCountryScalarFieldEnum = (typeof EssentialStudyCountryScalarFieldEnum)[keyof typeof EssentialStudyCountryScalarFieldEnum]
+
+
+export const ServiceCountryScalarFieldEnum = {
+  id: 'id',
+  serviceId: 'serviceId',
+  countryId: 'countryId',
+  createdAt: 'createdAt'
+} as const
+
+export type ServiceCountryScalarFieldEnum = (typeof ServiceCountryScalarFieldEnum)[keyof typeof ServiceCountryScalarFieldEnum]
+
+
 export const ScholarshipScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -5654,6 +5828,20 @@ export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+/**
  * Reference to a field of type 'Int'
  */
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -5710,16 +5898,16 @@ export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMode
 
 
 /**
- * Reference to a field of type 'Json'
+ * Reference to a field of type 'Faculty'
  */
-export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+export type EnumFacultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Faculty'>
     
 
 
 /**
- * Reference to a field of type 'QueryMode'
+ * Reference to a field of type 'Faculty[]'
  */
-export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+export type ListEnumFacultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Faculty[]'>
     
 
 
@@ -5734,20 +5922,6 @@ export type EnumStudyLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$Prism
  * Reference to a field of type 'StudyLevel[]'
  */
 export type ListEnumStudyLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StudyLevel[]'>
-    
-
-
-/**
- * Reference to a field of type 'Faculty'
- */
-export type EnumFacultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Faculty'>
-    
-
-
-/**
- * Reference to a field of type 'Faculty[]'
- */
-export type ListEnumFacultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Faculty[]'>
     
 
 
@@ -6020,6 +6194,8 @@ export type GlobalOmitConfig = {
   testimonialEvent?: Prisma.TestimonialEventOmit
   accreditationCountry?: Prisma.AccreditationCountryOmit
   galleryCountry?: Prisma.GalleryCountryOmit
+  essentialStudyCountry?: Prisma.EssentialStudyCountryOmit
+  serviceCountry?: Prisma.ServiceCountryOmit
   scholarship?: Prisma.ScholarshipOmit
   settings?: Prisma.SettingsOmit
   stat?: Prisma.StatOmit

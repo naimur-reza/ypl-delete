@@ -21,8 +21,8 @@ model Course {
   destinationId   String
   icon            String?
   summary         String?
-  studyLevel      StudyLevel?
   faculty         Faculty?
+  studyLevel      StudyLevel?
   blogLinks       BlogCourse[]
   destination     Destination     @relation(fields: [destinationId], references: [id])
   university      University      @relation(fields: [universityId], references: [id])

@@ -36,6 +36,9 @@ export type ServiceMinAggregateOutputType = {
   metaKeywords: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  heroSubtitle: string | null
+  heroTitle: string | null
+  isActive: boolean | null
 }
 
 export type ServiceMaxAggregateOutputType = {
@@ -50,6 +53,9 @@ export type ServiceMaxAggregateOutputType = {
   metaKeywords: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  heroSubtitle: string | null
+  heroTitle: string | null
+  isActive: boolean | null
 }
 
 export type ServiceCountAggregateOutputType = {
@@ -64,6 +70,10 @@ export type ServiceCountAggregateOutputType = {
   metaKeywords: number
   createdAt: number
   updatedAt: number
+  heroSubtitle: number
+  heroTitle: number
+  isActive: number
+  stats: number
   _all: number
 }
 
@@ -80,6 +90,9 @@ export type ServiceMinAggregateInputType = {
   metaKeywords?: true
   createdAt?: true
   updatedAt?: true
+  heroSubtitle?: true
+  heroTitle?: true
+  isActive?: true
 }
 
 export type ServiceMaxAggregateInputType = {
@@ -94,6 +107,9 @@ export type ServiceMaxAggregateInputType = {
   metaKeywords?: true
   createdAt?: true
   updatedAt?: true
+  heroSubtitle?: true
+  heroTitle?: true
+  isActive?: true
 }
 
 export type ServiceCountAggregateInputType = {
@@ -108,6 +124,10 @@ export type ServiceCountAggregateInputType = {
   metaKeywords?: true
   createdAt?: true
   updatedAt?: true
+  heroSubtitle?: true
+  heroTitle?: true
+  isActive?: true
+  stats?: true
   _all?: true
 }
 
@@ -195,6 +215,10 @@ export type ServiceGroupByOutputType = {
   metaKeywords: string | null
   createdAt: Date
   updatedAt: Date
+  heroSubtitle: string | null
+  heroTitle: string | null
+  isActive: boolean
+  stats: runtime.JsonValue | null
   _count: ServiceCountAggregateOutputType | null
   _min: ServiceMinAggregateOutputType | null
   _max: ServiceMaxAggregateOutputType | null
@@ -230,6 +254,11 @@ export type ServiceWhereInput = {
   metaKeywords?: Prisma.StringNullableFilter<"Service"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Service"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Service"> | Date | string
+  heroSubtitle?: Prisma.StringNullableFilter<"Service"> | string | null
+  heroTitle?: Prisma.StringNullableFilter<"Service"> | string | null
+  isActive?: Prisma.BoolFilter<"Service"> | boolean
+  stats?: Prisma.JsonNullableFilter<"Service">
+  countries?: Prisma.ServiceCountryListRelationFilter
 }
 
 export type ServiceOrderByWithRelationInput = {
@@ -244,6 +273,11 @@ export type ServiceOrderByWithRelationInput = {
   metaKeywords?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  heroSubtitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  heroTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  isActive?: Prisma.SortOrder
+  stats?: Prisma.SortOrderInput | Prisma.SortOrder
+  countries?: Prisma.ServiceCountryOrderByRelationAggregateInput
 }
 
 export type ServiceWhereUniqueInput = Prisma.AtLeast<{
@@ -261,6 +295,11 @@ export type ServiceWhereUniqueInput = Prisma.AtLeast<{
   metaKeywords?: Prisma.StringNullableFilter<"Service"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Service"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Service"> | Date | string
+  heroSubtitle?: Prisma.StringNullableFilter<"Service"> | string | null
+  heroTitle?: Prisma.StringNullableFilter<"Service"> | string | null
+  isActive?: Prisma.BoolFilter<"Service"> | boolean
+  stats?: Prisma.JsonNullableFilter<"Service">
+  countries?: Prisma.ServiceCountryListRelationFilter
 }, "id" | "slug">
 
 export type ServiceOrderByWithAggregationInput = {
@@ -275,6 +314,10 @@ export type ServiceOrderByWithAggregationInput = {
   metaKeywords?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  heroSubtitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  heroTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  isActive?: Prisma.SortOrder
+  stats?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ServiceCountOrderByAggregateInput
   _max?: Prisma.ServiceMaxOrderByAggregateInput
   _min?: Prisma.ServiceMinOrderByAggregateInput
@@ -295,6 +338,10 @@ export type ServiceScalarWhereWithAggregatesInput = {
   metaKeywords?: Prisma.StringNullableWithAggregatesFilter<"Service"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Service"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Service"> | Date | string
+  heroSubtitle?: Prisma.StringNullableWithAggregatesFilter<"Service"> | string | null
+  heroTitle?: Prisma.StringNullableWithAggregatesFilter<"Service"> | string | null
+  isActive?: Prisma.BoolWithAggregatesFilter<"Service"> | boolean
+  stats?: Prisma.JsonNullableWithAggregatesFilter<"Service">
 }
 
 export type ServiceCreateInput = {
@@ -309,6 +356,11 @@ export type ServiceCreateInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  heroSubtitle?: string | null
+  heroTitle?: string | null
+  isActive?: boolean
+  stats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  countries?: Prisma.ServiceCountryCreateNestedManyWithoutServiceInput
 }
 
 export type ServiceUncheckedCreateInput = {
@@ -323,6 +375,11 @@ export type ServiceUncheckedCreateInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  heroSubtitle?: string | null
+  heroTitle?: string | null
+  isActive?: boolean
+  stats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  countries?: Prisma.ServiceCountryUncheckedCreateNestedManyWithoutServiceInput
 }
 
 export type ServiceUpdateInput = {
@@ -337,6 +394,11 @@ export type ServiceUpdateInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  stats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  countries?: Prisma.ServiceCountryUpdateManyWithoutServiceNestedInput
 }
 
 export type ServiceUncheckedUpdateInput = {
@@ -351,6 +413,11 @@ export type ServiceUncheckedUpdateInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  stats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  countries?: Prisma.ServiceCountryUncheckedUpdateManyWithoutServiceNestedInput
 }
 
 export type ServiceCreateManyInput = {
@@ -365,6 +432,10 @@ export type ServiceCreateManyInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  heroSubtitle?: string | null
+  heroTitle?: string | null
+  isActive?: boolean
+  stats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type ServiceUpdateManyMutationInput = {
@@ -379,6 +450,10 @@ export type ServiceUpdateManyMutationInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  stats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type ServiceUncheckedUpdateManyInput = {
@@ -393,6 +468,10 @@ export type ServiceUncheckedUpdateManyInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  stats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type ServiceCountOrderByAggregateInput = {
@@ -407,6 +486,10 @@ export type ServiceCountOrderByAggregateInput = {
   metaKeywords?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  heroSubtitle?: Prisma.SortOrder
+  heroTitle?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
+  stats?: Prisma.SortOrder
 }
 
 export type ServiceMaxOrderByAggregateInput = {
@@ -421,6 +504,9 @@ export type ServiceMaxOrderByAggregateInput = {
   metaKeywords?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  heroSubtitle?: Prisma.SortOrder
+  heroTitle?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
 }
 
 export type ServiceMinOrderByAggregateInput = {
@@ -435,8 +521,147 @@ export type ServiceMinOrderByAggregateInput = {
   metaKeywords?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  heroSubtitle?: Prisma.SortOrder
+  heroTitle?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
 }
 
+export type ServiceScalarRelationFilter = {
+  is?: Prisma.ServiceWhereInput
+  isNot?: Prisma.ServiceWhereInput
+}
+
+export type ServiceCreateNestedOneWithoutCountriesInput = {
+  create?: Prisma.XOR<Prisma.ServiceCreateWithoutCountriesInput, Prisma.ServiceUncheckedCreateWithoutCountriesInput>
+  connectOrCreate?: Prisma.ServiceCreateOrConnectWithoutCountriesInput
+  connect?: Prisma.ServiceWhereUniqueInput
+}
+
+export type ServiceUpdateOneRequiredWithoutCountriesNestedInput = {
+  create?: Prisma.XOR<Prisma.ServiceCreateWithoutCountriesInput, Prisma.ServiceUncheckedCreateWithoutCountriesInput>
+  connectOrCreate?: Prisma.ServiceCreateOrConnectWithoutCountriesInput
+  upsert?: Prisma.ServiceUpsertWithoutCountriesInput
+  connect?: Prisma.ServiceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ServiceUpdateToOneWithWhereWithoutCountriesInput, Prisma.ServiceUpdateWithoutCountriesInput>, Prisma.ServiceUncheckedUpdateWithoutCountriesInput>
+}
+
+export type ServiceCreateWithoutCountriesInput = {
+  id?: string
+  title: string
+  slug: string
+  summary?: string | null
+  content?: string | null
+  image?: string | null
+  metaTitle?: string | null
+  metaDescription?: string | null
+  metaKeywords?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  heroSubtitle?: string | null
+  heroTitle?: string | null
+  isActive?: boolean
+  stats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+}
+
+export type ServiceUncheckedCreateWithoutCountriesInput = {
+  id?: string
+  title: string
+  slug: string
+  summary?: string | null
+  content?: string | null
+  image?: string | null
+  metaTitle?: string | null
+  metaDescription?: string | null
+  metaKeywords?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  heroSubtitle?: string | null
+  heroTitle?: string | null
+  isActive?: boolean
+  stats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+}
+
+export type ServiceCreateOrConnectWithoutCountriesInput = {
+  where: Prisma.ServiceWhereUniqueInput
+  create: Prisma.XOR<Prisma.ServiceCreateWithoutCountriesInput, Prisma.ServiceUncheckedCreateWithoutCountriesInput>
+}
+
+export type ServiceUpsertWithoutCountriesInput = {
+  update: Prisma.XOR<Prisma.ServiceUpdateWithoutCountriesInput, Prisma.ServiceUncheckedUpdateWithoutCountriesInput>
+  create: Prisma.XOR<Prisma.ServiceCreateWithoutCountriesInput, Prisma.ServiceUncheckedCreateWithoutCountriesInput>
+  where?: Prisma.ServiceWhereInput
+}
+
+export type ServiceUpdateToOneWithWhereWithoutCountriesInput = {
+  where?: Prisma.ServiceWhereInput
+  data: Prisma.XOR<Prisma.ServiceUpdateWithoutCountriesInput, Prisma.ServiceUncheckedUpdateWithoutCountriesInput>
+}
+
+export type ServiceUpdateWithoutCountriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  stats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+}
+
+export type ServiceUncheckedUpdateWithoutCountriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  stats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+}
+
+
+/**
+ * Count Type ServiceCountOutputType
+ */
+
+export type ServiceCountOutputType = {
+  countries: number
+}
+
+export type ServiceCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  countries?: boolean | ServiceCountOutputTypeCountCountriesArgs
+}
+
+/**
+ * ServiceCountOutputType without action
+ */
+export type ServiceCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ServiceCountOutputType
+   */
+  select?: Prisma.ServiceCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ServiceCountOutputType without action
+ */
+export type ServiceCountOutputTypeCountCountriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ServiceCountryWhereInput
+}
 
 
 export type ServiceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -451,6 +676,12 @@ export type ServiceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   metaKeywords?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  heroSubtitle?: boolean
+  heroTitle?: boolean
+  isActive?: boolean
+  stats?: boolean
+  countries?: boolean | Prisma.Service$countriesArgs<ExtArgs>
+  _count?: boolean | Prisma.ServiceCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["service"]>
 
 export type ServiceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -465,6 +696,10 @@ export type ServiceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   metaKeywords?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  heroSubtitle?: boolean
+  heroTitle?: boolean
+  isActive?: boolean
+  stats?: boolean
 }, ExtArgs["result"]["service"]>
 
 export type ServiceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -479,6 +714,10 @@ export type ServiceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   metaKeywords?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  heroSubtitle?: boolean
+  heroTitle?: boolean
+  isActive?: boolean
+  stats?: boolean
 }, ExtArgs["result"]["service"]>
 
 export type ServiceSelectScalar = {
@@ -493,13 +732,25 @@ export type ServiceSelectScalar = {
   metaKeywords?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  heroSubtitle?: boolean
+  heroTitle?: boolean
+  isActive?: boolean
+  stats?: boolean
 }
 
-export type ServiceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "summary" | "content" | "image" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt", ExtArgs["result"]["service"]>
+export type ServiceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "summary" | "content" | "image" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "heroSubtitle" | "heroTitle" | "isActive" | "stats", ExtArgs["result"]["service"]>
+export type ServiceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  countries?: boolean | Prisma.Service$countriesArgs<ExtArgs>
+  _count?: boolean | Prisma.ServiceCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type ServiceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type ServiceIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $ServicePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Service"
-  objects: {}
+  objects: {
+    countries: Prisma.$ServiceCountryPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     title: string
@@ -512,6 +763,10 @@ export type $ServicePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     metaKeywords: string | null
     createdAt: Date
     updatedAt: Date
+    heroSubtitle: string | null
+    heroTitle: string | null
+    isActive: boolean
+    stats: runtime.JsonValue | null
   }, ExtArgs["result"]["service"]>
   composites: {}
 }
@@ -906,6 +1161,7 @@ readonly fields: ServiceFieldRefs;
  */
 export interface Prisma__ServiceClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  countries<T extends Prisma.Service$countriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Service$countriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ServiceCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -946,6 +1202,10 @@ export interface ServiceFieldRefs {
   readonly metaKeywords: Prisma.FieldRef<"Service", 'String'>
   readonly createdAt: Prisma.FieldRef<"Service", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Service", 'DateTime'>
+  readonly heroSubtitle: Prisma.FieldRef<"Service", 'String'>
+  readonly heroTitle: Prisma.FieldRef<"Service", 'String'>
+  readonly isActive: Prisma.FieldRef<"Service", 'Boolean'>
+  readonly stats: Prisma.FieldRef<"Service", 'Json'>
 }
     
 
@@ -962,6 +1222,10 @@ export type ServiceFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the Service
    */
   omit?: Prisma.ServiceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ServiceInclude<ExtArgs> | null
   /**
    * Filter, which Service to fetch.
    */
@@ -981,6 +1245,10 @@ export type ServiceFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.ServiceOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ServiceInclude<ExtArgs> | null
+  /**
    * Filter, which Service to fetch.
    */
   where: Prisma.ServiceWhereUniqueInput
@@ -998,6 +1266,10 @@ export type ServiceFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the Service
    */
   omit?: Prisma.ServiceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ServiceInclude<ExtArgs> | null
   /**
    * Filter, which Service to fetch.
    */
@@ -1047,6 +1319,10 @@ export type ServiceFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.ServiceOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ServiceInclude<ExtArgs> | null
+  /**
    * Filter, which Service to fetch.
    */
   where?: Prisma.ServiceWhereInput
@@ -1095,6 +1371,10 @@ export type ServiceFindManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.ServiceOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ServiceInclude<ExtArgs> | null
+  /**
    * Filter, which Services to fetch.
    */
   where?: Prisma.ServiceWhereInput
@@ -1137,6 +1417,10 @@ export type ServiceCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Service
    */
   omit?: Prisma.ServiceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ServiceInclude<ExtArgs> | null
   /**
    * The data needed to create a Service.
    */
@@ -1185,6 +1469,10 @@ export type ServiceUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Service
    */
   omit?: Prisma.ServiceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ServiceInclude<ExtArgs> | null
   /**
    * The data needed to update a Service.
    */
@@ -1252,6 +1540,10 @@ export type ServiceUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.ServiceOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ServiceInclude<ExtArgs> | null
+  /**
    * The filter to search for the Service to update in case it exists.
    */
   where: Prisma.ServiceWhereUniqueInput
@@ -1278,6 +1570,10 @@ export type ServiceDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.ServiceOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ServiceInclude<ExtArgs> | null
+  /**
    * Filter which Service to delete.
    */
   where: Prisma.ServiceWhereUniqueInput
@@ -1298,6 +1594,30 @@ export type ServiceDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
+ * Service.countries
+ */
+export type Service$countriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ServiceCountry
+   */
+  select?: Prisma.ServiceCountrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ServiceCountry
+   */
+  omit?: Prisma.ServiceCountryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ServiceCountryInclude<ExtArgs> | null
+  where?: Prisma.ServiceCountryWhereInput
+  orderBy?: Prisma.ServiceCountryOrderByWithRelationInput | Prisma.ServiceCountryOrderByWithRelationInput[]
+  cursor?: Prisma.ServiceCountryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ServiceCountryScalarFieldEnum | Prisma.ServiceCountryScalarFieldEnum[]
+}
+
+/**
  * Service without action
  */
 export type ServiceDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1309,4 +1629,8 @@ export type ServiceDefaultArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Service
    */
   omit?: Prisma.ServiceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ServiceInclude<ExtArgs> | null
 }

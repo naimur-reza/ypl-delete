@@ -38,6 +38,7 @@ export function ApplyNowForm({ countryId, destinationId, officeSlug, className, 
       message: "",
     },
   });
+  console.log(destinationId)
 
   const onSubmit = async (data: ApplyNowFormData) => {
     setIsSubmitting(true);

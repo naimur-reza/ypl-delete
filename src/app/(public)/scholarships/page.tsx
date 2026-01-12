@@ -13,7 +13,8 @@ import FeaturedScholarshipSlider from "@/app/[country]/(public)/scholarships/com
 import ScholarshipList from "@/app/[country]/(public)/scholarships/components/scholarship-list";
 import HowToApplySteps from "@/app/[country]/(public)/scholarships/components/how-to-apply-steps";
 
-// Enable ISR with 1 hour revalidation for SSG
+// Force static generation with ISR - revalidate every hour
+export const dynamic = "force-static";
 export const revalidate = 3600;
 
 type PageProps = {

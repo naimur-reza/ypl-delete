@@ -31,9 +31,7 @@ type GlobalOfficeWithCountries = {
   address?: string | null;
   latitude?: number | null;
   longitude?: number | null;
-  mapEmbedUrl?: string | null;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  openingHours?: any;
+  mapUrl?: string | null;
   metaTitle?: string | null;
   metaDescription?: string | null;
   metaKeywords?: string | null;

@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { FormBase } from "@/components/form/FormBase";
+import { ImageUpload } from "@/components/ui/image-upload";
 
 type GlobalOfficeWithCountries = {
   id: string;
@@ -26,11 +27,11 @@ type GlobalOfficeWithCountries = {
   email?: string | null;
   phone?: string | null;
   address?: string | null;
-  latitude?: number | null;
-  longitude?: number | null;
-  mapEmbedUrl?: string | null;
-  openingHours?: any;
+  mapUrl?: string | null;
   content?: string | null;
+  image?: string | null;
+  bannerImage?: string | null;
+  openingHours?: string | null;
   metaTitle?: string | null;
   metaDescription?: string | null;
   metaKeywords?: string | null;
@@ -41,15 +42,6 @@ const globalOfficeApi = createEntityApi<GlobalOfficeWithCountries>(
   "/api/global-offices"
 );
 
-const daysOfWeek = [
-  { key: "monday", label: "Monday" },
-  { key: "tuesday", label: "Tuesday" },
-  { key: "wednesday", label: "Wednesday" },
-  { key: "thursday", label: "Thursday" },
-  { key: "friday", label: "Friday" },
-  { key: "saturday", label: "Saturday" },
-  { key: "sunday", label: "Sunday" },
-];
 
 const GlobalOfficeFormModal = ({
   isEditing,
@@ -64,9 +56,11 @@ const GlobalOfficeFormModal = ({
 }) => {
   const isOpen = true;
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
   const [countryIds, setCountryIds] = useState<string[]>([]);
-  const [openingHours, setOpeningHours] = useState<Record<string, any>>({});
   const [content, setContent] = useState<string>("");
+  const [imageUrl, setImageUrl] = useState<string>("");
+  const [bannerImageUrl, setBannerImageUrl] = useState<string>("");
 
   const form = useAppForm({
     defaultValues: {
@@ -76,9 +70,8 @@ const GlobalOfficeFormModal = ({
       email: selectedGlobalOffice?.email || "",
       phone: selectedGlobalOffice?.phone || "",
       address: selectedGlobalOffice?.address || "",
-      latitude: selectedGlobalOffice?.latitude?.toString() || "",
-      longitude: selectedGlobalOffice?.longitude?.toString() || "",
-      mapEmbedUrl: selectedGlobalOffice?.mapEmbedUrl || "",
+      mapUrl: selectedGlobalOffice?.mapUrl || "",
+      openingHours: selectedGlobalOffice?.openingHours || "10:30 AM – 7 PM (Friday Closed)",
       content: selectedGlobalOffice?.content || "",
       metaTitle: selectedGlobalOffice?.metaTitle || "",
       metaDescription: selectedGlobalOffice?.metaDescription || "",
@@ -90,55 +83,12 @@ const GlobalOfficeFormModal = ({
       try {
         let response;
 
-        // Convert latitude and longitude strings to numbers or null
-        const latitudeValue =
-          value.latitude === "" ||
-          value.latitude === null ||
-          value.latitude === undefined
-            ? null
-            : typeof value.latitude === "string"
-            ? value.latitude.trim() === ""
-              ? null
-              : parseFloat(value.latitude)
-            : value.latitude;
-
-        const longitudeValue =
-          value.longitude === "" ||
-          value.longitude === null ||
-          value.longitude === undefined
-            ? null
-            : typeof value.longitude === "string"
-            ? value.longitude.trim() === ""
-              ? null
-              : parseFloat(value.longitude)
-            : value.longitude;
-
-        // Validate coordinates if provided
-        if (
-          latitudeValue !== null &&
-          (isNaN(latitudeValue) || latitudeValue < -90 || latitudeValue > 90)
-        ) {
-          toast.error("Latitude must be a valid number between -90 and 90");
-          return;
-        }
-
-        if (
-          longitudeValue !== null &&
-          (isNaN(longitudeValue) ||
-            longitudeValue < -180 ||
-            longitudeValue > 180)
-        ) {
-          toast.error("Longitude must be a valid number between -180 and 180");
-          return;
-        }
-
         const submitData = {
           ...value,
-          latitude: latitudeValue,
-          longitude: longitudeValue,
-          openingHours:
-            Object.keys(openingHours).length > 0 ? openingHours : null,
           content: content || null,
+          image: imageUrl || null,
+          bannerImage: bannerImageUrl || null,
+          openingHours: value.openingHours || null,
           countryIds,
           metaTitle: value.metaTitle || null,
           metaDescription: value.metaDescription || null,
@@ -166,19 +116,16 @@ const GlobalOfficeFormModal = ({
         );
         form.reset();
         setCountryIds([]);
-        setOpeningHours({});
         setContent("");
         onClose();
         onSuccess?.();
       } catch (err: any) {
-        // Handle Zod validation errors
         if (err?.issues && Array.isArray(err.issues)) {
           const firstError = err.issues[0];
           toast.error(firstError.message || "Validation error");
           return;
         }
 
-        // Handle API errors
         if (err?.response?.error) {
           toast.error(err.response.error);
           return;
@@ -200,66 +147,31 @@ const GlobalOfficeFormModal = ({
       form.setFieldValue("email", selectedGlobalOffice.email || "");
       form.setFieldValue("phone", selectedGlobalOffice.phone || "");
       form.setFieldValue("address", selectedGlobalOffice.address || "");
-      form.setFieldValue(
-        "latitude",
-        selectedGlobalOffice.latitude?.toString() || ""
-      );
-      form.setFieldValue(
-        "longitude",
-        selectedGlobalOffice.longitude?.toString() || ""
-      );
-      form.setFieldValue("mapEmbedUrl", selectedGlobalOffice.mapEmbedUrl || "");
+      form.setFieldValue("mapUrl", selectedGlobalOffice.mapUrl || "");
       setContent(selectedGlobalOffice.content || "");
+      setImageUrl(selectedGlobalOffice.image || "");
+      setBannerImageUrl(selectedGlobalOffice.bannerImage || "");
+      form.setFieldValue("openingHours", selectedGlobalOffice.openingHours || "10:30 AM – 7 PM (Friday Closed)");
       form.setFieldValue("metaTitle", selectedGlobalOffice.metaTitle || "");
-      form.setFieldValue(
-        "metaDescription",
-        selectedGlobalOffice.metaDescription || ""
-      );
-      form.setFieldValue(
-        "metaKeywords",
-        selectedGlobalOffice.metaKeywords || ""
-      );
+      form.setFieldValue("metaDescription", selectedGlobalOffice.metaDescription || "");
+      form.setFieldValue("metaKeywords", selectedGlobalOffice.metaKeywords || "");
 
-      // Set country IDs
       if (selectedGlobalOffice.countries) {
         setCountryIds(selectedGlobalOffice.countries.map((c) => c.country.id));
-      }
-
-      // Set opening hours
-      if (selectedGlobalOffice.openingHours) {
-        setOpeningHours(
-          selectedGlobalOffice.openingHours as Record<string, any>
-        );
       }
     } else {
       form.reset();
       setCountryIds([]);
-      setOpeningHours({});
       setContent("");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedGlobalOffice]);
 
-  // Auto-slug generation from name
   const { handleTitleChange, handleSlugChange } = useAutoSlug({
     getSlugValue: () => form.getFieldValue("slug") || "",
     setSlugValue: (value) => form.setFieldValue("slug", value),
     isEditing: !!isEditing,
   });
-
-  const handleDayChange = (
-    day: string,
-    field: "open" | "close" | "closed",
-    value: any
-  ) => {
-    setOpeningHours((prev) => ({
-      ...prev,
-      [day]: {
-        ...prev[day],
-        [field]: field === "closed" ? value : value || "",
-      },
-    }));
-  };
 
   return (
     <Modal
@@ -326,20 +238,69 @@ const GlobalOfficeFormModal = ({
             </form.AppField>
           </div>
 
-          <div className=" pt-4 mt-4">
+          <div className="pt-4 mt-4">
+            <h3 className="text-sm font-semibold mb-3">Location</h3>
             <form.AppField name="address">
               {(field) => <field.Textarea label="Address" />}
             </form.AppField>
-            <div className="grid grid-cols-2 gap-4 my-4">
-              <form.AppField name="latitude">
-                {(field) => <field.Input label="Latitude" />}
-              </form.AppField>
-              <form.AppField name="longitude">
-                {(field) => <field.Input label="Longitude" />}
-              </form.AppField>
+            <form.AppField name="mapUrl">
+              {(field) => (
+                <FormBase 
+                  label="Google Maps Iframe" 
+                  description="Paste the Google Maps embed iframe here."
+                >
+                  <textarea
+                    id={field.name}
+                    name={field.name}
+                    value={field.state.value || ""}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    onBlur={field.handleBlur}
+                    placeholder="<iframe src='...' ...></iframe>"
+                    className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  />
+                </FormBase>
+              )}
+            </form.AppField>
+          </div>
+
+          <div className="pt-4 mt-4">
+            <h3 className="text-sm font-semibold mb-3">Office Media</h3>
+            <ImageUpload
+              value={imageUrl}
+              onChange={setImageUrl}
+              label="Office Image"
+              folder="global-offices"
+              onUploadingChange={setIsUploading}
+            />
+            <div className="mt-4">
+              <ImageUpload
+                value={bannerImageUrl}
+                onChange={setBannerImageUrl}
+                label="Banner Image"
+                folder="global-offices"
+                onUploadingChange={setIsUploading}
+              />
             </div>
-            <form.AppField name="mapEmbedUrl">
-              {(field) => <field.Input label="Map Embed URL" />}
+          </div>
+
+          <div className="pt-4 mt-4">
+            <h3 className="text-sm font-semibold mb-3">Opening Hours</h3>
+            <form.AppField name="openingHours">
+              {(field) => (
+                <FormBase 
+                  label="Office Hours" 
+                  description="Standard hours: 10:30 AM – 7 PM (Friday Closed)"
+                >
+                  <Input
+                    id={field.name}
+                    name={field.name}
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    onBlur={field.handleBlur}
+                    placeholder="10:30 AM – 7 PM (Friday Closed)"
+                  />
+                </FormBase>
+              )}
             </form.AppField>
           </div>
 
@@ -351,70 +312,6 @@ const GlobalOfficeFormModal = ({
               label="Office Content"
               placeholder="Enter detailed information about this office..."
             />
-          </div>
-
-          <div className="pt-4 mt-4">
-            <h3 className="text-sm font-semibold mb-3">Opening Hours</h3>{" "}
-            <div className="space-y-3">
-              {daysOfWeek.map((day) => {
-                const dayData = openingHours[day.key] || {};
-                const isClosed = dayData.closed || false;
-
-                return (
-                  <div key={day.key} className="border rounded-md p-3">
-                    <div className="flex items-center justify-between mb-2">
-                      <Label className="font-medium">{day.label}</Label>
-                      <div className="flex items-center gap-2">
-                        <input
-                          type="checkbox"
-                          checked={isClosed}
-                          onChange={(e) =>
-                            handleDayChange(day.key, "closed", e.target.checked)
-                          }
-                          className="rounded"
-                        />
-                        <Label className="text-xs">Closed</Label>
-                      </div>
-                    </div>
-                    {!isClosed && (
-                      <div className="grid grid-cols-2 gap-2">
-                        <div>
-                          <Label className="text-xs text-muted-foreground">
-                            Open Time
-                          </Label>
-                          <Input
-                            type="time"
-                            value={dayData.open || ""}
-                            onChange={(e) =>
-                              handleDayChange(day.key, "open", e.target.value)
-                            }
-                            className="mt-1"
-                          />
-                        </div>
-                        <div>
-                          <Label className="text-xs text-muted-foreground">
-                            Close Time
-                          </Label>
-                          <Input
-                            type="time"
-                            value={dayData.close || ""}
-                            onChange={(e) =>
-                              handleDayChange(day.key, "close", e.target.value)
-                            }
-                            className="mt-1"
-                          />
-                        </div>
-                      </div>
-                    )}
-                    {isClosed && (
-                      <div className="text-xs text-muted-foreground italic">
-                        Closed
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
           </div>
 
           <div className=" ">
@@ -448,6 +345,7 @@ const GlobalOfficeFormModal = ({
             </Button>
             <SubmitButton
               isSubmitting={isSubmitting}
+              isUploading={isUploading}
               submitText={isEditing ? "Update" : "Create"}
               submittingText={isEditing ? "Updating..." : "Creating..."}
             />

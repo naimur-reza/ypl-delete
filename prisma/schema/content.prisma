@@ -1,15 +1,20 @@
 model Service {
-  id              String   @id @default(cuid())
+  id              String           @id @default(cuid())
   title           String
-  slug            String   @unique
+  slug            String           @unique
   summary         String?
   content         String?
   image           String?
   metaTitle       String?
   metaDescription String?
   metaKeywords    String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  heroSubtitle    String?
+  heroTitle       String?
+  isActive        Boolean          @default(true)
+  stats           Json?
+  countries       ServiceCountry[]
 }
 
 model Accreditation {
@@ -51,9 +56,8 @@ model Career {
 }
 
 model JobApplication {
-  id                String                @id @default(cuid())
+  id                String               @id @default(cuid())
   careerId          String
-  name              String
   email             String
   phone             String
   coverLetter       String?
@@ -64,11 +68,12 @@ model JobApplication {
   yearsOfExperience Int?
   expectedSalary    String?
   availableFrom     DateTime?
-  status            JobApplicationStatus  @default(PENDING)
   notes             String?
-  createdAt         DateTime              @default(now())
-  updatedAt         DateTime              @updatedAt
-  career            Career                @relation(fields: [careerId], references: [id], onDelete: Cascade)
+  createdAt         DateTime             @default(now())
+  updatedAt         DateTime             @updatedAt
+  name              String
+  status            JobApplicationStatus @default(PENDING)
+  career            Career               @relation(fields: [careerId], references: [id], onDelete: Cascade)
 
   @@index([careerId])
   @@index([email])
