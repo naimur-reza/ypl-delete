@@ -54,7 +54,7 @@ const ScholarshipFormModal = ({
     deadline?: string | null;
     universityId?: string | null;
     destinationId: string;
-    isActive?: boolean;
+    status?: "ACTIVE" | "DRAFT";
     metaTitle?: string | null;
     metaDescription?: string | null;
     metaKeywords?: string | null;
@@ -113,7 +113,7 @@ const ScholarshipFormModal = ({
       slug: selectedScholarship?.slug || "",
       description: selectedScholarship?.description || "",
       summary: selectedScholarship?.summary || "",
-      isActive: selectedScholarship?.isActive ?? true,
+      status: selectedScholarship?.status || "DRAFT",
       amount: selectedScholarship?.amount?.toString() || "",
       deadline: selectedScholarship?.deadline
         ? new Date(selectedScholarship.deadline).toISOString().slice(0, 16)
@@ -141,7 +141,7 @@ const ScholarshipFormModal = ({
           ...value,
           image: imageUrl || null,
           summary: value.summary || null,
-          isActive: value.isActive ?? true,
+          status: value.status || "DRAFT",
           amount: value.amount ? parseFloat(value.amount) : null,
           deadline: value.deadline || null,
           universityId: value.universityId || null,
@@ -195,7 +195,7 @@ const ScholarshipFormModal = ({
       form.setFieldValue("slug", selectedScholarship.slug || "");
       form.setFieldValue("description", selectedScholarship.description || "");
       form.setFieldValue("summary", selectedScholarship.summary || "");
-      form.setFieldValue("isActive", selectedScholarship.isActive ?? true);
+      form.setFieldValue("status", selectedScholarship.status || "DRAFT");
       if (
         selectedScholarship.amount !== undefined &&
         selectedScholarship.amount !== null
@@ -293,17 +293,14 @@ const ScholarshipFormModal = ({
                         handleTitleChange(e.target.value);
                       }}
                       onBlur={field.handleBlur}
-                      placeholder="e.g., Merit Scholarship 2025"
+ 
                     />
                   </FormBase>
                 )}
               </form.AppField>
               <form.AppField name="slug">
                 {(field) => (
-                  <FormBase
-                    label="Slug"
-                    description="Auto-generated from title. You can edit if needed."
-                  >
+                  <FormBase label="Slug">
                     <Input
                       id={field.name}
                       name={field.name}
@@ -314,7 +311,7 @@ const ScholarshipFormModal = ({
                         handleSlugChange(slugValue);
                       }}
                       onBlur={field.handleBlur}
-                      placeholder="e.g., merit-scholarship-2025"
+       
                     />
                   </FormBase>
                 )}
@@ -347,8 +344,13 @@ const ScholarshipFormModal = ({
               <form.AppField name="summary">
                 {(field) => <field.Input label="Summary (for cards/lists)" />}
               </form.AppField>
-              <form.AppField name="isActive">
-                {(field) => <field.Checkbox label="Active" />}
+              <form.AppField name="status">
+                {(field) => (
+                  <field.Select label="Status">
+                    <SelectItem value="ACTIVE">Active</SelectItem>
+                    <SelectItem value="DRAFT">Draft</SelectItem>
+                  </field.Select>
+                )}
               </form.AppField>
               <ImageUpload
                 value={imageUrl}

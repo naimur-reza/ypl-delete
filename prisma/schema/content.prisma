@@ -12,9 +12,11 @@ model Service {
   updatedAt       DateTime         @updatedAt
   heroSubtitle    String?
   heroTitle       String?
-  isActive        Boolean          @default(true)
   stats           Json?
+  status          ContentStatus    @default(ACTIVE)
   countries       ServiceCountry[]
+
+  @@index([status])
 }
 
 model Accreditation {
@@ -26,7 +28,10 @@ model Accreditation {
   createdAt DateTime               @default(now())
   updatedAt DateTime               @updatedAt
   type      AccreditationType      @default(NEWS)
+  status    ContentStatus          @default(DRAFT)
   countries AccreditationCountry[]
+
+  @@index([status])
 }
 
 model Career {
@@ -46,13 +51,15 @@ model Career {
   salaryCurrency   String?          @default("USD")
   applyUrl         String?
   deadline         DateTime?
-  isActive         Boolean          @default(true)
   metaTitle        String?
   metaDescription  String?
   metaKeywords     String?
   createdAt        DateTime         @default(now())
   updatedAt        DateTime         @updatedAt
+  status           ContentStatus    @default(ACTIVE)
   applications     JobApplication[]
+
+  @@index([status])
 }
 
 model JobApplication {

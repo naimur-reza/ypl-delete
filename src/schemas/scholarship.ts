@@ -11,7 +11,7 @@ export const scholarshipSchema = z.object({
   deadline: z.string().optional().nullable(),
   universityId: z.string().optional().nullable(),
   destinationId: z.string().min(1, "Destination is required"),
-  isActive: z.boolean().optional().default(true),
+  status: z.enum(["ACTIVE", "DRAFT"]),
   metaTitle: z.string().max(200).optional().nullable(),
   metaDescription: z.string().max(500).optional().nullable(),
   metaKeywords: z.string().max(500).optional().nullable(),

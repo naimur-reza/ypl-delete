@@ -6,7 +6,7 @@ export const destinationSectionSchema = z.object({
   image: z.string().optional().nullable(),
   content: z.string().optional().nullable(),
   displayOrder: z.number().int().default(0),
-  isActive: z.boolean().default(true),
+  status: z.enum(["ACTIVE", "DRAFT"]),
   destinationId: z.string().min(1, "Destination is required"),
 });
 

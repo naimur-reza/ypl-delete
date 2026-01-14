@@ -45,8 +45,8 @@ export async function POST(req: NextRequest) {
       metaTitle,
       metaDescription,
       metaKeywords,
-      isActive,
       benefits,
+      status,
     } = body;
 
     if (!destinationId || !intake || !title) {
@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
         metaTitle,
         metaDescription,
         metaKeywords,
-        isActive: isActive ?? true,
+        status: status || "DRAFT",
         intakePageBenefits: benefits?.length
           ? {
               create: benefits.map(

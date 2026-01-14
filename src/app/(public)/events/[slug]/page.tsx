@@ -25,8 +25,8 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
 
-  const event = await prisma.event.findUnique({
-    where: { slug },
+  const event = await prisma.event.findFirst({
+    where: { slug, status: "ACTIVE" },
     select: {
       title: true,
       metaTitle: true,
@@ -56,8 +56,8 @@ export default async function EventDetailsPage({ params }: PageProps) {
   const { country, slug } = await params;
 
   // Fetch the main event with all details
-  const event = await prisma.event.findUnique({
-    where: { slug },
+  const event = await prisma.event.findFirst({
+    where: { slug, status: "ACTIVE" },
     include: {
       destination: true,
       university: {

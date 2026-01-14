@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { SelectItem } from "@/components/ui/select";
 import { Search, X } from "lucide-react";
 
 type FormData = z.infer<typeof faqSchema>;
@@ -40,6 +41,7 @@ const FAQFormModal = ({
     id: string;
     question: string;
     answer: string;
+    status?: "ACTIVE" | "DRAFT";
     isGlobal?: boolean;
     countries?: Array<{ country?: { id: string }; countryId?: string }>;
     destinations?: Array<{
@@ -322,6 +324,7 @@ const FAQFormModal = ({
     defaultValues: {
       question: selectedFAQ?.question || "",
       answer: selectedFAQ?.answer || "",
+      status: selectedFAQ?.status || "DRAFT",
       countryIds: countryIds,
       destinationIds: destinationIds,
       universityIds: universityIds,
@@ -339,13 +342,6 @@ const FAQFormModal = ({
         let response;
         const submitData = {
           ...value,
-          countryIds: countryIds,
-          destinationIds: destinationIds,
-          universityIds: universityIds,
-          eventIds: eventIds,
-          courseIds: courseIds,
-          scholarshipIds: scholarshipIds,
-          intakePageIds: intakePageIds,
           isGlobal: isGlobal,
         };
         if (isEditing && selectedFAQ?.id) {
@@ -399,6 +395,7 @@ const FAQFormModal = ({
     if (selectedFAQ) {
       form.setFieldValue("question", selectedFAQ.question || "");
       form.setFieldValue("answer", selectedFAQ.answer || "");
+      form.setFieldValue("status", selectedFAQ.status || "DRAFT");
       setIsGlobal(selectedFAQ.isGlobal || false);
       form.setFieldValue("isGlobal", selectedFAQ.isGlobal || false);
 
@@ -503,6 +500,15 @@ const FAQFormModal = ({
           </form.AppField>
           <form.AppField name="answer">
             {(field) => <field.Textarea label="Answer" />}
+          </form.AppField>
+
+          <form.AppField name="status">
+            {(field) => (
+              <field.Select label="Status">
+                <SelectItem value="ACTIVE">Active</SelectItem>
+                <SelectItem value="DRAFT">Draft</SelectItem>
+              </field.Select>
+            )}
           </form.AppField>
 
           <form.AppField name="isGlobal">

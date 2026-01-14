@@ -6,7 +6,7 @@ const CountryModal = async () => {
   // Fetch countries server-side
   const countries = await prisma.country.findMany({
     where: {
-      isActive: true,
+      status: "ACTIVE",
     },
     select: {
       id: true,

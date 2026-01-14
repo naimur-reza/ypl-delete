@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
   if (!canManageContent(session)) return forbiddenResponse();
 
   const body = await req.json();
-  const { name, slug, isoCode, flag, metaTitle, metaDescription, metaKeywords } = body;
+  const { name, slug, isoCode, flag, metaTitle, metaDescription, metaKeywords, status } = body;
 
   if (!name || !slug || !isoCode) {
     return Response.json(
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
   }
 
   return handleCreate(
-    { name, slug, isoCode, flag, metaTitle, metaDescription, metaKeywords },
+    { name, slug, isoCode, flag, metaTitle, metaDescription, metaKeywords, status: status || "DRAFT" },
     prisma.country,
     { uniqueField: "slug", revalidatePaths: ["/dashboard/countries"] }
   );

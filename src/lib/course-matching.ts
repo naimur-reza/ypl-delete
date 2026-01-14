@@ -36,7 +36,7 @@ export function buildCourseWhereClause(
   wizardData: CourseWizardData
 ): Prisma.CourseWhereInput {
   const where: Prisma.CourseWhereInput = {
-    isActive: true,
+    status: "ACTIVE",
   };
 
   // Filter by destination

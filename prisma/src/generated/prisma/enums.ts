@@ -166,3 +166,11 @@ export const BackgroundType = {
 } as const
 
 export type BackgroundType = (typeof BackgroundType)[keyof typeof BackgroundType]
+
+
+export const ContentStatus = {
+  ACTIVE: 'ACTIVE',
+  DRAFT: 'DRAFT'
+} as const
+
+export type ContentStatus = (typeof ContentStatus)[keyof typeof ContentStatus]

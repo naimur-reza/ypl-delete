@@ -23,8 +23,8 @@ type PageProps = {
 };
 
 async function getCareer(slug: string) {
-  const career = await prisma.career.findUnique({
-    where: { slug },
+  const career = await prisma.career.findFirst({
+    where: { slug, status: "ACTIVE" },
   });
 
   return career;
@@ -57,7 +57,7 @@ export default async function CareerDetailsPage({ params }: PageProps) {
   const { country, slug } = await params;
   const career = await getCareer(slug);
 
-  if (!career || !career.isActive) {
+  if (!career || career.status !== "ACTIVE") {
     notFound();
   }
 

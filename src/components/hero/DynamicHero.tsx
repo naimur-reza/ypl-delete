@@ -60,7 +60,7 @@ export function DynamicHero({
 
         const params = new URLSearchParams({
           slug,
-          isActive: "true",
+          status: "ACTIVE",
         });
 
         // If countrySlug exists, first fetch the country ID

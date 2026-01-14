@@ -24,6 +24,7 @@ model Event {
   destinationId          String
   universityId           String?
   successSummary         String?
+  status                 ContentStatus       @default(ACTIVE)
   appointments           Appointment[]
   destination            Destination         @relation(fields: [destinationId], references: [id])
   university             University?         @relation(fields: [universityId], references: [id])
@@ -34,6 +35,7 @@ model Event {
   testimonials           TestimonialEvent[]
 
   @@index([destinationId])
+  @@index([status])
 }
 
 model EventMedia {

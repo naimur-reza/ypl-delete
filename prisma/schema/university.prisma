@@ -7,7 +7,6 @@ model University {
   description     String?
   providerType    ProviderType
   isFeatured      Boolean                 @default(false)
-  isActive        Boolean                 @default(true)
   website         String?
   address         String?
   phone           String?
@@ -20,6 +19,7 @@ model University {
   createdBy       String?
   updatedBy       String?
   destinationId   String
+  status          ContentStatus           @default(ACTIVE)
   blogLinks       BlogUniversity[]
   courses         Course[]
   events          Event[]
@@ -31,12 +31,13 @@ model University {
   detail          UniversityDetail?       @relation("UniversityToDetail")
 
   @@index([destinationId])
-  @@index([isFeatured, isActive])
+  @@index([isFeatured])
+  @@index([status])
 }
 
 model UniversityDetail {
-  id                  String     @id @default(cuid())
-  universityId        String     @unique
+  id                  String        @id @default(cuid())
+  universityId        String        @unique
   overview            String
   ranking             String?
   tuitionFees         String?
@@ -45,12 +46,14 @@ model UniversityDetail {
   servicesDescription String?
   servicesImage       String?
   entryRequirements   String
-  createdAt           DateTime   @default(now())
-  updatedAt           DateTime   @updatedAt
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
   accommodation       String?
   accommodationImage  String?
   description         String?
-  university          University @relation("UniversityToDetail", fields: [universityId], references: [id], onDelete: Cascade)
+  status              ContentStatus @default(DRAFT)
+  university          University    @relation("UniversityToDetail", fields: [universityId], references: [id], onDelete: Cascade)
 
   @@index([universityId])
+  @@index([status])
 }

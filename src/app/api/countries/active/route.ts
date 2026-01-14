@@ -9,7 +9,7 @@ export async function GET() {
   try {
     const countries = await prisma.country.findMany({
       where: {
-        isActive: true,
+        status: "ACTIVE",
       },
       select: {
         id: true,

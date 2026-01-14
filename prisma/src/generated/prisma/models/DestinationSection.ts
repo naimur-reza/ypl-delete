@@ -41,10 +41,10 @@ export type DestinationSectionMinAggregateOutputType = {
   image: string | null
   content: string | null
   displayOrder: number | null
-  isActive: boolean | null
   destinationId: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  status: $Enums.ContentStatus | null
 }
 
 export type DestinationSectionMaxAggregateOutputType = {
@@ -54,10 +54,10 @@ export type DestinationSectionMaxAggregateOutputType = {
   image: string | null
   content: string | null
   displayOrder: number | null
-  isActive: boolean | null
   destinationId: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  status: $Enums.ContentStatus | null
 }
 
 export type DestinationSectionCountAggregateOutputType = {
@@ -67,10 +67,10 @@ export type DestinationSectionCountAggregateOutputType = {
   image: number
   content: number
   displayOrder: number
-  isActive: number
   destinationId: number
   createdAt: number
   updatedAt: number
+  status: number
   _all: number
 }
 
@@ -90,10 +90,10 @@ export type DestinationSectionMinAggregateInputType = {
   image?: true
   content?: true
   displayOrder?: true
-  isActive?: true
   destinationId?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
 }
 
 export type DestinationSectionMaxAggregateInputType = {
@@ -103,10 +103,10 @@ export type DestinationSectionMaxAggregateInputType = {
   image?: true
   content?: true
   displayOrder?: true
-  isActive?: true
   destinationId?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
 }
 
 export type DestinationSectionCountAggregateInputType = {
@@ -116,10 +116,10 @@ export type DestinationSectionCountAggregateInputType = {
   image?: true
   content?: true
   displayOrder?: true
-  isActive?: true
   destinationId?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
   _all?: true
 }
 
@@ -216,10 +216,10 @@ export type DestinationSectionGroupByOutputType = {
   image: string | null
   content: string | null
   displayOrder: number
-  isActive: boolean
   destinationId: string
   createdAt: Date
   updatedAt: Date
+  status: $Enums.ContentStatus
   _count: DestinationSectionCountAggregateOutputType | null
   _avg: DestinationSectionAvgAggregateOutputType | null
   _sum: DestinationSectionSumAggregateOutputType | null
@@ -252,10 +252,10 @@ export type DestinationSectionWhereInput = {
   image?: Prisma.StringNullableFilter<"DestinationSection"> | string | null
   content?: Prisma.StringNullableFilter<"DestinationSection"> | string | null
   displayOrder?: Prisma.IntFilter<"DestinationSection"> | number
-  isActive?: Prisma.BoolFilter<"DestinationSection"> | boolean
   destinationId?: Prisma.StringFilter<"DestinationSection"> | string
   createdAt?: Prisma.DateTimeFilter<"DestinationSection"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"DestinationSection"> | Date | string
+  status?: Prisma.EnumContentStatusFilter<"DestinationSection"> | $Enums.ContentStatus
   destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
 }
 
@@ -266,10 +266,10 @@ export type DestinationSectionOrderByWithRelationInput = {
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   content?: Prisma.SortOrderInput | Prisma.SortOrder
   displayOrder?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   destination?: Prisma.DestinationOrderByWithRelationInput
 }
 
@@ -284,10 +284,10 @@ export type DestinationSectionWhereUniqueInput = Prisma.AtLeast<{
   image?: Prisma.StringNullableFilter<"DestinationSection"> | string | null
   content?: Prisma.StringNullableFilter<"DestinationSection"> | string | null
   displayOrder?: Prisma.IntFilter<"DestinationSection"> | number
-  isActive?: Prisma.BoolFilter<"DestinationSection"> | boolean
   destinationId?: Prisma.StringFilter<"DestinationSection"> | string
   createdAt?: Prisma.DateTimeFilter<"DestinationSection"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"DestinationSection"> | Date | string
+  status?: Prisma.EnumContentStatusFilter<"DestinationSection"> | $Enums.ContentStatus
   destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
 }, "id" | "destinationId_slug">
 
@@ -298,10 +298,10 @@ export type DestinationSectionOrderByWithAggregationInput = {
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   content?: Prisma.SortOrderInput | Prisma.SortOrder
   displayOrder?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   _count?: Prisma.DestinationSectionCountOrderByAggregateInput
   _avg?: Prisma.DestinationSectionAvgOrderByAggregateInput
   _max?: Prisma.DestinationSectionMaxOrderByAggregateInput
@@ -319,10 +319,10 @@ export type DestinationSectionScalarWhereWithAggregatesInput = {
   image?: Prisma.StringNullableWithAggregatesFilter<"DestinationSection"> | string | null
   content?: Prisma.StringNullableWithAggregatesFilter<"DestinationSection"> | string | null
   displayOrder?: Prisma.IntWithAggregatesFilter<"DestinationSection"> | number
-  isActive?: Prisma.BoolWithAggregatesFilter<"DestinationSection"> | boolean
   destinationId?: Prisma.StringWithAggregatesFilter<"DestinationSection"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"DestinationSection"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"DestinationSection"> | Date | string
+  status?: Prisma.EnumContentStatusWithAggregatesFilter<"DestinationSection"> | $Enums.ContentStatus
 }
 
 export type DestinationSectionCreateInput = {
@@ -332,9 +332,9 @@ export type DestinationSectionCreateInput = {
   image?: string | null
   content?: string | null
   displayOrder?: number
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   destination: Prisma.DestinationCreateNestedOneWithoutSectionsInput
 }
 
@@ -345,10 +345,10 @@ export type DestinationSectionUncheckedCreateInput = {
   image?: string | null
   content?: string | null
   displayOrder?: number
-  isActive?: boolean
   destinationId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
 }
 
 export type DestinationSectionUpdateInput = {
@@ -358,9 +358,9 @@ export type DestinationSectionUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   destination?: Prisma.DestinationUpdateOneRequiredWithoutSectionsNestedInput
 }
 
@@ -371,10 +371,10 @@ export type DestinationSectionUncheckedUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type DestinationSectionCreateManyInput = {
@@ -384,10 +384,10 @@ export type DestinationSectionCreateManyInput = {
   image?: string | null
   content?: string | null
   displayOrder?: number
-  isActive?: boolean
   destinationId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
 }
 
 export type DestinationSectionUpdateManyMutationInput = {
@@ -397,9 +397,9 @@ export type DestinationSectionUpdateManyMutationInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type DestinationSectionUncheckedUpdateManyInput = {
@@ -409,10 +409,10 @@ export type DestinationSectionUncheckedUpdateManyInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type DestinationSectionListRelationFilter = {
@@ -437,10 +437,10 @@ export type DestinationSectionCountOrderByAggregateInput = {
   image?: Prisma.SortOrder
   content?: Prisma.SortOrder
   displayOrder?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type DestinationSectionAvgOrderByAggregateInput = {
@@ -454,10 +454,10 @@ export type DestinationSectionMaxOrderByAggregateInput = {
   image?: Prisma.SortOrder
   content?: Prisma.SortOrder
   displayOrder?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type DestinationSectionMinOrderByAggregateInput = {
@@ -467,10 +467,10 @@ export type DestinationSectionMinOrderByAggregateInput = {
   image?: Prisma.SortOrder
   content?: Prisma.SortOrder
   displayOrder?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type DestinationSectionSumOrderByAggregateInput = {
@@ -526,9 +526,9 @@ export type DestinationSectionCreateWithoutDestinationInput = {
   image?: string | null
   content?: string | null
   displayOrder?: number
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
 }
 
 export type DestinationSectionUncheckedCreateWithoutDestinationInput = {
@@ -538,9 +538,9 @@ export type DestinationSectionUncheckedCreateWithoutDestinationInput = {
   image?: string | null
   content?: string | null
   displayOrder?: number
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
 }
 
 export type DestinationSectionCreateOrConnectWithoutDestinationInput = {
@@ -579,10 +579,10 @@ export type DestinationSectionScalarWhereInput = {
   image?: Prisma.StringNullableFilter<"DestinationSection"> | string | null
   content?: Prisma.StringNullableFilter<"DestinationSection"> | string | null
   displayOrder?: Prisma.IntFilter<"DestinationSection"> | number
-  isActive?: Prisma.BoolFilter<"DestinationSection"> | boolean
   destinationId?: Prisma.StringFilter<"DestinationSection"> | string
   createdAt?: Prisma.DateTimeFilter<"DestinationSection"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"DestinationSection"> | Date | string
+  status?: Prisma.EnumContentStatusFilter<"DestinationSection"> | $Enums.ContentStatus
 }
 
 export type DestinationSectionCreateManyDestinationInput = {
@@ -592,9 +592,9 @@ export type DestinationSectionCreateManyDestinationInput = {
   image?: string | null
   content?: string | null
   displayOrder?: number
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
 }
 
 export type DestinationSectionUpdateWithoutDestinationInput = {
@@ -604,9 +604,9 @@ export type DestinationSectionUpdateWithoutDestinationInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type DestinationSectionUncheckedUpdateWithoutDestinationInput = {
@@ -616,9 +616,9 @@ export type DestinationSectionUncheckedUpdateWithoutDestinationInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type DestinationSectionUncheckedUpdateManyWithoutDestinationInput = {
@@ -628,9 +628,9 @@ export type DestinationSectionUncheckedUpdateManyWithoutDestinationInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 
@@ -642,10 +642,10 @@ export type DestinationSectionSelect<ExtArgs extends runtime.Types.Extensions.In
   image?: boolean
   content?: boolean
   displayOrder?: boolean
-  isActive?: boolean
   destinationId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["destinationSection"]>
 
@@ -656,10 +656,10 @@ export type DestinationSectionSelectCreateManyAndReturn<ExtArgs extends runtime.
   image?: boolean
   content?: boolean
   displayOrder?: boolean
-  isActive?: boolean
   destinationId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["destinationSection"]>
 
@@ -670,10 +670,10 @@ export type DestinationSectionSelectUpdateManyAndReturn<ExtArgs extends runtime.
   image?: boolean
   content?: boolean
   displayOrder?: boolean
-  isActive?: boolean
   destinationId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["destinationSection"]>
 
@@ -684,13 +684,13 @@ export type DestinationSectionSelectScalar = {
   image?: boolean
   content?: boolean
   displayOrder?: boolean
-  isActive?: boolean
   destinationId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
 }
 
-export type DestinationSectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "image" | "content" | "displayOrder" | "isActive" | "destinationId" | "createdAt" | "updatedAt", ExtArgs["result"]["destinationSection"]>
+export type DestinationSectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "image" | "content" | "displayOrder" | "destinationId" | "createdAt" | "updatedAt" | "status", ExtArgs["result"]["destinationSection"]>
 export type DestinationSectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
 }
@@ -713,10 +713,10 @@ export type $DestinationSectionPayload<ExtArgs extends runtime.Types.Extensions.
     image: string | null
     content: string | null
     displayOrder: number
-    isActive: boolean
     destinationId: string
     createdAt: Date
     updatedAt: Date
+    status: $Enums.ContentStatus
   }, ExtArgs["result"]["destinationSection"]>
   composites: {}
 }
@@ -1147,10 +1147,10 @@ export interface DestinationSectionFieldRefs {
   readonly image: Prisma.FieldRef<"DestinationSection", 'String'>
   readonly content: Prisma.FieldRef<"DestinationSection", 'String'>
   readonly displayOrder: Prisma.FieldRef<"DestinationSection", 'Int'>
-  readonly isActive: Prisma.FieldRef<"DestinationSection", 'Boolean'>
   readonly destinationId: Prisma.FieldRef<"DestinationSection", 'String'>
   readonly createdAt: Prisma.FieldRef<"DestinationSection", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"DestinationSection", 'DateTime'>
+  readonly status: Prisma.FieldRef<"DestinationSection", 'ContentStatus'>
 }
     
 

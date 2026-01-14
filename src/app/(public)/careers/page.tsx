@@ -19,7 +19,7 @@ export const metadata: Metadata = buildMetadata({
 async function getCareers() {
   const careers = await prisma.career.findMany({
     where: {
-      isActive: true,
+      status: "ACTIVE",
     },
     orderBy: [{ department: "asc" }, { createdAt: "desc" }],
   });

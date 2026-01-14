@@ -92,7 +92,7 @@ const DestinationDetailsPage = async ({ params }: PageProps) => {
     },
     include: {
       sections: {
-        where: { isActive: true },
+        where: { status: "ACTIVE" },
         orderBy: { displayOrder: "asc" },
         select: {
           id: true,
@@ -101,7 +101,7 @@ const DestinationDetailsPage = async ({ params }: PageProps) => {
           image: true,
           content: true,
           displayOrder: true,
-          isActive: true,
+          status: true,
         },
       },
     },
@@ -115,9 +115,9 @@ const DestinationDetailsPage = async ({ params }: PageProps) => {
   });
 
   // Fetch scholarships for this destination
-  // TODO: Add "isActive: true" filter after running prisma db push
   const scholarships = await prisma.scholarship.findMany({
     where: {
+      status: "ACTIVE",
       destination: {
         slug: slug,
       },

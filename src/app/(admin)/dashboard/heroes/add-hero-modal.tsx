@@ -47,8 +47,8 @@ const HeroFormModal = ({
     backgroundType: "IMAGE" | "VIDEO" | "YOUTUBE";
     backgroundUrl: string;
     slug: string;
-    isActive: boolean;
     order: number;
+    status?: "ACTIVE" | "DRAFT";
     countries?: Array<{ country?: { id: string }; countryId?: string }>;
   };
   onClose: () => void;
@@ -80,10 +80,10 @@ const HeroFormModal = ({
       backgroundType: selectedHero?.backgroundType || "IMAGE",
       backgroundUrl: selectedHero?.backgroundUrl || "",
       slug: selectedHero?.slug || "",
-      isActive: selectedHero?.isActive ?? true,
       order: selectedHero?.order ?? 0,
+      status: (selectedHero?.status as "ACTIVE" | "DRAFT") || "ACTIVE",
       countryIds: countryIds,
-    } satisfies FormData as FormData,
+    } as FormData,
     validators: {
       onSubmit: ({ value }) => {
         const result = heroSchema.safeParse(value);
@@ -111,6 +111,7 @@ const HeroFormModal = ({
           buttonText: value.buttonText || undefined,
           buttonUrl: value.buttonUrl || undefined,
           backgroundUrl,
+          status: value.status || "ACTIVE",
           countryIds: countryIds,
         };
 
@@ -154,8 +155,8 @@ const HeroFormModal = ({
       );
       form.setFieldValue("backgroundUrl", selectedHero.backgroundUrl || "");
       form.setFieldValue("slug", selectedHero.slug || "");
-      form.setFieldValue("isActive", selectedHero.isActive ?? true);
       form.setFieldValue("order", selectedHero.order ?? 0);
+      form.setFieldValue("status", selectedHero.status || "ACTIVE");
 
       // Set imageUrl for IMAGE type backgrounds
       if (selectedHero.backgroundType === "IMAGE") {
@@ -310,8 +311,13 @@ const HeroFormModal = ({
               )}
             </form.AppField>
 
-            <form.AppField name="isActive">
-              {(field) => <field.Checkbox label="Active" />}
+            <form.AppField name="status">
+              {(field) => (
+                <field.Select label="Status">
+                  <SelectItem value="ACTIVE">Active</SelectItem>
+                  <SelectItem value="DRAFT">Draft</SelectItem>
+                </field.Select>
+              )}
             </form.AppField>
           </div>
 

@@ -76,11 +76,11 @@ export async function HeroSlider({
   // Build where clause for heroes
   const heroWhereClause: {
     slug: string;
-    isActive: boolean;
+    status: "ACTIVE" | "DRAFT";
     countries?: { some: { country: { slug: string } } };
   } = {
     slug: "home",
-    isActive: true,
+    status: "ACTIVE",
   };
 
   // If countrySlug is provided, filter by country
@@ -112,7 +112,7 @@ export async function HeroSlider({
     prisma.stat.findMany({
       where: {
         section: "hero",
-        isActive: true,
+        status: "ACTIVE",
       },
       orderBy: [{ slideIndex: "asc" }, { sortOrder: "asc" }],
     }),

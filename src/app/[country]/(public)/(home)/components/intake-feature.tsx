@@ -10,7 +10,7 @@ export async function IntakeFeature({ countrySlug }: IntakeFeatureProps) {
   // If countrySlug is provided, check if the season applies to that country
   const season = await prisma.intakeSeason.findFirst({
     where: {
-      isActive: true,
+      status: "ACTIVE",
       // If season has no countries specified, it applies to all
       // If it has countries, check if our country is in the list
       OR: [

@@ -35,6 +35,7 @@ const accreditationSchema = z.object({
     .optional()
     .nullable(),
   type: z.enum(["NEWS", "PARTNER", "ACCREDITATION"]).default("NEWS"),
+  status: z.enum(["ACTIVE", "DRAFT"]).default("DRAFT"),
   sortOrder: z.number().int().optional().nullable(),
   countryIds: z.array(z.string().min(1)).min(1, "Select at least one country"),
   countries: z.array(z.object()).optional(),
@@ -76,6 +77,7 @@ export default function AccreditationFormModal({
       logo: selected?.logo || "",
       website: selected?.website || "",
       type: selected?.type || "NEWS",
+      status: selected?.status || "DRAFT",
       sortOrder: selected?.sortOrder ?? null,
       countryIds:
         countryIds.length > 0 ? countryIds : selected?.countryIds ?? [],
@@ -221,6 +223,14 @@ export default function AccreditationFormModal({
                   </SelectContent>
                 </Select>
               </div>
+            )}
+          </form.AppField>
+          <form.AppField name="status">
+            {(field) => (
+              <field.Select label="Status">
+                <SelectItem value="ACTIVE">Active</SelectItem>
+                <SelectItem value="DRAFT">Draft</SelectItem>
+              </field.Select>
             )}
           </form.AppField>
           <form.AppField name="sortOrder">

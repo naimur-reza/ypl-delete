@@ -42,7 +42,7 @@ const courseSchema = z.object({
   tuitionMax: z.number().min(0).optional().nullable(),
   currency: z.string().default("USD").optional(),
   isFeatured: z.boolean().default(false).optional(),
-  isActive: z.boolean().default(true).optional(),
+  status: z.enum(["ACTIVE", "DRAFT"]),
   universityId: z.string().min(1, "University is required"),
   destinationId: z.string().min(1, "Destination is required"),
   metaTitle: z.string().max(200).optional().nullable(),

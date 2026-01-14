@@ -8,15 +8,15 @@ model IntakeSeason {
   backgroundImage     String?
   ctaLabel            String?               @default("Apply Now")
   ctaUrl              String?               @default("/apply-now")
-  isActive            Boolean               @default(false)
   applicationDeadline DateTime?
   intakeStartDate     DateTime?
   createdAt           DateTime              @default(now())
   updatedAt           DateTime              @updatedAt
+  status              ContentStatus         @default(DRAFT)
   countries           IntakeSeasonCountry[]
 
-  @@index([isActive])
   @@index([intake, year])
+  @@index([status])
 }
 
 model IntakeSeasonCountry {

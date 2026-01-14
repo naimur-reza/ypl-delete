@@ -174,8 +174,8 @@ export type ServiceCountryWhereInput = {
   serviceId?: Prisma.StringFilter<"ServiceCountry"> | string
   countryId?: Prisma.StringFilter<"ServiceCountry"> | string
   createdAt?: Prisma.DateTimeFilter<"ServiceCountry"> | Date | string
-  service?: Prisma.XOR<Prisma.ServiceScalarRelationFilter, Prisma.ServiceWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
+  service?: Prisma.XOR<Prisma.ServiceScalarRelationFilter, Prisma.ServiceWhereInput>
 }
 
 export type ServiceCountryOrderByWithRelationInput = {
@@ -183,8 +183,8 @@ export type ServiceCountryOrderByWithRelationInput = {
   serviceId?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  service?: Prisma.ServiceOrderByWithRelationInput
   country?: Prisma.CountryOrderByWithRelationInput
+  service?: Prisma.ServiceOrderByWithRelationInput
 }
 
 export type ServiceCountryWhereUniqueInput = Prisma.AtLeast<{
@@ -196,8 +196,8 @@ export type ServiceCountryWhereUniqueInput = Prisma.AtLeast<{
   serviceId?: Prisma.StringFilter<"ServiceCountry"> | string
   countryId?: Prisma.StringFilter<"ServiceCountry"> | string
   createdAt?: Prisma.DateTimeFilter<"ServiceCountry"> | Date | string
-  service?: Prisma.XOR<Prisma.ServiceScalarRelationFilter, Prisma.ServiceWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
+  service?: Prisma.XOR<Prisma.ServiceScalarRelationFilter, Prisma.ServiceWhereInput>
 }, "id" | "serviceId_countryId">
 
 export type ServiceCountryOrderByWithAggregationInput = {
@@ -223,8 +223,8 @@ export type ServiceCountryScalarWhereWithAggregatesInput = {
 export type ServiceCountryCreateInput = {
   id?: string
   createdAt?: Date | string
-  service: Prisma.ServiceCreateNestedOneWithoutCountriesInput
   country: Prisma.CountryCreateNestedOneWithoutServicesInput
+  service: Prisma.ServiceCreateNestedOneWithoutCountriesInput
 }
 
 export type ServiceCountryUncheckedCreateInput = {
@@ -237,8 +237,8 @@ export type ServiceCountryUncheckedCreateInput = {
 export type ServiceCountryUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  service?: Prisma.ServiceUpdateOneRequiredWithoutCountriesNestedInput
   country?: Prisma.CountryUpdateOneRequiredWithoutServicesNestedInput
+  service?: Prisma.ServiceUpdateOneRequiredWithoutCountriesNestedInput
 }
 
 export type ServiceCountryUncheckedUpdateInput = {
@@ -528,8 +528,8 @@ export type ServiceCountrySelect<ExtArgs extends runtime.Types.Extensions.Intern
   serviceId?: boolean
   countryId?: boolean
   createdAt?: boolean
-  service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["serviceCountry"]>
 
 export type ServiceCountrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -537,8 +537,8 @@ export type ServiceCountrySelectCreateManyAndReturn<ExtArgs extends runtime.Type
   serviceId?: boolean
   countryId?: boolean
   createdAt?: boolean
-  service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["serviceCountry"]>
 
 export type ServiceCountrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -546,8 +546,8 @@ export type ServiceCountrySelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   serviceId?: boolean
   countryId?: boolean
   createdAt?: boolean
-  service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["serviceCountry"]>
 
 export type ServiceCountrySelectScalar = {
@@ -559,23 +559,23 @@ export type ServiceCountrySelectScalar = {
 
 export type ServiceCountryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "serviceId" | "countryId" | "createdAt", ExtArgs["result"]["serviceCountry"]>
 export type ServiceCountryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
 }
 export type ServiceCountryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
 }
 export type ServiceCountryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
 }
 
 export type $ServiceCountryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ServiceCountry"
   objects: {
-    service: Prisma.$ServicePayload<ExtArgs>
     country: Prisma.$CountryPayload<ExtArgs>
+    service: Prisma.$ServicePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -976,8 +976,8 @@ readonly fields: ServiceCountryFieldRefs;
  */
 export interface Prisma__ServiceCountryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  service<T extends Prisma.ServiceDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ServiceDefaultArgs<ExtArgs>>): Prisma.Prisma__ServiceClient<runtime.Types.Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   country<T extends Prisma.CountryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CountryDefaultArgs<ExtArgs>>): Prisma.Prisma__CountryClient<runtime.Types.Result.GetResult<Prisma.$CountryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  service<T extends Prisma.ServiceDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ServiceDefaultArgs<ExtArgs>>): Prisma.Prisma__ServiceClient<runtime.Types.Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

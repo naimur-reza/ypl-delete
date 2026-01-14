@@ -50,6 +50,7 @@ export async function POST(req: NextRequest) {
     topUniversities,
     campusAndCommunity,
     destinationLife,
+    status,
   } = body;
 
   if (!name || !slug || !countryIds?.length) {
@@ -74,6 +75,7 @@ export async function POST(req: NextRequest) {
         topUniversities,
         campusAndCommunity,
         destinationLife,
+        status: status || "ACTIVE",
         countries:
           countryIds && Array.isArray(countryIds)
             ? {
@@ -89,7 +91,6 @@ export async function POST(req: NextRequest) {
                   image: s.image || null,
                   content: s.content || null,
                   displayOrder: s.displayOrder ?? i,
-                  isActive: s.isActive ?? true,
                 })),
               }
             : undefined,
@@ -132,6 +133,7 @@ export async function PUT(req: NextRequest) {
     topUniversities,
     campusAndCommunity,
     destinationLife,
+    status,
   } = body;
 
   if (!id) {
@@ -155,6 +157,7 @@ export async function PUT(req: NextRequest) {
           topUniversities,
           campusAndCommunity,
           destinationLife,
+          status,
         },
       });
 
@@ -221,7 +224,6 @@ export async function PUT(req: NextRequest) {
               image: s.image || null,
               content: s.content || null,
               displayOrder: s.displayOrder,
-              isActive: s.isActive ?? true,
             },
           });
         }
@@ -236,7 +238,6 @@ export async function PUT(req: NextRequest) {
               image: s.image || null,
               content: s.content || null,
               displayOrder: s.displayOrder ?? (toUpdate.length + i),
-              isActive: s.isActive ?? true,
             })),
           });
         }

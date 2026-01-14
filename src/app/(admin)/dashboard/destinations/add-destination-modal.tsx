@@ -39,7 +39,7 @@ interface DestinationSection {
   image: string;
   content: string;
   displayOrder: number;
-  isActive: boolean;
+  status: "ACTIVE" | "DRAFT";
 }
 
 const DestinationFormModal = ({
@@ -81,6 +81,7 @@ const DestinationFormModal = ({
       metaTitle: selectedDestination?.metaTitle || "",
       metaDescription: selectedDestination?.metaDescription || "",
       metaKeywords: selectedDestination?.metaKeywords || "",
+      status: selectedDestination?.status || "DRAFT",
     } satisfies FormData as FormData,
     validators: { onSubmit: destinationSchema },
     onSubmit: async ({ value }) => {
@@ -152,6 +153,7 @@ const DestinationFormModal = ({
         metaTitle: selectedDestination.metaTitle || "",
         metaDescription: selectedDestination.metaDescription || "",
         metaKeywords: selectedDestination.metaKeywords || "",
+        status: selectedDestination.status || "DRAFT",
       };
 
       (Object.keys(values) as Array<keyof FormData>).forEach((key) => {
@@ -175,7 +177,7 @@ const DestinationFormModal = ({
       image: "",
       content: "",
       displayOrder: sections.length,
-      isActive: true,
+      status: "ACTIVE",
     };
     setSections([...sections, newSection]);
     setExpandedSection(sections.length);
@@ -254,7 +256,7 @@ const DestinationFormModal = ({
                       handleTitleChange(e.target.value);
                     }}
                     onBlur={field.handleBlur}
-                    placeholder="e.g., Study in Australia"
+            
                   />
                 </FormBase>
               )}
@@ -263,7 +265,7 @@ const DestinationFormModal = ({
               {(field) => (
                 <FormBase
                   label="Slug"
-                  description="Auto-generated from name. You can edit if needed."
+                  description=""
                 >
                   <Input
                     id={field.name}
@@ -275,7 +277,7 @@ const DestinationFormModal = ({
                       handleSlugChange(slugValue);
                     }}
                     onBlur={field.handleBlur}
-                    placeholder="e.g., study-in-australia"
+       
                   />
                 </FormBase>
               )}
@@ -290,6 +292,14 @@ const DestinationFormModal = ({
                   }}
                   label="Select Countries"
                 />
+              )}
+            </form.AppField>
+            <form.AppField name="status">
+              {(field) => (
+                <field.Select label="Status">
+                  <option value="ACTIVE">Active</option>
+                  <option value="DRAFT">Draft</option>
+                </field.Select>
               )}
             </form.AppField>
           </div>
@@ -426,7 +436,7 @@ const DestinationFormModal = ({
                               onChange={(e) =>
                                 updateSection(index, "title", e.target.value)
                               }
-                              placeholder="e.g., Top Universities"
+      
                             />
                           </div>
                           <div className="space-y-2">
@@ -460,22 +470,18 @@ const DestinationFormModal = ({
                           editorKey={`section-${index}-${section.image || 'no-image'}`}
                         />
 
-                        <div className="flex items-center gap-2">
-                          <input
-                            type="checkbox"
-                            id={`section-active-${index}`}
-                            checked={section.isActive}
+                        <div className="flex flex-col gap-2">
+                          <label className="text-sm font-medium">Status</label>
+                          <select
+                            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                            value={section.status}
                             onChange={(e) =>
-                              updateSection(index, "isActive", e.target.checked)
+                              updateSection(index, "status", e.target.value)
                             }
-                            className="rounded"
-                          />
-                          <label
-                            htmlFor={`section-active-${index}`}
-                            className="text-sm"
                           >
-                            Active
-                          </label>
+                            <option value="ACTIVE">Active</option>
+                            <option value="DRAFT">Draft</option>
+                          </select>
                         </div>
                       </div>
                     )}

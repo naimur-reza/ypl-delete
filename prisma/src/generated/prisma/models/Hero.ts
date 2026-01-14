@@ -43,10 +43,10 @@ export type HeroMinAggregateOutputType = {
   backgroundType: $Enums.BackgroundType | null
   backgroundUrl: string | null
   slug: string | null
-  isActive: boolean | null
   order: number | null
   createdAt: Date | null
   updatedAt: Date | null
+  status: $Enums.ContentStatus | null
 }
 
 export type HeroMaxAggregateOutputType = {
@@ -58,10 +58,10 @@ export type HeroMaxAggregateOutputType = {
   backgroundType: $Enums.BackgroundType | null
   backgroundUrl: string | null
   slug: string | null
-  isActive: boolean | null
   order: number | null
   createdAt: Date | null
   updatedAt: Date | null
+  status: $Enums.ContentStatus | null
 }
 
 export type HeroCountAggregateOutputType = {
@@ -73,10 +73,10 @@ export type HeroCountAggregateOutputType = {
   backgroundType: number
   backgroundUrl: number
   slug: number
-  isActive: number
   order: number
   createdAt: number
   updatedAt: number
+  status: number
   _all: number
 }
 
@@ -98,10 +98,10 @@ export type HeroMinAggregateInputType = {
   backgroundType?: true
   backgroundUrl?: true
   slug?: true
-  isActive?: true
   order?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
 }
 
 export type HeroMaxAggregateInputType = {
@@ -113,10 +113,10 @@ export type HeroMaxAggregateInputType = {
   backgroundType?: true
   backgroundUrl?: true
   slug?: true
-  isActive?: true
   order?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
 }
 
 export type HeroCountAggregateInputType = {
@@ -128,10 +128,10 @@ export type HeroCountAggregateInputType = {
   backgroundType?: true
   backgroundUrl?: true
   slug?: true
-  isActive?: true
   order?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
   _all?: true
 }
 
@@ -230,10 +230,10 @@ export type HeroGroupByOutputType = {
   backgroundType: $Enums.BackgroundType
   backgroundUrl: string
   slug: string
-  isActive: boolean
   order: number
   createdAt: Date
   updatedAt: Date
+  status: $Enums.ContentStatus
   _count: HeroCountAggregateOutputType | null
   _avg: HeroAvgAggregateOutputType | null
   _sum: HeroSumAggregateOutputType | null
@@ -268,10 +268,10 @@ export type HeroWhereInput = {
   backgroundType?: Prisma.EnumBackgroundTypeFilter<"Hero"> | $Enums.BackgroundType
   backgroundUrl?: Prisma.StringFilter<"Hero"> | string
   slug?: Prisma.StringFilter<"Hero"> | string
-  isActive?: Prisma.BoolFilter<"Hero"> | boolean
   order?: Prisma.IntFilter<"Hero"> | number
   createdAt?: Prisma.DateTimeFilter<"Hero"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Hero"> | Date | string
+  status?: Prisma.EnumContentStatusFilter<"Hero"> | $Enums.ContentStatus
   countries?: Prisma.HeroCountryListRelationFilter
 }
 
@@ -284,10 +284,10 @@ export type HeroOrderByWithRelationInput = {
   backgroundType?: Prisma.SortOrder
   backgroundUrl?: Prisma.SortOrder
   slug?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   order?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   countries?: Prisma.HeroCountryOrderByRelationAggregateInput
 }
 
@@ -303,10 +303,10 @@ export type HeroWhereUniqueInput = Prisma.AtLeast<{
   backgroundType?: Prisma.EnumBackgroundTypeFilter<"Hero"> | $Enums.BackgroundType
   backgroundUrl?: Prisma.StringFilter<"Hero"> | string
   slug?: Prisma.StringFilter<"Hero"> | string
-  isActive?: Prisma.BoolFilter<"Hero"> | boolean
   order?: Prisma.IntFilter<"Hero"> | number
   createdAt?: Prisma.DateTimeFilter<"Hero"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Hero"> | Date | string
+  status?: Prisma.EnumContentStatusFilter<"Hero"> | $Enums.ContentStatus
   countries?: Prisma.HeroCountryListRelationFilter
 }, "id">
 
@@ -319,10 +319,10 @@ export type HeroOrderByWithAggregationInput = {
   backgroundType?: Prisma.SortOrder
   backgroundUrl?: Prisma.SortOrder
   slug?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   order?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   _count?: Prisma.HeroCountOrderByAggregateInput
   _avg?: Prisma.HeroAvgOrderByAggregateInput
   _max?: Prisma.HeroMaxOrderByAggregateInput
@@ -342,10 +342,10 @@ export type HeroScalarWhereWithAggregatesInput = {
   backgroundType?: Prisma.EnumBackgroundTypeWithAggregatesFilter<"Hero"> | $Enums.BackgroundType
   backgroundUrl?: Prisma.StringWithAggregatesFilter<"Hero"> | string
   slug?: Prisma.StringWithAggregatesFilter<"Hero"> | string
-  isActive?: Prisma.BoolWithAggregatesFilter<"Hero"> | boolean
   order?: Prisma.IntWithAggregatesFilter<"Hero"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Hero"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Hero"> | Date | string
+  status?: Prisma.EnumContentStatusWithAggregatesFilter<"Hero"> | $Enums.ContentStatus
 }
 
 export type HeroCreateInput = {
@@ -357,10 +357,10 @@ export type HeroCreateInput = {
   backgroundType?: $Enums.BackgroundType
   backgroundUrl: string
   slug: string
-  isActive?: boolean
   order?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   countries?: Prisma.HeroCountryCreateNestedManyWithoutHeroInput
 }
 
@@ -373,10 +373,10 @@ export type HeroUncheckedCreateInput = {
   backgroundType?: $Enums.BackgroundType
   backgroundUrl: string
   slug: string
-  isActive?: boolean
   order?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   countries?: Prisma.HeroCountryUncheckedCreateNestedManyWithoutHeroInput
 }
 
@@ -389,10 +389,10 @@ export type HeroUpdateInput = {
   backgroundType?: Prisma.EnumBackgroundTypeFieldUpdateOperationsInput | $Enums.BackgroundType
   backgroundUrl?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.HeroCountryUpdateManyWithoutHeroNestedInput
 }
 
@@ -405,10 +405,10 @@ export type HeroUncheckedUpdateInput = {
   backgroundType?: Prisma.EnumBackgroundTypeFieldUpdateOperationsInput | $Enums.BackgroundType
   backgroundUrl?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.HeroCountryUncheckedUpdateManyWithoutHeroNestedInput
 }
 
@@ -421,10 +421,10 @@ export type HeroCreateManyInput = {
   backgroundType?: $Enums.BackgroundType
   backgroundUrl: string
   slug: string
-  isActive?: boolean
   order?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
 }
 
 export type HeroUpdateManyMutationInput = {
@@ -436,10 +436,10 @@ export type HeroUpdateManyMutationInput = {
   backgroundType?: Prisma.EnumBackgroundTypeFieldUpdateOperationsInput | $Enums.BackgroundType
   backgroundUrl?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type HeroUncheckedUpdateManyInput = {
@@ -451,10 +451,10 @@ export type HeroUncheckedUpdateManyInput = {
   backgroundType?: Prisma.EnumBackgroundTypeFieldUpdateOperationsInput | $Enums.BackgroundType
   backgroundUrl?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type HeroCountOrderByAggregateInput = {
@@ -466,10 +466,10 @@ export type HeroCountOrderByAggregateInput = {
   backgroundType?: Prisma.SortOrder
   backgroundUrl?: Prisma.SortOrder
   slug?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   order?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type HeroAvgOrderByAggregateInput = {
@@ -485,10 +485,10 @@ export type HeroMaxOrderByAggregateInput = {
   backgroundType?: Prisma.SortOrder
   backgroundUrl?: Prisma.SortOrder
   slug?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   order?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type HeroMinOrderByAggregateInput = {
@@ -500,10 +500,10 @@ export type HeroMinOrderByAggregateInput = {
   backgroundType?: Prisma.SortOrder
   backgroundUrl?: Prisma.SortOrder
   slug?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   order?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type HeroSumOrderByAggregateInput = {
@@ -550,10 +550,10 @@ export type HeroCreateWithoutCountriesInput = {
   backgroundType?: $Enums.BackgroundType
   backgroundUrl: string
   slug: string
-  isActive?: boolean
   order?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
 }
 
 export type HeroUncheckedCreateWithoutCountriesInput = {
@@ -565,10 +565,10 @@ export type HeroUncheckedCreateWithoutCountriesInput = {
   backgroundType?: $Enums.BackgroundType
   backgroundUrl: string
   slug: string
-  isActive?: boolean
   order?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
 }
 
 export type HeroCreateOrConnectWithoutCountriesInput = {
@@ -596,10 +596,10 @@ export type HeroUpdateWithoutCountriesInput = {
   backgroundType?: Prisma.EnumBackgroundTypeFieldUpdateOperationsInput | $Enums.BackgroundType
   backgroundUrl?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type HeroUncheckedUpdateWithoutCountriesInput = {
@@ -611,10 +611,10 @@ export type HeroUncheckedUpdateWithoutCountriesInput = {
   backgroundType?: Prisma.EnumBackgroundTypeFieldUpdateOperationsInput | $Enums.BackgroundType
   backgroundUrl?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 
@@ -657,10 +657,10 @@ export type HeroSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   backgroundType?: boolean
   backgroundUrl?: boolean
   slug?: boolean
-  isActive?: boolean
   order?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
   countries?: boolean | Prisma.Hero$countriesArgs<ExtArgs>
   _count?: boolean | Prisma.HeroCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["hero"]>
@@ -674,10 +674,10 @@ export type HeroSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   backgroundType?: boolean
   backgroundUrl?: boolean
   slug?: boolean
-  isActive?: boolean
   order?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
 }, ExtArgs["result"]["hero"]>
 
 export type HeroSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -689,10 +689,10 @@ export type HeroSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   backgroundType?: boolean
   backgroundUrl?: boolean
   slug?: boolean
-  isActive?: boolean
   order?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
 }, ExtArgs["result"]["hero"]>
 
 export type HeroSelectScalar = {
@@ -704,13 +704,13 @@ export type HeroSelectScalar = {
   backgroundType?: boolean
   backgroundUrl?: boolean
   slug?: boolean
-  isActive?: boolean
   order?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
 }
 
-export type HeroOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "subtitle" | "buttonText" | "buttonUrl" | "backgroundType" | "backgroundUrl" | "slug" | "isActive" | "order" | "createdAt" | "updatedAt", ExtArgs["result"]["hero"]>
+export type HeroOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "subtitle" | "buttonText" | "buttonUrl" | "backgroundType" | "backgroundUrl" | "slug" | "order" | "createdAt" | "updatedAt" | "status", ExtArgs["result"]["hero"]>
 export type HeroInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   countries?: boolean | Prisma.Hero$countriesArgs<ExtArgs>
   _count?: boolean | Prisma.HeroCountOutputTypeDefaultArgs<ExtArgs>
@@ -732,10 +732,10 @@ export type $HeroPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     backgroundType: $Enums.BackgroundType
     backgroundUrl: string
     slug: string
-    isActive: boolean
     order: number
     createdAt: Date
     updatedAt: Date
+    status: $Enums.ContentStatus
   }, ExtArgs["result"]["hero"]>
   composites: {}
 }
@@ -1168,10 +1168,10 @@ export interface HeroFieldRefs {
   readonly backgroundType: Prisma.FieldRef<"Hero", 'BackgroundType'>
   readonly backgroundUrl: Prisma.FieldRef<"Hero", 'String'>
   readonly slug: Prisma.FieldRef<"Hero", 'String'>
-  readonly isActive: Prisma.FieldRef<"Hero", 'Boolean'>
   readonly order: Prisma.FieldRef<"Hero", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Hero", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Hero", 'DateTime'>
+  readonly status: Prisma.FieldRef<"Hero", 'ContentStatus'>
 }
     
 

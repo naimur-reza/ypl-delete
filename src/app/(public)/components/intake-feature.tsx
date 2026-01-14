@@ -4,7 +4,7 @@ import { CountryAwareLink } from "@/components/common/navbar/country-aware-link"
 export async function IntakeFeature() {
   // Fetch the currently active intake season
   const season = await prisma.intakeSeason.findFirst({
-    where: { isActive: true },
+    where: { status: "ACTIVE" },
     select: {
       id: true,
       title: true,

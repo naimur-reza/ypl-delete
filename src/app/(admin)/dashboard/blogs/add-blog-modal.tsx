@@ -19,6 +19,7 @@ import { FormBase } from "@/components/form/FormBase";
 import { Input } from "@/components/ui/input";
 import { CountrySelect } from "@/components/ui/region-select";
 import { SelectItem } from "@/components/ui/select";
+import { Blog } from "../../../../../prisma/src/generated/prisma/browser";
 
 type FormData = z.infer<typeof blogSchema>;
 
@@ -36,21 +37,8 @@ const BlogFormModal = ({
   onSuccess,
 }: {
   isEditing?: boolean;
-  selectedBlog?: {
-    id: string;
-    title: string;
-    slug: string;
-    excerpt?: string | null;
-    content?: string | null;
-    image?: string | null;
-    author?: string | null;
-    publishedAt?: string | null;
-    isFeatured?: boolean;
-    destinationId: string;
+  selectedBlog?: Blog & {
     countries?: Array<{ country?: { id: string }; countryId?: string }>;
-    metaTitle?: string | null;
-    metaDescription?: string | null;
-    metaKeywords?: string | null;
   };
   onClose: () => void;
   onSuccess?: () => void;
@@ -98,6 +86,7 @@ const BlogFormModal = ({
       content: selectedBlog?.content || "",
       image: selectedBlog?.image || "",
       author: selectedBlog?.author || "",
+      status: selectedBlog?.status || "DRAFT",
       publishedAt: selectedBlog?.publishedAt
         ? new Date(selectedBlog.publishedAt).toISOString().split("T")[0]
         : "",
@@ -219,17 +208,13 @@ const BlogFormModal = ({
                     handleTitleChange(e.target.value);
                   }}
                   onBlur={field.handleBlur}
-                  placeholder="e.g., Top 10 Universities in Australia"
                 />
               </FormBase>
             )}
           </form.AppField>
           <form.AppField name="slug">
             {(field) => (
-              <FormBase
-                label="Slug"
-                description="Auto-generated from title. You can edit if needed."
-              >
+              <FormBase label="Slug">
                 <Input
                   id={field.name}
                   name={field.name}
@@ -240,7 +225,6 @@ const BlogFormModal = ({
                     handleSlugChange(slugValue);
                   }}
                   onBlur={field.handleBlur}
-                  placeholder="e.g., top-10-universities-in-australia"
                 />
               </FormBase>
             )}

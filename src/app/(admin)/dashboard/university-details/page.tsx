@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useCallback } from "react";
+import { useMemo, useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/table/data-table";
@@ -16,9 +16,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import UniversityDetailModal from "./add-detail-modal";
+import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { useConfirmDialog } from "@/hooks/use-confirm-dialog";
+import { useRouter } from "next/navigation";
 
 interface UniversityDetail {
   id: string;
@@ -31,7 +39,8 @@ interface UniversityDetail {
   servicesDescription?: string | null;
   servicesImage?: string | null;
   entryRequirements: string;
-  university?: { name: string };
+  university?: { name: string; status?: string };
+  status: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -55,16 +64,16 @@ const formatCellContent = (
 };
 
 export default function UniversityDetailsPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [selectedDetail, setSelectedDetail] = useState<
-    UniversityDetail | undefined
-  >();
+  const router = useRouter();
+  const [statusFilter, setStatusFilter] = useState<string>("all");
 
-  const endpoint = "/api/university-details";
+  const endpoint = `/api/university-details${
+    statusFilter !== "all" ? `?status=${statusFilter}` : ""
+  }`;
+  
   const api = useMemo(
-    () => createEntityApi<UniversityDetail>(endpoint),
-    [endpoint]
+    () => createEntityApi<UniversityDetail>("/api/university-details"),
+    []
   );
 
   const { table, isLoading, error, pagination, refetch } =
@@ -92,24 +101,6 @@ export default function UniversityDetailsPage() {
     },
   });
 
-  const handleOpenModal = () => {
-    setIsEditing(false);
-    setSelectedDetail(undefined);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = useCallback(() => {
-    setIsModalOpen(false);
-    setIsEditing(false);
-    setSelectedDetail(undefined);
-  }, []);
-
-  const handleEdit = (item: UniversityDetail) => {
-    setIsEditing(true);
-    setSelectedDetail(item);
-    setIsModalOpen(true);
-  };
-
   const columns: ColumnDef<UniversityDetail>[] = useMemo(
     () => [
       {
@@ -118,11 +109,24 @@ export default function UniversityDetailsPage() {
         cell: ({ row }) => row.original.university?.name ?? "—",
       },
       {
+        accessorKey: "status",
+        header: "Status",
+        cell: ({ row }) => {
+          const status = row.original.status as string;
+          return (
+            <Badge variant={status === "ACTIVE" ? "default" : "secondary"}>
+              {status || "DRAFT"}
+            </Badge>
+          );
+        },
+        enableSorting: true,
+      },
+      {
         accessorKey: "overview",
         header: "Overview",
         cell: ({ row }) => (
           <span title={stripHtml(row.original.overview || "")}>
-            {formatCellContent(row.original.overview, 50)}
+            {formatCellContent(row.original.overview, 30)}
           </span>
         ),
       },
@@ -131,14 +135,18 @@ export default function UniversityDetailsPage() {
         header: "Ranking",
         cell: ({ row }) => (
           <span title={stripHtml(row.original.ranking || "")}>
-            {formatCellContent(row.original.ranking, 50)}
+            {formatCellContent(row.original.ranking, 30)}
           </span>
         ),
       },
       {
         accessorKey: "tuitionFees",
         header: "Tuition Fees",
-        cell: ({ row }) => row.original.tuitionFees || "—",
+        cell: ({ row }) => (
+          <span title={stripHtml(row.original.tuitionFees || "")}>
+            {formatCellContent(row.original.tuitionFees, 30)}
+          </span>
+        ),
       },
 
       {
@@ -157,7 +165,11 @@ export default function UniversityDetailsPage() {
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => handleEdit(item)}>
+                <DropdownMenuItem
+                  onClick={() =>
+                    router.push(`/dashboard/university-details/${item.id}/edit`)
+                  }
+                >
                   <Pencil className="mr-2 h-4 w-4" />
                   Edit
                 </DropdownMenuItem>
@@ -174,7 +186,7 @@ export default function UniversityDetailsPage() {
         },
       },
     ],
-    [deleteDialog]
+    [deleteDialog, router]
   );
 
   if (table.options.columns.length === 0) {
@@ -193,19 +205,7 @@ export default function UniversityDetailsPage() {
             each university
           </p>
         </div>
-        <Button onClick={handleOpenModal}>
-          <Plus className="mr-2 h-4 w-4" /> Add Detail
-        </Button>
       </div>
-
-      {isModalOpen && (
-        <UniversityDetailModal
-          isEditing={isEditing}
-          selectedDetail={selectedDetail}
-          onClose={handleCloseModal}
-          onSuccess={refetch}
-        />
-      )}
 
       <ConfirmDialog
         open={deleteDialog.isOpen}
@@ -227,9 +227,28 @@ export default function UniversityDetailsPage() {
         error={error}
         pagination={pagination}
         toolbar={
-          <Button variant="outline" onClick={refetch} disabled={isLoading}>
-            Refresh
-          </Button>
+          <div className="flex items-center gap-2">
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger className="w-[150px]">
+                <SelectValue placeholder="Filter by status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All</SelectItem>
+                <SelectItem value="ACTIVE">Active</SelectItem>
+                <SelectItem value="DRAFT">Draft</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button
+              variant="outline"
+              onClick={refetch}
+              disabled={isLoading}
+            >
+              Refresh
+            </Button>
+            <Button onClick={() => router.push("/dashboard/university-details/new")}>
+              <Plus className="mr-2 h-4 w-4" /> Add Detail
+            </Button>
+          </div>
         }
       />
     </div>

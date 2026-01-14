@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
   if (!canManageContent(session)) return forbiddenResponse();
 
   const body = await req.json();
-  const { title, description, image, type, sortOrder, isActive, countryIds = [] } = body;
+  const { title, description, image, type, sortOrder, status, countryIds = [] } = body;
 
   if (!title)
     return Response.json({ error: "Title is required" }, { status: 400 });
@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
       image,
       type: type || "VISA_SUCCESS",
       sortOrder: sortOrder || 0,
-      isActive: isActive ?? true,
+      status: status || "DRAFT",
       countries: countryIds.length > 0 ? {
         create: countryIds.map((countryId: string) => ({
           country: {

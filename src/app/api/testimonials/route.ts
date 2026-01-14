@@ -39,6 +39,7 @@ export async function POST(req: NextRequest) {
     destinationIds,
     universityIds,
     eventIds,
+    status,
   } = body;
 
   try {
@@ -55,6 +56,7 @@ export async function POST(req: NextRequest) {
         url,
         isFeatured: isFeatured || false,
         order: order ? Number(order) : 0,
+        status: status || "DRAFT",
         countries: countryIds?.length
           ? {
               create: (countryIds || []).map((countryId: string) => ({

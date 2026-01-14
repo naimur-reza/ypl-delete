@@ -30,7 +30,7 @@ async function getCareer(slug: string) {
       salaryMax: true,
       salaryCurrency: true,
       deadline: true,
-      isActive: true,
+      status: true,
     },
   });
 
@@ -59,7 +59,7 @@ export default async function ApplyPage({ params }: PageProps) {
   const { slug } = await params;
   const career = await getCareer(slug);
 
-  if (!career || !career.isActive) {
+  if (!career || career.status !== "ACTIVE") {
     notFound();
   }
 

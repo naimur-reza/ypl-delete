@@ -17,22 +17,33 @@ import { useDataTable } from "@/hooks/use-data-table";
 import { toast } from "sonner";
 import { createEntityApi } from "@/lib/api-client";
 import { Badge } from "@/components/ui/badge";
-import CountryFormModal from "./add-country-modal";
 import { Country } from "../../../../../prisma/src/generated/prisma/browser";
 import Image from "next/image";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { useConfirmDialog } from "@/hooks/use-confirm-dialog";
+import { useRouter } from "next/navigation";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const countryApi = createEntityApi<Country>("/api/countries");
 
 const CountriesPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState<Country | undefined>();
+  const router = useRouter();
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+
+  const endpoint = useMemo(
+    () => `/api/countries${statusFilter !== "all" ? `?status=${statusFilter}` : ""}`,
+    [statusFilter]
+  );
 
   const { table, isLoading, error, pagination, refetch } =
     useDataTable<Country>({
-      endpoint: "/api/countries",
+      endpoint,
       columns: [],
       enableServerSidePagination: true,
       enableServerSideSorting: true,
@@ -55,18 +66,6 @@ const CountriesPage = () => {
       }
     },
   });
-
-  const handleOpenModal = () => {
-    setIsEditing(false);
-    setSelectedCountry(undefined);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setIsEditing(false);
-    setSelectedCountry(undefined);
-  };
 
   const columns: ColumnDef<Country>[] = useMemo(
     () => [
@@ -92,6 +91,19 @@ const CountriesPage = () => {
         header: "Slug",
         enableSorting: true,
         cell: ({ row }) => <Badge variant="outline">{row.original.slug}</Badge>,
+      },
+      {
+        accessorKey: "status",
+        header: "Status",
+        cell: ({ row }) => {
+          const status = (row.original as any).status as string;
+          return (
+            <Badge variant={status === "ACTIVE" ? "default" : "secondary"}>
+              {status || "DRAFT"}
+            </Badge>
+          );
+        },
+        enableSorting: true,
       },
       {
         accessorKey: "createdAt",
@@ -120,9 +132,7 @@ const CountriesPage = () => {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   onClick={() => {
-                    setIsEditing(true);
-                    setSelectedCountry(country);
-                    setIsModalOpen(true);
+                    router.push(`/dashboard/countries/${country.id}/edit`);
                   }}
                 >
                   <Pencil className="mr-2 h-4 w-4" />
@@ -141,7 +151,7 @@ const CountriesPage = () => {
         },
       },
     ],
-    [deleteDialog]
+    [deleteDialog, router]
   );
 
   // Update table columns when they change
@@ -159,31 +169,6 @@ const CountriesPage = () => {
           </p>
         </div>
       </div>
-
-      {isModalOpen && (
-        <CountryFormModal
-          isEditing={isEditing}
-          selectedCountry={
-            selectedCountry
-              ? {
-                  id: selectedCountry.id,
-                  name: selectedCountry.name,
-                  slug: selectedCountry.slug,
-                  isoCode: selectedCountry.isoCode,
-                  flag: selectedCountry.flag,
-                  createdAt: new Date(selectedCountry.createdAt),
-                  updatedAt: new Date(selectedCountry.updatedAt),
-                  metaTitle: selectedCountry.metaTitle ?? null,
-                  metaDescription: selectedCountry.metaDescription ?? null,
-                  metaKeywords: selectedCountry.metaKeywords ?? null,
-                  isActive: selectedCountry.isActive,
-                }
-              : undefined
-          }
-          onClose={handleCloseModal}
-          onSuccess={refetch}
-        />
-      )}
 
       <ConfirmDialog
         open={deleteDialog.isOpen}
@@ -205,10 +190,22 @@ const CountriesPage = () => {
         error={error}
         pagination={pagination}
         toolbar={
-          <Button onClick={handleOpenModal}>
-            <Plus className="mr-2 h-4 w-4" />
-            Add Country
-          </Button>
+          <div className="flex items-center gap-2">
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger className="w-[150px]">
+                <SelectValue placeholder="Filter by status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Status</SelectItem>
+                <SelectItem value="ACTIVE">Active</SelectItem>
+                <SelectItem value="DRAFT">Draft</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button onClick={() => router.push("/dashboard/countries/new")}>
+              <Plus className="mr-2 h-4 w-4" />
+              Add Country
+            </Button>
+          </div>
         }
       />
     </div>

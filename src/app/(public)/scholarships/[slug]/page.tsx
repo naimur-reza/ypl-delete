@@ -12,6 +12,7 @@ export const dynamicParams = true;
 // Pre-generate first 30 scholarships at build time for instant loading
 export async function generateStaticParams() {
   const scholarships = await prisma.scholarship.findMany({
+    where: { status: "ACTIVE" },
     select: { slug: true },
     orderBy: { createdAt: "desc" },
     take: 30,
@@ -53,8 +54,8 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { country, slug } = await params;
 
-  const scholarship = await prisma.scholarship.findUnique({
-    where: { slug },
+  const scholarship = await prisma.scholarship.findFirst({
+    where: { slug, status: "ACTIVE" },
     select: {
       title: true,
       metaTitle: true,
@@ -85,8 +86,8 @@ export async function generateMetadata({
 export default async function ScholarshipDetailsPage({ params }: PageProps) {
   const { country, slug } = await params;
 
-  const scholarshipData = await prisma.scholarship.findUnique({
-    where: { slug },
+  const scholarshipData = await prisma.scholarship.findFirst({
+    where: { slug, status: "ACTIVE" },
     include: {
       university: {
         select: {
@@ -126,6 +127,7 @@ export default async function ScholarshipDetailsPage({ params }: PageProps) {
   // Fetch related scholarships (same destination, exclude current)
   const relatedScholarships = await prisma.scholarship.findMany({
     where: {
+      status: "ACTIVE",
       destinationId: scholarship.destinationId,
       id: { not: scholarship.id },
     },

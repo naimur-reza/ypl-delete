@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const slug = searchParams.get("slug");
     const countryId = searchParams.get("countryId");
-    const isActive = searchParams.get("isActive");
+    const status = searchParams.get("status");
 
     const where: any = {};
 
@@ -17,8 +17,8 @@ export async function GET(request: NextRequest) {
       where.slug = slug;
     }
 
-    if (isActive !== null && isActive !== undefined) {
-      where.isActive = isActive === "true";
+    if (status && status !== "all") {
+      where.status = status;
     }
 
     if (countryId) {
@@ -64,14 +64,15 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const validatedData = heroSchema.parse(body);
 
-    const { countryIds, ...heroData } = validatedData;
+    const { countryIds, status, ...heroData } = validatedData as any;
 
     const hero = await prisma.hero.create({
       data: {
         ...heroData,
+        status: status || "ACTIVE",
         countries: countryIds
           ? {
-              create: countryIds.map((countryId) => ({
+              create: countryIds.map((countryId: any) => ({
                 countryId,
               })),
             }

@@ -42,20 +42,20 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
         select: { id: true, name: true, slug: true },
         where: countryScopedFilter
           ? {
-              isActive: true,
+              status: "ACTIVE",
               countries: countryScopedFilter,
             }
-          : { isActive: true },
+          : { status: "ACTIVE" },
         take: 20,
       }),
       prisma.course.findMany({
         select: { id: true, title: true, slug: true },
         where: countryScopedFilter
           ? {
-              isActive: true,
+              status: "ACTIVE",
               countries: countryScopedFilter,
             }
-          : { isActive: true },
+          : { status: "ACTIVE" },
         take: 20,
       }),
       prisma.event.findMany({
@@ -121,7 +121,7 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
     const firstCountry = office.countries?.[0]?.country;
     return {
       title: office.name,
-      href: `/global-branches/${firstCountry?.slug || 'global'}/${office.slug}`,
+      href: `/global-branches/${firstCountry?.slug || "global"}/${office.slug}`,
       phone: office.phone || undefined,
       countryFlag: firstCountry?.flag || undefined,
       countryName: firstCountry?.name || undefined,
@@ -154,10 +154,11 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
             {universityItems.length > 0 && (
               <li>
                 <Link
-   className="font-medium  text-muted-foreground transition-colors"
+                  className="font-medium  text-muted-foreground transition-colors"
                   href="/universities"
-                 
-                >Universities</Link>
+                >
+                  Universities
+                </Link>
               </li>
             )}
 
@@ -173,14 +174,23 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
               </li>
             )}
 
+            {
+              <Link
+                href="/scholarships"
+                className="font-medium  text-muted-foreground transition-colors"
+              >
+                Scholarships
+              </Link>
+            }
+
             {eventItems.length > 0 && (
               <li>
-                <NavDropdown 
-                  href="/events" 
-                  title="Events" 
+                <NavDropdown
+                  href="/events"
+                  title="Events"
                   heading="Upcoming events and webinars"
                   viewAllLink="/events"
-                  items={eventItems} 
+                  items={eventItems}
                 />
               </li>
             )}
@@ -203,10 +213,6 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
               heading="Explore our resources"
               viewAllLink="/resources"
               items={[
-                {
-                  title: "Scholarships",
-                  href: "/scholarships",
-                },
                 {
                   title: "Careers",
                   href: "/careers",

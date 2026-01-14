@@ -99,7 +99,7 @@ export async function AboutSection({ countryId }: AboutSectionProps) {
   const stats = await prisma.stat.findMany({
     where: {
       section: "about",
-      isActive: true,
+      status: "ACTIVE",
       OR: countryId
         ? [
             { countries: { some: { countryId } } },

@@ -80,7 +80,7 @@ const HomePage = async ({ params }: PageProps) => {
   ] = await Promise.all([
     prisma.university.findMany({
       where: {
-        isActive: true,
+        status: "ACTIVE",
         isFeatured: true,
         ...(countrySlug && {
           countries: {
@@ -120,7 +120,7 @@ const HomePage = async ({ params }: PageProps) => {
       },
     }),
     prisma.country.findMany({
-      where: { isActive: true },
+      where: { status: "ACTIVE" },
       select: {
         id: true,
         name: true,

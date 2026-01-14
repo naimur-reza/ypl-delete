@@ -1,5 +1,5 @@
 import { prisma } from "./prisma";
-import { IntakeMonth } from "@prisma/client";
+import { IntakeMonth } from "../../prisma/src/generated/prisma/client";
 
 export type FAQItem = {
   id: string;
@@ -58,6 +58,7 @@ export async function fetchFaqsByEventId(
 ): Promise<FAQItem[]> {
   return prisma.fAQ.findMany({
     where: {
+      status: "ACTIVE",
       events: {
         some: {
           eventId,
@@ -83,6 +84,7 @@ export async function fetchFaqsByCourseId(
 ): Promise<FAQItem[]> {
   return prisma.fAQ.findMany({
     where: {
+      status: "ACTIVE",
       courses: {
         some: {
           courseId,
@@ -108,6 +110,7 @@ export async function fetchFaqsByScholarshipId(
 ): Promise<FAQItem[]> {
   return prisma.fAQ.findMany({
     where: {
+      status: "ACTIVE",
       scholarships: {
         some: {
           scholarshipId,
@@ -148,6 +151,7 @@ export async function fetchFaqsByIntakePage(
 
   return prisma.fAQ.findMany({
     where: {
+      status: "ACTIVE",
       intakePages: {
         some: {
           intakePageId: intakePage.id,
@@ -191,6 +195,7 @@ export async function fetchFaqsForHomePage(
 
   return prisma.fAQ.findMany({
     where: {
+      status: "ACTIVE",
       OR: whereConditions,
     },
     orderBy: { updatedAt: "desc" },
@@ -219,6 +224,7 @@ export async function fetchFaqsByContext(
     if (faqs.length === 0 && context.destinationId) {
       faqs = await prisma.fAQ.findMany({
         where: {
+          status: "ACTIVE",
           destinations: {
             some: {
               destinationId: context.destinationId,
@@ -246,6 +252,7 @@ export async function fetchFaqsByContext(
       if (course?.universityId) {
         faqs = await prisma.fAQ.findMany({
           where: {
+            status: "ACTIVE",
             universities: {
               some: {
                 universityId: course.universityId,
@@ -265,6 +272,7 @@ export async function fetchFaqsByContext(
       if (faqs.length === 0 && course?.destinationId) {
         faqs = await prisma.fAQ.findMany({
           where: {
+            status: "ACTIVE",
             destinations: {
               some: {
                 destinationId: course.destinationId,
@@ -293,6 +301,7 @@ export async function fetchFaqsByContext(
       if (scholarship?.universityId) {
         faqs = await prisma.fAQ.findMany({
           where: {
+            status: "ACTIVE",
             universities: {
               some: {
                 universityId: scholarship.universityId,
@@ -312,6 +321,7 @@ export async function fetchFaqsByContext(
       if (faqs.length === 0 && scholarship?.destinationId) {
         faqs = await prisma.fAQ.findMany({
           where: {
+            status: "ACTIVE",
             destinations: {
               some: {
                 destinationId: scholarship.destinationId,
@@ -331,6 +341,7 @@ export async function fetchFaqsByContext(
   } else if (context.universityId) {
     faqs = await prisma.fAQ.findMany({
       where: {
+        status: "ACTIVE",
         universities: {
           some: {
             universityId: context.universityId,
@@ -348,6 +359,7 @@ export async function fetchFaqsByContext(
   } else if (context.destinationId) {
     faqs = await prisma.fAQ.findMany({
       where: {
+        status: "ACTIVE",
         destinations: {
           some: {
             destinationId: context.destinationId,
@@ -382,6 +394,7 @@ export async function fetchFaqsForScholarshipsPage(
   limit: number = 6
 ): Promise<FAQItem[]> {
   const where: any = {
+    status: "ACTIVE",
     scholarships: {
       some: {},
     },
@@ -426,6 +439,7 @@ export async function fetchFaqsForUniversitiesPage(
   limit: number = 6
 ): Promise<FAQItem[]> {
   const where: any = {
+    status: "ACTIVE",
     universities: {
       some: {},
     },
@@ -467,6 +481,7 @@ export async function fetchFaqsForEventsPage(
   limit: number = 6
 ): Promise<FAQItem[]> {
   const where: any = {
+    status: "ACTIVE",
     events: {
       some: {},
     },
@@ -508,6 +523,7 @@ export async function fetchFaqsForCoursesPage(
   limit: number = 6
 ): Promise<FAQItem[]> {
   const where: any = {
+    status: "ACTIVE",
     courses: {
       some: {},
     },
@@ -549,6 +565,7 @@ export async function fetchFaqsForDestinationsPage(
   limit: number = 6
 ): Promise<FAQItem[]> {
   const where: any = {
+    status: "ACTIVE",
     destinations: {
       some: {},
     },

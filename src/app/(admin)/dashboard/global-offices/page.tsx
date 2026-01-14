@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useMemo, useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal, Plus, Pencil, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -17,9 +17,16 @@ import { useDataTable } from "@/hooks/use-data-table";
 import { toast } from "sonner";
 import { createEntityApi } from "@/lib/api-client";
 import { Badge } from "@/components/ui/badge";
-import GlobalOfficeFormModal from "./add-global-office-modal";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { useConfirmDialog } from "@/hooks/use-confirm-dialog";
+import { useRouter } from "next/navigation";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type GlobalOfficeWithCountries = {
   id: string;
@@ -45,15 +52,17 @@ const globalOfficeApi = createEntityApi<GlobalOfficeWithCountries>(
 );
 
 const GlobalOfficesPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [selectedGlobalOffice, setSelectedGlobalOffice] = useState<
-    GlobalOfficeWithCountries | undefined
-  >();
+  const router = useRouter();
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+
+  const endpoint = useMemo(
+    () => `/api/global-offices${statusFilter !== "all" ? `?status=${statusFilter}` : ""}`,
+    [statusFilter]
+  );
 
   const { table, isLoading, error, pagination, refetch } =
     useDataTable<GlobalOfficeWithCountries>({
-      endpoint: "/api/global-offices",
+      endpoint,
       columns: [],
       enableServerSidePagination: true,
       enableServerSideSorting: true,
@@ -76,18 +85,6 @@ const GlobalOfficesPage = () => {
       }
     },
   });
-
-  const handleOpenModal = () => {
-    setIsEditing(false);
-    setSelectedGlobalOffice(undefined);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setIsEditing(false);
-    setSelectedGlobalOffice(undefined);
-  };
 
   const columns: ColumnDef<GlobalOfficeWithCountries>[] = useMemo(
     () => [
@@ -145,6 +142,19 @@ const GlobalOfficesPage = () => {
         },
       },
       {
+        accessorKey: "status",
+        header: "Status",
+        cell: ({ row }) => {
+          const status = (row.original as any).status as string;
+          return (
+            <Badge variant={status === "ACTIVE" ? "default" : "secondary"}>
+              {status || "DRAFT"}
+            </Badge>
+          );
+        },
+        enableSorting: true,
+      },
+      {
         accessorKey: "createdAt",
         header: "Created",
         cell: ({ row }) => {
@@ -161,20 +171,16 @@ const GlobalOfficesPage = () => {
           return (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="h-8 w-8 p-0">
+                <Button variant="ghost" className="h-8 p-0">
                   <span className="sr-only">Open menu</span>
-                  <MoreHorizontal className="h-4 w-4" />
+                  <MoreHorizontal className="h-4 p-0" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
-                  onClick={() => {
-                    setIsEditing(true);
-                    setSelectedGlobalOffice(globalOffice);
-                    setIsModalOpen(true);
-                  }}
+                  onClick={() => router.push(`/dashboard/global-offices/${globalOffice.id}/edit`)}
                 >
                   <Pencil className="mr-2 h-4 w-4" />
                   Edit
@@ -192,10 +198,9 @@ const GlobalOfficesPage = () => {
         },
       },
     ],
-    [deleteDialog]
+    [deleteDialog, router]
   );
 
-  // Update table columns when they change
   if (table.options.columns.length === 0) {
     table.setOptions((prev) => ({ ...prev, columns }));
   }
@@ -210,15 +215,6 @@ const GlobalOfficesPage = () => {
           </p>
         </div>
       </div>
-
-      {isModalOpen && (
-        <GlobalOfficeFormModal
-          isEditing={isEditing}
-          selectedGlobalOffice={selectedGlobalOffice}
-          onClose={handleCloseModal}
-          onSuccess={refetch}
-        />
-      )}
 
       <ConfirmDialog
         open={deleteDialog.isOpen}
@@ -240,10 +236,13 @@ const GlobalOfficesPage = () => {
         error={error}
         pagination={pagination}
         toolbar={
-          <Button onClick={handleOpenModal}>
-            <Plus className="mr-2 h-4 w-4" />
-            Add Global Office
-          </Button>
+          <div className="flex items-center gap-2">
+ 
+            <Button onClick={() => router.push("/dashboard/global-offices/new")}>
+              <Plus className="mr-2 h-4 w-4" />
+              Add Global Office
+            </Button>
+          </div>
         }
       />
     </div>

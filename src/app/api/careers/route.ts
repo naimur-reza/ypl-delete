@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     description,
     requirements,
     applyUrl,
-    isActive,
+    status,
   } = body;
 
   if (!title || !slug)
@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
       description,
       requirements,
       applyUrl,
-      isActive,
+      status: status || "DRAFT",
     },
     prisma.career,
     { uniqueField: "slug", revalidatePaths: ["/dashboard/careers"] }

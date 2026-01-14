@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useMemo, useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal, Plus, Pencil, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -17,10 +17,16 @@ import { useDataTable } from "@/hooks/use-data-table";
 import { toast } from "sonner";
 import { createEntityApi } from "@/lib/api-client";
 import { Badge } from "@/components/ui/badge";
-import DestinationFormModal from "./add-destination-modal";
-
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { useConfirmDialog } from "@/hooks/use-confirm-dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useRouter } from "next/navigation";
 import { Destination } from "../../../../../prisma/src/generated/prisma/browser";
 
 type TDestination = Destination & {
@@ -30,15 +36,17 @@ type TDestination = Destination & {
 const destinationApi = createEntityApi<TDestination>("/api/destinations");
 
 const DestinationsPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [selectedDestination, setSelectedDestination] = useState<
-    TDestination | undefined
-  >();
+  const router = useRouter();
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+
+  const endpoint = useMemo(
+    () => `/api/destinations${statusFilter !== "all" ? `?status=${statusFilter}` : ""}`,
+    [statusFilter]
+  );
 
   const { table, isLoading, error, pagination, refetch } =
     useDataTable<Destination>({
-      endpoint: "/api/destinations",
+      endpoint,
       columns: [],
       enableServerSidePagination: true,
       enableServerSideSorting: true,
@@ -62,18 +70,6 @@ const DestinationsPage = () => {
     },
   });
 
-  const handleOpenModal = () => {
-    setIsEditing(false);
-    setSelectedDestination(undefined);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setIsEditing(false);
-    setSelectedDestination(undefined);
-  };
-
   const columns: ColumnDef<TDestination>[] = useMemo(
     () => [
       {
@@ -86,6 +82,19 @@ const DestinationsPage = () => {
         header: "Slug",
         enableSorting: true,
         cell: ({ row }) => <Badge variant="outline">{row.original.slug}</Badge>,
+      },
+      {
+        accessorKey: "status",
+        header: "Status",
+        cell: ({ row }) => {
+          const status = (row.original as any).status as string;
+          return (
+            <Badge variant={status === "ACTIVE" ? "default" : "secondary"}>
+              {status || "DRAFT"}
+            </Badge>
+          );
+        },
+        enableSorting: true,
       },
       {
         accessorKey: "countries",
@@ -125,11 +134,7 @@ const DestinationsPage = () => {
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
-                  onClick={() => {
-                    setIsEditing(true);
-                    setSelectedDestination(destination);
-                    setIsModalOpen(true);
-                  }}
+                  onClick={() => router.push(`/dashboard/destinations/${destination.id}/edit`)}
                 >
                   <Pencil className="mr-2 h-4 w-4" />
                   Edit
@@ -147,10 +152,9 @@ const DestinationsPage = () => {
         },
       },
     ],
-    [deleteDialog]
+    [deleteDialog, router]
   );
 
-  // Update table columns when they change
   if (table.options.columns.length === 0) {
     table.setOptions((prev) => ({ ...prev, columns }));
   }
@@ -163,15 +167,6 @@ const DestinationsPage = () => {
           Manage destinations for content localization
         </p>
       </div>
-
-      {isModalOpen && (
-        <DestinationFormModal
-          isEditing={isEditing}
-          selectedDestination={selectedDestination}
-          onClose={handleCloseModal}
-          onSuccess={refetch}
-        />
-      )}
 
       <ConfirmDialog
         open={deleteDialog.isOpen}
@@ -193,10 +188,22 @@ const DestinationsPage = () => {
         error={error}
         pagination={pagination}
         toolbar={
-          <Button onClick={handleOpenModal}>
-            <Plus className="mr-2 h-4 w-4" />
-            Add Destination
-          </Button>
+          <div className="flex items-center gap-2">
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger className="w-[150px]">
+                <SelectValue placeholder="Filter by status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Status</SelectItem>
+                <SelectItem value="ACTIVE">Active</SelectItem>
+                <SelectItem value="DRAFT">Draft</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button onClick={() => router.push("/dashboard/destinations/new")}>
+              <Plus className="mr-2 h-4 w-4" />
+              Add Destination
+            </Button>
+          </div>
         }
       />
     </div>

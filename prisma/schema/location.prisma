@@ -8,37 +8,38 @@ model GlobalOffice {
   address         String?
   mapUrl          String?
   content         String?
-  image           String?               // Office image
-  bannerImage     String?               // Hero banner image
-  openingHours    String?               // Opening hours text
   metaTitle       String?
   metaDescription String?
   metaKeywords    String?
   createdAt       DateTime              @default(now())
   updatedAt       DateTime              @updatedAt
+  bannerImage     String?
+  image           String?
+  openingHours    String?
+  status          ContentStatus         @default(DRAFT)
   countries       GlobalOfficeCountry[]
 
+  @@index([status])
   @@map("global_offices")
 }
 
 model Country {
-  id                 String                   @id @default(cuid())
+  id                 String                  @id @default(cuid())
   name               String
-  slug               String                   @unique
-  isoCode            String                   @unique
+  slug               String                  @unique
+  isoCode            String                  @unique
   flag               String?
-  isActive           Boolean                  @default(true)
   metaTitle          String?
   metaDescription    String?
   metaKeywords       String?
-  createdAt          DateTime                 @default(now())
-  updatedAt          DateTime                 @updatedAt
+  createdAt          DateTime                @default(now())
+  updatedAt          DateTime                @updatedAt
+  status             ContentStatus           @default(DRAFT)
   accreditation      AccreditationCountry[]
   appointments       Appointment[]
   blogs              BlogCountry[]
   courses            CourseCountry[]
   destinations       DestinationCountry[]
-  essentials         EssentialStudyCountry[]
   events             EventCountry[]
   eventRegistrations EventRegistration[]
   faqs               FAQCountry[]
@@ -48,10 +49,13 @@ model Country {
   intakeSeasons      IntakeSeasonCountry[]
   leads              Lead[]
   scholarships       ScholarshipCountry[]
-  services           ServiceCountry[]
   stats              StatCountry[]
   testimonials       TestimonialCountry[]
   universities       UniversityCountry[]
+  essentials         EssentialStudyCountry[]
+  services           ServiceCountry[]
+
+  @@index([status])
 }
 
 model Destination {
@@ -70,6 +74,7 @@ model Destination {
   metaKeywords       String?
   createdAt          DateTime                 @default(now())
   updatedAt          DateTime                 @updatedAt
+  status             ContentStatus            @default(ACTIVE)
   blogs              Blog[]
   courses            Course[]
   countries          DestinationCountry[]
@@ -82,6 +87,8 @@ model Destination {
   scholarships       Scholarship[]
   testimonials       TestimonialDestination[]
   universities       University[]
+
+  @@index([status])
 }
 
 model EssentialStudy {
@@ -93,25 +100,28 @@ model EssentialStudy {
   destinationId String
   createdAt     DateTime                @default(now())
   updatedAt     DateTime                @updatedAt
+  status        ContentStatus           @default(DRAFT)
   destination   Destination             @relation(fields: [destinationId], references: [id])
   countries     EssentialStudyCountry[]
 
   @@index([destinationId])
+  @@index([status])
 }
 
 model DestinationSection {
-  id            String      @id @default(cuid())
+  id            String        @id @default(cuid())
   title         String
   slug          String
   image         String?
   content       String?
-  displayOrder  Int         @default(0)
-  isActive      Boolean     @default(true)
+  displayOrder  Int           @default(0)
   destinationId String
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  destination   Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  status        ContentStatus @default(DRAFT)
+  destination   Destination   @relation(fields: [destinationId], references: [id], onDelete: Cascade)
 
   @@unique([destinationId, slug])
   @@index([destinationId])
+  @@index([status])
 }

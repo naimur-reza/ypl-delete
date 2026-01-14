@@ -53,12 +53,12 @@ export type CareerMinAggregateOutputType = {
   salaryCurrency: string | null
   applyUrl: string | null
   deadline: Date | null
-  isActive: boolean | null
   metaTitle: string | null
   metaDescription: string | null
   metaKeywords: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  status: $Enums.ContentStatus | null
 }
 
 export type CareerMaxAggregateOutputType = {
@@ -78,12 +78,12 @@ export type CareerMaxAggregateOutputType = {
   salaryCurrency: string | null
   applyUrl: string | null
   deadline: Date | null
-  isActive: boolean | null
   metaTitle: string | null
   metaDescription: string | null
   metaKeywords: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  status: $Enums.ContentStatus | null
 }
 
 export type CareerCountAggregateOutputType = {
@@ -103,12 +103,12 @@ export type CareerCountAggregateOutputType = {
   salaryCurrency: number
   applyUrl: number
   deadline: number
-  isActive: number
   metaTitle: number
   metaDescription: number
   metaKeywords: number
   createdAt: number
   updatedAt: number
+  status: number
   _all: number
 }
 
@@ -140,12 +140,12 @@ export type CareerMinAggregateInputType = {
   salaryCurrency?: true
   applyUrl?: true
   deadline?: true
-  isActive?: true
   metaTitle?: true
   metaDescription?: true
   metaKeywords?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
 }
 
 export type CareerMaxAggregateInputType = {
@@ -165,12 +165,12 @@ export type CareerMaxAggregateInputType = {
   salaryCurrency?: true
   applyUrl?: true
   deadline?: true
-  isActive?: true
   metaTitle?: true
   metaDescription?: true
   metaKeywords?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
 }
 
 export type CareerCountAggregateInputType = {
@@ -190,12 +190,12 @@ export type CareerCountAggregateInputType = {
   salaryCurrency?: true
   applyUrl?: true
   deadline?: true
-  isActive?: true
   metaTitle?: true
   metaDescription?: true
   metaKeywords?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
   _all?: true
 }
 
@@ -302,12 +302,12 @@ export type CareerGroupByOutputType = {
   salaryCurrency: string | null
   applyUrl: string | null
   deadline: Date | null
-  isActive: boolean
   metaTitle: string | null
   metaDescription: string | null
   metaKeywords: string | null
   createdAt: Date
   updatedAt: Date
+  status: $Enums.ContentStatus
   _count: CareerCountAggregateOutputType | null
   _avg: CareerAvgAggregateOutputType | null
   _sum: CareerSumAggregateOutputType | null
@@ -350,12 +350,12 @@ export type CareerWhereInput = {
   salaryCurrency?: Prisma.StringNullableFilter<"Career"> | string | null
   applyUrl?: Prisma.StringNullableFilter<"Career"> | string | null
   deadline?: Prisma.DateTimeNullableFilter<"Career"> | Date | string | null
-  isActive?: Prisma.BoolFilter<"Career"> | boolean
   metaTitle?: Prisma.StringNullableFilter<"Career"> | string | null
   metaDescription?: Prisma.StringNullableFilter<"Career"> | string | null
   metaKeywords?: Prisma.StringNullableFilter<"Career"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Career"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Career"> | Date | string
+  status?: Prisma.EnumContentStatusFilter<"Career"> | $Enums.ContentStatus
   applications?: Prisma.JobApplicationListRelationFilter
 }
 
@@ -376,12 +376,12 @@ export type CareerOrderByWithRelationInput = {
   salaryCurrency?: Prisma.SortOrderInput | Prisma.SortOrder
   applyUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   deadline?: Prisma.SortOrderInput | Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   metaDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   metaKeywords?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   applications?: Prisma.JobApplicationOrderByRelationAggregateInput
 }
 
@@ -405,12 +405,12 @@ export type CareerWhereUniqueInput = Prisma.AtLeast<{
   salaryCurrency?: Prisma.StringNullableFilter<"Career"> | string | null
   applyUrl?: Prisma.StringNullableFilter<"Career"> | string | null
   deadline?: Prisma.DateTimeNullableFilter<"Career"> | Date | string | null
-  isActive?: Prisma.BoolFilter<"Career"> | boolean
   metaTitle?: Prisma.StringNullableFilter<"Career"> | string | null
   metaDescription?: Prisma.StringNullableFilter<"Career"> | string | null
   metaKeywords?: Prisma.StringNullableFilter<"Career"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Career"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Career"> | Date | string
+  status?: Prisma.EnumContentStatusFilter<"Career"> | $Enums.ContentStatus
   applications?: Prisma.JobApplicationListRelationFilter
 }, "id" | "slug">
 
@@ -431,12 +431,12 @@ export type CareerOrderByWithAggregationInput = {
   salaryCurrency?: Prisma.SortOrderInput | Prisma.SortOrder
   applyUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   deadline?: Prisma.SortOrderInput | Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   metaDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   metaKeywords?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   _count?: Prisma.CareerCountOrderByAggregateInput
   _avg?: Prisma.CareerAvgOrderByAggregateInput
   _max?: Prisma.CareerMaxOrderByAggregateInput
@@ -464,12 +464,12 @@ export type CareerScalarWhereWithAggregatesInput = {
   salaryCurrency?: Prisma.StringNullableWithAggregatesFilter<"Career"> | string | null
   applyUrl?: Prisma.StringNullableWithAggregatesFilter<"Career"> | string | null
   deadline?: Prisma.DateTimeNullableWithAggregatesFilter<"Career"> | Date | string | null
-  isActive?: Prisma.BoolWithAggregatesFilter<"Career"> | boolean
   metaTitle?: Prisma.StringNullableWithAggregatesFilter<"Career"> | string | null
   metaDescription?: Prisma.StringNullableWithAggregatesFilter<"Career"> | string | null
   metaKeywords?: Prisma.StringNullableWithAggregatesFilter<"Career"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Career"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Career"> | Date | string
+  status?: Prisma.EnumContentStatusWithAggregatesFilter<"Career"> | $Enums.ContentStatus
 }
 
 export type CareerCreateInput = {
@@ -489,12 +489,12 @@ export type CareerCreateInput = {
   salaryCurrency?: string | null
   applyUrl?: string | null
   deadline?: Date | string | null
-  isActive?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   applications?: Prisma.JobApplicationCreateNestedManyWithoutCareerInput
 }
 
@@ -515,12 +515,12 @@ export type CareerUncheckedCreateInput = {
   salaryCurrency?: string | null
   applyUrl?: string | null
   deadline?: Date | string | null
-  isActive?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutCareerInput
 }
 
@@ -541,12 +541,12 @@ export type CareerUpdateInput = {
   salaryCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   applyUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   applications?: Prisma.JobApplicationUpdateManyWithoutCareerNestedInput
 }
 
@@ -567,12 +567,12 @@ export type CareerUncheckedUpdateInput = {
   salaryCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   applyUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutCareerNestedInput
 }
 
@@ -593,12 +593,12 @@ export type CareerCreateManyInput = {
   salaryCurrency?: string | null
   applyUrl?: string | null
   deadline?: Date | string | null
-  isActive?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
 }
 
 export type CareerUpdateManyMutationInput = {
@@ -618,12 +618,12 @@ export type CareerUpdateManyMutationInput = {
   salaryCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   applyUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type CareerUncheckedUpdateManyInput = {
@@ -643,12 +643,12 @@ export type CareerUncheckedUpdateManyInput = {
   salaryCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   applyUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type CareerCountOrderByAggregateInput = {
@@ -668,12 +668,12 @@ export type CareerCountOrderByAggregateInput = {
   salaryCurrency?: Prisma.SortOrder
   applyUrl?: Prisma.SortOrder
   deadline?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrder
   metaDescription?: Prisma.SortOrder
   metaKeywords?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type CareerAvgOrderByAggregateInput = {
@@ -698,12 +698,12 @@ export type CareerMaxOrderByAggregateInput = {
   salaryCurrency?: Prisma.SortOrder
   applyUrl?: Prisma.SortOrder
   deadline?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrder
   metaDescription?: Prisma.SortOrder
   metaKeywords?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type CareerMinOrderByAggregateInput = {
@@ -723,12 +723,12 @@ export type CareerMinOrderByAggregateInput = {
   salaryCurrency?: Prisma.SortOrder
   applyUrl?: Prisma.SortOrder
   deadline?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrder
   metaDescription?: Prisma.SortOrder
   metaKeywords?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type CareerSumOrderByAggregateInput = {
@@ -772,12 +772,12 @@ export type CareerCreateWithoutApplicationsInput = {
   salaryCurrency?: string | null
   applyUrl?: string | null
   deadline?: Date | string | null
-  isActive?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
 }
 
 export type CareerUncheckedCreateWithoutApplicationsInput = {
@@ -797,12 +797,12 @@ export type CareerUncheckedCreateWithoutApplicationsInput = {
   salaryCurrency?: string | null
   applyUrl?: string | null
   deadline?: Date | string | null
-  isActive?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
 }
 
 export type CareerCreateOrConnectWithoutApplicationsInput = {
@@ -838,12 +838,12 @@ export type CareerUpdateWithoutApplicationsInput = {
   salaryCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   applyUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type CareerUncheckedUpdateWithoutApplicationsInput = {
@@ -863,12 +863,12 @@ export type CareerUncheckedUpdateWithoutApplicationsInput = {
   salaryCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   applyUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 
@@ -919,12 +919,12 @@ export type CareerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   salaryCurrency?: boolean
   applyUrl?: boolean
   deadline?: boolean
-  isActive?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
   applications?: boolean | Prisma.Career$applicationsArgs<ExtArgs>
   _count?: boolean | Prisma.CareerCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["career"]>
@@ -946,12 +946,12 @@ export type CareerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   salaryCurrency?: boolean
   applyUrl?: boolean
   deadline?: boolean
-  isActive?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
 }, ExtArgs["result"]["career"]>
 
 export type CareerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -971,12 +971,12 @@ export type CareerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   salaryCurrency?: boolean
   applyUrl?: boolean
   deadline?: boolean
-  isActive?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
 }, ExtArgs["result"]["career"]>
 
 export type CareerSelectScalar = {
@@ -996,15 +996,15 @@ export type CareerSelectScalar = {
   salaryCurrency?: boolean
   applyUrl?: boolean
   deadline?: boolean
-  isActive?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
 }
 
-export type CareerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "department" | "location" | "jobType" | "jobLocation" | "description" | "requirements" | "responsibilities" | "benefits" | "salaryMin" | "salaryMax" | "salaryCurrency" | "applyUrl" | "deadline" | "isActive" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt", ExtArgs["result"]["career"]>
+export type CareerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "department" | "location" | "jobType" | "jobLocation" | "description" | "requirements" | "responsibilities" | "benefits" | "salaryMin" | "salaryMax" | "salaryCurrency" | "applyUrl" | "deadline" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "status", ExtArgs["result"]["career"]>
 export type CareerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   applications?: boolean | Prisma.Career$applicationsArgs<ExtArgs>
   _count?: boolean | Prisma.CareerCountOutputTypeDefaultArgs<ExtArgs>
@@ -1034,12 +1034,12 @@ export type $CareerPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     salaryCurrency: string | null
     applyUrl: string | null
     deadline: Date | null
-    isActive: boolean
     metaTitle: string | null
     metaDescription: string | null
     metaKeywords: string | null
     createdAt: Date
     updatedAt: Date
+    status: $Enums.ContentStatus
   }, ExtArgs["result"]["career"]>
   composites: {}
 }
@@ -1480,12 +1480,12 @@ export interface CareerFieldRefs {
   readonly salaryCurrency: Prisma.FieldRef<"Career", 'String'>
   readonly applyUrl: Prisma.FieldRef<"Career", 'String'>
   readonly deadline: Prisma.FieldRef<"Career", 'DateTime'>
-  readonly isActive: Prisma.FieldRef<"Career", 'Boolean'>
   readonly metaTitle: Prisma.FieldRef<"Career", 'String'>
   readonly metaDescription: Prisma.FieldRef<"Career", 'String'>
   readonly metaKeywords: Prisma.FieldRef<"Career", 'String'>
   readonly createdAt: Prisma.FieldRef<"Career", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Career", 'DateTime'>
+  readonly status: Prisma.FieldRef<"Career", 'ContentStatus'>
 }
     
 

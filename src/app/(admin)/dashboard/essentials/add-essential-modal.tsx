@@ -44,6 +44,7 @@ const EssentialFormModal = ({
     description?: string | null;
     content?: string | null;
     destinationId: string;
+    status?: "ACTIVE" | "DRAFT";
   };
   onClose: () => void;
   onSuccess?: () => void;
@@ -85,8 +86,9 @@ const EssentialFormModal = ({
       destinationId: selected?.destinationId || "",
       description: selected?.description || "",
       content: selected?.content || "",
+      status: selected?.status || "DRAFT",
     } satisfies FormData as FormData,
-    validators: { onSubmit: essentialSchema },
+    validators: { onSubmit: essentialSchema as any},
     onSubmit: async ({ value }) => {
       setIsSubmitting(true);
       try {
@@ -95,6 +97,7 @@ const EssentialFormModal = ({
           ...value,
           description: value.description || null,
           content: content || null,
+          status: value.status || "DRAFT",
           countryIds,
         };
 
@@ -134,6 +137,7 @@ const EssentialFormModal = ({
       form.setFieldValue("slug", selected.slug || "");
       form.setFieldValue("destinationId", selected.destinationId || "");
       form.setFieldValue("description", selected.description || "");
+      form.setFieldValue("status", selected.status || "DRAFT");
       setContent(selected.content || "");
     } else {
       form.reset();
@@ -174,17 +178,14 @@ const EssentialFormModal = ({
                     handleTitleChange(e.target.value);
                   }}
                   onBlur={field.handleBlur}
-                  placeholder="e.g., Student Visa Guide"
+   
                 />
               </FormBase>
             )}
           </form.AppField>
           <form.AppField name="slug">
             {(field) => (
-              <FormBase
-                label="Slug"
-                description="Auto-generated from title. You can edit if needed."
-              >
+              <FormBase label="Slug">
                 <Input
                   id={field.name}
                   name={field.name}
@@ -195,7 +196,7 @@ const EssentialFormModal = ({
                     handleSlugChange(slugValue);
                   }}
                   onBlur={field.handleBlur}
-                  placeholder="e.g., student-visa-guide"
+  
                 />
               </FormBase>
             )}
@@ -218,6 +219,14 @@ const EssentialFormModal = ({
                     </SelectItem>
                   ))
                 )}
+              </field.Select>
+            )}
+          </form.AppField>
+          <form.AppField name="status">
+            {(field) => (
+              <field.Select label="Status">
+                <SelectItem value="ACTIVE">Active</SelectItem>
+                <SelectItem value="DRAFT">Draft</SelectItem>
               </field.Select>
             )}
           </form.AppField>

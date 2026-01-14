@@ -67,7 +67,7 @@ export async function HeroSlider({
   const heroStats = await prisma.stat.findMany({
     where: {
       section: "hero",
-      isActive: true,
+      status: "ACTIVE",
     },
     orderBy: [
       { slideIndex: "asc" },

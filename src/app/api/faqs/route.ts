@@ -32,6 +32,7 @@ export async function POST(req: NextRequest) {
     scholarshipIds,
     intakePageIds,
     isGlobal,
+    status,
   } = body;
 
   if (!question || !answer) {
@@ -46,6 +47,7 @@ export async function POST(req: NextRequest) {
       data: {
         question,
         answer,
+        status: status || "DRAFT",
         isGlobal: isGlobal || false,
         countries: countryIds?.length
           ? {

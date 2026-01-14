@@ -23,7 +23,7 @@ const careerSchema = z.object({
   description: z.string().optional().nullable(),
   requirements: z.string().optional().nullable(),
   responsilities: z.string().optional().nullable(),
-  isActive: z.boolean().optional().nullable(),
+  status: z.enum(["ACTIVE", "DRAFT"]),
 });
 
 type FormData = z.infer<typeof careerSchema>;
@@ -53,7 +53,7 @@ export default function CareerFormModal({
       description: selected?.description || "",
       requirements: selected?.requirements || "",
       responsilities: selected?.responsilities || "",
-      isActive: selected?.isActive ?? true,
+      status: selected?.status || "DRAFT",
     } as unknown as FormData,
     validators: { onSubmit: careerSchema as any },
     onSubmit: async ({ value }) => {
@@ -65,7 +65,7 @@ export default function CareerFormModal({
           jobType: value.jobType || null,
           description: value.description || null,
           requirements: value.requirements || null,
-          isActive: value.isActive ?? true,
+          status,
         } as Record<string, unknown>;
 
         const res =
@@ -121,17 +121,14 @@ export default function CareerFormModal({
                     handleTitleChange(e.target.value);
                   }}
                   onBlur={field.handleBlur}
-                  placeholder="e.g., Senior Education Counselor"
+                  
                 />
               </FormBase>
             )}
           </form.AppField>
           <form.AppField name="slug">
             {(field) => (
-              <FormBase
-                label="Slug"
-                description="Auto-generated from title. You can edit if needed."
-              >
+              <FormBase label="Slug">
                 <Input
                   id={field.name}
                   name={field.name}
@@ -142,7 +139,7 @@ export default function CareerFormModal({
                     handleSlugChange(slugValue);
                   }}
                   onBlur={field.handleBlur}
-                  placeholder="e.g., senior-education-counselor"
+ 
                 />
               </FormBase>
             )}
@@ -177,8 +174,21 @@ export default function CareerFormModal({
               />
             )}
           </form.AppField>
-          <form.AppField name="isActive">
-            {(field) => <field.Checkbox label="Active" />}
+          <form.AppField name="status">
+            {(field) => (
+              <FormBase label="Status">
+                <select
+                  id={field.name}
+                  name={field.name}
+                  value={field.state.value}
+                  onChange={(e) => field.handleChange(e.target.value as any)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                  <option value="ACTIVE">Active</option>
+                  <option value="DRAFT">Draft</option>
+                </select>
+              </FormBase>
+            )}
           </form.AppField>
           <div className="flex gap-2 justify-end">
             <Button

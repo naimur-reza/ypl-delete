@@ -47,6 +47,7 @@ export async function POST(req: NextRequest) {
     metaTitle,
     metaDescription,
     metaKeywords,
+    status,
   } = body;
 
   if (!title || !slug || !eventType || !startDate || !destinationId) {
@@ -75,6 +76,7 @@ export async function POST(req: NextRequest) {
         metaTitle,
         metaDescription,
         metaKeywords,
+        status: status || "DRAFT",
         countries: countryIds?.length
           ? {
               create: (countryIds || []).map((countryId: string) => ({

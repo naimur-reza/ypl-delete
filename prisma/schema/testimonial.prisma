@@ -13,8 +13,11 @@ model Testimonial {
   order        Int                      @default(0)
   createdAt    DateTime                 @default(now())
   updatedAt    DateTime                 @updatedAt
+  status       ContentStatus            @default(DRAFT)
   countries    TestimonialCountry[]
   destinations TestimonialDestination[]
   events       TestimonialEvent[]
   universities TestimonialUniversity[]
+
+  @@index([status])
 }

@@ -45,9 +45,9 @@ export type StatMinAggregateOutputType = {
   section: string | null
   slideIndex: number | null
   sortOrder: number | null
-  isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
+  status: $Enums.ContentStatus | null
 }
 
 export type StatMaxAggregateOutputType = {
@@ -59,9 +59,9 @@ export type StatMaxAggregateOutputType = {
   section: string | null
   slideIndex: number | null
   sortOrder: number | null
-  isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
+  status: $Enums.ContentStatus | null
 }
 
 export type StatCountAggregateOutputType = {
@@ -73,9 +73,9 @@ export type StatCountAggregateOutputType = {
   section: number
   slideIndex: number
   sortOrder: number
-  isActive: number
   createdAt: number
   updatedAt: number
+  status: number
   _all: number
 }
 
@@ -99,9 +99,9 @@ export type StatMinAggregateInputType = {
   section?: true
   slideIndex?: true
   sortOrder?: true
-  isActive?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
 }
 
 export type StatMaxAggregateInputType = {
@@ -113,9 +113,9 @@ export type StatMaxAggregateInputType = {
   section?: true
   slideIndex?: true
   sortOrder?: true
-  isActive?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
 }
 
 export type StatCountAggregateInputType = {
@@ -127,9 +127,9 @@ export type StatCountAggregateInputType = {
   section?: true
   slideIndex?: true
   sortOrder?: true
-  isActive?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
   _all?: true
 }
 
@@ -228,9 +228,9 @@ export type StatGroupByOutputType = {
   section: string
   slideIndex: number | null
   sortOrder: number
-  isActive: boolean
   createdAt: Date
   updatedAt: Date
+  status: $Enums.ContentStatus
   _count: StatCountAggregateOutputType | null
   _avg: StatAvgAggregateOutputType | null
   _sum: StatSumAggregateOutputType | null
@@ -265,9 +265,9 @@ export type StatWhereInput = {
   section?: Prisma.StringFilter<"Stat"> | string
   slideIndex?: Prisma.IntNullableFilter<"Stat"> | number | null
   sortOrder?: Prisma.IntFilter<"Stat"> | number
-  isActive?: Prisma.BoolFilter<"Stat"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Stat"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Stat"> | Date | string
+  status?: Prisma.EnumContentStatusFilter<"Stat"> | $Enums.ContentStatus
   countries?: Prisma.StatCountryListRelationFilter
 }
 
@@ -280,9 +280,9 @@ export type StatOrderByWithRelationInput = {
   section?: Prisma.SortOrder
   slideIndex?: Prisma.SortOrderInput | Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   countries?: Prisma.StatCountryOrderByRelationAggregateInput
 }
 
@@ -298,9 +298,9 @@ export type StatWhereUniqueInput = Prisma.AtLeast<{
   section?: Prisma.StringFilter<"Stat"> | string
   slideIndex?: Prisma.IntNullableFilter<"Stat"> | number | null
   sortOrder?: Prisma.IntFilter<"Stat"> | number
-  isActive?: Prisma.BoolFilter<"Stat"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Stat"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Stat"> | Date | string
+  status?: Prisma.EnumContentStatusFilter<"Stat"> | $Enums.ContentStatus
   countries?: Prisma.StatCountryListRelationFilter
 }, "id">
 
@@ -313,9 +313,9 @@ export type StatOrderByWithAggregationInput = {
   section?: Prisma.SortOrder
   slideIndex?: Prisma.SortOrderInput | Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   _count?: Prisma.StatCountOrderByAggregateInput
   _avg?: Prisma.StatAvgOrderByAggregateInput
   _max?: Prisma.StatMaxOrderByAggregateInput
@@ -335,9 +335,9 @@ export type StatScalarWhereWithAggregatesInput = {
   section?: Prisma.StringWithAggregatesFilter<"Stat"> | string
   slideIndex?: Prisma.IntNullableWithAggregatesFilter<"Stat"> | number | null
   sortOrder?: Prisma.IntWithAggregatesFilter<"Stat"> | number
-  isActive?: Prisma.BoolWithAggregatesFilter<"Stat"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Stat"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Stat"> | Date | string
+  status?: Prisma.EnumContentStatusWithAggregatesFilter<"Stat"> | $Enums.ContentStatus
 }
 
 export type StatCreateInput = {
@@ -349,9 +349,9 @@ export type StatCreateInput = {
   section: string
   slideIndex?: number | null
   sortOrder?: number
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   countries?: Prisma.StatCountryCreateNestedManyWithoutStatInput
 }
 
@@ -364,9 +364,9 @@ export type StatUncheckedCreateInput = {
   section: string
   slideIndex?: number | null
   sortOrder?: number
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   countries?: Prisma.StatCountryUncheckedCreateNestedManyWithoutStatInput
 }
 
@@ -379,9 +379,9 @@ export type StatUpdateInput = {
   section?: Prisma.StringFieldUpdateOperationsInput | string
   slideIndex?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.StatCountryUpdateManyWithoutStatNestedInput
 }
 
@@ -394,9 +394,9 @@ export type StatUncheckedUpdateInput = {
   section?: Prisma.StringFieldUpdateOperationsInput | string
   slideIndex?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.StatCountryUncheckedUpdateManyWithoutStatNestedInput
 }
 
@@ -409,9 +409,9 @@ export type StatCreateManyInput = {
   section: string
   slideIndex?: number | null
   sortOrder?: number
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
 }
 
 export type StatUpdateManyMutationInput = {
@@ -423,9 +423,9 @@ export type StatUpdateManyMutationInput = {
   section?: Prisma.StringFieldUpdateOperationsInput | string
   slideIndex?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type StatUncheckedUpdateManyInput = {
@@ -437,9 +437,9 @@ export type StatUncheckedUpdateManyInput = {
   section?: Prisma.StringFieldUpdateOperationsInput | string
   slideIndex?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type StatCountOrderByAggregateInput = {
@@ -451,9 +451,9 @@ export type StatCountOrderByAggregateInput = {
   section?: Prisma.SortOrder
   slideIndex?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type StatAvgOrderByAggregateInput = {
@@ -470,9 +470,9 @@ export type StatMaxOrderByAggregateInput = {
   section?: Prisma.SortOrder
   slideIndex?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type StatMinOrderByAggregateInput = {
@@ -484,9 +484,9 @@ export type StatMinOrderByAggregateInput = {
   section?: Prisma.SortOrder
   slideIndex?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type StatSumOrderByAggregateInput = {
@@ -522,9 +522,9 @@ export type StatCreateWithoutCountriesInput = {
   section: string
   slideIndex?: number | null
   sortOrder?: number
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
 }
 
 export type StatUncheckedCreateWithoutCountriesInput = {
@@ -536,9 +536,9 @@ export type StatUncheckedCreateWithoutCountriesInput = {
   section: string
   slideIndex?: number | null
   sortOrder?: number
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
 }
 
 export type StatCreateOrConnectWithoutCountriesInput = {
@@ -566,9 +566,9 @@ export type StatUpdateWithoutCountriesInput = {
   section?: Prisma.StringFieldUpdateOperationsInput | string
   slideIndex?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type StatUncheckedUpdateWithoutCountriesInput = {
@@ -580,9 +580,9 @@ export type StatUncheckedUpdateWithoutCountriesInput = {
   section?: Prisma.StringFieldUpdateOperationsInput | string
   slideIndex?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 
@@ -625,9 +625,9 @@ export type StatSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   section?: boolean
   slideIndex?: boolean
   sortOrder?: boolean
-  isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
   countries?: boolean | Prisma.Stat$countriesArgs<ExtArgs>
   _count?: boolean | Prisma.StatCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["stat"]>
@@ -641,9 +641,9 @@ export type StatSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   section?: boolean
   slideIndex?: boolean
   sortOrder?: boolean
-  isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
 }, ExtArgs["result"]["stat"]>
 
 export type StatSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -655,9 +655,9 @@ export type StatSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   section?: boolean
   slideIndex?: boolean
   sortOrder?: boolean
-  isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
 }, ExtArgs["result"]["stat"]>
 
 export type StatSelectScalar = {
@@ -669,12 +669,12 @@ export type StatSelectScalar = {
   section?: boolean
   slideIndex?: boolean
   sortOrder?: boolean
-  isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
 }
 
-export type StatOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "subtitle" | "icon" | "color" | "section" | "slideIndex" | "sortOrder" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["stat"]>
+export type StatOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "subtitle" | "icon" | "color" | "section" | "slideIndex" | "sortOrder" | "createdAt" | "updatedAt" | "status", ExtArgs["result"]["stat"]>
 export type StatInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   countries?: boolean | Prisma.Stat$countriesArgs<ExtArgs>
   _count?: boolean | Prisma.StatCountOutputTypeDefaultArgs<ExtArgs>
@@ -696,9 +696,9 @@ export type $StatPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     section: string
     slideIndex: number | null
     sortOrder: number
-    isActive: boolean
     createdAt: Date
     updatedAt: Date
+    status: $Enums.ContentStatus
   }, ExtArgs["result"]["stat"]>
   composites: {}
 }
@@ -1131,9 +1131,9 @@ export interface StatFieldRefs {
   readonly section: Prisma.FieldRef<"Stat", 'String'>
   readonly slideIndex: Prisma.FieldRef<"Stat", 'Int'>
   readonly sortOrder: Prisma.FieldRef<"Stat", 'Int'>
-  readonly isActive: Prisma.FieldRef<"Stat", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Stat", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Stat", 'DateTime'>
+  readonly status: Prisma.FieldRef<"Stat", 'ContentStatus'>
 }
     
 

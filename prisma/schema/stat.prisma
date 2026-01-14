@@ -7,13 +7,13 @@ model Stat {
   section    String
   slideIndex Int?
   sortOrder  Int           @default(0)
-  isActive   Boolean       @default(true)
   createdAt  DateTime      @default(now())
   updatedAt  DateTime      @updatedAt
+  status     ContentStatus @default(ACTIVE)
   countries  StatCountry[]
 
   @@index([section])
-  @@index([isActive])
+  @@index([status])
 }
 
 model StatCountry {

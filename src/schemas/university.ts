@@ -15,7 +15,6 @@ const universitySchema = z.object({
   description: z.string().optional().nullable(),
   providerType: providerTypeEnum,
   isFeatured: z.boolean().default(false).optional(),
-  isActive: z.boolean().default(true).optional(),
   website: z.string().url().optional().or(z.literal("")).nullable(),
   address: z.string().optional().nullable(),
   phone: z.string().optional().nullable(),
@@ -25,6 +24,7 @@ countryIds: z.array(z.string().min(1)).min(1, "Select at least one country"),
   metaTitle: z.string().max(200).optional().nullable(),
   metaDescription: z.string().max(500).optional().nullable(),
   metaKeywords: z.string().max(500).optional().nullable(),
+  status: z.enum(["ACTIVE", "DRAFT"]),
 });
 
 export { universitySchema };

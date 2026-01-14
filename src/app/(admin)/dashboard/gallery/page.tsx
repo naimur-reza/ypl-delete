@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useCallback } from "react";
+import { useMemo } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/table/data-table";
@@ -23,22 +23,21 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
-import GalleryFormModal from "./add-gallery-modal";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { useConfirmDialog } from "@/hooks/use-confirm-dialog";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Gallery } from "../../../../../prisma/src/generated/prisma/browser";
+ 
 
-interface GalleryItem {
-  id: string;
-  title: string;
-  description?: string;
-  image: string;
-  type: "VISA_SUCCESS" | "REPRESENTATIVE" | "EVENT" | "OFFICE" | "STUDENT";
-  sortOrder?: number;
-  isActive: boolean;
-  createdAt: string;
-}
-
-const api = createEntityApi<GalleryItem>("/api/gallery");
+const api = createEntityApi<Gallery>("/api/gallery");
 
 const typeLabels: Record<
   string,
@@ -55,13 +54,17 @@ const typeLabels: Record<
 };
 
 export default function GalleryPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [selected, setSelected] = useState<GalleryItem | undefined>();
+  const router = useRouter();
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+
+  const endpoint = useMemo(
+    () => `/api/gallery${statusFilter !== "all" ? `?status=${statusFilter}` : ""}`,
+    [statusFilter]
+  );
 
   const { table, isLoading, error, pagination, refetch } =
-    useDataTable<GalleryItem>({
-      endpoint: "/api/gallery",
+    useDataTable<Gallery>({
+      endpoint,
       columns: [],
       enableServerSidePagination: true,
       enableServerSideSorting: true,
@@ -70,7 +73,7 @@ export default function GalleryPage() {
       filterColumnKey: "title",
     });
 
-  const deleteDialog = useConfirmDialog<GalleryItem>({
+  const deleteDialog = useConfirmDialog<Gallery>({
     title: "Delete Gallery Item",
     getDescription: (item) =>
       `Are you sure you want to delete "${item.title}"? This action cannot be undone.`,
@@ -85,7 +88,7 @@ export default function GalleryPage() {
     },
   });
 
-  const columns: ColumnDef<GalleryItem>[] = useMemo(
+  const columns: ColumnDef<Gallery>[] = useMemo(
     () => [
       {
         accessorKey: "image",
@@ -117,13 +120,17 @@ export default function GalleryPage() {
         },
       },
       {
-        accessorKey: "isActive",
-        header: "Status",
-        cell: ({ row }) => (
-          <Badge variant={row.original.isActive ? "default" : "secondary"}>
-            {row.original.isActive ? "Active" : "Inactive"}
-          </Badge>
-        ),
+        accessorKey: "status",
+        header: "Content Status",
+        cell: ({ row }) => {
+          const status = (row.original as any).status as string;
+          return (
+            <Badge variant={status === "ACTIVE" ? "default" : "secondary"}>
+              {status || "DRAFT"}
+            </Badge>
+          );
+        },
+        enableSorting: true,
       },
       {
         accessorKey: "sortOrder",
@@ -153,11 +160,7 @@ export default function GalleryPage() {
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
-                  onClick={() => {
-                    setIsEditing(true);
-                    setSelected(item);
-                    setIsModalOpen(true);
-                  }}
+                  onClick={() => router.push(`/dashboard/gallery/${item.id}/edit`)}
                 >
                   <Pencil className="mr-2 h-4 w-4" />
                   Edit
@@ -175,24 +178,14 @@ export default function GalleryPage() {
         },
       },
     ],
-    [deleteDialog]
+    [deleteDialog, router]
   );
 
   if (table.options.columns.length === 0) {
     table.setOptions((prev) => ({ ...prev, columns }));
   }
 
-  const handleOpenModal = () => {
-    setIsEditing(false);
-    setSelected(undefined);
-    setIsModalOpen(true);
-  };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setIsEditing(false);
-    setSelected(undefined);
-  };
 
   return (
     <div className="space-y-6">
@@ -204,14 +197,7 @@ export default function GalleryPage() {
         </p>
       </div>
 
-      {isModalOpen && (
-        <GalleryFormModal
-          isEditing={isEditing}
-          selected={selected}
-          onClose={handleCloseModal}
-          onSuccess={refetch}
-        />
-      )}
+
 
       <ConfirmDialog
         open={deleteDialog.isOpen}
@@ -233,10 +219,22 @@ export default function GalleryPage() {
         error={error}
         pagination={pagination}
         toolbar={
-          <Button onClick={handleOpenModal}>
-            <Plus className="mr-2 h-4 w-4" />
-            Add Gallery Item
-          </Button>
+          <div className="flex items-center gap-2">
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger className="w-[150px]">
+                <SelectValue placeholder="Filter by status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Status</SelectItem>
+                <SelectItem value="ACTIVE">Active</SelectItem>
+                <SelectItem value="DRAFT">Draft</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button onClick={() => router.push("/dashboard/gallery/new")}>
+              <Plus className="mr-2 h-4 w-4" />
+              Add Gallery Item
+            </Button>
+          </div>
         }
       />
     </div>

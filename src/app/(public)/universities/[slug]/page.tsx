@@ -9,7 +9,7 @@ export const dynamicParams = true;
 // Pre-generate first 30 universities at build time for instant loading
 export async function generateStaticParams() {
   const universities = await prisma.university.findMany({
-    where: { isActive: true },
+    where: { status: "ACTIVE" },
     select: { slug: true },
     orderBy: { updatedAt: "desc" },
     take: 30,
@@ -52,8 +52,8 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { country, slug } = await params;
 
-  const university = await prisma.university.findUnique({
-    where: { slug: slug },
+  const university = await prisma.university.findFirst({
+    where: { slug: slug, status: "ACTIVE" },
     select: {
       name: true,
       metaTitle: true,
@@ -82,13 +82,13 @@ export async function generateMetadata({
 export default async function UniversityDetailsPage({ params }: PageProps) {
   const { country, slug } = await params;
 
-  const university = await prisma.university.findUnique({
-    where: { slug },
+  const university = await prisma.university.findFirst({
+    where: { slug, status: "ACTIVE" },
     include: {
       detail: true,
       // country: true, // Removed as it is not a direct relation
       courses: {
-        where: { isActive: true },
+        where: { status: "ACTIVE" },
         take: 10,
         include: {
           university: {
@@ -104,9 +104,16 @@ export default async function UniversityDetailsPage({ params }: PageProps) {
           },
         },
       },
-      scholarships: true,
+      scholarships: {
+        where: { status: "ACTIVE" },
+      },
       destination: true,
       testimonials: {
+        where: {
+          testimonial: {
+            status: "ACTIVE",
+          },
+        },
         include: {
           testimonial: true,
         },

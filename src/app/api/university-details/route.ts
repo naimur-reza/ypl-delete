@@ -11,9 +11,14 @@ const revalidatePaths = ["/dashboard/university-details"];
 
 export async function GET(req: NextRequest) {
   const universityId = req.nextUrl.searchParams.get("universityId") || undefined;
+  const status = req.nextUrl.searchParams.get("status") || undefined;
+
+  const where: any = {};
+  if (universityId) where.universityId = universityId;
+  if (status && status !== "all") where.status = status;
 
   return handleGetMany(req, prisma.universityDetail, {
-    where: universityId ? { universityId } : undefined,
+    where,
     include: { university: true },
     defaultSort: { createdAt: "desc" },
     searchFields: ["overview", "ranking", "tuitionFees", "famousFor"],
@@ -37,7 +42,7 @@ export async function POST(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
   const body = await req.json();
-  const { id, ...data } = body;
+  const { id, universityId, ...data } = body;
   if (!id) {
     return Response.json({ error: "ID is required" }, { status: 400 });
   }

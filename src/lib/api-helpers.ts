@@ -82,6 +82,7 @@ export async function handleGetMany<T>(
     defaultSort?: { [key: string]: "asc" | "desc" };
     searchFields?: string[];
     revalidatePaths?: string[];
+    transform?: (item: T) => any;
   }
 ): Promise<Response> {
   try {
@@ -90,6 +91,21 @@ export async function handleGetMany<T>(
 
     // Build where clause
     const where: any = options?.where || {};
+
+    // Automatic status filtering
+    const status = request.nextUrl.searchParams.get("status");
+    if (status && status !== "all") {
+      where.status = status;
+    } else if (!status) {
+      // Heuristic: If no status specified, check if it's likely a public request
+      // Admin requests from useDataTable usually pass status=all or a specific status
+      // We check for auth cookies to see if we should allow DRAFT content
+      const hasAuth =
+        request.cookies.has("auth-token") || request.cookies.has("session");
+      if (!hasAuth) {
+        where.status = "ACTIVE";
+      }
+    }
 
     // Add search filter if provided
     if (search && options?.searchFields && options.searchFields.length > 0) {
@@ -119,12 +135,16 @@ export async function handleGetMany<T>(
       model.count({ where }),
     ]);
 
-    const response = createPaginatedResponse(data, total, page, limit);
+    const finalData = options?.transform
+      ? data.map(options.transform)
+      : data;
+
+    const response = createPaginatedResponse(finalData, total, page, limit);
 
     return Response.json(response);
   } catch (error) {
     console.error("Error fetching data:", error);
-    return Response.json({ error: "Failed to fetch data" }, { status: 500 });
+    return Response.json({ error: error}, { status: 500 });
   }
 }
 

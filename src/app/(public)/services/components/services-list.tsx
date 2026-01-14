@@ -7,6 +7,7 @@ export default async function ServicesListServer() {
   });
 
   const services = await prisma.service.findMany({
+    where: { status: "ACTIVE" },
     orderBy: { title: "asc" },
   });
 

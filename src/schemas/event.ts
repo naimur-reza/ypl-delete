@@ -16,6 +16,7 @@ export const eventSchema = z.object({
   endDate: z.string().optional().nullable(),
   location: z.string().max(200).optional().nullable(),
   isFeatured: z.boolean().optional(),
+  status: z.enum(["ACTIVE", "DRAFT"]).default("DRAFT"),
   destinationId: z.string().min(1, "Destination is required"),
   universityId: z.string().optional().nullable(),
   countryIds: z.array(z.string()).default([]),

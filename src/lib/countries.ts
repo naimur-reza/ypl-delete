@@ -20,7 +20,7 @@ export const getActiveCountries = cache(async (): Promise<CountryInfo[]> => {
   try {
     const countries = await prisma.country.findMany({
       where: {
-        isActive: true,
+        status: "ACTIVE",
       },
       select: {
         id: true,
@@ -51,7 +51,7 @@ export const getCountryBySlug = cache(
       const country = await prisma.country.findUnique({
         where: {
           slug,
-          isActive: true,
+          status: "ACTIVE",
         },
         select: {
           id: true,
@@ -79,7 +79,7 @@ export const isValidCountry = cache(async (slug: string): Promise<boolean> => {
     const count = await prisma.country.count({
       where: {
         slug,
-        isActive: true,
+        status: "ACTIVE",
       },
     });
 
@@ -98,7 +98,7 @@ export const getCountrySlugs = cache(async (): Promise<string[]> => {
   try {
     const countries = await prisma.country.findMany({
       where: {
-        isActive: true,
+        status: "ACTIVE",
       },
       select: {
         slug: true,

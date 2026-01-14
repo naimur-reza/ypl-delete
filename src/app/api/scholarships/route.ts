@@ -41,7 +41,6 @@ export async function POST(req: NextRequest) {
     description,
     summary,
     image,
-    isActive,
     amount,
     eligibility,
     deadline,
@@ -58,6 +57,7 @@ export async function POST(req: NextRequest) {
     providerInfo,
     requiredDocuments,
     howToApply,
+    status,
   } = body;
 
   if (!title || !slug || !destinationId) {
@@ -74,7 +74,7 @@ export async function POST(req: NextRequest) {
       description,
       summary,
       image: image || null,
-      isActive: isActive ?? true,
+      status: status || "DRAFT",
       amount: amount ? parseFloat(amount) : null,
       eligibility,
       deadline: deadline ? new Date(deadline) : null,

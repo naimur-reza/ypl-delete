@@ -46,6 +46,7 @@ interface TestimonialFormModalProps {
     destinations?: Array<{ destinationId: string }>;
     universities?: Array<{ universityId: string }>;
     events?: Array<{ eventId: string }>;
+    status?: "ACTIVE" | "DRAFT";
   };
   onClose: () => void;
   onSuccess?: () => void;
@@ -141,7 +142,8 @@ const TestimonialFormModal = ({
       universityIds:
         selectedTestimonial?.universities?.map((u) => u.universityId) || [],
       eventIds: selectedTestimonial?.events?.map((e) => e.eventId) || [],
-    } satisfies FormData as FormData,
+      status: (selectedTestimonial?.status as "ACTIVE" | "DRAFT") || "ACTIVE",
+    } as FormData,
     validators: { onSubmit: testimonialSchema as any },
     onSubmit: async ({ value }) => {
       setIsSubmitting(true);
@@ -149,6 +151,7 @@ const TestimonialFormModal = ({
         let response;
         const submitData = {
           ...value,
+          status: value.status || "ACTIVE",
           countryIds,
           destinationIds,
           universityIds,
@@ -548,6 +551,15 @@ const TestimonialFormModal = ({
 
             <form.AppField name="order">
               {(field) => <field.Input label="Order" type="number" />}
+            </form.AppField>
+
+            <form.AppField name="status">
+              {(field) => (
+                <field.Select label="Status">
+                  <SelectItem value="ACTIVE">Active</SelectItem>
+                  <SelectItem value="DRAFT">Draft</SelectItem>
+                </field.Select>
+              )}
             </form.AppField>
           </div>
 

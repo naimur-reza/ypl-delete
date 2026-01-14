@@ -7,14 +7,14 @@ model Hero {
   backgroundType BackgroundType @default(IMAGE)
   backgroundUrl  String
   slug           String
-  isActive       Boolean        @default(true)
   order          Int            @default(0)
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
+  status         ContentStatus  @default(ACTIVE)
   countries      HeroCountry[]
 
   @@index([slug])
-  @@index([isActive])
+  @@index([status])
 }
 
 model HeroCountry {

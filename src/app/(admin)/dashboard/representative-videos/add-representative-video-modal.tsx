@@ -15,6 +15,13 @@ import { toast } from "sonner";
 import z from "zod";
 import { createRestEntityApi } from "@/lib/api-client";
 import { ImageUpload } from "@/components/ui/image-upload";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const schema = z.object({
   title: z.string().min(1, "Title is required").max(200),
@@ -24,6 +31,7 @@ const schema = z.object({
   destinationIds: z.array(z.string()).optional().nullable(),
   universityIds: z.array(z.string()).optional().nullable(),
   eventIds: z.array(z.string()).optional().nullable(),
+  status: z.enum(["ACTIVE", "DRAFT"]).default("ACTIVE"),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -45,6 +53,7 @@ export default function RepresentativeVideoFormModal({
     destinations: string[];
     universities: string[];
     events: string[];
+    status?: "ACTIVE" | "DRAFT";
   }>;
   onClose: () => void;
   onSuccess?: () => void;
@@ -129,6 +138,7 @@ export default function RepresentativeVideoFormModal({
       destinationIds: [],
       universityIds: [],
       eventIds: [],
+      status: (selected?.status as "ACTIVE" | "DRAFT") || "ACTIVE",
     } as unknown as FormData,
     validators: { onSubmit: schema as any },
     onSubmit: async ({ value }) => {
@@ -138,6 +148,7 @@ export default function RepresentativeVideoFormModal({
           title: value.title,
           url: value.url,
           thumbnail: imageUrl || null,
+          status: value.status || "ACTIVE",
           countryIds,
           destinationIds,
           universityIds,
@@ -182,6 +193,27 @@ export default function RepresentativeVideoFormModal({
           </form.AppField>
           <form.AppField name="url">
             {(field) => <field.Input label="Video URL" />}
+          </form.AppField>
+          <form.AppField name="status">
+            {(field) => (
+              <div className="space-y-2">
+                <Label className="text-sm font-medium">Status</Label>
+                <Select
+                  value={field.state.value}
+                  onValueChange={(val: "ACTIVE" | "DRAFT") =>
+                    field.handleChange(val)
+                  }
+                >
+                  <SelectTrigger className="border border-gray-200">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="border border-gray-200">
+                    <SelectItem value="ACTIVE">Active</SelectItem>
+                    <SelectItem value="DRAFT">Draft</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
           </form.AppField>
           <ImageUpload
             value={imageUrl}

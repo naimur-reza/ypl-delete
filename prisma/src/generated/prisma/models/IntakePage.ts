@@ -36,7 +36,6 @@ export type IntakePageMinAggregateOutputType = {
   ctaUrl: string | null
   createdAt: Date | null
   updatedAt: Date | null
-  isActive: boolean | null
   heroCTALabel: string | null
   heroCTAUrl: string | null
   heroSubtitle: string | null
@@ -46,6 +45,7 @@ export type IntakePageMinAggregateOutputType = {
   metaTitle: string | null
   whyChooseDescription: string | null
   whyChooseTitle: string | null
+  status: $Enums.ContentStatus | null
 }
 
 export type IntakePageMaxAggregateOutputType = {
@@ -60,7 +60,6 @@ export type IntakePageMaxAggregateOutputType = {
   ctaUrl: string | null
   createdAt: Date | null
   updatedAt: Date | null
-  isActive: boolean | null
   heroCTALabel: string | null
   heroCTAUrl: string | null
   heroSubtitle: string | null
@@ -70,6 +69,7 @@ export type IntakePageMaxAggregateOutputType = {
   metaTitle: string | null
   whyChooseDescription: string | null
   whyChooseTitle: string | null
+  status: $Enums.ContentStatus | null
 }
 
 export type IntakePageCountAggregateOutputType = {
@@ -85,7 +85,6 @@ export type IntakePageCountAggregateOutputType = {
   ctaUrl: number
   createdAt: number
   updatedAt: number
-  isActive: number
   heroCTALabel: number
   heroCTAUrl: number
   heroSubtitle: number
@@ -95,6 +94,7 @@ export type IntakePageCountAggregateOutputType = {
   metaTitle: number
   whyChooseDescription: number
   whyChooseTitle: number
+  status: number
   _all: number
 }
 
@@ -111,7 +111,6 @@ export type IntakePageMinAggregateInputType = {
   ctaUrl?: true
   createdAt?: true
   updatedAt?: true
-  isActive?: true
   heroCTALabel?: true
   heroCTAUrl?: true
   heroSubtitle?: true
@@ -121,6 +120,7 @@ export type IntakePageMinAggregateInputType = {
   metaTitle?: true
   whyChooseDescription?: true
   whyChooseTitle?: true
+  status?: true
 }
 
 export type IntakePageMaxAggregateInputType = {
@@ -135,7 +135,6 @@ export type IntakePageMaxAggregateInputType = {
   ctaUrl?: true
   createdAt?: true
   updatedAt?: true
-  isActive?: true
   heroCTALabel?: true
   heroCTAUrl?: true
   heroSubtitle?: true
@@ -145,6 +144,7 @@ export type IntakePageMaxAggregateInputType = {
   metaTitle?: true
   whyChooseDescription?: true
   whyChooseTitle?: true
+  status?: true
 }
 
 export type IntakePageCountAggregateInputType = {
@@ -160,7 +160,6 @@ export type IntakePageCountAggregateInputType = {
   ctaUrl?: true
   createdAt?: true
   updatedAt?: true
-  isActive?: true
   heroCTALabel?: true
   heroCTAUrl?: true
   heroSubtitle?: true
@@ -170,6 +169,7 @@ export type IntakePageCountAggregateInputType = {
   metaTitle?: true
   whyChooseDescription?: true
   whyChooseTitle?: true
+  status?: true
   _all?: true
 }
 
@@ -258,7 +258,6 @@ export type IntakePageGroupByOutputType = {
   ctaUrl: string | null
   createdAt: Date
   updatedAt: Date
-  isActive: boolean | null
   heroCTALabel: string | null
   heroCTAUrl: string | null
   heroSubtitle: string | null
@@ -268,6 +267,7 @@ export type IntakePageGroupByOutputType = {
   metaTitle: string | null
   whyChooseDescription: string | null
   whyChooseTitle: string | null
+  status: $Enums.ContentStatus
   _count: IntakePageCountAggregateOutputType | null
   _min: IntakePageMinAggregateOutputType | null
   _max: IntakePageMaxAggregateOutputType | null
@@ -304,7 +304,6 @@ export type IntakePageWhereInput = {
   ctaUrl?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   createdAt?: Prisma.DateTimeFilter<"IntakePage"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"IntakePage"> | Date | string
-  isActive?: Prisma.BoolNullableFilter<"IntakePage"> | boolean | null
   heroCTALabel?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   heroCTAUrl?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   heroSubtitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
@@ -314,6 +313,7 @@ export type IntakePageWhereInput = {
   metaTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   whyChooseDescription?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   whyChooseTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  status?: Prisma.EnumContentStatusFilter<"IntakePage"> | $Enums.ContentStatus
   faqs?: Prisma.FAQIntakePageListRelationFilter
   destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
   intakePageBenefits?: Prisma.IntakePageBenefitListRelationFilter
@@ -332,7 +332,6 @@ export type IntakePageOrderByWithRelationInput = {
   ctaUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  isActive?: Prisma.SortOrderInput | Prisma.SortOrder
   heroCTALabel?: Prisma.SortOrderInput | Prisma.SortOrder
   heroCTAUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   heroSubtitle?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -342,6 +341,7 @@ export type IntakePageOrderByWithRelationInput = {
   metaTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   whyChooseDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   whyChooseTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
   faqs?: Prisma.FAQIntakePageOrderByRelationAggregateInput
   destination?: Prisma.DestinationOrderByWithRelationInput
   intakePageBenefits?: Prisma.IntakePageBenefitOrderByRelationAggregateInput
@@ -364,7 +364,6 @@ export type IntakePageWhereUniqueInput = Prisma.AtLeast<{
   ctaUrl?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   createdAt?: Prisma.DateTimeFilter<"IntakePage"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"IntakePage"> | Date | string
-  isActive?: Prisma.BoolNullableFilter<"IntakePage"> | boolean | null
   heroCTALabel?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   heroCTAUrl?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   heroSubtitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
@@ -374,6 +373,7 @@ export type IntakePageWhereUniqueInput = Prisma.AtLeast<{
   metaTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   whyChooseDescription?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   whyChooseTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  status?: Prisma.EnumContentStatusFilter<"IntakePage"> | $Enums.ContentStatus
   faqs?: Prisma.FAQIntakePageListRelationFilter
   destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
   intakePageBenefits?: Prisma.IntakePageBenefitListRelationFilter
@@ -392,7 +392,6 @@ export type IntakePageOrderByWithAggregationInput = {
   ctaUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  isActive?: Prisma.SortOrderInput | Prisma.SortOrder
   heroCTALabel?: Prisma.SortOrderInput | Prisma.SortOrder
   heroCTAUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   heroSubtitle?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -402,6 +401,7 @@ export type IntakePageOrderByWithAggregationInput = {
   metaTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   whyChooseDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   whyChooseTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
   _count?: Prisma.IntakePageCountOrderByAggregateInput
   _max?: Prisma.IntakePageMaxOrderByAggregateInput
   _min?: Prisma.IntakePageMinOrderByAggregateInput
@@ -423,7 +423,6 @@ export type IntakePageScalarWhereWithAggregatesInput = {
   ctaUrl?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"IntakePage"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"IntakePage"> | Date | string
-  isActive?: Prisma.BoolNullableWithAggregatesFilter<"IntakePage"> | boolean | null
   heroCTALabel?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
   heroCTAUrl?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
   heroSubtitle?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
@@ -433,6 +432,7 @@ export type IntakePageScalarWhereWithAggregatesInput = {
   metaTitle?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
   whyChooseDescription?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
   whyChooseTitle?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
+  status?: Prisma.EnumContentStatusWithAggregatesFilter<"IntakePage"> | $Enums.ContentStatus
 }
 
 export type IntakePageCreateInput = {
@@ -447,7 +447,6 @@ export type IntakePageCreateInput = {
   ctaUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  isActive?: boolean | null
   heroCTALabel?: string | null
   heroCTAUrl?: string | null
   heroSubtitle?: string | null
@@ -457,6 +456,7 @@ export type IntakePageCreateInput = {
   metaTitle?: string | null
   whyChooseDescription?: string | null
   whyChooseTitle?: string | null
+  status?: $Enums.ContentStatus
   faqs?: Prisma.FAQIntakePageCreateNestedManyWithoutIntakePageInput
   destination: Prisma.DestinationCreateNestedOneWithoutIntakePagesInput
   intakePageBenefits?: Prisma.IntakePageBenefitCreateNestedManyWithoutIntakePageInput
@@ -475,7 +475,6 @@ export type IntakePageUncheckedCreateInput = {
   ctaUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  isActive?: boolean | null
   heroCTALabel?: string | null
   heroCTAUrl?: string | null
   heroSubtitle?: string | null
@@ -485,6 +484,7 @@ export type IntakePageUncheckedCreateInput = {
   metaTitle?: string | null
   whyChooseDescription?: string | null
   whyChooseTitle?: string | null
+  status?: $Enums.ContentStatus
   faqs?: Prisma.FAQIntakePageUncheckedCreateNestedManyWithoutIntakePageInput
   intakePageBenefits?: Prisma.IntakePageBenefitUncheckedCreateNestedManyWithoutIntakePageInput
 }
@@ -501,7 +501,6 @@ export type IntakePageUpdateInput = {
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -511,6 +510,7 @@ export type IntakePageUpdateInput = {
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   faqs?: Prisma.FAQIntakePageUpdateManyWithoutIntakePageNestedInput
   destination?: Prisma.DestinationUpdateOneRequiredWithoutIntakePagesNestedInput
   intakePageBenefits?: Prisma.IntakePageBenefitUpdateManyWithoutIntakePageNestedInput
@@ -529,7 +529,6 @@ export type IntakePageUncheckedUpdateInput = {
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -539,6 +538,7 @@ export type IntakePageUncheckedUpdateInput = {
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   faqs?: Prisma.FAQIntakePageUncheckedUpdateManyWithoutIntakePageNestedInput
   intakePageBenefits?: Prisma.IntakePageBenefitUncheckedUpdateManyWithoutIntakePageNestedInput
 }
@@ -556,7 +556,6 @@ export type IntakePageCreateManyInput = {
   ctaUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  isActive?: boolean | null
   heroCTALabel?: string | null
   heroCTAUrl?: string | null
   heroSubtitle?: string | null
@@ -566,6 +565,7 @@ export type IntakePageCreateManyInput = {
   metaTitle?: string | null
   whyChooseDescription?: string | null
   whyChooseTitle?: string | null
+  status?: $Enums.ContentStatus
 }
 
 export type IntakePageUpdateManyMutationInput = {
@@ -580,7 +580,6 @@ export type IntakePageUpdateManyMutationInput = {
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -590,6 +589,7 @@ export type IntakePageUpdateManyMutationInput = {
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type IntakePageUncheckedUpdateManyInput = {
@@ -605,7 +605,6 @@ export type IntakePageUncheckedUpdateManyInput = {
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -615,6 +614,7 @@ export type IntakePageUncheckedUpdateManyInput = {
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type IntakePageDestinationIdIntakeCompoundUniqueInput = {
@@ -635,7 +635,6 @@ export type IntakePageCountOrderByAggregateInput = {
   ctaUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   heroCTALabel?: Prisma.SortOrder
   heroCTAUrl?: Prisma.SortOrder
   heroSubtitle?: Prisma.SortOrder
@@ -645,6 +644,7 @@ export type IntakePageCountOrderByAggregateInput = {
   metaTitle?: Prisma.SortOrder
   whyChooseDescription?: Prisma.SortOrder
   whyChooseTitle?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type IntakePageMaxOrderByAggregateInput = {
@@ -659,7 +659,6 @@ export type IntakePageMaxOrderByAggregateInput = {
   ctaUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   heroCTALabel?: Prisma.SortOrder
   heroCTAUrl?: Prisma.SortOrder
   heroSubtitle?: Prisma.SortOrder
@@ -669,6 +668,7 @@ export type IntakePageMaxOrderByAggregateInput = {
   metaTitle?: Prisma.SortOrder
   whyChooseDescription?: Prisma.SortOrder
   whyChooseTitle?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type IntakePageMinOrderByAggregateInput = {
@@ -683,7 +683,6 @@ export type IntakePageMinOrderByAggregateInput = {
   ctaUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   heroCTALabel?: Prisma.SortOrder
   heroCTAUrl?: Prisma.SortOrder
   heroSubtitle?: Prisma.SortOrder
@@ -693,6 +692,7 @@ export type IntakePageMinOrderByAggregateInput = {
   metaTitle?: Prisma.SortOrder
   whyChooseDescription?: Prisma.SortOrder
   whyChooseTitle?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type IntakePageScalarRelationFilter = {
@@ -708,10 +708,6 @@ export type IntakePageListRelationFilter = {
 
 export type IntakePageOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type NullableBoolFieldUpdateOperationsInput = {
-  set?: boolean | null
 }
 
 export type IntakePageCreateNestedOneWithoutIntakePageBenefitsInput = {
@@ -796,7 +792,6 @@ export type IntakePageCreateWithoutIntakePageBenefitsInput = {
   ctaUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  isActive?: boolean | null
   heroCTALabel?: string | null
   heroCTAUrl?: string | null
   heroSubtitle?: string | null
@@ -806,6 +801,7 @@ export type IntakePageCreateWithoutIntakePageBenefitsInput = {
   metaTitle?: string | null
   whyChooseDescription?: string | null
   whyChooseTitle?: string | null
+  status?: $Enums.ContentStatus
   faqs?: Prisma.FAQIntakePageCreateNestedManyWithoutIntakePageInput
   destination: Prisma.DestinationCreateNestedOneWithoutIntakePagesInput
 }
@@ -823,7 +819,6 @@ export type IntakePageUncheckedCreateWithoutIntakePageBenefitsInput = {
   ctaUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  isActive?: boolean | null
   heroCTALabel?: string | null
   heroCTAUrl?: string | null
   heroSubtitle?: string | null
@@ -833,6 +828,7 @@ export type IntakePageUncheckedCreateWithoutIntakePageBenefitsInput = {
   metaTitle?: string | null
   whyChooseDescription?: string | null
   whyChooseTitle?: string | null
+  status?: $Enums.ContentStatus
   faqs?: Prisma.FAQIntakePageUncheckedCreateNestedManyWithoutIntakePageInput
 }
 
@@ -864,7 +860,6 @@ export type IntakePageUpdateWithoutIntakePageBenefitsInput = {
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -874,6 +869,7 @@ export type IntakePageUpdateWithoutIntakePageBenefitsInput = {
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   faqs?: Prisma.FAQIntakePageUpdateManyWithoutIntakePageNestedInput
   destination?: Prisma.DestinationUpdateOneRequiredWithoutIntakePagesNestedInput
 }
@@ -891,7 +887,6 @@ export type IntakePageUncheckedUpdateWithoutIntakePageBenefitsInput = {
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -901,6 +896,7 @@ export type IntakePageUncheckedUpdateWithoutIntakePageBenefitsInput = {
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   faqs?: Prisma.FAQIntakePageUncheckedUpdateManyWithoutIntakePageNestedInput
 }
 
@@ -916,7 +912,6 @@ export type IntakePageCreateWithoutDestinationInput = {
   ctaUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  isActive?: boolean | null
   heroCTALabel?: string | null
   heroCTAUrl?: string | null
   heroSubtitle?: string | null
@@ -926,6 +921,7 @@ export type IntakePageCreateWithoutDestinationInput = {
   metaTitle?: string | null
   whyChooseDescription?: string | null
   whyChooseTitle?: string | null
+  status?: $Enums.ContentStatus
   faqs?: Prisma.FAQIntakePageCreateNestedManyWithoutIntakePageInput
   intakePageBenefits?: Prisma.IntakePageBenefitCreateNestedManyWithoutIntakePageInput
 }
@@ -942,7 +938,6 @@ export type IntakePageUncheckedCreateWithoutDestinationInput = {
   ctaUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  isActive?: boolean | null
   heroCTALabel?: string | null
   heroCTAUrl?: string | null
   heroSubtitle?: string | null
@@ -952,6 +947,7 @@ export type IntakePageUncheckedCreateWithoutDestinationInput = {
   metaTitle?: string | null
   whyChooseDescription?: string | null
   whyChooseTitle?: string | null
+  status?: $Enums.ContentStatus
   faqs?: Prisma.FAQIntakePageUncheckedCreateNestedManyWithoutIntakePageInput
   intakePageBenefits?: Prisma.IntakePageBenefitUncheckedCreateNestedManyWithoutIntakePageInput
 }
@@ -998,7 +994,6 @@ export type IntakePageScalarWhereInput = {
   ctaUrl?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   createdAt?: Prisma.DateTimeFilter<"IntakePage"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"IntakePage"> | Date | string
-  isActive?: Prisma.BoolNullableFilter<"IntakePage"> | boolean | null
   heroCTALabel?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   heroCTAUrl?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   heroSubtitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
@@ -1008,6 +1003,7 @@ export type IntakePageScalarWhereInput = {
   metaTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   whyChooseDescription?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   whyChooseTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  status?: Prisma.EnumContentStatusFilter<"IntakePage"> | $Enums.ContentStatus
 }
 
 export type IntakePageCreateWithoutFaqsInput = {
@@ -1022,7 +1018,6 @@ export type IntakePageCreateWithoutFaqsInput = {
   ctaUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  isActive?: boolean | null
   heroCTALabel?: string | null
   heroCTAUrl?: string | null
   heroSubtitle?: string | null
@@ -1032,6 +1027,7 @@ export type IntakePageCreateWithoutFaqsInput = {
   metaTitle?: string | null
   whyChooseDescription?: string | null
   whyChooseTitle?: string | null
+  status?: $Enums.ContentStatus
   destination: Prisma.DestinationCreateNestedOneWithoutIntakePagesInput
   intakePageBenefits?: Prisma.IntakePageBenefitCreateNestedManyWithoutIntakePageInput
 }
@@ -1049,7 +1045,6 @@ export type IntakePageUncheckedCreateWithoutFaqsInput = {
   ctaUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  isActive?: boolean | null
   heroCTALabel?: string | null
   heroCTAUrl?: string | null
   heroSubtitle?: string | null
@@ -1059,6 +1054,7 @@ export type IntakePageUncheckedCreateWithoutFaqsInput = {
   metaTitle?: string | null
   whyChooseDescription?: string | null
   whyChooseTitle?: string | null
+  status?: $Enums.ContentStatus
   intakePageBenefits?: Prisma.IntakePageBenefitUncheckedCreateNestedManyWithoutIntakePageInput
 }
 
@@ -1090,7 +1086,6 @@ export type IntakePageUpdateWithoutFaqsInput = {
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1100,6 +1095,7 @@ export type IntakePageUpdateWithoutFaqsInput = {
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   destination?: Prisma.DestinationUpdateOneRequiredWithoutIntakePagesNestedInput
   intakePageBenefits?: Prisma.IntakePageBenefitUpdateManyWithoutIntakePageNestedInput
 }
@@ -1117,7 +1113,6 @@ export type IntakePageUncheckedUpdateWithoutFaqsInput = {
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1127,6 +1122,7 @@ export type IntakePageUncheckedUpdateWithoutFaqsInput = {
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   intakePageBenefits?: Prisma.IntakePageBenefitUncheckedUpdateManyWithoutIntakePageNestedInput
 }
 
@@ -1142,7 +1138,6 @@ export type IntakePageCreateManyDestinationInput = {
   ctaUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  isActive?: boolean | null
   heroCTALabel?: string | null
   heroCTAUrl?: string | null
   heroSubtitle?: string | null
@@ -1152,6 +1147,7 @@ export type IntakePageCreateManyDestinationInput = {
   metaTitle?: string | null
   whyChooseDescription?: string | null
   whyChooseTitle?: string | null
+  status?: $Enums.ContentStatus
 }
 
 export type IntakePageUpdateWithoutDestinationInput = {
@@ -1166,7 +1162,6 @@ export type IntakePageUpdateWithoutDestinationInput = {
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1176,6 +1171,7 @@ export type IntakePageUpdateWithoutDestinationInput = {
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   faqs?: Prisma.FAQIntakePageUpdateManyWithoutIntakePageNestedInput
   intakePageBenefits?: Prisma.IntakePageBenefitUpdateManyWithoutIntakePageNestedInput
 }
@@ -1192,7 +1188,6 @@ export type IntakePageUncheckedUpdateWithoutDestinationInput = {
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1202,6 +1197,7 @@ export type IntakePageUncheckedUpdateWithoutDestinationInput = {
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   faqs?: Prisma.FAQIntakePageUncheckedUpdateManyWithoutIntakePageNestedInput
   intakePageBenefits?: Prisma.IntakePageBenefitUncheckedUpdateManyWithoutIntakePageNestedInput
 }
@@ -1218,7 +1214,6 @@ export type IntakePageUncheckedUpdateManyWithoutDestinationInput = {
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1228,6 +1223,7 @@ export type IntakePageUncheckedUpdateManyWithoutDestinationInput = {
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 
@@ -1283,7 +1279,6 @@ export type IntakePageSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   ctaUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  isActive?: boolean
   heroCTALabel?: boolean
   heroCTAUrl?: boolean
   heroSubtitle?: boolean
@@ -1293,6 +1288,7 @@ export type IntakePageSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   metaTitle?: boolean
   whyChooseDescription?: boolean
   whyChooseTitle?: boolean
+  status?: boolean
   faqs?: boolean | Prisma.IntakePage$faqsArgs<ExtArgs>
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
   intakePageBenefits?: boolean | Prisma.IntakePage$intakePageBenefitsArgs<ExtArgs>
@@ -1312,7 +1308,6 @@ export type IntakePageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   ctaUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  isActive?: boolean
   heroCTALabel?: boolean
   heroCTAUrl?: boolean
   heroSubtitle?: boolean
@@ -1322,6 +1317,7 @@ export type IntakePageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   metaTitle?: boolean
   whyChooseDescription?: boolean
   whyChooseTitle?: boolean
+  status?: boolean
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["intakePage"]>
 
@@ -1338,7 +1334,6 @@ export type IntakePageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   ctaUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  isActive?: boolean
   heroCTALabel?: boolean
   heroCTAUrl?: boolean
   heroSubtitle?: boolean
@@ -1348,6 +1343,7 @@ export type IntakePageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   metaTitle?: boolean
   whyChooseDescription?: boolean
   whyChooseTitle?: boolean
+  status?: boolean
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["intakePage"]>
 
@@ -1364,7 +1360,6 @@ export type IntakePageSelectScalar = {
   ctaUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  isActive?: boolean
   heroCTALabel?: boolean
   heroCTAUrl?: boolean
   heroSubtitle?: boolean
@@ -1374,9 +1369,10 @@ export type IntakePageSelectScalar = {
   metaTitle?: boolean
   whyChooseDescription?: boolean
   whyChooseTitle?: boolean
+  status?: boolean
 }
 
-export type IntakePageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "destinationId" | "intake" | "title" | "description" | "heroMedia" | "eligibility" | "timelineJson" | "ctaLabel" | "ctaUrl" | "createdAt" | "updatedAt" | "isActive" | "heroCTALabel" | "heroCTAUrl" | "heroSubtitle" | "heroTitle" | "metaDescription" | "metaKeywords" | "metaTitle" | "whyChooseDescription" | "whyChooseTitle", ExtArgs["result"]["intakePage"]>
+export type IntakePageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "destinationId" | "intake" | "title" | "description" | "heroMedia" | "eligibility" | "timelineJson" | "ctaLabel" | "ctaUrl" | "createdAt" | "updatedAt" | "heroCTALabel" | "heroCTAUrl" | "heroSubtitle" | "heroTitle" | "metaDescription" | "metaKeywords" | "metaTitle" | "whyChooseDescription" | "whyChooseTitle" | "status", ExtArgs["result"]["intakePage"]>
 export type IntakePageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   faqs?: boolean | Prisma.IntakePage$faqsArgs<ExtArgs>
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
@@ -1410,7 +1406,6 @@ export type $IntakePagePayload<ExtArgs extends runtime.Types.Extensions.Internal
     ctaUrl: string | null
     createdAt: Date
     updatedAt: Date
-    isActive: boolean | null
     heroCTALabel: string | null
     heroCTAUrl: string | null
     heroSubtitle: string | null
@@ -1420,6 +1415,7 @@ export type $IntakePagePayload<ExtArgs extends runtime.Types.Extensions.Internal
     metaTitle: string | null
     whyChooseDescription: string | null
     whyChooseTitle: string | null
+    status: $Enums.ContentStatus
   }, ExtArgs["result"]["intakePage"]>
   composites: {}
 }
@@ -1858,7 +1854,6 @@ export interface IntakePageFieldRefs {
   readonly ctaUrl: Prisma.FieldRef<"IntakePage", 'String'>
   readonly createdAt: Prisma.FieldRef<"IntakePage", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"IntakePage", 'DateTime'>
-  readonly isActive: Prisma.FieldRef<"IntakePage", 'Boolean'>
   readonly heroCTALabel: Prisma.FieldRef<"IntakePage", 'String'>
   readonly heroCTAUrl: Prisma.FieldRef<"IntakePage", 'String'>
   readonly heroSubtitle: Prisma.FieldRef<"IntakePage", 'String'>
@@ -1868,6 +1863,7 @@ export interface IntakePageFieldRefs {
   readonly metaTitle: Prisma.FieldRef<"IntakePage", 'String'>
   readonly whyChooseDescription: Prisma.FieldRef<"IntakePage", 'String'>
   readonly whyChooseTitle: Prisma.FieldRef<"IntakePage", 'String'>
+  readonly status: Prisma.FieldRef<"IntakePage", 'ContentStatus'>
 }
     
 

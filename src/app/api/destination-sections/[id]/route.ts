@@ -88,7 +88,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
         image: validated.image || null,
         content: validated.content || null,
         displayOrder: validated.displayOrder,
-        isActive: validated.isActive,
+        status: validated.status,
         destinationId: validated.destinationId,
       },
       include: {

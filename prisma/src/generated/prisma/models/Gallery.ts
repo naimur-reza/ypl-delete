@@ -41,9 +41,9 @@ export type GalleryMinAggregateOutputType = {
   image: string | null
   type: $Enums.GalleryType | null
   sortOrder: number | null
-  isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
+  status: $Enums.ContentStatus | null
 }
 
 export type GalleryMaxAggregateOutputType = {
@@ -53,9 +53,9 @@ export type GalleryMaxAggregateOutputType = {
   image: string | null
   type: $Enums.GalleryType | null
   sortOrder: number | null
-  isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
+  status: $Enums.ContentStatus | null
 }
 
 export type GalleryCountAggregateOutputType = {
@@ -65,9 +65,9 @@ export type GalleryCountAggregateOutputType = {
   image: number
   type: number
   sortOrder: number
-  isActive: number
   createdAt: number
   updatedAt: number
+  status: number
   _all: number
 }
 
@@ -87,9 +87,9 @@ export type GalleryMinAggregateInputType = {
   image?: true
   type?: true
   sortOrder?: true
-  isActive?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
 }
 
 export type GalleryMaxAggregateInputType = {
@@ -99,9 +99,9 @@ export type GalleryMaxAggregateInputType = {
   image?: true
   type?: true
   sortOrder?: true
-  isActive?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
 }
 
 export type GalleryCountAggregateInputType = {
@@ -111,9 +111,9 @@ export type GalleryCountAggregateInputType = {
   image?: true
   type?: true
   sortOrder?: true
-  isActive?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
   _all?: true
 }
 
@@ -210,9 +210,9 @@ export type GalleryGroupByOutputType = {
   image: string
   type: $Enums.GalleryType
   sortOrder: number | null
-  isActive: boolean
   createdAt: Date
   updatedAt: Date
+  status: $Enums.ContentStatus
   _count: GalleryCountAggregateOutputType | null
   _avg: GalleryAvgAggregateOutputType | null
   _sum: GallerySumAggregateOutputType | null
@@ -245,9 +245,9 @@ export type GalleryWhereInput = {
   image?: Prisma.StringFilter<"Gallery"> | string
   type?: Prisma.EnumGalleryTypeFilter<"Gallery"> | $Enums.GalleryType
   sortOrder?: Prisma.IntNullableFilter<"Gallery"> | number | null
-  isActive?: Prisma.BoolFilter<"Gallery"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Gallery"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Gallery"> | Date | string
+  status?: Prisma.EnumContentStatusFilter<"Gallery"> | $Enums.ContentStatus
   countries?: Prisma.GalleryCountryListRelationFilter
 }
 
@@ -258,9 +258,9 @@ export type GalleryOrderByWithRelationInput = {
   image?: Prisma.SortOrder
   type?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrderInput | Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   countries?: Prisma.GalleryCountryOrderByRelationAggregateInput
 }
 
@@ -274,9 +274,9 @@ export type GalleryWhereUniqueInput = Prisma.AtLeast<{
   image?: Prisma.StringFilter<"Gallery"> | string
   type?: Prisma.EnumGalleryTypeFilter<"Gallery"> | $Enums.GalleryType
   sortOrder?: Prisma.IntNullableFilter<"Gallery"> | number | null
-  isActive?: Prisma.BoolFilter<"Gallery"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Gallery"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Gallery"> | Date | string
+  status?: Prisma.EnumContentStatusFilter<"Gallery"> | $Enums.ContentStatus
   countries?: Prisma.GalleryCountryListRelationFilter
 }, "id">
 
@@ -287,9 +287,9 @@ export type GalleryOrderByWithAggregationInput = {
   image?: Prisma.SortOrder
   type?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrderInput | Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   _count?: Prisma.GalleryCountOrderByAggregateInput
   _avg?: Prisma.GalleryAvgOrderByAggregateInput
   _max?: Prisma.GalleryMaxOrderByAggregateInput
@@ -307,9 +307,9 @@ export type GalleryScalarWhereWithAggregatesInput = {
   image?: Prisma.StringWithAggregatesFilter<"Gallery"> | string
   type?: Prisma.EnumGalleryTypeWithAggregatesFilter<"Gallery"> | $Enums.GalleryType
   sortOrder?: Prisma.IntNullableWithAggregatesFilter<"Gallery"> | number | null
-  isActive?: Prisma.BoolWithAggregatesFilter<"Gallery"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Gallery"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Gallery"> | Date | string
+  status?: Prisma.EnumContentStatusWithAggregatesFilter<"Gallery"> | $Enums.ContentStatus
 }
 
 export type GalleryCreateInput = {
@@ -319,9 +319,9 @@ export type GalleryCreateInput = {
   image: string
   type?: $Enums.GalleryType
   sortOrder?: number | null
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   countries?: Prisma.GalleryCountryCreateNestedManyWithoutGalleryInput
 }
 
@@ -332,9 +332,9 @@ export type GalleryUncheckedCreateInput = {
   image: string
   type?: $Enums.GalleryType
   sortOrder?: number | null
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   countries?: Prisma.GalleryCountryUncheckedCreateNestedManyWithoutGalleryInput
 }
 
@@ -345,9 +345,9 @@ export type GalleryUpdateInput = {
   image?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGalleryTypeFieldUpdateOperationsInput | $Enums.GalleryType
   sortOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.GalleryCountryUpdateManyWithoutGalleryNestedInput
 }
 
@@ -358,9 +358,9 @@ export type GalleryUncheckedUpdateInput = {
   image?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGalleryTypeFieldUpdateOperationsInput | $Enums.GalleryType
   sortOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.GalleryCountryUncheckedUpdateManyWithoutGalleryNestedInput
 }
 
@@ -371,9 +371,9 @@ export type GalleryCreateManyInput = {
   image: string
   type?: $Enums.GalleryType
   sortOrder?: number | null
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
 }
 
 export type GalleryUpdateManyMutationInput = {
@@ -383,9 +383,9 @@ export type GalleryUpdateManyMutationInput = {
   image?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGalleryTypeFieldUpdateOperationsInput | $Enums.GalleryType
   sortOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type GalleryUncheckedUpdateManyInput = {
@@ -395,9 +395,9 @@ export type GalleryUncheckedUpdateManyInput = {
   image?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGalleryTypeFieldUpdateOperationsInput | $Enums.GalleryType
   sortOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type GalleryCountOrderByAggregateInput = {
@@ -407,9 +407,9 @@ export type GalleryCountOrderByAggregateInput = {
   image?: Prisma.SortOrder
   type?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type GalleryAvgOrderByAggregateInput = {
@@ -423,9 +423,9 @@ export type GalleryMaxOrderByAggregateInput = {
   image?: Prisma.SortOrder
   type?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type GalleryMinOrderByAggregateInput = {
@@ -435,9 +435,9 @@ export type GalleryMinOrderByAggregateInput = {
   image?: Prisma.SortOrder
   type?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type GallerySumOrderByAggregateInput = {
@@ -474,9 +474,9 @@ export type GalleryCreateWithoutCountriesInput = {
   image: string
   type?: $Enums.GalleryType
   sortOrder?: number | null
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
 }
 
 export type GalleryUncheckedCreateWithoutCountriesInput = {
@@ -486,9 +486,9 @@ export type GalleryUncheckedCreateWithoutCountriesInput = {
   image: string
   type?: $Enums.GalleryType
   sortOrder?: number | null
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
 }
 
 export type GalleryCreateOrConnectWithoutCountriesInput = {
@@ -514,9 +514,9 @@ export type GalleryUpdateWithoutCountriesInput = {
   image?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGalleryTypeFieldUpdateOperationsInput | $Enums.GalleryType
   sortOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type GalleryUncheckedUpdateWithoutCountriesInput = {
@@ -526,9 +526,9 @@ export type GalleryUncheckedUpdateWithoutCountriesInput = {
   image?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGalleryTypeFieldUpdateOperationsInput | $Enums.GalleryType
   sortOrder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 
@@ -569,9 +569,9 @@ export type GallerySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   image?: boolean
   type?: boolean
   sortOrder?: boolean
-  isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
   countries?: boolean | Prisma.Gallery$countriesArgs<ExtArgs>
   _count?: boolean | Prisma.GalleryCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["gallery"]>
@@ -583,9 +583,9 @@ export type GallerySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   image?: boolean
   type?: boolean
   sortOrder?: boolean
-  isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
 }, ExtArgs["result"]["gallery"]>
 
 export type GallerySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -595,9 +595,9 @@ export type GallerySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   image?: boolean
   type?: boolean
   sortOrder?: boolean
-  isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
 }, ExtArgs["result"]["gallery"]>
 
 export type GallerySelectScalar = {
@@ -607,12 +607,12 @@ export type GallerySelectScalar = {
   image?: boolean
   type?: boolean
   sortOrder?: boolean
-  isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
 }
 
-export type GalleryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "image" | "type" | "sortOrder" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["gallery"]>
+export type GalleryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "image" | "type" | "sortOrder" | "createdAt" | "updatedAt" | "status", ExtArgs["result"]["gallery"]>
 export type GalleryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   countries?: boolean | Prisma.Gallery$countriesArgs<ExtArgs>
   _count?: boolean | Prisma.GalleryCountOutputTypeDefaultArgs<ExtArgs>
@@ -632,9 +632,9 @@ export type $GalleryPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     image: string
     type: $Enums.GalleryType
     sortOrder: number | null
-    isActive: boolean
     createdAt: Date
     updatedAt: Date
+    status: $Enums.ContentStatus
   }, ExtArgs["result"]["gallery"]>
   composites: {}
 }
@@ -1065,9 +1065,9 @@ export interface GalleryFieldRefs {
   readonly image: Prisma.FieldRef<"Gallery", 'String'>
   readonly type: Prisma.FieldRef<"Gallery", 'GalleryType'>
   readonly sortOrder: Prisma.FieldRef<"Gallery", 'Int'>
-  readonly isActive: Prisma.FieldRef<"Gallery", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Gallery", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Gallery", 'DateTime'>
+  readonly status: Prisma.FieldRef<"Gallery", 'ContentStatus'>
 }
     
 

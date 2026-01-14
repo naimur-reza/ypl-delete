@@ -127,7 +127,7 @@ const CourseFormModal = ({
       tuitionMax: selectedCourse?.tuitionMax || null,
       currency: selectedCourse?.currency || "USD",
       isFeatured: selectedCourse?.isFeatured ?? false,
-      isActive: selectedCourse?.isActive ?? true,
+      status: selectedCourse?.status || "DRAFT",
       universityId: selectedCourse?.universityId || "",
       destinationId: selectedCourse?.destinationId || "",
       metaTitle: selectedCourse?.metaTitle || "",
@@ -152,7 +152,7 @@ const CourseFormModal = ({
           tuitionMax: value.tuitionMax || null,
           currency: value.currency || "USD",
           isFeatured: value.isFeatured ?? false,
-          isActive: value.isActive ?? true,
+          status: value.status || "DRAFT",
           metaTitle: value.metaTitle || null,
           metaDescription: value.metaDescription || null,
           metaKeywords: value.metaKeywords || null,
@@ -230,17 +230,14 @@ const CourseFormModal = ({
                     handleTitleChange(e.target.value);
                   }}
                   onBlur={field.handleBlur}
-                  placeholder="e.g., Study In Australia"
+     
                 />
               </FormBase>
             )}
           </form.AppField>
           <form.AppField name="slug">
             {(field) => (
-              <FormBase
-                label="Slug"
-                description="Auto-generated from title. You can edit if needed."
-              >
+              <FormBase label="Slug">
                 <Input
                   id={field.name}
                   name={field.name}
@@ -251,7 +248,7 @@ const CourseFormModal = ({
                     handleSlugChange(slugValue);
                   }}
                   onBlur={field.handleBlur}
-                  placeholder="e.g., study-in-australia"
+     
                 />
               </FormBase>
             )}
@@ -393,7 +390,7 @@ const CourseFormModal = ({
             {(field) => (
               <field.Input
                 label="Duration"
-                placeholder="e.g., 2 years, 18 months"
+        
               />
             )}
           </form.AppField>
@@ -444,8 +441,13 @@ const CourseFormModal = ({
           <form.AppField name="isFeatured">
             {(field) => <field.Checkbox label="Featured" />}
           </form.AppField>
-          <form.AppField name="isActive">
-            {(field) => <field.Checkbox label="Active" />}
+          <form.AppField name="status">
+            {(field) => (
+              <field.Select label="Status">
+                <SelectItem value="ACTIVE">Active</SelectItem>
+                <SelectItem value="DRAFT">Draft</SelectItem>
+              </field.Select>
+            )}
           </form.AppField>
           <form.AppField name="metaTitle">
             {(field) => <field.Input label="Meta Title" />}

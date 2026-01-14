@@ -20,12 +20,21 @@ import RepresentativeVideoFormModal from "./add-representative-video-modal";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { useConfirmDialog } from "@/hooks/use-confirm-dialog";
 import Image from "next/image";
+import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface Item {
   id: string;
   title: string;
   thumbnail?: string;
   url: string;
+  status: string;
   createdAt: string;
 }
 
@@ -35,9 +44,15 @@ export default function RepresentativeVideosPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [selected, setSelected] = useState<Item | undefined>();
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+
+  const endpoint = useMemo(
+    () => `/api/representative-videos${statusFilter !== "all" ? `?status=${statusFilter}` : ""}`,
+    [statusFilter]
+  );
 
   const { table, isLoading, error, pagination, refetch } = useDataTable<Item>({
-    endpoint: "/api/representative-videos",
+    endpoint,
     columns: [],
     enableServerSidePagination: true,
     enableServerSideSorting: true,
@@ -45,8 +60,6 @@ export default function RepresentativeVideosPage() {
     pageSize: 10,
     filterColumnKey: "title",
   });
-
-  console.log("Table data:", table.getRowModel().rows);
 
   const deleteDialog = useConfirmDialog<Item>({
     title: "Delete Video",
@@ -66,7 +79,7 @@ export default function RepresentativeVideosPage() {
   const columns: ColumnDef<Item>[] = useMemo(
     () => [
       {
-        accessorKey: "Thumbnail",
+        accessorKey: "thumbnail",
         header: "Thumbnail",
         cell: ({ row }) => (
           <Image
@@ -79,6 +92,19 @@ export default function RepresentativeVideosPage() {
         ),
       },
       { accessorKey: "title", header: "Title", enableSorting: true },
+      {
+        accessorKey: "status",
+        header: "Status",
+        cell: ({ row }) => {
+          const status = row.original.status;
+          return (
+            <Badge variant={status === "ACTIVE" ? "default" : "secondary"}>
+              {status || "DRAFT"}
+            </Badge>
+          );
+        },
+        enableSorting: true,
+      },
       { accessorKey: "url", header: "URL" },
       {
         accessorKey: "createdAt",
@@ -146,13 +172,15 @@ export default function RepresentativeVideosPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">
-          Representative Videos
-        </h1>
-        <p className="text-muted-foreground">
-          Manage representative videos and associations
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">
+            Representative Videos
+          </h1>
+          <p className="text-muted-foreground">
+            Manage representative videos and associations
+          </p>
+        </div>
       </div>
 
       {isModalOpen && (
@@ -184,10 +212,22 @@ export default function RepresentativeVideosPage() {
         error={error}
         pagination={pagination}
         toolbar={
-          <Button onClick={handleOpenModal}>
-            <Plus className="mr-2 h-4 w-4" />
-            Add Video
-          </Button>
+          <div className="flex items-center gap-2">
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger className="w-[150px]">
+                <SelectValue placeholder="Filter by status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Status</SelectItem>
+                <SelectItem value="ACTIVE">Active</SelectItem>
+                <SelectItem value="DRAFT">Draft</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button onClick={handleOpenModal}>
+              <Plus className="mr-2 h-4 w-4" />
+              Add Video
+            </Button>
+          </div>
         }
       />
     </div>

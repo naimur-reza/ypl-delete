@@ -14,7 +14,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { DataTable } from "@/components/table/data-table";
 import { useDataTable } from "@/hooks/use-data-table";
-import BlogFormModal from "./add-blog-modal";
+import { useRouter } from "next/navigation";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { toast } from "sonner";
 import { createEntityApi } from "@/lib/api-client";
 import Image from "next/image";
@@ -39,12 +46,16 @@ interface Blog {
 const blogApi = createEntityApi<Blog>("/api/blogs");
 
 const BlogsPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [selectedBlog, setSelectedBlog] = useState<Blog | undefined>();
+  const router = useRouter();
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+
+  const endpoint = useMemo(
+    () => `/api/blogs${statusFilter !== "all" ? `?status=${statusFilter}` : ""}`,
+    [statusFilter]
+  );
 
   const { table, isLoading, error, pagination, refetch } = useDataTable<Blog>({
-    endpoint: "/api/blogs",
+    endpoint,
     columns: [],
     enableServerSidePagination: true,
     enableServerSideSorting: true,
@@ -97,18 +108,16 @@ const BlogsPage = () => {
         cell: ({ row }) => row.original.destination?.name || "-",
       },
       {
-        accessorKey: "isFeatured",
-        header: "Featured",
-        cell: ({ row }) =>
-          row.original.isFeatured ? (
-            <Badge variant="default">Featured</Badge>
-          ) : null,
-      },
-      {
-        accessorKey: "createdAt",
-        header: "Created",
-        cell: ({ row }) =>
-          new Date(row.original.createdAt).toLocaleDateString(),
+        accessorKey: "status",
+        header: "Status",
+        cell: ({ row }) => {
+          const status = (row.original as any).status as string;
+          return (
+            <Badge variant={status === "ACTIVE" ? "default" : "secondary"}>
+              {status || "DRAFT"}
+            </Badge>
+          );
+        },
         enableSorting: true,
       },
       {
@@ -129,9 +138,7 @@ const BlogsPage = () => {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   onClick={() => {
-                    setIsEditing(true);
-                    setSelectedBlog(blog);
-                    setIsModalOpen(true);
+                    router.push(`/dashboard/blogs/${blog.id}/edit`);
                   }}
                 >
                   <Pencil className="mr-2 h-4 w-4" />
@@ -150,24 +157,12 @@ const BlogsPage = () => {
         },
       },
     ],
-    [deleteDialog]
+    [deleteDialog, router]
   );
 
   if (table.options.columns.length === 0) {
     table.setOptions((prev) => ({ ...prev, columns }));
   }
-
-  const handleOpenModal = () => {
-    setIsEditing(false);
-    setSelectedBlog(undefined);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setIsEditing(false);
-    setSelectedBlog(undefined);
-  };
 
   return (
     <div className="space-y-6">
@@ -175,15 +170,6 @@ const BlogsPage = () => {
         <h1 className="text-3xl font-bold tracking-tight">Blogs</h1>
         <p className="text-muted-foreground">Manage blog posts</p>
       </div>
-
-      {isModalOpen && (
-        <BlogFormModal
-          isEditing={isEditing}
-          selectedBlog={selectedBlog}
-          onClose={handleCloseModal}
-          onSuccess={refetch}
-        />
-      )}
 
       <ConfirmDialog
         open={deleteDialog.isOpen}
@@ -205,10 +191,22 @@ const BlogsPage = () => {
         error={error}
         pagination={pagination}
         toolbar={
-          <Button onClick={handleOpenModal}>
-            <Plus className="mr-2 h-4 w-4" />
-            Add Blog
-          </Button>
+          <div className="flex items-center gap-2">
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger className="w-[150px]">
+                <SelectValue placeholder="Filter by status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Status</SelectItem>
+                <SelectItem value="ACTIVE">Active</SelectItem>
+                <SelectItem value="DRAFT">Draft</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button onClick={() => router.push("/dashboard/blogs/new")}>
+              <Plus className="mr-2 h-4 w-4" />
+              Add Blog
+            </Button>
+          </div>
         }
       />
     </div>

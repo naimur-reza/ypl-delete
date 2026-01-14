@@ -39,6 +39,7 @@ export default async function EssentialStudyDetailsPage({ params }: PageProps) {
   const otherEssentials = await prisma.essentialStudy.findMany({
     where: {
       destinationId: essentialStudy.destinationId,
+      status: "ACTIVE",
       id: { not: essentialStudy.id }, // Exclude current
     },
     select: {

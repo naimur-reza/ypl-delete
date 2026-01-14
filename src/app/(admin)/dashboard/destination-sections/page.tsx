@@ -23,6 +23,13 @@ import { useDataTable } from "@/hooks/use-data-table";
 import { toast } from "sonner";
 import { createRestEntityApi } from "@/lib/api-client";
 import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import DestinationSectionFormModal from "./add-destination-section-modal";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { useConfirmDialog } from "@/hooks/use-confirm-dialog";
@@ -35,7 +42,8 @@ interface DestinationSection {
   image?: string | null;
   content?: string | null;
   displayOrder: number;
-  isActive: boolean;
+ 
+  status: "ACTIVE" | "DRAFT";
   destinationId: string;
   destination?: {
     id: string;
@@ -55,10 +63,16 @@ export default function DestinationSectionsPage() {
   const [selectedSection, setSelectedSection] = useState<
     DestinationSection | undefined
   >();
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+
+  const endpoint = useMemo(
+    () => `/api/destination-sections${statusFilter !== "all" ? `?status=${statusFilter}` : ""}`,
+    [statusFilter]
+  );
 
   const { table, isLoading, error, pagination, refetch } =
     useDataTable<DestinationSection>({
-      endpoint: "/api/destination-sections",
+      endpoint,
       columns: [],
       enableServerSidePagination: true,
       enableServerSideSorting: true,
@@ -150,13 +164,16 @@ export default function DestinationSectionsPage() {
         enableSorting: true,
       },
       {
-        accessorKey: "isActive",
+        accessorKey: "status",
         header: "Status",
-        cell: ({ row }) => (
-          <Badge variant={row.original.isActive ? "default" : "secondary"}>
-            {row.original.isActive ? "Active" : "Inactive"}
-          </Badge>
-        ),
+        cell: ({ row }) => {
+          const status = (row.original as any).status as string;
+          return (
+            <Badge variant={status === "ACTIVE" ? "default" : "secondary"}>
+              {status || "DRAFT"}
+            </Badge>
+          );
+        },
         enableSorting: true,
       },
       {
@@ -247,10 +264,22 @@ export default function DestinationSectionsPage() {
         error={error}
         pagination={pagination}
         toolbar={
-          <Button onClick={handleOpenModal}>
-            <Plus className="mr-2 h-4 w-4" />
-            Add Section
-          </Button>
+          <div className="flex items-center gap-2">
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger className="w-[150px]">
+                <SelectValue placeholder="Filter by status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Status</SelectItem>
+                <SelectItem value="ACTIVE">Active</SelectItem>
+                <SelectItem value="DRAFT">Draft</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button onClick={handleOpenModal}>
+              <Plus className="mr-2 h-4 w-4" />
+              Add Section
+            </Button>
+          </div>
         }
       />
     </div>

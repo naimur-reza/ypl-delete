@@ -13,6 +13,7 @@ export const blogSchema = z.object({
   publishedAt: z.string().optional().nullable(),
   isFeatured: z.boolean().optional(),
   destinationId: z.string().min(1, "Destination is required"),
+  status: z.enum(["ACTIVE", "DRAFT"]).default("ACTIVE"),
   countryIds: z.array(z.string()).optional().nullable(),
   metaTitle: z.string().max(200).optional().nullable(),
   metaDescription: z.string().max(500).optional().nullable(),

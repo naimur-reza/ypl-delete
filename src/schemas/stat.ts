@@ -8,7 +8,7 @@ export const statSchema = z.object({
   section: z.string().min(1, "Section is required"),
   slideIndex: z.number().int().min(0).optional().nullable(),
   sortOrder: z.number().int().min(0).default(0),
-  isActive: z.boolean().default(true),
+  status: z.enum(["ACTIVE", "DRAFT"]).default("ACTIVE"),
   countryIds: z.array(z.string()).optional(),
 });
 

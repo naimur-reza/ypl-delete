@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/table/data-table";
@@ -16,10 +16,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import IntakeSeasonFormModal from "./add-intake-season-modal";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { useConfirmDialog } from "@/hooks/use-confirm-dialog";
 import { Badge } from "@/components/ui/badge";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type IntakeType = "JANUARY" | "MAY" | "SEPTEMBER";
 
@@ -29,7 +37,7 @@ interface Item {
   subtitle?: string;
   intake: IntakeType;
   year: number;
-  isActive: boolean;
+ 
   applicationDeadline?: string;
   createdAt: string;
   countries?: { country: { id: string; name: string } }[];
@@ -38,12 +46,16 @@ interface Item {
 const api = createEntityApi<Item>("/api/intake-seasons");
 
 export default function IntakeSeasonsPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [selected, setSelected] = useState<Item | undefined>();
+  const router = useRouter();
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+
+  const endpoint = useMemo(
+    () => `/api/intake-seasons${statusFilter !== "all" ? `?status=${statusFilter}` : ""}`,
+    [statusFilter]
+  );
 
   const { table, isLoading, error, pagination, refetch } = useDataTable<Item>({
-    endpoint: "/api/intake-seasons",
+    endpoint,
     columns: [],
     enableServerSidePagination: true,
     enableServerSideSorting: true,
@@ -94,18 +106,17 @@ export default function IntakeSeasonsPage() {
         ),
       },
       {
-        accessorKey: "isActive",
+        accessorKey: "status",
         header: "Status",
-        cell: ({ row }) =>
-          row.original.isActive ? (
-            <Badge className="bg-green-500 hover:bg-green-600">
-              <Check className="h-3 w-3 mr-1" /> Active
+        cell: ({ row }) => {
+          const status = (row.original as any).status as string;
+          return (
+            <Badge variant={status === "ACTIVE" ? "default" : "secondary"}>
+              {status || "DRAFT"}
             </Badge>
-          ) : (
-            <Badge variant="secondary">
-              <X className="h-3 w-3 mr-1" /> Inactive
-            </Badge>
-          ),
+          );
+        },
+        enableSorting: true,
       },
       {
         accessorKey: "applicationDeadline",
@@ -138,11 +149,7 @@ export default function IntakeSeasonsPage() {
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
-                  onClick={() => {
-                    setIsEditing(true);
-                    setSelected(item);
-                    setIsModalOpen(true);
-                  }}
+                  onClick={() => router.push(`/dashboard/intake-seasons/${item.id}/edit`)}
                 >
                   <Pencil className="mr-2 h-4 w-4" />
                   Edit
@@ -160,24 +167,14 @@ export default function IntakeSeasonsPage() {
         },
       },
     ],
-    [deleteDialog]
+    [deleteDialog, router]
   );
 
   if (table.options.columns.length === 0) {
     table.setOptions((prev) => ({ ...prev, columns }));
   }
 
-  const handleOpenModal = () => {
-    setIsEditing(false);
-    setSelected(undefined);
-    setIsModalOpen(true);
-  };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setIsEditing(false);
-    setSelected(undefined);
-  };
 
   return (
     <div className="space-y-6">
@@ -189,14 +186,7 @@ export default function IntakeSeasonsPage() {
         </p>
       </div>
 
-      {isModalOpen && (
-        <IntakeSeasonFormModal
-          isEditing={isEditing}
-          selected={selected}
-          onClose={handleCloseModal}
-          onSuccess={refetch}
-        />
-      )}
+
 
       <ConfirmDialog
         open={deleteDialog.isOpen}
@@ -218,10 +208,22 @@ export default function IntakeSeasonsPage() {
         error={error}
         pagination={pagination}
         toolbar={
-          <Button onClick={handleOpenModal}>
-            <Plus className="mr-2 h-4 w-4" />
-            Add Intake Season
-          </Button>
+          <div className="flex items-center gap-2">
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger className="w-[150px]">
+                <SelectValue placeholder="Filter by status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Status</SelectItem>
+                <SelectItem value="ACTIVE">Active</SelectItem>
+                <SelectItem value="DRAFT">Draft</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button onClick={() => router.push("/dashboard/intake-seasons/new")}>
+              <Plus className="mr-2 h-4 w-4" />
+              Add Intake Season
+            </Button>
+          </div>
         }
       />
     </div>

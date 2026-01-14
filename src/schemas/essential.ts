@@ -6,4 +6,5 @@ export const essentialSchema = z.object({
   destinationId: z.string().min(1, "Destination is required"),
   description: z.string().max(400).optional().nullable(),
   content: z.string().optional().nullable(),
+  status: z.enum(["ACTIVE", "DRAFT"]).default("DRAFT"),
 });

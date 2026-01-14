@@ -24,7 +24,7 @@ const schema = z.object({
   backgroundImage: z.string().optional().nullable(),
   ctaLabel: z.string().optional().nullable(),
   ctaUrl: z.string().optional().nullable(),
-  isActive: z.boolean().default(false),
+  status: z.enum(["ACTIVE", "DRAFT"]).default("DRAFT"),
   applicationDeadline: z.string().optional().nullable(),
   intakeStartDate: z.string().optional().nullable(),
   countryIds: z.array(z.string()).optional(),
@@ -43,7 +43,7 @@ export default function IntakeSeasonFormModal({
   isEditing?: boolean;
   selected?: { id: string } & Partial<FormData> & {
       countries?: { country: { id: string } }[];
-    };
+    } & { status?: string }; // Add custom status type if needed here or rely on FormData
   onClose: () => void;
   onSuccess?: () => void;
 }) {
@@ -83,7 +83,7 @@ export default function IntakeSeasonFormModal({
       backgroundImage: selected?.backgroundImage || "",
       ctaLabel: selected?.ctaLabel || "Apply Now",
       ctaUrl: selected?.ctaUrl || "/apply-now",
-      isActive: selected?.isActive || false,
+      status: (selected?.status as "ACTIVE" | "DRAFT") || "DRAFT",
       applicationDeadline: selected?.applicationDeadline
         ? new Date(selected.applicationDeadline).toISOString().split("T")[0]
         : "",
@@ -105,6 +105,7 @@ export default function IntakeSeasonFormModal({
           backgroundImage: value.backgroundImage || null,
           ctaLabel: value.ctaLabel || null,
           ctaUrl: value.ctaUrl || null,
+          status: value.status,
           applicationDeadline: value.applicationDeadline || null,
           intakeStartDate: value.intakeStartDate || null,
         } as Record<string, unknown>;
@@ -148,7 +149,7 @@ export default function IntakeSeasonFormModal({
             {(field) => (
               <field.Input
                 label="Title"
-                placeholder="e.g., January 2026 Intake - Admission open!"
+ 
               />
             )}
           </form.AppField>
@@ -157,7 +158,7 @@ export default function IntakeSeasonFormModal({
             {(field) => (
               <field.Input
                 label="Subtitle"
-                placeholder="e.g., Study in the UK at Top Universities"
+            
               />
             )}
           </form.AppField>
@@ -166,7 +167,7 @@ export default function IntakeSeasonFormModal({
             {(field) => (
               <field.Textarea
                 label="Description"
-                placeholder="e.g., Apply early to secure your place!"
+        
               />
             )}
           </form.AppField>
@@ -247,19 +248,21 @@ export default function IntakeSeasonFormModal({
             )}
           </form.AppField>
 
-          <form.AppField name="isActive">
-            {(field) => (
-              <div className="flex items-center gap-3 p-4 border rounded-lg bg-muted/50">
+          <form.AppField name="status">
+            {(field) => {
+               const isChecked = field.state.value === "ACTIVE";
+               return (
+              <div className="flex items-center gap-3 p-4 border border-border rounded-lg bg-muted/50">
                 <input
                   type="checkbox"
-                  id="isActive"
-                  checked={field.state.value || false}
-                  onChange={(e) => field.handleChange(e.target.checked)}
+                  id="status"
+                  checked={isChecked}
+                  onChange={(e) => field.handleChange(e.target.checked ? "ACTIVE" : "DRAFT")}
                   className="h-5 w-5"
                 />
                 <div>
                   <label
-                    htmlFor="isActive"
+                    htmlFor="status"
                     className="text-sm font-medium cursor-pointer"
                   >
                     Set as Active Season
@@ -270,7 +273,7 @@ export default function IntakeSeasonFormModal({
                   </p>
                 </div>
               </div>
-            )}
+            )}}
           </form.AppField>
 
           <div className="flex gap-2 justify-end">

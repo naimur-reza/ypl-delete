@@ -114,7 +114,7 @@ export async function PopularCourses({
   // If no filters, fetch 8 courses directly
   if (!hasFilters) {
     const courses = await prisma.course.findMany({
-      where: { isActive: true },
+      where: { status: "ACTIVE" },
       select: {
         id: true,
         title: true,
@@ -151,7 +151,7 @@ export async function PopularCourses({
 
   // Build where clause for filtering
   const whereClause: Record<string, unknown> = {
-    isActive: true,
+    status: "ACTIVE",
   };
 
   if (destinationSlug) {

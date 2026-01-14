@@ -16,7 +16,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import ServiceFormModal from "./add-service-modal";
+import { useRouter } from "next/navigation";
+import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { useConfirmDialog } from "@/hooks/use-confirm-dialog";
 
@@ -31,13 +39,17 @@ interface ServiceItem {
 const serviceApi = createEntityApi<ServiceItem>("/api/services");
 
 export default function ServicesPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [selected, setSelected] = useState<ServiceItem | undefined>();
+  const router = useRouter();
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+
+  const endpoint = useMemo(
+    () => `/api/services${statusFilter !== "all" ? `?status=${statusFilter}` : ""}`,
+    [statusFilter]
+  );
 
   const { table, isLoading, error, pagination, refetch } =
     useDataTable<ServiceItem>({
-      endpoint: "/api/services",
+      endpoint,
       columns: [],
       enableServerSidePagination: true,
       enableServerSideSorting: true,
@@ -81,6 +93,19 @@ export default function ServicesPage() {
       { accessorKey: "title", header: "Title", enableSorting: true },
       { accessorKey: "slug", header: "Slug" },
       {
+        accessorKey: "status",
+        header: "Status",
+        cell: ({ row }) => {
+          const status = (row.original as any).status as string;
+          return (
+            <Badge variant={status === "ACTIVE" ? "default" : "secondary"}>
+              {status || "DRAFT"}
+            </Badge>
+          );
+        },
+        enableSorting: true,
+      },
+      {
         accessorKey: "createdAt",
         header: "Created",
         cell: ({ row }) =>
@@ -104,9 +129,7 @@ export default function ServicesPage() {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   onClick={() => {
-                    setIsEditing(true);
-                    setSelected(item);
-                    setIsModalOpen(true);
+                    router.push(`/dashboard/services/${item.id}/edit`);
                   }}
                 >
                   <Pencil className="mr-2 h-4 w-4" />
@@ -125,24 +148,12 @@ export default function ServicesPage() {
         },
       },
     ],
-    [deleteDialog]
+    [deleteDialog, router]
   );
 
   if (table.options.columns.length === 0) {
     table.setOptions((prev) => ({ ...prev, columns }));
   }
-
-  const handleOpenModal = () => {
-    setIsEditing(false);
-    setSelected(undefined);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setIsEditing(false);
-    setSelected(undefined);
-  };
 
   return (
     <div className="space-y-6">
@@ -150,15 +161,6 @@ export default function ServicesPage() {
         <h1 className="text-3xl font-bold tracking-tight">Services</h1>
         <p className="text-muted-foreground">Manage site services</p>
       </div>
-
-      {isModalOpen && (
-        <ServiceFormModal
-          isEditing={isEditing}
-          selected={selected}
-          onClose={handleCloseModal}
-          onSuccess={refetch}
-        />
-      )}
 
       <ConfirmDialog
         open={deleteDialog.isOpen}
@@ -180,10 +182,22 @@ export default function ServicesPage() {
         error={error}
         pagination={pagination}
         toolbar={
-          <Button onClick={handleOpenModal}>
-            <Plus className="mr-2 h-4 w-4" />
-            Add Service
-          </Button>
+          <div className="flex items-center gap-2">
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger className="w-[150px]">
+                <SelectValue placeholder="Filter by status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Status</SelectItem>
+                <SelectItem value="ACTIVE">Active</SelectItem>
+                <SelectItem value="DRAFT">Draft</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button onClick={() => router.push("/dashboard/services/new")}>
+              <Plus className="mr-2 h-4 w-4" />
+              Add Service
+            </Button>
+          </div>
         }
       />
     </div>

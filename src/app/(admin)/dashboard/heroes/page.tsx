@@ -21,6 +21,13 @@ import { Badge } from "@/components/ui/badge";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { useConfirmDialog } from "@/hooks/use-confirm-dialog";
 import HeroFormModal from "./add-hero-modal";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface Hero {
   id: string;
@@ -31,7 +38,6 @@ interface Hero {
   backgroundType: "IMAGE" | "VIDEO" | "YOUTUBE";
   backgroundUrl: string;
   slug: string;
-  isActive: boolean;
   order: number;
   createdAt: string;
   countries?: Array<{
@@ -46,9 +52,15 @@ const HeroesPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [selectedHero, setSelectedHero] = useState<Hero | undefined>();
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+
+  const endpoint = useMemo(
+    () => `/api/heroes${statusFilter !== "all" ? `?status=${statusFilter}` : ""}`,
+    [statusFilter]
+  );
 
   const { table, isLoading, error, pagination, refetch } = useDataTable<Hero>({
-    endpoint: "/api/heroes",
+    endpoint,
     columns: [],
     enableServerSidePagination: true,
     enableServerSideSorting: true,
@@ -104,14 +116,17 @@ const HeroesPage = () => {
         enableSorting: true,
       },
       {
-        accessorKey: "isActive",
+        accessorKey: "status",
         header: "Status",
-        cell: ({ row }) =>
-          row.original.isActive ? (
-            <Badge variant="default">Active</Badge>
-          ) : (
-            <Badge variant="secondary">Inactive</Badge>
-          ),
+        cell: ({ row }) => {
+          const status = (row.original as any).status as string;
+          return (
+            <Badge variant={status === "ACTIVE" ? "default" : "secondary"}>
+              {status || "DRAFT"}
+            </Badge>
+          );
+        },
+        enableSorting: true,
       },
       {
         accessorKey: "countries",
@@ -222,10 +237,22 @@ const HeroesPage = () => {
         error={error}
         pagination={pagination}
         toolbar={
-          <Button onClick={handleOpenModal}>
-            <Plus className="mr-2 h-4 w-4" />
-            Add Hero
-          </Button>
+          <div className="flex items-center gap-2">
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger className="w-[150px]">
+                <SelectValue placeholder="Filter by status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Status</SelectItem>
+                <SelectItem value="ACTIVE">Active</SelectItem>
+                <SelectItem value="DRAFT">Draft</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button onClick={handleOpenModal}>
+              <Plus className="mr-2 h-4 w-4" />
+              Add Hero
+            </Button>
+          </div>
         }
       />
     </div>

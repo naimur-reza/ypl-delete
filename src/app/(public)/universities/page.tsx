@@ -26,12 +26,12 @@ const UniversitiesPage = async ({
 
   const universities = await prisma.university.findMany({
     where: {
+      status: "ACTIVE",
       countries: {
         some: {
           country: { slug: country },
         },
       },
-      isActive: true,
     },
     include: {
       destination: true,

@@ -65,7 +65,12 @@ const CountryFormModal = ({
           response = await countryApi.update(selectedCountry.id, submitData);
         } else {
           console.log(submitData);
-          response = await countryApi.create(submitData as any);
+          response = await countryApi.create(
+            submitData as unknown as Omit<
+              Country,
+              "id" | "createdAt" | "updatedAt"
+            >
+          );
         }
 
         if (response.error) {
@@ -140,7 +145,7 @@ const CountryFormModal = ({
                     handleTitleChange(e.target.value);
                   }}
                   onBlur={field.handleBlur}
-                  placeholder="e.g., Australia"
+ 
                 />
               </FormBase>
             )}
@@ -149,7 +154,7 @@ const CountryFormModal = ({
             {(field) => (
               <FormBase
                 label="Slug"
-                description="Auto-generated from name. You can edit if needed."
+                description=""
               >
                 <Input
                   id={field.name}
@@ -161,7 +166,7 @@ const CountryFormModal = ({
                     handleSlugChange(slugValue);
                   }}
                   onBlur={field.handleBlur}
-                  placeholder="e.g., australia"
+              
                 />
               </FormBase>
             )}

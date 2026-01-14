@@ -14,6 +14,7 @@ import { createEntityApi } from "@/lib/api-client";
 import { generateSlug } from "@/lib/utils";
 import { CountrySelect } from "@/components/ui/region-select";
 import { Input } from "@/components/ui/input";
+import { SelectItem } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { FormBase } from "@/components/form/FormBase";
@@ -35,6 +36,7 @@ type GlobalOfficeWithCountries = {
   metaTitle?: string | null;
   metaDescription?: string | null;
   metaKeywords?: string | null;
+  status?: "ACTIVE" | "DRAFT";
   countries?: Array<{ country: { id: string } }>;
 };
 
@@ -76,6 +78,7 @@ const GlobalOfficeFormModal = ({
       metaTitle: selectedGlobalOffice?.metaTitle || "",
       metaDescription: selectedGlobalOffice?.metaDescription || "",
       metaKeywords: selectedGlobalOffice?.metaKeywords || "",
+      status: selectedGlobalOffice?.status || "DRAFT",
     } as any,
     validators: { onSubmit: globalOfficeSchema as any },
     onSubmit: async ({ value }) => {
@@ -155,6 +158,7 @@ const GlobalOfficeFormModal = ({
       form.setFieldValue("metaTitle", selectedGlobalOffice.metaTitle || "");
       form.setFieldValue("metaDescription", selectedGlobalOffice.metaDescription || "");
       form.setFieldValue("metaKeywords", selectedGlobalOffice.metaKeywords || "");
+      form.setFieldValue("status", selectedGlobalOffice.status || "DRAFT");
 
       if (selectedGlobalOffice.countries) {
         setCountryIds(selectedGlobalOffice.countries.map((c) => c.country.id));
@@ -198,7 +202,7 @@ const GlobalOfficeFormModal = ({
                     handleTitleChange(e.target.value);
                   }}
                   onBlur={field.handleBlur}
-                  placeholder="e.g., NWC Dubai Office"
+      
                 />
               </FormBase>
             )}
@@ -206,11 +210,19 @@ const GlobalOfficeFormModal = ({
           <form.AppField name="subtitle">
             {(field) => <field.Input label="Subtitle" />}
           </form.AppField>
+          <form.AppField name="status">
+            {(field) => (
+              <field.Select label="Status">
+                <SelectItem value="ACTIVE">Active</SelectItem>
+                <SelectItem value="DRAFT">Draft</SelectItem>
+              </field.Select>
+            )}
+          </form.AppField>
           <form.AppField name="slug">
             {(field) => (
               <FormBase
                 label="Slug"
-                description="Auto-generated from name. You can edit if needed."
+                description=""
               >
                 <Input
                   id={field.name}
@@ -222,14 +234,14 @@ const GlobalOfficeFormModal = ({
                     handleSlugChange(slugValue);
                   }}
                   onBlur={field.handleBlur}
-                  placeholder="e.g., nwc-dubai-office"
+ 
                 />
               </FormBase>
             )}
           </form.AppField>
 
           <div className=" pt-4 mt-4">
-            <h3 className="text-sm font-semibold mb-3">Contact Details</h3>
+ 
             <form.AppField name="email">
               {(field) => <field.Input label="Email" />}
             </form.AppField>
@@ -247,7 +259,7 @@ const GlobalOfficeFormModal = ({
               {(field) => (
                 <FormBase 
                   label="Google Maps Iframe" 
-                  description="Paste the Google Maps embed iframe here."
+ 
                 >
                   <textarea
                     id={field.name}
@@ -264,7 +276,7 @@ const GlobalOfficeFormModal = ({
           </div>
 
           <div className="pt-4 mt-4">
-            <h3 className="text-sm font-semibold mb-3">Office Media</h3>
+          
             <ImageUpload
               value={imageUrl}
               onChange={setImageUrl}
@@ -284,12 +296,12 @@ const GlobalOfficeFormModal = ({
           </div>
 
           <div className="pt-4 mt-4">
-            <h3 className="text-sm font-semibold mb-3">Opening Hours</h3>
+          
             <form.AppField name="openingHours">
               {(field) => (
                 <FormBase 
                   label="Office Hours" 
-                  description="Standard hours: 10:30 AM – 7 PM (Friday Closed)"
+                 
                 >
                   <Input
                     id={field.name}

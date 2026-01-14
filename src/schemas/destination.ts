@@ -14,6 +14,7 @@ const destinationSchema = z.object({
   metaTitle: z.string().max(200).optional().nullable(),
   metaDescription: z.string().max(500).optional().nullable(),
   metaKeywords: z.string().max(500).optional().nullable(),
+  status: z.enum(["ACTIVE", "DRAFT"]),
 });
 
 export { destinationSchema };

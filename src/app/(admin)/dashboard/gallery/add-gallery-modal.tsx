@@ -39,7 +39,7 @@ const gallerySchema = z.object({
     .enum(["VISA_SUCCESS", "REPRESENTATIVE", "EVENT", "OFFICE", "STUDENT"])
     .default("VISA_SUCCESS"),
   sortOrder: z.number().int().optional().nullable(),
-  isActive: z.boolean().default(true),
+  status: z.enum(["ACTIVE", "DRAFT"]).default("DRAFT"),
   countryIds: z.array(z.string()).optional(),
   countries: z.array(z.object({})).optional(),
 });
@@ -73,7 +73,7 @@ export default function GalleryFormModal({
   const [typeValue, setTypeValue] = useState<string>(
     selected?.type || "VISA_SUCCESS"
   );
-  const [isActive, setIsActive] = useState<boolean>(selected?.isActive ?? true);
+  const [status, setStatus] = useState<"ACTIVE" | "DRAFT">(selected?.status ?? "DRAFT");
   const [isUploading, setIsUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [images, setImages] = useState<string[]>(
@@ -88,7 +88,7 @@ export default function GalleryFormModal({
       images: selected?.image ? [selected.image] : [],
       type: selected?.type || "VISA_SUCCESS",
       sortOrder: selected?.sortOrder ?? null,
-      isActive: selected?.isActive ?? true,
+      status: selected?.status ?? "DRAFT",
       countryIds: selected?.countryIds ?? [],
     } as unknown as FormData,
     validators: { onSubmit: gallerySchema as any },
@@ -109,7 +109,7 @@ export default function GalleryFormModal({
             description: value.description || null,
             sortOrder:
               typeof value.sortOrder === "number" ? value.sortOrder : null,
-            isActive,
+            status,
             countryIds,
           } as Record<string, unknown>;
 
@@ -124,7 +124,7 @@ export default function GalleryFormModal({
             type: typeValue,
             sortOrder:
               typeof value.sortOrder === "number" ? value.sortOrder : null,
-            isActive,
+            status,
             countryIds,
           };
 
@@ -289,13 +289,20 @@ export default function GalleryFormModal({
               />
             )}
           </form.AppField>
-          <div className="flex items-center justify-between py-2">
-            <Label htmlFor="isActive">Active</Label>
-            <Switch
-              id="isActive"
-              checked={isActive}
-              onCheckedChange={setIsActive}
-            />
+          <div className="space-y-2 py-2">
+            <Label>Status</Label>
+            <Select
+              value={status}
+              onValueChange={(val) => setStatus(val as "ACTIVE" | "DRAFT")}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="ACTIVE">Active</SelectItem>
+                <SelectItem value="DRAFT">Draft</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
           <div className="flex gap-2 justify-end">
             <Button

@@ -28,6 +28,7 @@ export const testimonialSchema = z.object({
   // Visibility
   isFeatured: z.boolean(),
   order: z.coerce.number(),
+  status: z.enum(["ACTIVE", "DRAFT"]).default("ACTIVE"),
 });
 
 export type TestimonialInput = z.infer<typeof testimonialSchema>;

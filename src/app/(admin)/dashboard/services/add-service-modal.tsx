@@ -129,17 +129,14 @@ export default function ServiceFormModal({
                     handleTitleChange(e.target.value);
                   }}
                   onBlur={field.handleBlur}
-                  placeholder="e.g., Visa Assistance"
+     
                 />
               </FormBase>
             )}
           </form.AppField>
           <form.AppField name="slug">
             {(field) => (
-              <FormBase
-                label="Slug"
-                description="Auto-generated from title. You can edit if needed."
-              >
+              <FormBase label="Slug">
                 <Input
                   id={field.name}
                   name={field.name}
@@ -150,7 +147,7 @@ export default function ServiceFormModal({
                     handleSlugChange(slugValue);
                   }}
                   onBlur={field.handleBlur}
-                  placeholder="e.g., visa-assistance"
+      
                 />
               </FormBase>
             )}

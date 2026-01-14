@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
   if (!canManageContent(session)) return forbiddenResponse();
 
   const body = await req.json();
-  const { name, logo, website, type, sortOrder, countryIds } = body;
+  const { name, logo, website, type, sortOrder, countryIds, status } = body;
 
   if (!name)
     return Response.json({ error: "Name is required" }, { status: 400 });
@@ -41,6 +41,7 @@ export async function POST(req: NextRequest) {
       website,
       type: type || "NEWS",
       sortOrder,
+      status: status || "DRAFT",
       countries: {
         create: countryIds.map((countryId: string) => ({
           country: {

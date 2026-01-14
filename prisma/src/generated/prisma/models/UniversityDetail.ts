@@ -40,6 +40,7 @@ export type UniversityDetailMinAggregateOutputType = {
   accommodation: string | null
   accommodationImage: string | null
   description: string | null
+  status: $Enums.ContentStatus | null
 }
 
 export type UniversityDetailMaxAggregateOutputType = {
@@ -58,6 +59,7 @@ export type UniversityDetailMaxAggregateOutputType = {
   accommodation: string | null
   accommodationImage: string | null
   description: string | null
+  status: $Enums.ContentStatus | null
 }
 
 export type UniversityDetailCountAggregateOutputType = {
@@ -76,6 +78,7 @@ export type UniversityDetailCountAggregateOutputType = {
   accommodation: number
   accommodationImage: number
   description: number
+  status: number
   _all: number
 }
 
@@ -96,6 +99,7 @@ export type UniversityDetailMinAggregateInputType = {
   accommodation?: true
   accommodationImage?: true
   description?: true
+  status?: true
 }
 
 export type UniversityDetailMaxAggregateInputType = {
@@ -114,6 +118,7 @@ export type UniversityDetailMaxAggregateInputType = {
   accommodation?: true
   accommodationImage?: true
   description?: true
+  status?: true
 }
 
 export type UniversityDetailCountAggregateInputType = {
@@ -132,6 +137,7 @@ export type UniversityDetailCountAggregateInputType = {
   accommodation?: true
   accommodationImage?: true
   description?: true
+  status?: true
   _all?: true
 }
 
@@ -223,6 +229,7 @@ export type UniversityDetailGroupByOutputType = {
   accommodation: string | null
   accommodationImage: string | null
   description: string | null
+  status: $Enums.ContentStatus
   _count: UniversityDetailCountAggregateOutputType | null
   _min: UniversityDetailMinAggregateOutputType | null
   _max: UniversityDetailMaxAggregateOutputType | null
@@ -262,6 +269,7 @@ export type UniversityDetailWhereInput = {
   accommodation?: Prisma.StringNullableFilter<"UniversityDetail"> | string | null
   accommodationImage?: Prisma.StringNullableFilter<"UniversityDetail"> | string | null
   description?: Prisma.StringNullableFilter<"UniversityDetail"> | string | null
+  status?: Prisma.EnumContentStatusFilter<"UniversityDetail"> | $Enums.ContentStatus
   university?: Prisma.XOR<Prisma.UniversityScalarRelationFilter, Prisma.UniversityWhereInput>
 }
 
@@ -281,6 +289,7 @@ export type UniversityDetailOrderByWithRelationInput = {
   accommodation?: Prisma.SortOrderInput | Prisma.SortOrder
   accommodationImage?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
   university?: Prisma.UniversityOrderByWithRelationInput
 }
 
@@ -303,6 +312,7 @@ export type UniversityDetailWhereUniqueInput = Prisma.AtLeast<{
   accommodation?: Prisma.StringNullableFilter<"UniversityDetail"> | string | null
   accommodationImage?: Prisma.StringNullableFilter<"UniversityDetail"> | string | null
   description?: Prisma.StringNullableFilter<"UniversityDetail"> | string | null
+  status?: Prisma.EnumContentStatusFilter<"UniversityDetail"> | $Enums.ContentStatus
   university?: Prisma.XOR<Prisma.UniversityScalarRelationFilter, Prisma.UniversityWhereInput>
 }, "id" | "universityId">
 
@@ -322,6 +332,7 @@ export type UniversityDetailOrderByWithAggregationInput = {
   accommodation?: Prisma.SortOrderInput | Prisma.SortOrder
   accommodationImage?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
   _count?: Prisma.UniversityDetailCountOrderByAggregateInput
   _max?: Prisma.UniversityDetailMaxOrderByAggregateInput
   _min?: Prisma.UniversityDetailMinOrderByAggregateInput
@@ -346,6 +357,7 @@ export type UniversityDetailScalarWhereWithAggregatesInput = {
   accommodation?: Prisma.StringNullableWithAggregatesFilter<"UniversityDetail"> | string | null
   accommodationImage?: Prisma.StringNullableWithAggregatesFilter<"UniversityDetail"> | string | null
   description?: Prisma.StringNullableWithAggregatesFilter<"UniversityDetail"> | string | null
+  status?: Prisma.EnumContentStatusWithAggregatesFilter<"UniversityDetail"> | $Enums.ContentStatus
 }
 
 export type UniversityDetailCreateInput = {
@@ -363,6 +375,7 @@ export type UniversityDetailCreateInput = {
   accommodation?: string | null
   accommodationImage?: string | null
   description?: string | null
+  status?: $Enums.ContentStatus
   university: Prisma.UniversityCreateNestedOneWithoutDetailInput
 }
 
@@ -382,6 +395,7 @@ export type UniversityDetailUncheckedCreateInput = {
   accommodation?: string | null
   accommodationImage?: string | null
   description?: string | null
+  status?: $Enums.ContentStatus
 }
 
 export type UniversityDetailUpdateInput = {
@@ -399,6 +413,7 @@ export type UniversityDetailUpdateInput = {
   accommodation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accommodationImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   university?: Prisma.UniversityUpdateOneRequiredWithoutDetailNestedInput
 }
 
@@ -418,6 +433,7 @@ export type UniversityDetailUncheckedUpdateInput = {
   accommodation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accommodationImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type UniversityDetailCreateManyInput = {
@@ -436,6 +452,7 @@ export type UniversityDetailCreateManyInput = {
   accommodation?: string | null
   accommodationImage?: string | null
   description?: string | null
+  status?: $Enums.ContentStatus
 }
 
 export type UniversityDetailUpdateManyMutationInput = {
@@ -453,6 +470,7 @@ export type UniversityDetailUpdateManyMutationInput = {
   accommodation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accommodationImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type UniversityDetailUncheckedUpdateManyInput = {
@@ -471,6 +489,7 @@ export type UniversityDetailUncheckedUpdateManyInput = {
   accommodation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accommodationImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type UniversityDetailNullableScalarRelationFilter = {
@@ -494,6 +513,7 @@ export type UniversityDetailCountOrderByAggregateInput = {
   accommodation?: Prisma.SortOrder
   accommodationImage?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type UniversityDetailMaxOrderByAggregateInput = {
@@ -512,6 +532,7 @@ export type UniversityDetailMaxOrderByAggregateInput = {
   accommodation?: Prisma.SortOrder
   accommodationImage?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type UniversityDetailMinOrderByAggregateInput = {
@@ -530,6 +551,7 @@ export type UniversityDetailMinOrderByAggregateInput = {
   accommodation?: Prisma.SortOrder
   accommodationImage?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type UniversityDetailCreateNestedOneWithoutUniversityInput = {
@@ -579,6 +601,7 @@ export type UniversityDetailCreateWithoutUniversityInput = {
   accommodation?: string | null
   accommodationImage?: string | null
   description?: string | null
+  status?: $Enums.ContentStatus
 }
 
 export type UniversityDetailUncheckedCreateWithoutUniversityInput = {
@@ -596,6 +619,7 @@ export type UniversityDetailUncheckedCreateWithoutUniversityInput = {
   accommodation?: string | null
   accommodationImage?: string | null
   description?: string | null
+  status?: $Enums.ContentStatus
 }
 
 export type UniversityDetailCreateOrConnectWithoutUniversityInput = {
@@ -629,6 +653,7 @@ export type UniversityDetailUpdateWithoutUniversityInput = {
   accommodation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accommodationImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type UniversityDetailUncheckedUpdateWithoutUniversityInput = {
@@ -646,6 +671,7 @@ export type UniversityDetailUncheckedUpdateWithoutUniversityInput = {
   accommodation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accommodationImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 
@@ -666,6 +692,7 @@ export type UniversityDetailSelect<ExtArgs extends runtime.Types.Extensions.Inte
   accommodation?: boolean
   accommodationImage?: boolean
   description?: boolean
+  status?: boolean
   university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["universityDetail"]>
 
@@ -685,6 +712,7 @@ export type UniversityDetailSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   accommodation?: boolean
   accommodationImage?: boolean
   description?: boolean
+  status?: boolean
   university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["universityDetail"]>
 
@@ -704,6 +732,7 @@ export type UniversityDetailSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   accommodation?: boolean
   accommodationImage?: boolean
   description?: boolean
+  status?: boolean
   university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["universityDetail"]>
 
@@ -723,9 +752,10 @@ export type UniversityDetailSelectScalar = {
   accommodation?: boolean
   accommodationImage?: boolean
   description?: boolean
+  status?: boolean
 }
 
-export type UniversityDetailOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "universityId" | "overview" | "ranking" | "tuitionFees" | "famousFor" | "servicesHeading" | "servicesDescription" | "servicesImage" | "entryRequirements" | "createdAt" | "updatedAt" | "accommodation" | "accommodationImage" | "description", ExtArgs["result"]["universityDetail"]>
+export type UniversityDetailOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "universityId" | "overview" | "ranking" | "tuitionFees" | "famousFor" | "servicesHeading" | "servicesDescription" | "servicesImage" | "entryRequirements" | "createdAt" | "updatedAt" | "accommodation" | "accommodationImage" | "description" | "status", ExtArgs["result"]["universityDetail"]>
 export type UniversityDetailInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   university?: boolean | Prisma.UniversityDefaultArgs<ExtArgs>
 }
@@ -757,6 +787,7 @@ export type $UniversityDetailPayload<ExtArgs extends runtime.Types.Extensions.In
     accommodation: string | null
     accommodationImage: string | null
     description: string | null
+    status: $Enums.ContentStatus
   }, ExtArgs["result"]["universityDetail"]>
   composites: {}
 }
@@ -1196,6 +1227,7 @@ export interface UniversityDetailFieldRefs {
   readonly accommodation: Prisma.FieldRef<"UniversityDetail", 'String'>
   readonly accommodationImage: Prisma.FieldRef<"UniversityDetail", 'String'>
   readonly description: Prisma.FieldRef<"UniversityDetail", 'String'>
+  readonly status: Prisma.FieldRef<"UniversityDetail", 'ContentStatus'>
 }
     
 

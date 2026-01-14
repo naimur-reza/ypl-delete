@@ -91,7 +91,7 @@ const UniversityFormModal = ({
     description: selectedUniversity?.description || "",
     providerType: selectedUniversity?.providerType || "PRIVATE",
     isFeatured: selectedUniversity?.isFeatured ?? false,
-    isActive: selectedUniversity?.isActive ?? true,
+    status: (selectedUniversity?.status as any) || "ACTIVE",
     website: selectedUniversity?.website || "",
     address: selectedUniversity?.address || "",
     phone: selectedUniversity?.phone || "",
@@ -211,7 +211,7 @@ const UniversityFormModal = ({
                     handleTitleChange(e.target.value);
                   }}
                   onBlur={field.handleBlur}
-                  placeholder="e.g., University of Melbourne"
+        
                 />
               </FormBase>
             )}
@@ -220,7 +220,7 @@ const UniversityFormModal = ({
             {(field) => (
               <FormBase
                 label="Slug"
-                description="Auto-generated from name. You can edit if needed."
+                description=""
               >
                 <Input
                   id={field.name}
@@ -232,7 +232,7 @@ const UniversityFormModal = ({
                     handleSlugChange(slugValue);
                   }}
                   onBlur={field.handleBlur}
-                  placeholder="e.g., university-of-melbourne"
+ 
                 />
               </FormBase>
             )}
@@ -309,8 +309,13 @@ const UniversityFormModal = ({
           <form.AppField name="isFeatured">
             {(field) => <field.Checkbox label="Featured" />}
           </form.AppField>
-          <form.AppField name="isActive">
-            {(field) => <field.Checkbox label="Active" />}
+          <form.AppField name="status">
+            {(field) => (
+              <field.Select label="Status">
+                <SelectItem value="ACTIVE">Active</SelectItem>
+                <SelectItem value="DRAFT">Draft</SelectItem>
+              </field.Select>
+            )}
           </form.AppField>
           <form.AppField name="metaTitle">
             {(field) => <field.Input label="Meta Title" />}

@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
       case "universities":
         const universities = await prisma.university.findMany({
           where: {
-            isActive: true,
+            status: "ACTIVE",
             name: { contains: query, mode: "insensitive" },
           },
           select: {
@@ -56,7 +56,7 @@ export async function GET(req: NextRequest) {
       case "courses":
         const courses = await prisma.course.findMany({
           where: {
-            isActive: true,
+            status: "ACTIVE",
             title: { contains: query, mode: "insensitive" },
           },
           select: {
@@ -82,7 +82,7 @@ export async function GET(req: NextRequest) {
       case "scholarships":
         const scholarships = await prisma.scholarship.findMany({
           where: {
-            isActive: true,
+            status: "ACTIVE",
             title: { contains: query, mode: "insensitive" },
           },
           select: {

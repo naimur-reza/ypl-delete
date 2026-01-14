@@ -21,6 +21,15 @@ import TestimonialFormModal from "./add-testimonial-modal";
 import { Testimonial } from "../../../../../prisma/src/generated/prisma/client";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { useConfirmDialog } from "@/hooks/use-confirm-dialog";
+import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+ 
 
 // Interface matching the Prisma Testimonial schema
 
@@ -31,10 +40,16 @@ const TestimonialsPage = () => {
   const [selectedTestimonial, setSelectedTestimonial] = useState<
     Testimonial | undefined
   >();
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+
+  const endpoint = useMemo(
+    () => `/api/testimonials${statusFilter !== "all" ? `?status=${statusFilter}` : ""}`,
+    [statusFilter]
+  );
 
   const { table, isLoading, error, pagination, refetch } =
     useDataTable<Testimonial>({
-      endpoint: "/api/testimonials",
+      endpoint,
       columns: [],
       enableServerSidePagination: true,
       enableServerSideSorting: true,
@@ -125,19 +140,17 @@ const TestimonialsPage = () => {
         ),
       },
       {
-        accessorKey: "isFeatured",
-        header: "Featured",
-        cell: ({ row }) => (
-          <span
-            className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${
-              row.original.isFeatured
-                ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
-                : "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200"
-            }`}
-          >
-            {row.original.isFeatured ? "Yes" : "No"}
-          </span>
-        ),
+        accessorKey: "status",
+        header: "Status",
+        cell: ({ row }) => {
+          const status = (row.original as any).status as string;
+          return (
+            <Badge variant={status === "ACTIVE" ? "default" : "secondary"}>
+              {status || "DRAFT"}
+            </Badge>
+          );
+        },
+        enableSorting: true,
       },
       {
         accessorKey: "createdAt",
@@ -242,10 +255,22 @@ const TestimonialsPage = () => {
         error={error}
         pagination={pagination}
         toolbar={
-          <Button onClick={handleOpenModal}>
-            <Plus className="mr-2 h-4 w-4" />
-            Add Testimonial
-          </Button>
+          <div className="flex items-center gap-2">
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger className="w-[150px]">
+                <SelectValue placeholder="Filter by status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Status</SelectItem>
+                <SelectItem value="ACTIVE">Active</SelectItem>
+                <SelectItem value="DRAFT">Draft</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button onClick={handleOpenModal}>
+              <Plus className="mr-2 h-4 w-4" />
+              Add Testimonial
+            </Button>
+          </div>
         }
       />
     </div>

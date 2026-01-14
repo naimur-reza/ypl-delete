@@ -26,7 +26,7 @@ const lookupCountryByIso = async (
   const normalized = isoCode.toUpperCase();
 
   const match = await prisma.country.findFirst({
-    where: { isoCode: normalized, isActive: true },
+    where: { isoCode: normalized, status: "ACTIVE" },
     select: { slug: true, name: true, isoCode: true },
   });
 

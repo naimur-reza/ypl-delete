@@ -15,6 +15,7 @@ export const fetchRepresentativeVideos = async (
 ): Promise<RepresentativeVideo[]> => {
   const baseQuery = {
     where: {
+      status: "ACTIVE" as any,
       type: "REPRESENTATIVE" as const,
       mediaType: "VIDEO" as const,
       ...(countrySlug
@@ -51,6 +52,7 @@ export const fetchRepresentativeVideos = async (
   return prisma.testimonial.findMany({
     ...baseQuery,
     where: {
+      status: "ACTIVE" as any,
       type: "REPRESENTATIVE" as const,
       mediaType: "VIDEO" as const,
     },

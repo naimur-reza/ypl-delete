@@ -34,6 +34,7 @@ export const fetchUpcomingEvents = async ({
 
   const where: Prisma.EventWhereInput = {
     startDate: { gte: now },
+    status: "ACTIVE",
     ...(featuredOnly ? { isFeatured: true } : {}),
     ...(countrySlug
       ? {
@@ -76,6 +77,7 @@ export const fetchPastEvents = async ({
 
   const where: Prisma.EventWhereInput = {
     startDate: { lt: now },
+    status: "ACTIVE",
     ...(countrySlug
       ? {
           countries: {

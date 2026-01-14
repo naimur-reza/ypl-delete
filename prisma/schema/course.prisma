@@ -9,7 +9,6 @@ model Course {
   currency        String?         @default("USD")
   sections        Json?
   isFeatured      Boolean         @default(false)
-  isActive        Boolean         @default(true)
   metaTitle       String?
   metaDescription String?
   metaKeywords    String?
@@ -23,6 +22,7 @@ model Course {
   summary         String?
   faculty         Faculty?
   studyLevel      StudyLevel?
+  status          ContentStatus   @default(ACTIVE)
   blogLinks       BlogCourse[]
   destination     Destination     @relation(fields: [destinationId], references: [id])
   university      University      @relation(fields: [universityId], references: [id])
@@ -32,8 +32,7 @@ model Course {
   scholarships    Scholarship[]   @relation("CourseToScholarship")
 
   @@index([universityId])
-  @@index([destinationId])
-  @@index([isActive])
+  @@index([status])
   @@index([studyLevel])
   @@index([faculty])
 }
@@ -60,7 +59,6 @@ model IntakePage {
   ctaUrl               String?
   createdAt            DateTime            @default(now())
   updatedAt            DateTime            @updatedAt
-  isActive             Boolean?            @default(true)
   heroCTALabel         String?
   heroCTAUrl           String?
   heroSubtitle         String?
@@ -70,10 +68,11 @@ model IntakePage {
   metaTitle            String?
   whyChooseDescription String?
   whyChooseTitle       String?
+  status               ContentStatus       @default(DRAFT)
   faqs                 FAQIntakePage[]
   destination          Destination         @relation(fields: [destinationId], references: [id])
   intakePageBenefits   IntakePageBenefit[]
 
   @@unique([destinationId, intake])
-  @@index([isActive])
+  @@index([status])
 }

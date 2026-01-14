@@ -53,7 +53,9 @@ const buildBlogWhere = ({
     });
   }
 
-  if (filters.length === 0) return {};
+  // Always filter by ACTIVE status for public queries
+  filters.push({ status: "ACTIVE" });
+
   if (filters.length === 1) return filters[0];
 
   return { AND: filters };
@@ -81,12 +83,12 @@ export const fetchBlogPageData = async ({
 
   const [countries, featuredBlogs, blogs, totalCount, sliderBlogs] = await Promise.all([
     prisma.country.findMany({
-      where: { isActive: true },
+      where: { status: "ACTIVE" },
       select: { id: true, name: true, slug: true },
       orderBy: { name: "asc" },
     }),
     prisma.blog.findMany({
-      where: { ...featuredWhere, isFeatured: true },
+      where: { ...featuredWhere, isFeatured: true, status: "ACTIVE" },
       orderBy: { publishedAt: "desc" },
       take: 3,
       include: {

@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const section = searchParams.get("section");
     const countryId = searchParams.get("countryId");
-    const isActive = searchParams.get("isActive");
+    const status = searchParams.get("status");
     const slideIndex = searchParams.get("slideIndex");
 
     const where: any = {};
@@ -18,8 +18,8 @@ export async function GET(request: NextRequest) {
       where.section = section;
     }
 
-    if (isActive !== null && isActive !== undefined) {
-      where.isActive = isActive === "true";
+    if (status && status !== "all") {
+      where.status = status;
     }
 
     if (slideIndex !== null && slideIndex !== undefined) {
@@ -69,14 +69,15 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const validatedData = statSchema.parse(body);
 
-    const { countryIds, ...statData } = validatedData;
+    const { countryIds, status, ...statData } = validatedData as any;
 
     const stat = await prisma.stat.create({
       data: {
         ...statData,
+        status: status || "ACTIVE",
         countries: countryIds
           ? {
-              create: countryIds.map((countryId) => ({
+              create: countryIds.map((countryId: any) => ({
                 countryId,
               })),
             }

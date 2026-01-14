@@ -103,7 +103,7 @@ export function HeroSlider({
         // Build query params
         const params = new URLSearchParams({
           slug: "home",
-          isActive: "true",
+          status: "ACTIVE",
         });
 
         // If countrySlug exists, first fetch the country ID
@@ -127,7 +127,7 @@ export function HeroSlider({
         // Fetch hero stats
         const statsParams = new URLSearchParams({
           section: "hero",
-          isActive: "true",
+          status: "ACTIVE",
         });
         const statsResponse = await fetch(
           `/api/stats?${statsParams.toString()}`

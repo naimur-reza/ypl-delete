@@ -71,9 +71,9 @@ const StudyAbroadPage = async ({ params }: StudyAbroadPageProps) => {
   });
 
   // Fetch scholarships for the slider
-  // TODO: Add "isActive: true" filter after running prisma db push
   const scholarships = await prisma.scholarship.findMany({
     where: {
+      status: "ACTIVE",
       countries: {
         some: {
           country: {

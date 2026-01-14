@@ -23,7 +23,7 @@ export default async function GalleryPage({ params }: PageProps) {
 
   const gallery = await prisma.gallery.findMany({
     where: {
-      isActive: true,
+      status: "ACTIVE",
       ...(countrySlug && {
         countries: {
           some: {

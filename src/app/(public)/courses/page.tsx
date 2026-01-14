@@ -33,7 +33,7 @@ const CoursesPage = async ({
   const resolvedCountry = await resolveCountryContext(resolvedParams.country);
 
   const where: Prisma.CourseWhereInput = {
-    isActive: true,
+    status: "ACTIVE",
     ...(resolvedCountry.slug
       ? {
           countries: {

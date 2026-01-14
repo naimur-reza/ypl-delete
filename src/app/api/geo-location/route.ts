@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
       // For testing purposes, you can hardcode a country here
       // Uncomment the next 3 lines to test with a specific country
       // const testCountry = await prisma.country.findFirst({
-      //   where: { isoCode: "BD", isActive: true },
+      //   where: { isoCode: "BD", status: "ACTIVE" },
       //   select: { slug: true, name: true, isoCode: true },
       // });
       
@@ -55,7 +55,7 @@ export async function GET(request: NextRequest) {
     const matchedCountry = await prisma.country.findFirst({
       where: {
         isoCode: geo.country,
-        isActive: true,
+        status: "ACTIVE",
       },
       select: {
         slug: true,

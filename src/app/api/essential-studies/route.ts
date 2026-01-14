@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { title, slug, description, content, destinationId, countryIds } = body;
+  const { title, slug, description, content, destinationId, countryIds, status } = body;
   if (!title || !slug || !destinationId) {
     return Response.json(
       { error: "title, slug and destinationId are required" },
@@ -35,6 +35,7 @@ export async function POST(req: NextRequest) {
         description, 
         content, 
         destinationId,
+        status: status || "DRAFT",
         countries: countryIds && countryIds.length > 0 ? {
           create: countryIds.map((countryId: string) => ({
             countryId,

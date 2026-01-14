@@ -127,7 +127,7 @@ export default async function WhyChooseUs({ countrySlug }: WhyChooseUsProps) {
   const stats = await prisma.stat.findMany({
     where: {
       section: "why-choose-us",
-      isActive: true,
+      status: "ACTIVE",
       OR: countrySlug
         ? [
             {

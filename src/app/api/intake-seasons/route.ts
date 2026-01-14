@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
       backgroundImage,
       ctaLabel,
       ctaUrl,
-      isActive,
+      status,
       applicationDeadline,
       intakeStartDate,
       countryIds,
@@ -40,11 +40,11 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // If setting this as active, deactivate all others first
-    if (isActive) {
+    // If setting this as active, deactivate all others first (optional business logic)
+    if (status === "ACTIVE") {
       await prisma.intakeSeason.updateMany({
-        where: { isActive: true },
-        data: { isActive: false },
+        where: { status: "ACTIVE" },
+        data: { status: "DRAFT" },
       });
     }
 
@@ -58,11 +58,11 @@ export async function POST(req: NextRequest) {
         backgroundImage,
         ctaLabel,
         ctaUrl,
-        isActive: isActive || false,
         applicationDeadline: applicationDeadline
           ? new Date(applicationDeadline)
           : null,
         intakeStartDate: intakeStartDate ? new Date(intakeStartDate) : null,
+        status: status || "DRAFT",
         countries: countryIds?.length
           ? {
               create: countryIds.map((countryId: string) => ({ countryId })),
@@ -99,7 +99,7 @@ export async function PUT(req: NextRequest) {
       backgroundImage,
       ctaLabel,
       ctaUrl,
-      isActive,
+      status,
       applicationDeadline,
       intakeStartDate,
       countryIds,
@@ -110,10 +110,10 @@ export async function PUT(req: NextRequest) {
     }
 
     // If setting this as active, deactivate all others first
-    if (isActive) {
+    if (status === "ACTIVE") {
       await prisma.intakeSeason.updateMany({
-        where: { isActive: true, NOT: { id } },
-        data: { isActive: false },
+        where: { status: "ACTIVE", NOT: { id } },
+        data: { status: "DRAFT" },
       });
     }
 
@@ -135,11 +135,11 @@ export async function PUT(req: NextRequest) {
         backgroundImage,
         ctaLabel,
         ctaUrl,
-        isActive,
         applicationDeadline: applicationDeadline
           ? new Date(applicationDeadline)
           : null,
         intakeStartDate: intakeStartDate ? new Date(intakeStartDate) : null,
+        status: status || undefined,
         countries:
           countryIds !== undefined
             ? {

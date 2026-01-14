@@ -5,10 +5,12 @@ model Gallery {
   image       String
   type        GalleryType      @default(VISA_SUCCESS)
   sortOrder   Int?             @default(0)
-  isActive    Boolean          @default(true)
   createdAt   DateTime         @default(now())
   updatedAt   DateTime         @updatedAt
+  status      ContentStatus    @default(DRAFT)
   countries   GalleryCountry[]
+
+  @@index([status])
 }
 
 enum GalleryType {

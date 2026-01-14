@@ -95,7 +95,7 @@ export async function AboutSection() {
   const stats = await prisma.stat.findMany({
     where: {
       section: "about",
-      isActive: true,
+      status: "ACTIVE",
     },
     orderBy: { sortOrder: "asc" },
   });

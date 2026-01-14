@@ -41,15 +41,18 @@ export default async function ScholarshipPage({ params }: PageProps) {
   const resolvedCountry = await resolveCountryContext(resolvedParams.country);
 
   const scholarshipsData = await prisma.scholarship.findMany({
-    where: resolvedCountry.slug
-      ? {
-          countries: {
-            some: {
-              country: { slug: resolvedCountry.slug },
+    where: {
+      status: "ACTIVE",
+      ...(resolvedCountry.slug
+        ? {
+            countries: {
+              some: {
+                country: { slug: resolvedCountry.slug },
+              },
             },
-          },
-        }
-      : {},
+          }
+        : {}),
+    },
     include: {
       destination: {
         select: {

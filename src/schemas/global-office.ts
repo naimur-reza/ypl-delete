@@ -28,6 +28,7 @@ const globalOfficeSchema = z.object({
   image: z.string().optional().nullable(),
   bannerImage: z.string().optional().nullable(),
   openingHours: z.string().optional().nullable(),
+  status: z.enum(["ACTIVE", "DRAFT"]),
   metaTitle: z
     .string()
     .max(200, "Meta title must be less than 200 characters")

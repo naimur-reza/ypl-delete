@@ -34,14 +34,15 @@ export type GlobalOfficeMinAggregateOutputType = {
   address: string | null
   mapUrl: string | null
   content: string | null
-  image: string | null
-  bannerImage: string | null
-  openingHours: string | null
   metaTitle: string | null
   metaDescription: string | null
   metaKeywords: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  bannerImage: string | null
+  image: string | null
+  openingHours: string | null
+  status: $Enums.ContentStatus | null
 }
 
 export type GlobalOfficeMaxAggregateOutputType = {
@@ -54,14 +55,15 @@ export type GlobalOfficeMaxAggregateOutputType = {
   address: string | null
   mapUrl: string | null
   content: string | null
-  image: string | null
-  bannerImage: string | null
-  openingHours: string | null
   metaTitle: string | null
   metaDescription: string | null
   metaKeywords: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  bannerImage: string | null
+  image: string | null
+  openingHours: string | null
+  status: $Enums.ContentStatus | null
 }
 
 export type GlobalOfficeCountAggregateOutputType = {
@@ -74,14 +76,15 @@ export type GlobalOfficeCountAggregateOutputType = {
   address: number
   mapUrl: number
   content: number
-  image: number
-  bannerImage: number
-  openingHours: number
   metaTitle: number
   metaDescription: number
   metaKeywords: number
   createdAt: number
   updatedAt: number
+  bannerImage: number
+  image: number
+  openingHours: number
+  status: number
   _all: number
 }
 
@@ -96,14 +99,15 @@ export type GlobalOfficeMinAggregateInputType = {
   address?: true
   mapUrl?: true
   content?: true
-  image?: true
-  bannerImage?: true
-  openingHours?: true
   metaTitle?: true
   metaDescription?: true
   metaKeywords?: true
   createdAt?: true
   updatedAt?: true
+  bannerImage?: true
+  image?: true
+  openingHours?: true
+  status?: true
 }
 
 export type GlobalOfficeMaxAggregateInputType = {
@@ -116,14 +120,15 @@ export type GlobalOfficeMaxAggregateInputType = {
   address?: true
   mapUrl?: true
   content?: true
-  image?: true
-  bannerImage?: true
-  openingHours?: true
   metaTitle?: true
   metaDescription?: true
   metaKeywords?: true
   createdAt?: true
   updatedAt?: true
+  bannerImage?: true
+  image?: true
+  openingHours?: true
+  status?: true
 }
 
 export type GlobalOfficeCountAggregateInputType = {
@@ -136,14 +141,15 @@ export type GlobalOfficeCountAggregateInputType = {
   address?: true
   mapUrl?: true
   content?: true
-  image?: true
-  bannerImage?: true
-  openingHours?: true
   metaTitle?: true
   metaDescription?: true
   metaKeywords?: true
   createdAt?: true
   updatedAt?: true
+  bannerImage?: true
+  image?: true
+  openingHours?: true
+  status?: true
   _all?: true
 }
 
@@ -229,14 +235,15 @@ export type GlobalOfficeGroupByOutputType = {
   address: string | null
   mapUrl: string | null
   content: string | null
-  image: string | null
-  bannerImage: string | null
-  openingHours: string | null
   metaTitle: string | null
   metaDescription: string | null
   metaKeywords: string | null
   createdAt: Date
   updatedAt: Date
+  bannerImage: string | null
+  image: string | null
+  openingHours: string | null
+  status: $Enums.ContentStatus
   _count: GlobalOfficeCountAggregateOutputType | null
   _min: GlobalOfficeMinAggregateOutputType | null
   _max: GlobalOfficeMaxAggregateOutputType | null
@@ -270,14 +277,15 @@ export type GlobalOfficeWhereInput = {
   address?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   mapUrl?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   content?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
-  image?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
-  bannerImage?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
-  openingHours?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   metaTitle?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   metaDescription?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   metaKeywords?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   createdAt?: Prisma.DateTimeFilter<"GlobalOffice"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"GlobalOffice"> | Date | string
+  bannerImage?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
+  image?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
+  openingHours?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
+  status?: Prisma.EnumContentStatusFilter<"GlobalOffice"> | $Enums.ContentStatus
   countries?: Prisma.GlobalOfficeCountryListRelationFilter
 }
 
@@ -291,14 +299,15 @@ export type GlobalOfficeOrderByWithRelationInput = {
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   mapUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   content?: Prisma.SortOrderInput | Prisma.SortOrder
-  image?: Prisma.SortOrderInput | Prisma.SortOrder
-  bannerImage?: Prisma.SortOrderInput | Prisma.SortOrder
-  openingHours?: Prisma.SortOrderInput | Prisma.SortOrder
   metaTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   metaDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   metaKeywords?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  bannerImage?: Prisma.SortOrderInput | Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
+  openingHours?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
   countries?: Prisma.GlobalOfficeCountryOrderByRelationAggregateInput
 }
 
@@ -315,14 +324,15 @@ export type GlobalOfficeWhereUniqueInput = Prisma.AtLeast<{
   address?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   mapUrl?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   content?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
-  image?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
-  bannerImage?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
-  openingHours?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   metaTitle?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   metaDescription?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   metaKeywords?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   createdAt?: Prisma.DateTimeFilter<"GlobalOffice"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"GlobalOffice"> | Date | string
+  bannerImage?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
+  image?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
+  openingHours?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
+  status?: Prisma.EnumContentStatusFilter<"GlobalOffice"> | $Enums.ContentStatus
   countries?: Prisma.GlobalOfficeCountryListRelationFilter
 }, "id" | "name" | "slug">
 
@@ -336,14 +346,15 @@ export type GlobalOfficeOrderByWithAggregationInput = {
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   mapUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   content?: Prisma.SortOrderInput | Prisma.SortOrder
-  image?: Prisma.SortOrderInput | Prisma.SortOrder
-  bannerImage?: Prisma.SortOrderInput | Prisma.SortOrder
-  openingHours?: Prisma.SortOrderInput | Prisma.SortOrder
   metaTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   metaDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   metaKeywords?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  bannerImage?: Prisma.SortOrderInput | Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
+  openingHours?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
   _count?: Prisma.GlobalOfficeCountOrderByAggregateInput
   _max?: Prisma.GlobalOfficeMaxOrderByAggregateInput
   _min?: Prisma.GlobalOfficeMinOrderByAggregateInput
@@ -362,14 +373,15 @@ export type GlobalOfficeScalarWhereWithAggregatesInput = {
   address?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
   mapUrl?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
   content?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
-  image?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
-  bannerImage?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
-  openingHours?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
   metaTitle?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
   metaDescription?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
   metaKeywords?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"GlobalOffice"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"GlobalOffice"> | Date | string
+  bannerImage?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
+  image?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
+  openingHours?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
+  status?: Prisma.EnumContentStatusWithAggregatesFilter<"GlobalOffice"> | $Enums.ContentStatus
 }
 
 export type GlobalOfficeCreateInput = {
@@ -382,14 +394,15 @@ export type GlobalOfficeCreateInput = {
   address?: string | null
   mapUrl?: string | null
   content?: string | null
-  image?: string | null
-  bannerImage?: string | null
-  openingHours?: string | null
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  bannerImage?: string | null
+  image?: string | null
+  openingHours?: string | null
+  status?: $Enums.ContentStatus
   countries?: Prisma.GlobalOfficeCountryCreateNestedManyWithoutGlobalOfficeInput
 }
 
@@ -403,14 +416,15 @@ export type GlobalOfficeUncheckedCreateInput = {
   address?: string | null
   mapUrl?: string | null
   content?: string | null
-  image?: string | null
-  bannerImage?: string | null
-  openingHours?: string | null
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  bannerImage?: string | null
+  image?: string | null
+  openingHours?: string | null
+  status?: $Enums.ContentStatus
   countries?: Prisma.GlobalOfficeCountryUncheckedCreateNestedManyWithoutGlobalOfficeInput
 }
 
@@ -424,14 +438,15 @@ export type GlobalOfficeUpdateInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mapUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  openingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.GlobalOfficeCountryUpdateManyWithoutGlobalOfficeNestedInput
 }
 
@@ -445,14 +460,15 @@ export type GlobalOfficeUncheckedUpdateInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mapUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  openingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.GlobalOfficeCountryUncheckedUpdateManyWithoutGlobalOfficeNestedInput
 }
 
@@ -466,14 +482,15 @@ export type GlobalOfficeCreateManyInput = {
   address?: string | null
   mapUrl?: string | null
   content?: string | null
-  image?: string | null
-  bannerImage?: string | null
-  openingHours?: string | null
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  bannerImage?: string | null
+  image?: string | null
+  openingHours?: string | null
+  status?: $Enums.ContentStatus
 }
 
 export type GlobalOfficeUpdateManyMutationInput = {
@@ -486,14 +503,15 @@ export type GlobalOfficeUpdateManyMutationInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mapUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  openingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type GlobalOfficeUncheckedUpdateManyInput = {
@@ -506,14 +524,15 @@ export type GlobalOfficeUncheckedUpdateManyInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mapUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  openingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type GlobalOfficeCountOrderByAggregateInput = {
@@ -526,14 +545,15 @@ export type GlobalOfficeCountOrderByAggregateInput = {
   address?: Prisma.SortOrder
   mapUrl?: Prisma.SortOrder
   content?: Prisma.SortOrder
-  image?: Prisma.SortOrder
-  bannerImage?: Prisma.SortOrder
-  openingHours?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrder
   metaDescription?: Prisma.SortOrder
   metaKeywords?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  bannerImage?: Prisma.SortOrder
+  image?: Prisma.SortOrder
+  openingHours?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type GlobalOfficeMaxOrderByAggregateInput = {
@@ -546,14 +566,15 @@ export type GlobalOfficeMaxOrderByAggregateInput = {
   address?: Prisma.SortOrder
   mapUrl?: Prisma.SortOrder
   content?: Prisma.SortOrder
-  image?: Prisma.SortOrder
-  bannerImage?: Prisma.SortOrder
-  openingHours?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrder
   metaDescription?: Prisma.SortOrder
   metaKeywords?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  bannerImage?: Prisma.SortOrder
+  image?: Prisma.SortOrder
+  openingHours?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type GlobalOfficeMinOrderByAggregateInput = {
@@ -566,14 +587,15 @@ export type GlobalOfficeMinOrderByAggregateInput = {
   address?: Prisma.SortOrder
   mapUrl?: Prisma.SortOrder
   content?: Prisma.SortOrder
-  image?: Prisma.SortOrder
-  bannerImage?: Prisma.SortOrder
-  openingHours?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrder
   metaDescription?: Prisma.SortOrder
   metaKeywords?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  bannerImage?: Prisma.SortOrder
+  image?: Prisma.SortOrder
+  openingHours?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type GlobalOfficeScalarRelationFilter = {
@@ -605,14 +627,15 @@ export type GlobalOfficeCreateWithoutCountriesInput = {
   address?: string | null
   mapUrl?: string | null
   content?: string | null
-  image?: string | null
-  bannerImage?: string | null
-  openingHours?: string | null
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  bannerImage?: string | null
+  image?: string | null
+  openingHours?: string | null
+  status?: $Enums.ContentStatus
 }
 
 export type GlobalOfficeUncheckedCreateWithoutCountriesInput = {
@@ -625,14 +648,15 @@ export type GlobalOfficeUncheckedCreateWithoutCountriesInput = {
   address?: string | null
   mapUrl?: string | null
   content?: string | null
-  image?: string | null
-  bannerImage?: string | null
-  openingHours?: string | null
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  bannerImage?: string | null
+  image?: string | null
+  openingHours?: string | null
+  status?: $Enums.ContentStatus
 }
 
 export type GlobalOfficeCreateOrConnectWithoutCountriesInput = {
@@ -661,14 +685,15 @@ export type GlobalOfficeUpdateWithoutCountriesInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mapUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  openingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type GlobalOfficeUncheckedUpdateWithoutCountriesInput = {
@@ -681,14 +706,15 @@ export type GlobalOfficeUncheckedUpdateWithoutCountriesInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mapUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  openingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 
@@ -732,14 +758,15 @@ export type GlobalOfficeSelect<ExtArgs extends runtime.Types.Extensions.Internal
   address?: boolean
   mapUrl?: boolean
   content?: boolean
-  image?: boolean
-  bannerImage?: boolean
-  openingHours?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  bannerImage?: boolean
+  image?: boolean
+  openingHours?: boolean
+  status?: boolean
   countries?: boolean | Prisma.GlobalOffice$countriesArgs<ExtArgs>
   _count?: boolean | Prisma.GlobalOfficeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["globalOffice"]>
@@ -754,14 +781,15 @@ export type GlobalOfficeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   address?: boolean
   mapUrl?: boolean
   content?: boolean
-  image?: boolean
-  bannerImage?: boolean
-  openingHours?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  bannerImage?: boolean
+  image?: boolean
+  openingHours?: boolean
+  status?: boolean
 }, ExtArgs["result"]["globalOffice"]>
 
 export type GlobalOfficeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -774,14 +802,15 @@ export type GlobalOfficeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   address?: boolean
   mapUrl?: boolean
   content?: boolean
-  image?: boolean
-  bannerImage?: boolean
-  openingHours?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  bannerImage?: boolean
+  image?: boolean
+  openingHours?: boolean
+  status?: boolean
 }, ExtArgs["result"]["globalOffice"]>
 
 export type GlobalOfficeSelectScalar = {
@@ -794,17 +823,18 @@ export type GlobalOfficeSelectScalar = {
   address?: boolean
   mapUrl?: boolean
   content?: boolean
-  image?: boolean
-  bannerImage?: boolean
-  openingHours?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  bannerImage?: boolean
+  image?: boolean
+  openingHours?: boolean
+  status?: boolean
 }
 
-export type GlobalOfficeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "subtitle" | "slug" | "email" | "phone" | "address" | "mapUrl" | "content" | "image" | "bannerImage" | "openingHours" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt", ExtArgs["result"]["globalOffice"]>
+export type GlobalOfficeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "subtitle" | "slug" | "email" | "phone" | "address" | "mapUrl" | "content" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "bannerImage" | "image" | "openingHours" | "status", ExtArgs["result"]["globalOffice"]>
 export type GlobalOfficeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   countries?: boolean | Prisma.GlobalOffice$countriesArgs<ExtArgs>
   _count?: boolean | Prisma.GlobalOfficeCountOutputTypeDefaultArgs<ExtArgs>
@@ -827,14 +857,15 @@ export type $GlobalOfficePayload<ExtArgs extends runtime.Types.Extensions.Intern
     address: string | null
     mapUrl: string | null
     content: string | null
-    image: string | null
-    bannerImage: string | null
-    openingHours: string | null
     metaTitle: string | null
     metaDescription: string | null
     metaKeywords: string | null
     createdAt: Date
     updatedAt: Date
+    bannerImage: string | null
+    image: string | null
+    openingHours: string | null
+    status: $Enums.ContentStatus
   }, ExtArgs["result"]["globalOffice"]>
   composites: {}
 }
@@ -1268,14 +1299,15 @@ export interface GlobalOfficeFieldRefs {
   readonly address: Prisma.FieldRef<"GlobalOffice", 'String'>
   readonly mapUrl: Prisma.FieldRef<"GlobalOffice", 'String'>
   readonly content: Prisma.FieldRef<"GlobalOffice", 'String'>
-  readonly image: Prisma.FieldRef<"GlobalOffice", 'String'>
-  readonly bannerImage: Prisma.FieldRef<"GlobalOffice", 'String'>
-  readonly openingHours: Prisma.FieldRef<"GlobalOffice", 'String'>
   readonly metaTitle: Prisma.FieldRef<"GlobalOffice", 'String'>
   readonly metaDescription: Prisma.FieldRef<"GlobalOffice", 'String'>
   readonly metaKeywords: Prisma.FieldRef<"GlobalOffice", 'String'>
   readonly createdAt: Prisma.FieldRef<"GlobalOffice", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"GlobalOffice", 'DateTime'>
+  readonly bannerImage: Prisma.FieldRef<"GlobalOffice", 'String'>
+  readonly image: Prisma.FieldRef<"GlobalOffice", 'String'>
+  readonly openingHours: Prisma.FieldRef<"GlobalOffice", 'String'>
+  readonly status: Prisma.FieldRef<"GlobalOffice", 'ContentStatus'>
 }
     
 

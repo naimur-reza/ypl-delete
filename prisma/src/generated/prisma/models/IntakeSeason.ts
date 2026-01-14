@@ -44,11 +44,11 @@ export type IntakeSeasonMinAggregateOutputType = {
   backgroundImage: string | null
   ctaLabel: string | null
   ctaUrl: string | null
-  isActive: boolean | null
   applicationDeadline: Date | null
   intakeStartDate: Date | null
   createdAt: Date | null
   updatedAt: Date | null
+  status: $Enums.ContentStatus | null
 }
 
 export type IntakeSeasonMaxAggregateOutputType = {
@@ -61,11 +61,11 @@ export type IntakeSeasonMaxAggregateOutputType = {
   backgroundImage: string | null
   ctaLabel: string | null
   ctaUrl: string | null
-  isActive: boolean | null
   applicationDeadline: Date | null
   intakeStartDate: Date | null
   createdAt: Date | null
   updatedAt: Date | null
+  status: $Enums.ContentStatus | null
 }
 
 export type IntakeSeasonCountAggregateOutputType = {
@@ -78,11 +78,11 @@ export type IntakeSeasonCountAggregateOutputType = {
   backgroundImage: number
   ctaLabel: number
   ctaUrl: number
-  isActive: number
   applicationDeadline: number
   intakeStartDate: number
   createdAt: number
   updatedAt: number
+  status: number
   _all: number
 }
 
@@ -105,11 +105,11 @@ export type IntakeSeasonMinAggregateInputType = {
   backgroundImage?: true
   ctaLabel?: true
   ctaUrl?: true
-  isActive?: true
   applicationDeadline?: true
   intakeStartDate?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
 }
 
 export type IntakeSeasonMaxAggregateInputType = {
@@ -122,11 +122,11 @@ export type IntakeSeasonMaxAggregateInputType = {
   backgroundImage?: true
   ctaLabel?: true
   ctaUrl?: true
-  isActive?: true
   applicationDeadline?: true
   intakeStartDate?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
 }
 
 export type IntakeSeasonCountAggregateInputType = {
@@ -139,11 +139,11 @@ export type IntakeSeasonCountAggregateInputType = {
   backgroundImage?: true
   ctaLabel?: true
   ctaUrl?: true
-  isActive?: true
   applicationDeadline?: true
   intakeStartDate?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
   _all?: true
 }
 
@@ -243,11 +243,11 @@ export type IntakeSeasonGroupByOutputType = {
   backgroundImage: string | null
   ctaLabel: string | null
   ctaUrl: string | null
-  isActive: boolean
   applicationDeadline: Date | null
   intakeStartDate: Date | null
   createdAt: Date
   updatedAt: Date
+  status: $Enums.ContentStatus
   _count: IntakeSeasonCountAggregateOutputType | null
   _avg: IntakeSeasonAvgAggregateOutputType | null
   _sum: IntakeSeasonSumAggregateOutputType | null
@@ -283,11 +283,11 @@ export type IntakeSeasonWhereInput = {
   backgroundImage?: Prisma.StringNullableFilter<"IntakeSeason"> | string | null
   ctaLabel?: Prisma.StringNullableFilter<"IntakeSeason"> | string | null
   ctaUrl?: Prisma.StringNullableFilter<"IntakeSeason"> | string | null
-  isActive?: Prisma.BoolFilter<"IntakeSeason"> | boolean
   applicationDeadline?: Prisma.DateTimeNullableFilter<"IntakeSeason"> | Date | string | null
   intakeStartDate?: Prisma.DateTimeNullableFilter<"IntakeSeason"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"IntakeSeason"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"IntakeSeason"> | Date | string
+  status?: Prisma.EnumContentStatusFilter<"IntakeSeason"> | $Enums.ContentStatus
   countries?: Prisma.IntakeSeasonCountryListRelationFilter
 }
 
@@ -301,11 +301,11 @@ export type IntakeSeasonOrderByWithRelationInput = {
   backgroundImage?: Prisma.SortOrderInput | Prisma.SortOrder
   ctaLabel?: Prisma.SortOrderInput | Prisma.SortOrder
   ctaUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   applicationDeadline?: Prisma.SortOrderInput | Prisma.SortOrder
   intakeStartDate?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   countries?: Prisma.IntakeSeasonCountryOrderByRelationAggregateInput
 }
 
@@ -322,11 +322,11 @@ export type IntakeSeasonWhereUniqueInput = Prisma.AtLeast<{
   backgroundImage?: Prisma.StringNullableFilter<"IntakeSeason"> | string | null
   ctaLabel?: Prisma.StringNullableFilter<"IntakeSeason"> | string | null
   ctaUrl?: Prisma.StringNullableFilter<"IntakeSeason"> | string | null
-  isActive?: Prisma.BoolFilter<"IntakeSeason"> | boolean
   applicationDeadline?: Prisma.DateTimeNullableFilter<"IntakeSeason"> | Date | string | null
   intakeStartDate?: Prisma.DateTimeNullableFilter<"IntakeSeason"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"IntakeSeason"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"IntakeSeason"> | Date | string
+  status?: Prisma.EnumContentStatusFilter<"IntakeSeason"> | $Enums.ContentStatus
   countries?: Prisma.IntakeSeasonCountryListRelationFilter
 }, "id">
 
@@ -340,11 +340,11 @@ export type IntakeSeasonOrderByWithAggregationInput = {
   backgroundImage?: Prisma.SortOrderInput | Prisma.SortOrder
   ctaLabel?: Prisma.SortOrderInput | Prisma.SortOrder
   ctaUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   applicationDeadline?: Prisma.SortOrderInput | Prisma.SortOrder
   intakeStartDate?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   _count?: Prisma.IntakeSeasonCountOrderByAggregateInput
   _avg?: Prisma.IntakeSeasonAvgOrderByAggregateInput
   _max?: Prisma.IntakeSeasonMaxOrderByAggregateInput
@@ -365,11 +365,11 @@ export type IntakeSeasonScalarWhereWithAggregatesInput = {
   backgroundImage?: Prisma.StringNullableWithAggregatesFilter<"IntakeSeason"> | string | null
   ctaLabel?: Prisma.StringNullableWithAggregatesFilter<"IntakeSeason"> | string | null
   ctaUrl?: Prisma.StringNullableWithAggregatesFilter<"IntakeSeason"> | string | null
-  isActive?: Prisma.BoolWithAggregatesFilter<"IntakeSeason"> | boolean
   applicationDeadline?: Prisma.DateTimeNullableWithAggregatesFilter<"IntakeSeason"> | Date | string | null
   intakeStartDate?: Prisma.DateTimeNullableWithAggregatesFilter<"IntakeSeason"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"IntakeSeason"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"IntakeSeason"> | Date | string
+  status?: Prisma.EnumContentStatusWithAggregatesFilter<"IntakeSeason"> | $Enums.ContentStatus
 }
 
 export type IntakeSeasonCreateInput = {
@@ -382,11 +382,11 @@ export type IntakeSeasonCreateInput = {
   backgroundImage?: string | null
   ctaLabel?: string | null
   ctaUrl?: string | null
-  isActive?: boolean
   applicationDeadline?: Date | string | null
   intakeStartDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   countries?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutIntakeSeasonInput
 }
 
@@ -400,11 +400,11 @@ export type IntakeSeasonUncheckedCreateInput = {
   backgroundImage?: string | null
   ctaLabel?: string | null
   ctaUrl?: string | null
-  isActive?: boolean
   applicationDeadline?: Date | string | null
   intakeStartDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   countries?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutIntakeSeasonInput
 }
 
@@ -418,11 +418,11 @@ export type IntakeSeasonUpdateInput = {
   backgroundImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   intakeStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.IntakeSeasonCountryUpdateManyWithoutIntakeSeasonNestedInput
 }
 
@@ -436,11 +436,11 @@ export type IntakeSeasonUncheckedUpdateInput = {
   backgroundImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   intakeStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutIntakeSeasonNestedInput
 }
 
@@ -454,11 +454,11 @@ export type IntakeSeasonCreateManyInput = {
   backgroundImage?: string | null
   ctaLabel?: string | null
   ctaUrl?: string | null
-  isActive?: boolean
   applicationDeadline?: Date | string | null
   intakeStartDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
 }
 
 export type IntakeSeasonUpdateManyMutationInput = {
@@ -471,11 +471,11 @@ export type IntakeSeasonUpdateManyMutationInput = {
   backgroundImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   intakeStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type IntakeSeasonUncheckedUpdateManyInput = {
@@ -488,11 +488,11 @@ export type IntakeSeasonUncheckedUpdateManyInput = {
   backgroundImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   intakeStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type IntakeSeasonCountOrderByAggregateInput = {
@@ -505,11 +505,11 @@ export type IntakeSeasonCountOrderByAggregateInput = {
   backgroundImage?: Prisma.SortOrder
   ctaLabel?: Prisma.SortOrder
   ctaUrl?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   applicationDeadline?: Prisma.SortOrder
   intakeStartDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type IntakeSeasonAvgOrderByAggregateInput = {
@@ -526,11 +526,11 @@ export type IntakeSeasonMaxOrderByAggregateInput = {
   backgroundImage?: Prisma.SortOrder
   ctaLabel?: Prisma.SortOrder
   ctaUrl?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   applicationDeadline?: Prisma.SortOrder
   intakeStartDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type IntakeSeasonMinOrderByAggregateInput = {
@@ -543,11 +543,11 @@ export type IntakeSeasonMinOrderByAggregateInput = {
   backgroundImage?: Prisma.SortOrder
   ctaLabel?: Prisma.SortOrder
   ctaUrl?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   applicationDeadline?: Prisma.SortOrder
   intakeStartDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type IntakeSeasonSumOrderByAggregateInput = {
@@ -583,11 +583,11 @@ export type IntakeSeasonCreateWithoutCountriesInput = {
   backgroundImage?: string | null
   ctaLabel?: string | null
   ctaUrl?: string | null
-  isActive?: boolean
   applicationDeadline?: Date | string | null
   intakeStartDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
 }
 
 export type IntakeSeasonUncheckedCreateWithoutCountriesInput = {
@@ -600,11 +600,11 @@ export type IntakeSeasonUncheckedCreateWithoutCountriesInput = {
   backgroundImage?: string | null
   ctaLabel?: string | null
   ctaUrl?: string | null
-  isActive?: boolean
   applicationDeadline?: Date | string | null
   intakeStartDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
 }
 
 export type IntakeSeasonCreateOrConnectWithoutCountriesInput = {
@@ -633,11 +633,11 @@ export type IntakeSeasonUpdateWithoutCountriesInput = {
   backgroundImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   intakeStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type IntakeSeasonUncheckedUpdateWithoutCountriesInput = {
@@ -650,11 +650,11 @@ export type IntakeSeasonUncheckedUpdateWithoutCountriesInput = {
   backgroundImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   intakeStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 
@@ -698,11 +698,11 @@ export type IntakeSeasonSelect<ExtArgs extends runtime.Types.Extensions.Internal
   backgroundImage?: boolean
   ctaLabel?: boolean
   ctaUrl?: boolean
-  isActive?: boolean
   applicationDeadline?: boolean
   intakeStartDate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
   countries?: boolean | Prisma.IntakeSeason$countriesArgs<ExtArgs>
   _count?: boolean | Prisma.IntakeSeasonCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["intakeSeason"]>
@@ -717,11 +717,11 @@ export type IntakeSeasonSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   backgroundImage?: boolean
   ctaLabel?: boolean
   ctaUrl?: boolean
-  isActive?: boolean
   applicationDeadline?: boolean
   intakeStartDate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
 }, ExtArgs["result"]["intakeSeason"]>
 
 export type IntakeSeasonSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -734,11 +734,11 @@ export type IntakeSeasonSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   backgroundImage?: boolean
   ctaLabel?: boolean
   ctaUrl?: boolean
-  isActive?: boolean
   applicationDeadline?: boolean
   intakeStartDate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
 }, ExtArgs["result"]["intakeSeason"]>
 
 export type IntakeSeasonSelectScalar = {
@@ -751,14 +751,14 @@ export type IntakeSeasonSelectScalar = {
   backgroundImage?: boolean
   ctaLabel?: boolean
   ctaUrl?: boolean
-  isActive?: boolean
   applicationDeadline?: boolean
   intakeStartDate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
 }
 
-export type IntakeSeasonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "subtitle" | "description" | "intake" | "year" | "backgroundImage" | "ctaLabel" | "ctaUrl" | "isActive" | "applicationDeadline" | "intakeStartDate" | "createdAt" | "updatedAt", ExtArgs["result"]["intakeSeason"]>
+export type IntakeSeasonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "subtitle" | "description" | "intake" | "year" | "backgroundImage" | "ctaLabel" | "ctaUrl" | "applicationDeadline" | "intakeStartDate" | "createdAt" | "updatedAt" | "status", ExtArgs["result"]["intakeSeason"]>
 export type IntakeSeasonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   countries?: boolean | Prisma.IntakeSeason$countriesArgs<ExtArgs>
   _count?: boolean | Prisma.IntakeSeasonCountOutputTypeDefaultArgs<ExtArgs>
@@ -781,11 +781,11 @@ export type $IntakeSeasonPayload<ExtArgs extends runtime.Types.Extensions.Intern
     backgroundImage: string | null
     ctaLabel: string | null
     ctaUrl: string | null
-    isActive: boolean
     applicationDeadline: Date | null
     intakeStartDate: Date | null
     createdAt: Date
     updatedAt: Date
+    status: $Enums.ContentStatus
   }, ExtArgs["result"]["intakeSeason"]>
   composites: {}
 }
@@ -1219,11 +1219,11 @@ export interface IntakeSeasonFieldRefs {
   readonly backgroundImage: Prisma.FieldRef<"IntakeSeason", 'String'>
   readonly ctaLabel: Prisma.FieldRef<"IntakeSeason", 'String'>
   readonly ctaUrl: Prisma.FieldRef<"IntakeSeason", 'String'>
-  readonly isActive: Prisma.FieldRef<"IntakeSeason", 'Boolean'>
   readonly applicationDeadline: Prisma.FieldRef<"IntakeSeason", 'DateTime'>
   readonly intakeStartDate: Prisma.FieldRef<"IntakeSeason", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"IntakeSeason", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"IntakeSeason", 'DateTime'>
+  readonly status: Prisma.FieldRef<"IntakeSeason", 'ContentStatus'>
 }
     
 

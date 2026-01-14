@@ -8,7 +8,8 @@ export const heroSchema = z.object({
   backgroundType: z.enum(["IMAGE", "VIDEO", "YOUTUBE"]).default("IMAGE"),
   backgroundUrl: z.string().url("Must be a valid URL"),
   slug: z.string().min(1, "Slug is required"),
-  isActive: z.boolean().default(true),
+  // isActive removed in favor of status
+  status: z.enum(["ACTIVE", "DRAFT"]).default("ACTIVE"),
   order: z.number().int().min(0).default(0),
   countryIds: z.array(z.string()).optional(),
 });

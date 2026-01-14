@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useMemo } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal, Plus, Pencil, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,15 @@ import { createEntityApi } from "@/lib/api-client";
 import { Badge } from "@/components/ui/badge";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { useConfirmDialog } from "@/hooks/use-confirm-dialog";
-import UniversityFormModal from "./add-university-modal";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { University } from "../../../../../prisma/src/generated/prisma/browser";
 
 const universityApi = createEntityApi<University>("/api/universities");
@@ -30,15 +38,17 @@ type UniversityWithRelations = University & {
 };
 
 const UniversitiesPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [selectedUniversity, setSelectedUniversity] = useState<
-    UniversityWithRelations | undefined
-  >();
+  const router = useRouter();
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+
+  const endpoint = useMemo(
+    () => `/api/universities${statusFilter !== "all" ? `?status=${statusFilter}` : ""}`,
+    [statusFilter]
+  );
 
   const { table, isLoading, error, pagination, refetch } =
     useDataTable<UniversityWithRelations>({
-      endpoint: "/api/universities",
+      endpoint,
       columns: [],
       enableServerSidePagination: true,
       enableServerSideSorting: true,
@@ -62,17 +72,7 @@ const UniversitiesPage = () => {
     },
   });
 
-  const handleOpenModal = () => {
-    setIsEditing(false);
-    setSelectedUniversity(undefined);
-    setIsModalOpen(true);
-  };
 
-  const handleCloseModal = useCallback(() => {
-    setIsModalOpen(false);
-    setIsEditing(false);
-    setSelectedUniversity(undefined);
-  }, []);
 
   const columns: ColumnDef<UniversityWithRelations>[] = useMemo(
     () => [
@@ -103,14 +103,17 @@ const UniversitiesPage = () => {
         cell: ({ row }) => row.original.destination?.name || "-",
       },
       {
-        accessorKey: "isActive",
+        accessorKey: "status",
         header: "Status",
+        cell: ({ row }) => {
+          const status = (row.original as any).status as string;
+          return (
+            <Badge variant={status === "ACTIVE" ? "default" : "secondary"}>
+              {status || "DRAFT"}
+            </Badge>
+          );
+        },
         enableSorting: true,
-        cell: ({ row }) => (
-          <Badge variant={row.original.isActive ? "default" : "secondary"}>
-            {row.original.isActive ? "Active" : "Inactive"}
-          </Badge>
-        ),
       },
       {
         accessorKey: "createdAt",
@@ -135,9 +138,7 @@ const UniversitiesPage = () => {
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={() => {
-                  setIsEditing(true);
-                  setSelectedUniversity(row.original);
-                  setIsModalOpen(true);
+                  router.push(`/dashboard/universities/${row.original.id}/edit`);
                 }}
               >
                 <Pencil className="mr-2 h-4 w-4" />
@@ -155,7 +156,7 @@ const UniversitiesPage = () => {
         ),
       },
     ],
-    [deleteDialog]
+    [deleteDialog, router]
   );
 
   // Update table columns when they change
@@ -172,14 +173,7 @@ const UniversitiesPage = () => {
         </p>
       </div>
 
-      {isModalOpen && (
-        <UniversityFormModal
-          isEditing={isEditing}
-          selectedUniversity={selectedUniversity}
-          onClose={handleCloseModal}
-          onSuccess={refetch}
-        />
-      )}
+
 
       <ConfirmDialog
         open={deleteDialog.isOpen}
@@ -201,10 +195,22 @@ const UniversitiesPage = () => {
         error={error}
         pagination={pagination}
         toolbar={
-          <Button onClick={handleOpenModal}>
-            <Plus className="mr-2 h-4 w-4" />
-            Add University
-          </Button>
+          <div className="flex items-center gap-2">
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger className="w-[150px]">
+                <SelectValue placeholder="Filter by status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Status</SelectItem>
+                <SelectItem value="ACTIVE">Active</SelectItem>
+                <SelectItem value="DRAFT">Draft</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button onClick={() => router.push("/dashboard/universities/new")}>
+              <Plus className="mr-2 h-4 w-4" />
+              Add University
+            </Button>
+          </div>
         }
       />
     </div>

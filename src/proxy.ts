@@ -20,7 +20,7 @@ async function getActiveCountrySlugs(): Promise<Set<string>> {
   try {
     // Fetch from database
     const countries = await prisma.country.findMany({
-      where: { isActive: true },
+      where: { status: "ACTIVE" },
       select: { slug: true },
     });
 

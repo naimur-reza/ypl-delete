@@ -33,7 +33,6 @@ export async function POST(req: NextRequest) {
     description,
     providerType,
     isFeatured,
-    isActive,
     website,
     address,
     phone,
@@ -43,6 +42,7 @@ export async function POST(req: NextRequest) {
     metaTitle,
     metaDescription,
     metaKeywords,
+    status,
   } = body;
 
   if (!name || !slug || !destinationId || !countryIds.length) {
@@ -61,7 +61,6 @@ export async function POST(req: NextRequest) {
       description,
       providerType: providerType || "PRIVATE",
       isFeatured: isFeatured || false,
-      isActive: isActive !== undefined ? isActive : true,
       website,
       address,
       phone,
@@ -70,6 +69,7 @@ export async function POST(req: NextRequest) {
       metaTitle,
       metaDescription,
       metaKeywords,
+      status: status || "DRAFT",
       countries: countryIds?.length
         ? {
             create: (countryIds as string[]).map((cid) => ({ countryId: cid })),

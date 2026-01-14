@@ -24,7 +24,7 @@ const formSchema = z.object({
   slug: z.string().min(1, "Slug is required"),
   image: z.string().optional().nullable(),
   displayOrder: z.coerce.number().int().min(0),
-  isActive: z.boolean(),
+  status: z.enum(["ACTIVE", "DRAFT"]),
   destinationId: z.string().min(1, "Destination is required"),
 });
 
@@ -47,7 +47,7 @@ interface DestinationSectionData {
   image?: string | null;
   content?: string | null;
   displayOrder: number;
-  isActive: boolean;
+  status: "ACTIVE" | "DRAFT";
   destinationId: string;
 }
 
@@ -100,9 +100,10 @@ const DestinationSectionFormModal = ({
       destinationId: selected?.destinationId || "",
       image: selected?.image || "",
       displayOrder: selected?.displayOrder ?? 0,
-      isActive: selected?.isActive ?? true,
+
+      status: selected?.status || "DRAFT",
     } as FormData,
-    validators: { onSubmit: formSchema },
+    validators: { onSubmit: formSchema as any},
     onSubmit: async ({ value }) => {
       setIsSubmitting(true);
       try {
@@ -111,6 +112,7 @@ const DestinationSectionFormModal = ({
           ...value,
           image: value.image || null,
           content: content || null,
+          status: value.status || "DRAFT",
         };
 
         if (isEditing && selected?.id) {
@@ -156,7 +158,7 @@ const DestinationSectionFormModal = ({
       form.setFieldValue("destinationId", selected.destinationId || "");
       form.setFieldValue("image", selected.image || "");
       form.setFieldValue("displayOrder", selected.displayOrder ?? 0);
-      form.setFieldValue("isActive", selected.isActive ?? true);
+      form.setFieldValue("status", selected.status || "DRAFT");
       setContent(selected.content || "");
     } else {
       form.reset();
@@ -199,6 +201,14 @@ const DestinationSectionFormModal = ({
               </field.Select>
             )}
           </form.AppField>
+          <form.AppField name="status">
+            {(field) => (
+              <field.Select label="Status">
+                <SelectItem value="ACTIVE">Active</SelectItem>
+                <SelectItem value="DRAFT">Draft</SelectItem>
+              </field.Select>
+            )}
+          </form.AppField>
 
           <form.AppField name="title">
             {(field) => (
@@ -220,10 +230,7 @@ const DestinationSectionFormModal = ({
 
           <form.AppField name="slug">
             {(field) => (
-              <FormBase
-                label="Slug"
-                description="Auto-generated from title. You can edit if needed."
-              >
+              <FormBase label="Slug">
                 <Input
                   id={field.name}
                   name={field.name}
@@ -234,7 +241,7 @@ const DestinationSectionFormModal = ({
                     handleSlugChange(slugValue);
                   }}
                   onBlur={field.handleBlur}
-                  placeholder="e.g., section-title"
+         
                 />
               </FormBase>
             )}
@@ -277,10 +284,6 @@ const DestinationSectionFormModal = ({
                   />
                 </div>
               )}
-            </form.AppField>
-
-            <form.AppField name="isActive">
-              {(field) => <field.Checkbox label="Active" />}
             </form.AppField>
           </div>
 

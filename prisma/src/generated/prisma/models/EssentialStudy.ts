@@ -33,6 +33,7 @@ export type EssentialStudyMinAggregateOutputType = {
   destinationId: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  status: $Enums.ContentStatus | null
 }
 
 export type EssentialStudyMaxAggregateOutputType = {
@@ -44,6 +45,7 @@ export type EssentialStudyMaxAggregateOutputType = {
   destinationId: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  status: $Enums.ContentStatus | null
 }
 
 export type EssentialStudyCountAggregateOutputType = {
@@ -55,6 +57,7 @@ export type EssentialStudyCountAggregateOutputType = {
   destinationId: number
   createdAt: number
   updatedAt: number
+  status: number
   _all: number
 }
 
@@ -68,6 +71,7 @@ export type EssentialStudyMinAggregateInputType = {
   destinationId?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
 }
 
 export type EssentialStudyMaxAggregateInputType = {
@@ -79,6 +83,7 @@ export type EssentialStudyMaxAggregateInputType = {
   destinationId?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
 }
 
 export type EssentialStudyCountAggregateInputType = {
@@ -90,6 +95,7 @@ export type EssentialStudyCountAggregateInputType = {
   destinationId?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
   _all?: true
 }
 
@@ -174,6 +180,7 @@ export type EssentialStudyGroupByOutputType = {
   destinationId: string
   createdAt: Date
   updatedAt: Date
+  status: $Enums.ContentStatus
   _count: EssentialStudyCountAggregateOutputType | null
   _min: EssentialStudyMinAggregateOutputType | null
   _max: EssentialStudyMaxAggregateOutputType | null
@@ -206,6 +213,7 @@ export type EssentialStudyWhereInput = {
   destinationId?: Prisma.StringFilter<"EssentialStudy"> | string
   createdAt?: Prisma.DateTimeFilter<"EssentialStudy"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EssentialStudy"> | Date | string
+  status?: Prisma.EnumContentStatusFilter<"EssentialStudy"> | $Enums.ContentStatus
   destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
   countries?: Prisma.EssentialStudyCountryListRelationFilter
 }
@@ -219,6 +227,7 @@ export type EssentialStudyOrderByWithRelationInput = {
   destinationId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   destination?: Prisma.DestinationOrderByWithRelationInput
   countries?: Prisma.EssentialStudyCountryOrderByRelationAggregateInput
 }
@@ -235,6 +244,7 @@ export type EssentialStudyWhereUniqueInput = Prisma.AtLeast<{
   destinationId?: Prisma.StringFilter<"EssentialStudy"> | string
   createdAt?: Prisma.DateTimeFilter<"EssentialStudy"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EssentialStudy"> | Date | string
+  status?: Prisma.EnumContentStatusFilter<"EssentialStudy"> | $Enums.ContentStatus
   destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
   countries?: Prisma.EssentialStudyCountryListRelationFilter
 }, "id" | "slug">
@@ -248,6 +258,7 @@ export type EssentialStudyOrderByWithAggregationInput = {
   destinationId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   _count?: Prisma.EssentialStudyCountOrderByAggregateInput
   _max?: Prisma.EssentialStudyMaxOrderByAggregateInput
   _min?: Prisma.EssentialStudyMinOrderByAggregateInput
@@ -265,6 +276,7 @@ export type EssentialStudyScalarWhereWithAggregatesInput = {
   destinationId?: Prisma.StringWithAggregatesFilter<"EssentialStudy"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"EssentialStudy"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"EssentialStudy"> | Date | string
+  status?: Prisma.EnumContentStatusWithAggregatesFilter<"EssentialStudy"> | $Enums.ContentStatus
 }
 
 export type EssentialStudyCreateInput = {
@@ -275,6 +287,7 @@ export type EssentialStudyCreateInput = {
   content?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   destination: Prisma.DestinationCreateNestedOneWithoutEssentialStudiesInput
   countries?: Prisma.EssentialStudyCountryCreateNestedManyWithoutEssentialStudyInput
 }
@@ -288,6 +301,7 @@ export type EssentialStudyUncheckedCreateInput = {
   destinationId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   countries?: Prisma.EssentialStudyCountryUncheckedCreateNestedManyWithoutEssentialStudyInput
 }
 
@@ -299,6 +313,7 @@ export type EssentialStudyUpdateInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   destination?: Prisma.DestinationUpdateOneRequiredWithoutEssentialStudiesNestedInput
   countries?: Prisma.EssentialStudyCountryUpdateManyWithoutEssentialStudyNestedInput
 }
@@ -312,6 +327,7 @@ export type EssentialStudyUncheckedUpdateInput = {
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.EssentialStudyCountryUncheckedUpdateManyWithoutEssentialStudyNestedInput
 }
 
@@ -324,6 +340,7 @@ export type EssentialStudyCreateManyInput = {
   destinationId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
 }
 
 export type EssentialStudyUpdateManyMutationInput = {
@@ -334,6 +351,7 @@ export type EssentialStudyUpdateManyMutationInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type EssentialStudyUncheckedUpdateManyInput = {
@@ -345,6 +363,7 @@ export type EssentialStudyUncheckedUpdateManyInput = {
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type EssentialStudyListRelationFilter = {
@@ -366,6 +385,7 @@ export type EssentialStudyCountOrderByAggregateInput = {
   destinationId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type EssentialStudyMaxOrderByAggregateInput = {
@@ -377,6 +397,7 @@ export type EssentialStudyMaxOrderByAggregateInput = {
   destinationId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type EssentialStudyMinOrderByAggregateInput = {
@@ -388,6 +409,7 @@ export type EssentialStudyMinOrderByAggregateInput = {
   destinationId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type EssentialStudyScalarRelationFilter = {
@@ -459,6 +481,7 @@ export type EssentialStudyCreateWithoutDestinationInput = {
   content?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   countries?: Prisma.EssentialStudyCountryCreateNestedManyWithoutEssentialStudyInput
 }
 
@@ -470,6 +493,7 @@ export type EssentialStudyUncheckedCreateWithoutDestinationInput = {
   content?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   countries?: Prisma.EssentialStudyCountryUncheckedCreateNestedManyWithoutEssentialStudyInput
 }
 
@@ -511,6 +535,7 @@ export type EssentialStudyScalarWhereInput = {
   destinationId?: Prisma.StringFilter<"EssentialStudy"> | string
   createdAt?: Prisma.DateTimeFilter<"EssentialStudy"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EssentialStudy"> | Date | string
+  status?: Prisma.EnumContentStatusFilter<"EssentialStudy"> | $Enums.ContentStatus
 }
 
 export type EssentialStudyCreateWithoutCountriesInput = {
@@ -521,6 +546,7 @@ export type EssentialStudyCreateWithoutCountriesInput = {
   content?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   destination: Prisma.DestinationCreateNestedOneWithoutEssentialStudiesInput
 }
 
@@ -533,6 +559,7 @@ export type EssentialStudyUncheckedCreateWithoutCountriesInput = {
   destinationId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
 }
 
 export type EssentialStudyCreateOrConnectWithoutCountriesInput = {
@@ -559,6 +586,7 @@ export type EssentialStudyUpdateWithoutCountriesInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   destination?: Prisma.DestinationUpdateOneRequiredWithoutEssentialStudiesNestedInput
 }
 
@@ -571,6 +599,7 @@ export type EssentialStudyUncheckedUpdateWithoutCountriesInput = {
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type EssentialStudyCreateManyDestinationInput = {
@@ -581,6 +610,7 @@ export type EssentialStudyCreateManyDestinationInput = {
   content?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
 }
 
 export type EssentialStudyUpdateWithoutDestinationInput = {
@@ -591,6 +621,7 @@ export type EssentialStudyUpdateWithoutDestinationInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.EssentialStudyCountryUpdateManyWithoutEssentialStudyNestedInput
 }
 
@@ -602,6 +633,7 @@ export type EssentialStudyUncheckedUpdateWithoutDestinationInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.EssentialStudyCountryUncheckedUpdateManyWithoutEssentialStudyNestedInput
 }
 
@@ -613,6 +645,7 @@ export type EssentialStudyUncheckedUpdateManyWithoutDestinationInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 
@@ -655,6 +688,7 @@ export type EssentialStudySelect<ExtArgs extends runtime.Types.Extensions.Intern
   destinationId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
   countries?: boolean | Prisma.EssentialStudy$countriesArgs<ExtArgs>
   _count?: boolean | Prisma.EssentialStudyCountOutputTypeDefaultArgs<ExtArgs>
@@ -669,6 +703,7 @@ export type EssentialStudySelectCreateManyAndReturn<ExtArgs extends runtime.Type
   destinationId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["essentialStudy"]>
 
@@ -681,6 +716,7 @@ export type EssentialStudySelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   destinationId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["essentialStudy"]>
 
@@ -693,9 +729,10 @@ export type EssentialStudySelectScalar = {
   destinationId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
 }
 
-export type EssentialStudyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "description" | "content" | "destinationId" | "createdAt" | "updatedAt", ExtArgs["result"]["essentialStudy"]>
+export type EssentialStudyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "description" | "content" | "destinationId" | "createdAt" | "updatedAt" | "status", ExtArgs["result"]["essentialStudy"]>
 export type EssentialStudyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
   countries?: boolean | Prisma.EssentialStudy$countriesArgs<ExtArgs>
@@ -723,6 +760,7 @@ export type $EssentialStudyPayload<ExtArgs extends runtime.Types.Extensions.Inte
     destinationId: string
     createdAt: Date
     updatedAt: Date
+    status: $Enums.ContentStatus
   }, ExtArgs["result"]["essentialStudy"]>
   composites: {}
 }
@@ -1156,6 +1194,7 @@ export interface EssentialStudyFieldRefs {
   readonly destinationId: Prisma.FieldRef<"EssentialStudy", 'String'>
   readonly createdAt: Prisma.FieldRef<"EssentialStudy", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"EssentialStudy", 'DateTime'>
+  readonly status: Prisma.FieldRef<"EssentialStudy", 'ContentStatus'>
 }
     
 

@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 export async function GET() {
   try {
     const activeSeason = await prisma.intakeSeason.findFirst({
-      where: { isActive: true },
+      where: { status: "ACTIVE" },
       include: {
         countries: {
           include: { country: true },

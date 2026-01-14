@@ -174,8 +174,8 @@ export type EssentialStudyCountryWhereInput = {
   essentialStudyId?: Prisma.StringFilter<"EssentialStudyCountry"> | string
   countryId?: Prisma.StringFilter<"EssentialStudyCountry"> | string
   createdAt?: Prisma.DateTimeFilter<"EssentialStudyCountry"> | Date | string
-  essentialStudy?: Prisma.XOR<Prisma.EssentialStudyScalarRelationFilter, Prisma.EssentialStudyWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
+  essentialStudy?: Prisma.XOR<Prisma.EssentialStudyScalarRelationFilter, Prisma.EssentialStudyWhereInput>
 }
 
 export type EssentialStudyCountryOrderByWithRelationInput = {
@@ -183,8 +183,8 @@ export type EssentialStudyCountryOrderByWithRelationInput = {
   essentialStudyId?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  essentialStudy?: Prisma.EssentialStudyOrderByWithRelationInput
   country?: Prisma.CountryOrderByWithRelationInput
+  essentialStudy?: Prisma.EssentialStudyOrderByWithRelationInput
 }
 
 export type EssentialStudyCountryWhereUniqueInput = Prisma.AtLeast<{
@@ -196,8 +196,8 @@ export type EssentialStudyCountryWhereUniqueInput = Prisma.AtLeast<{
   essentialStudyId?: Prisma.StringFilter<"EssentialStudyCountry"> | string
   countryId?: Prisma.StringFilter<"EssentialStudyCountry"> | string
   createdAt?: Prisma.DateTimeFilter<"EssentialStudyCountry"> | Date | string
-  essentialStudy?: Prisma.XOR<Prisma.EssentialStudyScalarRelationFilter, Prisma.EssentialStudyWhereInput>
   country?: Prisma.XOR<Prisma.CountryScalarRelationFilter, Prisma.CountryWhereInput>
+  essentialStudy?: Prisma.XOR<Prisma.EssentialStudyScalarRelationFilter, Prisma.EssentialStudyWhereInput>
 }, "id" | "essentialStudyId_countryId">
 
 export type EssentialStudyCountryOrderByWithAggregationInput = {
@@ -223,8 +223,8 @@ export type EssentialStudyCountryScalarWhereWithAggregatesInput = {
 export type EssentialStudyCountryCreateInput = {
   id?: string
   createdAt?: Date | string
-  essentialStudy: Prisma.EssentialStudyCreateNestedOneWithoutCountriesInput
   country: Prisma.CountryCreateNestedOneWithoutEssentialsInput
+  essentialStudy: Prisma.EssentialStudyCreateNestedOneWithoutCountriesInput
 }
 
 export type EssentialStudyCountryUncheckedCreateInput = {
@@ -237,8 +237,8 @@ export type EssentialStudyCountryUncheckedCreateInput = {
 export type EssentialStudyCountryUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  essentialStudy?: Prisma.EssentialStudyUpdateOneRequiredWithoutCountriesNestedInput
   country?: Prisma.CountryUpdateOneRequiredWithoutEssentialsNestedInput
+  essentialStudy?: Prisma.EssentialStudyUpdateOneRequiredWithoutCountriesNestedInput
 }
 
 export type EssentialStudyCountryUncheckedUpdateInput = {
@@ -528,8 +528,8 @@ export type EssentialStudyCountrySelect<ExtArgs extends runtime.Types.Extensions
   essentialStudyId?: boolean
   countryId?: boolean
   createdAt?: boolean
-  essentialStudy?: boolean | Prisma.EssentialStudyDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  essentialStudy?: boolean | Prisma.EssentialStudyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["essentialStudyCountry"]>
 
 export type EssentialStudyCountrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -537,8 +537,8 @@ export type EssentialStudyCountrySelectCreateManyAndReturn<ExtArgs extends runti
   essentialStudyId?: boolean
   countryId?: boolean
   createdAt?: boolean
-  essentialStudy?: boolean | Prisma.EssentialStudyDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  essentialStudy?: boolean | Prisma.EssentialStudyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["essentialStudyCountry"]>
 
 export type EssentialStudyCountrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -546,8 +546,8 @@ export type EssentialStudyCountrySelectUpdateManyAndReturn<ExtArgs extends runti
   essentialStudyId?: boolean
   countryId?: boolean
   createdAt?: boolean
-  essentialStudy?: boolean | Prisma.EssentialStudyDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  essentialStudy?: boolean | Prisma.EssentialStudyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["essentialStudyCountry"]>
 
 export type EssentialStudyCountrySelectScalar = {
@@ -559,23 +559,23 @@ export type EssentialStudyCountrySelectScalar = {
 
 export type EssentialStudyCountryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "essentialStudyId" | "countryId" | "createdAt", ExtArgs["result"]["essentialStudyCountry"]>
 export type EssentialStudyCountryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  essentialStudy?: boolean | Prisma.EssentialStudyDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  essentialStudy?: boolean | Prisma.EssentialStudyDefaultArgs<ExtArgs>
 }
 export type EssentialStudyCountryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  essentialStudy?: boolean | Prisma.EssentialStudyDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  essentialStudy?: boolean | Prisma.EssentialStudyDefaultArgs<ExtArgs>
 }
 export type EssentialStudyCountryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  essentialStudy?: boolean | Prisma.EssentialStudyDefaultArgs<ExtArgs>
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
+  essentialStudy?: boolean | Prisma.EssentialStudyDefaultArgs<ExtArgs>
 }
 
 export type $EssentialStudyCountryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "EssentialStudyCountry"
   objects: {
-    essentialStudy: Prisma.$EssentialStudyPayload<ExtArgs>
     country: Prisma.$CountryPayload<ExtArgs>
+    essentialStudy: Prisma.$EssentialStudyPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -976,8 +976,8 @@ readonly fields: EssentialStudyCountryFieldRefs;
  */
 export interface Prisma__EssentialStudyCountryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  essentialStudy<T extends Prisma.EssentialStudyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EssentialStudyDefaultArgs<ExtArgs>>): Prisma.Prisma__EssentialStudyClient<runtime.Types.Result.GetResult<Prisma.$EssentialStudyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   country<T extends Prisma.CountryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CountryDefaultArgs<ExtArgs>>): Prisma.Prisma__CountryClient<runtime.Types.Result.GetResult<Prisma.$CountryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  essentialStudy<T extends Prisma.EssentialStudyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EssentialStudyDefaultArgs<ExtArgs>>): Prisma.Prisma__EssentialStudyClient<runtime.Types.Result.GetResult<Prisma.$EssentialStudyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

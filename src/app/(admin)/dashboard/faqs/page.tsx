@@ -16,11 +16,18 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { DataTable } from "@/components/table/data-table";
 import { useDataTable } from "@/hooks/use-data-table";
-
 import { toast } from "sonner";
 import { createEntityApi } from "@/lib/api-client";
-import FAQFormModal from "./add-faq-modal";
+import { useRouter } from "next/navigation";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import BulkAssignModal from "./bulk-assign-modal";
+import FAQFormModal from "./add-faq-modal";
 
 interface FAQ {
   id: string;
@@ -59,13 +66,20 @@ interface FAQ {
 const faqApi = createEntityApi<FAQ>("/api/faqs");
 
 const FAQsPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [selectedFAQ, setSelectedFAQ] = useState<FAQ | undefined>();
+  const router = useRouter();
   const [isBulkModalOpen, setIsBulkModalOpen] = useState(false);
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [isFormModalOpen, setIsFormModalOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [selectedFAQ, setSelectedFAQ] = useState<FAQ | undefined>(undefined);
+
+  const endpoint = useMemo(
+    () => `/api/faqs${statusFilter !== "all" ? `?status=${statusFilter}` : ""}`,
+    [statusFilter]
+  );
 
   const { table, isLoading, error, pagination, refetch } = useDataTable<FAQ>({
-    endpoint: "/api/faqs",
+    endpoint,
     columns: [],
     enableServerSidePagination: true,
     enableServerSideSorting: true,
@@ -278,9 +292,9 @@ const FAQsPage = () => {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   onClick={() => {
-                    setIsEditing(true);
                     setSelectedFAQ(faq);
-                    setIsModalOpen(true);
+                    setIsEditing(true);
+                    setIsFormModalOpen(true);
                   }}
                 >
                   <Pencil className="mr-2 h-4 w-4" />
@@ -299,24 +313,14 @@ const FAQsPage = () => {
         },
       },
     ],
-    [handleDelete]
+    [handleDelete, router]
   );
 
   if (table.options.columns.length === 0) {
     table.setOptions((prev) => ({ ...prev, columns }));
   }
 
-  const handleOpenModal = () => {
-    setIsEditing(false);
-    setSelectedFAQ(undefined);
-    setIsModalOpen(true);
-  };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setIsEditing(false);
-    setSelectedFAQ(undefined);
-  };
 
   const selectedRowIds = table
     .getFilteredSelectedRowModel()
@@ -332,14 +336,7 @@ const FAQsPage = () => {
         </p>
       </div>
 
-      {isModalOpen && (
-        <FAQFormModal
-          isEditing={isEditing}
-          selectedFAQ={selectedFAQ}
-          onClose={handleCloseModal}
-          onSuccess={refetch}
-        />
-      )}
+
 
       {isBulkModalOpen && (
         <BulkAssignModal
@@ -348,6 +345,21 @@ const FAQsPage = () => {
           onClose={() => setIsBulkModalOpen(false)}
           onSuccess={() => {
             table.resetRowSelection();
+            refetch();
+          }}
+        />
+      )}
+
+      {isFormModalOpen && (
+        <FAQFormModal
+          isEditing={isEditing}
+          selectedFAQ={selectedFAQ}
+          onClose={() => {
+            setIsFormModalOpen(false);
+            setSelectedFAQ(undefined);
+            setIsEditing(false);
+          }}
+          onSuccess={() => {
             refetch();
           }}
         />
@@ -394,10 +406,28 @@ const FAQsPage = () => {
         error={error}
         pagination={pagination}
         toolbar={
-          <Button onClick={handleOpenModal}>
-            <Plus className="mr-2 h-4 w-4" />
-            Add FAQ
-          </Button>
+          <div className="flex items-center gap-2">
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger className="w-[150px]">
+                <SelectValue placeholder="Filter by status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Status</SelectItem>
+                <SelectItem value="ACTIVE">Active</SelectItem>
+                <SelectItem value="DRAFT">Draft</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button
+              onClick={() => {
+                setIsEditing(false);
+                setSelectedFAQ(undefined);
+                setIsFormModalOpen(true);
+              }}
+            >
+              <Plus className="mr-2 h-4 w-4" />
+              Add FAQ
+            </Button>
+          </div>
         }
       />
     </div>

@@ -12,7 +12,7 @@ export const dynamicParams = true;
 // Pre-generate first 50 courses at build time for instant loading
 export async function generateStaticParams() {
   const courses = await prisma.course.findMany({
-    where: { isActive: true },
+    where: { status: "ACTIVE" },
     select: { slug: true },
     orderBy: { updatedAt: "desc" },
     take: 50,

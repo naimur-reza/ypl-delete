@@ -20,6 +20,13 @@ import { Badge } from "@/components/ui/badge";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { useConfirmDialog } from "@/hooks/use-confirm-dialog";
 import StatFormModal from "./add-stat-modal";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface Stat {
   id: string;
@@ -30,7 +37,7 @@ interface Stat {
   section: string;
   slideIndex?: number | null;
   sortOrder: number;
-  isActive: boolean;
+  status: "ACTIVE" | "DRAFT";
   createdAt: string;
   countries?: Array<{
     country?: { id: string; name: string };
@@ -63,9 +70,15 @@ const StatsPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [selectedStat, setSelectedStat] = useState<Stat | undefined>();
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+
+  const endpoint = useMemo(
+    () => `/api/stats${statusFilter !== "all" ? `?status=${statusFilter}` : ""}`,
+    [statusFilter]
+  );
 
   const { table, isLoading, error, pagination, refetch } = useDataTable<Stat>({
-    endpoint: "/api/stats",
+    endpoint,
     columns: [],
     enableServerSidePagination: true,
     enableServerSideSorting: true,
@@ -139,14 +152,17 @@ const StatsPage = () => {
         enableSorting: true,
       },
       {
-        accessorKey: "isActive",
+        accessorKey: "status",
         header: "Status",
-        cell: ({ row }) =>
-          row.original.isActive ? (
-            <Badge variant="default">Active</Badge>
-          ) : (
-            <Badge variant="secondary">Inactive</Badge>
-          ),
+        cell: ({ row }) => {
+          const status = (row.original as any).status as string;
+          return (
+            <Badge variant={status === "ACTIVE" ? "default" : "secondary"}>
+              {status || "DRAFT"}
+            </Badge>
+          );
+        },
+        enableSorting: true,
       },
       {
         accessorKey: "countries",
@@ -257,10 +273,22 @@ const StatsPage = () => {
         error={error}
         pagination={pagination}
         toolbar={
-          <Button onClick={handleOpenModal}>
-            <Plus className="mr-2 h-4 w-4" />
-            Add Stat
-          </Button>
+          <div className="flex items-center gap-2">
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger className="w-[150px]">
+                <SelectValue placeholder="Filter by status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Status</SelectItem>
+                <SelectItem value="ACTIVE">Active</SelectItem>
+                <SelectItem value="DRAFT">Draft</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button onClick={handleOpenModal}>
+              <Plus className="mr-2 h-4 w-4" />
+              Add Stat
+            </Button>
+          </div>
         }
       />
     </div>

@@ -16,7 +16,7 @@ type PageProps = {
 // Generate static params for all services
 export async function generateStaticParams() {
   const services = await prisma.service.findMany({
-    where: { isActive: true },
+    where: { status: "ACTIVE" },
     select: { slug: true },
   });
 
@@ -29,8 +29,8 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   
-  const service = await prisma.service.findUnique({
-    where: { slug },
+  const service = await prisma.service.findFirst({
+    where: { slug, status: "ACTIVE" },
   });
 
   if (!service) {
@@ -49,11 +49,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function ServiceDetailsPage({ params }: PageProps) {
   const { slug } = await params;
 
-  const service = await prisma.service.findUnique({
-    where: { slug },
+  const service = await prisma.service.findFirst({
+    where: { slug, status: "ACTIVE" },
   });
 
-  if (!service || !service.isActive) {
+  if (!service) {
     notFound();
   }
 

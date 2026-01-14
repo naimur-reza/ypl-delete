@@ -336,7 +336,7 @@ export default async function IntakePage({ params }: PageProps) {
     ? await prisma.university.findMany({
         where: {
           destinationId: destination.id,
-          isActive: true,
+          status: "ACTIVE",
         },
         take: 9,
         select: {

@@ -72,7 +72,7 @@ const StatFormModal = ({
     section: string;
     slideIndex?: number | null;
     sortOrder: number;
-    isActive: boolean;
+    status: "ACTIVE" | "DRAFT";
     countries?: Array<{ country?: { id: string }; countryId?: string }>;
   };
   onClose: () => void;
@@ -98,7 +98,7 @@ const StatFormModal = ({
       section: selectedStat?.section || "about",
       slideIndex: selectedStat?.slideIndex ?? null,
       sortOrder: selectedStat?.sortOrder ?? 0,
-      isActive: selectedStat?.isActive ?? true,
+      status: selectedStat?.status || "ACTIVE",
       countryIds: countryIds,
     } satisfies FormData as FormData,
     validators: { onSubmit: statSchema as any },
@@ -150,7 +150,7 @@ const StatFormModal = ({
       form.setFieldValue("section", selectedStat.section || "about");
       form.setFieldValue("slideIndex", selectedStat.slideIndex ?? null);
       form.setFieldValue("sortOrder", selectedStat.sortOrder ?? 0);
-      form.setFieldValue("isActive", selectedStat.isActive ?? true);
+      form.setFieldValue("status", selectedStat.status || "ACTIVE");
 
       const countries = selectedStat.countries || [];
       const initialCountryIds = countries
@@ -188,7 +188,7 @@ const StatFormModal = ({
               {(field) => (
                 <field.Input
                   label="Title"
-                  placeholder="e.g., Located in, 500+"
+                    
                 />
               )}
             </form.AppField>
@@ -197,7 +197,7 @@ const StatFormModal = ({
               {(field) => (
                 <field.Input
                   label="Subtitle"
-                  placeholder="e.g., 15+ Countries, Universities Covered"
+        
                 />
               )}
             </form.AppField>
@@ -286,8 +286,13 @@ const StatFormModal = ({
               )}
             </form.AppField>
 
-            <form.AppField name="isActive">
-              {(field) => <field.Checkbox label="Active" />}
+            <form.AppField name="status">
+              {(field) => (
+                <field.Select label="Status">
+                  <SelectItem value="ACTIVE">Active</SelectItem>
+                  <SelectItem value="DRAFT">Draft</SelectItem>
+                </field.Select>
+              )}
             </form.AppField>
           </div>
 

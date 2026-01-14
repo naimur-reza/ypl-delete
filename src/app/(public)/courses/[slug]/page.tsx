@@ -12,7 +12,7 @@ export const dynamicParams = true;
 // Pre-generate first 50 courses at build time for instant loading
 export async function generateStaticParams() {
   const courses = await prisma.course.findMany({
-    where: { isActive: true },
+    where: { status: "ACTIVE" },
     select: { slug: true },
     orderBy: { updatedAt: "desc" },
     take: 50,
@@ -60,8 +60,8 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { country, slug } = await params;
 
-  const course = await prisma.course.findUnique({
-    where: { slug },
+  const course = await prisma.course.findFirst({
+    where: { slug, status: "ACTIVE" },
     select: {
       title: true,
       metaTitle: true,
@@ -89,8 +89,8 @@ export async function generateMetadata({
 export default async function CourseDetailsPage({ params }: PageProps) {
   const { country, slug } = await params;
 
-  const course = await prisma.course.findUnique({
-    where: { slug },
+  const course = await prisma.course.findFirst({
+    where: { slug, status: "ACTIVE" },
     include: {
       university: {
         select: {

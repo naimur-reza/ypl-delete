@@ -42,6 +42,7 @@ export type BlogMinAggregateOutputType = {
   createdBy: string | null
   updatedBy: string | null
   destinationId: string | null
+  status: $Enums.ContentStatus | null
 }
 
 export type BlogMaxAggregateOutputType = {
@@ -62,6 +63,7 @@ export type BlogMaxAggregateOutputType = {
   createdBy: string | null
   updatedBy: string | null
   destinationId: string | null
+  status: $Enums.ContentStatus | null
 }
 
 export type BlogCountAggregateOutputType = {
@@ -82,6 +84,7 @@ export type BlogCountAggregateOutputType = {
   createdBy: number
   updatedBy: number
   destinationId: number
+  status: number
   _all: number
 }
 
@@ -104,6 +107,7 @@ export type BlogMinAggregateInputType = {
   createdBy?: true
   updatedBy?: true
   destinationId?: true
+  status?: true
 }
 
 export type BlogMaxAggregateInputType = {
@@ -124,6 +128,7 @@ export type BlogMaxAggregateInputType = {
   createdBy?: true
   updatedBy?: true
   destinationId?: true
+  status?: true
 }
 
 export type BlogCountAggregateInputType = {
@@ -144,6 +149,7 @@ export type BlogCountAggregateInputType = {
   createdBy?: true
   updatedBy?: true
   destinationId?: true
+  status?: true
   _all?: true
 }
 
@@ -237,6 +243,7 @@ export type BlogGroupByOutputType = {
   createdBy: string | null
   updatedBy: string | null
   destinationId: string
+  status: $Enums.ContentStatus
   _count: BlogCountAggregateOutputType | null
   _min: BlogMinAggregateOutputType | null
   _max: BlogMaxAggregateOutputType | null
@@ -278,6 +285,7 @@ export type BlogWhereInput = {
   createdBy?: Prisma.StringNullableFilter<"Blog"> | string | null
   updatedBy?: Prisma.StringNullableFilter<"Blog"> | string | null
   destinationId?: Prisma.StringFilter<"Blog"> | string
+  status?: Prisma.EnumContentStatusFilter<"Blog"> | $Enums.ContentStatus
   destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
   countries?: Prisma.BlogCountryListRelationFilter
   courses?: Prisma.BlogCourseListRelationFilter
@@ -302,6 +310,7 @@ export type BlogOrderByWithRelationInput = {
   createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   destinationId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   destination?: Prisma.DestinationOrderByWithRelationInput
   countries?: Prisma.BlogCountryOrderByRelationAggregateInput
   courses?: Prisma.BlogCourseOrderByRelationAggregateInput
@@ -329,6 +338,7 @@ export type BlogWhereUniqueInput = Prisma.AtLeast<{
   createdBy?: Prisma.StringNullableFilter<"Blog"> | string | null
   updatedBy?: Prisma.StringNullableFilter<"Blog"> | string | null
   destinationId?: Prisma.StringFilter<"Blog"> | string
+  status?: Prisma.EnumContentStatusFilter<"Blog"> | $Enums.ContentStatus
   destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
   countries?: Prisma.BlogCountryListRelationFilter
   courses?: Prisma.BlogCourseListRelationFilter
@@ -353,6 +363,7 @@ export type BlogOrderByWithAggregationInput = {
   createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   destinationId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   _count?: Prisma.BlogCountOrderByAggregateInput
   _max?: Prisma.BlogMaxOrderByAggregateInput
   _min?: Prisma.BlogMinOrderByAggregateInput
@@ -379,6 +390,7 @@ export type BlogScalarWhereWithAggregatesInput = {
   createdBy?: Prisma.StringNullableWithAggregatesFilter<"Blog"> | string | null
   updatedBy?: Prisma.StringNullableWithAggregatesFilter<"Blog"> | string | null
   destinationId?: Prisma.StringWithAggregatesFilter<"Blog"> | string
+  status?: Prisma.EnumContentStatusWithAggregatesFilter<"Blog"> | $Enums.ContentStatus
 }
 
 export type BlogCreateInput = {
@@ -398,6 +410,7 @@ export type BlogCreateInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  status?: $Enums.ContentStatus
   destination: Prisma.DestinationCreateNestedOneWithoutBlogsInput
   countries?: Prisma.BlogCountryCreateNestedManyWithoutBlogInput
   courses?: Prisma.BlogCourseCreateNestedManyWithoutBlogInput
@@ -422,6 +435,7 @@ export type BlogUncheckedCreateInput = {
   createdBy?: string | null
   updatedBy?: string | null
   destinationId: string
+  status?: $Enums.ContentStatus
   countries?: Prisma.BlogCountryUncheckedCreateNestedManyWithoutBlogInput
   courses?: Prisma.BlogCourseUncheckedCreateNestedManyWithoutBlogInput
   universities?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutBlogInput
@@ -444,6 +458,7 @@ export type BlogUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   destination?: Prisma.DestinationUpdateOneRequiredWithoutBlogsNestedInput
   countries?: Prisma.BlogCountryUpdateManyWithoutBlogNestedInput
   courses?: Prisma.BlogCourseUpdateManyWithoutBlogNestedInput
@@ -468,6 +483,7 @@ export type BlogUncheckedUpdateInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.BlogCountryUncheckedUpdateManyWithoutBlogNestedInput
   courses?: Prisma.BlogCourseUncheckedUpdateManyWithoutBlogNestedInput
   universities?: Prisma.BlogUniversityUncheckedUpdateManyWithoutBlogNestedInput
@@ -491,6 +507,7 @@ export type BlogCreateManyInput = {
   createdBy?: string | null
   updatedBy?: string | null
   destinationId: string
+  status?: $Enums.ContentStatus
 }
 
 export type BlogUpdateManyMutationInput = {
@@ -510,6 +527,7 @@ export type BlogUpdateManyMutationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type BlogUncheckedUpdateManyInput = {
@@ -530,6 +548,7 @@ export type BlogUncheckedUpdateManyInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type BlogCountOrderByAggregateInput = {
@@ -550,6 +569,7 @@ export type BlogCountOrderByAggregateInput = {
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type BlogMaxOrderByAggregateInput = {
@@ -570,6 +590,7 @@ export type BlogMaxOrderByAggregateInput = {
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type BlogMinOrderByAggregateInput = {
@@ -590,6 +611,7 @@ export type BlogMinOrderByAggregateInput = {
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type BlogListRelationFilter = {
@@ -609,6 +631,10 @@ export type BlogScalarRelationFilter = {
 
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
+}
+
+export type EnumContentStatusFieldUpdateOperationsInput = {
+  set?: $Enums.ContentStatus
 }
 
 export type BlogCreateNestedManyWithoutDestinationInput = {
@@ -712,6 +738,7 @@ export type BlogCreateWithoutDestinationInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  status?: $Enums.ContentStatus
   countries?: Prisma.BlogCountryCreateNestedManyWithoutBlogInput
   courses?: Prisma.BlogCourseCreateNestedManyWithoutBlogInput
   universities?: Prisma.BlogUniversityCreateNestedManyWithoutBlogInput
@@ -734,6 +761,7 @@ export type BlogUncheckedCreateWithoutDestinationInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  status?: $Enums.ContentStatus
   countries?: Prisma.BlogCountryUncheckedCreateNestedManyWithoutBlogInput
   courses?: Prisma.BlogCourseUncheckedCreateNestedManyWithoutBlogInput
   universities?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutBlogInput
@@ -786,6 +814,7 @@ export type BlogScalarWhereInput = {
   createdBy?: Prisma.StringNullableFilter<"Blog"> | string | null
   updatedBy?: Prisma.StringNullableFilter<"Blog"> | string | null
   destinationId?: Prisma.StringFilter<"Blog"> | string
+  status?: Prisma.EnumContentStatusFilter<"Blog"> | $Enums.ContentStatus
 }
 
 export type BlogCreateWithoutCountriesInput = {
@@ -805,6 +834,7 @@ export type BlogCreateWithoutCountriesInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  status?: $Enums.ContentStatus
   destination: Prisma.DestinationCreateNestedOneWithoutBlogsInput
   courses?: Prisma.BlogCourseCreateNestedManyWithoutBlogInput
   universities?: Prisma.BlogUniversityCreateNestedManyWithoutBlogInput
@@ -828,6 +858,7 @@ export type BlogUncheckedCreateWithoutCountriesInput = {
   createdBy?: string | null
   updatedBy?: string | null
   destinationId: string
+  status?: $Enums.ContentStatus
   courses?: Prisma.BlogCourseUncheckedCreateNestedManyWithoutBlogInput
   universities?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutBlogInput
 }
@@ -865,6 +896,7 @@ export type BlogUpdateWithoutCountriesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   destination?: Prisma.DestinationUpdateOneRequiredWithoutBlogsNestedInput
   courses?: Prisma.BlogCourseUpdateManyWithoutBlogNestedInput
   universities?: Prisma.BlogUniversityUpdateManyWithoutBlogNestedInput
@@ -888,6 +920,7 @@ export type BlogUncheckedUpdateWithoutCountriesInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   courses?: Prisma.BlogCourseUncheckedUpdateManyWithoutBlogNestedInput
   universities?: Prisma.BlogUniversityUncheckedUpdateManyWithoutBlogNestedInput
 }
@@ -909,6 +942,7 @@ export type BlogCreateWithoutUniversitiesInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  status?: $Enums.ContentStatus
   destination: Prisma.DestinationCreateNestedOneWithoutBlogsInput
   countries?: Prisma.BlogCountryCreateNestedManyWithoutBlogInput
   courses?: Prisma.BlogCourseCreateNestedManyWithoutBlogInput
@@ -932,6 +966,7 @@ export type BlogUncheckedCreateWithoutUniversitiesInput = {
   createdBy?: string | null
   updatedBy?: string | null
   destinationId: string
+  status?: $Enums.ContentStatus
   countries?: Prisma.BlogCountryUncheckedCreateNestedManyWithoutBlogInput
   courses?: Prisma.BlogCourseUncheckedCreateNestedManyWithoutBlogInput
 }
@@ -969,6 +1004,7 @@ export type BlogUpdateWithoutUniversitiesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   destination?: Prisma.DestinationUpdateOneRequiredWithoutBlogsNestedInput
   countries?: Prisma.BlogCountryUpdateManyWithoutBlogNestedInput
   courses?: Prisma.BlogCourseUpdateManyWithoutBlogNestedInput
@@ -992,6 +1028,7 @@ export type BlogUncheckedUpdateWithoutUniversitiesInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.BlogCountryUncheckedUpdateManyWithoutBlogNestedInput
   courses?: Prisma.BlogCourseUncheckedUpdateManyWithoutBlogNestedInput
 }
@@ -1013,6 +1050,7 @@ export type BlogCreateWithoutCoursesInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  status?: $Enums.ContentStatus
   destination: Prisma.DestinationCreateNestedOneWithoutBlogsInput
   countries?: Prisma.BlogCountryCreateNestedManyWithoutBlogInput
   universities?: Prisma.BlogUniversityCreateNestedManyWithoutBlogInput
@@ -1036,6 +1074,7 @@ export type BlogUncheckedCreateWithoutCoursesInput = {
   createdBy?: string | null
   updatedBy?: string | null
   destinationId: string
+  status?: $Enums.ContentStatus
   countries?: Prisma.BlogCountryUncheckedCreateNestedManyWithoutBlogInput
   universities?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutBlogInput
 }
@@ -1073,6 +1112,7 @@ export type BlogUpdateWithoutCoursesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   destination?: Prisma.DestinationUpdateOneRequiredWithoutBlogsNestedInput
   countries?: Prisma.BlogCountryUpdateManyWithoutBlogNestedInput
   universities?: Prisma.BlogUniversityUpdateManyWithoutBlogNestedInput
@@ -1096,6 +1136,7 @@ export type BlogUncheckedUpdateWithoutCoursesInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.BlogCountryUncheckedUpdateManyWithoutBlogNestedInput
   universities?: Prisma.BlogUniversityUncheckedUpdateManyWithoutBlogNestedInput
 }
@@ -1117,6 +1158,7 @@ export type BlogCreateManyDestinationInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  status?: $Enums.ContentStatus
 }
 
 export type BlogUpdateWithoutDestinationInput = {
@@ -1136,6 +1178,7 @@ export type BlogUpdateWithoutDestinationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.BlogCountryUpdateManyWithoutBlogNestedInput
   courses?: Prisma.BlogCourseUpdateManyWithoutBlogNestedInput
   universities?: Prisma.BlogUniversityUpdateManyWithoutBlogNestedInput
@@ -1158,6 +1201,7 @@ export type BlogUncheckedUpdateWithoutDestinationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.BlogCountryUncheckedUpdateManyWithoutBlogNestedInput
   courses?: Prisma.BlogCourseUncheckedUpdateManyWithoutBlogNestedInput
   universities?: Prisma.BlogUniversityUncheckedUpdateManyWithoutBlogNestedInput
@@ -1180,6 +1224,7 @@ export type BlogUncheckedUpdateManyWithoutDestinationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 
@@ -1249,6 +1294,7 @@ export type BlogSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdBy?: boolean
   updatedBy?: boolean
   destinationId?: boolean
+  status?: boolean
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
   countries?: boolean | Prisma.Blog$countriesArgs<ExtArgs>
   courses?: boolean | Prisma.Blog$coursesArgs<ExtArgs>
@@ -1274,6 +1320,7 @@ export type BlogSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   createdBy?: boolean
   updatedBy?: boolean
   destinationId?: boolean
+  status?: boolean
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["blog"]>
 
@@ -1295,6 +1342,7 @@ export type BlogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   createdBy?: boolean
   updatedBy?: boolean
   destinationId?: boolean
+  status?: boolean
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["blog"]>
 
@@ -1316,9 +1364,10 @@ export type BlogSelectScalar = {
   createdBy?: boolean
   updatedBy?: boolean
   destinationId?: boolean
+  status?: boolean
 }
 
-export type BlogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "excerpt" | "content" | "image" | "author" | "publishedAt" | "isFeatured" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "destinationId", ExtArgs["result"]["blog"]>
+export type BlogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "excerpt" | "content" | "image" | "author" | "publishedAt" | "isFeatured" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "destinationId" | "status", ExtArgs["result"]["blog"]>
 export type BlogInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
   countries?: boolean | Prisma.Blog$countriesArgs<ExtArgs>
@@ -1359,6 +1408,7 @@ export type $BlogPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     createdBy: string | null
     updatedBy: string | null
     destinationId: string
+    status: $Enums.ContentStatus
   }, ExtArgs["result"]["blog"]>
   composites: {}
 }
@@ -1803,6 +1853,7 @@ export interface BlogFieldRefs {
   readonly createdBy: Prisma.FieldRef<"Blog", 'String'>
   readonly updatedBy: Prisma.FieldRef<"Blog", 'String'>
   readonly destinationId: Prisma.FieldRef<"Blog", 'String'>
+  readonly status: Prisma.FieldRef<"Blog", 'ContentStatus'>
 }
     
 

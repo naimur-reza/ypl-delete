@@ -40,6 +40,7 @@ export type DestinationMinAggregateOutputType = {
   metaKeywords: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  status: $Enums.ContentStatus | null
 }
 
 export type DestinationMaxAggregateOutputType = {
@@ -58,6 +59,7 @@ export type DestinationMaxAggregateOutputType = {
   metaKeywords: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  status: $Enums.ContentStatus | null
 }
 
 export type DestinationCountAggregateOutputType = {
@@ -76,6 +78,7 @@ export type DestinationCountAggregateOutputType = {
   metaKeywords: number
   createdAt: number
   updatedAt: number
+  status: number
   _all: number
 }
 
@@ -96,6 +99,7 @@ export type DestinationMinAggregateInputType = {
   metaKeywords?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
 }
 
 export type DestinationMaxAggregateInputType = {
@@ -114,6 +118,7 @@ export type DestinationMaxAggregateInputType = {
   metaKeywords?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
 }
 
 export type DestinationCountAggregateInputType = {
@@ -132,6 +137,7 @@ export type DestinationCountAggregateInputType = {
   metaKeywords?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
   _all?: true
 }
 
@@ -223,6 +229,7 @@ export type DestinationGroupByOutputType = {
   metaKeywords: string | null
   createdAt: Date
   updatedAt: Date
+  status: $Enums.ContentStatus
   _count: DestinationCountAggregateOutputType | null
   _min: DestinationMinAggregateOutputType | null
   _max: DestinationMaxAggregateOutputType | null
@@ -262,6 +269,7 @@ export type DestinationWhereInput = {
   metaKeywords?: Prisma.StringNullableFilter<"Destination"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Destination"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Destination"> | Date | string
+  status?: Prisma.EnumContentStatusFilter<"Destination"> | $Enums.ContentStatus
   blogs?: Prisma.BlogListRelationFilter
   courses?: Prisma.CourseListRelationFilter
   countries?: Prisma.DestinationCountryListRelationFilter
@@ -292,6 +300,7 @@ export type DestinationOrderByWithRelationInput = {
   metaKeywords?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   blogs?: Prisma.BlogOrderByRelationAggregateInput
   courses?: Prisma.CourseOrderByRelationAggregateInput
   countries?: Prisma.DestinationCountryOrderByRelationAggregateInput
@@ -325,6 +334,7 @@ export type DestinationWhereUniqueInput = Prisma.AtLeast<{
   metaKeywords?: Prisma.StringNullableFilter<"Destination"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Destination"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Destination"> | Date | string
+  status?: Prisma.EnumContentStatusFilter<"Destination"> | $Enums.ContentStatus
   blogs?: Prisma.BlogListRelationFilter
   courses?: Prisma.CourseListRelationFilter
   countries?: Prisma.DestinationCountryListRelationFilter
@@ -355,6 +365,7 @@ export type DestinationOrderByWithAggregationInput = {
   metaKeywords?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   _count?: Prisma.DestinationCountOrderByAggregateInput
   _max?: Prisma.DestinationMaxOrderByAggregateInput
   _min?: Prisma.DestinationMinOrderByAggregateInput
@@ -379,6 +390,7 @@ export type DestinationScalarWhereWithAggregatesInput = {
   metaKeywords?: Prisma.StringNullableWithAggregatesFilter<"Destination"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Destination"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Destination"> | Date | string
+  status?: Prisma.EnumContentStatusWithAggregatesFilter<"Destination"> | $Enums.ContentStatus
 }
 
 export type DestinationCreateInput = {
@@ -397,6 +409,7 @@ export type DestinationCreateInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   blogs?: Prisma.BlogCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryCreateNestedManyWithoutDestinationInput
@@ -427,6 +440,7 @@ export type DestinationUncheckedCreateInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutDestinationInput
@@ -457,6 +471,7 @@ export type DestinationUpdateInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   blogs?: Prisma.BlogUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUpdateManyWithoutDestinationNestedInput
@@ -487,6 +502,7 @@ export type DestinationUncheckedUpdateInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUncheckedUpdateManyWithoutDestinationNestedInput
@@ -517,6 +533,7 @@ export type DestinationCreateManyInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
 }
 
 export type DestinationUpdateManyMutationInput = {
@@ -535,6 +552,7 @@ export type DestinationUpdateManyMutationInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type DestinationUncheckedUpdateManyInput = {
@@ -553,6 +571,7 @@ export type DestinationUncheckedUpdateManyInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type DestinationScalarRelationFilter = {
@@ -581,6 +600,7 @@ export type DestinationCountOrderByAggregateInput = {
   metaKeywords?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type DestinationMaxOrderByAggregateInput = {
@@ -599,6 +619,7 @@ export type DestinationMaxOrderByAggregateInput = {
   metaKeywords?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type DestinationMinOrderByAggregateInput = {
@@ -617,6 +638,7 @@ export type DestinationMinOrderByAggregateInput = {
   metaKeywords?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type DestinationCreateNestedOneWithoutBlogsInput = {
@@ -805,6 +827,7 @@ export type DestinationCreateWithoutBlogsInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   courses?: Prisma.CourseCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryCreateNestedManyWithoutDestinationInput
   sections?: Prisma.DestinationSectionCreateNestedManyWithoutDestinationInput
@@ -834,6 +857,7 @@ export type DestinationUncheckedCreateWithoutBlogsInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutDestinationInput
   sections?: Prisma.DestinationSectionUncheckedCreateNestedManyWithoutDestinationInput
@@ -879,6 +903,7 @@ export type DestinationUpdateWithoutBlogsInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   courses?: Prisma.CourseUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUpdateManyWithoutDestinationNestedInput
   sections?: Prisma.DestinationSectionUpdateManyWithoutDestinationNestedInput
@@ -908,6 +933,7 @@ export type DestinationUncheckedUpdateWithoutBlogsInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUncheckedUpdateManyWithoutDestinationNestedInput
   sections?: Prisma.DestinationSectionUncheckedUpdateManyWithoutDestinationNestedInput
@@ -937,6 +963,7 @@ export type DestinationCreateWithoutCoursesInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   blogs?: Prisma.BlogCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryCreateNestedManyWithoutDestinationInput
   sections?: Prisma.DestinationSectionCreateNestedManyWithoutDestinationInput
@@ -966,6 +993,7 @@ export type DestinationUncheckedCreateWithoutCoursesInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutDestinationInput
   sections?: Prisma.DestinationSectionUncheckedCreateNestedManyWithoutDestinationInput
@@ -1011,6 +1039,7 @@ export type DestinationUpdateWithoutCoursesInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   blogs?: Prisma.BlogUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUpdateManyWithoutDestinationNestedInput
   sections?: Prisma.DestinationSectionUpdateManyWithoutDestinationNestedInput
@@ -1040,6 +1069,7 @@ export type DestinationUncheckedUpdateWithoutCoursesInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUncheckedUpdateManyWithoutDestinationNestedInput
   sections?: Prisma.DestinationSectionUncheckedUpdateManyWithoutDestinationNestedInput
@@ -1069,6 +1099,7 @@ export type DestinationCreateWithoutIntakePagesInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   blogs?: Prisma.BlogCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryCreateNestedManyWithoutDestinationInput
@@ -1098,6 +1129,7 @@ export type DestinationUncheckedCreateWithoutIntakePagesInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutDestinationInput
@@ -1143,6 +1175,7 @@ export type DestinationUpdateWithoutIntakePagesInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   blogs?: Prisma.BlogUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUpdateManyWithoutDestinationNestedInput
@@ -1172,6 +1205,7 @@ export type DestinationUncheckedUpdateWithoutIntakePagesInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUncheckedUpdateManyWithoutDestinationNestedInput
@@ -1201,6 +1235,7 @@ export type DestinationCreateWithoutEventsInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   blogs?: Prisma.BlogCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryCreateNestedManyWithoutDestinationInput
@@ -1230,6 +1265,7 @@ export type DestinationUncheckedCreateWithoutEventsInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutDestinationInput
@@ -1275,6 +1311,7 @@ export type DestinationUpdateWithoutEventsInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   blogs?: Prisma.BlogUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUpdateManyWithoutDestinationNestedInput
@@ -1304,6 +1341,7 @@ export type DestinationUncheckedUpdateWithoutEventsInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUncheckedUpdateManyWithoutDestinationNestedInput
@@ -1333,6 +1371,7 @@ export type DestinationCreateWithoutLeadsInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   blogs?: Prisma.BlogCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryCreateNestedManyWithoutDestinationInput
@@ -1362,6 +1401,7 @@ export type DestinationUncheckedCreateWithoutLeadsInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutDestinationInput
@@ -1407,6 +1447,7 @@ export type DestinationUpdateWithoutLeadsInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   blogs?: Prisma.BlogUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUpdateManyWithoutDestinationNestedInput
@@ -1436,6 +1477,7 @@ export type DestinationUncheckedUpdateWithoutLeadsInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUncheckedUpdateManyWithoutDestinationNestedInput
@@ -1465,6 +1507,7 @@ export type DestinationCreateWithoutEssentialStudiesInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   blogs?: Prisma.BlogCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryCreateNestedManyWithoutDestinationInput
@@ -1494,6 +1537,7 @@ export type DestinationUncheckedCreateWithoutEssentialStudiesInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutDestinationInput
@@ -1539,6 +1583,7 @@ export type DestinationUpdateWithoutEssentialStudiesInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   blogs?: Prisma.BlogUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUpdateManyWithoutDestinationNestedInput
@@ -1568,6 +1613,7 @@ export type DestinationUncheckedUpdateWithoutEssentialStudiesInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUncheckedUpdateManyWithoutDestinationNestedInput
@@ -1597,6 +1643,7 @@ export type DestinationCreateWithoutSectionsInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   blogs?: Prisma.BlogCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryCreateNestedManyWithoutDestinationInput
@@ -1626,6 +1673,7 @@ export type DestinationUncheckedCreateWithoutSectionsInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutDestinationInput
@@ -1671,6 +1719,7 @@ export type DestinationUpdateWithoutSectionsInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   blogs?: Prisma.BlogUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUpdateManyWithoutDestinationNestedInput
@@ -1700,6 +1749,7 @@ export type DestinationUncheckedUpdateWithoutSectionsInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUncheckedUpdateManyWithoutDestinationNestedInput
@@ -1729,6 +1779,7 @@ export type DestinationCreateWithoutFaqLinksInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   blogs?: Prisma.BlogCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryCreateNestedManyWithoutDestinationInput
@@ -1758,6 +1809,7 @@ export type DestinationUncheckedCreateWithoutFaqLinksInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutDestinationInput
@@ -1803,6 +1855,7 @@ export type DestinationUpdateWithoutFaqLinksInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   blogs?: Prisma.BlogUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUpdateManyWithoutDestinationNestedInput
@@ -1832,6 +1885,7 @@ export type DestinationUncheckedUpdateWithoutFaqLinksInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUncheckedUpdateManyWithoutDestinationNestedInput
@@ -1861,6 +1915,7 @@ export type DestinationCreateWithoutCountriesInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   blogs?: Prisma.BlogCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseCreateNestedManyWithoutDestinationInput
   sections?: Prisma.DestinationSectionCreateNestedManyWithoutDestinationInput
@@ -1890,6 +1945,7 @@ export type DestinationUncheckedCreateWithoutCountriesInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDestinationInput
   sections?: Prisma.DestinationSectionUncheckedCreateNestedManyWithoutDestinationInput
@@ -1935,6 +1991,7 @@ export type DestinationUpdateWithoutCountriesInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   blogs?: Prisma.BlogUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDestinationNestedInput
   sections?: Prisma.DestinationSectionUpdateManyWithoutDestinationNestedInput
@@ -1964,6 +2021,7 @@ export type DestinationUncheckedUpdateWithoutCountriesInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDestinationNestedInput
   sections?: Prisma.DestinationSectionUncheckedUpdateManyWithoutDestinationNestedInput
@@ -1993,6 +2051,7 @@ export type DestinationCreateWithoutTestimonialsInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   blogs?: Prisma.BlogCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryCreateNestedManyWithoutDestinationInput
@@ -2022,6 +2081,7 @@ export type DestinationUncheckedCreateWithoutTestimonialsInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutDestinationInput
@@ -2067,6 +2127,7 @@ export type DestinationUpdateWithoutTestimonialsInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   blogs?: Prisma.BlogUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUpdateManyWithoutDestinationNestedInput
@@ -2096,6 +2157,7 @@ export type DestinationUncheckedUpdateWithoutTestimonialsInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUncheckedUpdateManyWithoutDestinationNestedInput
@@ -2125,6 +2187,7 @@ export type DestinationCreateWithoutScholarshipsInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   blogs?: Prisma.BlogCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryCreateNestedManyWithoutDestinationInput
@@ -2154,6 +2217,7 @@ export type DestinationUncheckedCreateWithoutScholarshipsInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutDestinationInput
@@ -2199,6 +2263,7 @@ export type DestinationUpdateWithoutScholarshipsInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   blogs?: Prisma.BlogUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUpdateManyWithoutDestinationNestedInput
@@ -2228,6 +2293,7 @@ export type DestinationUncheckedUpdateWithoutScholarshipsInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUncheckedUpdateManyWithoutDestinationNestedInput
@@ -2257,6 +2323,7 @@ export type DestinationCreateWithoutUniversitiesInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   blogs?: Prisma.BlogCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryCreateNestedManyWithoutDestinationInput
@@ -2286,6 +2353,7 @@ export type DestinationUncheckedCreateWithoutUniversitiesInput = {
   metaKeywords?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.ContentStatus
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutDestinationInput
@@ -2331,6 +2399,7 @@ export type DestinationUpdateWithoutUniversitiesInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   blogs?: Prisma.BlogUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUpdateManyWithoutDestinationNestedInput
@@ -2360,6 +2429,7 @@ export type DestinationUncheckedUpdateWithoutUniversitiesInput = {
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUncheckedUpdateManyWithoutDestinationNestedInput
@@ -2519,6 +2589,7 @@ export type DestinationSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   metaKeywords?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
   blogs?: boolean | Prisma.Destination$blogsArgs<ExtArgs>
   courses?: boolean | Prisma.Destination$coursesArgs<ExtArgs>
   countries?: boolean | Prisma.Destination$countriesArgs<ExtArgs>
@@ -2550,6 +2621,7 @@ export type DestinationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   metaKeywords?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
 }, ExtArgs["result"]["destination"]>
 
 export type DestinationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -2568,6 +2640,7 @@ export type DestinationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   metaKeywords?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
 }, ExtArgs["result"]["destination"]>
 
 export type DestinationSelectScalar = {
@@ -2586,9 +2659,10 @@ export type DestinationSelectScalar = {
   metaKeywords?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
 }
 
-export type DestinationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "heroTitle" | "thumbnail" | "heroSubtitle" | "whyChoose" | "topUniversities" | "campusAndCommunity" | "destinationLife" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt", ExtArgs["result"]["destination"]>
+export type DestinationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "heroTitle" | "thumbnail" | "heroSubtitle" | "whyChoose" | "topUniversities" | "campusAndCommunity" | "destinationLife" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "status", ExtArgs["result"]["destination"]>
 export type DestinationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   blogs?: boolean | Prisma.Destination$blogsArgs<ExtArgs>
   courses?: boolean | Prisma.Destination$coursesArgs<ExtArgs>
@@ -2639,6 +2713,7 @@ export type $DestinationPayload<ExtArgs extends runtime.Types.Extensions.Interna
     metaKeywords: string | null
     createdAt: Date
     updatedAt: Date
+    status: $Enums.ContentStatus
   }, ExtArgs["result"]["destination"]>
   composites: {}
 }
@@ -3089,6 +3164,7 @@ export interface DestinationFieldRefs {
   readonly metaKeywords: Prisma.FieldRef<"Destination", 'String'>
   readonly createdAt: Prisma.FieldRef<"Destination", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Destination", 'DateTime'>
+  readonly status: Prisma.FieldRef<"Destination", 'ContentStatus'>
 }
     
 

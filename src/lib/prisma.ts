@@ -54,14 +54,14 @@ async function ensureAdmin() {
   }
 
   const existing = await prisma.user.findUnique({
-    where: { email: ADMIN_EMAIL },
+    where: { email: ADMIN_EMAIL, role: "SUPERADMIN" },
   });
   if (existing) {
     // Optionally update role to ADMIN if it drifted
-    if (existing.role !== "ADMIN") {
+    if (existing.role !== "SUPERADMIN") {
       await prisma.user.update({
         where: { id: existing.id },
-        data: { role: "ADMIN" },
+        data: { role: "SUPERADMIN" },
       });
     }
     return;
@@ -73,7 +73,7 @@ async function ensureAdmin() {
       email: ADMIN_EMAIL,
       password: hashed,
       name: ADMIN_NAME,
-      role: "ADMIN",
+      role: "SUPERADMIN",
     },
   });
 }

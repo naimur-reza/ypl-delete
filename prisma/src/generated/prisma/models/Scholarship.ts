@@ -58,8 +58,8 @@ export type ScholarshipMinAggregateOutputType = {
   updatedBy: string | null
   universityId: string | null
   destinationId: string | null
-  isActive: boolean | null
   summary: string | null
+  status: $Enums.ContentStatus | null
 }
 
 export type ScholarshipMaxAggregateOutputType = {
@@ -86,8 +86,8 @@ export type ScholarshipMaxAggregateOutputType = {
   updatedBy: string | null
   universityId: string | null
   destinationId: string | null
-  isActive: boolean | null
   summary: string | null
+  status: $Enums.ContentStatus | null
 }
 
 export type ScholarshipCountAggregateOutputType = {
@@ -114,8 +114,8 @@ export type ScholarshipCountAggregateOutputType = {
   updatedBy: number
   universityId: number
   destinationId: number
-  isActive: number
   summary: number
+  status: number
   _all: number
 }
 
@@ -152,8 +152,8 @@ export type ScholarshipMinAggregateInputType = {
   updatedBy?: true
   universityId?: true
   destinationId?: true
-  isActive?: true
   summary?: true
+  status?: true
 }
 
 export type ScholarshipMaxAggregateInputType = {
@@ -180,8 +180,8 @@ export type ScholarshipMaxAggregateInputType = {
   updatedBy?: true
   universityId?: true
   destinationId?: true
-  isActive?: true
   summary?: true
+  status?: true
 }
 
 export type ScholarshipCountAggregateInputType = {
@@ -208,8 +208,8 @@ export type ScholarshipCountAggregateInputType = {
   updatedBy?: true
   universityId?: true
   destinationId?: true
-  isActive?: true
   summary?: true
+  status?: true
   _all?: true
 }
 
@@ -323,8 +323,8 @@ export type ScholarshipGroupByOutputType = {
   updatedBy: string | null
   universityId: string | null
   destinationId: string
-  isActive: boolean | null
   summary: string | null
+  status: $Enums.ContentStatus
   _count: ScholarshipCountAggregateOutputType | null
   _avg: ScholarshipAvgAggregateOutputType | null
   _sum: ScholarshipSumAggregateOutputType | null
@@ -374,8 +374,8 @@ export type ScholarshipWhereInput = {
   updatedBy?: Prisma.StringNullableFilter<"Scholarship"> | string | null
   universityId?: Prisma.StringNullableFilter<"Scholarship"> | string | null
   destinationId?: Prisma.StringFilter<"Scholarship"> | string
-  isActive?: Prisma.BoolNullableFilter<"Scholarship"> | boolean | null
   summary?: Prisma.StringNullableFilter<"Scholarship"> | string | null
+  status?: Prisma.EnumContentStatusFilter<"Scholarship"> | $Enums.ContentStatus
   faqs?: Prisma.FAQScholarshipListRelationFilter
   destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
   university?: Prisma.XOR<Prisma.UniversityNullableScalarRelationFilter, Prisma.UniversityWhereInput> | null
@@ -407,8 +407,8 @@ export type ScholarshipOrderByWithRelationInput = {
   updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   universityId?: Prisma.SortOrderInput | Prisma.SortOrder
   destinationId?: Prisma.SortOrder
-  isActive?: Prisma.SortOrderInput | Prisma.SortOrder
   summary?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
   faqs?: Prisma.FAQScholarshipOrderByRelationAggregateInput
   destination?: Prisma.DestinationOrderByWithRelationInput
   university?: Prisma.UniversityOrderByWithRelationInput
@@ -443,8 +443,8 @@ export type ScholarshipWhereUniqueInput = Prisma.AtLeast<{
   updatedBy?: Prisma.StringNullableFilter<"Scholarship"> | string | null
   universityId?: Prisma.StringNullableFilter<"Scholarship"> | string | null
   destinationId?: Prisma.StringFilter<"Scholarship"> | string
-  isActive?: Prisma.BoolNullableFilter<"Scholarship"> | boolean | null
   summary?: Prisma.StringNullableFilter<"Scholarship"> | string | null
+  status?: Prisma.EnumContentStatusFilter<"Scholarship"> | $Enums.ContentStatus
   faqs?: Prisma.FAQScholarshipListRelationFilter
   destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
   university?: Prisma.XOR<Prisma.UniversityNullableScalarRelationFilter, Prisma.UniversityWhereInput> | null
@@ -476,8 +476,8 @@ export type ScholarshipOrderByWithAggregationInput = {
   updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   universityId?: Prisma.SortOrderInput | Prisma.SortOrder
   destinationId?: Prisma.SortOrder
-  isActive?: Prisma.SortOrderInput | Prisma.SortOrder
   summary?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
   _count?: Prisma.ScholarshipCountOrderByAggregateInput
   _avg?: Prisma.ScholarshipAvgOrderByAggregateInput
   _max?: Prisma.ScholarshipMaxOrderByAggregateInput
@@ -512,8 +512,8 @@ export type ScholarshipScalarWhereWithAggregatesInput = {
   updatedBy?: Prisma.StringNullableWithAggregatesFilter<"Scholarship"> | string | null
   universityId?: Prisma.StringNullableWithAggregatesFilter<"Scholarship"> | string | null
   destinationId?: Prisma.StringWithAggregatesFilter<"Scholarship"> | string
-  isActive?: Prisma.BoolNullableWithAggregatesFilter<"Scholarship"> | boolean | null
   summary?: Prisma.StringNullableWithAggregatesFilter<"Scholarship"> | string | null
+  status?: Prisma.EnumContentStatusWithAggregatesFilter<"Scholarship"> | $Enums.ContentStatus
 }
 
 export type ScholarshipCreateInput = {
@@ -538,8 +538,8 @@ export type ScholarshipCreateInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  isActive?: boolean | null
   summary?: string | null
+  status?: $Enums.ContentStatus
   faqs?: Prisma.FAQScholarshipCreateNestedManyWithoutScholarshipInput
   destination: Prisma.DestinationCreateNestedOneWithoutScholarshipsInput
   university?: Prisma.UniversityCreateNestedOneWithoutScholarshipsInput
@@ -571,8 +571,8 @@ export type ScholarshipUncheckedCreateInput = {
   updatedBy?: string | null
   universityId?: string | null
   destinationId: string
-  isActive?: boolean | null
   summary?: string | null
+  status?: $Enums.ContentStatus
   faqs?: Prisma.FAQScholarshipUncheckedCreateNestedManyWithoutScholarshipInput
   countries?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutScholarshipInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutScholarshipsInput
@@ -600,8 +600,8 @@ export type ScholarshipUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   faqs?: Prisma.FAQScholarshipUpdateManyWithoutScholarshipNestedInput
   destination?: Prisma.DestinationUpdateOneRequiredWithoutScholarshipsNestedInput
   university?: Prisma.UniversityUpdateOneWithoutScholarshipsNestedInput
@@ -633,8 +633,8 @@ export type ScholarshipUncheckedUpdateInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   faqs?: Prisma.FAQScholarshipUncheckedUpdateManyWithoutScholarshipNestedInput
   countries?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutScholarshipNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutScholarshipsNestedInput
@@ -664,8 +664,8 @@ export type ScholarshipCreateManyInput = {
   updatedBy?: string | null
   universityId?: string | null
   destinationId: string
-  isActive?: boolean | null
   summary?: string | null
+  status?: $Enums.ContentStatus
 }
 
 export type ScholarshipUpdateManyMutationInput = {
@@ -690,8 +690,8 @@ export type ScholarshipUpdateManyMutationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type ScholarshipUncheckedUpdateManyInput = {
@@ -718,8 +718,8 @@ export type ScholarshipUncheckedUpdateManyInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type ScholarshipListRelationFilter = {
@@ -761,8 +761,8 @@ export type ScholarshipCountOrderByAggregateInput = {
   updatedBy?: Prisma.SortOrder
   universityId?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   summary?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type ScholarshipAvgOrderByAggregateInput = {
@@ -793,8 +793,8 @@ export type ScholarshipMaxOrderByAggregateInput = {
   updatedBy?: Prisma.SortOrder
   universityId?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   summary?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type ScholarshipMinOrderByAggregateInput = {
@@ -821,8 +821,8 @@ export type ScholarshipMinOrderByAggregateInput = {
   updatedBy?: Prisma.SortOrder
   universityId?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   summary?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type ScholarshipSumOrderByAggregateInput = {
@@ -1001,8 +1001,8 @@ export type ScholarshipCreateWithoutCoursesInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  isActive?: boolean | null
   summary?: string | null
+  status?: $Enums.ContentStatus
   faqs?: Prisma.FAQScholarshipCreateNestedManyWithoutScholarshipInput
   destination: Prisma.DestinationCreateNestedOneWithoutScholarshipsInput
   university?: Prisma.UniversityCreateNestedOneWithoutScholarshipsInput
@@ -1033,8 +1033,8 @@ export type ScholarshipUncheckedCreateWithoutCoursesInput = {
   updatedBy?: string | null
   universityId?: string | null
   destinationId: string
-  isActive?: boolean | null
   summary?: string | null
+  status?: $Enums.ContentStatus
   faqs?: Prisma.FAQScholarshipUncheckedCreateNestedManyWithoutScholarshipInput
   countries?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutScholarshipInput
 }
@@ -1087,8 +1087,8 @@ export type ScholarshipScalarWhereInput = {
   updatedBy?: Prisma.StringNullableFilter<"Scholarship"> | string | null
   universityId?: Prisma.StringNullableFilter<"Scholarship"> | string | null
   destinationId?: Prisma.StringFilter<"Scholarship"> | string
-  isActive?: Prisma.BoolNullableFilter<"Scholarship"> | boolean | null
   summary?: Prisma.StringNullableFilter<"Scholarship"> | string | null
+  status?: Prisma.EnumContentStatusFilter<"Scholarship"> | $Enums.ContentStatus
 }
 
 export type ScholarshipCreateWithoutDestinationInput = {
@@ -1113,8 +1113,8 @@ export type ScholarshipCreateWithoutDestinationInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  isActive?: boolean | null
   summary?: string | null
+  status?: $Enums.ContentStatus
   faqs?: Prisma.FAQScholarshipCreateNestedManyWithoutScholarshipInput
   university?: Prisma.UniversityCreateNestedOneWithoutScholarshipsInput
   countries?: Prisma.ScholarshipCountryCreateNestedManyWithoutScholarshipInput
@@ -1144,8 +1144,8 @@ export type ScholarshipUncheckedCreateWithoutDestinationInput = {
   createdBy?: string | null
   updatedBy?: string | null
   universityId?: string | null
-  isActive?: boolean | null
   summary?: string | null
+  status?: $Enums.ContentStatus
   faqs?: Prisma.FAQScholarshipUncheckedCreateNestedManyWithoutScholarshipInput
   countries?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutScholarshipInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutScholarshipsInput
@@ -1199,8 +1199,8 @@ export type ScholarshipCreateWithoutCountriesInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  isActive?: boolean | null
   summary?: string | null
+  status?: $Enums.ContentStatus
   faqs?: Prisma.FAQScholarshipCreateNestedManyWithoutScholarshipInput
   destination: Prisma.DestinationCreateNestedOneWithoutScholarshipsInput
   university?: Prisma.UniversityCreateNestedOneWithoutScholarshipsInput
@@ -1231,8 +1231,8 @@ export type ScholarshipUncheckedCreateWithoutCountriesInput = {
   updatedBy?: string | null
   universityId?: string | null
   destinationId: string
-  isActive?: boolean | null
   summary?: string | null
+  status?: $Enums.ContentStatus
   faqs?: Prisma.FAQScholarshipUncheckedCreateNestedManyWithoutScholarshipInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutScholarshipsInput
 }
@@ -1275,8 +1275,8 @@ export type ScholarshipUpdateWithoutCountriesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   faqs?: Prisma.FAQScholarshipUpdateManyWithoutScholarshipNestedInput
   destination?: Prisma.DestinationUpdateOneRequiredWithoutScholarshipsNestedInput
   university?: Prisma.UniversityUpdateOneWithoutScholarshipsNestedInput
@@ -1307,8 +1307,8 @@ export type ScholarshipUncheckedUpdateWithoutCountriesInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   faqs?: Prisma.FAQScholarshipUncheckedUpdateManyWithoutScholarshipNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutScholarshipsNestedInput
 }
@@ -1335,8 +1335,8 @@ export type ScholarshipCreateWithoutFaqsInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  isActive?: boolean | null
   summary?: string | null
+  status?: $Enums.ContentStatus
   destination: Prisma.DestinationCreateNestedOneWithoutScholarshipsInput
   university?: Prisma.UniversityCreateNestedOneWithoutScholarshipsInput
   countries?: Prisma.ScholarshipCountryCreateNestedManyWithoutScholarshipInput
@@ -1367,8 +1367,8 @@ export type ScholarshipUncheckedCreateWithoutFaqsInput = {
   updatedBy?: string | null
   universityId?: string | null
   destinationId: string
-  isActive?: boolean | null
   summary?: string | null
+  status?: $Enums.ContentStatus
   countries?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutScholarshipInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutScholarshipsInput
 }
@@ -1411,8 +1411,8 @@ export type ScholarshipUpdateWithoutFaqsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   destination?: Prisma.DestinationUpdateOneRequiredWithoutScholarshipsNestedInput
   university?: Prisma.UniversityUpdateOneWithoutScholarshipsNestedInput
   countries?: Prisma.ScholarshipCountryUpdateManyWithoutScholarshipNestedInput
@@ -1443,8 +1443,8 @@ export type ScholarshipUncheckedUpdateWithoutFaqsInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutScholarshipNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutScholarshipsNestedInput
 }
@@ -1471,8 +1471,8 @@ export type ScholarshipCreateWithoutUniversityInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  isActive?: boolean | null
   summary?: string | null
+  status?: $Enums.ContentStatus
   faqs?: Prisma.FAQScholarshipCreateNestedManyWithoutScholarshipInput
   destination: Prisma.DestinationCreateNestedOneWithoutScholarshipsInput
   countries?: Prisma.ScholarshipCountryCreateNestedManyWithoutScholarshipInput
@@ -1502,8 +1502,8 @@ export type ScholarshipUncheckedCreateWithoutUniversityInput = {
   createdBy?: string | null
   updatedBy?: string | null
   destinationId: string
-  isActive?: boolean | null
   summary?: string | null
+  status?: $Enums.ContentStatus
   faqs?: Prisma.FAQScholarshipUncheckedCreateNestedManyWithoutScholarshipInput
   countries?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutScholarshipInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutScholarshipsInput
@@ -1557,8 +1557,8 @@ export type ScholarshipUpdateWithoutCoursesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   faqs?: Prisma.FAQScholarshipUpdateManyWithoutScholarshipNestedInput
   destination?: Prisma.DestinationUpdateOneRequiredWithoutScholarshipsNestedInput
   university?: Prisma.UniversityUpdateOneWithoutScholarshipsNestedInput
@@ -1589,8 +1589,8 @@ export type ScholarshipUncheckedUpdateWithoutCoursesInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   faqs?: Prisma.FAQScholarshipUncheckedUpdateManyWithoutScholarshipNestedInput
   countries?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutScholarshipNestedInput
 }
@@ -1619,8 +1619,8 @@ export type ScholarshipUncheckedUpdateManyWithoutCoursesInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type ScholarshipCreateManyDestinationInput = {
@@ -1646,8 +1646,8 @@ export type ScholarshipCreateManyDestinationInput = {
   createdBy?: string | null
   updatedBy?: string | null
   universityId?: string | null
-  isActive?: boolean | null
   summary?: string | null
+  status?: $Enums.ContentStatus
 }
 
 export type ScholarshipUpdateWithoutDestinationInput = {
@@ -1672,8 +1672,8 @@ export type ScholarshipUpdateWithoutDestinationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   faqs?: Prisma.FAQScholarshipUpdateManyWithoutScholarshipNestedInput
   university?: Prisma.UniversityUpdateOneWithoutScholarshipsNestedInput
   countries?: Prisma.ScholarshipCountryUpdateManyWithoutScholarshipNestedInput
@@ -1703,8 +1703,8 @@ export type ScholarshipUncheckedUpdateWithoutDestinationInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   faqs?: Prisma.FAQScholarshipUncheckedUpdateManyWithoutScholarshipNestedInput
   countries?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutScholarshipNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutScholarshipsNestedInput
@@ -1733,8 +1733,8 @@ export type ScholarshipUncheckedUpdateManyWithoutDestinationInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type ScholarshipCreateManyUniversityInput = {
@@ -1760,8 +1760,8 @@ export type ScholarshipCreateManyUniversityInput = {
   createdBy?: string | null
   updatedBy?: string | null
   destinationId: string
-  isActive?: boolean | null
   summary?: string | null
+  status?: $Enums.ContentStatus
 }
 
 export type ScholarshipUpdateWithoutUniversityInput = {
@@ -1786,8 +1786,8 @@ export type ScholarshipUpdateWithoutUniversityInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   faqs?: Prisma.FAQScholarshipUpdateManyWithoutScholarshipNestedInput
   destination?: Prisma.DestinationUpdateOneRequiredWithoutScholarshipsNestedInput
   countries?: Prisma.ScholarshipCountryUpdateManyWithoutScholarshipNestedInput
@@ -1817,8 +1817,8 @@ export type ScholarshipUncheckedUpdateWithoutUniversityInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   faqs?: Prisma.FAQScholarshipUncheckedUpdateManyWithoutScholarshipNestedInput
   countries?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutScholarshipNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutScholarshipsNestedInput
@@ -1847,8 +1847,8 @@ export type ScholarshipUncheckedUpdateManyWithoutUniversityInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 
@@ -1924,8 +1924,8 @@ export type ScholarshipSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   updatedBy?: boolean
   universityId?: boolean
   destinationId?: boolean
-  isActive?: boolean
   summary?: boolean
+  status?: boolean
   faqs?: boolean | Prisma.Scholarship$faqsArgs<ExtArgs>
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
   university?: boolean | Prisma.Scholarship$universityArgs<ExtArgs>
@@ -1958,8 +1958,8 @@ export type ScholarshipSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   updatedBy?: boolean
   universityId?: boolean
   destinationId?: boolean
-  isActive?: boolean
   summary?: boolean
+  status?: boolean
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
   university?: boolean | Prisma.Scholarship$universityArgs<ExtArgs>
 }, ExtArgs["result"]["scholarship"]>
@@ -1988,8 +1988,8 @@ export type ScholarshipSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   updatedBy?: boolean
   universityId?: boolean
   destinationId?: boolean
-  isActive?: boolean
   summary?: boolean
+  status?: boolean
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
   university?: boolean | Prisma.Scholarship$universityArgs<ExtArgs>
 }, ExtArgs["result"]["scholarship"]>
@@ -2018,11 +2018,11 @@ export type ScholarshipSelectScalar = {
   updatedBy?: boolean
   universityId?: boolean
   destinationId?: boolean
-  isActive?: boolean
   summary?: boolean
+  status?: boolean
 }
 
-export type ScholarshipOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "image" | "description" | "amount" | "deadline" | "metaTitle" | "metaDescription" | "metaKeywords" | "overview" | "benefits" | "eligibilityCriteria" | "levelAndField" | "providerInfo" | "requiredDocuments" | "howToApply" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "universityId" | "destinationId" | "isActive" | "summary", ExtArgs["result"]["scholarship"]>
+export type ScholarshipOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "image" | "description" | "amount" | "deadline" | "metaTitle" | "metaDescription" | "metaKeywords" | "overview" | "benefits" | "eligibilityCriteria" | "levelAndField" | "providerInfo" | "requiredDocuments" | "howToApply" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "universityId" | "destinationId" | "summary" | "status", ExtArgs["result"]["scholarship"]>
 export type ScholarshipInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   faqs?: boolean | Prisma.Scholarship$faqsArgs<ExtArgs>
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
@@ -2073,8 +2073,8 @@ export type $ScholarshipPayload<ExtArgs extends runtime.Types.Extensions.Interna
     updatedBy: string | null
     universityId: string | null
     destinationId: string
-    isActive: boolean | null
     summary: string | null
+    status: $Enums.ContentStatus
   }, ExtArgs["result"]["scholarship"]>
   composites: {}
 }
@@ -2526,8 +2526,8 @@ export interface ScholarshipFieldRefs {
   readonly updatedBy: Prisma.FieldRef<"Scholarship", 'String'>
   readonly universityId: Prisma.FieldRef<"Scholarship", 'String'>
   readonly destinationId: Prisma.FieldRef<"Scholarship", 'String'>
-  readonly isActive: Prisma.FieldRef<"Scholarship", 'Boolean'>
   readonly summary: Prisma.FieldRef<"Scholarship", 'String'>
+  readonly status: Prisma.FieldRef<"Scholarship", 'ContentStatus'>
 }
     
 

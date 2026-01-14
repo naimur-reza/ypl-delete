@@ -13,7 +13,7 @@ interface DestinationSection {
   image?: string | null;
   content?: string | null;
   displayOrder: number;
-  isActive: boolean;
+  status: any;
 }
 
 interface WhyChooseCountryProps {
@@ -25,7 +25,7 @@ export function WhyChooseCountry({
   countryName,
   sections = [],
 }: WhyChooseCountryProps) {
-  const activeSections = sections.filter((s) => s.isActive);
+  const activeSections = sections.filter((s) => s.status === "ACTIVE");
   const [activeTab, setActiveTab] = useState(0);
 
   // Don't render if no sections

@@ -14,8 +14,8 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const essential = await prisma.essentialStudy.findUnique({
-    where: { slug: (await params).slug },
+  const essential = await prisma.essentialStudy.findFirst({
+    where: { slug: (await params).slug, status: "ACTIVE" },
     select: { title: true, description: true },
   });
 
@@ -37,8 +37,8 @@ function estimateReadingTime(content: string): number {
 }
 
 export default async function EssentialStudyPage({ params }: Props) {
-  const essential = await prisma.essentialStudy.findUnique({
-    where: { slug: (await params).slug },
+  const essential = await prisma.essentialStudy.findFirst({
+    where: { slug: (await params).slug, status: "ACTIVE" },
     include: { destination: true },
   });
 

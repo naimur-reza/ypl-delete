@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useCallback } from "react";
+import { useMemo } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/table/data-table";
@@ -16,7 +16,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import CareerFormModal from "./add-career-modal";
+import { useRouter } from "next/navigation";
+import { Badge } from "@/components/ui/badge";
+import { useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { useConfirmDialog } from "@/hooks/use-confirm-dialog";
 
@@ -26,20 +35,24 @@ interface CareerItem {
   slug: string;
   location?: string;
   jobType?: string;
-  isActive?: boolean;
+  status: "ACTIVE" | "DRAFT";
   createdAt: string;
 }
 
 const api = createEntityApi<CareerItem>("/api/careers");
 
 export default function CareersPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [selected, setSelected] = useState<CareerItem | undefined>();
+  const router = useRouter();
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+
+  const endpoint = useMemo(
+    () => `/api/careers${statusFilter !== "all" ? `?status=${statusFilter}` : ""}`,
+    [statusFilter]
+  );
 
   const { table, isLoading, error, pagination, refetch } =
     useDataTable<CareerItem>({
-      endpoint: "/api/careers",
+      endpoint,
       columns: [],
       enableServerSidePagination: true,
       enableServerSideSorting: true,
@@ -70,9 +83,17 @@ export default function CareersPage() {
       { accessorKey: "location", header: "Location" },
       { accessorKey: "jobType", header: "Type" },
       {
-        accessorKey: "isActive",
-        header: "Active",
-        cell: ({ row }) => (row.original.isActive ? "Yes" : "No"),
+        accessorKey: "status",
+        header: "Status",
+        cell: ({ row }) => {
+          const status = (row.original as any).status as string;
+          return (
+            <Badge variant={status === "ACTIVE" ? "default" : "secondary"}>
+              {status || "DRAFT"}
+            </Badge>
+          );
+        },
+        enableSorting: true,
       },
       {
         accessorKey: "createdAt",
@@ -98,9 +119,7 @@ export default function CareersPage() {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   onClick={() => {
-                    setIsEditing(true);
-                    setSelected(item);
-                    setIsModalOpen(true);
+                    router.push(`/dashboard/careers/${item.id}/edit`);
                   }}
                 >
                   <Pencil className="mr-2 h-4 w-4" />
@@ -119,24 +138,12 @@ export default function CareersPage() {
         },
       },
     ],
-    [deleteDialog]
+    [deleteDialog, router]
   );
 
   if (table.options.columns.length === 0) {
     table.setOptions((prev) => ({ ...prev, columns }));
   }
-
-  const handleOpenModal = () => {
-    setIsEditing(false);
-    setSelected(undefined);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setIsEditing(false);
-    setSelected(undefined);
-  };
 
   return (
     <div className="space-y-6">
@@ -144,15 +151,6 @@ export default function CareersPage() {
         <h1 className="text-3xl font-bold tracking-tight">Careers</h1>
         <p className="text-muted-foreground">Manage job postings</p>
       </div>
-
-      {isModalOpen && (
-        <CareerFormModal
-          isEditing={isEditing}
-          selected={selected}
-          onClose={handleCloseModal}
-          onSuccess={refetch}
-        />
-      )}
 
       <ConfirmDialog
         open={deleteDialog.isOpen}
@@ -174,10 +172,22 @@ export default function CareersPage() {
         error={error}
         pagination={pagination}
         toolbar={
-          <Button onClick={handleOpenModal}>
-            <Plus className="mr-2 h-4 w-4" />
-            Add Career
-          </Button>
+          <div className="flex items-center gap-2">
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger className="w-[150px]">
+                <SelectValue placeholder="Filter by status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Status</SelectItem>
+                <SelectItem value="ACTIVE">Active</SelectItem>
+                <SelectItem value="DRAFT">Draft</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button onClick={() => router.push("/dashboard/careers/new")}>
+              <Plus className="mr-2 h-4 w-4" />
+              Add Career
+            </Button>
+          </div>
         }
       />
     </div>

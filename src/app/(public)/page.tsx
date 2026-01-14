@@ -43,10 +43,10 @@ const HomePage = async () => {
       prisma.university.findMany({
         where: countrySlug
           ? {
-              isActive: true,
+              status: "ACTIVE",
               countries: { some: { country: { slug: countrySlug } } },
             }
-          : { isActive: true },
+          : { status: "ACTIVE" },
         take: 12,
         orderBy: { updatedAt: "desc" },
       }),
@@ -56,7 +56,7 @@ const HomePage = async () => {
       fetchFaqsForHomePage(countrySlug, 6),
       fetchRepresentativeVideos(countrySlug),
       prisma.country.findMany({
-        where: { isActive: true },
+        where: { status: "ACTIVE" },
         select: {
           id: true,
           name: true,

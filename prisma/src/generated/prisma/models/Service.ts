@@ -38,7 +38,7 @@ export type ServiceMinAggregateOutputType = {
   updatedAt: Date | null
   heroSubtitle: string | null
   heroTitle: string | null
-  isActive: boolean | null
+  status: $Enums.ContentStatus | null
 }
 
 export type ServiceMaxAggregateOutputType = {
@@ -55,7 +55,7 @@ export type ServiceMaxAggregateOutputType = {
   updatedAt: Date | null
   heroSubtitle: string | null
   heroTitle: string | null
-  isActive: boolean | null
+  status: $Enums.ContentStatus | null
 }
 
 export type ServiceCountAggregateOutputType = {
@@ -72,8 +72,8 @@ export type ServiceCountAggregateOutputType = {
   updatedAt: number
   heroSubtitle: number
   heroTitle: number
-  isActive: number
   stats: number
+  status: number
   _all: number
 }
 
@@ -92,7 +92,7 @@ export type ServiceMinAggregateInputType = {
   updatedAt?: true
   heroSubtitle?: true
   heroTitle?: true
-  isActive?: true
+  status?: true
 }
 
 export type ServiceMaxAggregateInputType = {
@@ -109,7 +109,7 @@ export type ServiceMaxAggregateInputType = {
   updatedAt?: true
   heroSubtitle?: true
   heroTitle?: true
-  isActive?: true
+  status?: true
 }
 
 export type ServiceCountAggregateInputType = {
@@ -126,8 +126,8 @@ export type ServiceCountAggregateInputType = {
   updatedAt?: true
   heroSubtitle?: true
   heroTitle?: true
-  isActive?: true
   stats?: true
+  status?: true
   _all?: true
 }
 
@@ -217,8 +217,8 @@ export type ServiceGroupByOutputType = {
   updatedAt: Date
   heroSubtitle: string | null
   heroTitle: string | null
-  isActive: boolean
   stats: runtime.JsonValue | null
+  status: $Enums.ContentStatus
   _count: ServiceCountAggregateOutputType | null
   _min: ServiceMinAggregateOutputType | null
   _max: ServiceMaxAggregateOutputType | null
@@ -256,8 +256,8 @@ export type ServiceWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Service"> | Date | string
   heroSubtitle?: Prisma.StringNullableFilter<"Service"> | string | null
   heroTitle?: Prisma.StringNullableFilter<"Service"> | string | null
-  isActive?: Prisma.BoolFilter<"Service"> | boolean
   stats?: Prisma.JsonNullableFilter<"Service">
+  status?: Prisma.EnumContentStatusFilter<"Service"> | $Enums.ContentStatus
   countries?: Prisma.ServiceCountryListRelationFilter
 }
 
@@ -275,8 +275,8 @@ export type ServiceOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   heroSubtitle?: Prisma.SortOrderInput | Prisma.SortOrder
   heroTitle?: Prisma.SortOrderInput | Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   stats?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
   countries?: Prisma.ServiceCountryOrderByRelationAggregateInput
 }
 
@@ -297,8 +297,8 @@ export type ServiceWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Service"> | Date | string
   heroSubtitle?: Prisma.StringNullableFilter<"Service"> | string | null
   heroTitle?: Prisma.StringNullableFilter<"Service"> | string | null
-  isActive?: Prisma.BoolFilter<"Service"> | boolean
   stats?: Prisma.JsonNullableFilter<"Service">
+  status?: Prisma.EnumContentStatusFilter<"Service"> | $Enums.ContentStatus
   countries?: Prisma.ServiceCountryListRelationFilter
 }, "id" | "slug">
 
@@ -316,8 +316,8 @@ export type ServiceOrderByWithAggregationInput = {
   updatedAt?: Prisma.SortOrder
   heroSubtitle?: Prisma.SortOrderInput | Prisma.SortOrder
   heroTitle?: Prisma.SortOrderInput | Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   stats?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
   _count?: Prisma.ServiceCountOrderByAggregateInput
   _max?: Prisma.ServiceMaxOrderByAggregateInput
   _min?: Prisma.ServiceMinOrderByAggregateInput
@@ -340,8 +340,8 @@ export type ServiceScalarWhereWithAggregatesInput = {
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Service"> | Date | string
   heroSubtitle?: Prisma.StringNullableWithAggregatesFilter<"Service"> | string | null
   heroTitle?: Prisma.StringNullableWithAggregatesFilter<"Service"> | string | null
-  isActive?: Prisma.BoolWithAggregatesFilter<"Service"> | boolean
   stats?: Prisma.JsonNullableWithAggregatesFilter<"Service">
+  status?: Prisma.EnumContentStatusWithAggregatesFilter<"Service"> | $Enums.ContentStatus
 }
 
 export type ServiceCreateInput = {
@@ -358,8 +358,8 @@ export type ServiceCreateInput = {
   updatedAt?: Date | string
   heroSubtitle?: string | null
   heroTitle?: string | null
-  isActive?: boolean
   stats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.ContentStatus
   countries?: Prisma.ServiceCountryCreateNestedManyWithoutServiceInput
 }
 
@@ -377,8 +377,8 @@ export type ServiceUncheckedCreateInput = {
   updatedAt?: Date | string
   heroSubtitle?: string | null
   heroTitle?: string | null
-  isActive?: boolean
   stats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.ContentStatus
   countries?: Prisma.ServiceCountryUncheckedCreateNestedManyWithoutServiceInput
 }
 
@@ -396,8 +396,8 @@ export type ServiceUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   stats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.ServiceCountryUpdateManyWithoutServiceNestedInput
 }
 
@@ -415,8 +415,8 @@ export type ServiceUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   stats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.ServiceCountryUncheckedUpdateManyWithoutServiceNestedInput
 }
 
@@ -434,8 +434,8 @@ export type ServiceCreateManyInput = {
   updatedAt?: Date | string
   heroSubtitle?: string | null
   heroTitle?: string | null
-  isActive?: boolean
   stats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.ContentStatus
 }
 
 export type ServiceUpdateManyMutationInput = {
@@ -452,8 +452,8 @@ export type ServiceUpdateManyMutationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   stats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type ServiceUncheckedUpdateManyInput = {
@@ -470,8 +470,8 @@ export type ServiceUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   stats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type ServiceCountOrderByAggregateInput = {
@@ -488,8 +488,8 @@ export type ServiceCountOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
   heroSubtitle?: Prisma.SortOrder
   heroTitle?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   stats?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type ServiceMaxOrderByAggregateInput = {
@@ -506,7 +506,7 @@ export type ServiceMaxOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
   heroSubtitle?: Prisma.SortOrder
   heroTitle?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type ServiceMinOrderByAggregateInput = {
@@ -523,7 +523,7 @@ export type ServiceMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
   heroSubtitle?: Prisma.SortOrder
   heroTitle?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type ServiceScalarRelationFilter = {
@@ -559,8 +559,8 @@ export type ServiceCreateWithoutCountriesInput = {
   updatedAt?: Date | string
   heroSubtitle?: string | null
   heroTitle?: string | null
-  isActive?: boolean
   stats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.ContentStatus
 }
 
 export type ServiceUncheckedCreateWithoutCountriesInput = {
@@ -577,8 +577,8 @@ export type ServiceUncheckedCreateWithoutCountriesInput = {
   updatedAt?: Date | string
   heroSubtitle?: string | null
   heroTitle?: string | null
-  isActive?: boolean
   stats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.ContentStatus
 }
 
 export type ServiceCreateOrConnectWithoutCountriesInput = {
@@ -611,8 +611,8 @@ export type ServiceUpdateWithoutCountriesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   stats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type ServiceUncheckedUpdateWithoutCountriesInput = {
@@ -629,8 +629,8 @@ export type ServiceUncheckedUpdateWithoutCountriesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   stats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 
@@ -678,8 +678,8 @@ export type ServiceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   updatedAt?: boolean
   heroSubtitle?: boolean
   heroTitle?: boolean
-  isActive?: boolean
   stats?: boolean
+  status?: boolean
   countries?: boolean | Prisma.Service$countriesArgs<ExtArgs>
   _count?: boolean | Prisma.ServiceCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["service"]>
@@ -698,8 +698,8 @@ export type ServiceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   updatedAt?: boolean
   heroSubtitle?: boolean
   heroTitle?: boolean
-  isActive?: boolean
   stats?: boolean
+  status?: boolean
 }, ExtArgs["result"]["service"]>
 
 export type ServiceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -716,8 +716,8 @@ export type ServiceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   updatedAt?: boolean
   heroSubtitle?: boolean
   heroTitle?: boolean
-  isActive?: boolean
   stats?: boolean
+  status?: boolean
 }, ExtArgs["result"]["service"]>
 
 export type ServiceSelectScalar = {
@@ -734,11 +734,11 @@ export type ServiceSelectScalar = {
   updatedAt?: boolean
   heroSubtitle?: boolean
   heroTitle?: boolean
-  isActive?: boolean
   stats?: boolean
+  status?: boolean
 }
 
-export type ServiceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "summary" | "content" | "image" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "heroSubtitle" | "heroTitle" | "isActive" | "stats", ExtArgs["result"]["service"]>
+export type ServiceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "summary" | "content" | "image" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "heroSubtitle" | "heroTitle" | "stats" | "status", ExtArgs["result"]["service"]>
 export type ServiceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   countries?: boolean | Prisma.Service$countriesArgs<ExtArgs>
   _count?: boolean | Prisma.ServiceCountOutputTypeDefaultArgs<ExtArgs>
@@ -765,8 +765,8 @@ export type $ServicePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     updatedAt: Date
     heroSubtitle: string | null
     heroTitle: string | null
-    isActive: boolean
     stats: runtime.JsonValue | null
+    status: $Enums.ContentStatus
   }, ExtArgs["result"]["service"]>
   composites: {}
 }
@@ -1204,8 +1204,8 @@ export interface ServiceFieldRefs {
   readonly updatedAt: Prisma.FieldRef<"Service", 'DateTime'>
   readonly heroSubtitle: Prisma.FieldRef<"Service", 'String'>
   readonly heroTitle: Prisma.FieldRef<"Service", 'String'>
-  readonly isActive: Prisma.FieldRef<"Service", 'Boolean'>
   readonly stats: Prisma.FieldRef<"Service", 'Json'>
+  readonly status: Prisma.FieldRef<"Service", 'ContentStatus'>
 }
     
 
