@@ -144,7 +144,7 @@ export function CourseListing({ courses }: CourseListingProps) {
             {paginatedCourses.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-1 xl:grid-cols-1 gap-4">
                 {paginatedCourses.map((course) => (
-                  <CourseCard key={course.id} course={course} />
+                  <CourseCard key={course.id} course={course as any} />
                 ))}
               </div>
             ) : (

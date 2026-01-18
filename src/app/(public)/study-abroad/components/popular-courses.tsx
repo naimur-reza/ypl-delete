@@ -111,6 +111,7 @@ export async function PopularCourses({
   // Check if we have any filters
   const hasFilters = destinationSlug || countrySlug;
 
+  console.log({destinationSlug, countrySlug})
   // If no filters, fetch 8 courses directly
   if (!hasFilters) {
     const courses = await prisma.course.findMany({
@@ -124,8 +125,7 @@ export async function PopularCourses({
       orderBy: { createdAt: 'desc' },
     });
 
-
- 
+console.log({courses}) 
 
     // Convert to display format
     const displayCategories = courses.length > 0

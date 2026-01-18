@@ -41,7 +41,7 @@ export default async function AdminLayout({
             <div className="p-8">{children}</div>
           </main>
         </div>
-        <Toaster position="bottom-right" richColors />
+        <Toaster position="bottom-center" richColors />
       </SidebarProvider>
     </QueryProvider>
   );

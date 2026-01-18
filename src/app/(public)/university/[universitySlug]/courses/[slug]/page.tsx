@@ -13,12 +13,18 @@ export const dynamicParams = true;
 export async function generateStaticParams() {
   const courses = await prisma.course.findMany({
     where: { status: "ACTIVE" },
-    select: { slug: true },
+    select: { 
+      slug: true,
+      university: {
+        select: { slug: true }
+      }
+    },
     orderBy: { updatedAt: "desc" },
     take: 50,
   });
 
   return courses.map((course) => ({
+    universitySlug: course.university.slug,
     slug: course.slug,
   }));
 }
@@ -27,7 +33,7 @@ export async function generateStaticParams() {
 import { IntakeFeature } from "@/app/(public)/components";
 import { ReviewSection } from "@/components/sections/review-section";
 import { FaqSection } from "@/components/sections/faq-section";
-import { BlogSlider } from "../../blogs/components/blog-slider";
+import { BlogSlider } from "@/app/(public)/blogs/components/blog-slider";
 import CallToActionBanner from "@/components/CallToActionBanner";
 import { fetchFaqsByContext } from "@/lib/faqs";
 import { CourseSidebar } from "@/app/[country]/(public)/courses/[slug]/components/course-sidebar";
@@ -38,10 +44,11 @@ import { CourseCostOfStudy } from "@/app/[country]/(public)/courses/[slug]/compo
 import { CourseScholarships } from "@/app/[country]/(public)/courses/[slug]/components/course-scholarships";
 import { CourseCareers } from "@/app/[country]/(public)/courses/[slug]/components/course-careers";
 import { CourseAdmission } from "@/app/[country]/(public)/courses/[slug]/components/course-admission";
+import { CountryAwareLink } from "@/components/common/navbar/country-aware-link";
 
 interface PageProps {
   params: Promise<{
-    country: string;
+    universitySlug: string;
     slug: string;
   }>;
 }
@@ -58,15 +65,20 @@ interface CourseSections {
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const { country, slug } = await params;
+  const { universitySlug, slug } = await params;
 
   const course = await prisma.course.findFirst({
-    where: { slug, status: "ACTIVE" },
+    where: { 
+      slug, 
+      status: "ACTIVE",
+      university: { slug: universitySlug } 
+    },
     select: {
       title: true,
       metaTitle: true,
       metaDescription: true,
       metaKeywords: true,
+      university: { select: { name: true } }
     },
   });
 
@@ -77,20 +89,26 @@ export async function generateMetadata({
   }
 
   return {
-    title: course.metaTitle || `${course.title} - Study in ${country}`,
+    title: course.metaTitle || `${course.title} at ${course.university.name}`,
     description:
       course.metaDescription ||
-      `Learn about ${course.title}, requirements, fees, and how to apply.`,
+      `Learn about ${course.title} at ${course.university.name}, requirements, fees, and how to apply.`,
     keywords:
-      course.metaKeywords || `Course, ${course.title}, Study in ${country}`,
+      course.metaKeywords || `Course, ${course.title}, ${course.university.name}`,
   };
 }
 
 export default async function CourseDetailsPage({ params }: PageProps) {
-  const { country, slug } = await params;
+  const { universitySlug, slug } = await params;
+  
+  const country = "global"; 
 
   const course = await prisma.course.findFirst({
-    where: { slug, status: "ACTIVE" },
+    where: { 
+      slug, 
+      status: "ACTIVE", 
+      university: { slug: universitySlug }
+    },
     include: {
       university: {
         select: {
@@ -194,10 +212,10 @@ export default async function CourseDetailsPage({ params }: PageProps) {
   return (
     <div className="bg-slate-50 min-h-screen">
       {/* Hero Section */}
-      <div className="relative h-[400px] w-full overflow-hidden">
+      <div className="relative h-[500px] w-full overflow-hidden">
         <Image
           src={
-            course.university?.thumbnail ||
+            course.image ||
             "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=100&w=1400&auto=format&fit=crop"
           }
           alt={course.title}
@@ -210,17 +228,17 @@ export default async function CourseDetailsPage({ params }: PageProps) {
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-white/80 text-sm mb-6">
             <Link
-              href={`/${country}`}
+              href="/"
               className="hover:text-white transition-colors"
             >
               Home
             </Link>
             <ChevronRight className="w-4 h-4" />
-            <Link
-              href={`/${country}/courses`}
+             <Link
+              href={`/universities/${course.university.slug}`}
               className="hover:text-white transition-colors"
             >
-              Courses
+              {course.university.name}
             </Link>
             <ChevronRight className="w-4 h-4" />
             <span className="text-white font-medium truncate max-w-[200px] md:max-w-none">
@@ -239,12 +257,12 @@ export default async function CourseDetailsPage({ params }: PageProps) {
           )}
 
           <div className="flex flex-wrap gap-4">
-            <Link href="#admission">
-              <button className="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-all hover:scale-105 shadow-xl shadow-blue-600/20">
+            <CountryAwareLink href="/apply-now">
+              <button className="px-8 py-3.5 cursor-pointer bg-primary hover:bg-primary/80 text-white font-bold rounded-xl transition-all hover:scale-105 shadow-xl shadow-primary/20">
                 Apply Now
               </button>
-            </Link>
-            <button className="px-6 py-3.5 bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white font-bold rounded-xl transition-all flex items-center gap-2">
+            </CountryAwareLink>
+            <button className="px-6 py-3.5 cursor-pointer bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white font-bold rounded-xl transition-all flex items-center gap-2">
               <Share2 className="w-5 h-5" />
               Share Course
             </button>
@@ -277,7 +295,7 @@ export default async function CourseDetailsPage({ params }: PageProps) {
                     <span className="text-slate-500 text-xs font-semibold uppercase tracking-wider">
                       Tuition Fee
                     </span>
-                    <span className="font-bold text-blue-600">
+                    <span className="font-bold text-primary">
                       {course.tuitionMin && course.tuitionMax
                         ? `${formatCurrency(
                             course.tuitionMin
@@ -324,13 +342,13 @@ export default async function CourseDetailsPage({ params }: PageProps) {
                   <p className="text-slate-400 text-sm mb-4">
                     Our advisors can help you with {course.title}.
                   </p>
-                  <Link href={`/${country}/contact`}>
+                  <CountryAwareLink href={`/apply-now`}>
                     <button className="w-full py-3 bg-white text-slate-900 font-bold rounded-xl hover:bg-slate-100 transition-colors">
                       Book Free Consultation
                     </button>
-                  </Link>
+                  </CountryAwareLink>
                 </div>
-                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/20 rounded-full blur-3xl -mr-16 -mt-16" />
+                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-3xl -mr-16 -mt-16" />
               </div>
             </div>
           </aside>
@@ -428,10 +446,7 @@ export default async function CourseDetailsPage({ params }: PageProps) {
           countrySlug={country}
         />
 
-        {/* Book free counselling CTR Section */}
-        <CallToActionBanner />
-
-        {/* Related Articles */}
+                {/* Related Articles */}
         {relatedBlogs.length > 0 && (
           <div className="bg-slate-50 py-16 px-6">
             <div className="container mx-auto">
@@ -447,6 +462,11 @@ export default async function CourseDetailsPage({ params }: PageProps) {
             </div>
           </div>
         )}
+
+        {/* Book free counselling CTR Section */}
+        <CallToActionBanner />
+
+
       </div>
     </div>
   );

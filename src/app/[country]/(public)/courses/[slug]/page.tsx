@@ -40,6 +40,7 @@ import { CourseCostOfStudy } from "./components/course-cost-of-study";
 import { CourseScholarships } from "./components/course-scholarships";
 import { CourseCareers } from "./components/course-careers";
 import { CourseAdmission } from "./components/course-admission";
+import { CountryAwareLink } from "@/components/common/navbar/country-aware-link";
 
 interface PageProps {
   params: Promise<{
@@ -326,11 +327,11 @@ export default async function CourseDetailsPage({ params }: PageProps) {
                   <p className="text-slate-400 text-sm mb-4">
                     Our advisors can help you with {course.title}.
                   </p>
-                  <Link href={`/${country}/contact`}>
+                  <CountryAwareLink href={`/apply-now`}>
                     <button className="w-full py-3 bg-white text-slate-900 font-bold rounded-xl hover:bg-slate-100 transition-colors">
                       Book Free Consultation
                     </button>
-                  </Link>
+                  </CountryAwareLink>
                 </div>
                 <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/20 rounded-full blur-3xl -mr-16 -mt-16" />
               </div>

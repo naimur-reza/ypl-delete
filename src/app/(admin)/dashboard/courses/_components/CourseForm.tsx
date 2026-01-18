@@ -123,7 +123,7 @@ export function CourseForm({ initialData, onSuccess }: CourseFormProps) {
       description: initialData?.description || "",
       summary: initialData?.summary || "",
       icon: initialData?.icon || "",
-      image: (initialData as any)?.image || "",
+      image: (initialData as any)?.image || imageUrl,
       duration: initialData?.duration || "",
       studyLevel: initialData?.studyLevel || null,
       faculty: initialData?.faculty || null,
@@ -545,6 +545,7 @@ export function CourseForm({ initialData, onSuccess }: CourseFormProps) {
           </Button>
           <SubmitButton
             isSubmitting={isSubmitting}
+            isUploading={isUploading}
             submitText={isEditing ? "Update" : "Create"}
             submittingText={isEditing ? "Updating..." : "Creating..."}
           />

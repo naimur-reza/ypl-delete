@@ -1,20 +1,23 @@
 import Image from "next/image";
 import { Clock, GraduationCap, MapPin, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import { Course } from "../../../../../../prisma/src/generated/prisma/client";
+import { Course, University } from "../../../../../../prisma/src/generated/prisma/client";
  
 
 interface CourseCardProps {
   course: Course & {
-    university?: {
+    university?:{
+      slug: string;
+      id: string;
       name: string;
-      logo?: string | null;
-      location?: string; // Added for the address section
-    };
+      logo: string;
+      address: string;
+    }
   };
 }
 
 export function CourseCard({ course }: CourseCardProps) {
+  console.log({course})
   return (
     <div className="group bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col md:flex-row items-stretch">
       
@@ -45,7 +48,7 @@ export function CourseCard({ course }: CourseCardProps) {
               
               <div className="flex items-center gap-1.5 text-slate-500 text-sm border-l border-slate-200 pl-4">
                 <MapPin className="w-4 h-4 text-slate-400" />
-                <span>{course.university?.location || "United Kingdom"}</span>
+                <span>{course.university?.address || "United Kingdom"}</span>
               </div>
             </div>
           </div>
@@ -76,7 +79,7 @@ export function CourseCard({ course }: CourseCardProps) {
 
           {/* Action Button */}
           <Link 
-            href={`/courses/${course.slug}`}
+            href={`/university/${course.university?.slug}/courses/${course.slug}`}
             className="px-6 py-2.5 border-2 border-[#003366] text-[#003366] hover:bg-[#003366] hover:text-white rounded-lg font-bold transition-all duration-200 flex items-center gap-2 text-sm"
           >
             View Details

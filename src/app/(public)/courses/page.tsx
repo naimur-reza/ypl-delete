@@ -50,6 +50,7 @@ const CoursesPage = async ({
     include: {
       university: {
         select: {
+          slug: true,
           id: true,
           name: true,
           logo: true,
