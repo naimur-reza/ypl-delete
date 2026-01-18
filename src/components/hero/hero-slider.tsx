@@ -144,6 +144,8 @@ export async function HeroSlider({
       headline: hero.title,
       description: hero.subtitle || undefined,
       stats: statsBySlide[index] || [],
+      learnMoreText: hero.learnMoreText || undefined,
+      learnMoreUrl: hero.learnMoreUrl || undefined,
       cta: {
         text: hero.buttonText || "Learn More",
         href: hero.buttonUrl || "#",

@@ -1,6 +1,5 @@
 import { prisma } from "@/lib/prisma";
 import { HeroSliderClient, SlideContent } from "./hero-slider-client";
- 
 
 // Default slides with stats as fallback
 const defaultSlides: SlideContent[] = [
@@ -14,6 +13,8 @@ const defaultSlides: SlideContent[] = [
       { number: "140+", label: "University Partners" },
     ],
     cta: { text: "Apply Now", href: "#apply" },
+    learnMoreText: "Learn More",
+    learnMoreUrl: "#learn-more-1",
     background: {
       type: "image",
       src: "/hero/student-with-glasses-studying.png",
@@ -30,6 +31,8 @@ const defaultSlides: SlideContent[] = [
       { number: "15+", label: "Years Experience" },
     ],
     cta: { text: "Get Counselling", href: "#counselling" },
+    learnMoreText: "Learn More",
+    learnMoreUrl: "#learn-more-2",
     background: {
       type: "image",
       src: "/hero/professional-counselor-with-student.jpg",
@@ -46,6 +49,8 @@ const defaultSlides: SlideContent[] = [
       { number: "24/7", label: "Support" },
     ],
     cta: { text: "Explore Programs", href: "#programs" },
+    learnMoreText: "Learn More",
+    learnMoreUrl: "#learn-more-3",
     background: {
       type: "image",
       src: "/hero/diverse-students-from-different-countries.jpg.png",
@@ -69,14 +74,14 @@ export async function HeroSlider({
       section: "hero",
       status: "ACTIVE",
     },
-    orderBy: [
-      { slideIndex: "asc" },
-      { sortOrder: "asc" },
-    ],
+    orderBy: [{ slideIndex: "asc" }, { sortOrder: "asc" }],
   });
 
   // Group stats by slideIndex
-  const statsBySlide: Record<number, Array<{ title: string; subtitle: string }>> = {};
+  const statsBySlide: Record<
+    number,
+    Array<{ title: string; subtitle: string }>
+  > = {};
   heroStats.forEach((stat) => {
     const slideIdx = stat.slideIndex ?? 0;
     if (!statsBySlide[slideIdx]) {

@@ -18,14 +18,19 @@ import {
   getFooterGlobalOffices,
 } from "@/lib/footer";
 
-export default async function Footer() {
+export default async function Footer({
+  countrySlug,
+}: {
+  countrySlug?: string;
+}) {
   // Fetch all footer data
   const [settings, destinations, globalOffices] = await Promise.all([
     fetchFooterSettings(),
     getFooterDestinations(),
-    getFooterGlobalOffices(),
+    getFooterGlobalOffices(countrySlug),
   ]);
 
+  console.log(globalOffices);
   const quickLinks = getFooterQuickLinks(settings.quickLinks);
   const socialLinks = getSocialLinks(settings);
 
@@ -221,7 +226,9 @@ export default async function Footer() {
                 {globalOffices.map((office, index) => (
                   <span key={office.id} className="flex items-center gap-3">
                     <CountryAwareLink
-                      href={`/global-branches/${office.countries[0] || 'global'}/${office.slug}`}
+                      href={`/global-branches/${
+                        office.countries[0] || "global"
+                      }/${office.slug}`}
                       className="text-slate-400 hover:text-blue-400 transition-colors"
                     >
                       {office.name}

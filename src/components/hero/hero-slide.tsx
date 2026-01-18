@@ -2,12 +2,15 @@
 
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export interface SlideContent {
   id: string;
   tagline?: string;
   headline: string;
   description?: string;
+  learnMoreText?: string;
+  learnMoreUrl?: string;
   stats: Array<{
     number: string;
     label: string;
@@ -63,6 +66,7 @@ export function HeroSlide({ slide, isActive }: HeroSlideProps) {
   const isVideo = slide.background.type === "video";
   const isYouTube = slide.background.type === "youtube";
 
+  console.log(slide);
   return (
     <div className="relative w-full h-full overflow-hidden group">
       {/* Background with Parallax/Zoom Effect */}
@@ -173,18 +177,25 @@ export function HeroSlide({ slide, isActive }: HeroSlideProps) {
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4 mt-2">
-              <a
-                href={slide.cta.href}
-                className="group relative inline-flex items-center gap-3 px-8 py-3 bg-primary text-white font-bold rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(var(--primary),0.5)]"
-              >
-                <div className="absolute inset-0 bg-linear-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <span className="relative">{slide.cta.text}</span>
-                <ArrowRight className="w-5 h-5 relative transition-transform duration-300 group-hover:translate-x-1" />
-              </a>
+              {slide.cta.href && slide.cta.text && (
+                <Link
+                  href={slide.cta.href}
+                  className="group relative inline-flex items-center gap-3 px-8 py-3 bg-primary text-white font-bold rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(var(--primary),0.5)]"
+                >
+                  <div className="absolute inset-0 bg-linear-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <span className="relative">{slide.cta.text}</span>
+                  <ArrowRight className="w-5 h-5 relative transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+              )}
 
-              <button className="px-8 py-3 cursor-pointer bg-white/10 backdrop-blur-md border border-white/20 text-white font-semibold rounded-full hover:bg-white/20 transition-all duration-300 hover:scale-105">
-                Learn More
-              </button>
+              {slide.learnMoreText && slide.learnMoreUrl && (
+                <Link
+                  href={slide.learnMoreUrl}
+                  className="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white font-semibold rounded-full hover:bg-white/20 transition-all duration-300 hover:scale-105"
+                >
+                  {slide.learnMoreText}
+                </Link>
+              )}
             </div>
           </div>
         </div>

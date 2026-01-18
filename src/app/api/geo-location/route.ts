@@ -6,28 +6,34 @@ export async function GET(request: NextRequest) {
     // Get IP from request headers or fallback
     const forwarded = request.headers.get("x-forwarded-for");
     const realIp = request.headers.get("x-real-ip");
-    let ip = forwarded ? forwarded.split(",")[0].trim() : (realIp || "127.0.0.1");
+    let ip = forwarded ? forwarded.split(",")[0].trim() : realIp || "127.0.0.1";
 
     console.log("Geo-location request - IP:", ip);
 
     // In development/localhost, we can't determine location
     // Return test data or null
-    if (ip === "127.0.0.1" || ip === "::1" || ip.startsWith("192.168.") || ip.startsWith("10.")) {
+    if (
+      ip === "127.0.0.1" ||
+      ip === "::1" ||
+      ip === "http://localhost:3000" ||
+      ip.startsWith("192.168.") ||
+      ip.startsWith("10.")
+    ) {
       console.log("Localhost detected");
-      
+
       // For testing purposes, you can hardcode a country here
       // Uncomment the next 3 lines to test with a specific country
       // const testCountry = await prisma.country.findFirst({
       //   where: { isoCode: "BD", status: "ACTIVE" },
       //   select: { slug: true, name: true, isoCode: true },
       // });
-      
+
       return NextResponse.json(
-        { 
-          country: null, 
-          countrySlug: null, 
-          ip, 
-          message: "Localhost - no geo detection available in development" 
+        {
+          country: null,
+          countrySlug: null,
+          ip,
+          message: "Localhost - no geo detection available in development",
         },
         { status: 200 }
       );
@@ -80,11 +86,11 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error("Geo-location API error:", error);
     return NextResponse.json(
-      { 
-        error: "Failed to get location", 
-        country: null, 
+      {
+        error: "Failed to get location",
+        country: null,
         countrySlug: null,
-        details: error instanceof Error ? error.message : "Unknown error"
+        details: error instanceof Error ? error.message : "Unknown error",
       },
       { status: 200 }
     );

@@ -50,7 +50,7 @@ const NavDropdown = ({
       {/* Dropdown Button */}
       <CountryAwareLink
         href={(href as string) || "#"}
-        className="flex items-center gap-1 px-4 py-2 text-muted-foreground hover:text-secondary font-medium transition-colors cursor-pointer group-hover:bg-slate-50 h-16 md:h-20"
+        className="flex items-center gap-1  rounded-full h-fit px-3 py-2 text-muted-foreground hover:text-secondary font-medium transition-colors cursor-pointer group-hover:bg-slate-50  "
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
@@ -108,7 +108,8 @@ const NavDropdown = ({
                     {/* Flag Icon */}
                     {item.countryFlag ? (
                       <div className="w-10 h-10 rounded-full overflow-hidden bg-white/10 flex items-center justify-center border-2 border-white/10 group-hover:border-white/30 transition-colors shrink-0">
-                        {item.countryFlag.startsWith("http") || item.countryFlag.startsWith("/") ? (
+                        {item.countryFlag.startsWith("http") ||
+                        item.countryFlag.startsWith("/") ? (
                           <Image
                             src={item.countryFlag}
                             alt={item.countryName || item.title}
@@ -119,10 +120,10 @@ const NavDropdown = ({
                             onError={(e) => {
                               const target = e.target as HTMLImageElement;
                               if (target.parentElement) {
-                                target.style.display = 'none';
-                                const fallback = document.createElement('span');
-                                fallback.className = 'text-2xl';
-                                fallback.textContent = item.countryFlag || '🌍';
+                                target.style.display = "none";
+                                const fallback = document.createElement("span");
+                                fallback.className = "text-2xl";
+                                fallback.textContent = item.countryFlag || "🌍";
                                 target.parentElement.appendChild(fallback);
                               }
                             }}
@@ -137,7 +138,9 @@ const NavDropdown = ({
                       </div>
                     ) : (
                       <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center border-2 border-white/10 group-hover:border-white/30 transition-colors shrink-0">
-                        <span className="text-lg text-slate-300 group-hover:text-white">{item.title.charAt(0)}</span>
+                        <span className="text-lg text-slate-300 group-hover:text-white">
+                          {item.title.charAt(0)}
+                        </span>
                       </div>
                     )}
 

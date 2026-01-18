@@ -5259,6 +5259,8 @@ export const HeroScalarFieldEnum = {
   subtitle: 'subtitle',
   buttonText: 'buttonText',
   buttonUrl: 'buttonUrl',
+  learnMoreText: 'learnMoreText',
+  learnMoreUrl: 'learnMoreUrl',
   backgroundType: 'backgroundType',
   backgroundUrl: 'backgroundUrl',
   slug: 'slug',

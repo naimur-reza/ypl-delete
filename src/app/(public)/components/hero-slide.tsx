@@ -5,7 +5,10 @@ import { SlideContent } from "./hero-slider-client";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 interface HeroSlideProps {
-  slide: SlideContent;
+  slide: SlideContent & {
+    learnMoreText?: string;
+    learnMoreUrl?: string;
+  };
   isActive: boolean;
 }
 
@@ -99,9 +102,14 @@ export function HeroSlide({ slide, isActive }: HeroSlideProps) {
                 <ArrowRight className="w-5 h-5 relative transition-transform duration-300 group-hover:translate-x-1" />
               </a>
 
-              <button className="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white font-semibold rounded-full hover:bg-white/20 transition-all duration-300 hover:scale-105">
-                Learn More
-              </button>
+              {slide.learnMoreText && slide.learnMoreUrl && (
+                <a
+                  href={slide.learnMoreUrl}
+                  className="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white font-semibold rounded-full hover:bg-white/20 transition-all duration-300 hover:scale-105"
+                >
+                  {slide.learnMoreText}
+                </a>
+              )}
             </div>
           </div>
         </div>

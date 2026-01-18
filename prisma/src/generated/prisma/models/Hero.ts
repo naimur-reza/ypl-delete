@@ -40,6 +40,8 @@ export type HeroMinAggregateOutputType = {
   subtitle: string | null
   buttonText: string | null
   buttonUrl: string | null
+  learnMoreText: string | null
+  learnMoreUrl: string | null
   backgroundType: $Enums.BackgroundType | null
   backgroundUrl: string | null
   slug: string | null
@@ -55,6 +57,8 @@ export type HeroMaxAggregateOutputType = {
   subtitle: string | null
   buttonText: string | null
   buttonUrl: string | null
+  learnMoreText: string | null
+  learnMoreUrl: string | null
   backgroundType: $Enums.BackgroundType | null
   backgroundUrl: string | null
   slug: string | null
@@ -70,6 +74,8 @@ export type HeroCountAggregateOutputType = {
   subtitle: number
   buttonText: number
   buttonUrl: number
+  learnMoreText: number
+  learnMoreUrl: number
   backgroundType: number
   backgroundUrl: number
   slug: number
@@ -95,6 +101,8 @@ export type HeroMinAggregateInputType = {
   subtitle?: true
   buttonText?: true
   buttonUrl?: true
+  learnMoreText?: true
+  learnMoreUrl?: true
   backgroundType?: true
   backgroundUrl?: true
   slug?: true
@@ -110,6 +118,8 @@ export type HeroMaxAggregateInputType = {
   subtitle?: true
   buttonText?: true
   buttonUrl?: true
+  learnMoreText?: true
+  learnMoreUrl?: true
   backgroundType?: true
   backgroundUrl?: true
   slug?: true
@@ -125,6 +135,8 @@ export type HeroCountAggregateInputType = {
   subtitle?: true
   buttonText?: true
   buttonUrl?: true
+  learnMoreText?: true
+  learnMoreUrl?: true
   backgroundType?: true
   backgroundUrl?: true
   slug?: true
@@ -227,6 +239,8 @@ export type HeroGroupByOutputType = {
   subtitle: string | null
   buttonText: string | null
   buttonUrl: string | null
+  learnMoreText: string | null
+  learnMoreUrl: string | null
   backgroundType: $Enums.BackgroundType
   backgroundUrl: string
   slug: string
@@ -265,6 +279,8 @@ export type HeroWhereInput = {
   subtitle?: Prisma.StringNullableFilter<"Hero"> | string | null
   buttonText?: Prisma.StringNullableFilter<"Hero"> | string | null
   buttonUrl?: Prisma.StringNullableFilter<"Hero"> | string | null
+  learnMoreText?: Prisma.StringNullableFilter<"Hero"> | string | null
+  learnMoreUrl?: Prisma.StringNullableFilter<"Hero"> | string | null
   backgroundType?: Prisma.EnumBackgroundTypeFilter<"Hero"> | $Enums.BackgroundType
   backgroundUrl?: Prisma.StringFilter<"Hero"> | string
   slug?: Prisma.StringFilter<"Hero"> | string
@@ -281,6 +297,8 @@ export type HeroOrderByWithRelationInput = {
   subtitle?: Prisma.SortOrderInput | Prisma.SortOrder
   buttonText?: Prisma.SortOrderInput | Prisma.SortOrder
   buttonUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  learnMoreText?: Prisma.SortOrderInput | Prisma.SortOrder
+  learnMoreUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   backgroundType?: Prisma.SortOrder
   backgroundUrl?: Prisma.SortOrder
   slug?: Prisma.SortOrder
@@ -300,6 +318,8 @@ export type HeroWhereUniqueInput = Prisma.AtLeast<{
   subtitle?: Prisma.StringNullableFilter<"Hero"> | string | null
   buttonText?: Prisma.StringNullableFilter<"Hero"> | string | null
   buttonUrl?: Prisma.StringNullableFilter<"Hero"> | string | null
+  learnMoreText?: Prisma.StringNullableFilter<"Hero"> | string | null
+  learnMoreUrl?: Prisma.StringNullableFilter<"Hero"> | string | null
   backgroundType?: Prisma.EnumBackgroundTypeFilter<"Hero"> | $Enums.BackgroundType
   backgroundUrl?: Prisma.StringFilter<"Hero"> | string
   slug?: Prisma.StringFilter<"Hero"> | string
@@ -316,6 +336,8 @@ export type HeroOrderByWithAggregationInput = {
   subtitle?: Prisma.SortOrderInput | Prisma.SortOrder
   buttonText?: Prisma.SortOrderInput | Prisma.SortOrder
   buttonUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  learnMoreText?: Prisma.SortOrderInput | Prisma.SortOrder
+  learnMoreUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   backgroundType?: Prisma.SortOrder
   backgroundUrl?: Prisma.SortOrder
   slug?: Prisma.SortOrder
@@ -339,6 +361,8 @@ export type HeroScalarWhereWithAggregatesInput = {
   subtitle?: Prisma.StringNullableWithAggregatesFilter<"Hero"> | string | null
   buttonText?: Prisma.StringNullableWithAggregatesFilter<"Hero"> | string | null
   buttonUrl?: Prisma.StringNullableWithAggregatesFilter<"Hero"> | string | null
+  learnMoreText?: Prisma.StringNullableWithAggregatesFilter<"Hero"> | string | null
+  learnMoreUrl?: Prisma.StringNullableWithAggregatesFilter<"Hero"> | string | null
   backgroundType?: Prisma.EnumBackgroundTypeWithAggregatesFilter<"Hero"> | $Enums.BackgroundType
   backgroundUrl?: Prisma.StringWithAggregatesFilter<"Hero"> | string
   slug?: Prisma.StringWithAggregatesFilter<"Hero"> | string
@@ -354,6 +378,8 @@ export type HeroCreateInput = {
   subtitle?: string | null
   buttonText?: string | null
   buttonUrl?: string | null
+  learnMoreText?: string | null
+  learnMoreUrl?: string | null
   backgroundType?: $Enums.BackgroundType
   backgroundUrl: string
   slug: string
@@ -370,6 +396,8 @@ export type HeroUncheckedCreateInput = {
   subtitle?: string | null
   buttonText?: string | null
   buttonUrl?: string | null
+  learnMoreText?: string | null
+  learnMoreUrl?: string | null
   backgroundType?: $Enums.BackgroundType
   backgroundUrl: string
   slug: string
@@ -386,6 +414,8 @@ export type HeroUpdateInput = {
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnMoreText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnMoreUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   backgroundType?: Prisma.EnumBackgroundTypeFieldUpdateOperationsInput | $Enums.BackgroundType
   backgroundUrl?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
@@ -402,6 +432,8 @@ export type HeroUncheckedUpdateInput = {
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnMoreText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnMoreUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   backgroundType?: Prisma.EnumBackgroundTypeFieldUpdateOperationsInput | $Enums.BackgroundType
   backgroundUrl?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
@@ -418,6 +450,8 @@ export type HeroCreateManyInput = {
   subtitle?: string | null
   buttonText?: string | null
   buttonUrl?: string | null
+  learnMoreText?: string | null
+  learnMoreUrl?: string | null
   backgroundType?: $Enums.BackgroundType
   backgroundUrl: string
   slug: string
@@ -433,6 +467,8 @@ export type HeroUpdateManyMutationInput = {
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnMoreText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnMoreUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   backgroundType?: Prisma.EnumBackgroundTypeFieldUpdateOperationsInput | $Enums.BackgroundType
   backgroundUrl?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
@@ -448,6 +484,8 @@ export type HeroUncheckedUpdateManyInput = {
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnMoreText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnMoreUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   backgroundType?: Prisma.EnumBackgroundTypeFieldUpdateOperationsInput | $Enums.BackgroundType
   backgroundUrl?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
@@ -463,6 +501,8 @@ export type HeroCountOrderByAggregateInput = {
   subtitle?: Prisma.SortOrder
   buttonText?: Prisma.SortOrder
   buttonUrl?: Prisma.SortOrder
+  learnMoreText?: Prisma.SortOrder
+  learnMoreUrl?: Prisma.SortOrder
   backgroundType?: Prisma.SortOrder
   backgroundUrl?: Prisma.SortOrder
   slug?: Prisma.SortOrder
@@ -482,6 +522,8 @@ export type HeroMaxOrderByAggregateInput = {
   subtitle?: Prisma.SortOrder
   buttonText?: Prisma.SortOrder
   buttonUrl?: Prisma.SortOrder
+  learnMoreText?: Prisma.SortOrder
+  learnMoreUrl?: Prisma.SortOrder
   backgroundType?: Prisma.SortOrder
   backgroundUrl?: Prisma.SortOrder
   slug?: Prisma.SortOrder
@@ -497,6 +539,8 @@ export type HeroMinOrderByAggregateInput = {
   subtitle?: Prisma.SortOrder
   buttonText?: Prisma.SortOrder
   buttonUrl?: Prisma.SortOrder
+  learnMoreText?: Prisma.SortOrder
+  learnMoreUrl?: Prisma.SortOrder
   backgroundType?: Prisma.SortOrder
   backgroundUrl?: Prisma.SortOrder
   slug?: Prisma.SortOrder
@@ -547,6 +591,8 @@ export type HeroCreateWithoutCountriesInput = {
   subtitle?: string | null
   buttonText?: string | null
   buttonUrl?: string | null
+  learnMoreText?: string | null
+  learnMoreUrl?: string | null
   backgroundType?: $Enums.BackgroundType
   backgroundUrl: string
   slug: string
@@ -562,6 +608,8 @@ export type HeroUncheckedCreateWithoutCountriesInput = {
   subtitle?: string | null
   buttonText?: string | null
   buttonUrl?: string | null
+  learnMoreText?: string | null
+  learnMoreUrl?: string | null
   backgroundType?: $Enums.BackgroundType
   backgroundUrl: string
   slug: string
@@ -593,6 +641,8 @@ export type HeroUpdateWithoutCountriesInput = {
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnMoreText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnMoreUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   backgroundType?: Prisma.EnumBackgroundTypeFieldUpdateOperationsInput | $Enums.BackgroundType
   backgroundUrl?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
@@ -608,6 +658,8 @@ export type HeroUncheckedUpdateWithoutCountriesInput = {
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnMoreText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnMoreUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   backgroundType?: Prisma.EnumBackgroundTypeFieldUpdateOperationsInput | $Enums.BackgroundType
   backgroundUrl?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
@@ -654,6 +706,8 @@ export type HeroSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   subtitle?: boolean
   buttonText?: boolean
   buttonUrl?: boolean
+  learnMoreText?: boolean
+  learnMoreUrl?: boolean
   backgroundType?: boolean
   backgroundUrl?: boolean
   slug?: boolean
@@ -671,6 +725,8 @@ export type HeroSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   subtitle?: boolean
   buttonText?: boolean
   buttonUrl?: boolean
+  learnMoreText?: boolean
+  learnMoreUrl?: boolean
   backgroundType?: boolean
   backgroundUrl?: boolean
   slug?: boolean
@@ -686,6 +742,8 @@ export type HeroSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   subtitle?: boolean
   buttonText?: boolean
   buttonUrl?: boolean
+  learnMoreText?: boolean
+  learnMoreUrl?: boolean
   backgroundType?: boolean
   backgroundUrl?: boolean
   slug?: boolean
@@ -701,6 +759,8 @@ export type HeroSelectScalar = {
   subtitle?: boolean
   buttonText?: boolean
   buttonUrl?: boolean
+  learnMoreText?: boolean
+  learnMoreUrl?: boolean
   backgroundType?: boolean
   backgroundUrl?: boolean
   slug?: boolean
@@ -710,7 +770,7 @@ export type HeroSelectScalar = {
   status?: boolean
 }
 
-export type HeroOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "subtitle" | "buttonText" | "buttonUrl" | "backgroundType" | "backgroundUrl" | "slug" | "order" | "createdAt" | "updatedAt" | "status", ExtArgs["result"]["hero"]>
+export type HeroOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "subtitle" | "buttonText" | "buttonUrl" | "learnMoreText" | "learnMoreUrl" | "backgroundType" | "backgroundUrl" | "slug" | "order" | "createdAt" | "updatedAt" | "status", ExtArgs["result"]["hero"]>
 export type HeroInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   countries?: boolean | Prisma.Hero$countriesArgs<ExtArgs>
   _count?: boolean | Prisma.HeroCountOutputTypeDefaultArgs<ExtArgs>
@@ -729,6 +789,8 @@ export type $HeroPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     subtitle: string | null
     buttonText: string | null
     buttonUrl: string | null
+    learnMoreText: string | null
+    learnMoreUrl: string | null
     backgroundType: $Enums.BackgroundType
     backgroundUrl: string
     slug: string
@@ -1165,6 +1227,8 @@ export interface HeroFieldRefs {
   readonly subtitle: Prisma.FieldRef<"Hero", 'String'>
   readonly buttonText: Prisma.FieldRef<"Hero", 'String'>
   readonly buttonUrl: Prisma.FieldRef<"Hero", 'String'>
+  readonly learnMoreText: Prisma.FieldRef<"Hero", 'String'>
+  readonly learnMoreUrl: Prisma.FieldRef<"Hero", 'String'>
   readonly backgroundType: Prisma.FieldRef<"Hero", 'BackgroundType'>
   readonly backgroundUrl: Prisma.FieldRef<"Hero", 'String'>
   readonly slug: Prisma.FieldRef<"Hero", 'String'>

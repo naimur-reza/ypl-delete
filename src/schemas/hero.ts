@@ -5,6 +5,8 @@ export const heroSchema = z.object({
   subtitle: z.string().optional(),
   buttonText: z.string().optional(),
   buttonUrl: z.string().optional(),
+  learnMoreText: z.string().optional(),
+  learnMoreUrl: z.string().optional(),
   backgroundType: z.enum(["IMAGE", "VIDEO", "YOUTUBE"]).default("IMAGE"),
   backgroundUrl: z.string().url("Must be a valid URL"),
   slug: z.string().min(1, "Slug is required"),

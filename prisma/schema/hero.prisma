@@ -4,6 +4,8 @@ model Hero {
   subtitle       String?
   buttonText     String?
   buttonUrl      String?
+  learnMoreText  String?
+  learnMoreUrl   String?
   backgroundType BackgroundType @default(IMAGE)
   backgroundUrl  String
   slug           String

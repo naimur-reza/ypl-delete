@@ -116,7 +116,7 @@ export function HeroSlide({ slide, isActive }: HeroSlideProps) {
               </a>
 
               <button className="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white font-semibold rounded-full hover:bg-white/20 transition-all duration-300 hover:scale-105">
-                Learn More
+                Learn Mores
               </button>
             </div>
           </div>

@@ -77,6 +77,8 @@ const HeroFormModal = ({
       subtitle: selectedHero?.subtitle || "",
       buttonText: selectedHero?.buttonText || "",
       buttonUrl: selectedHero?.buttonUrl || "",
+      learnMoreText: selectedHero?.learnMoreText || "",
+      learnMoreUrl: selectedHero?.learnMoreUrl || "",
       backgroundType: selectedHero?.backgroundType || "IMAGE",
       backgroundUrl: selectedHero?.backgroundUrl || "",
       slug: selectedHero?.slug || "",
@@ -110,6 +112,8 @@ const HeroFormModal = ({
           subtitle: value.subtitle || undefined,
           buttonText: value.buttonText || undefined,
           buttonUrl: value.buttonUrl || undefined,
+          learnMoreText: value.learnMoreText || undefined,
+          learnMoreUrl: value.learnMoreUrl || undefined,
           backgroundUrl,
           status: value.status || "ACTIVE",
           countryIds: countryIds,
@@ -149,6 +153,8 @@ const HeroFormModal = ({
       form.setFieldValue("subtitle", selectedHero.subtitle || "");
       form.setFieldValue("buttonText", selectedHero.buttonText || "");
       form.setFieldValue("buttonUrl", selectedHero.buttonUrl || "");
+      form.setFieldValue("learnMoreText", selectedHero.learnMoreText || "");
+      form.setFieldValue("learnMoreUrl", selectedHero.learnMoreUrl || "");
       form.setFieldValue(
         "backgroundType",
         selectedHero.backgroundType || "IMAGE"
@@ -210,6 +216,13 @@ const HeroFormModal = ({
 
             <form.AppField name="buttonUrl">
               {(field) => <field.Input label="Button URL (Optional)" />}
+            </form.AppField>
+            <form.AppField name="learnMoreText">
+              {(field) => <field.Input label="Learn More Text (Optional)" />}
+            </form.AppField>
+
+            <form.AppField name="learnMoreUrl">
+              {(field) => <field.Input label="Learn More URL (Optional)" />}
             </form.AppField>
           </div>
 

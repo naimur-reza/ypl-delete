@@ -4,11 +4,9 @@ import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import Link from "next/link";
 
-interface CallToActionBannerProps {
-}
+interface CallToActionBannerProps {}
 
 export default function CallToActionBanner({}: CallToActionBannerProps) {
-  
   const applyNowUrl = "/apply-now";
 
   return (
@@ -29,17 +27,12 @@ export default function CallToActionBanner({}: CallToActionBannerProps) {
           <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-slate-950/60 to-slate-950/30" />
 
           {/* Subtle blue glow from the bottom */}
-          <div className="absolute bottom-[-20%] left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-600/20 blur-[120px] rounded-full pointer-events-none" />
         </div>
 
         {/* 3. Content Container */}
-        <div className="relative z-10 flex flex-col items-center justify-center px-6 py-24 text-center md:py-32 lg:px-16">
-          <h2 className="max-w-4xl text-4xl font-bold tracking-tight text-white md:text-5xl lg:text-7xl leading-[1.1]">
-            Take the{" "}
-            <span className="text-transparent bg-clip-text bg-linear-to-b from-pink-600 to-primary">
-              first step
-            </span>{" "}
-            towards
+        <div className="relative z-10 flex flex-col  items-center text-center   px-6 py-24   md:py-32 lg:px-16">
+          <h2 className="max-w-4xl text-4xl font-serif font-bold tracking-tight text-white md:text-5xl lg:text-6xl leading-[1.1]">
+            Take the first step towards
             <br className="hidden md:block" /> studying abroad.
           </h2>
 
@@ -54,12 +47,12 @@ export default function CallToActionBanner({}: CallToActionBannerProps) {
                 size="lg"
                 className={cn(
                   "group relative h-14 px-8 rounded-full text-lg font-bold transition-all duration-300",
-                  "bg-white text-slate-900 hover:bg-blue-50 hover:scale-105 border-0"
+                  "bg-primary text-white hover:bg-primary/90   border-0"
                 )}
               >
                 Book Free Counselling
                 <div className="ml-2 w-8 h-8 rounded-full bg-slate-900/10 flex items-center justify-center group-hover:bg-slate-900/20 transition-colors">
-                  <ArrowRight className="w-4 h-4 text-slate-900 group-hover:translate-x-0.5 transition-transform" />
+                  <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-0.5 transition-transform" />
                 </div>
               </Button>
             </Link>

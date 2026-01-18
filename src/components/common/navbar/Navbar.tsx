@@ -53,7 +53,6 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
         where: countryScopedFilter
           ? {
               status: "ACTIVE",
-          
             }
           : { status: "ACTIVE" },
         take: 20,
@@ -137,7 +136,7 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
         </CountryAwareLink>
 
         {/* Desktop Navigation */}
-        <div className="hidden lg:flex items-center">
+        <div className="hidden xl:flex items-center">
           <ul className="flex items-center gap-0">
             {destinationItems.length > 0 && (
               <li>
@@ -154,7 +153,7 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
             {universityItems.length > 0 && (
               <li>
                 <Link
-                  className="font-medium mx-3  text-muted-foreground transition-colors"
+                  className="font-medium mx-2  text-muted-foreground transition-colors  hover:bg-slate-100 px-3 py-2 rounded-full"
                   href="/universities"
                 >
                   Universities
@@ -164,8 +163,8 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
 
             {courseItems.length > 0 && (
               <li>
-                 <Link
-                  className="font-medium mx-3  text-muted-foreground transition-colors"
+                <Link
+                  className="font-medium mx-2  text-muted-foreground transition-colors  hover:bg-slate-100 px-3 py-2 rounded-full"
                   href="/courses"
                 >
                   Courses
@@ -176,7 +175,7 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
             {
               <Link
                 href="/scholarships"
-                className="font-medium mx-3  text-muted-foreground transition-colors"
+                className="font-medium mx-2  text-muted-foreground transition-colors  hover:bg-slate-100 px-3 py-2 rounded-full"
               >
                 Scholarships
               </Link>

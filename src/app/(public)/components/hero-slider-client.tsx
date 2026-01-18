@@ -9,6 +9,8 @@ export interface SlideContent {
   tagline: string;
   headline: string;
   description?: string;
+  learnMoreText?: string;
+  learnMoreUrl?: string;
   stats: Array<{
     number: string;
     label: string;

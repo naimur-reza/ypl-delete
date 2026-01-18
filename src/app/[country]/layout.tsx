@@ -36,7 +36,7 @@ export default async function CountryLayout({ params, children }: Props) {
     >
       <Navbar countrySlug={country.slug} />
       <div className="min-h-[calc(100vh-120px)]">{children}</div>
-      <Footer />
+      <Footer countrySlug={countrySlug} />
       <Toaster position="top-right" richColors />
     </CountryProvider>
   );

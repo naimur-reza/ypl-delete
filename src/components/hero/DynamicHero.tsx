@@ -12,6 +12,8 @@ interface HeroData {
   subtitle: string;
   buttonText?: string;
   buttonUrl?: string;
+  learnMoreText?: string;
+  learnMoreUrl?: string;
   backgroundType: "IMAGE" | "VIDEO" | "YOUTUBE";
   backgroundUrl: string;
 }
@@ -88,6 +90,8 @@ export function DynamicHero({
               subtitle: hero.subtitle || defaultSubtitle,
               buttonText: hero.buttonText || defaultButtonText,
               buttonUrl: hero.buttonUrl || defaultButtonUrl,
+              learnMoreText: hero.learnMoreText,
+              learnMoreUrl: hero.learnMoreUrl,
               backgroundType: hero.backgroundType,
               backgroundUrl: hero.backgroundUrl,
             }));
@@ -292,6 +296,13 @@ export function DynamicHero({
               <Link href={currentHero.buttonUrl}>
                 <GradientButton>{currentHero.buttonText}</GradientButton>
               </Link>
+              {currentHero.learnMoreText && currentHero.learnMoreUrl && (
+                <Link href={currentHero.learnMoreUrl}>
+                  <GradientButton variant="outline">
+                    {currentHero.learnMoreText}
+                  </GradientButton>
+                </Link>
+              )}
             </div>
           )}
         </div>
