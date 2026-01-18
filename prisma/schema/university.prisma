@@ -1,5 +1,7 @@
 model University {
   id              String                  @id @default(cuid())
+  rankingNumber   Int?
+  costOfStudying  String?
   name            String
   slug            String                  @unique
   logo            String?

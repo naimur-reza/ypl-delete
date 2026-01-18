@@ -125,7 +125,7 @@ export function HeroSlide({ slide, isActive }: HeroSlideProps) {
           >
             {/* Tagline */}
             {slide.tagline && (
-              <span className="text-sm sm:text-base text-accent font-medium tracking-wide uppercase">
+              <span className="text-sm sm:text-base text-accent font-medium tracking-wide">
                 {slide.tagline}
               </span>
             )}

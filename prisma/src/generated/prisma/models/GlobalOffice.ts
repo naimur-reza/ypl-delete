@@ -41,7 +41,6 @@ export type GlobalOfficeMinAggregateOutputType = {
   updatedAt: Date | null
   bannerImage: string | null
   image: string | null
-  openingHours: string | null
   status: $Enums.ContentStatus | null
 }
 
@@ -62,7 +61,6 @@ export type GlobalOfficeMaxAggregateOutputType = {
   updatedAt: Date | null
   bannerImage: string | null
   image: string | null
-  openingHours: string | null
   status: $Enums.ContentStatus | null
 }
 
@@ -106,7 +104,6 @@ export type GlobalOfficeMinAggregateInputType = {
   updatedAt?: true
   bannerImage?: true
   image?: true
-  openingHours?: true
   status?: true
 }
 
@@ -127,7 +124,6 @@ export type GlobalOfficeMaxAggregateInputType = {
   updatedAt?: true
   bannerImage?: true
   image?: true
-  openingHours?: true
   status?: true
 }
 
@@ -242,7 +238,7 @@ export type GlobalOfficeGroupByOutputType = {
   updatedAt: Date
   bannerImage: string | null
   image: string | null
-  openingHours: string | null
+  openingHours: runtime.JsonValue | null
   status: $Enums.ContentStatus
   _count: GlobalOfficeCountAggregateOutputType | null
   _min: GlobalOfficeMinAggregateOutputType | null
@@ -284,7 +280,7 @@ export type GlobalOfficeWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"GlobalOffice"> | Date | string
   bannerImage?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   image?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
-  openingHours?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
+  openingHours?: Prisma.JsonNullableFilter<"GlobalOffice">
   status?: Prisma.EnumContentStatusFilter<"GlobalOffice"> | $Enums.ContentStatus
   countries?: Prisma.GlobalOfficeCountryListRelationFilter
 }
@@ -331,7 +327,7 @@ export type GlobalOfficeWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"GlobalOffice"> | Date | string
   bannerImage?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   image?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
-  openingHours?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
+  openingHours?: Prisma.JsonNullableFilter<"GlobalOffice">
   status?: Prisma.EnumContentStatusFilter<"GlobalOffice"> | $Enums.ContentStatus
   countries?: Prisma.GlobalOfficeCountryListRelationFilter
 }, "id" | "name" | "slug">
@@ -380,7 +376,7 @@ export type GlobalOfficeScalarWhereWithAggregatesInput = {
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"GlobalOffice"> | Date | string
   bannerImage?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
   image?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
-  openingHours?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
+  openingHours?: Prisma.JsonNullableWithAggregatesFilter<"GlobalOffice">
   status?: Prisma.EnumContentStatusWithAggregatesFilter<"GlobalOffice"> | $Enums.ContentStatus
 }
 
@@ -401,7 +397,7 @@ export type GlobalOfficeCreateInput = {
   updatedAt?: Date | string
   bannerImage?: string | null
   image?: string | null
-  openingHours?: string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ContentStatus
   countries?: Prisma.GlobalOfficeCountryCreateNestedManyWithoutGlobalOfficeInput
 }
@@ -423,7 +419,7 @@ export type GlobalOfficeUncheckedCreateInput = {
   updatedAt?: Date | string
   bannerImage?: string | null
   image?: string | null
-  openingHours?: string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ContentStatus
   countries?: Prisma.GlobalOfficeCountryUncheckedCreateNestedManyWithoutGlobalOfficeInput
 }
@@ -445,7 +441,7 @@ export type GlobalOfficeUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  openingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.GlobalOfficeCountryUpdateManyWithoutGlobalOfficeNestedInput
 }
@@ -467,7 +463,7 @@ export type GlobalOfficeUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  openingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.GlobalOfficeCountryUncheckedUpdateManyWithoutGlobalOfficeNestedInput
 }
@@ -489,7 +485,7 @@ export type GlobalOfficeCreateManyInput = {
   updatedAt?: Date | string
   bannerImage?: string | null
   image?: string | null
-  openingHours?: string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ContentStatus
 }
 
@@ -510,7 +506,7 @@ export type GlobalOfficeUpdateManyMutationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  openingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
@@ -531,7 +527,7 @@ export type GlobalOfficeUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  openingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
@@ -573,7 +569,6 @@ export type GlobalOfficeMaxOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
   bannerImage?: Prisma.SortOrder
   image?: Prisma.SortOrder
-  openingHours?: Prisma.SortOrder
   status?: Prisma.SortOrder
 }
 
@@ -594,7 +589,6 @@ export type GlobalOfficeMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
   bannerImage?: Prisma.SortOrder
   image?: Prisma.SortOrder
-  openingHours?: Prisma.SortOrder
   status?: Prisma.SortOrder
 }
 
@@ -634,7 +628,7 @@ export type GlobalOfficeCreateWithoutCountriesInput = {
   updatedAt?: Date | string
   bannerImage?: string | null
   image?: string | null
-  openingHours?: string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ContentStatus
 }
 
@@ -655,7 +649,7 @@ export type GlobalOfficeUncheckedCreateWithoutCountriesInput = {
   updatedAt?: Date | string
   bannerImage?: string | null
   image?: string | null
-  openingHours?: string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ContentStatus
 }
 
@@ -692,7 +686,7 @@ export type GlobalOfficeUpdateWithoutCountriesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  openingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
@@ -713,7 +707,7 @@ export type GlobalOfficeUncheckedUpdateWithoutCountriesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  openingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
@@ -864,7 +858,7 @@ export type $GlobalOfficePayload<ExtArgs extends runtime.Types.Extensions.Intern
     updatedAt: Date
     bannerImage: string | null
     image: string | null
-    openingHours: string | null
+    openingHours: runtime.JsonValue | null
     status: $Enums.ContentStatus
   }, ExtArgs["result"]["globalOffice"]>
   composites: {}
@@ -1306,7 +1300,7 @@ export interface GlobalOfficeFieldRefs {
   readonly updatedAt: Prisma.FieldRef<"GlobalOffice", 'DateTime'>
   readonly bannerImage: Prisma.FieldRef<"GlobalOffice", 'String'>
   readonly image: Prisma.FieldRef<"GlobalOffice", 'String'>
-  readonly openingHours: Prisma.FieldRef<"GlobalOffice", 'String'>
+  readonly openingHours: Prisma.FieldRef<"GlobalOffice", 'Json'>
   readonly status: Prisma.FieldRef<"GlobalOffice", 'ContentStatus'>
 }
     

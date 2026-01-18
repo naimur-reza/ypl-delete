@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
@@ -74,6 +75,7 @@ interface StatFormProps {
 
 export function StatForm({ initialData, onSuccess }: StatFormProps) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const isEditing = !!initialData;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [countryIds, setCountryIds] = useState<string[]>(
@@ -127,6 +129,9 @@ export function StatForm({ initialData, onSuccess }: StatFormProps) {
         );
         form.reset();
         setCountryIds([]);
+        await queryClient.invalidateQueries({
+          queryKey: ["data-table", "/api/stats"],
+        });
         router.push("/dashboard/stats");
         onSuccess?.();
       } catch (err) {
@@ -211,9 +216,7 @@ export function StatForm({ initialData, onSuccess }: StatFormProps) {
           )}
         </form.AppField>
         <form.AppField name="slideIndex">
-          {(field) => (
-            <field.Input label="Slide Index" type="number" />
-          )}
+          {(field) => <field.Input label="Slide Index" type="number" />}
         </form.AppField>
         <form.AppField name="sortOrder">
           {(field) => <field.Input label="Sort Order" type="number" />}
@@ -257,4 +260,3 @@ export function StatForm({ initialData, onSuccess }: StatFormProps) {
     </form>
   );
 }
-

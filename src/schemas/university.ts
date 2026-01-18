@@ -19,12 +19,14 @@ const universitySchema = z.object({
   address: z.string().optional().nullable(),
   phone: z.string().optional().nullable(),
   email: z.string().email().optional().or(z.literal("")).nullable(),
-countryIds: z.array(z.string().min(1)).min(1, "Select at least one country"),
+  countryIds: z.array(z.string().min(1)).min(1, "Select at least one country"),
   destinationId: z.string().min(1, "Destination is required"),
   metaTitle: z.string().max(200).optional().nullable(),
   metaDescription: z.string().max(500).optional().nullable(),
   metaKeywords: z.string().max(500).optional().nullable(),
   status: z.enum(["ACTIVE", "DRAFT"]),
+  rankingNumber: z.coerce.number().int().positive().optional().nullable(),
+  costOfStudying: z.string().optional().nullable(),
 });
 
 export { universitySchema };

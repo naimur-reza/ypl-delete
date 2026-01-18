@@ -2,14 +2,25 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { MapPin, Mail, Phone, Search, ChevronDown, ChevronRight } from "lucide-react";
+import {
+  MapPin,
+  Mail,
+  Phone,
+  Search,
+  ChevronDown,
+  ChevronRight,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
-import { Country, GlobalOffice } from "../../../../prisma/src/generated/prisma/client";
+import {
+  Country,
+  GlobalOffice,
+} from "../../../../prisma/src/generated/prisma/client";
+import { CountryAwareLink } from "@/components/common/navbar/country-aware-link";
 
-// Helper function to extract src from iframe or convert URL to embed format  
+// Helper function to extract src from iframe or convert URL to embed format
 function convertToEmbedUrl(mapUrl: string): string {
   if (!mapUrl) return "";
 
@@ -35,31 +46,37 @@ function convertToEmbedUrl(mapUrl: string): string {
   // For ALL Google Maps URLs, use the simple embed format
   try {
     const url = new URL(mapUrl);
-    
+
     // If it's a short URL, we can't embed directly
-    if (url.hostname.includes("goo.gl") || url.hostname.includes("maps.app.goo.gl")) {
+    if (
+      url.hostname.includes("goo.gl") ||
+      url.hostname.includes("maps.app.goo.gl")
+    ) {
       return "";
     }
-    
+
     // Extract coordinates if present
     const coordMatch = mapUrl.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
     if (coordMatch) {
       return `https://maps.google.com/maps?q=${coordMatch[1]},${coordMatch[2]}&output=embed`;
     }
-    
+
     // Extract place name if present
     const placeMatch = mapUrl.match(/place\/([^\/]+)/);
     if (placeMatch) {
-      const placeName = decodeURIComponent(placeMatch[1].replace(/\+/g, ' '));
-      return `https://maps.google.com/maps?q=${encodeURIComponent(placeName)}&output=embed`;
+      const placeName = decodeURIComponent(placeMatch[1].replace(/\+/g, " "));
+      return `https://maps.google.com/maps?q=${encodeURIComponent(
+        placeName
+      )}&output=embed`;
     }
-    
   } catch (e) {
     // If URL parsing fails, try simple query
   }
-  
+
   // Fallback: use the URL as search query
-  return `https://maps.google.com/maps?q=${encodeURIComponent(mapUrl)}&output=embed`;
+  return `https://maps.google.com/maps?q=${encodeURIComponent(
+    mapUrl
+  )}&output=embed`;
 }
 
 export default function GlobalOfficesClient({
@@ -91,7 +108,10 @@ export default function GlobalOfficesClient({
       office.countries?.forEach(({ country }) => {
         if (country) {
           if (!countryMap.has(country.name)) {
-            countryMap.set(country.name, { name: country.name, cities: new Set() });
+            countryMap.set(country.name, {
+              name: country.name,
+              cities: new Set(),
+            });
           }
           countryMap.get(country.name)!.cities.add(city);
         }
@@ -124,7 +144,7 @@ export default function GlobalOfficesClient({
       if (selectedFilters.length > 0) {
         // Extract city from first word of office name
         const city = office.name.split(" ")[0].trim();
-        
+
         // Check if office matches any selected filter (country or city)
         const matchesFilter = selectedFilters.some((filter) => {
           // Check if it's a city match
@@ -134,7 +154,9 @@ export default function GlobalOfficesClient({
           // Check if it's a country match
           if (filter.startsWith("country:")) {
             const countryName = filter.replace("country:", "");
-            return office.countries?.some(({ country }) => country.name === countryName);
+            return office.countries?.some(
+              ({ country }) => country.name === countryName
+            );
           }
           return false;
         });
@@ -165,14 +187,18 @@ export default function GlobalOfficesClient({
   }, [filteredOffices]);
 
   const toggleFilter = (filter: string) => {
-    setSelectedFilters((prev) => 
-      prev.includes(filter) ? prev.filter((f) => f !== filter) : [...prev, filter]
+    setSelectedFilters((prev) =>
+      prev.includes(filter)
+        ? prev.filter((f) => f !== filter)
+        : [...prev, filter]
     );
   };
 
   const toggleCountryExpand = (country: string) => {
     setExpandedCountries((prev) =>
-      prev.includes(country) ? prev.filter((c) => c !== country) : [...prev, country]
+      prev.includes(country)
+        ? prev.filter((c) => c !== country)
+        : [...prev, country]
     );
   };
 
@@ -185,9 +211,6 @@ export default function GlobalOfficesClient({
     if (!office.mapUrl) return null;
     return convertToEmbedUrl(office.mapUrl) || null;
   };
-
-
- 
 
   return (
     <div className="flex gap-6 max-w-7xl mx-auto">
@@ -229,50 +252,58 @@ export default function GlobalOfficesClient({
             ) : (
               // On global route: show countries with nested cities
               <>
-            {countriesWithCities.map((countryData) => (
-              <div key={countryData.name}>
-                {/* Country Checkbox */}
-                <div className="flex items-center gap-2 p-1 hover:bg-gray-50 rounded">
-                  <button
-                    onClick={() => toggleCountryExpand(countryData.name)}
-                    className="p-1"
-                  >
-                    {expandedCountries.includes(countryData.name) ? (
-                      <ChevronDown className="w-4 h-4 text-gray-500" />
-                    ) : (
-                      <ChevronRight className="w-4 h-4 text-gray-500" />
-                    )}
-                  </button>
-                  <label className="flex items-center gap-2 cursor-pointer flex-1">
-                    <Checkbox
-                      checked={selectedFilters.includes(`country:${countryData.name}`)}
-                      onCheckedChange={() => toggleFilter(`country:${countryData.name}`)}
-                    />
-                    <span className="text-sm font-medium text-gray-700">
-                      {countryData.name}
-                    </span>
-                  </label>
-                </div>
-
-                {/* Cities under country */}
-                {expandedCountries.includes(countryData.name) && (
-                  <div className="ml-8 mt-1 space-y-1">
-                    {countryData.cities.map((city) => (
-                      <label
-                        key={city}
-                        className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-1 rounded"
+                {countriesWithCities.map((countryData) => (
+                  <div key={countryData.name}>
+                    {/* Country Checkbox */}
+                    <div className="flex items-center gap-2 p-1 hover:bg-gray-50 rounded">
+                      <button
+                        onClick={() => toggleCountryExpand(countryData.name)}
+                        className="p-1"
                       >
+                        {expandedCountries.includes(countryData.name) ? (
+                          <ChevronDown className="w-4 h-4 text-gray-500" />
+                        ) : (
+                          <ChevronRight className="w-4 h-4 text-gray-500" />
+                        )}
+                      </button>
+                      <label className="flex items-center gap-2 cursor-pointer flex-1">
                         <Checkbox
-                          checked={selectedFilters.includes(`city:${city}`)}
-                          onCheckedChange={() => toggleFilter(`city:${city}`)}
+                          checked={selectedFilters.includes(
+                            `country:${countryData.name}`
+                          )}
+                          onCheckedChange={() =>
+                            toggleFilter(`country:${countryData.name}`)
+                          }
                         />
-                        <span className="text-sm text-gray-600">{city}</span>
+                        <span className="text-sm font-medium text-gray-700">
+                          {countryData.name}
+                        </span>
                       </label>
-                    ))}
+                    </div>
+
+                    {/* Cities under country */}
+                    {expandedCountries.includes(countryData.name) && (
+                      <div className="ml-8 mt-1 space-y-1">
+                        {countryData.cities.map((city) => (
+                          <label
+                            key={city}
+                            className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-1 rounded"
+                          >
+                            <Checkbox
+                              checked={selectedFilters.includes(`city:${city}`)}
+                              onCheckedChange={() =>
+                                toggleFilter(`city:${city}`)
+                              }
+                            />
+                            <span className="text-sm text-gray-600">
+                              {city}
+                            </span>
+                          </label>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-            ))}
+                ))}
               </>
             )}
           </div>
@@ -321,7 +352,7 @@ export default function GlobalOfficesClient({
                 <div className="space-y-4">
                   {countryOffices.map((office) => {
                     const embedUrl = getEmbedUrl(office);
- 
+
                     return (
                       <div
                         key={office.id}
@@ -338,35 +369,39 @@ export default function GlobalOfficesClient({
                               {office.address && (
                                 <div className="flex items-start gap-2 text-gray-600">
                                   <MapPin className="w-4 h-4 mt-0.5 shrink-0" />
-                                  <span className="text-sm">{office.address}</span>
+                                  <span className="text-sm">
+                                    {office.address}
+                                  </span>
                                 </div>
                               )}
                               {office.email && (
                                 <div className="flex items-center gap-2 text-gray-600">
                                   <Mail className="w-4 h-4 shrink-0" />
-                                  <span className="text-sm">{office.email}</span>
+                                  <span className="text-sm">
+                                    {office.email}
+                                  </span>
                                 </div>
                               )}
                               {office.phone && (
                                 <div className="flex items-center gap-2 text-gray-600">
                                   <Phone className="w-4 h-4 shrink-0" />
-                                  <span className="text-sm">{office.phone}</span>
+                                  <span className="text-sm">
+                                    {office.phone}
+                                  </span>
                                 </div>
                               )}
                             </div>
 
                             {/* View Office Button */}
-                            <Link
-                              href={
-                                countryCode
-                                  ? `/${countryCode}/global-branches/${office.slug}`
-                                  : `/global-branches/${office.slug}`
-                              }
+                            <CountryAwareLink
+                              href={`/global-branches/${
+                                office.countries?.[0]?.country?.slug || "global"
+                              }/${office.slug}`}
                             >
                               <Button className="bg-[#1e3a8a] hover:bg-[#1e3a8a]/90 text-white">
                                 View Office
                               </Button>
-                            </Link>
+                            </CountryAwareLink>
                           </div>
 
                           {/* Right Side - Map */}
@@ -393,7 +428,9 @@ export default function GlobalOfficesClient({
           </div>
         ) : (
           <div className="text-center py-12 bg-gray-50 rounded-lg border border-dashed border-gray-200">
-            <p className="text-gray-500">No offices found matching your criteria.</p>
+            <p className="text-gray-500">
+              No offices found matching your criteria.
+            </p>
           </div>
         )}
       </div>

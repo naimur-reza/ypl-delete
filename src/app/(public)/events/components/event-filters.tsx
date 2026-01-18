@@ -1,17 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Filter, ChevronDown, ChevronUp } from "lucide-react";
 
 interface EventFiltersProps {
-  onFilterChange?: (filters: any) => void;
+  onFilterChange?: (filters: EventFilterState) => void;
+  cities?: string[];
+}
+
+export interface EventFilterState {
+  eventTypes: string[];
+  countries: string[];
+  cities: string[];
 }
 
 const EVENT_TYPES = [
   { label: "Education Expo / Fair", value: "EXPO" },
   { label: "Virtual Event / Webinar", value: "WEBINAR" },
   { label: "Application / Admission Day", value: "ADMISSION_DAY" },
-  { label: "Spot Admission / Offer Day", value: "OPEN_DAY" },
+  { label: "Spot Admission / Offer Day", value: "SPOT_ADMISSION" },
   { label: "University Open Day", value: "OPEN_DAY" },
   { label: "Education Seminar / Workshop", value: "SEMINAR" },
 ];
@@ -25,20 +32,20 @@ const COUNTRIES = [
   "New Zealand",
 ];
 
-const MONTHS = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
-
-export function EventFilters({ onFilterChange }: EventFiltersProps) {
+export function EventFilters({ onFilterChange, cities = [] }: EventFiltersProps) {
   const [showFilters, setShowFilters] = useState(false);
-  const [selectedFilters, setSelectedFilters] = useState({
-    eventTypes: [] as string[],
-    countries: [] as string[],
-    months: [] as string[],
+  const [selectedFilters, setSelectedFilters] = useState<EventFilterState>({
+    eventTypes: [],
+    countries: [],
+    cities: [],
   });
 
-  const toggleFilter = (category: keyof typeof selectedFilters, value: string) => {
+  // Notify parent of filter changes
+  useEffect(() => {
+    onFilterChange?.(selectedFilters);
+  }, [selectedFilters, onFilterChange]);
+
+  const toggleFilter = (category: keyof EventFilterState, value: string) => {
     setSelectedFilters((prev) => {
       const updated = { ...prev };
       if (updated[category].includes(value)) {
@@ -51,8 +58,13 @@ export function EventFilters({ onFilterChange }: EventFiltersProps) {
   };
 
   const clearFilters = () => {
-    setSelectedFilters({ eventTypes: [], countries: [], months: [] });
+    setSelectedFilters({ eventTypes: [], countries: [], cities: [] });
   };
+
+  const hasActiveFilters = 
+    selectedFilters.eventTypes.length > 0 || 
+    selectedFilters.countries.length > 0 || 
+    selectedFilters.cities.length > 0;
 
   return (
     <div className="bg-white rounded-2xl border border-slate-200 p-6 mb-8">
@@ -97,9 +109,9 @@ export function EventFilters({ onFilterChange }: EventFiltersProps) {
           </div>
         </div>
 
-        {/* Event Destination Country */}
+        {/* Country Filter */}
         <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-3">Destination Country</label>
+          <label className="block text-sm font-semibold text-slate-700 mb-3">Country</label>
           <div className="space-y-2 max-h-48 overflow-y-auto">
             {COUNTRIES.map((country) => (
               <label key={country} className="flex items-center gap-2 cursor-pointer group">
@@ -117,32 +129,36 @@ export function EventFilters({ onFilterChange }: EventFiltersProps) {
           </div>
         </div>
 
-        {/* Event Month */}
+        {/* City Filter */}
         <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-3">Event Month</label>
+          <label className="block text-sm font-semibold text-slate-700 mb-3">City</label>
           <div className="space-y-2 max-h-48 overflow-y-auto">
-            {MONTHS.map((month) => (
-              <label key={month} className="flex items-center gap-2 cursor-pointer group">
-                <input
-                  type="checkbox"
-                  checked={selectedFilters.months.includes(month)}
-                  onChange={() => toggleFilter('months', month)}
-                  className="h-4 w-4 rounded border-slate-300 text-primary focus:ring-primary/20"
-                />
-                <span className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors">
-                  {month}
-                </span>
-              </label>
-            ))}
+            {cities.length > 0 ? (
+              cities.map((city) => (
+                <label key={city} className="flex items-center gap-2 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    checked={selectedFilters.cities.includes(city)}
+                    onChange={() => toggleFilter('cities', city)}
+                    className="h-4 w-4 rounded border-slate-300 text-primary focus:ring-primary/20"
+                  />
+                  <span className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors">
+                    {city}
+                  </span>
+                </label>
+              ))
+            ) : (
+              <p className="text-sm text-slate-400 italic">No cities available</p>
+            )}
           </div>
         </div>
       </div>
 
       {/* Active Filters */}
-      {(selectedFilters.eventTypes.length > 0 || selectedFilters.countries.length > 0 || selectedFilters.months.length > 0) && (
+      {hasActiveFilters && (
         <div className="mt-6 pt-6 border-t border-slate-200">
           <div className="flex flex-wrap gap-2">
-            {[...selectedFilters.eventTypes, ...selectedFilters.countries, ...selectedFilters.months].map((filter) => (
+            {[...selectedFilters.eventTypes, ...selectedFilters.countries, ...selectedFilters.cities].map((filter) => (
               <span
                 key={filter}
                 className="inline-flex items-center gap-2 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium"
@@ -152,7 +168,7 @@ export function EventFilters({ onFilterChange }: EventFiltersProps) {
                   onClick={() => {
                     if (selectedFilters.eventTypes.includes(filter)) toggleFilter('eventTypes', filter);
                     if (selectedFilters.countries.includes(filter)) toggleFilter('countries', filter);
-                    if (selectedFilters.months.includes(filter)) toggleFilter('months', filter);
+                    if (selectedFilters.cities.includes(filter)) toggleFilter('cities', filter);
                   }}
                   className="hover:text-primary/80"
                 >

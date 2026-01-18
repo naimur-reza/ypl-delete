@@ -24,13 +24,13 @@ interface UseEventFiltersReturn {
   activeFilterCount: number;
   // Single-select helpers for filter bar
   handleSingleSelectFilter: (
-    category: "month" | "eventType" | "location",
+    category: "month" | "eventType" | "city",
     value: string
   ) => void;
   selectedFilters: {
     month: string;
     eventType: string;
-    location: string;
+    city: string;
   };
 }
 
@@ -62,7 +62,7 @@ export function useEventFilters({
 
   // Handle single-select filter changes (for filter bar)
   const handleSingleSelectFilter = useCallback(
-    (category: "month" | "eventType" | "location", value: string) => {
+    (category: "month" | "eventType" | "city", value: string) => {
       const currentValues = filters[category] || [];
 
       // Treat "all" as clearing the filter
@@ -89,7 +89,7 @@ export function useEventFilters({
     () => ({
       month: filters.month?.[0] || "all",
       eventType: filters.eventType?.[0] || "all",
-      location: filters.location?.[0] || "all",
+      city: filters.city?.[0] || "all",
     }),
     [filters]
   );

@@ -53,7 +53,7 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
         where: countryScopedFilter
           ? {
               status: "ACTIVE",
-              countries: countryScopedFilter,
+          
             }
           : { status: "ACTIVE" },
         take: 20,
@@ -154,7 +154,7 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
             {universityItems.length > 0 && (
               <li>
                 <Link
-                  className="font-medium  text-muted-foreground transition-colors"
+                  className="font-medium mx-3  text-muted-foreground transition-colors"
                   href="/universities"
                 >
                   Universities
@@ -164,20 +164,19 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
 
             {courseItems.length > 0 && (
               <li>
-                <NavDropdown
+                 <Link
+                  className="font-medium mx-3  text-muted-foreground transition-colors"
                   href="/courses"
-                  title="Courses"
-                  heading="Discover available courses"
-                  viewAllLink="/courses"
-                  items={courseItems}
-                />
+                >
+                  Courses
+                </Link>
               </li>
             )}
 
             {
               <Link
                 href="/scholarships"
-                className="font-medium  text-muted-foreground transition-colors"
+                className="font-medium mx-3  text-muted-foreground transition-colors"
               >
                 Scholarships
               </Link>

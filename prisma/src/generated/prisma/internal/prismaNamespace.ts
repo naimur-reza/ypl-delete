@@ -394,6 +394,7 @@ export const ModelName = {
   CourseIntake: 'CourseIntake',
   IntakePage: 'IntakePage',
   Event: 'Event',
+  EventDestination: 'EventDestination',
   EventMedia: 'EventMedia',
   EventRegistration: 'EventRegistration',
   FAQ: 'FAQ',
@@ -458,7 +459,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "appointment" | "blog" | "service" | "accreditation" | "career" | "jobApplication" | "course" | "courseIntake" | "intakePage" | "event" | "eventMedia" | "eventRegistration" | "fAQ" | "gallery" | "hero" | "heroCountry" | "intakeSeason" | "intakeSeasonCountry" | "intakePageBenefit" | "lead" | "offerRequest" | "recommendation" | "globalOffice" | "country" | "destination" | "essentialStudy" | "destinationSection" | "universityCountry" | "courseCountry" | "scholarshipCountry" | "eventCountry" | "blogCountry" | "blogUniversity" | "blogCourse" | "fAQCountry" | "fAQDestination" | "fAQUniversity" | "fAQEvent" | "fAQCourse" | "fAQScholarship" | "fAQIntakePage" | "globalOfficeCountry" | "destinationCountry" | "testimonialCountry" | "testimonialDestination" | "testimonialUniversity" | "testimonialEvent" | "accreditationCountry" | "galleryCountry" | "essentialStudyCountry" | "serviceCountry" | "scholarship" | "settings" | "stat" | "statCountry" | "testimonial" | "university" | "universityDetail" | "user"
+    modelProps: "appointment" | "blog" | "service" | "accreditation" | "career" | "jobApplication" | "course" | "courseIntake" | "intakePage" | "event" | "eventDestination" | "eventMedia" | "eventRegistration" | "fAQ" | "gallery" | "hero" | "heroCountry" | "intakeSeason" | "intakeSeasonCountry" | "intakePageBenefit" | "lead" | "offerRequest" | "recommendation" | "globalOffice" | "country" | "destination" | "essentialStudy" | "destinationSection" | "universityCountry" | "courseCountry" | "scholarshipCountry" | "eventCountry" | "blogCountry" | "blogUniversity" | "blogCourse" | "fAQCountry" | "fAQDestination" | "fAQUniversity" | "fAQEvent" | "fAQCourse" | "fAQScholarship" | "fAQIntakePage" | "globalOfficeCountry" | "destinationCountry" | "testimonialCountry" | "testimonialDestination" | "testimonialUniversity" | "testimonialEvent" | "accreditationCountry" | "galleryCountry" | "essentialStudyCountry" | "serviceCountry" | "scholarship" | "settings" | "stat" | "statCountry" | "testimonial" | "university" | "universityDetail" | "user"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1199,6 +1200,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.EventCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.EventCountAggregateOutputType> | number
+        }
+      }
+    }
+    EventDestination: {
+      payload: Prisma.$EventDestinationPayload<ExtArgs>
+      fields: Prisma.EventDestinationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EventDestinationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventDestinationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EventDestinationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventDestinationPayload>
+        }
+        findFirst: {
+          args: Prisma.EventDestinationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventDestinationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EventDestinationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventDestinationPayload>
+        }
+        findMany: {
+          args: Prisma.EventDestinationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventDestinationPayload>[]
+        }
+        create: {
+          args: Prisma.EventDestinationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventDestinationPayload>
+        }
+        createMany: {
+          args: Prisma.EventDestinationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EventDestinationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventDestinationPayload>[]
+        }
+        delete: {
+          args: Prisma.EventDestinationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventDestinationPayload>
+        }
+        update: {
+          args: Prisma.EventDestinationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventDestinationPayload>
+        }
+        deleteMany: {
+          args: Prisma.EventDestinationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EventDestinationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EventDestinationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventDestinationPayload>[]
+        }
+        upsert: {
+          args: Prisma.EventDestinationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventDestinationPayload>
+        }
+        aggregate: {
+          args: Prisma.EventDestinationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEventDestination>
+        }
+        groupBy: {
+          args: Prisma.EventDestinationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EventDestinationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EventDestinationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EventDestinationCountAggregateOutputType> | number
         }
       }
     }
@@ -4874,6 +4949,13 @@ export const AppointmentScalarFieldEnum = {
   name: 'name',
   email: 'email',
   phone: 'phone',
+  city: 'city',
+  addressCountry: 'addressCountry',
+  studyDestination: 'studyDestination',
+  lastQualification: 'lastQualification',
+  englishTest: 'englishTest',
+  englishTestScore: 'englishTestScore',
+  additionalInfo: 'additionalInfo',
   notes: 'notes',
   preferredAt: 'preferredAt',
   status: 'status',
@@ -5074,6 +5156,7 @@ export const EventScalarFieldEnum = {
   startDate: 'startDate',
   endDate: 'endDate',
   location: 'location',
+  city: 'city',
   isFeatured: 'isFeatured',
   registrationLink: 'registrationLink',
   registrationButtonText: 'registrationButtonText',
@@ -5085,13 +5168,23 @@ export const EventScalarFieldEnum = {
   updatedAt: 'updatedAt',
   createdBy: 'createdBy',
   updatedBy: 'updatedBy',
-  destinationId: 'destinationId',
+  banner: 'banner',
   universityId: 'universityId',
   successSummary: 'successSummary',
-  status: 'status'
+  status: 'status',
+  destinationId: 'destinationId'
 } as const
 
 export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
+
+
+export const EventDestinationScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  destinationId: 'destinationId'
+} as const
+
+export type EventDestinationScalarFieldEnum = (typeof EventDestinationScalarFieldEnum)[keyof typeof EventDestinationScalarFieldEnum]
 
 
 export const EventMediaScalarFieldEnum = {
@@ -5114,6 +5207,13 @@ export const EventRegistrationScalarFieldEnum = {
   name: 'name',
   email: 'email',
   phone: 'phone',
+  city: 'city',
+  addressCountry: 'addressCountry',
+  studyDestination: 'studyDestination',
+  lastQualification: 'lastQualification',
+  englishTest: 'englishTest',
+  englishTestScore: 'englishTestScore',
+  additionalInfo: 'additionalInfo',
   notes: 'notes',
   status: 'status',
   createdAt: 'createdAt',
@@ -5673,6 +5773,8 @@ export type TestimonialScalarFieldEnum = (typeof TestimonialScalarFieldEnum)[key
 
 export const UniversityScalarFieldEnum = {
   id: 'id',
+  rankingNumber: 'rankingNumber',
+  costOfStudying: 'costOfStudying',
   name: 'name',
   slug: 'slug',
   logo: 'logo',
@@ -6178,6 +6280,7 @@ export type GlobalOmitConfig = {
   courseIntake?: Prisma.CourseIntakeOmit
   intakePage?: Prisma.IntakePageOmit
   event?: Prisma.EventOmit
+  eventDestination?: Prisma.EventDestinationOmit
   eventMedia?: Prisma.EventMediaOmit
   eventRegistration?: Prisma.EventRegistrationOmit
   fAQ?: Prisma.FAQOmit

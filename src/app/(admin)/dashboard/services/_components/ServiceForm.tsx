@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
@@ -41,6 +42,7 @@ interface ServiceFormProps {
 
 export function ServiceForm({ initialData, onSuccess }: ServiceFormProps) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const isEditing = !!initialData;
   const [imageUrl, setImageUrl] = useState<string>(initialData?.image || "");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -85,6 +87,9 @@ export function ServiceForm({ initialData, onSuccess }: ServiceFormProps) {
           return;
         }
         toast.success(isEditing ? "Service updated" : "Service created");
+        await queryClient.invalidateQueries({
+          queryKey: ["data-table", "/api/services"],
+        });
         router.push("/dashboard/services");
         onSuccess?.();
       } catch (e) {
@@ -123,7 +128,6 @@ export function ServiceForm({ initialData, onSuccess }: ServiceFormProps) {
                   handleTitleChange(e.target.value);
                 }}
                 onBlur={field.handleBlur}
-      
               />
             </FormBase>
           )}
@@ -141,7 +145,6 @@ export function ServiceForm({ initialData, onSuccess }: ServiceFormProps) {
                   handleSlugChange(slugValue);
                 }}
                 onBlur={field.handleBlur}
-   
               />
             </FormBase>
           )}

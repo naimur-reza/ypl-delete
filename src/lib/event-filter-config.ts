@@ -13,15 +13,19 @@ export const eventFilterConfig: UseFilterOptions<EventWithRelations>["filterConf
       getValue: (event) => event.eventType,
       matchType: "exact",
     },
+    country: {
+      getValue: (event) => event.countries?.map((c) => c.country.slug) || [],
+      matchType: "exact",
+    },
     destination: {
       getValue: (event) => event.destination?.id,
       matchType: "exact",
     },
-    location: {
+    city: {
       getValue: (event) => {
         // Return slugified version for matching with filter values
-        if (event.location) {
-          return event.location.toLowerCase().replace(/\s+/g, "-");
+        if (event.city) {
+          return event.city.toLowerCase().replace(/\s+/g, "-");
         }
         return null;
       },

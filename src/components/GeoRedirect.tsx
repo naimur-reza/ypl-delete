@@ -13,7 +13,7 @@ export function GeoRedirect() {
     const countryRouteRegex = /^\/(bd|pk|in|au|uk|us|ca)/;
     if (countryRouteRegex.test(pathname)) {
       // User is on a country route - mark that they've made a manual selection
-      const currentCountry = pathname.split('/')[1];
+      const currentCountry = pathname.split("/")[1];
       localStorage.setItem("manual-country-selection", currentCountry);
       return;
     }
@@ -51,15 +51,15 @@ export function GeoRedirect() {
       })
       .then((data) => {
         const countrySlug = data.countrySlug;
- 
+
         // Only redirect if we found a matching country in the database
         if (countrySlug) {
           console.log(`Redirecting to country: ${countrySlug}`);
-          
+
           // Mark as redirected for this session
           sessionStorage.setItem("geo-redirected", "true");
           hasRedirected.current = true;
-          
+
           // Redirect to the matched country route
           const newPath = `/${countrySlug}${pathname === "/" ? "" : pathname}`;
           router.push(newPath);

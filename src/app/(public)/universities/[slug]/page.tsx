@@ -165,11 +165,12 @@ export default async function UniversityDetailsPage({ params }: PageProps) {
           logo: university.logo,
           address: university.address,
           website: university.website,
-          // New fields mapping
           fees: university.detail?.tuitionFees || "Contact for info",
           ranking: university.detail?.ranking || "N/A",
           established: "1900", // Placeholder as field missing in schema
           famousFor: university.detail?.famousFor || "Excellence in Education",
+          rankingNumber: university.rankingNumber ?? "N/A",
+          costOfStudying: university.costOfStudying ?? undefined,
         }}
       />
 
@@ -179,14 +180,16 @@ export default async function UniversityDetailsPage({ params }: PageProps) {
       )}
 
       {/* 3. Services Section */}
-      <UniversityServices
-        heading={university.detail?.servicesHeading}
-        description={university.detail?.servicesDescription}
-        image={
-          university.detail?.servicesImage ||
-          "https://thumbs.dreamstime.com/b/conceptual-hand-writing-showing-our-services-concept-meaning-occupation-function-serving-intangible-products-male-wear-160644151.jpg"
-        }
-      />
+      {university.detail?.servicesDescription && (
+        <UniversityServices
+          heading={university.detail?.servicesHeading}
+          description={university.detail?.servicesDescription}
+          image={
+            university.detail?.servicesImage ||
+            "https://thumbs.dreamstime.com/b/conceptual-hand-writing-showing-our-services-concept-meaning-occupation-function-serving-intangible-products-male-wear-160644151.jpg"
+          }
+        />
+      )}
 
       {/* 4. Rankings Details */}
       {university.detail?.ranking && (

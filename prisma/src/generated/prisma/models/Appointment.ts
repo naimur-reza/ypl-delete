@@ -31,6 +31,13 @@ export type AppointmentMinAggregateOutputType = {
   name: string | null
   email: string | null
   phone: string | null
+  city: string | null
+  addressCountry: string | null
+  studyDestination: string | null
+  lastQualification: string | null
+  englishTest: string | null
+  englishTestScore: string | null
+  additionalInfo: string | null
   notes: string | null
   preferredAt: Date | null
   status: $Enums.AppointmentStatus | null
@@ -45,6 +52,13 @@ export type AppointmentMaxAggregateOutputType = {
   name: string | null
   email: string | null
   phone: string | null
+  city: string | null
+  addressCountry: string | null
+  studyDestination: string | null
+  lastQualification: string | null
+  englishTest: string | null
+  englishTestScore: string | null
+  additionalInfo: string | null
   notes: string | null
   preferredAt: Date | null
   status: $Enums.AppointmentStatus | null
@@ -59,6 +73,13 @@ export type AppointmentCountAggregateOutputType = {
   name: number
   email: number
   phone: number
+  city: number
+  addressCountry: number
+  studyDestination: number
+  lastQualification: number
+  englishTest: number
+  englishTestScore: number
+  additionalInfo: number
   notes: number
   preferredAt: number
   status: number
@@ -75,6 +96,13 @@ export type AppointmentMinAggregateInputType = {
   name?: true
   email?: true
   phone?: true
+  city?: true
+  addressCountry?: true
+  studyDestination?: true
+  lastQualification?: true
+  englishTest?: true
+  englishTestScore?: true
+  additionalInfo?: true
   notes?: true
   preferredAt?: true
   status?: true
@@ -89,6 +117,13 @@ export type AppointmentMaxAggregateInputType = {
   name?: true
   email?: true
   phone?: true
+  city?: true
+  addressCountry?: true
+  studyDestination?: true
+  lastQualification?: true
+  englishTest?: true
+  englishTestScore?: true
+  additionalInfo?: true
   notes?: true
   preferredAt?: true
   status?: true
@@ -103,6 +138,13 @@ export type AppointmentCountAggregateInputType = {
   name?: true
   email?: true
   phone?: true
+  city?: true
+  addressCountry?: true
+  studyDestination?: true
+  lastQualification?: true
+  englishTest?: true
+  englishTestScore?: true
+  additionalInfo?: true
   notes?: true
   preferredAt?: true
   status?: true
@@ -190,6 +232,13 @@ export type AppointmentGroupByOutputType = {
   name: string
   email: string | null
   phone: string | null
+  city: string | null
+  addressCountry: string | null
+  studyDestination: string | null
+  lastQualification: string | null
+  englishTest: string | null
+  englishTestScore: string | null
+  additionalInfo: string | null
   notes: string | null
   preferredAt: Date | null
   status: $Enums.AppointmentStatus
@@ -225,6 +274,13 @@ export type AppointmentWhereInput = {
   name?: Prisma.StringFilter<"Appointment"> | string
   email?: Prisma.StringNullableFilter<"Appointment"> | string | null
   phone?: Prisma.StringNullableFilter<"Appointment"> | string | null
+  city?: Prisma.StringNullableFilter<"Appointment"> | string | null
+  addressCountry?: Prisma.StringNullableFilter<"Appointment"> | string | null
+  studyDestination?: Prisma.StringNullableFilter<"Appointment"> | string | null
+  lastQualification?: Prisma.StringNullableFilter<"Appointment"> | string | null
+  englishTest?: Prisma.StringNullableFilter<"Appointment"> | string | null
+  englishTestScore?: Prisma.StringNullableFilter<"Appointment"> | string | null
+  additionalInfo?: Prisma.StringNullableFilter<"Appointment"> | string | null
   notes?: Prisma.StringNullableFilter<"Appointment"> | string | null
   preferredAt?: Prisma.DateTimeNullableFilter<"Appointment"> | Date | string | null
   status?: Prisma.EnumAppointmentStatusFilter<"Appointment"> | $Enums.AppointmentStatus
@@ -241,6 +297,13 @@ export type AppointmentOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
+  city?: Prisma.SortOrderInput | Prisma.SortOrder
+  addressCountry?: Prisma.SortOrderInput | Prisma.SortOrder
+  studyDestination?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastQualification?: Prisma.SortOrderInput | Prisma.SortOrder
+  englishTest?: Prisma.SortOrderInput | Prisma.SortOrder
+  englishTestScore?: Prisma.SortOrderInput | Prisma.SortOrder
+  additionalInfo?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   preferredAt?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -260,6 +323,13 @@ export type AppointmentWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Appointment"> | string
   email?: Prisma.StringNullableFilter<"Appointment"> | string | null
   phone?: Prisma.StringNullableFilter<"Appointment"> | string | null
+  city?: Prisma.StringNullableFilter<"Appointment"> | string | null
+  addressCountry?: Prisma.StringNullableFilter<"Appointment"> | string | null
+  studyDestination?: Prisma.StringNullableFilter<"Appointment"> | string | null
+  lastQualification?: Prisma.StringNullableFilter<"Appointment"> | string | null
+  englishTest?: Prisma.StringNullableFilter<"Appointment"> | string | null
+  englishTestScore?: Prisma.StringNullableFilter<"Appointment"> | string | null
+  additionalInfo?: Prisma.StringNullableFilter<"Appointment"> | string | null
   notes?: Prisma.StringNullableFilter<"Appointment"> | string | null
   preferredAt?: Prisma.DateTimeNullableFilter<"Appointment"> | Date | string | null
   status?: Prisma.EnumAppointmentStatusFilter<"Appointment"> | $Enums.AppointmentStatus
@@ -276,6 +346,13 @@ export type AppointmentOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
+  city?: Prisma.SortOrderInput | Prisma.SortOrder
+  addressCountry?: Prisma.SortOrderInput | Prisma.SortOrder
+  studyDestination?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastQualification?: Prisma.SortOrderInput | Prisma.SortOrder
+  englishTest?: Prisma.SortOrderInput | Prisma.SortOrder
+  englishTestScore?: Prisma.SortOrderInput | Prisma.SortOrder
+  additionalInfo?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   preferredAt?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -296,6 +373,13 @@ export type AppointmentScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Appointment"> | string
   email?: Prisma.StringNullableWithAggregatesFilter<"Appointment"> | string | null
   phone?: Prisma.StringNullableWithAggregatesFilter<"Appointment"> | string | null
+  city?: Prisma.StringNullableWithAggregatesFilter<"Appointment"> | string | null
+  addressCountry?: Prisma.StringNullableWithAggregatesFilter<"Appointment"> | string | null
+  studyDestination?: Prisma.StringNullableWithAggregatesFilter<"Appointment"> | string | null
+  lastQualification?: Prisma.StringNullableWithAggregatesFilter<"Appointment"> | string | null
+  englishTest?: Prisma.StringNullableWithAggregatesFilter<"Appointment"> | string | null
+  englishTestScore?: Prisma.StringNullableWithAggregatesFilter<"Appointment"> | string | null
+  additionalInfo?: Prisma.StringNullableWithAggregatesFilter<"Appointment"> | string | null
   notes?: Prisma.StringNullableWithAggregatesFilter<"Appointment"> | string | null
   preferredAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Appointment"> | Date | string | null
   status?: Prisma.EnumAppointmentStatusWithAggregatesFilter<"Appointment"> | $Enums.AppointmentStatus
@@ -308,6 +392,13 @@ export type AppointmentCreateInput = {
   name: string
   email?: string | null
   phone?: string | null
+  city?: string | null
+  addressCountry?: string | null
+  studyDestination?: string | null
+  lastQualification?: string | null
+  englishTest?: string | null
+  englishTestScore?: string | null
+  additionalInfo?: string | null
   notes?: string | null
   preferredAt?: Date | string | null
   status?: $Enums.AppointmentStatus
@@ -324,6 +415,13 @@ export type AppointmentUncheckedCreateInput = {
   name: string
   email?: string | null
   phone?: string | null
+  city?: string | null
+  addressCountry?: string | null
+  studyDestination?: string | null
+  lastQualification?: string | null
+  englishTest?: string | null
+  englishTestScore?: string | null
+  additionalInfo?: string | null
   notes?: string | null
   preferredAt?: Date | string | null
   status?: $Enums.AppointmentStatus
@@ -336,6 +434,13 @@ export type AppointmentUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastQualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTestScore?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
@@ -352,6 +457,13 @@ export type AppointmentUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastQualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTestScore?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
@@ -366,6 +478,13 @@ export type AppointmentCreateManyInput = {
   name: string
   email?: string | null
   phone?: string | null
+  city?: string | null
+  addressCountry?: string | null
+  studyDestination?: string | null
+  lastQualification?: string | null
+  englishTest?: string | null
+  englishTestScore?: string | null
+  additionalInfo?: string | null
   notes?: string | null
   preferredAt?: Date | string | null
   status?: $Enums.AppointmentStatus
@@ -378,6 +497,13 @@ export type AppointmentUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastQualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTestScore?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
@@ -392,6 +518,13 @@ export type AppointmentUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastQualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTestScore?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
@@ -406,6 +539,13 @@ export type AppointmentCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  addressCountry?: Prisma.SortOrder
+  studyDestination?: Prisma.SortOrder
+  lastQualification?: Prisma.SortOrder
+  englishTest?: Prisma.SortOrder
+  englishTestScore?: Prisma.SortOrder
+  additionalInfo?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   preferredAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -420,6 +560,13 @@ export type AppointmentMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  addressCountry?: Prisma.SortOrder
+  studyDestination?: Prisma.SortOrder
+  lastQualification?: Prisma.SortOrder
+  englishTest?: Prisma.SortOrder
+  englishTestScore?: Prisma.SortOrder
+  additionalInfo?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   preferredAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -434,6 +581,13 @@ export type AppointmentMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  addressCountry?: Prisma.SortOrder
+  studyDestination?: Prisma.SortOrder
+  lastQualification?: Prisma.SortOrder
+  englishTest?: Prisma.SortOrder
+  englishTestScore?: Prisma.SortOrder
+  additionalInfo?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   preferredAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -560,6 +714,13 @@ export type AppointmentCreateWithoutEventInput = {
   name: string
   email?: string | null
   phone?: string | null
+  city?: string | null
+  addressCountry?: string | null
+  studyDestination?: string | null
+  lastQualification?: string | null
+  englishTest?: string | null
+  englishTestScore?: string | null
+  additionalInfo?: string | null
   notes?: string | null
   preferredAt?: Date | string | null
   status?: $Enums.AppointmentStatus
@@ -574,6 +735,13 @@ export type AppointmentUncheckedCreateWithoutEventInput = {
   name: string
   email?: string | null
   phone?: string | null
+  city?: string | null
+  addressCountry?: string | null
+  studyDestination?: string | null
+  lastQualification?: string | null
+  englishTest?: string | null
+  englishTestScore?: string | null
+  additionalInfo?: string | null
   notes?: string | null
   preferredAt?: Date | string | null
   status?: $Enums.AppointmentStatus
@@ -617,6 +785,13 @@ export type AppointmentScalarWhereInput = {
   name?: Prisma.StringFilter<"Appointment"> | string
   email?: Prisma.StringNullableFilter<"Appointment"> | string | null
   phone?: Prisma.StringNullableFilter<"Appointment"> | string | null
+  city?: Prisma.StringNullableFilter<"Appointment"> | string | null
+  addressCountry?: Prisma.StringNullableFilter<"Appointment"> | string | null
+  studyDestination?: Prisma.StringNullableFilter<"Appointment"> | string | null
+  lastQualification?: Prisma.StringNullableFilter<"Appointment"> | string | null
+  englishTest?: Prisma.StringNullableFilter<"Appointment"> | string | null
+  englishTestScore?: Prisma.StringNullableFilter<"Appointment"> | string | null
+  additionalInfo?: Prisma.StringNullableFilter<"Appointment"> | string | null
   notes?: Prisma.StringNullableFilter<"Appointment"> | string | null
   preferredAt?: Prisma.DateTimeNullableFilter<"Appointment"> | Date | string | null
   status?: Prisma.EnumAppointmentStatusFilter<"Appointment"> | $Enums.AppointmentStatus
@@ -629,6 +804,13 @@ export type AppointmentCreateWithoutCountryInput = {
   name: string
   email?: string | null
   phone?: string | null
+  city?: string | null
+  addressCountry?: string | null
+  studyDestination?: string | null
+  lastQualification?: string | null
+  englishTest?: string | null
+  englishTestScore?: string | null
+  additionalInfo?: string | null
   notes?: string | null
   preferredAt?: Date | string | null
   status?: $Enums.AppointmentStatus
@@ -643,6 +825,13 @@ export type AppointmentUncheckedCreateWithoutCountryInput = {
   name: string
   email?: string | null
   phone?: string | null
+  city?: string | null
+  addressCountry?: string | null
+  studyDestination?: string | null
+  lastQualification?: string | null
+  englishTest?: string | null
+  englishTestScore?: string | null
+  additionalInfo?: string | null
   notes?: string | null
   preferredAt?: Date | string | null
   status?: $Enums.AppointmentStatus
@@ -682,6 +871,13 @@ export type AppointmentCreateManyEventInput = {
   name: string
   email?: string | null
   phone?: string | null
+  city?: string | null
+  addressCountry?: string | null
+  studyDestination?: string | null
+  lastQualification?: string | null
+  englishTest?: string | null
+  englishTestScore?: string | null
+  additionalInfo?: string | null
   notes?: string | null
   preferredAt?: Date | string | null
   status?: $Enums.AppointmentStatus
@@ -694,6 +890,13 @@ export type AppointmentUpdateWithoutEventInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastQualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTestScore?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
@@ -708,6 +911,13 @@ export type AppointmentUncheckedUpdateWithoutEventInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastQualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTestScore?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
@@ -721,6 +931,13 @@ export type AppointmentUncheckedUpdateManyWithoutEventInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastQualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTestScore?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
@@ -734,6 +951,13 @@ export type AppointmentCreateManyCountryInput = {
   name: string
   email?: string | null
   phone?: string | null
+  city?: string | null
+  addressCountry?: string | null
+  studyDestination?: string | null
+  lastQualification?: string | null
+  englishTest?: string | null
+  englishTestScore?: string | null
+  additionalInfo?: string | null
   notes?: string | null
   preferredAt?: Date | string | null
   status?: $Enums.AppointmentStatus
@@ -746,6 +970,13 @@ export type AppointmentUpdateWithoutCountryInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastQualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTestScore?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
@@ -760,6 +991,13 @@ export type AppointmentUncheckedUpdateWithoutCountryInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastQualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTestScore?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
@@ -773,6 +1011,13 @@ export type AppointmentUncheckedUpdateManyWithoutCountryInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastQualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTestScore?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
@@ -789,6 +1034,13 @@ export type AppointmentSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   name?: boolean
   email?: boolean
   phone?: boolean
+  city?: boolean
+  addressCountry?: boolean
+  studyDestination?: boolean
+  lastQualification?: boolean
+  englishTest?: boolean
+  englishTestScore?: boolean
+  additionalInfo?: boolean
   notes?: boolean
   preferredAt?: boolean
   status?: boolean
@@ -805,6 +1057,13 @@ export type AppointmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   name?: boolean
   email?: boolean
   phone?: boolean
+  city?: boolean
+  addressCountry?: boolean
+  studyDestination?: boolean
+  lastQualification?: boolean
+  englishTest?: boolean
+  englishTestScore?: boolean
+  additionalInfo?: boolean
   notes?: boolean
   preferredAt?: boolean
   status?: boolean
@@ -821,6 +1080,13 @@ export type AppointmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   name?: boolean
   email?: boolean
   phone?: boolean
+  city?: boolean
+  addressCountry?: boolean
+  studyDestination?: boolean
+  lastQualification?: boolean
+  englishTest?: boolean
+  englishTestScore?: boolean
+  additionalInfo?: boolean
   notes?: boolean
   preferredAt?: boolean
   status?: boolean
@@ -837,6 +1103,13 @@ export type AppointmentSelectScalar = {
   name?: boolean
   email?: boolean
   phone?: boolean
+  city?: boolean
+  addressCountry?: boolean
+  studyDestination?: boolean
+  lastQualification?: boolean
+  englishTest?: boolean
+  englishTestScore?: boolean
+  additionalInfo?: boolean
   notes?: boolean
   preferredAt?: boolean
   status?: boolean
@@ -844,7 +1117,7 @@ export type AppointmentSelectScalar = {
   updatedAt?: boolean
 }
 
-export type AppointmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "eventId" | "countryId" | "name" | "email" | "phone" | "notes" | "preferredAt" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["appointment"]>
+export type AppointmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "eventId" | "countryId" | "name" | "email" | "phone" | "city" | "addressCountry" | "studyDestination" | "lastQualification" | "englishTest" | "englishTestScore" | "additionalInfo" | "notes" | "preferredAt" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["appointment"]>
 export type AppointmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   country?: boolean | Prisma.Appointment$countryArgs<ExtArgs>
   event?: boolean | Prisma.Appointment$eventArgs<ExtArgs>
@@ -871,6 +1144,13 @@ export type $AppointmentPayload<ExtArgs extends runtime.Types.Extensions.Interna
     name: string
     email: string | null
     phone: string | null
+    city: string | null
+    addressCountry: string | null
+    studyDestination: string | null
+    lastQualification: string | null
+    englishTest: string | null
+    englishTestScore: string | null
+    additionalInfo: string | null
     notes: string | null
     preferredAt: Date | null
     status: $Enums.AppointmentStatus
@@ -1307,6 +1587,13 @@ export interface AppointmentFieldRefs {
   readonly name: Prisma.FieldRef<"Appointment", 'String'>
   readonly email: Prisma.FieldRef<"Appointment", 'String'>
   readonly phone: Prisma.FieldRef<"Appointment", 'String'>
+  readonly city: Prisma.FieldRef<"Appointment", 'String'>
+  readonly addressCountry: Prisma.FieldRef<"Appointment", 'String'>
+  readonly studyDestination: Prisma.FieldRef<"Appointment", 'String'>
+  readonly lastQualification: Prisma.FieldRef<"Appointment", 'String'>
+  readonly englishTest: Prisma.FieldRef<"Appointment", 'String'>
+  readonly englishTestScore: Prisma.FieldRef<"Appointment", 'String'>
+  readonly additionalInfo: Prisma.FieldRef<"Appointment", 'String'>
   readonly notes: Prisma.FieldRef<"Appointment", 'String'>
   readonly preferredAt: Prisma.FieldRef<"Appointment", 'DateTime'>
   readonly status: Prisma.FieldRef<"Appointment", 'AppointmentStatus'>

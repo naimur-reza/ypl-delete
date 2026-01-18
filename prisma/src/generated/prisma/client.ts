@@ -90,6 +90,11 @@ export type IntakePage = Prisma.IntakePageModel
  */
 export type Event = Prisma.EventModel
 /**
+ * Model EventDestination
+ * 
+ */
+export type EventDestination = Prisma.EventDestinationModel
+/**
  * Model EventMedia
  * 
  */

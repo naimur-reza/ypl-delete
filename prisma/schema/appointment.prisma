@@ -1,17 +1,24 @@
 model Appointment {
-  id          String            @id @default(cuid())
-  eventId     String?
-  countryId   String?
-  name        String
-  email       String?
-  phone       String?
-  notes       String?
-  preferredAt DateTime?
-  status      AppointmentStatus @default(PENDING)
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
-  country     Country?          @relation(fields: [countryId], references: [id])
-  event       Event?            @relation(fields: [eventId], references: [id])
+  id                String            @id @default(cuid())
+  eventId           String?
+  countryId         String?
+  name              String
+  email             String?
+  phone             String?
+  city              String?
+  addressCountry    String?
+  studyDestination  String?
+  lastQualification String?
+  englishTest       String?
+  englishTestScore  String?
+  additionalInfo    String?           @db.Text
+  notes             String?
+  preferredAt       DateTime?
+  status            AppointmentStatus @default(PENDING)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  country           Country?          @relation(fields: [countryId], references: [id])
+  event             Event?            @relation(fields: [eventId], references: [id])
 
   @@index([eventId])
   @@index([countryId])

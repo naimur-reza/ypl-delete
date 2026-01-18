@@ -11,16 +11,9 @@ import {
   BookOpen,
   ArrowRight,
 } from "lucide-react";
+import { Scholarship } from "../../../../../../prisma/src/generated/prisma/browser";
 
-interface Scholarship {
-  id: string;
-  title: string;
-  slug: string;
-  image?: string | null;
-  description?: string | null;
-  amount?: number | null;
-  deadline?: string | null;
-  levelAndField?: string | null;
+type TScholarship = Scholarship & {
   destination?: {
     id: string;
     name: string;
@@ -29,10 +22,10 @@ interface Scholarship {
     id: string;
     name: string;
   } | null;
-}
+};
 
 interface FeaturedScholarshipSliderProps {
-  scholarships: Scholarship[];
+  scholarships: TScholarship[];
 }
 
 export default function FeaturedScholarshipSlider({
@@ -144,27 +137,21 @@ export default function FeaturedScholarshipSlider({
                   {item.title}
                 </h3>
 
-                {item.levelAndField && (
+                {item.summary && (
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {item.levelAndField
-                      .split(",")
-                      .slice(0, 3)
-                      .map((field, idx) => (
-                        <span
-                          key={idx}
-                          className="bg-slate-50 text-slate-600 text-[10px] px-2 py-1 rounded-md font-medium border border-slate-100"
-                        >
-                          {field.trim()}
-                        </span>
-                      ))}
+                    {item.summary && (
+                      <span className="bg-slate-50 text-slate-600 text-sm px-2 py-1 rounded-md font-medium border border-slate-100">
+                        {item.summary}
+                      </span>
+                    )}
                   </div>
                 )}
 
                 <div className="space-y-3 mb-6 text-sm text-slate-600 grow">
-                  <div className="flex items-center gap-3">
+                  {/* <div className="flex items-center gap-3">
                     <GraduationCap className="w-4 h-4 text-blue-600 shrink-0" />
                     <span>Multiple Levels Available</span>
-                  </div>
+                  </div> */}
                   <div className="flex items-center gap-3">
                     <Calendar className="w-4 h-4 text-blue-600 shrink-0" />
                     <span>
@@ -180,7 +167,7 @@ export default function FeaturedScholarshipSlider({
                   </div>
                   <div className="p-3 bg-blue-50/50 rounded-lg border border-blue-100 mt-2">
                     <p className="text-xs text-blue-800 font-semibold mb-1">
-                      Value / Scholarship Amount
+                      Scholarship Amount
                     </p>
                     <p className="text-blue-600 font-bold">
                       {item.amount
@@ -209,4 +196,3 @@ export default function FeaturedScholarshipSlider({
     </section>
   );
 }
-

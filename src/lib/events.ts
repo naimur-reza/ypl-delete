@@ -18,6 +18,17 @@ export type EventWithRelations = Prisma.EventGetPayload<{
         slug: true;
       };
     };
+    countries: {
+      include: {
+        country: {
+          select: {
+            id: true;
+            name: true;
+            slug: true;
+          };
+        };
+      };
+    };
   };
 }>;
 
@@ -65,6 +76,17 @@ export const fetchUpcomingEvents = async ({
           slug: true,
         },
       },
+      countries: {
+        include: {
+          country: {
+            select: {
+              id: true,
+              name: true,
+              slug: true,
+            },
+          },
+        },
+      },
     },
     orderBy: { startDate: "asc" },
   });
@@ -105,6 +127,17 @@ export const fetchPastEvents = async ({
           name: true,
           logo: true,
           slug: true,
+        },
+      },
+      countries: {
+        include: {
+          country: {
+            select: {
+              id: true,
+              name: true,
+              slug: true,
+            },
+          },
         },
       },
     },

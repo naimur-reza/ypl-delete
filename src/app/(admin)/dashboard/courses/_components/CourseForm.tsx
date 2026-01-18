@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
@@ -12,12 +13,16 @@ import { toast } from "sonner";
 import z from "zod";
 import { createEntityApi, apiClient } from "@/lib/api-client";
 import { generateSlug } from "@/lib/utils";
- 
+
 import { SelectItem } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { FormBase } from "@/components/form/FormBase";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Course, Destination, University } from "../../../../../../prisma/src/generated/prisma/browser";
+import {
+  Course,
+  Destination,
+  University,
+} from "../../../../../../prisma/src/generated/prisma/browser";
 
 type FormData = z.infer<typeof courseSchema>;
 type CourseSections = {
@@ -43,6 +48,7 @@ interface CourseFormProps {
 
 export function CourseForm({ initialData, onSuccess }: CourseFormProps) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const isEditing = !!initialData;
   const [universities, setUniversities] = useState<
     Pick<University, "id" | "name">[]
@@ -174,6 +180,9 @@ export function CourseForm({ initialData, onSuccess }: CourseFormProps) {
             : "Course created successfully"
         );
         form.reset();
+        await queryClient.invalidateQueries({
+          queryKey: ["data-table", "/api/courses"],
+        });
         router.push("/dashboard/courses");
         onSuccess?.();
       } catch (err) {
@@ -219,7 +228,6 @@ export function CourseForm({ initialData, onSuccess }: CourseFormProps) {
                   handleTitleChange(e.target.value);
                 }}
                 onBlur={field.handleBlur}
-      
               />
             </FormBase>
           )}
@@ -237,7 +245,6 @@ export function CourseForm({ initialData, onSuccess }: CourseFormProps) {
                   handleSlugChange(slugValue);
                 }}
                 onBlur={field.handleBlur}
-     
               />
             </FormBase>
           )}
@@ -374,12 +381,7 @@ export function CourseForm({ initialData, onSuccess }: CourseFormProps) {
           )}
         </form.AppField>
         <form.AppField name="duration">
-          {(field) => (
-            <field.Input
-              label="Duration"
-         
-            />
-          )}
+          {(field) => <field.Input label="Duration" />}
         </form.AppField>
         <form.AppField name="studyLevel">
           {(field) => (

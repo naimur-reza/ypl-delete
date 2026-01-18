@@ -15,9 +15,18 @@ export const eventSchema = z.object({
   startDate: z.string().min(1, "Start date is required"),
   endDate: z.string().optional().nullable(),
   location: z.string().max(200).optional().nullable(),
+  city: z.string().max(200).optional().nullable(),
   isFeatured: z.boolean().optional(),
   status: z.enum(["ACTIVE", "DRAFT"]).default("DRAFT"),
-  destinationId: z.string().min(1, "Destination is required"),
+  destinationIds: z
+    .array(z.string().min(1))
+    .min(1, "Select at least one destination")
+    .nullable(),
+  banner: z
+    .string()
+    .url({ message: "Banner must be a valid URL" })
+    .optional()
+    .nullable(),
   universityId: z.string().optional().nullable(),
   countryIds: z.array(z.string()).default([]),
   // Post-event fields

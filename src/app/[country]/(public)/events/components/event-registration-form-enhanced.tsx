@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -13,26 +14,68 @@ import {
 import { Loader2, CheckCircle2, MapPin, Calendar, Clock } from "lucide-react";
 import { Event } from "../../../../../../prisma/src/generated/prisma/client";
 import { MarkdownContent } from "@/components/ui/markdown-content";
- 
+import { WORLD_COUNTRIES } from "@/const/world-countries";
+
 type EventRegistrationFormProps = {
   event: Event;
 };
 
-export function EventRegistrationFormEnhanced({ event }: EventRegistrationFormProps) {
+const ENGLISH_TEST_OPTIONS = [
+  { value: "IELTS", label: "IELTS" },
+  { value: "TOEFL", label: "TOEFL" },
+  { value: "PTE", label: "PTE" },
+  { value: "Duolingo", label: "Duolingo" },
+  { value: "None", label: "None / Not Yet" },
+];
+
+type Destination = {
+  id: string;
+  name: string;
+  slug: string;
+};
+
+export function EventRegistrationFormEnhanced({
+  event,
+}: EventRegistrationFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [destinations, setDestinations] = useState<Destination[]>([]);
   const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
+    name: "",
     email: "",
     phone: "",
-    destination: "",
+    city: "",
+    addressCountry: "",
+    studyDestination: "",
+    lastQualification: "",
+    englishTest: "",
+    englishTestScore: "",
+    additionalInfo: "",
   });
+
+  // Fetch destinations on mount
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const destRes = await fetch("/api/destinations?limit=100");
+
+        if (destRes.ok) {
+          const destData = await destRes.json();
+          setDestinations(
+            Array.isArray(destData) ? destData : destData.data || []
+          );
+        }
+      } catch (err) {
+        console.error("Failed to fetch destinations:", err);
+      }
+    };
+    fetchData();
+  }, []);
 
   const eventDate = new Date(event.startDate);
   const endDate = event.endDate ? new Date(event.endDate) : null;
-  
+
   const formattedDate = eventDate.toLocaleDateString("en-US", {
     day: "numeric",
     month: "long",
@@ -69,10 +112,16 @@ export function EventRegistrationFormEnhanced({ event }: EventRegistrationFormPr
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           eventId: event.id,
-          name: `${form.firstName} ${form.lastName}`.trim(),
+          name: form.name,
           email: form.email,
           phone: form.phone,
-          notes: form.destination,
+          city: form.city,
+          addressCountry: form.addressCountry,
+          studyDestination: form.studyDestination,
+          lastQualification: form.lastQualification,
+          englishTest: form.englishTest,
+          englishTestScore: form.englishTestScore,
+          additionalInfo: form.additionalInfo,
         }),
       });
 
@@ -83,11 +132,16 @@ export function EventRegistrationFormEnhanced({ event }: EventRegistrationFormPr
 
       setIsSuccess(true);
       setForm({
-        firstName: "",
-        lastName: "",
+        name: "",
         email: "",
         phone: "",
-        destination: "",
+        city: "",
+        addressCountry: "",
+        studyDestination: "",
+        lastQualification: "",
+        englishTest: "",
+        englishTestScore: "",
+        additionalInfo: "",
       });
     } catch (err: any) {
       setError(err.message || "Registration failed");
@@ -107,8 +161,8 @@ export function EventRegistrationFormEnhanced({ event }: EventRegistrationFormPr
             Registration Successful!
           </h2>
           <p className="text-slate-600 mb-8">
-            Thank you for registering for {event.title}. We have sent a confirmation email with
-            all the details.
+            Thank you for registering for {event.title}. We have sent a
+            confirmation email with all the details.
           </p>
           <Button onClick={() => setIsSuccess(false)} variant="outline">
             Register Another Person
@@ -122,8 +176,8 @@ export function EventRegistrationFormEnhanced({ event }: EventRegistrationFormPr
     <section className="py-16 bg-slate-50" id="register">
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-          {/* Left - Event Details */}
-          <div className="space-y-6">
+          {/* Left - Event Details (shows second on mobile, first on desktop) */}
+          <div className="space-y-6 order-2 lg:order-1">
             <p className="text-slate-700 leading-relaxed text-lg">
               {`Don't miss the opportunity to attend our ${event.title}, where students can explore a wide range of study options.`}
             </p>
@@ -160,53 +214,48 @@ export function EventRegistrationFormEnhanced({ event }: EventRegistrationFormPr
             </div>
           </div>
 
-          {/* Right - Registration Form */}
-          <div className="bg-white rounded-2xl shadow-lg p-8 border border-slate-100">
+          {/* Right - Registration Form (shows first on mobile, second on desktop) */}
+          <div className="bg-white rounded-2xl shadow-lg p-8 border border-slate-100 order-1 lg:order-2">
             <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-8">
               Register for the event
             </h2>
 
             <form onSubmit={handleSubmit} className="space-y-5">
-              {/* Name Row */}
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="space-y-1.5">
-                  <label htmlFor="firstName" className="text-sm font-medium text-slate-700">
-                    First Name <span className="text-red-500">*</span>
-                  </label>
-                  <Input
-                    id="firstName"
-                    value={form.firstName}
-                    onChange={(e) => setForm((f) => ({ ...f, firstName: e.target.value }))}
-                    placeholder="John"
-                    required
-                    className="bg-white border-slate-300 focus:border-primary"
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <label htmlFor="lastName" className="text-sm font-medium text-slate-700">
-                    Last Name <span className="text-red-500">*</span>
-                  </label>
-                  <Input
-                    id="lastName"
-                    value={form.lastName}
-                    onChange={(e) => setForm((f) => ({ ...f, lastName: e.target.value }))}
-                    placeholder="Doe"
-                    required
-                    className="bg-white border-slate-300 focus:border-primary"
-                  />
-                </div>
+              {/* Name */}
+              <div className="space-y-1.5">
+                <label
+                  htmlFor="name"
+                  className="text-sm font-medium text-slate-700"
+                >
+                  Name <span className="text-red-500">*</span>
+                </label>
+                <Input
+                  id="name"
+                  value={form.name}
+                  onChange={(e) =>
+                    setForm((f) => ({ ...f, name: e.target.value }))
+                  }
+                  placeholder="John Doe"
+                  required
+                  className="bg-white border-slate-300 focus:border-primary"
+                />
               </div>
 
               {/* Email */}
               <div className="space-y-1.5">
-                <label htmlFor="email" className="text-sm font-medium text-slate-700">
-                  Email Address <span className="text-red-500">*</span>
+                <label
+                  htmlFor="email"
+                  className="text-sm font-medium text-slate-700"
+                >
+                  Email <span className="text-red-500">*</span>
                 </label>
                 <Input
                   id="email"
                   type="email"
                   value={form.email}
-                  onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+                  onChange={(e) =>
+                    setForm((f) => ({ ...f, email: e.target.value }))
+                  }
                   placeholder="john@example.com"
                   required
                   className="bg-white border-slate-300 focus:border-primary"
@@ -215,36 +264,174 @@ export function EventRegistrationFormEnhanced({ event }: EventRegistrationFormPr
 
               {/* Phone */}
               <div className="space-y-1.5">
-                <label htmlFor="phone" className="text-sm font-medium text-slate-700">
-                  Phone Number <span className="text-red-500">*</span>
+                <label
+                  htmlFor="phone"
+                  className="text-sm font-medium text-slate-700"
+                >
+                  Phone <span className="text-red-500">*</span>
                 </label>
                 <Input
                   id="phone"
                   type="tel"
                   value={form.phone}
-                  onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
-                  placeholder="+1 (555) 000-0000"
+                  onChange={(e) =>
+                    setForm((f) => ({ ...f, phone: e.target.value }))
+                  }
                   required
                   className="bg-white border-slate-300 focus:border-primary"
                 />
               </div>
 
-              {/* Preferred Destination */}
+              {/* Address - City and Country */}
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-slate-700">
-                  Preferred Destination
+                  Address <span className="text-red-500">*</span>
                 </label>
-                <Select value={form.destination} onValueChange={(v) => setForm((f) => ({ ...f, destination: v }))}>
+                <div className="grid grid-cols-2 gap-4">
+                  <Input
+                    id="city"
+                    value={form.city}
+                    onChange={(e) =>
+                      setForm((f) => ({ ...f, city: e.target.value }))
+                    }
+                    required
+                    className="bg-white border-slate-300 focus:border-primary"
+                  />
+                  <Select
+                    value={form.addressCountry}
+                    onValueChange={(v) =>
+                      setForm((f) => ({ ...f, addressCountry: v }))
+                    }
+                  >
+                    <SelectTrigger className="bg-white border-slate-300">
+                      <SelectValue placeholder="Country" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {WORLD_COUNTRIES.map((country) => (
+                        <SelectItem key={country} value={country}>
+                          {country}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {/* Study Destination */}
+              <div className="space-y-1.5">
+                <label className="text-sm font-medium text-slate-700">
+                  Your Preferred Study Destination{" "}
+                  <span className="text-red-500">*</span>
+                </label>
+                <Select
+                  value={form.studyDestination}
+                  onValueChange={(v) =>
+                    setForm((f) => ({ ...f, studyDestination: v }))
+                  }
+                >
                   <SelectTrigger className="bg-white border-slate-300">
-                    <SelectValue placeholder="Select a country" />
+                    <SelectValue placeholder="Select a destination" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="uk">United Kingdom</SelectItem>
-                    <SelectItem value="usa">USA</SelectItem>
-                    <SelectItem value="canada">Canada</SelectItem>
-                    <SelectItem value="australia">Australia</SelectItem>
+                    {destinations.map((dest) => (
+                      <SelectItem key={dest.id} value={dest.name}>
+                        {dest.name}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
+              </div>
+
+              {/* Last Qualification */}
+              <div className="space-y-1.5">
+                <label
+                  htmlFor="lastQualification"
+                  className="text-sm font-medium text-slate-700"
+                >
+                  Your Last Education Qualification{" "}
+                  <span className="text-red-500">*</span>
+                </label>
+                <Input
+                  id="lastQualification"
+                  value={form.lastQualification}
+                  onChange={(e) =>
+                    setForm((f) => ({
+                      ...f,
+                      lastQualification: e.target.value,
+                    }))
+                  }
+                  required
+                  className="bg-white border-slate-300 focus:border-primary"
+                />
+              </div>
+
+              {/* English Test */}
+              <div className="space-y-1.5">
+                <label className="text-sm font-medium text-slate-700">
+                  Do you have any English test? Which one?{" "}
+                  <span className="text-red-500">*</span>
+                </label>
+                <Select
+                  value={form.englishTest}
+                  onValueChange={(v) =>
+                    setForm((f) => ({ ...f, englishTest: v }))
+                  }
+                >
+                  <SelectTrigger className="bg-white border-slate-300">
+                    <SelectValue placeholder="Select a test" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {ENGLISH_TEST_OPTIONS.map((opt) => (
+                      <SelectItem key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* English Test Score */}
+              {form.englishTest && form.englishTest !== "None" && (
+                <div className="space-y-1.5">
+                  <label
+                    htmlFor="englishTestScore"
+                    className="text-sm font-medium text-slate-700"
+                  >
+                    Kindly write down the English test score{" "}
+                    <span className="text-red-500">*</span>
+                  </label>
+                  <Input
+                    id="englishTestScore"
+                    value={form.englishTestScore}
+                    onChange={(e) =>
+                      setForm((f) => ({
+                        ...f,
+                        englishTestScore: e.target.value,
+                      }))
+                    }
+                    required
+                    className="bg-white border-slate-300 focus:border-primary"
+                  />
+                </div>
+              )}
+
+              {/* Additional Information */}
+              <div className="space-y-1.5">
+                <label
+                  htmlFor="additionalInfo"
+                  className="text-sm font-medium text-slate-700"
+                >
+                  Additional Information
+                </label>
+                <Textarea
+                  id="additionalInfo"
+                  value={form.additionalInfo}
+                  onChange={(e) =>
+                    setForm((f) => ({ ...f, additionalInfo: e.target.value }))
+                  }
+                  rows={3}
+                  className="bg-white border-slate-300 focus:border-primary resize-none"
+                />
               </div>
 
               {error && <p className="text-sm text-red-600">{error}</p>}
@@ -265,7 +452,8 @@ export function EventRegistrationFormEnhanced({ event }: EventRegistrationFormPr
               </Button>
 
               <p className="text-xs text-slate-500 text-center leading-relaxed">
-                By registering, you agree to our Terms of Service and Privacy Policy.
+                By registering, you agree to our Terms of Service and Privacy
+                Policy.
               </p>
             </form>
           </div>

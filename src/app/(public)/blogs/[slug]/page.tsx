@@ -130,16 +130,17 @@ export default async function BlogDetailsPage({ params }: PageProps) {
           </div>
         </div>
       </section>
-
-      {/* Student Reviews & GMB Reviews */}
-      <ReviewSection countrySlug={countrySlug} />
-
-      {/* Related Articles */}
+            {/* Related Articles */}
       <RelatedArticles
         currentBlogId={blog.id}
         destinationId={blog.destinationId}
         countrySlug={countrySlug}
       />
+
+      {/* Student Reviews & GMB Reviews */}
+      <ReviewSection countrySlug={countrySlug} />
+
+
 
       {/* CTA Banner */}
       <CallToActionBanner />

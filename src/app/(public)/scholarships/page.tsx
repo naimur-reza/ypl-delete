@@ -43,15 +43,6 @@ export default async function ScholarshipPage({ params }: PageProps) {
   const scholarshipsData = await prisma.scholarship.findMany({
     where: {
       status: "ACTIVE",
-      ...(resolvedCountry.slug
-        ? {
-            countries: {
-              some: {
-                country: { slug: resolvedCountry.slug },
-              },
-            },
-          }
-        : {}),
     },
     include: {
       destination: {
@@ -85,7 +76,7 @@ export default async function ScholarshipPage({ params }: PageProps) {
       <ScholarshipHero />
 
       {/* Featured Scholarships Slider */}
-      <FeaturedScholarshipSlider scholarships={scholarships} />
+      <FeaturedScholarshipSlider scholarships={scholarships as any} />
 
       {/* List of All Scholarships with Filter */}
       <ScholarshipList scholarships={scholarships} />

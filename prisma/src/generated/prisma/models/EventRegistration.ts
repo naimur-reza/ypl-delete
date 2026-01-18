@@ -31,6 +31,13 @@ export type EventRegistrationMinAggregateOutputType = {
   name: string | null
   email: string | null
   phone: string | null
+  city: string | null
+  addressCountry: string | null
+  studyDestination: string | null
+  lastQualification: string | null
+  englishTest: string | null
+  englishTestScore: string | null
+  additionalInfo: string | null
   notes: string | null
   status: $Enums.RegistrationStatus | null
   createdAt: Date | null
@@ -44,6 +51,13 @@ export type EventRegistrationMaxAggregateOutputType = {
   name: string | null
   email: string | null
   phone: string | null
+  city: string | null
+  addressCountry: string | null
+  studyDestination: string | null
+  lastQualification: string | null
+  englishTest: string | null
+  englishTestScore: string | null
+  additionalInfo: string | null
   notes: string | null
   status: $Enums.RegistrationStatus | null
   createdAt: Date | null
@@ -57,6 +71,13 @@ export type EventRegistrationCountAggregateOutputType = {
   name: number
   email: number
   phone: number
+  city: number
+  addressCountry: number
+  studyDestination: number
+  lastQualification: number
+  englishTest: number
+  englishTestScore: number
+  additionalInfo: number
   notes: number
   status: number
   createdAt: number
@@ -72,6 +93,13 @@ export type EventRegistrationMinAggregateInputType = {
   name?: true
   email?: true
   phone?: true
+  city?: true
+  addressCountry?: true
+  studyDestination?: true
+  lastQualification?: true
+  englishTest?: true
+  englishTestScore?: true
+  additionalInfo?: true
   notes?: true
   status?: true
   createdAt?: true
@@ -85,6 +113,13 @@ export type EventRegistrationMaxAggregateInputType = {
   name?: true
   email?: true
   phone?: true
+  city?: true
+  addressCountry?: true
+  studyDestination?: true
+  lastQualification?: true
+  englishTest?: true
+  englishTestScore?: true
+  additionalInfo?: true
   notes?: true
   status?: true
   createdAt?: true
@@ -98,6 +133,13 @@ export type EventRegistrationCountAggregateInputType = {
   name?: true
   email?: true
   phone?: true
+  city?: true
+  addressCountry?: true
+  studyDestination?: true
+  lastQualification?: true
+  englishTest?: true
+  englishTestScore?: true
+  additionalInfo?: true
   notes?: true
   status?: true
   createdAt?: true
@@ -184,6 +226,13 @@ export type EventRegistrationGroupByOutputType = {
   name: string
   email: string | null
   phone: string | null
+  city: string | null
+  addressCountry: string | null
+  studyDestination: string | null
+  lastQualification: string | null
+  englishTest: string | null
+  englishTestScore: string | null
+  additionalInfo: string | null
   notes: string | null
   status: $Enums.RegistrationStatus
   createdAt: Date
@@ -218,6 +267,13 @@ export type EventRegistrationWhereInput = {
   name?: Prisma.StringFilter<"EventRegistration"> | string
   email?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
   phone?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
+  city?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
+  addressCountry?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
+  studyDestination?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
+  lastQualification?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
+  englishTest?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
+  englishTestScore?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
+  additionalInfo?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
   notes?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
   status?: Prisma.EnumRegistrationStatusFilter<"EventRegistration"> | $Enums.RegistrationStatus
   createdAt?: Prisma.DateTimeFilter<"EventRegistration"> | Date | string
@@ -233,6 +289,13 @@ export type EventRegistrationOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
+  city?: Prisma.SortOrderInput | Prisma.SortOrder
+  addressCountry?: Prisma.SortOrderInput | Prisma.SortOrder
+  studyDestination?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastQualification?: Prisma.SortOrderInput | Prisma.SortOrder
+  englishTest?: Prisma.SortOrderInput | Prisma.SortOrder
+  englishTestScore?: Prisma.SortOrderInput | Prisma.SortOrder
+  additionalInfo?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -251,6 +314,13 @@ export type EventRegistrationWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"EventRegistration"> | string
   email?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
   phone?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
+  city?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
+  addressCountry?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
+  studyDestination?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
+  lastQualification?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
+  englishTest?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
+  englishTestScore?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
+  additionalInfo?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
   notes?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
   status?: Prisma.EnumRegistrationStatusFilter<"EventRegistration"> | $Enums.RegistrationStatus
   createdAt?: Prisma.DateTimeFilter<"EventRegistration"> | Date | string
@@ -266,6 +336,13 @@ export type EventRegistrationOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
+  city?: Prisma.SortOrderInput | Prisma.SortOrder
+  addressCountry?: Prisma.SortOrderInput | Prisma.SortOrder
+  studyDestination?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastQualification?: Prisma.SortOrderInput | Prisma.SortOrder
+  englishTest?: Prisma.SortOrderInput | Prisma.SortOrder
+  englishTestScore?: Prisma.SortOrderInput | Prisma.SortOrder
+  additionalInfo?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -285,6 +362,13 @@ export type EventRegistrationScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"EventRegistration"> | string
   email?: Prisma.StringNullableWithAggregatesFilter<"EventRegistration"> | string | null
   phone?: Prisma.StringNullableWithAggregatesFilter<"EventRegistration"> | string | null
+  city?: Prisma.StringNullableWithAggregatesFilter<"EventRegistration"> | string | null
+  addressCountry?: Prisma.StringNullableWithAggregatesFilter<"EventRegistration"> | string | null
+  studyDestination?: Prisma.StringNullableWithAggregatesFilter<"EventRegistration"> | string | null
+  lastQualification?: Prisma.StringNullableWithAggregatesFilter<"EventRegistration"> | string | null
+  englishTest?: Prisma.StringNullableWithAggregatesFilter<"EventRegistration"> | string | null
+  englishTestScore?: Prisma.StringNullableWithAggregatesFilter<"EventRegistration"> | string | null
+  additionalInfo?: Prisma.StringNullableWithAggregatesFilter<"EventRegistration"> | string | null
   notes?: Prisma.StringNullableWithAggregatesFilter<"EventRegistration"> | string | null
   status?: Prisma.EnumRegistrationStatusWithAggregatesFilter<"EventRegistration"> | $Enums.RegistrationStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"EventRegistration"> | Date | string
@@ -296,6 +380,13 @@ export type EventRegistrationCreateInput = {
   name: string
   email?: string | null
   phone?: string | null
+  city?: string | null
+  addressCountry?: string | null
+  studyDestination?: string | null
+  lastQualification?: string | null
+  englishTest?: string | null
+  englishTestScore?: string | null
+  additionalInfo?: string | null
   notes?: string | null
   status?: $Enums.RegistrationStatus
   createdAt?: Date | string
@@ -311,6 +402,13 @@ export type EventRegistrationUncheckedCreateInput = {
   name: string
   email?: string | null
   phone?: string | null
+  city?: string | null
+  addressCountry?: string | null
+  studyDestination?: string | null
+  lastQualification?: string | null
+  englishTest?: string | null
+  englishTestScore?: string | null
+  additionalInfo?: string | null
   notes?: string | null
   status?: $Enums.RegistrationStatus
   createdAt?: Date | string
@@ -322,6 +420,13 @@ export type EventRegistrationUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastQualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTestScore?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumRegistrationStatusFieldUpdateOperationsInput | $Enums.RegistrationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -337,6 +442,13 @@ export type EventRegistrationUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastQualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTestScore?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumRegistrationStatusFieldUpdateOperationsInput | $Enums.RegistrationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -350,6 +462,13 @@ export type EventRegistrationCreateManyInput = {
   name: string
   email?: string | null
   phone?: string | null
+  city?: string | null
+  addressCountry?: string | null
+  studyDestination?: string | null
+  lastQualification?: string | null
+  englishTest?: string | null
+  englishTestScore?: string | null
+  additionalInfo?: string | null
   notes?: string | null
   status?: $Enums.RegistrationStatus
   createdAt?: Date | string
@@ -361,6 +480,13 @@ export type EventRegistrationUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastQualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTestScore?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumRegistrationStatusFieldUpdateOperationsInput | $Enums.RegistrationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -374,6 +500,13 @@ export type EventRegistrationUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastQualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTestScore?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumRegistrationStatusFieldUpdateOperationsInput | $Enums.RegistrationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -397,6 +530,13 @@ export type EventRegistrationCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  addressCountry?: Prisma.SortOrder
+  studyDestination?: Prisma.SortOrder
+  lastQualification?: Prisma.SortOrder
+  englishTest?: Prisma.SortOrder
+  englishTestScore?: Prisma.SortOrder
+  additionalInfo?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -410,6 +550,13 @@ export type EventRegistrationMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  addressCountry?: Prisma.SortOrder
+  studyDestination?: Prisma.SortOrder
+  lastQualification?: Prisma.SortOrder
+  englishTest?: Prisma.SortOrder
+  englishTestScore?: Prisma.SortOrder
+  additionalInfo?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -423,6 +570,13 @@ export type EventRegistrationMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  addressCountry?: Prisma.SortOrder
+  studyDestination?: Prisma.SortOrder
+  lastQualification?: Prisma.SortOrder
+  englishTest?: Prisma.SortOrder
+  englishTestScore?: Prisma.SortOrder
+  additionalInfo?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -522,6 +676,13 @@ export type EventRegistrationCreateWithoutEventInput = {
   name: string
   email?: string | null
   phone?: string | null
+  city?: string | null
+  addressCountry?: string | null
+  studyDestination?: string | null
+  lastQualification?: string | null
+  englishTest?: string | null
+  englishTestScore?: string | null
+  additionalInfo?: string | null
   notes?: string | null
   status?: $Enums.RegistrationStatus
   createdAt?: Date | string
@@ -535,6 +696,13 @@ export type EventRegistrationUncheckedCreateWithoutEventInput = {
   name: string
   email?: string | null
   phone?: string | null
+  city?: string | null
+  addressCountry?: string | null
+  studyDestination?: string | null
+  lastQualification?: string | null
+  englishTest?: string | null
+  englishTestScore?: string | null
+  additionalInfo?: string | null
   notes?: string | null
   status?: $Enums.RegistrationStatus
   createdAt?: Date | string
@@ -577,6 +745,13 @@ export type EventRegistrationScalarWhereInput = {
   name?: Prisma.StringFilter<"EventRegistration"> | string
   email?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
   phone?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
+  city?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
+  addressCountry?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
+  studyDestination?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
+  lastQualification?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
+  englishTest?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
+  englishTestScore?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
+  additionalInfo?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
   notes?: Prisma.StringNullableFilter<"EventRegistration"> | string | null
   status?: Prisma.EnumRegistrationStatusFilter<"EventRegistration"> | $Enums.RegistrationStatus
   createdAt?: Prisma.DateTimeFilter<"EventRegistration"> | Date | string
@@ -588,6 +763,13 @@ export type EventRegistrationCreateWithoutCountryInput = {
   name: string
   email?: string | null
   phone?: string | null
+  city?: string | null
+  addressCountry?: string | null
+  studyDestination?: string | null
+  lastQualification?: string | null
+  englishTest?: string | null
+  englishTestScore?: string | null
+  additionalInfo?: string | null
   notes?: string | null
   status?: $Enums.RegistrationStatus
   createdAt?: Date | string
@@ -601,6 +783,13 @@ export type EventRegistrationUncheckedCreateWithoutCountryInput = {
   name: string
   email?: string | null
   phone?: string | null
+  city?: string | null
+  addressCountry?: string | null
+  studyDestination?: string | null
+  lastQualification?: string | null
+  englishTest?: string | null
+  englishTestScore?: string | null
+  additionalInfo?: string | null
   notes?: string | null
   status?: $Enums.RegistrationStatus
   createdAt?: Date | string
@@ -639,6 +828,13 @@ export type EventRegistrationCreateManyEventInput = {
   name: string
   email?: string | null
   phone?: string | null
+  city?: string | null
+  addressCountry?: string | null
+  studyDestination?: string | null
+  lastQualification?: string | null
+  englishTest?: string | null
+  englishTestScore?: string | null
+  additionalInfo?: string | null
   notes?: string | null
   status?: $Enums.RegistrationStatus
   createdAt?: Date | string
@@ -650,6 +846,13 @@ export type EventRegistrationUpdateWithoutEventInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastQualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTestScore?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumRegistrationStatusFieldUpdateOperationsInput | $Enums.RegistrationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -663,6 +866,13 @@ export type EventRegistrationUncheckedUpdateWithoutEventInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastQualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTestScore?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumRegistrationStatusFieldUpdateOperationsInput | $Enums.RegistrationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -675,6 +885,13 @@ export type EventRegistrationUncheckedUpdateManyWithoutEventInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastQualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTestScore?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumRegistrationStatusFieldUpdateOperationsInput | $Enums.RegistrationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -687,6 +904,13 @@ export type EventRegistrationCreateManyCountryInput = {
   name: string
   email?: string | null
   phone?: string | null
+  city?: string | null
+  addressCountry?: string | null
+  studyDestination?: string | null
+  lastQualification?: string | null
+  englishTest?: string | null
+  englishTestScore?: string | null
+  additionalInfo?: string | null
   notes?: string | null
   status?: $Enums.RegistrationStatus
   createdAt?: Date | string
@@ -698,6 +922,13 @@ export type EventRegistrationUpdateWithoutCountryInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastQualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTestScore?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumRegistrationStatusFieldUpdateOperationsInput | $Enums.RegistrationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -711,6 +942,13 @@ export type EventRegistrationUncheckedUpdateWithoutCountryInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastQualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTestScore?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumRegistrationStatusFieldUpdateOperationsInput | $Enums.RegistrationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -723,6 +961,13 @@ export type EventRegistrationUncheckedUpdateManyWithoutCountryInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastQualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  englishTestScore?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumRegistrationStatusFieldUpdateOperationsInput | $Enums.RegistrationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -738,6 +983,13 @@ export type EventRegistrationSelect<ExtArgs extends runtime.Types.Extensions.Int
   name?: boolean
   email?: boolean
   phone?: boolean
+  city?: boolean
+  addressCountry?: boolean
+  studyDestination?: boolean
+  lastQualification?: boolean
+  englishTest?: boolean
+  englishTestScore?: boolean
+  additionalInfo?: boolean
   notes?: boolean
   status?: boolean
   createdAt?: boolean
@@ -753,6 +1005,13 @@ export type EventRegistrationSelectCreateManyAndReturn<ExtArgs extends runtime.T
   name?: boolean
   email?: boolean
   phone?: boolean
+  city?: boolean
+  addressCountry?: boolean
+  studyDestination?: boolean
+  lastQualification?: boolean
+  englishTest?: boolean
+  englishTestScore?: boolean
+  additionalInfo?: boolean
   notes?: boolean
   status?: boolean
   createdAt?: boolean
@@ -768,6 +1027,13 @@ export type EventRegistrationSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   name?: boolean
   email?: boolean
   phone?: boolean
+  city?: boolean
+  addressCountry?: boolean
+  studyDestination?: boolean
+  lastQualification?: boolean
+  englishTest?: boolean
+  englishTestScore?: boolean
+  additionalInfo?: boolean
   notes?: boolean
   status?: boolean
   createdAt?: boolean
@@ -783,13 +1049,20 @@ export type EventRegistrationSelectScalar = {
   name?: boolean
   email?: boolean
   phone?: boolean
+  city?: boolean
+  addressCountry?: boolean
+  studyDestination?: boolean
+  lastQualification?: boolean
+  englishTest?: boolean
+  englishTestScore?: boolean
+  additionalInfo?: boolean
   notes?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type EventRegistrationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "eventId" | "countryId" | "name" | "email" | "phone" | "notes" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["eventRegistration"]>
+export type EventRegistrationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "eventId" | "countryId" | "name" | "email" | "phone" | "city" | "addressCountry" | "studyDestination" | "lastQualification" | "englishTest" | "englishTestScore" | "additionalInfo" | "notes" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["eventRegistration"]>
 export type EventRegistrationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   country?: boolean | Prisma.EventRegistration$countryArgs<ExtArgs>
   event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
@@ -816,6 +1089,13 @@ export type $EventRegistrationPayload<ExtArgs extends runtime.Types.Extensions.I
     name: string
     email: string | null
     phone: string | null
+    city: string | null
+    addressCountry: string | null
+    studyDestination: string | null
+    lastQualification: string | null
+    englishTest: string | null
+    englishTestScore: string | null
+    additionalInfo: string | null
     notes: string | null
     status: $Enums.RegistrationStatus
     createdAt: Date
@@ -1251,6 +1531,13 @@ export interface EventRegistrationFieldRefs {
   readonly name: Prisma.FieldRef<"EventRegistration", 'String'>
   readonly email: Prisma.FieldRef<"EventRegistration", 'String'>
   readonly phone: Prisma.FieldRef<"EventRegistration", 'String'>
+  readonly city: Prisma.FieldRef<"EventRegistration", 'String'>
+  readonly addressCountry: Prisma.FieldRef<"EventRegistration", 'String'>
+  readonly studyDestination: Prisma.FieldRef<"EventRegistration", 'String'>
+  readonly lastQualification: Prisma.FieldRef<"EventRegistration", 'String'>
+  readonly englishTest: Prisma.FieldRef<"EventRegistration", 'String'>
+  readonly englishTestScore: Prisma.FieldRef<"EventRegistration", 'String'>
+  readonly additionalInfo: Prisma.FieldRef<"EventRegistration", 'String'>
   readonly notes: Prisma.FieldRef<"EventRegistration", 'String'>
   readonly status: Prisma.FieldRef<"EventRegistration", 'RegistrationStatus'>
   readonly createdAt: Prisma.FieldRef<"EventRegistration", 'DateTime'>

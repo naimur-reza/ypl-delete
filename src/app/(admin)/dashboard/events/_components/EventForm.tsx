@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
@@ -16,7 +17,11 @@ import { FormBase } from "@/components/form/FormBase";
 import { Input } from "@/components/ui/input";
 import { CountrySelect } from "@/components/ui/region-select";
 import { SelectItem } from "@/components/ui/select";
+
+import { ImageUpload } from "@/components/ui/image-upload";
 import { MultipleImageUpload } from "@/components/ui/multiple-image-upload";
+import MultiSelect from "@/components/ui/multi-select";
+import { Event } from "../../../../../../prisma/src/generated/prisma/browser";
 
 type FormData = z.infer<typeof eventSchema>;
 
@@ -33,32 +38,16 @@ interface University {
 }
 
 interface EventFormProps {
-  event?: {
-    id: string;
-    title: string;
-    slug: string;
-    description?: string | null;
-    eventType: string;
-    startDate: string;
-    endDate?: string | null;
-    location?: string | null;
-    isFeatured?: boolean;
-    destinationId: string;
-    universityId?: string | null;
+  event?: Event & {
     countries?: Array<{ country?: { id: string }; countryId?: string }>;
-    video?: string | null;
-    gallery?: string[];
-    successSummary?: string | null;
-    metaTitle?: string | null;
-    metaDescription?: string | null;
-    metaKeywords?: string | null;
-    status: "ACTIVE" | "DRAFT";
+    destinations?: Array<{ destinationId: string }>;
   };
   onSuccess?: () => void;
 }
 
 export function EventForm({ event, onSuccess }: EventFormProps) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const isEditing = !!event;
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [universities, setUniversities] = useState<University[]>([]);
@@ -72,6 +61,14 @@ export function EventForm({ event, onSuccess }: EventFormProps) {
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [selectedDestinations, setSelectedDestinations] = useState<string[]>(
+    event?.destinations?.length
+      ? event.destinations.map((d) => d.destinationId)
+      : event?.destinationId
+      ? [event.destinationId]
+      : []
+  );
+  const [bannerUrl, setBannerUrl] = useState<string>(event?.banner || "");
 
   // Check if event has passed
   const isEventPast = event?.endDate
@@ -129,8 +126,9 @@ export function EventForm({ event, onSuccess }: EventFormProps) {
         ? new Date(event.endDate).toISOString().slice(0, 16)
         : "",
       location: event?.location || "",
+      city: (event)?.city || "",
       isFeatured: event?.isFeatured ?? false,
-      destinationId: event?.destinationId || "",
+      destinationIds: selectedDestinations,
       universityId: event?.universityId || "",
       countryIds: countryIds,
       video: event?.video || "",
@@ -152,6 +150,9 @@ export function EventForm({ event, onSuccess }: EventFormProps) {
           endDate: value.endDate || null,
           universityId: value.universityId || null,
           countryIds: countryIds,
+          destinationIds: value.destinationIds,
+          city: value.city || null,
+          banner: bannerUrl || null,
           video: value.video && value.video.trim() !== "" ? value.video : null,
           gallery: value.gallery || [],
           successSummary: value.successSummary || null,
@@ -176,8 +177,10 @@ export function EventForm({ event, onSuccess }: EventFormProps) {
             ? "Event updated successfully"
             : "Event created successfully"
         );
+        await queryClient.invalidateQueries({
+          queryKey: ["data-table", "/api/events"],
+        });
         router.push("/dashboard/events");
-        router.refresh();
         onSuccess?.();
       } catch (err) {
         toast.error("Request failed");
@@ -187,6 +190,71 @@ export function EventForm({ event, onSuccess }: EventFormProps) {
       }
     },
   });
+
+  useEffect(() => {
+    if (event) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const e = event as any;
+      form.setFieldValue("title", e.title || "");
+      form.setFieldValue("slug", e.slug || "");
+      form.setFieldValue("description", e.description || "");
+      form.setFieldValue(
+        "eventType",
+        (e.eventType as
+          | "EXPO"
+          | "WEBINAR"
+          | "ADMISSION_DAY"
+          | "OPEN_DAY"
+          | "SEMINAR"
+          | "WORKSHOP") || "WEBINAR"
+      );
+      form.setFieldValue(
+        "startDate",
+        e.startDate
+          ? new Date(e.startDate).toISOString().slice(0, 16)
+          : ""
+      );
+      form.setFieldValue(
+        "endDate",
+        e.endDate
+          ? new Date(e.endDate).toISOString().slice(0, 16)
+          : ""
+      );
+      form.setFieldValue("location", e.location || "");
+      form.setFieldValue("city", e.city || "");
+      form.setFieldValue("isFeatured", e.isFeatured ?? false);
+      
+      const destIds = e.destinations?.length
+        ? e.destinations.map((d: any) => d.destinationId)
+        : e.destinationId
+        ? [e.destinationId]
+        : [];
+      
+      setSelectedDestinations(destIds);
+      form.setFieldValue("destinationIds", destIds);
+      form.setFieldValue("universityId", e.universityId || "");
+      
+      const countries = e.countries || [];
+      const initialCountryIds = countries
+        .map(
+          (r: { country?: { id: string }; countryId?: string }) =>
+            r.country?.id || r.countryId || ""
+        )
+        .filter((id: string) => id !== "");
+      setCountryIds(initialCountryIds);
+      form.setFieldValue("countryIds", initialCountryIds);
+      
+      form.setFieldValue("video", e.video || "");
+      form.setFieldValue("gallery", e.gallery || []);
+      form.setFieldValue("successSummary", e.successSummary || "");
+      form.setFieldValue("metaTitle", e.metaTitle || "");
+      form.setFieldValue("metaDescription", e.metaDescription || "");
+      form.setFieldValue("metaKeywords", e.metaKeywords || "");
+      form.setFieldValue("status", e.status || "DRAFT");
+      setBannerUrl(e.banner || "");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [event]);
 
   // Auto-slug generation from title
   const { handleTitleChange, handleSlugChange } = useAutoSlug({
@@ -257,17 +325,33 @@ export function EventForm({ event, onSuccess }: EventFormProps) {
             </field.Select>
           )}
         </form.AppField>
-        <form.AppField name="destinationId">
+        <form.AppField name="destinationIds">
           {(field) => (
-            <field.Select label="Destination">
-              {destinations.map((dest) => (
-                <SelectItem key={dest.id} value={dest.id}>
-                  {dest.name}
-                </SelectItem>
-              ))}
-            </field.Select>
+            <FormBase label="Destinations">
+              <MultiSelect
+                options={destinations.map((d) => ({
+                  value: d.id,
+                  label: d.name,
+                }))}
+                value={field.state.value || []}
+                onChange={(vals) => {
+                  setSelectedDestinations(vals);
+                  field.handleChange(vals);
+                }}
+                placeholder="Select destinations..."
+              />
+            </FormBase>
           )}
         </form.AppField>
+        <div className="mb-4">
+          <ImageUpload
+            value={bannerUrl}
+            onChange={setBannerUrl}
+            folder="events/banners"
+            label="Event Banner"
+            onUploadingChange={setIsUploading}
+          />
+        </div>
         <form.AppField name="universityId">
           {(field) => (
             <field.Select label="University (Optional)">
@@ -336,6 +420,9 @@ export function EventForm({ event, onSuccess }: EventFormProps) {
         <form.AppField name="location">
           {(field) => <field.Input label="Location" />}
         </form.AppField>
+        <form.AppField name="city">
+          {(field) => <field.Input label="City" />}
+        </form.AppField>
         <form.AppField name="isFeatured">
           {(field) => <field.Checkbox label="Featured" />}
         </form.AppField>
@@ -344,9 +431,7 @@ export function EventForm({ event, onSuccess }: EventFormProps) {
         {isEventPast && (
           <>
             <div className="border-t pt-4 mt-4">
-              <h3 className="text-lg font-semibold mb-3">
-                Post-Event Content
-              </h3>
+              <h3 className="text-lg font-semibold mb-3">Post-Event Content</h3>
               <p className="text-sm text-gray-600 mb-4">
                 This event has ended. You can now add post-event content.
               </p>

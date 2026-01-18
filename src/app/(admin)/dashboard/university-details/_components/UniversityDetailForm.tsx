@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
@@ -67,6 +68,7 @@ export function UniversityDetailForm({
   isEditing?: boolean;
 }) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const [universities, setUniversities] = useState<University[]>([]);
   const [selectedUniversityStatus, setSelectedUniversityStatus] = useState<
     "ACTIVE" | "DRAFT" | null
@@ -126,7 +128,7 @@ export function UniversityDetailForm({
 
   const form = useAppForm({
     defaultValues: getDefaultValues,
-    validators: { onSubmit: detailSchema as any},
+    validators: { onSubmit: detailSchema as any },
     onSubmit: async ({ value }) => {
       setIsSubmitting(true);
       try {
@@ -166,8 +168,10 @@ export function UniversityDetailForm({
             ? "University detail updated successfully"
             : "University detail created successfully"
         );
+        await queryClient.invalidateQueries({
+          queryKey: ["data-table", "/api/university-details"],
+        });
         router.push("/dashboard/university-details");
-        router.refresh();
       } catch (err) {
         toast.error("Request failed");
         console.error(err);
@@ -186,7 +190,10 @@ export function UniversityDetailForm({
       return;
     }
     const selectedUniversity = universities.find((u) => u.id === universityId);
-    if (selectedUniversity && selectedUniversity.status !== selectedUniversityStatus) {
+    if (
+      selectedUniversity &&
+      selectedUniversity.status !== selectedUniversityStatus
+    ) {
       setSelectedUniversityStatus(selectedUniversity.status || null);
     }
   }, [universityId, universities, selectedUniversityStatus]);

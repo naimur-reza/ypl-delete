@@ -35,6 +35,7 @@ export type EventMinAggregateOutputType = {
   startDate: Date | null
   endDate: Date | null
   location: string | null
+  city: string | null
   isFeatured: boolean | null
   registrationLink: string | null
   registrationButtonText: string | null
@@ -46,10 +47,11 @@ export type EventMinAggregateOutputType = {
   updatedAt: Date | null
   createdBy: string | null
   updatedBy: string | null
-  destinationId: string | null
+  banner: string | null
   universityId: string | null
   successSummary: string | null
   status: $Enums.ContentStatus | null
+  destinationId: string | null
 }
 
 export type EventMaxAggregateOutputType = {
@@ -63,6 +65,7 @@ export type EventMaxAggregateOutputType = {
   startDate: Date | null
   endDate: Date | null
   location: string | null
+  city: string | null
   isFeatured: boolean | null
   registrationLink: string | null
   registrationButtonText: string | null
@@ -74,10 +77,11 @@ export type EventMaxAggregateOutputType = {
   updatedAt: Date | null
   createdBy: string | null
   updatedBy: string | null
-  destinationId: string | null
+  banner: string | null
   universityId: string | null
   successSummary: string | null
   status: $Enums.ContentStatus | null
+  destinationId: string | null
 }
 
 export type EventCountAggregateOutputType = {
@@ -92,6 +96,7 @@ export type EventCountAggregateOutputType = {
   startDate: number
   endDate: number
   location: number
+  city: number
   isFeatured: number
   registrationLink: number
   registrationButtonText: number
@@ -103,10 +108,11 @@ export type EventCountAggregateOutputType = {
   updatedAt: number
   createdBy: number
   updatedBy: number
-  destinationId: number
+  banner: number
   universityId: number
   successSummary: number
   status: number
+  destinationId: number
   _all: number
 }
 
@@ -122,6 +128,7 @@ export type EventMinAggregateInputType = {
   startDate?: true
   endDate?: true
   location?: true
+  city?: true
   isFeatured?: true
   registrationLink?: true
   registrationButtonText?: true
@@ -133,10 +140,11 @@ export type EventMinAggregateInputType = {
   updatedAt?: true
   createdBy?: true
   updatedBy?: true
-  destinationId?: true
+  banner?: true
   universityId?: true
   successSummary?: true
   status?: true
+  destinationId?: true
 }
 
 export type EventMaxAggregateInputType = {
@@ -150,6 +158,7 @@ export type EventMaxAggregateInputType = {
   startDate?: true
   endDate?: true
   location?: true
+  city?: true
   isFeatured?: true
   registrationLink?: true
   registrationButtonText?: true
@@ -161,10 +170,11 @@ export type EventMaxAggregateInputType = {
   updatedAt?: true
   createdBy?: true
   updatedBy?: true
-  destinationId?: true
+  banner?: true
   universityId?: true
   successSummary?: true
   status?: true
+  destinationId?: true
 }
 
 export type EventCountAggregateInputType = {
@@ -179,6 +189,7 @@ export type EventCountAggregateInputType = {
   startDate?: true
   endDate?: true
   location?: true
+  city?: true
   isFeatured?: true
   registrationLink?: true
   registrationButtonText?: true
@@ -190,10 +201,11 @@ export type EventCountAggregateInputType = {
   updatedAt?: true
   createdBy?: true
   updatedBy?: true
-  destinationId?: true
+  banner?: true
   universityId?: true
   successSummary?: true
   status?: true
+  destinationId?: true
   _all?: true
 }
 
@@ -281,6 +293,7 @@ export type EventGroupByOutputType = {
   startDate: Date
   endDate: Date | null
   location: string | null
+  city: string | null
   isFeatured: boolean
   registrationLink: string | null
   registrationButtonText: string | null
@@ -292,10 +305,11 @@ export type EventGroupByOutputType = {
   updatedAt: Date
   createdBy: string | null
   updatedBy: string | null
-  destinationId: string
+  banner: string | null
   universityId: string | null
   successSummary: string | null
   status: $Enums.ContentStatus
+  destinationId: string | null
   _count: EventCountAggregateOutputType | null
   _min: EventMinAggregateOutputType | null
   _max: EventMaxAggregateOutputType | null
@@ -331,6 +345,7 @@ export type EventWhereInput = {
   startDate?: Prisma.DateTimeFilter<"Event"> | Date | string
   endDate?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
   location?: Prisma.StringNullableFilter<"Event"> | string | null
+  city?: Prisma.StringNullableFilter<"Event"> | string | null
   isFeatured?: Prisma.BoolFilter<"Event"> | boolean
   registrationLink?: Prisma.StringNullableFilter<"Event"> | string | null
   registrationButtonText?: Prisma.StringNullableFilter<"Event"> | string | null
@@ -342,18 +357,20 @@ export type EventWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Event"> | Date | string
   createdBy?: Prisma.StringNullableFilter<"Event"> | string | null
   updatedBy?: Prisma.StringNullableFilter<"Event"> | string | null
-  destinationId?: Prisma.StringFilter<"Event"> | string
+  banner?: Prisma.StringNullableFilter<"Event"> | string | null
   universityId?: Prisma.StringNullableFilter<"Event"> | string | null
   successSummary?: Prisma.StringNullableFilter<"Event"> | string | null
   status?: Prisma.EnumContentStatusFilter<"Event"> | $Enums.ContentStatus
+  destinationId?: Prisma.StringNullableFilter<"Event"> | string | null
   appointments?: Prisma.AppointmentListRelationFilter
-  destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
+  destinations?: Prisma.EventDestinationListRelationFilter
   university?: Prisma.XOR<Prisma.UniversityNullableScalarRelationFilter, Prisma.UniversityWhereInput> | null
   countries?: Prisma.EventCountryListRelationFilter
   media?: Prisma.EventMediaListRelationFilter
   eventRegistrations?: Prisma.EventRegistrationListRelationFilter
   faqs?: Prisma.FAQEventListRelationFilter
   testimonials?: Prisma.TestimonialEventListRelationFilter
+  destination?: Prisma.XOR<Prisma.DestinationNullableScalarRelationFilter, Prisma.DestinationWhereInput> | null
 }
 
 export type EventOrderByWithRelationInput = {
@@ -368,6 +385,7 @@ export type EventOrderByWithRelationInput = {
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
+  city?: Prisma.SortOrderInput | Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   registrationLink?: Prisma.SortOrderInput | Prisma.SortOrder
   registrationButtonText?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -379,18 +397,20 @@ export type EventOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
-  destinationId?: Prisma.SortOrder
+  banner?: Prisma.SortOrderInput | Prisma.SortOrder
   universityId?: Prisma.SortOrderInput | Prisma.SortOrder
   successSummary?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  destinationId?: Prisma.SortOrderInput | Prisma.SortOrder
   appointments?: Prisma.AppointmentOrderByRelationAggregateInput
-  destination?: Prisma.DestinationOrderByWithRelationInput
+  destinations?: Prisma.EventDestinationOrderByRelationAggregateInput
   university?: Prisma.UniversityOrderByWithRelationInput
   countries?: Prisma.EventCountryOrderByRelationAggregateInput
   media?: Prisma.EventMediaOrderByRelationAggregateInput
   eventRegistrations?: Prisma.EventRegistrationOrderByRelationAggregateInput
   faqs?: Prisma.FAQEventOrderByRelationAggregateInput
   testimonials?: Prisma.TestimonialEventOrderByRelationAggregateInput
+  destination?: Prisma.DestinationOrderByWithRelationInput
 }
 
 export type EventWhereUniqueInput = Prisma.AtLeast<{
@@ -408,6 +428,7 @@ export type EventWhereUniqueInput = Prisma.AtLeast<{
   startDate?: Prisma.DateTimeFilter<"Event"> | Date | string
   endDate?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
   location?: Prisma.StringNullableFilter<"Event"> | string | null
+  city?: Prisma.StringNullableFilter<"Event"> | string | null
   isFeatured?: Prisma.BoolFilter<"Event"> | boolean
   registrationLink?: Prisma.StringNullableFilter<"Event"> | string | null
   registrationButtonText?: Prisma.StringNullableFilter<"Event"> | string | null
@@ -419,18 +440,20 @@ export type EventWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Event"> | Date | string
   createdBy?: Prisma.StringNullableFilter<"Event"> | string | null
   updatedBy?: Prisma.StringNullableFilter<"Event"> | string | null
-  destinationId?: Prisma.StringFilter<"Event"> | string
+  banner?: Prisma.StringNullableFilter<"Event"> | string | null
   universityId?: Prisma.StringNullableFilter<"Event"> | string | null
   successSummary?: Prisma.StringNullableFilter<"Event"> | string | null
   status?: Prisma.EnumContentStatusFilter<"Event"> | $Enums.ContentStatus
+  destinationId?: Prisma.StringNullableFilter<"Event"> | string | null
   appointments?: Prisma.AppointmentListRelationFilter
-  destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
+  destinations?: Prisma.EventDestinationListRelationFilter
   university?: Prisma.XOR<Prisma.UniversityNullableScalarRelationFilter, Prisma.UniversityWhereInput> | null
   countries?: Prisma.EventCountryListRelationFilter
   media?: Prisma.EventMediaListRelationFilter
   eventRegistrations?: Prisma.EventRegistrationListRelationFilter
   faqs?: Prisma.FAQEventListRelationFilter
   testimonials?: Prisma.TestimonialEventListRelationFilter
+  destination?: Prisma.XOR<Prisma.DestinationNullableScalarRelationFilter, Prisma.DestinationWhereInput> | null
 }, "id" | "slug">
 
 export type EventOrderByWithAggregationInput = {
@@ -445,6 +468,7 @@ export type EventOrderByWithAggregationInput = {
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
+  city?: Prisma.SortOrderInput | Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   registrationLink?: Prisma.SortOrderInput | Prisma.SortOrder
   registrationButtonText?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -456,10 +480,11 @@ export type EventOrderByWithAggregationInput = {
   updatedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
-  destinationId?: Prisma.SortOrder
+  banner?: Prisma.SortOrderInput | Prisma.SortOrder
   universityId?: Prisma.SortOrderInput | Prisma.SortOrder
   successSummary?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  destinationId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.EventCountOrderByAggregateInput
   _max?: Prisma.EventMaxOrderByAggregateInput
   _min?: Prisma.EventMinOrderByAggregateInput
@@ -480,6 +505,7 @@ export type EventScalarWhereWithAggregatesInput = {
   startDate?: Prisma.DateTimeWithAggregatesFilter<"Event"> | Date | string
   endDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Event"> | Date | string | null
   location?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
+  city?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
   isFeatured?: Prisma.BoolWithAggregatesFilter<"Event"> | boolean
   registrationLink?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
   registrationButtonText?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
@@ -491,10 +517,11 @@ export type EventScalarWhereWithAggregatesInput = {
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Event"> | Date | string
   createdBy?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
   updatedBy?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
-  destinationId?: Prisma.StringWithAggregatesFilter<"Event"> | string
+  banner?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
   universityId?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
   successSummary?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
   status?: Prisma.EnumContentStatusWithAggregatesFilter<"Event"> | $Enums.ContentStatus
+  destinationId?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
 }
 
 export type EventCreateInput = {
@@ -509,6 +536,7 @@ export type EventCreateInput = {
   startDate: Date | string
   endDate?: Date | string | null
   location?: string | null
+  city?: string | null
   isFeatured?: boolean
   registrationLink?: string | null
   registrationButtonText?: string | null
@@ -520,16 +548,18 @@ export type EventCreateInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  banner?: string | null
   successSummary?: string | null
   status?: $Enums.ContentStatus
   appointments?: Prisma.AppointmentCreateNestedManyWithoutEventInput
-  destination: Prisma.DestinationCreateNestedOneWithoutEventsInput
+  destinations?: Prisma.EventDestinationCreateNestedManyWithoutEventInput
   university?: Prisma.UniversityCreateNestedOneWithoutEventsInput
   countries?: Prisma.EventCountryCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutEventInput
   faqs?: Prisma.FAQEventCreateNestedManyWithoutEventInput
   testimonials?: Prisma.TestimonialEventCreateNestedManyWithoutEventInput
+  destination?: Prisma.DestinationCreateNestedOneWithoutEventsInput
 }
 
 export type EventUncheckedCreateInput = {
@@ -544,6 +574,7 @@ export type EventUncheckedCreateInput = {
   startDate: Date | string
   endDate?: Date | string | null
   location?: string | null
+  city?: string | null
   isFeatured?: boolean
   registrationLink?: string | null
   registrationButtonText?: string | null
@@ -555,11 +586,13 @@ export type EventUncheckedCreateInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  destinationId: string
+  banner?: string | null
   universityId?: string | null
   successSummary?: string | null
   status?: $Enums.ContentStatus
+  destinationId?: string | null
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutEventInput
+  destinations?: Prisma.EventDestinationUncheckedCreateNestedManyWithoutEventInput
   countries?: Prisma.EventCountryUncheckedCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaUncheckedCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutEventInput
@@ -579,6 +612,7 @@ export type EventUpdateInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   registrationLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationButtonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -590,16 +624,18 @@ export type EventUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   appointments?: Prisma.AppointmentUpdateManyWithoutEventNestedInput
-  destination?: Prisma.DestinationUpdateOneRequiredWithoutEventsNestedInput
+  destinations?: Prisma.EventDestinationUpdateManyWithoutEventNestedInput
   university?: Prisma.UniversityUpdateOneWithoutEventsNestedInput
   countries?: Prisma.EventCountryUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutEventNestedInput
   faqs?: Prisma.FAQEventUpdateManyWithoutEventNestedInput
   testimonials?: Prisma.TestimonialEventUpdateManyWithoutEventNestedInput
+  destination?: Prisma.DestinationUpdateOneWithoutEventsNestedInput
 }
 
 export type EventUncheckedUpdateInput = {
@@ -614,6 +650,7 @@ export type EventUncheckedUpdateInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   registrationLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationButtonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -625,11 +662,13 @@ export type EventUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  destinationId?: Prisma.StringFieldUpdateOperationsInput | string
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  destinationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutEventNestedInput
+  destinations?: Prisma.EventDestinationUncheckedUpdateManyWithoutEventNestedInput
   countries?: Prisma.EventCountryUncheckedUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUncheckedUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutEventNestedInput
@@ -649,6 +688,7 @@ export type EventCreateManyInput = {
   startDate: Date | string
   endDate?: Date | string | null
   location?: string | null
+  city?: string | null
   isFeatured?: boolean
   registrationLink?: string | null
   registrationButtonText?: string | null
@@ -660,10 +700,11 @@ export type EventCreateManyInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  destinationId: string
+  banner?: string | null
   universityId?: string | null
   successSummary?: string | null
   status?: $Enums.ContentStatus
+  destinationId?: string | null
 }
 
 export type EventUpdateManyMutationInput = {
@@ -678,6 +719,7 @@ export type EventUpdateManyMutationInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   registrationLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationButtonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -689,6 +731,7 @@ export type EventUpdateManyMutationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
@@ -705,6 +748,7 @@ export type EventUncheckedUpdateManyInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   registrationLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationButtonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -716,10 +760,11 @@ export type EventUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  destinationId?: Prisma.StringFieldUpdateOperationsInput | string
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  destinationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type EventNullableScalarRelationFilter = {
@@ -747,6 +792,7 @@ export type EventCountOrderByAggregateInput = {
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   location?: Prisma.SortOrder
+  city?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   registrationLink?: Prisma.SortOrder
   registrationButtonText?: Prisma.SortOrder
@@ -758,10 +804,11 @@ export type EventCountOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
-  destinationId?: Prisma.SortOrder
+  banner?: Prisma.SortOrder
   universityId?: Prisma.SortOrder
   successSummary?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  destinationId?: Prisma.SortOrder
 }
 
 export type EventMaxOrderByAggregateInput = {
@@ -775,6 +822,7 @@ export type EventMaxOrderByAggregateInput = {
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   location?: Prisma.SortOrder
+  city?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   registrationLink?: Prisma.SortOrder
   registrationButtonText?: Prisma.SortOrder
@@ -786,10 +834,11 @@ export type EventMaxOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
-  destinationId?: Prisma.SortOrder
+  banner?: Prisma.SortOrder
   universityId?: Prisma.SortOrder
   successSummary?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  destinationId?: Prisma.SortOrder
 }
 
 export type EventMinOrderByAggregateInput = {
@@ -803,6 +852,7 @@ export type EventMinOrderByAggregateInput = {
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   location?: Prisma.SortOrder
+  city?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   registrationLink?: Prisma.SortOrder
   registrationButtonText?: Prisma.SortOrder
@@ -814,10 +864,11 @@ export type EventMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
-  destinationId?: Prisma.SortOrder
+  banner?: Prisma.SortOrder
   universityId?: Prisma.SortOrder
   successSummary?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  destinationId?: Prisma.SortOrder
 }
 
 export type EventScalarRelationFilter = {
@@ -862,6 +913,20 @@ export type EventUpdategalleryInput = {
 
 export type EnumEventTypeFieldUpdateOperationsInput = {
   set?: $Enums.EventType
+}
+
+export type EventCreateNestedOneWithoutDestinationsInput = {
+  create?: Prisma.XOR<Prisma.EventCreateWithoutDestinationsInput, Prisma.EventUncheckedCreateWithoutDestinationsInput>
+  connectOrCreate?: Prisma.EventCreateOrConnectWithoutDestinationsInput
+  connect?: Prisma.EventWhereUniqueInput
+}
+
+export type EventUpdateOneRequiredWithoutDestinationsNestedInput = {
+  create?: Prisma.XOR<Prisma.EventCreateWithoutDestinationsInput, Prisma.EventUncheckedCreateWithoutDestinationsInput>
+  connectOrCreate?: Prisma.EventCreateOrConnectWithoutDestinationsInput
+  upsert?: Prisma.EventUpsertWithoutDestinationsInput
+  connect?: Prisma.EventWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EventUpdateToOneWithWhereWithoutDestinationsInput, Prisma.EventUpdateWithoutDestinationsInput>, Prisma.EventUncheckedUpdateWithoutDestinationsInput>
 }
 
 export type EventCreateNestedOneWithoutMediaInput = {
@@ -1030,6 +1095,7 @@ export type EventCreateWithoutAppointmentsInput = {
   startDate: Date | string
   endDate?: Date | string | null
   location?: string | null
+  city?: string | null
   isFeatured?: boolean
   registrationLink?: string | null
   registrationButtonText?: string | null
@@ -1041,15 +1107,17 @@ export type EventCreateWithoutAppointmentsInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  banner?: string | null
   successSummary?: string | null
   status?: $Enums.ContentStatus
-  destination: Prisma.DestinationCreateNestedOneWithoutEventsInput
+  destinations?: Prisma.EventDestinationCreateNestedManyWithoutEventInput
   university?: Prisma.UniversityCreateNestedOneWithoutEventsInput
   countries?: Prisma.EventCountryCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutEventInput
   faqs?: Prisma.FAQEventCreateNestedManyWithoutEventInput
   testimonials?: Prisma.TestimonialEventCreateNestedManyWithoutEventInput
+  destination?: Prisma.DestinationCreateNestedOneWithoutEventsInput
 }
 
 export type EventUncheckedCreateWithoutAppointmentsInput = {
@@ -1064,6 +1132,7 @@ export type EventUncheckedCreateWithoutAppointmentsInput = {
   startDate: Date | string
   endDate?: Date | string | null
   location?: string | null
+  city?: string | null
   isFeatured?: boolean
   registrationLink?: string | null
   registrationButtonText?: string | null
@@ -1075,10 +1144,12 @@ export type EventUncheckedCreateWithoutAppointmentsInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  destinationId: string
+  banner?: string | null
   universityId?: string | null
   successSummary?: string | null
   status?: $Enums.ContentStatus
+  destinationId?: string | null
+  destinations?: Prisma.EventDestinationUncheckedCreateNestedManyWithoutEventInput
   countries?: Prisma.EventCountryUncheckedCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaUncheckedCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutEventInput
@@ -1114,6 +1185,7 @@ export type EventUpdateWithoutAppointmentsInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   registrationLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationButtonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1125,15 +1197,17 @@ export type EventUpdateWithoutAppointmentsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
-  destination?: Prisma.DestinationUpdateOneRequiredWithoutEventsNestedInput
+  destinations?: Prisma.EventDestinationUpdateManyWithoutEventNestedInput
   university?: Prisma.UniversityUpdateOneWithoutEventsNestedInput
   countries?: Prisma.EventCountryUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutEventNestedInput
   faqs?: Prisma.FAQEventUpdateManyWithoutEventNestedInput
   testimonials?: Prisma.TestimonialEventUpdateManyWithoutEventNestedInput
+  destination?: Prisma.DestinationUpdateOneWithoutEventsNestedInput
 }
 
 export type EventUncheckedUpdateWithoutAppointmentsInput = {
@@ -1148,6 +1222,7 @@ export type EventUncheckedUpdateWithoutAppointmentsInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   registrationLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationButtonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1159,10 +1234,176 @@ export type EventUncheckedUpdateWithoutAppointmentsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  destinationId?: Prisma.StringFieldUpdateOperationsInput | string
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  destinationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  destinations?: Prisma.EventDestinationUncheckedUpdateManyWithoutEventNestedInput
+  countries?: Prisma.EventCountryUncheckedUpdateManyWithoutEventNestedInput
+  media?: Prisma.EventMediaUncheckedUpdateManyWithoutEventNestedInput
+  eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutEventNestedInput
+  faqs?: Prisma.FAQEventUncheckedUpdateManyWithoutEventNestedInput
+  testimonials?: Prisma.TestimonialEventUncheckedUpdateManyWithoutEventNestedInput
+}
+
+export type EventCreateWithoutDestinationsInput = {
+  id?: string
+  title: string
+  slug: string
+  description?: string | null
+  thumbnail?: string | null
+  gallery?: Prisma.EventCreategalleryInput | string[]
+  video?: string | null
+  eventType: $Enums.EventType
+  startDate: Date | string
+  endDate?: Date | string | null
+  location?: string | null
+  city?: string | null
+  isFeatured?: boolean
+  registrationLink?: string | null
+  registrationButtonText?: string | null
+  isRegistrationOpen?: boolean
+  metaTitle?: string | null
+  metaDescription?: string | null
+  metaKeywords?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  createdBy?: string | null
+  updatedBy?: string | null
+  banner?: string | null
+  successSummary?: string | null
+  status?: $Enums.ContentStatus
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutEventInput
+  university?: Prisma.UniversityCreateNestedOneWithoutEventsInput
+  countries?: Prisma.EventCountryCreateNestedManyWithoutEventInput
+  media?: Prisma.EventMediaCreateNestedManyWithoutEventInput
+  eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutEventInput
+  faqs?: Prisma.FAQEventCreateNestedManyWithoutEventInput
+  testimonials?: Prisma.TestimonialEventCreateNestedManyWithoutEventInput
+  destination?: Prisma.DestinationCreateNestedOneWithoutEventsInput
+}
+
+export type EventUncheckedCreateWithoutDestinationsInput = {
+  id?: string
+  title: string
+  slug: string
+  description?: string | null
+  thumbnail?: string | null
+  gallery?: Prisma.EventCreategalleryInput | string[]
+  video?: string | null
+  eventType: $Enums.EventType
+  startDate: Date | string
+  endDate?: Date | string | null
+  location?: string | null
+  city?: string | null
+  isFeatured?: boolean
+  registrationLink?: string | null
+  registrationButtonText?: string | null
+  isRegistrationOpen?: boolean
+  metaTitle?: string | null
+  metaDescription?: string | null
+  metaKeywords?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  createdBy?: string | null
+  updatedBy?: string | null
+  banner?: string | null
+  universityId?: string | null
+  successSummary?: string | null
+  status?: $Enums.ContentStatus
+  destinationId?: string | null
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutEventInput
+  countries?: Prisma.EventCountryUncheckedCreateNestedManyWithoutEventInput
+  media?: Prisma.EventMediaUncheckedCreateNestedManyWithoutEventInput
+  eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutEventInput
+  faqs?: Prisma.FAQEventUncheckedCreateNestedManyWithoutEventInput
+  testimonials?: Prisma.TestimonialEventUncheckedCreateNestedManyWithoutEventInput
+}
+
+export type EventCreateOrConnectWithoutDestinationsInput = {
+  where: Prisma.EventWhereUniqueInput
+  create: Prisma.XOR<Prisma.EventCreateWithoutDestinationsInput, Prisma.EventUncheckedCreateWithoutDestinationsInput>
+}
+
+export type EventUpsertWithoutDestinationsInput = {
+  update: Prisma.XOR<Prisma.EventUpdateWithoutDestinationsInput, Prisma.EventUncheckedUpdateWithoutDestinationsInput>
+  create: Prisma.XOR<Prisma.EventCreateWithoutDestinationsInput, Prisma.EventUncheckedCreateWithoutDestinationsInput>
+  where?: Prisma.EventWhereInput
+}
+
+export type EventUpdateToOneWithWhereWithoutDestinationsInput = {
+  where?: Prisma.EventWhereInput
+  data: Prisma.XOR<Prisma.EventUpdateWithoutDestinationsInput, Prisma.EventUncheckedUpdateWithoutDestinationsInput>
+}
+
+export type EventUpdateWithoutDestinationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gallery?: Prisma.EventUpdategalleryInput | string[]
+  video?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eventType?: Prisma.EnumEventTypeFieldUpdateOperationsInput | $Enums.EventType
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  registrationLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registrationButtonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isRegistrationOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  appointments?: Prisma.AppointmentUpdateManyWithoutEventNestedInput
+  university?: Prisma.UniversityUpdateOneWithoutEventsNestedInput
+  countries?: Prisma.EventCountryUpdateManyWithoutEventNestedInput
+  media?: Prisma.EventMediaUpdateManyWithoutEventNestedInput
+  eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutEventNestedInput
+  faqs?: Prisma.FAQEventUpdateManyWithoutEventNestedInput
+  testimonials?: Prisma.TestimonialEventUpdateManyWithoutEventNestedInput
+  destination?: Prisma.DestinationUpdateOneWithoutEventsNestedInput
+}
+
+export type EventUncheckedUpdateWithoutDestinationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gallery?: Prisma.EventUpdategalleryInput | string[]
+  video?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eventType?: Prisma.EnumEventTypeFieldUpdateOperationsInput | $Enums.EventType
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  registrationLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registrationButtonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isRegistrationOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  destinationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutEventNestedInput
   countries?: Prisma.EventCountryUncheckedUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUncheckedUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutEventNestedInput
@@ -1182,6 +1423,7 @@ export type EventCreateWithoutMediaInput = {
   startDate: Date | string
   endDate?: Date | string | null
   location?: string | null
+  city?: string | null
   isFeatured?: boolean
   registrationLink?: string | null
   registrationButtonText?: string | null
@@ -1193,15 +1435,17 @@ export type EventCreateWithoutMediaInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  banner?: string | null
   successSummary?: string | null
   status?: $Enums.ContentStatus
   appointments?: Prisma.AppointmentCreateNestedManyWithoutEventInput
-  destination: Prisma.DestinationCreateNestedOneWithoutEventsInput
+  destinations?: Prisma.EventDestinationCreateNestedManyWithoutEventInput
   university?: Prisma.UniversityCreateNestedOneWithoutEventsInput
   countries?: Prisma.EventCountryCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutEventInput
   faqs?: Prisma.FAQEventCreateNestedManyWithoutEventInput
   testimonials?: Prisma.TestimonialEventCreateNestedManyWithoutEventInput
+  destination?: Prisma.DestinationCreateNestedOneWithoutEventsInput
 }
 
 export type EventUncheckedCreateWithoutMediaInput = {
@@ -1216,6 +1460,7 @@ export type EventUncheckedCreateWithoutMediaInput = {
   startDate: Date | string
   endDate?: Date | string | null
   location?: string | null
+  city?: string | null
   isFeatured?: boolean
   registrationLink?: string | null
   registrationButtonText?: string | null
@@ -1227,11 +1472,13 @@ export type EventUncheckedCreateWithoutMediaInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  destinationId: string
+  banner?: string | null
   universityId?: string | null
   successSummary?: string | null
   status?: $Enums.ContentStatus
+  destinationId?: string | null
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutEventInput
+  destinations?: Prisma.EventDestinationUncheckedCreateNestedManyWithoutEventInput
   countries?: Prisma.EventCountryUncheckedCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutEventInput
   faqs?: Prisma.FAQEventUncheckedCreateNestedManyWithoutEventInput
@@ -1266,6 +1513,7 @@ export type EventUpdateWithoutMediaInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   registrationLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationButtonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1277,15 +1525,17 @@ export type EventUpdateWithoutMediaInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   appointments?: Prisma.AppointmentUpdateManyWithoutEventNestedInput
-  destination?: Prisma.DestinationUpdateOneRequiredWithoutEventsNestedInput
+  destinations?: Prisma.EventDestinationUpdateManyWithoutEventNestedInput
   university?: Prisma.UniversityUpdateOneWithoutEventsNestedInput
   countries?: Prisma.EventCountryUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutEventNestedInput
   faqs?: Prisma.FAQEventUpdateManyWithoutEventNestedInput
   testimonials?: Prisma.TestimonialEventUpdateManyWithoutEventNestedInput
+  destination?: Prisma.DestinationUpdateOneWithoutEventsNestedInput
 }
 
 export type EventUncheckedUpdateWithoutMediaInput = {
@@ -1300,6 +1550,7 @@ export type EventUncheckedUpdateWithoutMediaInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   registrationLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationButtonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1311,11 +1562,13 @@ export type EventUncheckedUpdateWithoutMediaInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  destinationId?: Prisma.StringFieldUpdateOperationsInput | string
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  destinationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutEventNestedInput
+  destinations?: Prisma.EventDestinationUncheckedUpdateManyWithoutEventNestedInput
   countries?: Prisma.EventCountryUncheckedUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutEventNestedInput
   faqs?: Prisma.FAQEventUncheckedUpdateManyWithoutEventNestedInput
@@ -1334,6 +1587,7 @@ export type EventCreateWithoutEventRegistrationsInput = {
   startDate: Date | string
   endDate?: Date | string | null
   location?: string | null
+  city?: string | null
   isFeatured?: boolean
   registrationLink?: string | null
   registrationButtonText?: string | null
@@ -1345,15 +1599,17 @@ export type EventCreateWithoutEventRegistrationsInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  banner?: string | null
   successSummary?: string | null
   status?: $Enums.ContentStatus
   appointments?: Prisma.AppointmentCreateNestedManyWithoutEventInput
-  destination: Prisma.DestinationCreateNestedOneWithoutEventsInput
+  destinations?: Prisma.EventDestinationCreateNestedManyWithoutEventInput
   university?: Prisma.UniversityCreateNestedOneWithoutEventsInput
   countries?: Prisma.EventCountryCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaCreateNestedManyWithoutEventInput
   faqs?: Prisma.FAQEventCreateNestedManyWithoutEventInput
   testimonials?: Prisma.TestimonialEventCreateNestedManyWithoutEventInput
+  destination?: Prisma.DestinationCreateNestedOneWithoutEventsInput
 }
 
 export type EventUncheckedCreateWithoutEventRegistrationsInput = {
@@ -1368,6 +1624,7 @@ export type EventUncheckedCreateWithoutEventRegistrationsInput = {
   startDate: Date | string
   endDate?: Date | string | null
   location?: string | null
+  city?: string | null
   isFeatured?: boolean
   registrationLink?: string | null
   registrationButtonText?: string | null
@@ -1379,11 +1636,13 @@ export type EventUncheckedCreateWithoutEventRegistrationsInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  destinationId: string
+  banner?: string | null
   universityId?: string | null
   successSummary?: string | null
   status?: $Enums.ContentStatus
+  destinationId?: string | null
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutEventInput
+  destinations?: Prisma.EventDestinationUncheckedCreateNestedManyWithoutEventInput
   countries?: Prisma.EventCountryUncheckedCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaUncheckedCreateNestedManyWithoutEventInput
   faqs?: Prisma.FAQEventUncheckedCreateNestedManyWithoutEventInput
@@ -1418,6 +1677,7 @@ export type EventUpdateWithoutEventRegistrationsInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   registrationLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationButtonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1429,15 +1689,17 @@ export type EventUpdateWithoutEventRegistrationsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   appointments?: Prisma.AppointmentUpdateManyWithoutEventNestedInput
-  destination?: Prisma.DestinationUpdateOneRequiredWithoutEventsNestedInput
+  destinations?: Prisma.EventDestinationUpdateManyWithoutEventNestedInput
   university?: Prisma.UniversityUpdateOneWithoutEventsNestedInput
   countries?: Prisma.EventCountryUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUpdateManyWithoutEventNestedInput
   faqs?: Prisma.FAQEventUpdateManyWithoutEventNestedInput
   testimonials?: Prisma.TestimonialEventUpdateManyWithoutEventNestedInput
+  destination?: Prisma.DestinationUpdateOneWithoutEventsNestedInput
 }
 
 export type EventUncheckedUpdateWithoutEventRegistrationsInput = {
@@ -1452,6 +1714,7 @@ export type EventUncheckedUpdateWithoutEventRegistrationsInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   registrationLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationButtonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1463,11 +1726,13 @@ export type EventUncheckedUpdateWithoutEventRegistrationsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  destinationId?: Prisma.StringFieldUpdateOperationsInput | string
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  destinationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutEventNestedInput
+  destinations?: Prisma.EventDestinationUncheckedUpdateManyWithoutEventNestedInput
   countries?: Prisma.EventCountryUncheckedUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUncheckedUpdateManyWithoutEventNestedInput
   faqs?: Prisma.FAQEventUncheckedUpdateManyWithoutEventNestedInput
@@ -1486,6 +1751,7 @@ export type EventCreateWithoutDestinationInput = {
   startDate: Date | string
   endDate?: Date | string | null
   location?: string | null
+  city?: string | null
   isFeatured?: boolean
   registrationLink?: string | null
   registrationButtonText?: string | null
@@ -1497,9 +1763,11 @@ export type EventCreateWithoutDestinationInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  banner?: string | null
   successSummary?: string | null
   status?: $Enums.ContentStatus
   appointments?: Prisma.AppointmentCreateNestedManyWithoutEventInput
+  destinations?: Prisma.EventDestinationCreateNestedManyWithoutEventInput
   university?: Prisma.UniversityCreateNestedOneWithoutEventsInput
   countries?: Prisma.EventCountryCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaCreateNestedManyWithoutEventInput
@@ -1520,6 +1788,7 @@ export type EventUncheckedCreateWithoutDestinationInput = {
   startDate: Date | string
   endDate?: Date | string | null
   location?: string | null
+  city?: string | null
   isFeatured?: boolean
   registrationLink?: string | null
   registrationButtonText?: string | null
@@ -1531,10 +1800,12 @@ export type EventUncheckedCreateWithoutDestinationInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  banner?: string | null
   universityId?: string | null
   successSummary?: string | null
   status?: $Enums.ContentStatus
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutEventInput
+  destinations?: Prisma.EventDestinationUncheckedCreateNestedManyWithoutEventInput
   countries?: Prisma.EventCountryUncheckedCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaUncheckedCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutEventInput
@@ -1583,6 +1854,7 @@ export type EventScalarWhereInput = {
   startDate?: Prisma.DateTimeFilter<"Event"> | Date | string
   endDate?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
   location?: Prisma.StringNullableFilter<"Event"> | string | null
+  city?: Prisma.StringNullableFilter<"Event"> | string | null
   isFeatured?: Prisma.BoolFilter<"Event"> | boolean
   registrationLink?: Prisma.StringNullableFilter<"Event"> | string | null
   registrationButtonText?: Prisma.StringNullableFilter<"Event"> | string | null
@@ -1594,10 +1866,11 @@ export type EventScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Event"> | Date | string
   createdBy?: Prisma.StringNullableFilter<"Event"> | string | null
   updatedBy?: Prisma.StringNullableFilter<"Event"> | string | null
-  destinationId?: Prisma.StringFilter<"Event"> | string
+  banner?: Prisma.StringNullableFilter<"Event"> | string | null
   universityId?: Prisma.StringNullableFilter<"Event"> | string | null
   successSummary?: Prisma.StringNullableFilter<"Event"> | string | null
   status?: Prisma.EnumContentStatusFilter<"Event"> | $Enums.ContentStatus
+  destinationId?: Prisma.StringNullableFilter<"Event"> | string | null
 }
 
 export type EventCreateWithoutCountriesInput = {
@@ -1612,6 +1885,7 @@ export type EventCreateWithoutCountriesInput = {
   startDate: Date | string
   endDate?: Date | string | null
   location?: string | null
+  city?: string | null
   isFeatured?: boolean
   registrationLink?: string | null
   registrationButtonText?: string | null
@@ -1623,15 +1897,17 @@ export type EventCreateWithoutCountriesInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  banner?: string | null
   successSummary?: string | null
   status?: $Enums.ContentStatus
   appointments?: Prisma.AppointmentCreateNestedManyWithoutEventInput
-  destination: Prisma.DestinationCreateNestedOneWithoutEventsInput
+  destinations?: Prisma.EventDestinationCreateNestedManyWithoutEventInput
   university?: Prisma.UniversityCreateNestedOneWithoutEventsInput
   media?: Prisma.EventMediaCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutEventInput
   faqs?: Prisma.FAQEventCreateNestedManyWithoutEventInput
   testimonials?: Prisma.TestimonialEventCreateNestedManyWithoutEventInput
+  destination?: Prisma.DestinationCreateNestedOneWithoutEventsInput
 }
 
 export type EventUncheckedCreateWithoutCountriesInput = {
@@ -1646,6 +1922,7 @@ export type EventUncheckedCreateWithoutCountriesInput = {
   startDate: Date | string
   endDate?: Date | string | null
   location?: string | null
+  city?: string | null
   isFeatured?: boolean
   registrationLink?: string | null
   registrationButtonText?: string | null
@@ -1657,11 +1934,13 @@ export type EventUncheckedCreateWithoutCountriesInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  destinationId: string
+  banner?: string | null
   universityId?: string | null
   successSummary?: string | null
   status?: $Enums.ContentStatus
+  destinationId?: string | null
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutEventInput
+  destinations?: Prisma.EventDestinationUncheckedCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaUncheckedCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutEventInput
   faqs?: Prisma.FAQEventUncheckedCreateNestedManyWithoutEventInput
@@ -1696,6 +1975,7 @@ export type EventUpdateWithoutCountriesInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   registrationLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationButtonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1707,15 +1987,17 @@ export type EventUpdateWithoutCountriesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   appointments?: Prisma.AppointmentUpdateManyWithoutEventNestedInput
-  destination?: Prisma.DestinationUpdateOneRequiredWithoutEventsNestedInput
+  destinations?: Prisma.EventDestinationUpdateManyWithoutEventNestedInput
   university?: Prisma.UniversityUpdateOneWithoutEventsNestedInput
   media?: Prisma.EventMediaUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutEventNestedInput
   faqs?: Prisma.FAQEventUpdateManyWithoutEventNestedInput
   testimonials?: Prisma.TestimonialEventUpdateManyWithoutEventNestedInput
+  destination?: Prisma.DestinationUpdateOneWithoutEventsNestedInput
 }
 
 export type EventUncheckedUpdateWithoutCountriesInput = {
@@ -1730,6 +2012,7 @@ export type EventUncheckedUpdateWithoutCountriesInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   registrationLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationButtonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1741,11 +2024,13 @@ export type EventUncheckedUpdateWithoutCountriesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  destinationId?: Prisma.StringFieldUpdateOperationsInput | string
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  destinationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutEventNestedInput
+  destinations?: Prisma.EventDestinationUncheckedUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUncheckedUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutEventNestedInput
   faqs?: Prisma.FAQEventUncheckedUpdateManyWithoutEventNestedInput
@@ -1764,6 +2049,7 @@ export type EventCreateWithoutFaqsInput = {
   startDate: Date | string
   endDate?: Date | string | null
   location?: string | null
+  city?: string | null
   isFeatured?: boolean
   registrationLink?: string | null
   registrationButtonText?: string | null
@@ -1775,15 +2061,17 @@ export type EventCreateWithoutFaqsInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  banner?: string | null
   successSummary?: string | null
   status?: $Enums.ContentStatus
   appointments?: Prisma.AppointmentCreateNestedManyWithoutEventInput
-  destination: Prisma.DestinationCreateNestedOneWithoutEventsInput
+  destinations?: Prisma.EventDestinationCreateNestedManyWithoutEventInput
   university?: Prisma.UniversityCreateNestedOneWithoutEventsInput
   countries?: Prisma.EventCountryCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutEventInput
   testimonials?: Prisma.TestimonialEventCreateNestedManyWithoutEventInput
+  destination?: Prisma.DestinationCreateNestedOneWithoutEventsInput
 }
 
 export type EventUncheckedCreateWithoutFaqsInput = {
@@ -1798,6 +2086,7 @@ export type EventUncheckedCreateWithoutFaqsInput = {
   startDate: Date | string
   endDate?: Date | string | null
   location?: string | null
+  city?: string | null
   isFeatured?: boolean
   registrationLink?: string | null
   registrationButtonText?: string | null
@@ -1809,11 +2098,13 @@ export type EventUncheckedCreateWithoutFaqsInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  destinationId: string
+  banner?: string | null
   universityId?: string | null
   successSummary?: string | null
   status?: $Enums.ContentStatus
+  destinationId?: string | null
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutEventInput
+  destinations?: Prisma.EventDestinationUncheckedCreateNestedManyWithoutEventInput
   countries?: Prisma.EventCountryUncheckedCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaUncheckedCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutEventInput
@@ -1848,6 +2139,7 @@ export type EventUpdateWithoutFaqsInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   registrationLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationButtonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1859,15 +2151,17 @@ export type EventUpdateWithoutFaqsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   appointments?: Prisma.AppointmentUpdateManyWithoutEventNestedInput
-  destination?: Prisma.DestinationUpdateOneRequiredWithoutEventsNestedInput
+  destinations?: Prisma.EventDestinationUpdateManyWithoutEventNestedInput
   university?: Prisma.UniversityUpdateOneWithoutEventsNestedInput
   countries?: Prisma.EventCountryUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutEventNestedInput
   testimonials?: Prisma.TestimonialEventUpdateManyWithoutEventNestedInput
+  destination?: Prisma.DestinationUpdateOneWithoutEventsNestedInput
 }
 
 export type EventUncheckedUpdateWithoutFaqsInput = {
@@ -1882,6 +2176,7 @@ export type EventUncheckedUpdateWithoutFaqsInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   registrationLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationButtonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1893,11 +2188,13 @@ export type EventUncheckedUpdateWithoutFaqsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  destinationId?: Prisma.StringFieldUpdateOperationsInput | string
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  destinationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutEventNestedInput
+  destinations?: Prisma.EventDestinationUncheckedUpdateManyWithoutEventNestedInput
   countries?: Prisma.EventCountryUncheckedUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUncheckedUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutEventNestedInput
@@ -1916,6 +2213,7 @@ export type EventCreateWithoutTestimonialsInput = {
   startDate: Date | string
   endDate?: Date | string | null
   location?: string | null
+  city?: string | null
   isFeatured?: boolean
   registrationLink?: string | null
   registrationButtonText?: string | null
@@ -1927,15 +2225,17 @@ export type EventCreateWithoutTestimonialsInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  banner?: string | null
   successSummary?: string | null
   status?: $Enums.ContentStatus
   appointments?: Prisma.AppointmentCreateNestedManyWithoutEventInput
-  destination: Prisma.DestinationCreateNestedOneWithoutEventsInput
+  destinations?: Prisma.EventDestinationCreateNestedManyWithoutEventInput
   university?: Prisma.UniversityCreateNestedOneWithoutEventsInput
   countries?: Prisma.EventCountryCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutEventInput
   faqs?: Prisma.FAQEventCreateNestedManyWithoutEventInput
+  destination?: Prisma.DestinationCreateNestedOneWithoutEventsInput
 }
 
 export type EventUncheckedCreateWithoutTestimonialsInput = {
@@ -1950,6 +2250,7 @@ export type EventUncheckedCreateWithoutTestimonialsInput = {
   startDate: Date | string
   endDate?: Date | string | null
   location?: string | null
+  city?: string | null
   isFeatured?: boolean
   registrationLink?: string | null
   registrationButtonText?: string | null
@@ -1961,11 +2262,13 @@ export type EventUncheckedCreateWithoutTestimonialsInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  destinationId: string
+  banner?: string | null
   universityId?: string | null
   successSummary?: string | null
   status?: $Enums.ContentStatus
+  destinationId?: string | null
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutEventInput
+  destinations?: Prisma.EventDestinationUncheckedCreateNestedManyWithoutEventInput
   countries?: Prisma.EventCountryUncheckedCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaUncheckedCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutEventInput
@@ -2000,6 +2303,7 @@ export type EventUpdateWithoutTestimonialsInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   registrationLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationButtonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2011,15 +2315,17 @@ export type EventUpdateWithoutTestimonialsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   appointments?: Prisma.AppointmentUpdateManyWithoutEventNestedInput
-  destination?: Prisma.DestinationUpdateOneRequiredWithoutEventsNestedInput
+  destinations?: Prisma.EventDestinationUpdateManyWithoutEventNestedInput
   university?: Prisma.UniversityUpdateOneWithoutEventsNestedInput
   countries?: Prisma.EventCountryUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutEventNestedInput
   faqs?: Prisma.FAQEventUpdateManyWithoutEventNestedInput
+  destination?: Prisma.DestinationUpdateOneWithoutEventsNestedInput
 }
 
 export type EventUncheckedUpdateWithoutTestimonialsInput = {
@@ -2034,6 +2340,7 @@ export type EventUncheckedUpdateWithoutTestimonialsInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   registrationLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationButtonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2045,11 +2352,13 @@ export type EventUncheckedUpdateWithoutTestimonialsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  destinationId?: Prisma.StringFieldUpdateOperationsInput | string
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  destinationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutEventNestedInput
+  destinations?: Prisma.EventDestinationUncheckedUpdateManyWithoutEventNestedInput
   countries?: Prisma.EventCountryUncheckedUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUncheckedUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutEventNestedInput
@@ -2068,6 +2377,7 @@ export type EventCreateWithoutUniversityInput = {
   startDate: Date | string
   endDate?: Date | string | null
   location?: string | null
+  city?: string | null
   isFeatured?: boolean
   registrationLink?: string | null
   registrationButtonText?: string | null
@@ -2079,15 +2389,17 @@ export type EventCreateWithoutUniversityInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  banner?: string | null
   successSummary?: string | null
   status?: $Enums.ContentStatus
   appointments?: Prisma.AppointmentCreateNestedManyWithoutEventInput
-  destination: Prisma.DestinationCreateNestedOneWithoutEventsInput
+  destinations?: Prisma.EventDestinationCreateNestedManyWithoutEventInput
   countries?: Prisma.EventCountryCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutEventInput
   faqs?: Prisma.FAQEventCreateNestedManyWithoutEventInput
   testimonials?: Prisma.TestimonialEventCreateNestedManyWithoutEventInput
+  destination?: Prisma.DestinationCreateNestedOneWithoutEventsInput
 }
 
 export type EventUncheckedCreateWithoutUniversityInput = {
@@ -2102,6 +2414,7 @@ export type EventUncheckedCreateWithoutUniversityInput = {
   startDate: Date | string
   endDate?: Date | string | null
   location?: string | null
+  city?: string | null
   isFeatured?: boolean
   registrationLink?: string | null
   registrationButtonText?: string | null
@@ -2113,10 +2426,12 @@ export type EventUncheckedCreateWithoutUniversityInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  destinationId: string
+  banner?: string | null
   successSummary?: string | null
   status?: $Enums.ContentStatus
+  destinationId?: string | null
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutEventInput
+  destinations?: Prisma.EventDestinationUncheckedCreateNestedManyWithoutEventInput
   countries?: Prisma.EventCountryUncheckedCreateNestedManyWithoutEventInput
   media?: Prisma.EventMediaUncheckedCreateNestedManyWithoutEventInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutEventInput
@@ -2162,6 +2477,7 @@ export type EventCreateManyDestinationInput = {
   startDate: Date | string
   endDate?: Date | string | null
   location?: string | null
+  city?: string | null
   isFeatured?: boolean
   registrationLink?: string | null
   registrationButtonText?: string | null
@@ -2173,6 +2489,7 @@ export type EventCreateManyDestinationInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
+  banner?: string | null
   universityId?: string | null
   successSummary?: string | null
   status?: $Enums.ContentStatus
@@ -2190,6 +2507,7 @@ export type EventUpdateWithoutDestinationInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   registrationLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationButtonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2201,9 +2519,11 @@ export type EventUpdateWithoutDestinationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   appointments?: Prisma.AppointmentUpdateManyWithoutEventNestedInput
+  destinations?: Prisma.EventDestinationUpdateManyWithoutEventNestedInput
   university?: Prisma.UniversityUpdateOneWithoutEventsNestedInput
   countries?: Prisma.EventCountryUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUpdateManyWithoutEventNestedInput
@@ -2224,6 +2544,7 @@ export type EventUncheckedUpdateWithoutDestinationInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   registrationLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationButtonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2235,10 +2556,12 @@ export type EventUncheckedUpdateWithoutDestinationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutEventNestedInput
+  destinations?: Prisma.EventDestinationUncheckedUpdateManyWithoutEventNestedInput
   countries?: Prisma.EventCountryUncheckedUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUncheckedUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutEventNestedInput
@@ -2258,6 +2581,7 @@ export type EventUncheckedUpdateManyWithoutDestinationInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   registrationLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationButtonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2269,6 +2593,7 @@ export type EventUncheckedUpdateManyWithoutDestinationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
@@ -2286,6 +2611,7 @@ export type EventCreateManyUniversityInput = {
   startDate: Date | string
   endDate?: Date | string | null
   location?: string | null
+  city?: string | null
   isFeatured?: boolean
   registrationLink?: string | null
   registrationButtonText?: string | null
@@ -2297,9 +2623,10 @@ export type EventCreateManyUniversityInput = {
   updatedAt?: Date | string
   createdBy?: string | null
   updatedBy?: string | null
-  destinationId: string
+  banner?: string | null
   successSummary?: string | null
   status?: $Enums.ContentStatus
+  destinationId?: string | null
 }
 
 export type EventUpdateWithoutUniversityInput = {
@@ -2314,6 +2641,7 @@ export type EventUpdateWithoutUniversityInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   registrationLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationButtonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2325,15 +2653,17 @@ export type EventUpdateWithoutUniversityInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   appointments?: Prisma.AppointmentUpdateManyWithoutEventNestedInput
-  destination?: Prisma.DestinationUpdateOneRequiredWithoutEventsNestedInput
+  destinations?: Prisma.EventDestinationUpdateManyWithoutEventNestedInput
   countries?: Prisma.EventCountryUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutEventNestedInput
   faqs?: Prisma.FAQEventUpdateManyWithoutEventNestedInput
   testimonials?: Prisma.TestimonialEventUpdateManyWithoutEventNestedInput
+  destination?: Prisma.DestinationUpdateOneWithoutEventsNestedInput
 }
 
 export type EventUncheckedUpdateWithoutUniversityInput = {
@@ -2348,6 +2678,7 @@ export type EventUncheckedUpdateWithoutUniversityInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   registrationLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationButtonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2359,10 +2690,12 @@ export type EventUncheckedUpdateWithoutUniversityInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  destinationId?: Prisma.StringFieldUpdateOperationsInput | string
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  destinationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutEventNestedInput
+  destinations?: Prisma.EventDestinationUncheckedUpdateManyWithoutEventNestedInput
   countries?: Prisma.EventCountryUncheckedUpdateManyWithoutEventNestedInput
   media?: Prisma.EventMediaUncheckedUpdateManyWithoutEventNestedInput
   eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutEventNestedInput
@@ -2382,6 +2715,7 @@ export type EventUncheckedUpdateManyWithoutUniversityInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   registrationLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationButtonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2393,9 +2727,10 @@ export type EventUncheckedUpdateManyWithoutUniversityInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  destinationId?: Prisma.StringFieldUpdateOperationsInput | string
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   successSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  destinationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -2405,6 +2740,7 @@ export type EventUncheckedUpdateManyWithoutUniversityInput = {
 
 export type EventCountOutputType = {
   appointments: number
+  destinations: number
   countries: number
   media: number
   eventRegistrations: number
@@ -2414,6 +2750,7 @@ export type EventCountOutputType = {
 
 export type EventCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   appointments?: boolean | EventCountOutputTypeCountAppointmentsArgs
+  destinations?: boolean | EventCountOutputTypeCountDestinationsArgs
   countries?: boolean | EventCountOutputTypeCountCountriesArgs
   media?: boolean | EventCountOutputTypeCountMediaArgs
   eventRegistrations?: boolean | EventCountOutputTypeCountEventRegistrationsArgs
@@ -2436,6 +2773,13 @@ export type EventCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extens
  */
 export type EventCountOutputTypeCountAppointmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.AppointmentWhereInput
+}
+
+/**
+ * EventCountOutputType without action
+ */
+export type EventCountOutputTypeCountDestinationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EventDestinationWhereInput
 }
 
 /**
@@ -2486,6 +2830,7 @@ export type EventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   startDate?: boolean
   endDate?: boolean
   location?: boolean
+  city?: boolean
   isFeatured?: boolean
   registrationLink?: boolean
   registrationButtonText?: boolean
@@ -2497,18 +2842,20 @@ export type EventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   updatedAt?: boolean
   createdBy?: boolean
   updatedBy?: boolean
-  destinationId?: boolean
+  banner?: boolean
   universityId?: boolean
   successSummary?: boolean
   status?: boolean
+  destinationId?: boolean
   appointments?: boolean | Prisma.Event$appointmentsArgs<ExtArgs>
-  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  destinations?: boolean | Prisma.Event$destinationsArgs<ExtArgs>
   university?: boolean | Prisma.Event$universityArgs<ExtArgs>
   countries?: boolean | Prisma.Event$countriesArgs<ExtArgs>
   media?: boolean | Prisma.Event$mediaArgs<ExtArgs>
   eventRegistrations?: boolean | Prisma.Event$eventRegistrationsArgs<ExtArgs>
   faqs?: boolean | Prisma.Event$faqsArgs<ExtArgs>
   testimonials?: boolean | Prisma.Event$testimonialsArgs<ExtArgs>
+  destination?: boolean | Prisma.Event$destinationArgs<ExtArgs>
   _count?: boolean | Prisma.EventCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["event"]>
 
@@ -2524,6 +2871,7 @@ export type EventSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   startDate?: boolean
   endDate?: boolean
   location?: boolean
+  city?: boolean
   isFeatured?: boolean
   registrationLink?: boolean
   registrationButtonText?: boolean
@@ -2535,12 +2883,13 @@ export type EventSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   updatedAt?: boolean
   createdBy?: boolean
   updatedBy?: boolean
-  destinationId?: boolean
+  banner?: boolean
   universityId?: boolean
   successSummary?: boolean
   status?: boolean
-  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  destinationId?: boolean
   university?: boolean | Prisma.Event$universityArgs<ExtArgs>
+  destination?: boolean | Prisma.Event$destinationArgs<ExtArgs>
 }, ExtArgs["result"]["event"]>
 
 export type EventSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -2555,6 +2904,7 @@ export type EventSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   startDate?: boolean
   endDate?: boolean
   location?: boolean
+  city?: boolean
   isFeatured?: boolean
   registrationLink?: boolean
   registrationButtonText?: boolean
@@ -2566,12 +2916,13 @@ export type EventSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   updatedAt?: boolean
   createdBy?: boolean
   updatedBy?: boolean
-  destinationId?: boolean
+  banner?: boolean
   universityId?: boolean
   successSummary?: boolean
   status?: boolean
-  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  destinationId?: boolean
   university?: boolean | Prisma.Event$universityArgs<ExtArgs>
+  destination?: boolean | Prisma.Event$destinationArgs<ExtArgs>
 }, ExtArgs["result"]["event"]>
 
 export type EventSelectScalar = {
@@ -2586,6 +2937,7 @@ export type EventSelectScalar = {
   startDate?: boolean
   endDate?: boolean
   location?: boolean
+  city?: boolean
   isFeatured?: boolean
   registrationLink?: boolean
   registrationButtonText?: boolean
@@ -2597,44 +2949,47 @@ export type EventSelectScalar = {
   updatedAt?: boolean
   createdBy?: boolean
   updatedBy?: boolean
-  destinationId?: boolean
+  banner?: boolean
   universityId?: boolean
   successSummary?: boolean
   status?: boolean
+  destinationId?: boolean
 }
 
-export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "description" | "thumbnail" | "gallery" | "video" | "eventType" | "startDate" | "endDate" | "location" | "isFeatured" | "registrationLink" | "registrationButtonText" | "isRegistrationOpen" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "destinationId" | "universityId" | "successSummary" | "status", ExtArgs["result"]["event"]>
+export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "description" | "thumbnail" | "gallery" | "video" | "eventType" | "startDate" | "endDate" | "location" | "city" | "isFeatured" | "registrationLink" | "registrationButtonText" | "isRegistrationOpen" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "banner" | "universityId" | "successSummary" | "status" | "destinationId", ExtArgs["result"]["event"]>
 export type EventInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   appointments?: boolean | Prisma.Event$appointmentsArgs<ExtArgs>
-  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  destinations?: boolean | Prisma.Event$destinationsArgs<ExtArgs>
   university?: boolean | Prisma.Event$universityArgs<ExtArgs>
   countries?: boolean | Prisma.Event$countriesArgs<ExtArgs>
   media?: boolean | Prisma.Event$mediaArgs<ExtArgs>
   eventRegistrations?: boolean | Prisma.Event$eventRegistrationsArgs<ExtArgs>
   faqs?: boolean | Prisma.Event$faqsArgs<ExtArgs>
   testimonials?: boolean | Prisma.Event$testimonialsArgs<ExtArgs>
+  destination?: boolean | Prisma.Event$destinationArgs<ExtArgs>
   _count?: boolean | Prisma.EventCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type EventIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
   university?: boolean | Prisma.Event$universityArgs<ExtArgs>
+  destination?: boolean | Prisma.Event$destinationArgs<ExtArgs>
 }
 export type EventIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
   university?: boolean | Prisma.Event$universityArgs<ExtArgs>
+  destination?: boolean | Prisma.Event$destinationArgs<ExtArgs>
 }
 
 export type $EventPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Event"
   objects: {
     appointments: Prisma.$AppointmentPayload<ExtArgs>[]
-    destination: Prisma.$DestinationPayload<ExtArgs>
+    destinations: Prisma.$EventDestinationPayload<ExtArgs>[]
     university: Prisma.$UniversityPayload<ExtArgs> | null
     countries: Prisma.$EventCountryPayload<ExtArgs>[]
     media: Prisma.$EventMediaPayload<ExtArgs>[]
     eventRegistrations: Prisma.$EventRegistrationPayload<ExtArgs>[]
     faqs: Prisma.$FAQEventPayload<ExtArgs>[]
     testimonials: Prisma.$TestimonialEventPayload<ExtArgs>[]
+    destination: Prisma.$DestinationPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2648,6 +3003,7 @@ export type $EventPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     startDate: Date
     endDate: Date | null
     location: string | null
+    city: string | null
     isFeatured: boolean
     registrationLink: string | null
     registrationButtonText: string | null
@@ -2659,10 +3015,11 @@ export type $EventPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     updatedAt: Date
     createdBy: string | null
     updatedBy: string | null
-    destinationId: string
+    banner: string | null
     universityId: string | null
     successSummary: string | null
     status: $Enums.ContentStatus
+    destinationId: string | null
   }, ExtArgs["result"]["event"]>
   composites: {}
 }
@@ -3058,13 +3415,14 @@ readonly fields: EventFieldRefs;
 export interface Prisma__EventClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   appointments<T extends Prisma.Event$appointmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$appointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  destination<T extends Prisma.DestinationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DestinationDefaultArgs<ExtArgs>>): Prisma.Prisma__DestinationClient<runtime.Types.Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  destinations<T extends Prisma.Event$destinationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$destinationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventDestinationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   university<T extends Prisma.Event$universityArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$universityArgs<ExtArgs>>): Prisma.Prisma__UniversityClient<runtime.Types.Result.GetResult<Prisma.$UniversityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   countries<T extends Prisma.Event$countriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$countriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   media<T extends Prisma.Event$mediaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$mediaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventMediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   eventRegistrations<T extends Prisma.Event$eventRegistrationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$eventRegistrationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventRegistrationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   faqs<T extends Prisma.Event$faqsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$faqsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FAQEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   testimonials<T extends Prisma.Event$testimonialsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$testimonialsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestimonialEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  destination<T extends Prisma.Event$destinationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$destinationArgs<ExtArgs>>): Prisma.Prisma__DestinationClient<runtime.Types.Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3105,6 +3463,7 @@ export interface EventFieldRefs {
   readonly startDate: Prisma.FieldRef<"Event", 'DateTime'>
   readonly endDate: Prisma.FieldRef<"Event", 'DateTime'>
   readonly location: Prisma.FieldRef<"Event", 'String'>
+  readonly city: Prisma.FieldRef<"Event", 'String'>
   readonly isFeatured: Prisma.FieldRef<"Event", 'Boolean'>
   readonly registrationLink: Prisma.FieldRef<"Event", 'String'>
   readonly registrationButtonText: Prisma.FieldRef<"Event", 'String'>
@@ -3116,10 +3475,11 @@ export interface EventFieldRefs {
   readonly updatedAt: Prisma.FieldRef<"Event", 'DateTime'>
   readonly createdBy: Prisma.FieldRef<"Event", 'String'>
   readonly updatedBy: Prisma.FieldRef<"Event", 'String'>
-  readonly destinationId: Prisma.FieldRef<"Event", 'String'>
+  readonly banner: Prisma.FieldRef<"Event", 'String'>
   readonly universityId: Prisma.FieldRef<"Event", 'String'>
   readonly successSummary: Prisma.FieldRef<"Event", 'String'>
   readonly status: Prisma.FieldRef<"Event", 'ContentStatus'>
+  readonly destinationId: Prisma.FieldRef<"Event", 'String'>
 }
     
 
@@ -3540,6 +3900,30 @@ export type Event$appointmentsArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
+ * Event.destinations
+ */
+export type Event$destinationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EventDestination
+   */
+  select?: Prisma.EventDestinationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EventDestination
+   */
+  omit?: Prisma.EventDestinationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EventDestinationInclude<ExtArgs> | null
+  where?: Prisma.EventDestinationWhereInput
+  orderBy?: Prisma.EventDestinationOrderByWithRelationInput | Prisma.EventDestinationOrderByWithRelationInput[]
+  cursor?: Prisma.EventDestinationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EventDestinationScalarFieldEnum | Prisma.EventDestinationScalarFieldEnum[]
+}
+
+/**
  * Event.university
  */
 export type Event$universityArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3676,6 +4060,25 @@ export type Event$testimonialsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.TestimonialEventScalarFieldEnum | Prisma.TestimonialEventScalarFieldEnum[]
+}
+
+/**
+ * Event.destination
+ */
+export type Event$destinationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Destination
+   */
+  select?: Prisma.DestinationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Destination
+   */
+  omit?: Prisma.DestinationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DestinationInclude<ExtArgs> | null
+  where?: Prisma.DestinationWhereInput
 }
 
 /**

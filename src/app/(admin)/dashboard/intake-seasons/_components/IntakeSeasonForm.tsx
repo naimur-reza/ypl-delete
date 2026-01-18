@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
@@ -46,6 +47,7 @@ export function IntakeSeasonForm({
   onSuccess,
 }: IntakeSeasonFormProps) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const isEditing = !!initialData;
   const [countries, setCountries] = useState<{ id: string; name: string }[]>(
     []
@@ -89,9 +91,8 @@ export function IntakeSeasonForm({
         ? new Date(initialData.intakeStartDate).toISOString().split("T")[0]
         : "",
       countryIds:
-        initialData?.countries?.map(
-          (c: any) => c.country?.id || c.countryId
-        ) || [],
+        initialData?.countries?.map((c: any) => c.country?.id || c.countryId) ||
+        [],
       status: initialData?.status || "DRAFT",
     } as unknown as FormData,
     validators: { onSubmit: schema as any },
@@ -110,14 +111,18 @@ export function IntakeSeasonForm({
           status: value.status || "DRAFT",
         } as Record<string, unknown>;
 
-        const res = isEditing && initialData?.id
-          ? await api.update(initialData.id, payload)
-          : await api.create(payload);
+        const res =
+          isEditing && initialData?.id
+            ? await api.update(initialData.id, payload)
+            : await api.create(payload);
 
         if (res.error) return toast.error(res.error);
         toast.success(
           isEditing ? "Intake season updated" : "Intake season created"
         );
+        await queryClient.invalidateQueries({
+          queryKey: ["data-table", "/api/intake-seasons"],
+        });
         router.push("/dashboard/intake-seasons");
         onSuccess?.();
       } catch (e) {
@@ -143,30 +148,15 @@ export function IntakeSeasonForm({
     >
       <FieldGroup>
         <form.AppField name="title">
-          {(field) => (
-            <field.Input
-              label="Title"
- 
-            />
-          )}
+          {(field) => <field.Input label="Title" />}
         </form.AppField>
 
         <form.AppField name="subtitle">
-          {(field) => (
-            <field.Input
-              label="Subtitle"
-     
-            />
-          )}
+          {(field) => <field.Input label="Subtitle" />}
         </form.AppField>
 
         <form.AppField name="description">
-          {(field) => (
-            <field.Textarea
-              label="Description"
-            
-            />
-          )}
+          {(field) => <field.Textarea label="Description" />}
         </form.AppField>
 
         <div className="grid grid-cols-2 gap-4">
@@ -199,7 +189,6 @@ export function IntakeSeasonForm({
         <form.AppField name="backgroundImage">
           {(field) => (
             <div className="space-y-2">
-         
               <ImageUpload
                 value={field.state.value || ""}
                 onChange={field.handleChange}
@@ -231,9 +220,7 @@ export function IntakeSeasonForm({
           </form.AppField>
 
           <form.AppField name="intakeStartDate">
-            {(field) => (
-              <field.Input label="Intake Start Date" type="date" />
-            )}
+            {(field) => <field.Input label="Intake Start Date" type="date" />}
           </form.AppField>
         </div>
 
@@ -256,7 +243,6 @@ export function IntakeSeasonForm({
           )}
         </form.AppField>
 
-
         <div className="flex gap-2 justify-end">
           <Button
             type="button"
@@ -277,4 +263,3 @@ export function IntakeSeasonForm({
     </form>
   );
 }
-

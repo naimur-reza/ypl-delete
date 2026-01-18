@@ -38,7 +38,7 @@ export function EventListing({ events }: EventListingProps) {
               searchPlaceholder="Search events..."
               searchValue={searchQuery}
               onSearchChange={setSearchQuery}
-              defaultOpenSections={["eventType", "destination", "month"]}
+              defaultOpenSections={["eventType", "country", "destination", "city", "month"]}
             />
           </div>
 
@@ -61,7 +61,7 @@ export function EventListing({ events }: EventListingProps) {
             </div>
 
             {filteredEvents.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-6">
                 {filteredEvents.map((event) => (
                   <EventCard key={event.id} event={event} variant="page" />
                 ))}

@@ -4,7 +4,12 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { handleGetMany } from "@/lib/api-helpers";
-import { getSession, canManageContent, unauthorizedResponse, forbiddenResponse } from "@/lib/auth-helpers";
+import {
+  getSession,
+  canManageContent,
+  unauthorizedResponse,
+  forbiddenResponse,
+} from "@/lib/auth-helpers";
 
 export async function GET(req: NextRequest) {
   const session = await getSession();
@@ -33,7 +38,22 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   // Public action: Anyone can register for an event
   const body = await req.json();
-  const { eventId, countryId, name, email, phone, notes, status } = body;
+  const {
+    eventId,
+    countryId,
+    name,
+    email,
+    phone,
+    city,
+    addressCountry,
+    studyDestination,
+    lastQualification,
+    englishTest,
+    englishTestScore,
+    additionalInfo,
+    notes,
+    status,
+  } = body;
 
   if (!eventId || !name) {
     return Response.json(
@@ -50,6 +70,13 @@ export async function POST(req: NextRequest) {
         name,
         email,
         phone,
+        city: city || null,
+        addressCountry: addressCountry || null,
+        studyDestination: studyDestination || null,
+        lastQualification: lastQualification || null,
+        englishTest: englishTest || null,
+        englishTestScore: englishTestScore || null,
+        additionalInfo: additionalInfo || null,
         notes,
         status,
       },
@@ -100,6 +127,30 @@ export async function PUT(req: NextRequest) {
     console.error("Error updating event registration:", error);
     return Response.json(
       { error: "Failed to update event registration" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  const session = await getSession();
+  if (!session) return unauthorizedResponse();
+  if (!canManageContent(session)) return forbiddenResponse();
+
+  const { searchParams } = new URL(req.url);
+  const id = searchParams.get("id");
+
+  if (!id) {
+    return Response.json({ error: "id is required" }, { status: 400 });
+  }
+
+  try {
+    await prisma.eventRegistration.delete({ where: { id } });
+    return Response.json({ success: true });
+  } catch (error) {
+    console.error("Error deleting event registration:", error);
+    return Response.json(
+      { error: "Failed to delete event registration" },
       { status: 500 }
     );
   }

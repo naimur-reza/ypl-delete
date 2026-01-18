@@ -11,15 +11,76 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
+import { MoreHorizontal, Pencil, Trash2, Download } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
+import { useConfirmDialog } from "@/hooks/use-confirm-dialog";
+
+// CSV Export utility
+const exportToCSV = (data: Registration[], filename: string) => {
+  const headers = [
+    "Name",
+    "Email",
+    "Phone",
+    "City",
+    "Country",
+    "Study Destination",
+    "Qualification",
+    "English Test",
+    "Test Score",
+    "Additional Info",
+    "Event",
+    "Status",
+    "Created At",
+  ];
+
+  const rows = data.map((r) => [
+    r.name || "",
+    r.email || "",
+    r.phone || "",
+    r.city || "",
+    r.addressCountry || "",
+    r.studyDestination || "",
+    r.lastQualification || "",
+    r.englishTest || "",
+    r.englishTestScore || "",
+    (r.additionalInfo || "").replace(/[\n\r]+/g, " "),
+    r.event?.title || "",
+    r.status || "",
+    r.createdAt ? new Date(r.createdAt).toLocaleDateString() : "",
+  ]);
+
+  const csvContent = [
+    headers.join(","),
+    ...rows.map((row) =>
+      row.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(",")
+    ),
+  ].join("\n");
+
+  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = `${filename}-${new Date().toISOString().split("T")[0]}.csv`;
+  link.click();
+  URL.revokeObjectURL(link.href);
+};
 
 type Registration = {
   id: string;
   name: string;
   email?: string | null;
   phone?: string | null;
+  city?: string | null;
+  addressCountry?: string | null;
+  studyDestination?: string | null;
+  lastQualification?: string | null;
+  englishTest?: string | null;
+  englishTestScore?: string | null;
+  additionalInfo?: string | null;
   status: string;
   createdAt: string;
   event?: { title: string };
@@ -29,6 +90,7 @@ type Registration = {
 const statusOptions = ["PENDING", "CONFIRMED", "CANCELLED"] as const;
 
 const RegistrationsPage = () => {
+  const router = useRouter();
   const { table, isLoading, error, pagination, refetch } =
     useDataTable<Registration>({
       endpoint: "/api/event-registrations",
@@ -39,6 +101,27 @@ const RegistrationsPage = () => {
       pageSize: 10,
       filterColumnKey: "name",
     });
+
+  const deleteDialog = useConfirmDialog<Registration>({
+    title: "Delete Registration",
+    getDescription: (registration) =>
+      `Are you sure you want to delete registration for "${registration.name}"? This action cannot be undone.`,
+    onConfirm: async (registration) => {
+      const res = await fetch(
+        `/api/event-registrations?id=${registration.id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        toast.error(data.error || "Failed to delete registration");
+      } else {
+        toast.success("Registration deleted successfully");
+        refetch();
+      }
+    },
+  });
 
   const updateStatus = useCallback(
     async (registration: Registration, nextStatus: string) => {
@@ -75,14 +158,40 @@ const RegistrationsPage = () => {
         header: "Phone",
       },
       {
+        id: "address",
+        header: "Address",
+        cell: ({ row }) => {
+          const city = row.original.city;
+          const country = row.original.addressCountry;
+          if (!city && !country) return "-";
+          return [city, country].filter(Boolean).join(", ");
+        },
+      },
+      {
+        accessorKey: "studyDestination",
+        header: "Study Destination",
+        cell: ({ row }) => row.original.studyDestination || "-",
+      },
+      {
+        accessorKey: "lastQualification",
+        header: "Qualification",
+        cell: ({ row }) => row.original.lastQualification || "-",
+      },
+      {
+        id: "englishTest",
+        header: "English Test",
+        cell: ({ row }) => {
+          const test = row.original.englishTest;
+          const score = row.original.englishTestScore;
+          if (!test) return "-";
+          if (test === "None") return "None";
+          return score ? `${test}: ${score}` : test;
+        },
+      },
+      {
         id: "event",
         header: "Event",
         cell: ({ row }) => row.original.event?.title || "-",
-      },
-      {
-        id: "country",
-        header: "Country",
-        cell: ({ row }) => row.original.country?.name || "Global",
       },
       {
         accessorKey: "status",
@@ -124,8 +233,46 @@ const RegistrationsPage = () => {
           new Date(row.original.createdAt).toLocaleDateString(),
         enableSorting: true,
       },
+      {
+        id: "actions",
+        header: "Actions",
+        cell: ({ row }) => {
+          const registration = row.original;
+          return (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                  <span className="sr-only">Open menu</span>
+                  <MoreHorizontal className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={() => {
+                    router.push(
+                      `/dashboard/registrations/${registration.id}/edit`
+                    );
+                  }}
+                >
+                  <Pencil className="mr-2 h-4 w-4" />
+                  Edit
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="text-destructive"
+                  onClick={() => deleteDialog.openDialog(registration)}
+                >
+                  <Trash2 className="mr-2 h-4 w-4" />
+                  Delete
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          );
+        },
+      },
     ],
-    [updateStatus]
+    [updateStatus, deleteDialog, router]
   );
 
   if (table.options.columns.length === 0) {
@@ -143,6 +290,17 @@ const RegistrationsPage = () => {
         </p>
       </div>
 
+      <ConfirmDialog
+        open={deleteDialog.isOpen}
+        onOpenChange={deleteDialog.setIsOpen}
+        title={deleteDialog.title}
+        description={deleteDialog.description}
+        onConfirm={deleteDialog.handleConfirm}
+        confirmText="Delete"
+        variant="destructive"
+        isLoading={deleteDialog.isLoading}
+      />
+
       <DataTable
         table={table}
         columns={columns}
@@ -151,7 +309,40 @@ const RegistrationsPage = () => {
         isLoading={isLoading}
         error={error}
         pagination={pagination}
-        toolbar={<Button onClick={refetch}>Refresh</Button>}
+        toolbar={
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              onClick={async () => {
+                try {
+                  const res = await fetch(
+                    "/api/event-registrations?limit=10000"
+                  );
+                  if (res.ok) {
+                    const result = await res.json();
+                    const data = Array.isArray(result)
+                      ? result
+                      : result.data || [];
+                    if (data.length === 0) {
+                      toast.error("No registrations to export");
+                      return;
+                    }
+                    exportToCSV(data, "event-registrations");
+                    toast.success(`Exported ${data.length} registrations`);
+                  } else {
+                    toast.error("Failed to fetch data for export");
+                  }
+                } catch {
+                  toast.error("Export failed");
+                }
+              }}
+            >
+              <Download className="mr-2 h-4 w-4" />
+              Export CSV
+            </Button>
+            <Button onClick={refetch}>Refresh</Button>
+          </div>
+        }
       />
     </div>
   );

@@ -15,7 +15,7 @@ model GlobalOffice {
   updatedAt       DateTime              @updatedAt
   bannerImage     String?
   image           String?
-  openingHours    String?
+  openingHours    Json?
   status          ContentStatus         @default(DRAFT)
   countries       GlobalOfficeCountry[]
 
@@ -87,6 +87,7 @@ model Destination {
   scholarships       Scholarship[]
   testimonials       TestimonialDestination[]
   universities       University[]
+  eventDestinations  EventDestination[]
 
   @@index([status])
 }

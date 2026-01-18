@@ -20,8 +20,23 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { countryId, name, email, phone, notes, preferredAt, status, eventId } =
-    body;
+  const {
+    countryId,
+    name,
+    email,
+    phone,
+    city,
+    addressCountry,
+    studyDestination,
+    lastQualification,
+    englishTest,
+    englishTestScore,
+    additionalInfo,
+    notes,
+    preferredAt,
+    status,
+    eventId,
+  } = body;
 
   if (!name) {
     return Response.json({ error: "name is required" }, { status: 400 });
@@ -35,6 +50,13 @@ export async function POST(req: NextRequest) {
         name,
         email,
         phone,
+        city: city || null,
+        addressCountry: addressCountry || null,
+        studyDestination: studyDestination || null,
+        lastQualification: lastQualification || null,
+        englishTest: englishTest || null,
+        englishTestScore: englishTestScore || null,
+        additionalInfo: additionalInfo || null,
         notes,
         preferredAt: preferredAt ? new Date(preferredAt) : null,
         status,
@@ -87,6 +109,26 @@ export async function PUT(req: NextRequest) {
     console.error("Error updating appointment:", error);
     return Response.json(
       { error: "Failed to update appointment" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const id = searchParams.get("id");
+
+  if (!id) {
+    return Response.json({ error: "id is required" }, { status: 400 });
+  }
+
+  try {
+    await prisma.appointment.delete({ where: { id } });
+    return Response.json({ success: true });
+  } catch (error) {
+    console.error("Error deleting appointment:", error);
+    return Response.json(
+      { error: "Failed to delete appointment" },
       { status: 500 }
     );
   }

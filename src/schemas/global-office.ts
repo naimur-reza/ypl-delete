@@ -10,7 +10,13 @@ const globalOfficeSchema = z.object({
     .max(200, "Subtitle must be less than 200 characters")
     .optional()
     .nullable(),
-  email: z.string().email("Invalid email address").optional().nullable(),
+  slug: z.string().optional().nullable(),
+  email: z
+    .string()
+    .email("Invalid email address")
+    .optional()
+    .nullable()
+    .or(z.literal("")),
   phone: z
     .string()
     .max(50, "Phone must be less than 50 characters")
@@ -21,13 +27,11 @@ const globalOfficeSchema = z.object({
     .max(500, "Address must be less than 500 characters")
     .optional()
     .nullable(),
-  mapUrl: z
-    .string()
-    .optional()
-    .nullable(),
+  mapUrl: z.string().optional().nullable(),
   image: z.string().optional().nullable(),
   bannerImage: z.string().optional().nullable(),
-  openingHours: z.string().optional().nullable(),
+  content: z.string().optional().nullable(),
+  openingHours: z.any().optional().nullable(),
   status: z.enum(["ACTIVE", "DRAFT"]),
   metaTitle: z
     .string()
@@ -42,9 +46,7 @@ const globalOfficeSchema = z.object({
     .nullable()
     .or(z.literal("")),
   metaKeywords: z.string().optional().nullable().or(z.literal("")),
-  countries: z
-    .array(z.string())
-    .min(1, "At least one country must be selected"),
+  countryIds: z.array(z.string()).optional(),
 });
 
 export { globalOfficeSchema };

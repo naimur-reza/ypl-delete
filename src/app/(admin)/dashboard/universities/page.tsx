@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal, Plus, Pencil, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -19,8 +19,7 @@ import { createEntityApi } from "@/lib/api-client";
 import { Badge } from "@/components/ui/badge";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { useConfirmDialog } from "@/hooks/use-confirm-dialog";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   Select,
   SelectContent,
@@ -39,10 +38,21 @@ type UniversityWithRelations = University & {
 
 const UniversitiesPage = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [statusFilter, setStatusFilter] = useState<string>("all");
 
+  // Refresh table if ?updated=1 is present in URL
+  useEffect(() => {
+    if (searchParams.get("updated") === "1") {
+      router.refresh();
+    }
+  }, [searchParams, router]);
+
   const endpoint = useMemo(
-    () => `/api/universities${statusFilter !== "all" ? `?status=${statusFilter}` : ""}`,
+    () =>
+      `/api/universities${
+        statusFilter !== "all" ? `?status=${statusFilter}` : ""
+      }`,
     [statusFilter]
   );
 
@@ -72,8 +82,6 @@ const UniversitiesPage = () => {
     },
   });
 
-
-
   const columns: ColumnDef<UniversityWithRelations>[] = useMemo(
     () => [
       {
@@ -101,6 +109,11 @@ const UniversitiesPage = () => {
         header: "Destination",
         enableSorting: false,
         cell: ({ row }) => row.original.destination?.name || "-",
+      },
+      {
+        accessorKey: "rankingNumber",
+        header: "Ranking",
+        enableSorting: false,
       },
       {
         accessorKey: "status",
@@ -138,7 +151,9 @@ const UniversitiesPage = () => {
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={() => {
-                  router.push(`/dashboard/universities/${row.original.id}/edit`);
+                  router.push(
+                    `/dashboard/universities/${row.original.id}/edit`
+                  );
                 }}
               >
                 <Pencil className="mr-2 h-4 w-4" />
@@ -172,8 +187,6 @@ const UniversitiesPage = () => {
           Manage universities and educational institutions
         </p>
       </div>
-
-
 
       <ConfirmDialog
         open={deleteDialog.isOpen}

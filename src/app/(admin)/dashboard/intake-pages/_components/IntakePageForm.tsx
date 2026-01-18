@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
@@ -42,6 +43,7 @@ export function IntakePageForm({
   onSuccess,
 }: IntakePageFormProps) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const isEditing = !!initialData;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [destinations, setDestinations] = useState<
@@ -111,6 +113,9 @@ export function IntakePageForm({
         toast.success(
           isEditing ? "Intake page updated" : "Intake page created"
         );
+        await queryClient.invalidateQueries({
+          queryKey: ["data-table", "/api/intake-pages"],
+        });
         router.push("/dashboard/intake-pages");
         onSuccess?.();
       } catch (e) {

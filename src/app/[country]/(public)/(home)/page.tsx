@@ -102,6 +102,7 @@ const HomePage = async ({ params }: PageProps) => {
     fetchRepresentativeVideos(countrySlug),
     prisma.accreditation.findMany({
       where: {
+        status: "ACTIVE",
         type: "NEWS",
         countries: {
           some: {

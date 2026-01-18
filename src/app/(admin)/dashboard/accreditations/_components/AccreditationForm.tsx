@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
@@ -37,9 +38,7 @@ const accreditationSchema = z.object({
   type: z.enum(["NEWS", "PARTNER", "ACCREDITATION"]).default("NEWS"),
   status: z.enum(["ACTIVE", "DRAFT"]).default("DRAFT"),
   sortOrder: z.number().int().optional().nullable(),
-  countryIds: z
-    .array(z.string().min(1))
-    .min(1, "Select at least one country"),
+  countryIds: z.array(z.string().min(1)).min(1, "Select at least one country"),
   countries: z.array(z.object()).optional(),
 });
 
@@ -57,6 +56,7 @@ export function AccreditationForm({
   onSuccess,
 }: AccreditationFormProps) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const isEditing = !!initialData;
   const [countryIds, setCountryIds] = useState<string[]>(
     (
@@ -101,9 +101,10 @@ export function AccreditationForm({
             typeof value.sortOrder === "number" ? value.sortOrder : null,
         } as Record<string, unknown>;
 
-        const res = isEditing && initialData?.id
-          ? await api.update(initialData.id, payload)
-          : await api.create(payload);
+        const res =
+          isEditing && initialData?.id
+            ? await api.update(initialData.id, payload)
+            : await api.create(payload);
 
         if (res.error) {
           toast.error(res.error);
@@ -113,6 +114,9 @@ export function AccreditationForm({
         toast.success(
           isEditing ? "Accreditation updated" : "Accreditation created"
         );
+        await queryClient.invalidateQueries({
+          queryKey: ["data-table", "/api/accreditations"],
+        });
         router.push("/dashboard/accreditations");
         onSuccess?.();
         setCountryIds([]);
@@ -267,4 +271,3 @@ export function AccreditationForm({
     </form>
   );
 }
-

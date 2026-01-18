@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
@@ -55,6 +56,7 @@ interface GalleryFormProps {
 
 export function GalleryForm({ initialData, onSuccess }: GalleryFormProps) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const isEditing = !!initialData;
   const [countryIds, setCountryIds] = useState<string[]>(
     (
@@ -143,6 +145,9 @@ export function GalleryForm({ initialData, onSuccess }: GalleryFormProps) {
           toast.success(`${images.length} gallery item(s) created`);
         }
 
+        await queryClient.invalidateQueries({
+          queryKey: ["data-table", "/api/gallery"],
+        });
         router.push("/dashboard/gallery");
         onSuccess?.();
         setCountryIds([]);
@@ -315,7 +320,9 @@ export function GalleryForm({ initialData, onSuccess }: GalleryFormProps) {
             submitText={
               isEditing
                 ? "Update"
-                : `Create${images.length > 1 ? ` (${images.length} items)` : ""}`
+                : `Create${
+                    images.length > 1 ? ` (${images.length} items)` : ""
+                  }`
             }
             submittingText={isEditing ? "Updating..." : "Creating..."}
           />
@@ -324,4 +331,3 @@ export function GalleryForm({ initialData, onSuccess }: GalleryFormProps) {
     </form>
   );
 }
-

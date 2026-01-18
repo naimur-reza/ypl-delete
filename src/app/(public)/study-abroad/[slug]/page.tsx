@@ -111,6 +111,12 @@ const DestinationDetailsPage = async ({ params }: PageProps) => {
   const faqs = await fetchFaqsForDestinationsPage(country, 6);
 
   const universities = await prisma.university.findMany({
+    where: {
+      status: "ACTIVE",
+      destination: {
+        slug: slug,
+      },
+    },
     take: 10, // Limit for slider
   });
 

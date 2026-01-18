@@ -35,10 +35,6 @@ export async function loginAction(formData: FormData) {
   const match = await bcrypt.compare(password, user.password);
   if (!match) return { error: "Incorrect password." };
 
-  if (user.role !== "ADMIN") {
-    return { error: "Only admin can log in here." };
-  }
-
   const token = await buildAdminSession(user.id);
   const cookieStore = await cookies();
   cookieStore.set("session", token, {

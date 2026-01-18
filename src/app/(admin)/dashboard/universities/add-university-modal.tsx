@@ -79,8 +79,10 @@ const UniversityFormModal = ({
     useFetchData<Destination>("/api/destinations");
 
   const [imageUrl, setImageUrl] = useState<string>("");
+  const [logoUrl, setLogoUrl] = useState<string>("");
   const [countryIds, setCountryIds] = useState<string[]>([]);
   const [isUploading, setIsUploading] = useState(false);
+  const [isLogoUploading, setIsLogoUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const getDefaultValues = (): FormData => ({
@@ -111,7 +113,7 @@ const UniversityFormModal = ({
       try {
         const transformToNullable = (data: FormData) => ({
           ...data,
-          logo: data.logo || null,
+          logo: logoUrl || null,
           thumbnail: imageUrl || null,
           description: data.description || null,
           website: data.website || null,
@@ -153,6 +155,7 @@ const UniversityFormModal = ({
         form.reset();
         setCountryIds([]);
         setImageUrl("");
+        setLogoUrl("");
         onClose();
         onSuccess?.();
       } catch (err) {
@@ -171,10 +174,12 @@ const UniversityFormModal = ({
       setCountryIds(initialCountryIds);
       form.setFieldValue("countryIds", initialCountryIds);
       setImageUrl(selectedUniversity.thumbnail || "");
+      setLogoUrl(selectedUniversity.logo || "");
     } else {
       setCountryIds([]);
       form.setFieldValue("countryIds", []);
       setImageUrl("");
+      setLogoUrl("");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedUniversity]);
@@ -211,17 +216,13 @@ const UniversityFormModal = ({
                     handleTitleChange(e.target.value);
                   }}
                   onBlur={field.handleBlur}
-        
                 />
               </FormBase>
             )}
           </form.AppField>
           <form.AppField name="slug">
             {(field) => (
-              <FormBase
-                label="Slug"
-                description=""
-              >
+              <FormBase label="Slug" description="">
                 <Input
                   id={field.name}
                   name={field.name}
@@ -232,14 +233,17 @@ const UniversityFormModal = ({
                     handleSlugChange(slugValue);
                   }}
                   onBlur={field.handleBlur}
- 
                 />
               </FormBase>
             )}
           </form.AppField>
-          <form.AppField name="logo">
-            {(field) => <field.Input label="Logo URL" />}
-          </form.AppField>
+          <ImageUpload
+            value={logoUrl}
+            onChange={setLogoUrl}
+            folder="universities/logos"
+            label="University Logo"
+            onUploadingChange={setIsLogoUploading}
+          />
           <ImageUpload
             value={imageUrl}
             onChange={setImageUrl}
@@ -247,6 +251,19 @@ const UniversityFormModal = ({
             label="University Image"
             onUploadingChange={setIsUploading}
           />
+          <form.AppField name="rankingNumber">
+            {(field) => (
+              <field.Input label="Ranking Number" type="number" min={1} />
+            )}
+          </form.AppField>
+          <form.AppField name="costOfStudying">
+            {(field) => (
+              <field.Input
+                label="Cost of Studying"
+                placeholder="e.g. 10,000 USD/year"
+              />
+            )}
+          </form.AppField>
           <form.AppField name="description">
             {(field) => <field.Textarea label="Description" />}
           </form.AppField>
@@ -337,7 +354,7 @@ const UniversityFormModal = ({
             </Button>
             <SubmitButton
               isSubmitting={isSubmitting}
-              isUploading={isUploading}
+              isUploading={isUploading || isLogoUploading}
               submitText={isEditing ? "Update" : "Create"}
               submittingText={isEditing ? "Updating..." : "Creating..."}
             />

@@ -5,6 +5,7 @@ import { MapPin, Globe, Trophy, Calendar, CheckCircle } from "lucide-react"; // 
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { GradientButton } from "@/components/ui/gradient-button"; // Assuming this exists or standard Button
+import { MarkdownContent } from "../ui/markdown-content";
 
 interface UniversityHeroProps {
   university: {
@@ -16,13 +17,15 @@ interface UniversityHeroProps {
     ranking?: string;
     established?: string;
     famousFor?: string;
+    rankingNumber?: any;
+    costOfStudying?: string;
     fees?: string;
   };
 }
 
 export function UniversityHero({ university }: UniversityHeroProps) {
   return (
-    <div className="relative w-full min-h-[500px] lg:h-[60vh] flex items-center bg-slate-900 overflow-hidden">
+    <div className="relative w-full min-h-[700px] lg:h-[60vh] flex items-center bg-slate-900 overflow-hidden">
       {/* Background Image with Overlay */}
       {university.thumbnail ? (
         <>
@@ -33,7 +36,7 @@ export function UniversityHero({ university }: UniversityHeroProps) {
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-[2px]" />
+          <div className="absolute inset-0 bg-slate-900/20 backdrop-blur-[2px]" />
           <div className="absolute inset-0 bg-linear-to-r from-slate-900/90 via-slate-900/60 to-transparent" />
         </>
       ) : (
@@ -124,7 +127,7 @@ export function UniversityHero({ university }: UniversityHeroProps) {
                     </span>
                   </div>
                   <p className="text-white font-bold text-lg leading-tight">
-                    {university.ranking || "N/A"}
+                    {university.rankingNumber || "N/A"}
                   </p>
                 </div>
 
@@ -136,7 +139,7 @@ export function UniversityHero({ university }: UniversityHeroProps) {
                     </span>
                   </div>
                   <p className="text-white font-bold text-lg leading-tight truncate">
-                    {university.fees || "Ask Counsellor"}
+                    {university.costOfStudying || "Ask Counsellor"}
                   </p>
                 </div>
 
@@ -149,8 +152,7 @@ export function UniversityHero({ university }: UniversityHeroProps) {
                     </span>
                   </div>
                   <p className="text-slate-200 text-sm leading-relaxed">
-                    {university.famousFor ||
-                      "Excellence in various academic disciplines."}
+                    <MarkdownContent content={university.famousFor || "N/A"} />
                   </p>
                 </div>
               </div>

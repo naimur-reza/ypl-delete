@@ -13,10 +13,18 @@ import {
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useCountry } from "@/lib/country-context";
+import { WORLD_COUNTRIES } from "@/const/world-countries";
+
+type Destination = {
+  id: string;
+  name: string;
+  slug: string;
+};
 
 function BookConsultationForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [destinations, setDestinations] = useState<Destination[]>([]);
   const countryContext = useCountry();
   const searchParams = useSearchParams();
 
@@ -49,35 +57,34 @@ function BookConsultationForm() {
   useEffect(() => {
     if (!formData.country) {
       const country = getInitialCountry();
-      if (country) setFormData(prev => ({ ...prev, country }));
+      if (country) setFormData((prev) => ({ ...prev, country }));
     }
     if (!formData.destination) {
       const dest = searchParams.get("destination");
-      if (dest) setFormData(prev => ({ ...prev, destination: dest }));
+      if (dest) setFormData((prev) => ({ ...prev, destination: dest }));
     }
   }, [countryContext.countryName, searchParams]);
 
-   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const countries = [
-    "Bangladesh",
-    "India",
-    "Nepal",
-    "Sri Lanka",
-    "Pakistan",
-    "Nigeria",
-    "Ghana",
-    "United Kingdom",
-    "USA",
-    "Canada",
-    "Australia",
-    "Germany",
-    "Finland",
-    "Sweden",
-    "Denmark",
-    "Malaysia",
-    "Other",
-  ];
+  // Fetch destinations on mount
+  useEffect(() => {
+    const fetchOptions = async () => {
+      try {
+        const destRes = await fetch("/api/destinations?limit=100");
+
+        if (destRes.ok) {
+          const destData = await destRes.json();
+          setDestinations(
+            Array.isArray(destData) ? destData : destData.data || []
+          );
+        }
+      } catch (err) {
+        console.error("Failed to fetch destinations:", err);
+      }
+    };
+    fetchOptions();
+  }, []);
 
   const testTypes = [
     "IELTS",
@@ -148,15 +155,13 @@ function BookConsultationForm() {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
-          notes: JSON.stringify({
-            city: formData.city,
-            country: formData.country,
-            destination: formData.destination,
-            qualification: formData.qualification,
-            englishTest: formData.englishTest,
-            testScore: formData.testScore,
-            additionalInfo: formData.additionalInfo,
-          }),
+          city: formData.city,
+          addressCountry: formData.country,
+          studyDestination: formData.destination,
+          lastQualification: formData.qualification,
+          englishTest: formData.englishTest,
+          englishTestScore: formData.testScore,
+          additionalInfo: formData.additionalInfo,
         }),
       });
 
@@ -288,7 +293,7 @@ function BookConsultationForm() {
                       <option value="" disabled>
                         Country
                       </option>
-                      {countries.map((c) => (
+                      {WORLD_COUNTRIES.map((c) => (
                         <option key={c} value={c}>
                           {c}
                         </option>
@@ -317,13 +322,14 @@ function BookConsultationForm() {
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <InputField
+              <SelectField
                 label="Preferred Study Destination"
                 name="destination"
                 value={formData.destination}
                 onChange={handleChange}
+                options={destinations.map((d) => d.name)}
                 error={errors.destination}
-                placeholder="e.g. United Kingdom, Canada"
+                placeholder="Select a destination"
               />
 
               <InputField
@@ -418,11 +424,13 @@ function BookConsultationForm() {
 
 export default function BookConsultation() {
   return (
-    <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="w-10 h-10 animate-spin text-primary" />
-      </div>
-    }>
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center">
+          <Loader2 className="w-10 h-10 animate-spin text-primary" />
+        </div>
+      }
+    >
       <BookConsultationForm />
     </Suspense>
   );

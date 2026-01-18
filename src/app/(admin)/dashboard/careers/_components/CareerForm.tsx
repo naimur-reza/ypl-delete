@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
@@ -38,6 +39,7 @@ interface CareerFormProps {
 
 export function CareerForm({ initialData, onSuccess }: CareerFormProps) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const isEditing = !!initialData;
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -76,6 +78,9 @@ export function CareerForm({ initialData, onSuccess }: CareerFormProps) {
           return;
         }
         toast.success(isEditing ? "Career updated" : "Career created");
+        await queryClient.invalidateQueries({
+          queryKey: ["data-table", "/api/careers"],
+        });
         router.push("/dashboard/careers");
         onSuccess?.();
       } catch (e) {
@@ -113,7 +118,6 @@ export function CareerForm({ initialData, onSuccess }: CareerFormProps) {
                   handleTitleChange(e.target.value);
                 }}
                 onBlur={field.handleBlur}
-                
               />
             </FormBase>
           )}
@@ -131,7 +135,6 @@ export function CareerForm({ initialData, onSuccess }: CareerFormProps) {
                   handleSlugChange(slugValue);
                 }}
                 onBlur={field.handleBlur}
-            
               />
             </FormBase>
           )}

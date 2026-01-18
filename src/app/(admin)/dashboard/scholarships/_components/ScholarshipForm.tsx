@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
@@ -67,6 +68,7 @@ export function ScholarshipForm({
   onSuccess,
 }: ScholarshipFormProps) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const isEditing = !!initialData;
   const [universities, setUniversities] = useState<University[]>([]);
   const [destinations, setDestinations] = useState<Destination[]>([]);
@@ -170,6 +172,9 @@ export function ScholarshipForm({
         );
         form.reset();
         setImageUrl("");
+        await queryClient.invalidateQueries({
+          queryKey: ["data-table", "/api/scholarships"],
+        });
         router.push("/dashboard/scholarships");
         onSuccess?.();
       } catch (err) {
@@ -257,7 +262,6 @@ export function ScholarshipForm({
                       handleTitleChange(e.target.value);
                     }}
                     onBlur={field.handleBlur}
-           
                   />
                 </FormBase>
               )}
@@ -275,7 +279,6 @@ export function ScholarshipForm({
                       handleSlugChange(slugValue);
                     }}
                     onBlur={field.handleBlur}
-            
                   />
                 </FormBase>
               )}

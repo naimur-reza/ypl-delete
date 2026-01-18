@@ -29,6 +29,9 @@ interface UniversityListingProps {
 
 export function UniversityListing({ universities }: UniversityListingProps) {
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortBy, setSortBy] = useState<
+    "popularity" | "name-asc" | "name-desc" | "featured"
+  >("popularity");
 
   const filterOptions = useMemo(
     () => extractUniversityFilterOptions(universities),
@@ -80,17 +83,39 @@ export function UniversityListing({ universities }: UniversityListingProps) {
     setTimeout(() => {
       setCurrentPage(1);
     }, 0);
-  }, [filters, searchQuery]);
+  }, [filters, searchQuery, sortBy]);
+
+  // Sort the filtered data
+  const sortedData = useMemo(() => {
+    const data = [...filteredData];
+    switch (sortBy) {
+      case "name-asc":
+        return data.sort((a, b) => a.name.localeCompare(b.name));
+      case "name-desc":
+        return data.sort((a, b) => b.name.localeCompare(a.name));
+      case "featured":
+        return data.sort(
+          (a, b) => (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0)
+        );
+      case "popularity":
+      default:
+        // Featured first, then by name
+        return data.sort((a, b) => {
+          if (a.isFeatured !== b.isFeatured) return b.isFeatured ? 1 : -1;
+          return a.name.localeCompare(b.name);
+        });
+    }
+  }, [filteredData, sortBy]);
 
   // Pagination calculations
-  const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(sortedData.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
-  const paginatedData = filteredData.slice(startIndex, endIndex);
+  const paginatedData = sortedData.slice(startIndex, endIndex);
 
   return (
-    <section className="py-12 px-4 md:px-8 bg-slate-50">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-12 px-4 md:px-8 lg:px-12 bg-slate-50">
+      <div className="max-w-[1600px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar */}
           <div className="lg:col-span-1">
@@ -110,23 +135,27 @@ export function UniversityListing({ universities }: UniversityListingProps) {
           <div className="lg:col-span-3">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-lg font-bold text-slate-900">
-                Showing {startIndex + 1}-
-                {Math.min(endIndex, filteredData.length)} of{" "}
-                {filteredData.length}{" "}
-                {filteredData.length === 1 ? "University" : "Universities"}
+                Showing {startIndex + 1}-{Math.min(endIndex, sortedData.length)}{" "}
+                of {sortedData.length}{" "}
+                {sortedData.length === 1 ? "University" : "Universities"}
               </h2>
               <div className="flex items-center gap-2">
                 <span className="text-sm text-slate-500">Sort by:</span>
-                <select className="bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20">
-                  <option>Popularity</option>
-                  <option>Ranking</option>
-                  <option>Name (A-Z)</option>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
+                  className="bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer"
+                >
+                  <option value="popularity">Popularity</option>
+                  <option value="featured">Featured First</option>
+                  <option value="name-asc">Name (A-Z)</option>
+                  <option value="name-desc">Name (Z-A)</option>
                 </select>
               </div>
             </div>
 
             {paginatedData.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {paginatedData.map((uni) => (
                   <UniversityCard key={uni.id} university={uni} />
                 ))}

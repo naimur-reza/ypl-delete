@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
@@ -15,7 +16,7 @@ import { generateSlug } from "@/lib/utils";
 import { SelectItem } from "@/components/ui/select";
 import { ImageUpload } from "@/components/ui/image-upload";
 import { CountrySelect } from "@/components/ui/region-select";
- 
+
 import { FormBase } from "@/components/form/FormBase";
 import { Input } from "@/components/ui/input";
 import { University } from "../../../../../../prisma/src/generated/prisma/browser";
@@ -69,15 +70,21 @@ interface UniversityFormProps {
   onSuccess?: () => void;
 }
 
-export function UniversityForm({ initialData, onSuccess }: UniversityFormProps) {
+export function UniversityForm({
+  initialData,
+  onSuccess,
+}: UniversityFormProps) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const isEditing = !!initialData;
   const { data: destinations, loading: loadingDestinations } =
     useFetchData<Destination>("/api/destinations");
 
   const [imageUrl, setImageUrl] = useState<string>("");
+  const [logoUrl, setLogoUrl] = useState<string>("");
   const [countryIds, setCountryIds] = useState<string[]>([]);
   const [isUploading, setIsUploading] = useState(false);
+  const [isLogoUploading, setIsLogoUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const getDefaultValues = (): FormData => ({
@@ -109,7 +116,7 @@ export function UniversityForm({ initialData, onSuccess }: UniversityFormProps) 
       try {
         const transformToNullable = (data: FormData) => ({
           ...data,
-          logo: data.logo || null,
+          logo: logoUrl || null,
           thumbnail: imageUrl || null,
           description: data.description || null,
           website: data.website || null,
@@ -126,16 +133,17 @@ export function UniversityForm({ initialData, onSuccess }: UniversityFormProps) 
           countryIds: countryIds,
         };
 
-        const response = isEditing && initialData?.id
-          ? await universityApi.update(
-              initialData.id,
-              submitData as Partial<University>
-            )
-          : await universityApi.create({
-              ...submitData,
-              createdBy: null,
-              updatedBy: null,
-            } as Omit<University, "id" | "createdAt" | "updatedAt">);
+        const response =
+          isEditing && initialData?.id
+            ? await universityApi.update(
+                initialData.id,
+                submitData as Partial<University>
+              )
+            : await universityApi.create({
+                ...submitData,
+                createdBy: null,
+                updatedBy: null,
+              } as Omit<University, "id" | "createdAt" | "updatedAt">);
 
         if (response.error) {
           toast.error(response.error);
@@ -150,6 +158,10 @@ export function UniversityForm({ initialData, onSuccess }: UniversityFormProps) 
         form.reset();
         setCountryIds([]);
         setImageUrl("");
+        setLogoUrl("");
+        await queryClient.invalidateQueries({
+          queryKey: ["data-table", "/api/universities"],
+        });
         router.push("/dashboard/universities");
         onSuccess?.();
       } catch (err) {
@@ -168,10 +180,12 @@ export function UniversityForm({ initialData, onSuccess }: UniversityFormProps) 
       setCountryIds(initialCountryIds);
       form.setFieldValue("countryIds", initialCountryIds);
       setImageUrl(initialData.thumbnail || "");
+      setLogoUrl(initialData.logo || "");
     } else {
       setCountryIds([]);
       form.setFieldValue("countryIds", []);
       setImageUrl("");
+      setLogoUrl("");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialData]);
@@ -203,17 +217,13 @@ export function UniversityForm({ initialData, onSuccess }: UniversityFormProps) 
                   handleTitleChange(e.target.value);
                 }}
                 onBlur={field.handleBlur}
-       
               />
             </FormBase>
           )}
         </form.AppField>
         <form.AppField name="slug">
           {(field) => (
-            <FormBase
-              label="Slug"
-              description=""
-            >
+            <FormBase label="Slug" description="">
               <Input
                 id={field.name}
                 name={field.name}
@@ -224,14 +234,17 @@ export function UniversityForm({ initialData, onSuccess }: UniversityFormProps) 
                   handleSlugChange(slugValue);
                 }}
                 onBlur={field.handleBlur}
-       
               />
             </FormBase>
           )}
         </form.AppField>
-        <form.AppField name="logo">
-          {(field) => <field.Input label="Logo URL" />}
-        </form.AppField>
+        <ImageUpload
+          value={logoUrl}
+          onChange={setLogoUrl}
+          folder="universities/logos"
+          label="University Logo"
+          onUploadingChange={setIsLogoUploading}
+        />
         <ImageUpload
           value={imageUrl}
           onChange={setImageUrl}
@@ -239,6 +252,19 @@ export function UniversityForm({ initialData, onSuccess }: UniversityFormProps) 
           label="University Image"
           onUploadingChange={setIsUploading}
         />
+        <form.AppField name="rankingNumber">
+          {(field) => (
+            <field.Input label="Ranking Number" type="number" min={1} />
+          )}
+        </form.AppField>
+        <form.AppField name="costOfStudying">
+          {(field) => (
+            <field.Input
+              label="Cost of Studying"
+              placeholder="e.g. 10,000 USD/year"
+            />
+          )}
+        </form.AppField>
         <form.AppField name="description">
           {(field) => <field.Textarea label="Description" />}
         </form.AppField>
@@ -329,7 +355,7 @@ export function UniversityForm({ initialData, onSuccess }: UniversityFormProps) 
           </Button>
           <SubmitButton
             isSubmitting={isSubmitting}
-            isUploading={isUploading}
+            isUploading={isUploading || isLogoUploading}
             submitText={isEditing ? "Update" : "Create"}
             submittingText={isEditing ? "Updating..." : "Creating..."}
           />
@@ -338,4 +364,3 @@ export function UniversityForm({ initialData, onSuccess }: UniversityFormProps) 
     </form>
   );
 }
-

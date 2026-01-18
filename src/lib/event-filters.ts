@@ -78,18 +78,20 @@ export function extractEventFilterOptions(
     count: events.length,
   });
 
-  // 3️⃣ Location Options (top 20)
-  const locationMap = new Map<string, number>();
+  // 3️⃣ City Options (top 20)
+  const cityMap = new Map<string, number>();
   events.forEach((event) => {
-    if (event.location) {
-      const location = event.location.trim();
-      if (location) {
-        locationMap.set(location, (locationMap.get(location) || 0) + 1);
+    // Prefer city field, fallback to location if needed (or just use city as per request)
+    // User requested "fix the city with city field", so let's use the city field.
+    if (event.city) {
+      const city = event.city.trim();
+      if (city) {
+        cityMap.set(city, (cityMap.get(city) || 0) + 1);
       }
     }
   });
 
-  const locationOptions = Array.from(locationMap.entries())
+  const cityOptions = Array.from(cityMap.entries())
     .map(([value, count]) => ({
       label: value,
       value: value.toLowerCase().replace(/\s+/g, "-"),
@@ -98,9 +100,9 @@ export function extractEventFilterOptions(
     .sort((a, b) => b.count - a.count)
     .slice(0, 20);
 
-  // Add "All Cities" option if there are locations
-  if (locationOptions.length > 0) {
-    locationOptions.unshift({
+  // Add "All Cities" option if there are cities
+  if (cityOptions.length > 0) {
+    cityOptions.unshift({
       label: "All Cities",
       value: "all",
       count: events.length,
@@ -141,24 +143,67 @@ export function extractEventFilterOptions(
     count: events.length,
   });
 
-  // 5️⃣ Combine all filters
+  // 5️⃣ Country Options
+  const countryMap = new Map<string, { name: string; count: number }>();
+  events.forEach((event) => {
+    if (event.countries && event.countries.length > 0) {
+      event.countries.forEach((ec) => {
+        if (ec.country) {
+          const key = ec.country.slug;
+          const existing = countryMap.get(key);
+          countryMap.set(key, {
+            name: ec.country.name,
+            count: (existing?.count || 0) + 1,
+          });
+        }
+      });
+    }
+  });
+
+  const countryOptions = Array.from(countryMap.entries())
+    .map(([value, data]) => ({
+      label: data.name,
+      value,
+      count: data.count,
+    }))
+    .sort((a, b) => a.label.localeCompare(b.label));
+
+  // Add "All Countries" option if there are countries
+  if (countryOptions.length > 0) {
+    countryOptions.unshift({
+      label: "All Countries",
+      value: "all",
+      count: events.length,
+    });
+  }
+
+  // 6️⃣ Combine all filters
   return [
     {
       id: "eventType",
       label: "Event Type",
       options: eventTypeOptions,
     },
+    ...(countryOptions.length > 0
+      ? [
+          {
+            id: "country",
+            label: "Country",
+            options: countryOptions,
+          },
+        ]
+      : []),
     {
       id: "destination",
       label: "Study Destination",
       options: destinationOptions,
     },
-    ...(locationOptions.length > 0
+    ...(cityOptions.length > 0
       ? [
           {
-            id: "location",
+            id: "city",
             label: "City",
-            options: locationOptions,
+            options: cityOptions,
           },
         ]
       : []),

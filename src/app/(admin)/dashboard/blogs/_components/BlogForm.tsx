@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
@@ -51,6 +52,7 @@ interface BlogFormProps {
 
 export function BlogForm({ initialData, onSuccess }: BlogFormProps) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const isEditing = !!initialData;
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [imageUrl, setImageUrl] = useState<string>(initialData?.image || "");
@@ -64,6 +66,29 @@ export function BlogForm({ initialData, onSuccess }: BlogFormProps) {
   );
   const [isUploading, setIsUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [currentUserName, setCurrentUserName] = useState<string>("");
+
+  // Fetch current user for author field
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      try {
+        const response = await apiClient.get<{ user: { name: string } }>(
+          "/api/auth/me"
+        );
+        if (response.data?.user?.name) {
+          setCurrentUserName(response.data.user.name);
+          // Auto-fill author field for new blogs
+          if (!initialData) {
+            form.setFieldValue("author", response.data.user.name);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch current user:", error);
+      }
+    };
+    fetchCurrentUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialData]);
 
   useEffect(() => {
     const fetchDestinations = async () => {
@@ -137,6 +162,9 @@ export function BlogForm({ initialData, onSuccess }: BlogFormProps) {
         form.reset();
         setImageUrl("");
         setCountryIds([]);
+        await queryClient.invalidateQueries({
+          queryKey: ["data-table", "/api/blogs"],
+        });
         router.push("/dashboard/blogs");
         onSuccess?.();
       } catch (err) {
@@ -162,7 +190,10 @@ export function BlogForm({ initialData, onSuccess }: BlogFormProps) {
           : ""
       );
       form.setFieldValue("isFeatured", initialData.isFeatured || false);
-      form.setFieldValue("status", initialData.status === "DRAFT" ? "DRAFT" : "ACTIVE");
+      form.setFieldValue(
+        "status",
+        initialData.status === "DRAFT" ? "DRAFT" : "ACTIVE"
+      );
       form.setFieldValue("destinationId", initialData.destinationId || "");
       const countries = initialData.countries || [];
       const initialCountryIds = countries
@@ -284,7 +315,17 @@ export function BlogForm({ initialData, onSuccess }: BlogFormProps) {
         </form.AppField>
 
         <form.AppField name="author">
-          {(field) => <field.Input label="Author" />}
+          {(field) => (
+            <FormBase label="Author">
+              <Input
+                id={field.name}
+                name={field.name}
+                value={field.state.value || currentUserName}
+                disabled
+                className="bg-muted cursor-not-allowed"
+              />
+            </FormBase>
+          )}
         </form.AppField>
         <form.AppField name="publishedAt">
           {(field) => (

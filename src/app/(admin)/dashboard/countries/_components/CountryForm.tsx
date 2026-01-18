@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
@@ -29,6 +30,7 @@ interface CountryFormProps {
 
 export function CountryForm({ initialData, onSuccess }: CountryFormProps) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const isEditing = !!initialData;
   const [countryFlag, setCountryFlag] = useState<string>(
     initialData?.flag || ""
@@ -81,6 +83,9 @@ export function CountryForm({ initialData, onSuccess }: CountryFormProps) {
             : "Country created successfully"
         );
         form.reset();
+        await queryClient.invalidateQueries({
+          queryKey: ["data-table", "/api/countries"],
+        });
         router.push("/dashboard/countries");
         onSuccess?.();
       } catch (err) {
@@ -136,17 +141,13 @@ export function CountryForm({ initialData, onSuccess }: CountryFormProps) {
                   handleTitleChange(e.target.value);
                 }}
                 onBlur={field.handleBlur}
-        
               />
             </FormBase>
           )}
         </form.AppField>
         <form.AppField name="slug">
           {(field) => (
-            <FormBase
-              label="Slug"
-              description=""
-            >
+            <FormBase label="Slug" description="">
               <Input
                 id={field.name}
                 name={field.name}
@@ -157,7 +158,6 @@ export function CountryForm({ initialData, onSuccess }: CountryFormProps) {
                   handleSlugChange(slugValue);
                 }}
                 onBlur={field.handleBlur}
-           
               />
             </FormBase>
           )}

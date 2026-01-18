@@ -142,7 +142,10 @@ export default function ScholarshipList({
   };
 
   return (
-    <section className="py-12 bg-slate-50 border-t border-slate-200">
+    <section
+      id="#scholarships"
+      className="py-12 bg-slate-50 border-t border-slate-200"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col lg:flex-row gap-8 items-start">
           {/* Sidebar Filter */}
@@ -169,14 +172,6 @@ export default function ScholarshipList({
                   ({totalCount})
                 </span>
               </h2>
-              <div className="hidden sm:flex items-center gap-2 text-sm text-slate-600">
-                <span>Sort by:</span>
-                <select className="border-none bg-transparent font-semibold text-slate-900 focus:ring-0 cursor-pointer">
-                  <option>Latest Deadline</option>
-                  <option>Highest Amount</option>
-                  <option>Recently Added</option>
-                </select>
-              </div>
             </div>
 
             {/* List Grid */}

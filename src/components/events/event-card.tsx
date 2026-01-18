@@ -50,7 +50,7 @@ export function EventCard({ event, variant = "home" }: EventCardProps) {
           </div>
 
           {/* Date Badge */}
-          <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm rounded-xl p-3 text-center shadow-lg">
+          <div className="absolute bottom-4 right-4 bg-white/95 flex items-center gap-2 backdrop-blur-sm rounded-xl py-2 px-3 text-center shadow-lg">
             <div className="text-2xl font-bold text-primary">
               {new Date(event.startDate).getDate()}
             </div>

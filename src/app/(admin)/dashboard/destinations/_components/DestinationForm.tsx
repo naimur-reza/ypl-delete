@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
@@ -17,7 +18,7 @@ import { CountrySelect } from "@/components/ui/region-select";
 import { ImageUpload } from "@/components/ui/image-upload";
 import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { SelectItem } from "@/components/ui/select";
- 
+
 import { FormBase } from "@/components/form/FormBase";
 import { Input } from "@/components/ui/input";
 import {
@@ -58,6 +59,7 @@ export function DestinationForm({
   onSuccess,
 }: DestinationFormProps) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const isEditing = !!initialData;
   const [countryIds, setCountryIds] = useState<string[]>([]);
   const [isUploading, setIsUploading] = useState(false);
@@ -69,8 +71,7 @@ export function DestinationForm({
     defaultValues: {
       name: initialData?.name || "",
       slug: initialData?.slug || "",
-      countryIds:
-        initialData?.countries?.map((c) => c.country.id) || [],
+      countryIds: initialData?.countries?.map((c) => c.country.id) || [],
       heroTitle: initialData?.heroTitle || "",
       heroSubtitle: initialData?.heroSubtitle || "",
       thumbnail: initialData?.thumbnail || "",
@@ -123,6 +124,9 @@ export function DestinationForm({
         form.reset();
         setCountryIds([]);
         setSections([]);
+        await queryClient.invalidateQueries({
+          queryKey: ["data-table", "/api/destinations"],
+        });
         router.push("/dashboard/destinations");
         onSuccess?.();
       } catch (err) {
@@ -248,17 +252,13 @@ export function DestinationForm({
                     handleTitleChange(e.target.value);
                   }}
                   onBlur={field.handleBlur}
- 
                 />
               </FormBase>
             )}
           </form.AppField>
           <form.AppField name="slug">
             {(field) => (
-              <FormBase
-                label="Slug"
-                description=""
-              >
+              <FormBase label="Slug" description="">
                 <Input
                   id={field.name}
                   name={field.name}
@@ -269,7 +269,6 @@ export function DestinationForm({
                     handleSlugChange(slugValue);
                   }}
                   onBlur={field.handleBlur}
- 
                 />
               </FormBase>
             )}
@@ -424,7 +423,6 @@ export function DestinationForm({
                             onChange={(e) =>
                               updateSection(index, "title", e.target.value)
                             }
-           
                           />
                         </div>
                         <div className="space-y-2">
@@ -450,14 +448,13 @@ export function DestinationForm({
 
                       <RichTextEditor
                         value={section.content}
-                        onChange={(val) =>
-                          updateSection(index, "content", val)
-                        }
+                        onChange={(val) => updateSection(index, "content", val)}
                         label="Content"
                         placeholder="Write section content..."
-                        editorKey={`section-${index}-${section.image || 'no-image'}`}
+                        editorKey={`section-${index}-${
+                          section.image || "no-image"
+                        }`}
                       />
-
                     </div>
                   )}
                 </div>
@@ -501,4 +498,3 @@ export function DestinationForm({
     </form>
   );
 }
-

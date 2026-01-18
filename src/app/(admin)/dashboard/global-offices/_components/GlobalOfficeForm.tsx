@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
@@ -18,7 +19,10 @@ import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { FormBase } from "@/components/form/FormBase";
 import { ImageUpload } from "@/components/ui/image-upload";
 import { SelectItem } from "@/components/ui/select";
- 
+import {
+  OpeningHoursEditor,
+  OpeningHoursData,
+} from "@/components/ui/opening-hours";
 
 type GlobalOfficeWithCountries = {
   id: string;
@@ -32,7 +36,7 @@ type GlobalOfficeWithCountries = {
   content?: string | null;
   image?: string | null;
   bannerImage?: string | null;
-  openingHours?: string | null;
+  openingHours?: OpeningHoursData | null;
   metaTitle?: string | null;
   metaDescription?: string | null;
   metaKeywords?: string | null;
@@ -54,6 +58,7 @@ export function GlobalOfficeForm({
   onSuccess,
 }: GlobalOfficeFormProps) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const isEditing = !!initialData;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
@@ -61,6 +66,9 @@ export function GlobalOfficeForm({
   const [content, setContent] = useState<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
   const [bannerImageUrl, setBannerImageUrl] = useState<string>("");
+  const [openingHours, setOpeningHours] = useState<OpeningHoursData | null>(
+    null
+  );
 
   const form = useAppForm({
     defaultValues: {
@@ -71,8 +79,6 @@ export function GlobalOfficeForm({
       phone: initialData?.phone || "",
       address: initialData?.address || "",
       mapUrl: initialData?.mapUrl || "",
-      openingHours:
-        initialData?.openingHours || "10:30 AM – 7 PM (Friday Closed)",
       content: initialData?.content || "",
       status: initialData?.status || "DRAFT",
       metaTitle: initialData?.metaTitle || "",
@@ -90,7 +96,7 @@ export function GlobalOfficeForm({
           content: content || null,
           image: imageUrl || null,
           bannerImage: bannerImageUrl || null,
-          openingHours: value.openingHours || null,
+          openingHours: openingHours || null,
           countryIds,
           metaTitle: value.metaTitle || null,
           metaDescription: value.metaDescription || null,
@@ -116,6 +122,9 @@ export function GlobalOfficeForm({
         form.reset();
         setCountryIds([]);
         setContent("");
+        await queryClient.invalidateQueries({
+          queryKey: ["data-table", "/api/global-offices"],
+        });
         router.push("/dashboard/global-offices");
         onSuccess?.();
       } catch (err: any) {
@@ -150,10 +159,7 @@ export function GlobalOfficeForm({
       setContent(initialData.content || "");
       setImageUrl(initialData.image || "");
       setBannerImageUrl(initialData.bannerImage || "");
-      form.setFieldValue(
-        "openingHours",
-        initialData.openingHours || "10:30 AM – 7 PM (Friday Closed)"
-      );
+      setOpeningHours(initialData.openingHours || null);
       form.setFieldValue("status", initialData.status || "DRAFT");
       form.setFieldValue("metaTitle", initialData.metaTitle || "");
       form.setFieldValue("metaDescription", initialData.metaDescription || "");
@@ -166,6 +172,7 @@ export function GlobalOfficeForm({
       form.reset();
       setCountryIds([]);
       setContent("");
+      setOpeningHours(null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialData]);
@@ -196,7 +203,6 @@ export function GlobalOfficeForm({
                   handleTitleChange(e.target.value);
                 }}
                 onBlur={field.handleBlur}
-     
               />
             </FormBase>
           )}
@@ -206,10 +212,7 @@ export function GlobalOfficeForm({
         </form.AppField>
         <form.AppField name="slug">
           {(field) => (
-            <FormBase
-              label="Slug"
-              description=""
-            >
+            <FormBase label="Slug" description="">
               <Input
                 id={field.name}
                 name={field.name}
@@ -220,14 +223,12 @@ export function GlobalOfficeForm({
                   handleSlugChange(slugValue);
                 }}
                 onBlur={field.handleBlur}
-        
               />
             </FormBase>
           )}
         </form.AppField>
 
         <div className="pt-4 mt-4">
-   
           <form.AppField name="email">
             {(field) => <field.Input label="Email" />}
           </form.AppField>
@@ -243,10 +244,7 @@ export function GlobalOfficeForm({
           </form.AppField>
           <form.AppField name="mapUrl">
             {(field) => (
-              <FormBase
-                label="Google Maps Iframe"
-                 
-              >
+              <FormBase label="Google Maps Iframe">
                 <textarea
                   id={field.name}
                   name={field.name}
@@ -262,7 +260,6 @@ export function GlobalOfficeForm({
         </div>
 
         <div className="pt-4 mt-4">
-       
           <ImageUpload
             value={imageUrl}
             onChange={setImageUrl}
@@ -282,24 +279,7 @@ export function GlobalOfficeForm({
         </div>
 
         <div className="pt-4 mt-4">
- 
-          <form.AppField name="openingHours">
-            {(field) => (
-              <FormBase
-                label="Office Hours"
-              
-              >
-                <Input
-                  id={field.name}
-                  name={field.name}
-                  value={field.state.value}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  onBlur={field.handleBlur}
-                  placeholder="10:30 AM – 7 PM (Friday Closed)"
-                />
-              </FormBase>
-            )}
-          </form.AppField>
+          <OpeningHoursEditor value={openingHours} onChange={setOpeningHours} />
         </div>
 
         <div className="pt-4 mt-4">
@@ -361,4 +341,3 @@ export function GlobalOfficeForm({
     </form>
   );
 }
-

@@ -102,9 +102,9 @@ export function UniversitySlider({ universities }: UniversitySliderProps) {
             {universities.map((uni) => (
               <div
                 key={uni.id}
-                className="shrink-0 w-[300px] md:w-[340px] snap-center group cursor-pointer"
+                className="shrink-0 w-[280px] md:w-[320px] snap-center group cursor-pointer"
               >
-                <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-xl hover:border-blue-100 transition-all duration-300 h-full flex flex-col">
+                <div className="bg-white rounded-2xl overflow-hidden border border-slate-100 hover:border-blue-100 transition-all duration-300 h-full flex flex-col">
                   {/* Image Container */}
                   <div className="relative h-48 overflow-hidden bg-slate-100">
                     {uni.thumbnail ? (

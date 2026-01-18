@@ -194,7 +194,7 @@ export function DynamicHero({
   return (
     <section
       className={`relative ${
-        isSlider ? "h-[600px] md:h-[700px]" : "h-[50vh] min-h-[400px]"
+        isSlider ? "h-[600px] md:h-[750px]" : "h-[60vh] min-h-[400px]"
       } flex items-center justify-center overflow-hidden bg-slate-900 group`}
     >
       {/* Background Slides */}

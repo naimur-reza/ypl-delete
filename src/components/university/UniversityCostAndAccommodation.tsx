@@ -26,10 +26,13 @@ The flats come furnished and complete with standard kitchen facilities, high-spe
     "https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=1200&auto=format&fit=crop";
 
   return (
-    <section className="py-16 md:py-20 bg-linear-to-b from-slate-50 to-white" id="accommodation">
+    <section
+      className="py-16 md:py-20 bg-linear-to-b from-slate-50 to-white"
+      id="accommodation"
+    >
       <div className="container mx-auto">
         {/* Cost of Studying Section */}
-        <div className="mb-16 max-w-4xl">
+        <div className="mb-16 max-w-5xl mx-auto">
           <div className="flex items-center gap-4 mb-8">
             <div className="w-14 h-14 bg-linear-to-br from-emerald-400 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-200">
               <Wallet className="w-7 h-7 text-white" />
@@ -66,9 +69,9 @@ The flats come furnished and complete with standard kitchen facilities, high-spe
               </h2>
             </div>
 
-            <MarkdownContent 
-                content={accommodationContent} 
-                className="[&_p]:text-slate-300 [&_strong]:text-white [&_h3]:text-white [&_a]:text-emerald-400" 
+            <MarkdownContent
+              content={accommodationContent}
+              className="[&_p]:text-slate-300 [&_strong]:text-white [&_h3]:text-white [&_a]:text-emerald-400"
             />
           </div>
 

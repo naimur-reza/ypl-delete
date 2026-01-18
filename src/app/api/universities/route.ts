@@ -6,7 +6,12 @@ import {
   handleUpdate,
   handleDelete,
 } from "@/lib/api-helpers";
-import { getSession, canManageContent, unauthorizedResponse, forbiddenResponse } from "@/lib/auth-helpers";
+import {
+  getSession,
+  canManageContent,
+  unauthorizedResponse,
+  forbiddenResponse,
+} from "@/lib/auth-helpers";
 
 export async function GET(req: NextRequest) {
   return handleGetMany(req, prisma.university, {
@@ -43,6 +48,8 @@ export async function POST(req: NextRequest) {
     metaDescription,
     metaKeywords,
     status,
+    rankingNumber,
+    costOfStudying,
   } = body;
 
   if (!name || !slug || !destinationId || !countryIds.length) {
@@ -70,6 +77,8 @@ export async function POST(req: NextRequest) {
       metaDescription,
       metaKeywords,
       status: status || "DRAFT",
+      rankingNumber,
+      costOfStudying,
       countries: countryIds?.length
         ? {
             create: (countryIds as string[]).map((cid) => ({ countryId: cid })),
@@ -90,13 +99,15 @@ export async function PUT(req: NextRequest) {
   if (!canManageContent(session)) return forbiddenResponse();
 
   const body = await req.json();
-  const { id, countryIds, ...data } = body;
+  const { id, countryIds, rankingNumber, costOfStudying, ...data } = body;
 
   if (!id) {
     return Response.json({ error: "ID is required" }, { status: 400 });
   }
 
   const updateData = { ...data };
+  if (rankingNumber !== undefined) updateData.rankingNumber = rankingNumber;
+  if (costOfStudying !== undefined) updateData.costOfStudying = costOfStudying;
 
   if (countryIds) {
     updateData.countries = {

@@ -61,6 +61,7 @@ export const ModelName = {
   CourseIntake: 'CourseIntake',
   IntakePage: 'IntakePage',
   Event: 'Event',
+  EventDestination: 'EventDestination',
   EventMedia: 'EventMedia',
   EventRegistration: 'EventRegistration',
   FAQ: 'FAQ',
@@ -135,6 +136,13 @@ export const AppointmentScalarFieldEnum = {
   name: 'name',
   email: 'email',
   phone: 'phone',
+  city: 'city',
+  addressCountry: 'addressCountry',
+  studyDestination: 'studyDestination',
+  lastQualification: 'lastQualification',
+  englishTest: 'englishTest',
+  englishTestScore: 'englishTestScore',
+  additionalInfo: 'additionalInfo',
   notes: 'notes',
   preferredAt: 'preferredAt',
   status: 'status',
@@ -335,6 +343,7 @@ export const EventScalarFieldEnum = {
   startDate: 'startDate',
   endDate: 'endDate',
   location: 'location',
+  city: 'city',
   isFeatured: 'isFeatured',
   registrationLink: 'registrationLink',
   registrationButtonText: 'registrationButtonText',
@@ -346,13 +355,23 @@ export const EventScalarFieldEnum = {
   updatedAt: 'updatedAt',
   createdBy: 'createdBy',
   updatedBy: 'updatedBy',
-  destinationId: 'destinationId',
+  banner: 'banner',
   universityId: 'universityId',
   successSummary: 'successSummary',
-  status: 'status'
+  status: 'status',
+  destinationId: 'destinationId'
 } as const
 
 export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
+
+
+export const EventDestinationScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  destinationId: 'destinationId'
+} as const
+
+export type EventDestinationScalarFieldEnum = (typeof EventDestinationScalarFieldEnum)[keyof typeof EventDestinationScalarFieldEnum]
 
 
 export const EventMediaScalarFieldEnum = {
@@ -375,6 +394,13 @@ export const EventRegistrationScalarFieldEnum = {
   name: 'name',
   email: 'email',
   phone: 'phone',
+  city: 'city',
+  addressCountry: 'addressCountry',
+  studyDestination: 'studyDestination',
+  lastQualification: 'lastQualification',
+  englishTest: 'englishTest',
+  englishTestScore: 'englishTestScore',
+  additionalInfo: 'additionalInfo',
   notes: 'notes',
   status: 'status',
   createdAt: 'createdAt',
@@ -934,6 +960,8 @@ export type TestimonialScalarFieldEnum = (typeof TestimonialScalarFieldEnum)[key
 
 export const UniversityScalarFieldEnum = {
   id: 'id',
+  rankingNumber: 'rankingNumber',
+  costOfStudying: 'costOfStudying',
   name: 'name',
   slug: 'slug',
   logo: 'logo',

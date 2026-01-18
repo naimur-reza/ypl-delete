@@ -41,7 +41,7 @@ export function BlogSlider({
   useEffect(() => {
     if (!slides.length) return;
     const timer = setInterval(
-      () => setCurrent((curr) => (curr + 1) % slides.length),
+      () => setCurrent((c) => (c + 1) % slides.length),
       5000
     );
     return () => clearInterval(timer);
@@ -62,56 +62,74 @@ export function BlogSlider({
 
   return (
     <div className="relative w-full mx-auto px-8 md:px-12 py-12">
-      {/* Navigation Buttons - Outside the overflow container */}
+      {/* Prev Button */}
       <button
         onClick={() =>
-          setCurrent((curr) => (curr - 1 + slides.length) % slides.length)
+          setCurrent((c) => (c - 1 + slides.length) % slides.length)
         }
-        className="absolute left-0 top-1/2 -translate-y-1/2 translate-x-1/2 bg-blue-600 hover:bg-blue-700 text-white w-14 h-14 flex items-center justify-center rounded-xl shadow-lg z-20 transition-all hover:scale-110 hover:shadow-blue-600/50"
+        className="absolute left-0 top-1/2 -translate-y-1/2 translate-x-1/2 bg-blue-600 hover:bg-blue-700 text-white w-14 h-14 flex items-center justify-center rounded-xl shadow-lg z-20 transition-all hover:scale-110"
         aria-label="Previous slide"
       >
         <ChevronLeft className="w-8 h-8" />
       </button>
 
+      {/* Next Button */}
       <button
-        onClick={() => setCurrent((curr) => (curr + 1) % slides.length)}
-        className="absolute right-0 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-blue-600 hover:bg-blue-700 text-white w-14 h-14 flex items-center justify-center rounded-xl shadow-lg z-20 transition-all hover:scale-110 hover:shadow-blue-600/50"
+        onClick={() => setCurrent((c) => (c + 1) % slides.length)}
+        className="absolute right-0 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-blue-600 hover:bg-blue-700 text-white w-14 h-14 flex items-center justify-center rounded-xl shadow-lg z-20 transition-all hover:scale-110"
         aria-label="Next slide"
       >
         <ChevronRight className="w-8 h-8" />
       </button>
 
-      <div className="relative bg-[#020817] rounded-sm overflow-hidden min-h-[500px] flex items-center shadow-2xl">
-        <div className="absolute inset-0 opacity-100 pointer-events-none">
-          <Image
-            src="/pattern.svg"
-            alt="Pattern"
-            fill
-            className="object-contain opacity-20"
-          />
-          <div className="absolute inset-0 bg-linear-to-r from-[#020817] via-[#020817]/80 to-transparent" />
-        </div>
+      {/* Slider */}
+      <div className="relative bg-[#020817] rounded-sm overflow-hidden min-h-[500px] shadow-2xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
+          {/* LEFT CONTENT */}
+          <div className="relative z-10 p-8 md:p-16 flex flex-col justify-center">
+            <div className="text-slate-400 mb-4 font-medium tracking-wide">
+              {getDateLabel(currentSlide.publishedAt)}
+            </div>
 
-        <div className="relative z-10 p-8 md:p-16 max-w-4xl">
-          <div className="text-slate-400 mb-4 font-medium tracking-wide">
-            {getDateLabel(currentSlide.publishedAt)}
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+              {currentSlide.title}
+            </h2>
+
+            {currentSlide.excerpt && (
+              <p className="text-slate-300 text-lg mb-8 leading-relaxed max-w-2xl line-clamp-2">
+                {currentSlide.excerpt}
+              </p>
+            )}
+
+            <Button
+              asChild
+              className="bg-accent hover:bg-accent/90 text-black font-bold rounded-xl px-8 py-6 text-base transition-transform hover:scale-105 w-fit"
+            >
+              <Link href={href}>Read more</Link>
+            </Button>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-            {currentSlide.title}
-          </h2>
-          {currentSlide.excerpt && (
-            <p className="text-slate-300 text-lg mb-8 leading-relaxed max-w-2xl">
-              {currentSlide.excerpt}
-            </p>
-          )}
-          <Button
-            asChild
-            className="bg-accent hover:bg-accent/90 text-black font-bold rounded-xl px-8 py-6 text-base transition-transform hover:scale-105"
-          >
-            <Link href={href}>Read more</Link>
-          </Button>
+
+          {/* RIGHT IMAGE */}
+          <div className="relative hidden lg:block">
+            {currentSlide.image ? (
+              <>
+                <Image
+                  src={currentSlide.image}
+                  alt={currentSlide.title}
+                  fill
+                  priority
+                  className="object-cover"
+                />
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-l from-[#020817]/90 via-[#020817]/50 to-transparent" />
+              </>
+            ) : (
+              <div className="h-full w-full bg-slate-800" />
+            )}
+          </div>
         </div>
 
+        {/* Dots */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-20">
           {slides.map((slide, idx) => (
             <button

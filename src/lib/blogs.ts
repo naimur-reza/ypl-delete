@@ -81,46 +81,55 @@ export const fetchBlogPageData = async ({
 
   const skip = (page - 1) * limit;
 
-  const [countries, featuredBlogs, blogs, totalCount, sliderBlogs] = await Promise.all([
-    prisma.country.findMany({
-      where: { status: "ACTIVE" },
-      select: { id: true, name: true, slug: true },
-      orderBy: { name: "asc" },
-    }),
-    prisma.blog.findMany({
-      where: { ...featuredWhere, isFeatured: true, status: "ACTIVE" },
-      orderBy: { publishedAt: "desc" },
-      take: 3,
-      include: {
-        countries: { include: { country: true } },
-        destination: true,
-      },
-    }),
-    prisma.blog.findMany({
-      where,
-      orderBy: { publishedAt: "desc" },
-      skip,
-      take: limit,
-      include: {
-        countries: { include: { country: true } },
-        destination: true,
-      },
-    }),
-    prisma.blog.count({ where }),
-    prisma.blog.findMany({
-      where: featuredWhere,
-      orderBy: { publishedAt: "desc" },
-      take: 5,
-      include: {
-        countries: { include: { country: true } },
-        destination: true,
-      },
-    }),
-  ]);
+  const [countries, featuredBlogs, blogs, totalCount, sliderBlogs] =
+    await Promise.all([
+      prisma.country.findMany({
+        where: { status: "ACTIVE" },
+        select: { id: true, name: true, slug: true },
+        orderBy: { name: "asc" },
+      }),
+      prisma.blog.findMany({
+        where: { ...featuredWhere, isFeatured: true, status: "ACTIVE" },
+        orderBy: { publishedAt: "desc" },
+        take: 3,
+        include: {
+          countries: { include: { country: true } },
+          destination: true,
+        },
+      }),
+      prisma.blog.findMany({
+        where,
+        orderBy: { publishedAt: "desc" },
+        skip,
+        take: limit,
+        include: {
+          countries: { include: { country: true } },
+          destination: true,
+        },
+      }),
+      prisma.blog.count({ where }),
+      prisma.blog.findMany({
+        where: featuredWhere,
+        orderBy: { publishedAt: "desc" },
+        take: 5,
+        include: {
+          countries: { include: { country: true } },
+          destination: true,
+        },
+      }),
+    ]);
 
   const totalPages = Math.ceil(totalCount / limit);
 
-  return { countries, featuredBlogs, blogs, sliderBlogs, totalCount, totalPages, currentPage: page };
+  return {
+    countries,
+    featuredBlogs,
+    blogs,
+    sliderBlogs,
+    totalCount,
+    totalPages,
+    currentPage: page,
+  };
 };
 
 export const fetchLatestBlogs = async (
@@ -138,4 +147,53 @@ export const fetchLatestBlogs = async (
       destination: true,
     },
   });
+};
+
+// New function for client-side filtering - fetches all blogs at once
+export const fetchBlogPageDataForClientFilter = async (
+  countrySlug?: string | null
+) => {
+  const baseWhere = buildBlogWhere({ countrySlug });
+
+  const [destinations, featuredBlogs, allBlogs, sliderBlogs] =
+    await Promise.all([
+      // Fetch destinations that have at least one blog
+      prisma.destination.findMany({
+        where: {
+          status: "ACTIVE",
+          blogs: { some: { status: "ACTIVE" } },
+        },
+        select: { id: true, name: true, slug: true },
+        orderBy: { name: "asc" },
+      }),
+      prisma.blog.findMany({
+        where: { ...baseWhere, isFeatured: true, status: "ACTIVE" },
+        orderBy: { publishedAt: "desc" },
+        take: 3,
+        include: {
+          countries: { include: { country: true } },
+          destination: true,
+        },
+      }),
+      // Fetch ALL blogs for client-side filtering
+      prisma.blog.findMany({
+        where: baseWhere,
+        orderBy: { publishedAt: "desc" },
+        include: {
+          countries: { include: { country: true } },
+          destination: true,
+        },
+      }),
+      prisma.blog.findMany({
+        where: baseWhere,
+        orderBy: { publishedAt: "desc" },
+        take: 5,
+        include: {
+          countries: { include: { country: true } },
+          destination: true,
+        },
+      }),
+    ]);
+
+  return { destinations, featuredBlogs, allBlogs, sliderBlogs };
 };

@@ -17,7 +17,7 @@ export async function RelatedArticles({
       id: { not: currentBlogId },
       ...(destinationId ? { destinationId } : {}),
     },
-    take: 3,
+    take: 4,
     orderBy: { createdAt: "desc" },
     select: {
       id: true,
@@ -47,12 +47,13 @@ export async function RelatedArticles({
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8   mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mx-auto">
           {relatedBlogs.map((blog) => (
             <BlogCard
               key={blog.id}
               blog={blog}
               countrySlug={countrySlug || undefined}
+              variant="related"
             />
           ))}
         </div>

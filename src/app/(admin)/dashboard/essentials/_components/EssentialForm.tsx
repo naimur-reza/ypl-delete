@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
@@ -44,6 +45,7 @@ interface EssentialFormProps {
 
 export function EssentialForm({ initialData, onSuccess }: EssentialFormProps) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const isEditing = !!initialData;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [destinations, setDestinations] = useState<DestinationOption[]>([]);
@@ -117,6 +119,9 @@ export function EssentialForm({ initialData, onSuccess }: EssentialFormProps) {
         form.reset();
         setContent("");
         setCountryIds([]);
+        await queryClient.invalidateQueries({
+          queryKey: ["data-table", "/api/essential-studies"],
+        });
         router.push("/dashboard/essentials");
         onSuccess?.();
       } catch (err) {
@@ -169,7 +174,6 @@ export function EssentialForm({ initialData, onSuccess }: EssentialFormProps) {
                   handleTitleChange(e.target.value);
                 }}
                 onBlur={field.handleBlur}
-       
               />
             </FormBase>
           )}
@@ -187,7 +191,6 @@ export function EssentialForm({ initialData, onSuccess }: EssentialFormProps) {
                   handleSlugChange(slugValue);
                 }}
                 onBlur={field.handleBlur}
-       
               />
             </FormBase>
           )}

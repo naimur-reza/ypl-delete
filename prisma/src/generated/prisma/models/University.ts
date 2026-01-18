@@ -20,12 +20,24 @@ export type UniversityModel = runtime.Types.Result.DefaultSelection<Prisma.$Univ
 
 export type AggregateUniversity = {
   _count: UniversityCountAggregateOutputType | null
+  _avg: UniversityAvgAggregateOutputType | null
+  _sum: UniversitySumAggregateOutputType | null
   _min: UniversityMinAggregateOutputType | null
   _max: UniversityMaxAggregateOutputType | null
 }
 
+export type UniversityAvgAggregateOutputType = {
+  rankingNumber: number | null
+}
+
+export type UniversitySumAggregateOutputType = {
+  rankingNumber: number | null
+}
+
 export type UniversityMinAggregateOutputType = {
   id: string | null
+  rankingNumber: number | null
+  costOfStudying: string | null
   name: string | null
   slug: string | null
   logo: string | null
@@ -50,6 +62,8 @@ export type UniversityMinAggregateOutputType = {
 
 export type UniversityMaxAggregateOutputType = {
   id: string | null
+  rankingNumber: number | null
+  costOfStudying: string | null
   name: string | null
   slug: string | null
   logo: string | null
@@ -74,6 +88,8 @@ export type UniversityMaxAggregateOutputType = {
 
 export type UniversityCountAggregateOutputType = {
   id: number
+  rankingNumber: number
+  costOfStudying: number
   name: number
   slug: number
   logo: number
@@ -98,8 +114,18 @@ export type UniversityCountAggregateOutputType = {
 }
 
 
+export type UniversityAvgAggregateInputType = {
+  rankingNumber?: true
+}
+
+export type UniversitySumAggregateInputType = {
+  rankingNumber?: true
+}
+
 export type UniversityMinAggregateInputType = {
   id?: true
+  rankingNumber?: true
+  costOfStudying?: true
   name?: true
   slug?: true
   logo?: true
@@ -124,6 +150,8 @@ export type UniversityMinAggregateInputType = {
 
 export type UniversityMaxAggregateInputType = {
   id?: true
+  rankingNumber?: true
+  costOfStudying?: true
   name?: true
   slug?: true
   logo?: true
@@ -148,6 +176,8 @@ export type UniversityMaxAggregateInputType = {
 
 export type UniversityCountAggregateInputType = {
   id?: true
+  rankingNumber?: true
+  costOfStudying?: true
   name?: true
   slug?: true
   logo?: true
@@ -209,6 +239,18 @@ export type UniversityAggregateArgs<ExtArgs extends runtime.Types.Extensions.Int
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: UniversityAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: UniversitySumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: UniversityMinAggregateInputType
@@ -239,12 +281,16 @@ export type UniversityGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   _count?: UniversityCountAggregateInputType | true
+  _avg?: UniversityAvgAggregateInputType
+  _sum?: UniversitySumAggregateInputType
   _min?: UniversityMinAggregateInputType
   _max?: UniversityMaxAggregateInputType
 }
 
 export type UniversityGroupByOutputType = {
   id: string
+  rankingNumber: number | null
+  costOfStudying: string | null
   name: string
   slug: string
   logo: string | null
@@ -266,6 +312,8 @@ export type UniversityGroupByOutputType = {
   destinationId: string
   status: $Enums.ContentStatus
   _count: UniversityCountAggregateOutputType | null
+  _avg: UniversityAvgAggregateOutputType | null
+  _sum: UniversitySumAggregateOutputType | null
   _min: UniversityMinAggregateOutputType | null
   _max: UniversityMaxAggregateOutputType | null
 }
@@ -290,6 +338,8 @@ export type UniversityWhereInput = {
   OR?: Prisma.UniversityWhereInput[]
   NOT?: Prisma.UniversityWhereInput | Prisma.UniversityWhereInput[]
   id?: Prisma.StringFilter<"University"> | string
+  rankingNumber?: Prisma.IntNullableFilter<"University"> | number | null
+  costOfStudying?: Prisma.StringNullableFilter<"University"> | string | null
   name?: Prisma.StringFilter<"University"> | string
   slug?: Prisma.StringFilter<"University"> | string
   logo?: Prisma.StringNullableFilter<"University"> | string | null
@@ -323,6 +373,8 @@ export type UniversityWhereInput = {
 
 export type UniversityOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  rankingNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  costOfStudying?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   logo?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -360,6 +412,8 @@ export type UniversityWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.UniversityWhereInput | Prisma.UniversityWhereInput[]
   OR?: Prisma.UniversityWhereInput[]
   NOT?: Prisma.UniversityWhereInput | Prisma.UniversityWhereInput[]
+  rankingNumber?: Prisma.IntNullableFilter<"University"> | number | null
+  costOfStudying?: Prisma.StringNullableFilter<"University"> | string | null
   name?: Prisma.StringFilter<"University"> | string
   logo?: Prisma.StringNullableFilter<"University"> | string | null
   thumbnail?: Prisma.StringNullableFilter<"University"> | string | null
@@ -392,6 +446,8 @@ export type UniversityWhereUniqueInput = Prisma.AtLeast<{
 
 export type UniversityOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  rankingNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  costOfStudying?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   logo?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -413,8 +469,10 @@ export type UniversityOrderByWithAggregationInput = {
   destinationId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   _count?: Prisma.UniversityCountOrderByAggregateInput
+  _avg?: Prisma.UniversityAvgOrderByAggregateInput
   _max?: Prisma.UniversityMaxOrderByAggregateInput
   _min?: Prisma.UniversityMinOrderByAggregateInput
+  _sum?: Prisma.UniversitySumOrderByAggregateInput
 }
 
 export type UniversityScalarWhereWithAggregatesInput = {
@@ -422,6 +480,8 @@ export type UniversityScalarWhereWithAggregatesInput = {
   OR?: Prisma.UniversityScalarWhereWithAggregatesInput[]
   NOT?: Prisma.UniversityScalarWhereWithAggregatesInput | Prisma.UniversityScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"University"> | string
+  rankingNumber?: Prisma.IntNullableWithAggregatesFilter<"University"> | number | null
+  costOfStudying?: Prisma.StringNullableWithAggregatesFilter<"University"> | string | null
   name?: Prisma.StringWithAggregatesFilter<"University"> | string
   slug?: Prisma.StringWithAggregatesFilter<"University"> | string
   logo?: Prisma.StringNullableWithAggregatesFilter<"University"> | string | null
@@ -446,6 +506,8 @@ export type UniversityScalarWhereWithAggregatesInput = {
 
 export type UniversityCreateInput = {
   id?: string
+  rankingNumber?: number | null
+  costOfStudying?: string | null
   name: string
   slug: string
   logo?: string | null
@@ -478,6 +540,8 @@ export type UniversityCreateInput = {
 
 export type UniversityUncheckedCreateInput = {
   id?: string
+  rankingNumber?: number | null
+  costOfStudying?: string | null
   name: string
   slug: string
   logo?: string | null
@@ -510,6 +574,8 @@ export type UniversityUncheckedCreateInput = {
 
 export type UniversityUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rankingNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costOfStudying?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -542,6 +608,8 @@ export type UniversityUpdateInput = {
 
 export type UniversityUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rankingNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costOfStudying?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -574,6 +642,8 @@ export type UniversityUncheckedUpdateInput = {
 
 export type UniversityCreateManyInput = {
   id?: string
+  rankingNumber?: number | null
+  costOfStudying?: string | null
   name: string
   slug: string
   logo?: string | null
@@ -598,6 +668,8 @@ export type UniversityCreateManyInput = {
 
 export type UniversityUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rankingNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costOfStudying?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -621,6 +693,8 @@ export type UniversityUpdateManyMutationInput = {
 
 export type UniversityUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rankingNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costOfStudying?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -665,6 +739,8 @@ export type UniversityOrderByRelationAggregateInput = {
 
 export type UniversityCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  rankingNumber?: Prisma.SortOrder
+  costOfStudying?: Prisma.SortOrder
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   logo?: Prisma.SortOrder
@@ -687,8 +763,14 @@ export type UniversityCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
 }
 
+export type UniversityAvgOrderByAggregateInput = {
+  rankingNumber?: Prisma.SortOrder
+}
+
 export type UniversityMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  rankingNumber?: Prisma.SortOrder
+  costOfStudying?: Prisma.SortOrder
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   logo?: Prisma.SortOrder
@@ -713,6 +795,8 @@ export type UniversityMaxOrderByAggregateInput = {
 
 export type UniversityMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  rankingNumber?: Prisma.SortOrder
+  costOfStudying?: Prisma.SortOrder
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   logo?: Prisma.SortOrder
@@ -733,6 +817,10 @@ export type UniversityMinOrderByAggregateInput = {
   updatedBy?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+}
+
+export type UniversitySumOrderByAggregateInput = {
+  rankingNumber?: Prisma.SortOrder
 }
 
 export type UniversityCreateNestedOneWithoutCoursesInput = {
@@ -899,6 +987,8 @@ export type UniversityUpdateOneRequiredWithoutDetailNestedInput = {
 
 export type UniversityCreateWithoutCoursesInput = {
   id?: string
+  rankingNumber?: number | null
+  costOfStudying?: string | null
   name: string
   slug: string
   logo?: string | null
@@ -930,6 +1020,8 @@ export type UniversityCreateWithoutCoursesInput = {
 
 export type UniversityUncheckedCreateWithoutCoursesInput = {
   id?: string
+  rankingNumber?: number | null
+  costOfStudying?: string | null
   name: string
   slug: string
   logo?: string | null
@@ -977,6 +1069,8 @@ export type UniversityUpdateToOneWithWhereWithoutCoursesInput = {
 
 export type UniversityUpdateWithoutCoursesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rankingNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costOfStudying?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1008,6 +1102,8 @@ export type UniversityUpdateWithoutCoursesInput = {
 
 export type UniversityUncheckedUpdateWithoutCoursesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rankingNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costOfStudying?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1039,6 +1135,8 @@ export type UniversityUncheckedUpdateWithoutCoursesInput = {
 
 export type UniversityCreateWithoutEventsInput = {
   id?: string
+  rankingNumber?: number | null
+  costOfStudying?: string | null
   name: string
   slug: string
   logo?: string | null
@@ -1070,6 +1168,8 @@ export type UniversityCreateWithoutEventsInput = {
 
 export type UniversityUncheckedCreateWithoutEventsInput = {
   id?: string
+  rankingNumber?: number | null
+  costOfStudying?: string | null
   name: string
   slug: string
   logo?: string | null
@@ -1117,6 +1217,8 @@ export type UniversityUpdateToOneWithWhereWithoutEventsInput = {
 
 export type UniversityUpdateWithoutEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rankingNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costOfStudying?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1148,6 +1250,8 @@ export type UniversityUpdateWithoutEventsInput = {
 
 export type UniversityUncheckedUpdateWithoutEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rankingNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costOfStudying?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1179,6 +1283,8 @@ export type UniversityUncheckedUpdateWithoutEventsInput = {
 
 export type UniversityCreateWithoutDestinationInput = {
   id?: string
+  rankingNumber?: number | null
+  costOfStudying?: string | null
   name: string
   slug: string
   logo?: string | null
@@ -1210,6 +1316,8 @@ export type UniversityCreateWithoutDestinationInput = {
 
 export type UniversityUncheckedCreateWithoutDestinationInput = {
   id?: string
+  rankingNumber?: number | null
+  costOfStudying?: string | null
   name: string
   slug: string
   logo?: string | null
@@ -1270,6 +1378,8 @@ export type UniversityScalarWhereInput = {
   OR?: Prisma.UniversityScalarWhereInput[]
   NOT?: Prisma.UniversityScalarWhereInput | Prisma.UniversityScalarWhereInput[]
   id?: Prisma.StringFilter<"University"> | string
+  rankingNumber?: Prisma.IntNullableFilter<"University"> | number | null
+  costOfStudying?: Prisma.StringNullableFilter<"University"> | string | null
   name?: Prisma.StringFilter<"University"> | string
   slug?: Prisma.StringFilter<"University"> | string
   logo?: Prisma.StringNullableFilter<"University"> | string | null
@@ -1294,6 +1404,8 @@ export type UniversityScalarWhereInput = {
 
 export type UniversityCreateWithoutCountriesInput = {
   id?: string
+  rankingNumber?: number | null
+  costOfStudying?: string | null
   name: string
   slug: string
   logo?: string | null
@@ -1325,6 +1437,8 @@ export type UniversityCreateWithoutCountriesInput = {
 
 export type UniversityUncheckedCreateWithoutCountriesInput = {
   id?: string
+  rankingNumber?: number | null
+  costOfStudying?: string | null
   name: string
   slug: string
   logo?: string | null
@@ -1372,6 +1486,8 @@ export type UniversityUpdateToOneWithWhereWithoutCountriesInput = {
 
 export type UniversityUpdateWithoutCountriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rankingNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costOfStudying?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1403,6 +1519,8 @@ export type UniversityUpdateWithoutCountriesInput = {
 
 export type UniversityUncheckedUpdateWithoutCountriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rankingNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costOfStudying?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1434,6 +1552,8 @@ export type UniversityUncheckedUpdateWithoutCountriesInput = {
 
 export type UniversityCreateWithoutBlogLinksInput = {
   id?: string
+  rankingNumber?: number | null
+  costOfStudying?: string | null
   name: string
   slug: string
   logo?: string | null
@@ -1465,6 +1585,8 @@ export type UniversityCreateWithoutBlogLinksInput = {
 
 export type UniversityUncheckedCreateWithoutBlogLinksInput = {
   id?: string
+  rankingNumber?: number | null
+  costOfStudying?: string | null
   name: string
   slug: string
   logo?: string | null
@@ -1512,6 +1634,8 @@ export type UniversityUpdateToOneWithWhereWithoutBlogLinksInput = {
 
 export type UniversityUpdateWithoutBlogLinksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rankingNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costOfStudying?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1543,6 +1667,8 @@ export type UniversityUpdateWithoutBlogLinksInput = {
 
 export type UniversityUncheckedUpdateWithoutBlogLinksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rankingNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costOfStudying?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1574,6 +1700,8 @@ export type UniversityUncheckedUpdateWithoutBlogLinksInput = {
 
 export type UniversityCreateWithoutFaqLinksInput = {
   id?: string
+  rankingNumber?: number | null
+  costOfStudying?: string | null
   name: string
   slug: string
   logo?: string | null
@@ -1605,6 +1733,8 @@ export type UniversityCreateWithoutFaqLinksInput = {
 
 export type UniversityUncheckedCreateWithoutFaqLinksInput = {
   id?: string
+  rankingNumber?: number | null
+  costOfStudying?: string | null
   name: string
   slug: string
   logo?: string | null
@@ -1652,6 +1782,8 @@ export type UniversityUpdateToOneWithWhereWithoutFaqLinksInput = {
 
 export type UniversityUpdateWithoutFaqLinksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rankingNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costOfStudying?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1683,6 +1815,8 @@ export type UniversityUpdateWithoutFaqLinksInput = {
 
 export type UniversityUncheckedUpdateWithoutFaqLinksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rankingNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costOfStudying?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1714,6 +1848,8 @@ export type UniversityUncheckedUpdateWithoutFaqLinksInput = {
 
 export type UniversityCreateWithoutTestimonialsInput = {
   id?: string
+  rankingNumber?: number | null
+  costOfStudying?: string | null
   name: string
   slug: string
   logo?: string | null
@@ -1745,6 +1881,8 @@ export type UniversityCreateWithoutTestimonialsInput = {
 
 export type UniversityUncheckedCreateWithoutTestimonialsInput = {
   id?: string
+  rankingNumber?: number | null
+  costOfStudying?: string | null
   name: string
   slug: string
   logo?: string | null
@@ -1792,6 +1930,8 @@ export type UniversityUpdateToOneWithWhereWithoutTestimonialsInput = {
 
 export type UniversityUpdateWithoutTestimonialsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rankingNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costOfStudying?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1823,6 +1963,8 @@ export type UniversityUpdateWithoutTestimonialsInput = {
 
 export type UniversityUncheckedUpdateWithoutTestimonialsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rankingNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costOfStudying?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1854,6 +1996,8 @@ export type UniversityUncheckedUpdateWithoutTestimonialsInput = {
 
 export type UniversityCreateWithoutScholarshipsInput = {
   id?: string
+  rankingNumber?: number | null
+  costOfStudying?: string | null
   name: string
   slug: string
   logo?: string | null
@@ -1885,6 +2029,8 @@ export type UniversityCreateWithoutScholarshipsInput = {
 
 export type UniversityUncheckedCreateWithoutScholarshipsInput = {
   id?: string
+  rankingNumber?: number | null
+  costOfStudying?: string | null
   name: string
   slug: string
   logo?: string | null
@@ -1932,6 +2078,8 @@ export type UniversityUpdateToOneWithWhereWithoutScholarshipsInput = {
 
 export type UniversityUpdateWithoutScholarshipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rankingNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costOfStudying?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1963,6 +2111,8 @@ export type UniversityUpdateWithoutScholarshipsInput = {
 
 export type UniversityUncheckedUpdateWithoutScholarshipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rankingNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costOfStudying?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1994,6 +2144,8 @@ export type UniversityUncheckedUpdateWithoutScholarshipsInput = {
 
 export type UniversityCreateWithoutDetailInput = {
   id?: string
+  rankingNumber?: number | null
+  costOfStudying?: string | null
   name: string
   slug: string
   logo?: string | null
@@ -2025,6 +2177,8 @@ export type UniversityCreateWithoutDetailInput = {
 
 export type UniversityUncheckedCreateWithoutDetailInput = {
   id?: string
+  rankingNumber?: number | null
+  costOfStudying?: string | null
   name: string
   slug: string
   logo?: string | null
@@ -2072,6 +2226,8 @@ export type UniversityUpdateToOneWithWhereWithoutDetailInput = {
 
 export type UniversityUpdateWithoutDetailInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rankingNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costOfStudying?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2103,6 +2259,8 @@ export type UniversityUpdateWithoutDetailInput = {
 
 export type UniversityUncheckedUpdateWithoutDetailInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rankingNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costOfStudying?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2134,6 +2292,8 @@ export type UniversityUncheckedUpdateWithoutDetailInput = {
 
 export type UniversityCreateManyDestinationInput = {
   id?: string
+  rankingNumber?: number | null
+  costOfStudying?: string | null
   name: string
   slug: string
   logo?: string | null
@@ -2157,6 +2317,8 @@ export type UniversityCreateManyDestinationInput = {
 
 export type UniversityUpdateWithoutDestinationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rankingNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costOfStudying?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2188,6 +2350,8 @@ export type UniversityUpdateWithoutDestinationInput = {
 
 export type UniversityUncheckedUpdateWithoutDestinationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rankingNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costOfStudying?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2219,6 +2383,8 @@ export type UniversityUncheckedUpdateWithoutDestinationInput = {
 
 export type UniversityUncheckedUpdateManyWithoutDestinationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rankingNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costOfStudying?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2327,6 +2493,8 @@ export type UniversityCountOutputTypeCountCountriesArgs<ExtArgs extends runtime.
 
 export type UniversitySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  rankingNumber?: boolean
+  costOfStudying?: boolean
   name?: boolean
   slug?: boolean
   logo?: boolean
@@ -2361,6 +2529,8 @@ export type UniversitySelect<ExtArgs extends runtime.Types.Extensions.InternalAr
 
 export type UniversitySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  rankingNumber?: boolean
+  costOfStudying?: boolean
   name?: boolean
   slug?: boolean
   logo?: boolean
@@ -2386,6 +2556,8 @@ export type UniversitySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
 
 export type UniversitySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  rankingNumber?: boolean
+  costOfStudying?: boolean
   name?: boolean
   slug?: boolean
   logo?: boolean
@@ -2411,6 +2583,8 @@ export type UniversitySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
 
 export type UniversitySelectScalar = {
   id?: boolean
+  rankingNumber?: boolean
+  costOfStudying?: boolean
   name?: boolean
   slug?: boolean
   logo?: boolean
@@ -2433,7 +2607,7 @@ export type UniversitySelectScalar = {
   status?: boolean
 }
 
-export type UniversityOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "logo" | "thumbnail" | "description" | "providerType" | "isFeatured" | "website" | "address" | "phone" | "email" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "destinationId" | "status", ExtArgs["result"]["university"]>
+export type UniversityOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "rankingNumber" | "costOfStudying" | "name" | "slug" | "logo" | "thumbnail" | "description" | "providerType" | "isFeatured" | "website" | "address" | "phone" | "email" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "destinationId" | "status", ExtArgs["result"]["university"]>
 export type UniversityInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   blogLinks?: boolean | Prisma.University$blogLinksArgs<ExtArgs>
   courses?: boolean | Prisma.University$coursesArgs<ExtArgs>
@@ -2468,6 +2642,8 @@ export type $UniversityPayload<ExtArgs extends runtime.Types.Extensions.Internal
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    rankingNumber: number | null
+    costOfStudying: string | null
     name: string
     slug: string
     logo: string | null
@@ -2921,6 +3097,8 @@ export interface Prisma__UniversityClient<T, Null = never, ExtArgs extends runti
  */
 export interface UniversityFieldRefs {
   readonly id: Prisma.FieldRef<"University", 'String'>
+  readonly rankingNumber: Prisma.FieldRef<"University", 'Int'>
+  readonly costOfStudying: Prisma.FieldRef<"University", 'String'>
   readonly name: Prisma.FieldRef<"University", 'String'>
   readonly slug: Prisma.FieldRef<"University", 'String'>
   readonly logo: Prisma.FieldRef<"University", 'String'>

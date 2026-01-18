@@ -30,6 +30,7 @@ import {
   LogOut,
   ChevronUp,
   UserCheck,
+  UserPlus,
 } from "lucide-react";
 
 import {
@@ -176,6 +177,11 @@ const menuSections: MenuSection[] = [
   {
     title: "Applications",
     items: [
+      {
+        title: "Leads",
+        url: "/dashboard/leads",
+        icon: UserPlus,
+      },
       {
         title: "Job Applications",
         url: "/dashboard/applications",

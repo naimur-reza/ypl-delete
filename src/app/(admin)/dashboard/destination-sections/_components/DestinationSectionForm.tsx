@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
@@ -58,6 +59,7 @@ export function DestinationSectionForm({
   onSuccess,
 }: DestinationSectionFormProps) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const isEditing = !!initialData;
   const [destinations, setDestinations] = useState<DestinationOption[]>([]);
   const [loadingDestinations, setLoadingDestinations] = useState(false);
@@ -98,7 +100,7 @@ export function DestinationSectionForm({
       displayOrder: initialData?.displayOrder ?? 0,
       status: initialData?.status ?? "DRAFT",
     } as FormData,
-    validators: { onSubmit: formSchema as any},
+    validators: { onSubmit: formSchema as any },
     onSubmit: async ({ value }) => {
       setIsSubmitting(true);
       try {
@@ -127,6 +129,9 @@ export function DestinationSectionForm({
         );
         form.reset();
         setContent("");
+        await queryClient.invalidateQueries({
+          queryKey: ["data-table", "/api/destination-sections"],
+        });
         router.push("/dashboard/destination-sections");
         onSuccess?.();
       } catch (err) {
@@ -180,7 +185,6 @@ export function DestinationSectionForm({
                   handleTitleChange(e.target.value);
                 }}
                 onBlur={field.handleBlur}
-    
               />
             </FormBase>
           )}
@@ -198,7 +202,6 @@ export function DestinationSectionForm({
                   handleSlugChange(slugValue);
                 }}
                 onBlur={field.handleBlur}
-     
               />
             </FormBase>
           )}

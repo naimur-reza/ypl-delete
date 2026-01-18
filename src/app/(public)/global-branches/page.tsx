@@ -20,59 +20,10 @@ export default async function GlobalBranchesPage({ params }: PageProps) {
   const { country } = await params;
 
   // Static data for now as per request
-  const flattenedOffices = [
-    {
-      office: {
-        id: "uk-london",
-        name: "London Office",
-        slug: "london",
-        subtitle: "Headquarters",
-        email: "london@nwcedu.com",
-        phone: "+44 20 1234 5678",
-        address: "123 Oxford Street, London, UK",
-      },
-      country: {
-        id: "uk",
-        name: "United Kingdom",
-        slug: "uk",
-      },
-    },
-    {
-      office: {
-        id: "uae-dubai",
-        name: "Dubai Office",
-        slug: "dubai",
-        subtitle: "Middle East Hub",
-        email: "dubai@nwcedu.com",
-        phone: "+971 4 123 4567",
-        address: "Dubai International Academic City",
-      },
-      country: {
-        id: "uae",
-        name: "United Arab Emirates",
-        slug: "uae",
-      },
-    },
-    {
-      office: {
-        id: "bd-dhaka",
-        name: "Dhaka Office",
-        slug: "dhaka",
-        subtitle: "Bangladesh Regional Office",
-        email: "dhaka@nwcedu.com",
-        phone: "+880 2 1234 5678",
-        address: "Gulshan 2, Dhaka, Bangladesh",
-      },
-      country: {
-        id: "bd",
-        name: "Bangladesh",
-        slug: "bangladesh",
-      },
-    },
-  ];
 
   const globalOffices = await prisma.globalOffice.findMany({
     where: {
+      status: "ACTIVE",
       countries: {
         some: {
           country: {
@@ -89,8 +40,6 @@ export default async function GlobalBranchesPage({ params }: PageProps) {
       },
     },
   });
-
-  console.log("Global Offices:", globalOffices);
 
   return (
     <div className="min-h-screen bg-gray-50">
