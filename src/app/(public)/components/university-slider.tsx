@@ -87,7 +87,7 @@ export function UniversitySlider({ universities, destinationId }: UniversitySlid
               delay: 5000,
               disableOnInteraction: false,
             }}
-            className="!pb-10"
+            className="pb-10!"
           >
             {universities.map((uni) => (
               <SwiperSlide key={uni.id} className="h-auto">

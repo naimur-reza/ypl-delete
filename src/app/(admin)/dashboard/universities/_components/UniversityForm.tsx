@@ -156,6 +156,8 @@ export function UniversityForm({
           accommodation: data.accommodation || null,
           rankingNumber: data.rankingNumber || null,
           costOfStudying: data.costOfStudying || null,
+          overview: data.overview || null,
+          entryRequirements: data.entryRequirements || null,
         });
 
         const submitData = {
@@ -324,16 +326,32 @@ export function UniversityForm({
 
             <form.AppField name="countryIds">
               {(field) => (
-                <CountrySelect
-                  value={countryIds}
-                  onChange={(ids) => {
-                    setCountryIds(ids);
-                    field.handleChange(ids);
-                  }}
-                  label="Select Countries"
-                />
+                <FormBase label="Select Countries">
+                  <CountrySelect
+                    value={countryIds}
+                    onChange={(ids) => {
+                      setCountryIds(ids);
+                      field.handleChange(ids);
+                    }}
+                  />
+                </FormBase>
               )}
             </form.AppField>
+            {/* <form.Subscribe
+              selector={(state) => [state.canSubmit, state.isSubmitting, state.errors]}
+            >
+              {([canSubmit, isSubmitting, errors]) => {
+                if (!canSubmit && !isSubmitting && errors.length > 0 && form.state.submissionAttempts > 0) {
+                  // This is a bit tricky to run effects inside render, but for debugging/quick feedback:
+                  return (
+                    <div className="text-red-500 text-sm font-medium p-2 bg-red-50 border border-red-200 rounded">
+                      Please fix the following errors: {errors.map(e => e?.toString()).join(", ")}
+                    </div>
+                  );
+                }
+                return null;
+              }}
+            </form.Subscribe> */}
             <form.AppField name="destinationId">
               {(field) => (
                 <field.Select label="Destination">
@@ -405,7 +423,7 @@ export function UniversityForm({
                {(field) => <field.RichText label="Tuition Fees Details" />}
              </form.AppField>
              <form.AppField name="famousFor">
-               {(field) => <field.RichText label="Famous For" />}
+               {(field) => <field.Textarea label="Famous For" />}
              </form.AppField>
           </TabsContent>
 
