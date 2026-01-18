@@ -62,7 +62,7 @@ export function HeroSliderClient({
   };
 
   return (
-    <div className="relative w-full h-[600px] md:h-[800px] overflow-hidden bg-background group">
+    <div className="relative w-full h-[500px] sm:h-[600px] md:h-[800px] overflow-hidden bg-background group">
       {/* Slides Container */}
       <div className="relative w-full h-full">
         {slides.map((slide, index) => (
@@ -77,21 +77,21 @@ export function HeroSliderClient({
         ))}
       </div>
 
-      {/* Navigation Arrows - Only visible on hover for desktop, always for mobile */}
+      {/* Navigation Arrows - Always visible on mobile, hover on desktop */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-30 p-4 rounded-full bg-black/20 hover:bg-black/40 text-white border border-white/10 backdrop-blur-md transition-all duration-300 hover:scale-110 opacity-0 group-hover:opacity-100 translate-x-[-20px] group-hover:translate-x-0"
+        className="absolute left-2 sm:left-4 md:left-8 top-1/2 -translate-y-1/2 z-30 p-2 sm:p-3 md:p-4 rounded-full bg-black/30 sm:bg-black/20 hover:bg-black/40 text-white border border-white/10 backdrop-blur-md transition-all duration-300 hover:scale-110 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 translate-x-0 sm:translate-x-[-20px] sm:group-hover:translate-x-0 touch-manipulation"
         aria-label="Previous slide"
       >
-        <ChevronLeft className="w-8 h-8" />
+        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8" />
       </button>
 
       <button
         onClick={nextSlide}
-        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 p-4 rounded-full bg-black/20 hover:bg-black/40 text-white border border-white/10 backdrop-blur-md transition-all duration-300 hover:scale-110 opacity-0 group-hover:opacity-100 translate-x-[20px] group-hover:translate-x-0"
+        className="absolute right-2 sm:right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 p-2 sm:p-3 md:p-4 rounded-full bg-black/30 sm:bg-black/20 hover:bg-black/40 text-white border border-white/10 backdrop-blur-md transition-all duration-300 hover:scale-110 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 translate-x-0 sm:translate-x-[20px] sm:group-hover:translate-x-0 touch-manipulation"
         aria-label="Next slide"
       >
-        <ChevronRight className="w-8 h-8" />
+        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8" />
       </button>
 
       {/* Dot Navigation with Progress Indicator style */}

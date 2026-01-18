@@ -66,10 +66,10 @@ export function UniversityListing({ universities }: UniversityListingProps) {
         getValue: (uni) => uni.providerType,
         matchType: "exact",
       },
-      city: {
-        getValue: (uni) => extractCity(uni.address),
-        matchType: "exact",
-      },
+      // city: {
+      //   getValue: (uni) => extractCity(uni.address),
+      //   matchType: "exact",
+      // },
       special: {
         getValue: (uni) => {
           const specials: string[] = [];

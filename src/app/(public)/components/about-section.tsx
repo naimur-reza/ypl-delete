@@ -127,12 +127,12 @@ export async function AboutSection() {
         <div className="absolute -bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-linear-to-tl from-emerald-100 to-pink-100 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center">
           {/* Left Content - Text */}
-          <div className="space-y-5 text-gray-800">
+          <div className="space-y-4 sm:space-y-5 text-gray-800">
             <div>
-              <h2 className="text-4xl md:text-5xl font-extrabold leading-tight text-gray-900">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight text-gray-900">
                 Achieve Your UK Study Dreams with{" "}
                 <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-red-600">
                   NWC.
@@ -140,52 +140,52 @@ export async function AboutSection() {
               </h2>
             </div>
 
-            <p className="text-lg text-gray-700 leading-relaxed max-w-xl">
+            <p className="text-base sm:text-lg text-gray-700 leading-relaxed max-w-xl">
               At NWC, we're dedicated to transforming your ambition to study in
               the UK into a reality. From selecting the perfect course and
               university to navigating funding and visa applications, our expert
               guidance ensures a smooth and successful journey.
             </p>
 
-            <div className="pt-4">
+            <div className="pt-2 sm:pt-4">
               <CountryAwareLink
                 href="/apply-now"
-                className="group flex items-center gap-3 w-fit text-red-600 font-bold border-b-2 border-red-500 pb-1 hover:text-red-700 transition-colors duration-300"
+                className="group flex items-center gap-2 sm:gap-3 w-fit text-red-600 font-bold border-b-2 border-red-500 pb-1 hover:text-red-700 transition-colors duration-300 text-sm sm:text-base touch-manipulation min-h-[44px] items-center"
               >
                 Discover Our Expert Consultants
-                <ArrowLeftRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
+                <ArrowLeftRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-2 transition-transform duration-300" />
               </CountryAwareLink>
             </div>
           </div>
 
           {/* Right Content - The Cards */}
-          <div className="grid sm:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
             {cards.map((card, idx) => {
               const Icon = card.icon;
               return (
                 <div
                   key={idx}
                   className={`
-                    relative bg-white rounded-3xl p-8 shadow-xl border border-gray-100
+                    relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl border border-gray-100
                     transform transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl
                     ${idx % 2 === 1 ? "lg:translate-y-12" : ""}
                   `}
                 >
                   <div
-                    className={`w-16 h-16 rounded-2xl ${card.lightColor} flex items-center justify-center mb-6 shadow-md`}
+                    className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl sm:rounded-2xl ${card.lightColor} flex items-center justify-center mb-4 sm:mb-6 shadow-md`}
                   >
                     <Icon
-                      size={32}
+                      size={24}
                       strokeWidth={2.5}
-                      className={card.color.replace("bg-", "text-")}
+                      className={`${card.color.replace("bg-", "text-")} sm:w-8 sm:h-8 md:w-8 md:h-8`}
                     />
                   </div>
 
                   <div>
-                    <h3 className="text-3xl font-extrabold text-gray-900">
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900">
                       {card.title}
                     </h3>
-                    <p className="text-base font-semibold text-gray-600 uppercase tracking-wider mt-2">
+                    <p className="text-sm sm:text-base font-semibold text-gray-600 uppercase tracking-wider mt-1 sm:mt-2">
                       {card.subtitle}
                     </p>
                   </div>

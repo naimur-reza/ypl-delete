@@ -177,7 +177,7 @@ export function getSocialLinks(settings: FooterSettings): SocialLinks {
  * Fetch global offices for footer display
  */
 export async function getFooterGlobalOffices(countrySlug: string | undefined) {
-  console.log("Fetching global offices for countrySlug:", countrySlug);
+
   try {
     const offices = await prisma.globalOffice.findMany({
       where: {

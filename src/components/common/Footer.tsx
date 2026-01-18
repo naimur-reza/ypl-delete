@@ -30,7 +30,7 @@ export default async function Footer({
     getFooterGlobalOffices(countrySlug),
   ]);
 
-  console.log(globalOffices);
+
   const quickLinks = getFooterQuickLinks(settings.quickLinks);
   const socialLinks = getSocialLinks(settings);
 
@@ -226,9 +226,8 @@ export default async function Footer({
                 {globalOffices.map((office, index) => (
                   <span key={office.id} className="flex items-center gap-3">
                     <CountryAwareLink
-                      href={`/global-branches/${
-                        office.countries[0] || "global"
-                      }/${office.slug}`}
+                      href={`/global-branches/${office.countries[0] || "global"
+                        }/${office.slug}`}
                       className="text-slate-400 hover:text-primary transition-colors"
                     >
                       {office.name}

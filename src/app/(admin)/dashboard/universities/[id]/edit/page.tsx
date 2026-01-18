@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { UniversityForm } from "../../_components/UniversityForm";
+import { EditPageSkeleton } from "@/components/ui/edit-page-skeleton";
 import { toast } from "sonner";
 
 export default function EditUniversityPage() {
@@ -42,14 +43,7 @@ export default function EditUniversityPage() {
   }, [id, router]);
 
   if (isLoading) {
-    return (
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Edit University</h1>
-          <p className="text-muted-foreground">Loading...</p>
-        </div>
-      </div>
-    );
+    return <EditPageSkeleton />;
   }
 
   if (!university) {

@@ -109,33 +109,33 @@ const CountryModalClient = ({
         </button>
       </DialogTrigger>
 
-      {/* Modal Content */}
-      <DialogContent className="max-w-md rounded-xl p-8">
-        <DialogHeader>
-          <DialogTitle className="text-center text-xl font-semibold">
+      {/* Modal Content - Full screen on mobile */}
+      <DialogContent className="w-full max-w-md sm:max-w-md rounded-none sm:rounded-xl p-4 sm:p-6 md:p-8 h-full sm:h-auto max-h-screen sm:max-h-[90vh] flex flex-col">
+        <DialogHeader className="pb-4">
+          <DialogTitle className="text-center text-lg sm:text-xl font-semibold">
             Where Would You Like to Visit?
           </DialogTitle>
         </DialogHeader>
 
-        {/* Country Grid */}
+        {/* Country Grid - Responsive grid */}
         {countries.length > 0 && (
-          <div className="mt-6 grid grid-cols-3 gap-6 place-items-center">
+          <div className="mt-4 sm:mt-6 grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 place-items-center overflow-y-auto flex-1">
             {/* Global Option */}
             <button
-              className="flex flex-col items-center gap-2 hover:scale-105 transition-transform cursor-pointer"
+              className="flex flex-col items-center gap-2 sm:gap-2 hover:scale-105 active:scale-95 transition-transform cursor-pointer touch-manipulation min-w-[80px] sm:min-w-[100px]"
               onClick={handleGoGlobal}
             >
               <div
-                className={`size-15 rounded-full overflow-hidden border-2 bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center transition-all ${
+                className={`size-12 sm:size-14 md:size-16 rounded-full overflow-hidden border-2 bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center transition-all ${
                   !activeCountrySlug
                     ? "ring-2 ring-primary ring-offset-2 border-primary"
                     : "border-transparent hover:border-primary/50"
                 }`}
               >
-                <GlobeIcon className="size-8 text-white" />
+                <GlobeIcon className="size-6 sm:size-7 md:size-8 text-white" />
               </div>
               <span
-                className={`text-sm font-medium ${
+                className={`text-xs sm:text-sm font-medium text-center ${
                   !activeCountrySlug ? "text-primary" : ""
                 }`}
               >
@@ -146,11 +146,11 @@ const CountryModalClient = ({
             {countries.map((country) => (
               <button
                 key={country.id}
-                className="flex flex-col items-center gap-2 hover:scale-105 transition-transform cursor-pointer"
+                className="flex flex-col items-center gap-2 sm:gap-2 hover:scale-105 active:scale-95 transition-transform cursor-pointer touch-manipulation min-w-[80px] sm:min-w-[100px]"
                 onClick={() => handleCountryChange(country)}
               >
                 <div
-                  className={`size-15 rounded-full overflow-hidden border-2 transition-all ${
+                  className={`size-12 sm:size-14 md:size-16 rounded-full overflow-hidden border-2 transition-all ${
                     activeCountrySlug === country.slug
                       ? "ring-2 ring-primary ring-offset-2 border-primary"
                       : "border-transparent hover:border-primary/50"
@@ -165,7 +165,7 @@ const CountryModalClient = ({
                   />
                 </div>
                 <span
-                  className={`text-sm font-medium ${
+                  className={`text-xs sm:text-sm font-medium text-center ${
                     activeCountrySlug === country.slug ? "text-primary" : ""
                   }`}
                 >

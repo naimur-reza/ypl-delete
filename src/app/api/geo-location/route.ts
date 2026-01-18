@@ -1,66 +1,156 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
+/**
+ * Multi-provider geo-location detection
+ * Priority order:
+ * 1. Vercel's x-vercel-ip-country header (most accurate on Vercel)
+ * 2. Cloudflare's CF-IPCountry header (if using Cloudflare)
+ * 3. ipinfo.io API (external service, more accurate than geoip-lite)
+ * 4. geoip-lite (local database, last resort)
+ */
+
+interface GeoResult {
+  country: string | null;
+  source: string;
+}
+
+async function detectCountryFromHeaders(request: NextRequest): Promise<GeoResult | null> {
+  // Check Vercel's geo header first (most reliable on Vercel deployment)
+  const vercelCountry = request.headers.get("x-vercel-ip-country");
+  if (vercelCountry) {
+    return { country: vercelCountry, source: "vercel" };
+  }
+
+  // Check Cloudflare's geo header
+  const cfCountry = request.headers.get("cf-ipcountry");
+  if (cfCountry && cfCountry !== "XX") {
+    return { country: cfCountry, source: "cloudflare" };
+  }
+
+  return null;
+}
+
+async function detectCountryFromIpinfoApi(ip: string): Promise<GeoResult | null> {
+  try {
+    // ipinfo.io free tier - 50k requests/month
+    const response = await fetch(`https://ipinfo.io/${ip}/json?token=`, {
+      headers: { Accept: "application/json" },
+      signal: AbortSignal.timeout(3000),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      if (data.country) {
+        return { country: data.country, source: "ipinfo" };
+      }
+    }
+  } catch {
+    // Silently fail
+  }
+  return null;
+}
+
+async function detectCountryFromGeoipLite(ip: string): Promise<GeoResult | null> {
+  try {
+    const geoip = require("geoip-lite");
+    const geo = geoip.lookup(ip);
+    if (geo?.country) {
+      return { country: geo.country, source: "geoip-lite" };
+    }
+  } catch {
+    // Silently fail
+  }
+  return null;
+}
+
 export async function GET(request: NextRequest) {
   try {
-    // Get IP from request headers or fallback
+    // Get IP from request headers
     const forwarded = request.headers.get("x-forwarded-for");
     const realIp = request.headers.get("x-real-ip");
-    let ip = forwarded ? forwarded.split(",")[0].trim() : realIp || "127.0.0.1";
+    const ip = forwarded ? forwarded.split(",")[0].trim() : realIp || "127.0.0.1";
 
-    console.log("Geo-location request - IP:", ip);
-
-    // In development/localhost, we can't determine location
-    // Return test data or null
-    if (
+    // Check if localhost (development mode)
+    const isLocalhost =
       ip === "127.0.0.1" ||
       ip === "::1" ||
-      ip === "http://localhost:3000" ||
       ip.startsWith("192.168.") ||
-      ip.startsWith("10.")
-    ) {
-      console.log("Localhost detected");
+      ip.startsWith("10.") ||
+      ip.startsWith("172.16.") ||
+      ip.startsWith("172.17.") ||
+      ip.startsWith("172.18.") ||
+      ip.startsWith("172.19.") ||
+      ip.startsWith("172.2") ||
+      ip.startsWith("172.30.") ||
+      ip.startsWith("172.31.");
 
-      // For testing purposes, you can hardcode a country here
-      // Uncomment the next 3 lines to test with a specific country
-      // const testCountry = await prisma.country.findFirst({
-      //   where: { isoCode: "BD", status: "ACTIVE" },
-      //   select: { slug: true, name: true, isoCode: true },
-      // });
+    if (isLocalhost) {
+      // Test mode: return Bangladesh for local development
+      const testCountry = await prisma.country.findFirst({
+        where: { isoCode: "BD", status: "ACTIVE" },
+        select: { slug: true, name: true, isoCode: true },
+      });
 
+      if (testCountry) {
+        const response = NextResponse.json(
+          {
+            country: testCountry.isoCode,
+            countrySlug: testCountry.slug,
+            countryName: testCountry.name,
+            ip,
+            source: "test-mode",
+            message: "Localhost - TEST MODE with Bangladesh",
+          },
+          { status: 200 }
+        );
+
+        response.cookies.set("detected_geo_origin", testCountry.isoCode, {
+          maxAge: 60 * 60 * 24 * 365,
+          path: "/",
+        });
+
+        return response;
+      }
+
+      return NextResponse.json(
+        { country: null, countrySlug: null, ip, message: "Localhost - no test country found" },
+        { status: 200 }
+      );
+    }
+
+    // Multi-provider geo detection for production
+    let geoResult: GeoResult | null = null;
+
+    // 1. Try Vercel/Cloudflare headers first (fastest, most accurate)
+    geoResult = await detectCountryFromHeaders(request);
+
+    // 2. If no header detection, try ipinfo.io API
+    if (!geoResult) {
+      geoResult = await detectCountryFromIpinfoApi(ip);
+    }
+
+    // 3. Last resort: geoip-lite local database
+    if (!geoResult) {
+      geoResult = await detectCountryFromGeoipLite(ip);
+    }
+
+    if (!geoResult || !geoResult.country) {
       return NextResponse.json(
         {
           country: null,
           countrySlug: null,
           ip,
-          message: "Localhost - no geo detection available in development",
+          message: "No geo data found from any provider"
         },
         { status: 200 }
       );
     }
 
-    // For production, use geoip-lite
-    let geo = null;
-    try {
-      const geoip = require("geoip-lite");
-      geo = geoip.lookup(ip);
-    } catch (geoError) {
-      console.error("geoip-lite error:", geoError);
-    }
-
-    console.log("Geo lookup result:", geo);
-
-    if (!geo) {
-      return NextResponse.json(
-        { country: null, countrySlug: null, ip, message: "No geo data found" },
-        { status: 200 }
-      );
-    }
-
-    // Find matching country in database by ISO code
+    // Find matching country in database
     const matchedCountry = await prisma.country.findFirst({
       where: {
-        isoCode: geo.country,
+        isoCode: geoResult.country.toUpperCase(),
         status: "ACTIVE",
       },
       select: {
@@ -70,21 +160,27 @@ export async function GET(request: NextRequest) {
       },
     });
 
-    console.log("Matched country:", matchedCountry);
-
-    return NextResponse.json(
+    const response = NextResponse.json(
       {
-        country: geo.country,
+        country: geoResult.country,
         countrySlug: matchedCountry?.slug || null,
         countryName: matchedCountry?.name || null,
-        region: geo.region,
-        city: geo.city,
         ip,
+        source: geoResult.source,
       },
       { status: 200 }
     );
+
+    // Set cookie for future reference
+    if (geoResult.country) {
+      response.cookies.set("detected_geo_origin", geoResult.country.toUpperCase(), {
+        maxAge: 60 * 60 * 24 * 365, // 1 year
+        path: "/",
+      });
+    }
+
+    return response;
   } catch (error) {
-    console.error("Geo-location API error:", error);
     return NextResponse.json(
       {
         error: "Failed to get location",

@@ -1,9 +1,16 @@
 "use client";
 
-import { useMemo, useCallback } from "react";
+import { useMemo, useCallback, useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { DataTable } from "@/components/table/data-table";
 import { useDataTable } from "@/hooks/use-data-table";
 import {
@@ -15,7 +22,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
-import { MoreHorizontal, Pencil, Trash2, Download } from "lucide-react";
+import { MoreHorizontal, Pencil, Trash2, Download, Filter } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { useConfirmDialog } from "@/hooks/use-confirm-dialog";
@@ -91,6 +98,9 @@ const statusOptions = ["PENDING", "CONFIRMED", "CANCELLED"] as const;
 
 const RegistrationsPage = () => {
   const router = useRouter();
+  const [exportStartDate, setExportStartDate] = useState<string>("");
+  const [exportEndDate, setExportEndDate] = useState<string>("");
+  const [isExportDatePickerOpen, setIsExportDatePickerOpen] = useState(false);
   const { table, isLoading, error, pagination, refetch } =
     useDataTable<Registration>({
       endpoint: "/api/event-registrations",
@@ -311,35 +321,129 @@ const RegistrationsPage = () => {
         pagination={pagination}
         toolbar={
           <div className="flex gap-2">
-            <Button
-              variant="outline"
-              onClick={async () => {
-                try {
-                  const res = await fetch(
-                    "/api/event-registrations?limit=10000"
-                  );
-                  if (res.ok) {
-                    const result = await res.json();
-                    const data = Array.isArray(result)
-                      ? result
-                      : result.data || [];
-                    if (data.length === 0) {
-                      toast.error("No registrations to export");
-                      return;
-                    }
-                    exportToCSV(data, "event-registrations");
-                    toast.success(`Exported ${data.length} registrations`);
-                  } else {
-                    toast.error("Failed to fetch data for export");
-                  }
-                } catch {
-                  toast.error("Export failed");
-                }
-              }}
-            >
-              <Download className="mr-2 h-4 w-4" />
-              Export CSV
-            </Button>
+            <Popover open={isExportDatePickerOpen} onOpenChange={setIsExportDatePickerOpen}>
+              <PopoverTrigger asChild>
+                <Button variant="outline">
+                  <Download className="mr-2 h-4 w-4" />
+                  Export CSV
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-80" align="end">
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <h4 className="font-medium text-sm flex items-center gap-2">
+                      <Filter className="w-4 h-4" />
+                      Export Date Range
+                    </h4>
+                    <p className="text-xs text-muted-foreground">
+                      Select date range to filter exported registrations (optional)
+                    </p>
+                  </div>
+                  <div className="grid gap-4">
+                    <div className="grid gap-2">
+                      <Label htmlFor="start-date-reg" className="text-xs">
+                        Start Date
+                      </Label>
+                      <Input
+                        id="start-date-reg"
+                        type="date"
+                        value={exportStartDate}
+                        onChange={(e) => setExportStartDate(e.target.value)}
+                      />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="end-date-reg" className="text-xs">
+                        End Date
+                      </Label>
+                      <Input
+                        id="end-date-reg"
+                        type="date"
+                        value={exportEndDate}
+                        onChange={(e) => setExportEndDate(e.target.value)}
+                        min={exportStartDate || undefined}
+                      />
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button
+                      variant="outline"
+                      onClick={async () => {
+                        try {
+                          const params = new URLSearchParams();
+                          params.append("limit", "10000");
+                          if (exportStartDate) {
+                            params.append("startDate", exportStartDate);
+                          }
+                          if (exportEndDate) {
+                            params.append("endDate", exportEndDate);
+                          }
+                          
+                          const res = await fetch(
+                            `/api/event-registrations?${params.toString()}`
+                          );
+                          if (res.ok) {
+                            const result = await res.json();
+                            const data = Array.isArray(result)
+                              ? result
+                              : result.data || [];
+                            if (data.length === 0) {
+                              toast.error("No registrations to export");
+                              return;
+                            }
+                            
+                            // Filter by date range if needed (fallback if API doesn't support it)
+                            let filteredData = data;
+                            if (exportStartDate || exportEndDate) {
+                              filteredData = data.filter((r: Registration) => {
+                                const createdAt = new Date(r.createdAt);
+                                if (exportStartDate && createdAt < new Date(exportStartDate)) {
+                                  return false;
+                                }
+                                if (exportEndDate) {
+                                  const endDate = new Date(exportEndDate);
+                                  endDate.setHours(23, 59, 59, 999);
+                                  if (createdAt > endDate) {
+                                    return false;
+                                  }
+                                }
+                                return true;
+                              });
+                            }
+                            
+                            exportToCSV(filteredData, "event-registrations");
+                            const dateInfo = exportStartDate || exportEndDate
+                              ? ` (${exportStartDate || "start"} to ${exportEndDate || "end"})`
+                              : "";
+                            toast.success(`Exported ${filteredData.length} registrations${dateInfo}`);
+                            setIsExportDatePickerOpen(false);
+                            setExportStartDate("");
+                            setExportEndDate("");
+                          } else {
+                            toast.error("Failed to fetch data for export");
+                          }
+                        } catch {
+                          toast.error("Export failed");
+                        }
+                      }}
+                      className="flex-1"
+                      size="sm"
+                    >
+                      Export
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        setExportStartDate("");
+                        setExportEndDate("");
+                      }}
+                      size="sm"
+                    >
+                      Clear
+                    </Button>
+                  </div>
+                </div>
+              </PopoverContent>
+            </Popover>
             <Button onClick={refetch}>Refresh</Button>
           </div>
         }

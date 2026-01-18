@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { CountryForm } from "../../_components/CountryForm";
+import { EditPageSkeleton } from "@/components/ui/edit-page-skeleton";
 import { createEntityApi } from "@/lib/api-client";
-import { Country } from "../../../../../../prisma/src/generated/prisma/browser";
+ 
 import { toast } from "sonner";
+import { Country } from "../../../../../../../prisma/src/generated/prisma/browser";
 
 const countryApi = createEntityApi<Country>("/api/countries");
 
@@ -46,14 +48,7 @@ export default function EditCountryPage() {
   }, [id, router]);
 
   if (isLoading) {
-    return (
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Edit Country</h1>
-          <p className="text-muted-foreground">Loading...</p>
-        </div>
-      </div>
-    );
+    return <EditPageSkeleton />;
   }
 
   if (!country) {

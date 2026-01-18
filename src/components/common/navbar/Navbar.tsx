@@ -24,13 +24,13 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
 
   const countryScopedFilter = countrySlug
     ? {
-        some: {
-          country: { slug: countrySlug },
-        },
-      }
+      some: {
+        country: { slug: countrySlug },
+      },
+    }
     : undefined;
 
-  const [destinations, universities, courses, events, globalOffices] =
+  const [destinations, universities, courses, events, globalOffices, countries] =
     await Promise.all([
       prisma.destination.findMany({
         select: { id: true, name: true, slug: true },
@@ -42,9 +42,9 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
         select: { id: true, name: true, slug: true },
         where: countryScopedFilter
           ? {
-              status: "ACTIVE",
-              countries: countryScopedFilter,
-            }
+            status: "ACTIVE",
+            countries: countryScopedFilter,
+          }
           : { status: "ACTIVE" },
         take: 20,
       }),
@@ -52,8 +52,8 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
         select: { id: true, title: true, slug: true },
         where: countryScopedFilter
           ? {
-              status: "ACTIVE",
-            }
+            status: "ACTIVE",
+          }
           : { status: "ACTIVE" },
         take: 20,
       }),
@@ -61,8 +61,8 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
         select: { id: true, title: true, slug: true, eventType: true },
         where: countryScopedFilter
           ? {
-              countries: countryScopedFilter,
-            }
+            countries: countryScopedFilter,
+          }
           : undefined,
         take: 10,
       }),
@@ -88,6 +88,16 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
             },
           },
         },
+      }),
+      prisma.country.findMany({
+        where: { status: "ACTIVE" },
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+          flag: true,
+        },
+        orderBy: { name: "asc" },
       }),
     ]);
 
@@ -132,7 +142,7 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
       <div className="flex justify-between items-center h-16 md:h-20 px-4 md:px-10">
         {/* Logo */}
         <CountryAwareLink href="/" className=" shrink-0">
-          <Image src="/logo.svg" alt="Logo" width={110} height={110} />
+          <Image src="/logo.svg" alt="Logo" width={110} height={110} priority />
         </CountryAwareLink>
 
         {/* Desktop Navigation */}
@@ -243,9 +253,8 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
               <LayoutDashboard className="w-5 h-5" />
             </Link>
           )}
-          <div className="hidden sm:block">
-            <CountryModal />
-          </div>
+          {/* Country Modal - Visible on all screen sizes */}
+          <CountryModal />
           <div className="hidden md:block">
             <Link href={"/apply-now"}>
               <Button size="lg" className="font-medium">
@@ -261,6 +270,8 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
             courses={courseItems}
             events={eventItems}
             offices={officeItems}
+            countries={countries}
+            currentCountrySlug={countrySlug}
           />
         </div>
       </div>

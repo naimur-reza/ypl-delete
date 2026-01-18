@@ -4,7 +4,61 @@ import type { NextRequest } from "next/server";
 
 // In-memory cache for countries with 5-minute expiration
 let countriesCache: { slugs: Set<string>; timestamp: number } | null = null;
+// In-memory cache for ISO to slug mappings with 5-minute expiration
+let isoToSlugCache: { mappings: Map<string, string>; timestamp: number } | null = null;
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
+
+/**
+ * Check if a string looks like an ISO country code (2-3 uppercase letters)
+ */
+function isIsoCode(segment: string): boolean {
+  // ISO codes are typically 2-3 uppercase letters
+  return /^[A-Z]{2,3}$/.test(segment);
+}
+
+/**
+ * Convert ISO code to slug with caching
+ */
+async function convertIsoToSlug(isoCode: string): Promise<string | null> {
+  const now = Date.now();
+  const upperIso = isoCode.toUpperCase();
+
+  // Return cached data if still valid
+  if (isoToSlugCache && now - isoToSlugCache.timestamp < CACHE_DURATION) {
+    const cachedSlug = isoToSlugCache.mappings.get(upperIso);
+    if (cachedSlug) {
+      return cachedSlug;
+    }
+  }
+
+  try {
+    // Fetch from database
+    const country = await prisma.country.findFirst({
+      where: {
+        isoCode: upperIso,
+        status: "ACTIVE",
+      },
+      select: { slug: true, isoCode: true },
+    });
+
+    if (country) {
+      // Update cache (initialize if needed)
+      if (!isoToSlugCache || now - isoToSlugCache.timestamp >= CACHE_DURATION) {
+        isoToSlugCache = {
+          mappings: new Map(),
+          timestamp: now,
+        };
+      }
+      isoToSlugCache.mappings.set(upperIso, country.slug);
+      return country.slug;
+    }
+
+    return null;
+  } catch (error) {
+    console.error("Error converting ISO to slug:", error);
+    return null;
+  }
+}
 
 /**
  * Fetch active country slugs with in-memory caching
@@ -37,6 +91,64 @@ async function getActiveCountrySlugs(): Promise<Set<string>> {
     console.error("Error fetching countries in middleware:", error);
     // Return empty set on error, but don't cache the error
     return new Set();
+  }
+}
+
+/**
+ * Detect country from IP and headers
+ */
+async function detectCountry(request: NextRequest): Promise<string | null> {
+  // 1. Check Vercel's geo header (most reliable on Vercel)
+  const vercelCountry = request.headers.get("x-vercel-ip-country");
+  if (vercelCountry) {
+    const slug = await convertIsoToSlug(vercelCountry);
+    if (slug) {
+      return slug;
+    }
+  }
+
+  // 2. Check Cloudflare's geo header
+  const cfCountry = request.headers.get("cf-ipcountry");
+  if (cfCountry && cfCountry !== "XX") {
+    const slug = await convertIsoToSlug(cfCountry);
+    if (slug) {
+      return slug;
+    }
+  }
+
+  // 3. Fallback to IP-based detection (geoip-lite)
+  const forwarded = request.headers.get("x-forwarded-for");
+  const realIp = request.headers.get("x-real-ip");
+  const ip = forwarded ? forwarded.split(",")[0].trim() : realIp || null;
+
+  if (!ip ||
+    ip === "127.0.0.1" ||
+    ip === "::1" ||
+    ip.startsWith("192.168.") ||
+    ip.startsWith("10.") ||
+    ip.startsWith("172.16.") ||
+    ip.startsWith("172.17.") ||
+    ip.startsWith("172.18.") ||
+    ip.startsWith("172.19.") ||
+    ip.startsWith("172.2") ||
+    ip.startsWith("172.30.") ||
+    ip.startsWith("172.31.")
+  ) {
+    return null;
+  }
+
+  try {
+    const geoip = require("geoip-lite");
+    const geo = geoip.lookup(ip);
+
+    if (!geo || !geo.country) {
+      return null;
+    }
+
+    const slug = await convertIsoToSlug(geo.country);
+    return slug;
+  } catch (error) {
+    return null;
   }
 }
 
@@ -82,20 +194,92 @@ export async function proxy(request: NextRequest) {
   const segments = pathname.split("/").filter(Boolean);
   const firstSegment = segments[0];
 
+  // Check if first segment is an ISO code and convert to slug if needed
+  if (firstSegment && isIsoCode(firstSegment) && !validCountrySlugs.has(firstSegment)) {
+    const slugFromIso = await convertIsoToSlug(firstSegment);
+    if (slugFromIso) {
+      // Redirect from ISO code URL to slug URL
+      const remainingPath = pathname.slice(`/${firstSegment}`.length) || "";
+      const redirectUrl = `/${slugFromIso}${remainingPath}${request.nextUrl.search}`;
+      const response = NextResponse.redirect(new URL(redirectUrl, request.url));
+      // Set the slug in cookie, not the ISO code
+      response.cookies.set("user-country", slugFromIso, {
+        maxAge: 60 * 60 * 24 * 30, // 30 days
+        path: "/",
+      });
+      response.cookies.delete("country-preference");
+      return response;
+    }
+  }
+
   // Homepage: redirect only if cookie country matches a valid slug
   // AND user hasn't explicitly chosen global
   if (pathname === "/") {
     const countryPreference = request.cookies.get("country-preference")?.value;
     const cookieCountry = request.cookies.get("user-country")?.value;
+    const detectedGeoOrigin = request.cookies.get("detected_geo_origin")?.value;
 
     // If user explicitly chose global, don't redirect
     if (countryPreference === "global") {
       return withCountryHeader(request, null);
     }
 
+    // If we have a cookie country, use it
     if (cookieCountry && validCountrySlugs.has(cookieCountry)) {
       return NextResponse.redirect(new URL(`/${cookieCountry}`, request.url));
     }
+
+    // If no cookie country but we have geo origin cookie, try to match it
+    if (!cookieCountry && detectedGeoOrigin) {
+      const matchedCountry = await prisma.country.findFirst({
+        where: {
+          isoCode: detectedGeoOrigin.toUpperCase(),
+          status: "ACTIVE",
+        },
+        select: { slug: true },
+      });
+
+      if (matchedCountry && validCountrySlugs.has(matchedCountry.slug)) {
+        const response = NextResponse.redirect(
+          new URL(`/${matchedCountry.slug}`, request.url)
+        );
+        response.cookies.set("user-country", matchedCountry.slug, {
+          maxAge: 60 * 60 * 24 * 30, // 30 days
+          path: "/",
+        });
+        return response;
+      }
+    }
+
+    // If no cookies at all, try geo-detection
+    if (!cookieCountry && !detectedGeoOrigin) {
+      const detectedSlug = await detectCountry(request);
+
+      if (detectedSlug && validCountrySlugs.has(detectedSlug)) {
+        const response = NextResponse.redirect(
+          new URL(`/${detectedSlug}`, request.url)
+        );
+        response.cookies.set("user-country", detectedSlug, {
+          maxAge: 60 * 60 * 24 * 30, // 30 days
+          path: "/",
+        });
+
+        // Find matching ISO code to set detected_geo_origin
+        const country = await prisma.country.findFirst({
+          where: { slug: detectedSlug, status: "ACTIVE" },
+          select: { isoCode: true },
+        });
+
+        if (country) {
+          response.cookies.set("detected_geo_origin", country.isoCode, {
+            maxAge: 60 * 60 * 24 * 365, // 1 year
+            path: "/",
+          });
+        }
+        return response;
+      }
+    }
+
     return withCountryHeader(request, null);
   }
 

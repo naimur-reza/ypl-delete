@@ -30,7 +30,7 @@ export async function IntakeFeature() {
 
   return (
     <section
-      className="relative py-14 px-4 md:px-8 overflow-hidden rounded-3xl mx-4 md:mx-8 my-8"
+      className="relative py-8 sm:py-12 md:py-14 px-4 sm:px-6 md:px-8 overflow-hidden rounded-2xl sm:rounded-3xl mx-2 sm:mx-4 md:mx-8 my-4 sm:my-6 md:my-8"
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: "cover",
@@ -38,26 +38,26 @@ export async function IntakeFeature() {
         backgroundAttachment: "fixed",
       }}
     >
-      <div className="absolute inset-0 bg-linear-to-r from-secondary via-secondary/80 to-secondary/40 rounded-3xl"></div>
+      <div className="absolute inset-0 bg-linear-to-r from-secondary via-secondary/80 to-secondary/40 rounded-2xl sm:rounded-3xl"></div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className=" ">
+        <div>
           {/* Subtitle with red accent */}
           {season.subtitle && (
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-1.5 h-10 bg-primary rounded-full"></div>
-              <span className="text-sm font-semibold text-white uppercase tracking-wider">
+            <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+              <div className="w-1 sm:w-1.5 h-8 sm:h-10 bg-primary rounded-full"></div>
+              <span className="text-xs sm:text-sm font-semibold text-white uppercase tracking-wider">
                 {season.subtitle}
               </span>
             </div>
           )}
 
           {/* Main headline */}
-          <h2 className="section-title text-white">{season.title}</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">{season.title}</h2>
 
           {/* Description */}
           {season.description && (
-            <p className="text-xl md:text-2xl text-white/90 font-medium leading-relaxed mb-8">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 font-medium leading-relaxed mb-6 sm:mb-8">
               {season.description}
             </p>
           )}
@@ -65,7 +65,7 @@ export async function IntakeFeature() {
           {/* CTA Button */}
           <CountryAwareLink
             href={season.ctaUrl || "/apply-now"}
-            className="bg-primary hover:bg-primary/90 active:bg-primary/80 text-white font-bold py-4 px-10 rounded-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 text-lg cursor-pointer inline-block"
+            className="bg-primary hover:bg-primary/90 active:bg-primary/80 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 md:px-10 rounded-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 text-base sm:text-lg cursor-pointer inline-block touch-manipulation min-h-[44px] flex items-center justify-center"
           >
             {season.ctaLabel || "Apply Now"}
           </CountryAwareLink>

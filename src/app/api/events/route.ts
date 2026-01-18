@@ -100,11 +100,13 @@ export async function POST(req: NextRequest) {
               })),
             }
           : undefined,
-        destinations: {
-          create: destinationIds.map((destinationId: string) => ({
-            destinationId,
-          })),
-        },
+        destinations: destinationIds?.length
+          ? {
+              create: (destinationIds || []).map((destinationId: string) => ({
+                destinationId,
+              })),
+            }
+          : undefined,
       },
       include: {
         destinations: { include: { destination: true } },

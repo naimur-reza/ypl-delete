@@ -66,15 +66,14 @@ export function HeroSlide({ slide, isActive }: HeroSlideProps) {
   const isVideo = slide.background.type === "video";
   const isYouTube = slide.background.type === "youtube";
 
-  console.log(slide);
+
   return (
     <div className="relative w-full h-full overflow-hidden group">
       {/* Background with Parallax/Zoom Effect */}
       <div className="absolute inset-0">
         <div
-          className={`absolute inset-0 transition-transform duration-8000 ease-in-out ${
-            isActive ? "scale-110" : "scale-100"
-          }`}
+          className={`absolute inset-0 transition-transform duration-8000 ease-in-out ${isActive ? "scale-110" : "scale-100"
+            }`}
         >
           {isYouTube ? (
             <iframe
@@ -121,11 +120,10 @@ export function HeroSlide({ slide, isActive }: HeroSlideProps) {
       <div className="relative h-full flex items-center px-6 sm:px-12 lg:px-20 max-w-[1400px] mx-auto">
         <div className="max-w-3xl w-full">
           <div
-            className={`flex flex-col gap-6 transition-all duration-1000 delay-300 ${
-              isActive
+            className={`flex flex-col gap-6 transition-all duration-1000 delay-300 ${isActive
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-10"
-            }`}
+              }`}
           >
             {/* Tagline */}
             {slide.tagline && (
@@ -139,9 +137,9 @@ export function HeroSlide({ slide, isActive }: HeroSlideProps) {
               {slide.headline.split(" ").map((word: string, idx: number) => (
                 <span key={idx}>
                   {word === "UK" ||
-                  word === "University" ||
-                  word === "Global" ||
-                  word === "Universities" ? (
+                    word === "University" ||
+                    word === "Global" ||
+                    word === "Universities" ? (
                     <span className="text-transparent bg-clip-text bg-linear-to-r from-accent to-primary-foreground">
                       {word}
                     </span>

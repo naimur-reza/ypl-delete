@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { getCookie } from "cookies-next";
 
 export function GeoRedirect() {
   const pathname = usePathname();
@@ -10,23 +11,37 @@ export function GeoRedirect() {
 
   useEffect(() => {
     // Skip if already on a country route (user manually selected)
-    const countryRouteRegex = /^\/(bd|pk|in|au|uk|us|ca)/;
-    if (countryRouteRegex.test(pathname)) {
-      // User is on a country route - mark that they've made a manual selection
-      const currentCountry = pathname.split("/")[1];
-      localStorage.setItem("manual-country-selection", currentCountry);
+    const segments = pathname.split("/").filter(Boolean);
+    const firstSegment = segments[0];
+
+    // Check if we're on a country route by checking if first segment matches known country slugs
+    // This is a fallback check - middleware should handle most redirects
+    if (firstSegment && firstSegment.length <= 3) {
+      // Likely a country route, skip redirect
       return;
     }
 
     // Skip if on admin or API routes
-    if (pathname.startsWith("/dashboard") || pathname.startsWith("/api")) {
+    if (
+      pathname.startsWith("/dashboard") ||
+      pathname.startsWith("/api") ||
+      pathname.startsWith("/admin") ||
+      pathname.startsWith("/auth") ||
+      pathname.startsWith("/login") ||
+      pathname.startsWith("/_next")
+    ) {
       return;
     }
 
-    // Check if user has manually selected a country before
-    const manualSelection = localStorage.getItem("manual-country-selection");
-    if (manualSelection) {
-      // User has previously made a manual selection, respect it
+    // Check if user has explicitly chosen global preference
+    const countryPreference = getCookie("country-preference");
+    if (countryPreference === "global") {
+      return;
+    }
+
+    // Check if user already has a country cookie set (middleware should have handled this)
+    const userCountry = getCookie("user-country");
+    if (userCountry) {
       return;
     }
 
@@ -41,7 +56,14 @@ export function GeoRedirect() {
       return;
     }
 
+    // Only run on homepage as a fallback if middleware didn't redirect
+    // This is a client-side fallback for cases where middleware might not have run
+    if (pathname !== "/") {
+      return;
+    }
+
     // Fetch user's country from our internal geo-location API
+    // This is a fallback - middleware should handle most cases
     fetch("/api/geo-location")
       .then(async (res) => {
         if (!res.ok) {
@@ -53,22 +75,17 @@ export function GeoRedirect() {
         const countrySlug = data.countrySlug;
 
         // Only redirect if we found a matching country in the database
-        if (countrySlug) {
-          console.log(`Redirecting to country: ${countrySlug}`);
-
+        // and user hasn't explicitly chosen global
+        if (countrySlug && pathname === "/") {
           // Mark as redirected for this session
           sessionStorage.setItem("geo-redirected", "true");
           hasRedirected.current = true;
 
           // Redirect to the matched country route
-          const newPath = `/${countrySlug}${pathname === "/" ? "" : pathname}`;
-          router.push(newPath);
-        } else {
-          console.log("No matching country found in database");
+          router.push(`/${countrySlug}`);
         }
       })
-      .catch((error) => {
-        console.error("Geo-location failed:", error);
+      .catch(() => {
         // Silently fail - don't break the app
       });
   }, [pathname, router]);

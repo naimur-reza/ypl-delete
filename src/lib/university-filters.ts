@@ -86,23 +86,23 @@ export function extractUniversityFilterOptions(
     }));
 
   // Extract cities with counts (top 20)
-  const cityMap = new Map<string, number>();
-  universities.forEach((uni) => {
-    const city = extractCity(uni.address);
-    if (city && city.length > 1) {
-      const count = cityMap.get(city) || 0;
-      cityMap.set(city, count + 1);
-    }
-  });
+  // const cityMap = new Map<string, number>();
+  // universities.forEach((uni) => {
+  //   const city = extractCity(uni.address);
+  //   if (city && city.length > 1) {
+  //     const count = cityMap.get(city) || 0;
+  //     cityMap.set(city, count + 1);
+  //   }
+  // });
 
-  const cityOptions = Array.from(cityMap.entries())
-    .map(([value, count]) => ({
-      label: value,
-      value,
-      count,
-    }))
-    .sort((a, b) => b.count - a.count)
-    .slice(0, 20);
+  // const cityOptions = Array.from(cityMap.entries())
+  //   .map(([value, count]) => ({
+  //     label: value,
+  //     value,
+  //     count,
+  //   }))
+  //   .sort((a, b) => b.count - a.count)
+  //   .slice(0, 20);
 
   // Extract featured filter
   const featuredCount = universities.filter((u) => u.isFeatured).length;
@@ -129,13 +129,13 @@ export function extractUniversityFilterOptions(
     });
   }
 
-  if (cityOptions.length > 0) {
-    filters.push({
-      id: "city",
-      label: "City",
-      options: cityOptions,
-    });
-  }
+  // if (cityOptions.length > 0) {
+  //   filters.push({
+  //     id: "city",
+  //     label: "City",
+  //     options: cityOptions,
+  //   });
+  // }
 
   // Add featured and scholarship filters
   const specialOptions: FilterOption["options"] = [];

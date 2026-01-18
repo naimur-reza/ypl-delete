@@ -213,16 +213,16 @@ export default function GlobalOfficesClient({
   };
 
   return (
-    <div className="flex gap-6 max-w-7xl mx-auto">
-      {/* Sidebar Filters */}
-      <div className="w-72 shrink-0">
-        <div className="bg-white rounded-lg border border-gray-200 p-6 sticky top-6">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="font-semibold text-gray-900">Filters</h3>
+    <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 max-w-7xl mx-auto">
+      {/* Sidebar Filters - Mobile: Collapsible, Desktop: Sidebar */}
+      <div className="w-full lg:w-72 shrink-0 order-2 lg:order-1">
+        <div className="bg-white rounded-lg border border-gray-200 p-4 sm:p-6 lg:sticky lg:top-6">
+          <div className="flex items-center justify-between mb-4 sm:mb-6">
+            <h3 className="text-base sm:text-lg font-semibold text-gray-900">Filters</h3>
             {selectedFilters.length > 0 && (
               <button
                 onClick={resetFilters}
-                className="text-sm text-blue-600 hover:text-blue-700"
+                className="text-xs sm:text-sm text-blue-600 hover:text-blue-700 touch-manipulation min-h-[44px] px-2"
               >
                 Reset
               </button>
@@ -230,7 +230,7 @@ export default function GlobalOfficesClient({
           </div>
 
           {/* Hierarchical Countries & Cities or Flat Cities */}
-          <div className="space-y-1 max-h-[600px] overflow-y-auto">
+          <div className="space-y-1 max-h-[400px] sm:max-h-[500px] lg:max-h-[600px] overflow-y-auto">
             {countryCode ? (
               // On country-specific route: show only cities (flat list)
               <>
@@ -238,11 +238,12 @@ export default function GlobalOfficesClient({
                   countryData.cities.map((city) => (
                     <label
                       key={city}
-                      className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded"
+                      className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 sm:p-2 rounded touch-manipulation min-h-[44px]"
                     >
                       <Checkbox
                         checked={selectedFilters.includes(`city:${city}`)}
                         onCheckedChange={() => toggleFilter(`city:${city}`)}
+                        className="touch-manipulation"
                       />
                       <span className="text-sm text-gray-700">{city}</span>
                     </label>
@@ -311,26 +312,26 @@ export default function GlobalOfficesClient({
       </div>
 
       {/* Main Content */}
-      <div className="flex-1">
+      <div className="flex-1 order-1 lg:order-2">
         {/* Search Bar */}
-        <div className="mb-6">
+        <div className="mb-4 sm:mb-6">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-gray-400" />
             <Input
               type="text"
               placeholder="Search Offices"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 h-12"
+              className="pl-9 sm:pl-10 h-10 sm:h-12 text-sm sm:text-base"
             />
           </div>
         </div>
 
         {/* Results Header */}
-        <div className="mb-6">
-          <h2 className="text-2xl font-bold text-gray-900">
+        <div className="mb-4 sm:mb-6">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
             Available Offices{" "}
-            <span className="text-gray-500 font-normal">
+            <span className="text-gray-500 font-normal text-base sm:text-lg">
               ({filteredOffices.length} Results)
             </span>
           </h2>
@@ -358,10 +359,10 @@ export default function GlobalOfficesClient({
                         key={office.id}
                         className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-md transition-shadow"
                       >
-                        <div className="flex">
+                        <div className="flex flex-col lg:flex-row">
                           {/* Left Side - Office Details */}
-                          <div className="flex-1 p-6">
-                            <h4 className="text-xl font-semibold text-gray-900 mb-3">
+                          <div className="flex-1 p-4 sm:p-6">
+                            <h4 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3">
                               {office.name}
                             </h4>
 
@@ -369,7 +370,7 @@ export default function GlobalOfficesClient({
                               {office.address && (
                                 <div className="flex items-start gap-2 text-gray-600">
                                   <MapPin className="w-4 h-4 mt-0.5 shrink-0" />
-                                  <span className="text-sm">
+                                  <span className="text-xs sm:text-sm">
                                     {office.address}
                                   </span>
                                 </div>
@@ -377,7 +378,7 @@ export default function GlobalOfficesClient({
                               {office.email && (
                                 <div className="flex items-center gap-2 text-gray-600">
                                   <Mail className="w-4 h-4 shrink-0" />
-                                  <span className="text-sm">
+                                  <span className="text-xs sm:text-sm break-all">
                                     {office.email}
                                   </span>
                                 </div>
@@ -385,9 +386,9 @@ export default function GlobalOfficesClient({
                               {office.phone && (
                                 <div className="flex items-center gap-2 text-gray-600">
                                   <Phone className="w-4 h-4 shrink-0" />
-                                  <span className="text-sm">
+                                  <a href={`tel:${office.phone}`} className="text-xs sm:text-sm hover:text-blue-600">
                                     {office.phone}
-                                  </span>
+                                  </a>
                                 </div>
                               )}
                             </div>
@@ -398,7 +399,7 @@ export default function GlobalOfficesClient({
                                 office.countries?.[0]?.country?.slug || "global"
                               }/${office.slug}`}
                             >
-                              <Button className="bg-[#1e3a8a] hover:bg-[#1e3a8a]/90 text-white">
+                              <Button className="bg-[#1e3a8a] hover:bg-[#1e3a8a]/90 text-white w-full sm:w-auto touch-manipulation min-h-[44px]">
                                 View Office
                               </Button>
                             </CountryAwareLink>
@@ -406,7 +407,7 @@ export default function GlobalOfficesClient({
 
                           {/* Right Side - Map */}
                           {embedUrl && (
-                            <div className="w-96 shrink-0">
+                            <div className="w-full lg:w-96 shrink-0 h-64 sm:h-80 lg:h-auto">
                               <iframe
                                 src={embedUrl}
                                 width="100%"
@@ -415,6 +416,7 @@ export default function GlobalOfficesClient({
                                 allowFullScreen
                                 loading="lazy"
                                 title={`Map of ${office.name}`}
+                                className="w-full h-full"
                               />
                             </div>
                           )}

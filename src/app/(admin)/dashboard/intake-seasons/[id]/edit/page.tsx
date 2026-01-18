@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { IntakeSeasonForm } from "../../_components/IntakeSeasonForm";
+import { EditPageSkeleton } from "@/components/ui/edit-page-skeleton";
 import { toast } from "sonner";
 
 export default function EditIntakeSeasonPage() {
@@ -42,14 +43,7 @@ export default function EditIntakeSeasonPage() {
   }, [id, router]);
 
   if (isLoading) {
-    return (
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Edit Intake Season</h1>
-          <p className="text-muted-foreground">Loading...</p>
-        </div>
-      </div>
-    );
+    return <EditPageSkeleton />;
   }
 
   if (!intakeSeason) {

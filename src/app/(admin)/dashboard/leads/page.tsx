@@ -30,6 +30,13 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   MoreHorizontal,
   Eye,
@@ -41,6 +48,7 @@ import {
   Plane,
   Calendar,
   FileJson,
+  Filter,
 } from "lucide-react";
 
 type Lead = {
@@ -68,6 +76,9 @@ const LeadsPage = () => {
   const [deleteTarget, setDeleteTarget] = useState<Lead | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
+  const [exportStartDate, setExportStartDate] = useState<string>("");
+  const [exportEndDate, setExportEndDate] = useState<string>("");
+  const [isExportDatePickerOpen, setIsExportDatePickerOpen] = useState(false);
 
   const { table, isLoading, error, pagination, refetch } = useDataTable<Lead>({
     endpoint: "/api/leads",
@@ -106,7 +117,16 @@ const LeadsPage = () => {
   const handleExport = useCallback(async () => {
     setIsExporting(true);
     try {
-      const res = await fetch("/api/leads/export?format=csv");
+      const params = new URLSearchParams();
+      params.append("format", "csv");
+      if (exportStartDate) {
+        params.append("startDate", exportStartDate);
+      }
+      if (exportEndDate) {
+        params.append("endDate", exportEndDate);
+      }
+
+      const res = await fetch(`/api/leads/export?${params.toString()}`);
       if (!res.ok) {
         toast.error("Failed to export leads");
         return;
@@ -116,18 +136,28 @@ const LeadsPage = () => {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `leads-${new Date().toISOString().split("T")[0]}.csv`;
+      const dateRange = exportStartDate || exportEndDate
+        ? `-${exportStartDate || "start"}-${exportEndDate || "end"}`
+        : "";
+      a.download = `leads${dateRange}-${new Date().toISOString().split("T")[0]}.csv`;
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
-      toast.success("Leads exported successfully");
+      
+      const dateInfo = exportStartDate || exportEndDate
+        ? ` (${exportStartDate || "start"} to ${exportEndDate || "end"})`
+        : "";
+      toast.success(`Leads exported successfully${dateInfo}`);
+      setIsExportDatePickerOpen(false);
+      setExportStartDate("");
+      setExportEndDate("");
     } catch {
       toast.error("Failed to export leads");
     } finally {
       setIsExporting(false);
     }
-  }, []);
+  }, [exportStartDate, exportEndDate]);
 
   const viewLead = useCallback((lead: Lead) => {
     setSelectedLead(lead);
@@ -225,10 +255,72 @@ const LeadsPage = () => {
             Manage leads submitted through forms on the website.
           </p>
         </div>
-        <Button onClick={handleExport} disabled={isExporting} variant="outline">
-          <Download className="w-4 h-4 mr-2" />
-          {isExporting ? "Exporting..." : "Export CSV"}
-        </Button>
+        <Popover open={isExportDatePickerOpen} onOpenChange={setIsExportDatePickerOpen}>
+          <PopoverTrigger asChild>
+            <Button disabled={isExporting} variant="outline">
+              <Download className="w-4 h-4 mr-2" />
+              {isExporting ? "Exporting..." : "Export CSV"}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-80" align="end">
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <h4 className="font-medium text-sm flex items-center gap-2">
+                  <Filter className="w-4 h-4" />
+                  Export Date Range
+                </h4>
+                <p className="text-xs text-muted-foreground">
+                  Select date range to filter exported leads (optional)
+                </p>
+              </div>
+              <div className="grid gap-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="start-date" className="text-xs">
+                    Start Date
+                  </Label>
+                  <Input
+                    id="start-date"
+                    type="date"
+                    value={exportStartDate}
+                    onChange={(e) => setExportStartDate(e.target.value)}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="end-date" className="text-xs">
+                    End Date
+                  </Label>
+                  <Input
+                    id="end-date"
+                    type="date"
+                    value={exportEndDate}
+                    onChange={(e) => setExportEndDate(e.target.value)}
+                    min={exportStartDate || undefined}
+                  />
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <Button
+                  onClick={handleExport}
+                  disabled={isExporting}
+                  className="flex-1"
+                  size="sm"
+                >
+                  {isExporting ? "Exporting..." : "Export"}
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setExportStartDate("");
+                    setExportEndDate("");
+                  }}
+                  size="sm"
+                >
+                  Clear
+                </Button>
+              </div>
+            </div>
+          </PopoverContent>
+        </Popover>
       </div>
 
       <DataTable

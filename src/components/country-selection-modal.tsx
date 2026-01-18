@@ -33,7 +33,7 @@ export default function CountrySelectionModal({
 
   const handleCountrySelect = (country: Country) => {
     // Save selection to cookie
-    setCookie("country", country.slug, {
+    setCookie("user-country", country.slug, {
       maxAge: 60 * 60 * 24 * 365, // 1 year
       path: "/",
     });
@@ -87,11 +87,10 @@ export default function CountrySelectionModal({
               <button
                 key={country.id}
                 onClick={() => handleCountrySelect(country)}
-                className={`flex flex-col items-center gap-3 p-4 rounded-xl border-2 transition-all duration-200 hover:scale-105 ${
-                  detectedCountry?.id === country.id
+                className={`flex flex-col items-center gap-3 p-4 rounded-xl border-2 transition-all duration-200 hover:scale-105 ${detectedCountry?.id === country.id
                     ? "border-red-600 bg-red-50 shadow-lg"
                     : "border-gray-200 hover:border-red-300 hover:shadow-md"
-                }`}
+                  }`}
               >
                 {/* Flag */}
                 <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-gray-200 shadow-sm">
@@ -106,11 +105,10 @@ export default function CountrySelectionModal({
 
                 {/* Country Name */}
                 <span
-                  className={`text-sm font-semibold text-center ${
-                    detectedCountry?.id === country.id
+                  className={`text-sm font-semibold text-center ${detectedCountry?.id === country.id
                       ? "text-red-600"
                       : "text-gray-700"
-                  }`}
+                    }`}
                 >
                   {country.name}
                 </span>

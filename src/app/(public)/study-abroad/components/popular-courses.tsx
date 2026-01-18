@@ -55,27 +55,27 @@ interface CategoryItem {
 
 function renderSection(displayCategories: CategoryItem[]) {
   return (
-    <section className="py-16 md:py-24 px-6 bg-slate-50">
+    <section className="py-8 sm:py-12 md:py-16 lg:py-24 px-4 sm:px-6 bg-slate-50">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 sm:mb-12 gap-4 sm:gap-6">
           <div>
-            <span className="text-sm font-bold tracking-widest text-blue-600 uppercase">
+            <span className="text-xs sm:text-sm font-bold tracking-widest text-blue-600 uppercase">
               Top Disciplines
             </span>
-            <h2 className="mt-2 text-3xl md:text-4xl font-bold text-slate-900">
+            <h2 className="mt-2 text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900">
               Popular Courses
             </h2>
           </div>
           <Link
             href="/courses"
-            className="group flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors"
+            className="group flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors text-sm sm:text-base touch-manipulation min-h-[44px]"
           >
             View All Courses
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {displayCategories.map((category, index) => {
             const IconComponent =
               (category.icon && iconMap[category.icon]) || BookOpen;
@@ -84,15 +84,15 @@ function renderSection(displayCategories: CategoryItem[]) {
               <Link
                 key={index}
                 href={category.slug ? `/courses/${category.slug}` : "/courses"}
-                className="group bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-slate-100 hover:border-blue-100"
+                className="group bg-white p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-slate-100 hover:border-blue-100 touch-manipulation"
               >
-                <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-600 transition-colors duration-300">
-                  <IconComponent className="w-6 h-6 text-blue-600 group-hover:text-white transition-colors duration-300" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-50 rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-4 group-hover:bg-blue-600 transition-colors duration-300">
+                  <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 group-hover:text-white transition-colors duration-300" />
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-1 group-hover:text-blue-600 transition-colors line-clamp-2">
+                <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-1 group-hover:text-blue-600 transition-colors line-clamp-2">
                   {category.name}
                 </h3>
-                <p className="text-sm text-slate-500">
+                <p className="text-xs sm:text-sm text-slate-500">
                   {category.count > 0 ? `${category.count}+ Courses` : "View Course"}
                 </p>
               </Link>
@@ -111,7 +111,6 @@ export async function PopularCourses({
   // Check if we have any filters
   const hasFilters = destinationSlug || countrySlug;
 
-  console.log({destinationSlug, countrySlug})
   // If no filters, fetch 8 courses directly
   if (!hasFilters) {
     const courses = await prisma.course.findMany({
@@ -124,8 +123,6 @@ export async function PopularCourses({
       take: 8,
       orderBy: { createdAt: 'desc' },
     });
-
-console.log({courses}) 
 
     // Convert to display format
     const displayCategories = courses.length > 0
@@ -155,7 +152,10 @@ console.log({courses})
   };
 
   if (destinationSlug) {
-    whereClause.destination = { slug: destinationSlug };
+    // Match destination by slug (exact match, case-insensitive)
+    whereClause.destination = { 
+      slug: destinationSlug.toLowerCase()
+    };
   }
 
   if (countrySlug) {

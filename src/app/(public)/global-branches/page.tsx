@@ -44,13 +44,13 @@ export default async function GlobalBranchesPage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gray-900 text-white py-16 md:py-20">
-        <div className="container mx-auto px-4">
+      <section className="bg-gray-900 text-white py-8 sm:py-12 md:py-16 lg:py-20">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-3 sm:mb-4">
               Our Global Offices
             </h1>
-            <p className="text-xl text-blue-100 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-blue-100 max-w-2xl mx-auto">
               Visit our offices worldwide for expert study abroad consultation
               and support.
             </p>
@@ -59,8 +59,8 @@ export default async function GlobalBranchesPage({ params }: PageProps) {
       </section>
 
       {/* Offices Section */}
-      <section className="py-12 md:py-16 -mt-8">
-        <div className="container mx-auto px-4">
+      <section className="py-6 sm:py-8 md:py-12 lg:py-16 -mt-4 sm:-mt-6 md:-mt-8">
+        <div className="container mx-auto px-4 sm:px-6">
           <GlobalOfficesClient offices={globalOffices} countryCode={country} />
         </div>
       </section>

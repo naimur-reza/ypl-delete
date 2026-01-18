@@ -16,14 +16,13 @@ const connectionString = process.env.DATABASE_URL;
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
 const createPrismaClient = () => {
-  console.log(
-    `[lib/prisma] Creating new PrismaClient instance inside process ${process.pid}`
-  );
   const pool = new Pool({
     connectionString,
     ssl: {
       rejectUnauthorized: false, // Required for Supabase pooler with self-signed certs
     },
+    // Limit connections to avoid issues with PgBouncer
+    max: 1,
   });
   const adapter = new PrismaPg(pool);
   return new PrismaClient({ adapter });
@@ -34,10 +33,6 @@ export const prisma = globalForPrisma.prisma ?? createPrismaClient();
 if (process.env.NODE_ENV !== "production") {
   if (!globalForPrisma.prisma) {
     globalForPrisma.prisma = prisma;
-  } else {
-    console.log(
-      `[lib/prisma] Reusing existing PrismaClient instance inside process ${process.pid}`
-    );
   }
 }
 

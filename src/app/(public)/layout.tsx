@@ -14,8 +14,6 @@ export default async function PublicLayout({
   children: React.ReactNode;
 }>) {
   const resolvedCountry = await resolveCountryContext();
-
-  console.log("Resolved country in layout:", resolvedCountry);
   return (
     <CountryProvider
       country={resolvedCountry.slug}

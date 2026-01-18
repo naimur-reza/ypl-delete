@@ -89,13 +89,22 @@ export async function handleGetMany<T>(
     const { page, limit, skip, sortBy, sortOrder, search } =
       getPaginationParams(request);
 
-    // Build where clause
-    const where: any = options?.where || {};
+    // Build where clause - deep clone to avoid mutation issues
+    const baseWhere: any = options?.where ? JSON.parse(JSON.stringify(options.where)) : {};
+    const where: any = {};
+
+    // Collect all top-level conditions (excluding OR, AND, NOT)
+    const topLevelConditions: any = {};
+    for (const key in baseWhere) {
+      if (!['OR', 'AND', 'NOT'].includes(key)) {
+        topLevelConditions[key] = baseWhere[key];
+      }
+    }
 
     // Automatic status filtering
     const status = request.nextUrl.searchParams.get("status");
     if (status && status !== "all") {
-      where.status = status;
+      topLevelConditions.status = status;
     } else if (!status) {
       // Heuristic: If no status specified, check if it's likely a public request
       // Admin requests from useDataTable usually pass status=all or a specific status
@@ -103,18 +112,67 @@ export async function handleGetMany<T>(
       const hasAuth =
         request.cookies.has("auth-token") || request.cookies.has("session");
       if (!hasAuth) {
-        where.status = "ACTIVE";
+        // Only add status filter for public requests if no status is specified
+        topLevelConditions.status = "ACTIVE";
       }
     }
 
     // Add search filter if provided
+    let searchOR: any[] = [];
     if (search && options?.searchFields && options.searchFields.length > 0) {
-      where.OR = options.searchFields.map((field) => ({
+      searchOR = options.searchFields.map((field) => ({
         [field]: {
           contains: search,
           mode: "insensitive" as const,
         },
       }));
+    }
+
+    // Build final where clause - properly combine conditions
+    // If we have top-level conditions AND search OR, we need to use AND
+    const hasTopLevelConditions = Object.keys(topLevelConditions).length > 0;
+    const hasSearchOR = searchOR.length > 0;
+    const hasBaseOR = Array.isArray(baseWhere.OR) && baseWhere.OR.length > 0;
+
+    if (hasTopLevelConditions && (hasSearchOR || hasBaseOR)) {
+      // Combine all OR clauses
+      const allOR: any[] = [];
+      if (hasBaseOR) {
+        allOR.push(...baseWhere.OR);
+      }
+      if (hasSearchOR) {
+        allOR.push(...searchOR);
+      }
+
+      // Use AND to combine top-level conditions with OR clauses
+      where.AND = [
+        topLevelConditions,
+        ...(allOR.length > 0 ? [{ OR: allOR }] : [])
+      ];
+    } else if (hasTopLevelConditions) {
+      // Only top-level conditions, no OR
+      Object.assign(where, topLevelConditions);
+      // Preserve existing AND/NOT if present
+      if (baseWhere.AND) where.AND = baseWhere.AND;
+      if (baseWhere.NOT) where.NOT = baseWhere.NOT;
+    } else if (hasSearchOR || hasBaseOR) {
+      // Only OR clauses, no top-level conditions
+      const allOR: any[] = [];
+      if (hasBaseOR) {
+        allOR.push(...baseWhere.OR);
+      }
+      if (hasSearchOR) {
+        allOR.push(...searchOR);
+      }
+      if (allOR.length > 0) {
+        where.OR = allOR;
+      }
+      // Preserve existing AND/NOT if present
+      if (baseWhere.AND) where.AND = baseWhere.AND;
+      if (baseWhere.NOT) where.NOT = baseWhere.NOT;
+    } else {
+      // No conditions
+      Object.assign(where, baseWhere);
     }
 
     // Build orderBy
@@ -142,9 +200,15 @@ export async function handleGetMany<T>(
     const response = createPaginatedResponse(finalData, total, page, limit);
 
     return Response.json(response);
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error fetching data:", error);
-    return Response.json({ error: error}, { status: 500 });
+    // Provide better error messages for debugging
+    const errorMessage = error?.message || String(error) || "Failed to fetch data";
+    const errorDetails = process.env.NODE_ENV === "development" ? {
+      message: errorMessage,
+      stack: error?.stack,
+    } : { message: errorMessage };
+    return Response.json({ error: errorDetails }, { status: 500 });
   }
 }
 

@@ -29,14 +29,14 @@ export default function CountryBanner() {
       .then((res) => res.json())
       .then((data) => {
         const fetchedCountries = data?.data || [];
-        
+
         if (fetchedCountries.length === 0) {
           return;
         }
 
         // Get detected country from cookie (set by proxy)
         const geoCode = getCookie("detected_geo_origin");
-        
+
         if (geoCode) {
           const country = fetchedCountries.find(
             (c: Country) => c.isoCode?.toUpperCase() === geoCode.toString().toUpperCase()
@@ -55,7 +55,7 @@ export default function CountryBanner() {
 
   const handleGoToCountry = () => {
     if (detectedCountry) {
-      setCookie("country", detectedCountry.slug, {
+      setCookie("user-country", detectedCountry.slug, {
         maxAge: 60 * 60 * 24 * 365,
         path: "/",
       });
@@ -88,7 +88,7 @@ export default function CountryBanner() {
             />
           )}
           <p className="text-sm md:text-base text-gray-700">
-            You are visiting from <strong>{detectedCountry?.name}</strong>. 
+            You are visiting from <strong>{detectedCountry?.name}</strong>.
             Go to the {detectedCountry?.name} website?
           </p>
         </div>

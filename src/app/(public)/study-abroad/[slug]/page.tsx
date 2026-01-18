@@ -25,7 +25,7 @@ import { UniversityFilterWithWizard } from "@/components/filters/university-filt
 
 interface PageProps {
   params: Promise<{
-    country: string;
+    country?: string; // Optional - only available when accessed from country route
     slug: string;
   }>;
 }
@@ -77,7 +77,6 @@ export async function generateMetadata({
 const DestinationDetailsPage = async ({ params }: PageProps) => {
   const { country, slug } = await params;
 
- 
   // Trim slug to handle any whitespace issues in database
   const trimmedSlug = slug.trim();
   // Capitalize slug for display (e.g., "uk" -> "UK", "usa" -> "USA", "canada" -> "Canada")
@@ -85,6 +84,9 @@ const DestinationDetailsPage = async ({ params }: PageProps) => {
     trimmedSlug.toUpperCase() === "UK" || trimmedSlug.toUpperCase() === "USA"
       ? trimmedSlug.toUpperCase()
       : trimmedSlug.charAt(0).toUpperCase() + trimmedSlug.slice(1);
+  
+  // Extract country slug from URL if available (lowercase for filtering)
+  const countrySlug = country ? country.toLowerCase() : null;
 
   // Fetch destination with sections
   const destination = await prisma.destination.findFirst({
@@ -111,7 +113,7 @@ const DestinationDetailsPage = async ({ params }: PageProps) => {
   });
 
   // Fetch FAQs for destinations listing page (2+ destinations) or specific destination
-  const faqs = await fetchFaqsForDestinationsPage(country, 6);
+  const faqs = await fetchFaqsForDestinationsPage(country || null, 6);
 
   const universities = await prisma.university.findMany({
     where: {
@@ -128,7 +130,7 @@ id: destination?.id
     where: {
       status: "ACTIVE",
       destination: {
-        slug: destination?.id,
+        id: destination?.id,
       },
     },
     select: {
@@ -150,23 +152,25 @@ id: destination?.id
     return name.replace(/^Study\s+in\s+/i, '').trim();
   };
 
-    const countries = await prisma.country.findMany({});
+  const countries = await prisma.country.findMany({});
   const destinations = await prisma.destination.findMany({
-    where: {
-      countries: {
-        some: {
-          country: {
-            slug: country,
+    where: countrySlug
+      ? {
+          countries: {
+            some: {
+              country: {
+                slug: countrySlug,
+              },
+            },
           },
-        },
-      },
-    },
+        }
+      : undefined,
   });
 
   return (
     <div className="bg-white">
       <StudyAbroadHero
-        countrySlug={country}
+        countrySlug={countrySlug || undefined}
       />
       <UniversityFilterWithWizard
         countries={countries}
@@ -181,15 +185,15 @@ id: destination?.id
         universities={universities}
         destinationId={destination?.id}
       />
-      <PopularCourses countrySlug={countryName} destinationSlug={slug} />
+      <PopularCourses countrySlug={countrySlug || undefined} destinationSlug={trimmedSlug} />
       <ScholarshipSlider
         scholarships={scholarships}
         title={`Scholarships to Study in ${countryName}`}
       />
       <EssentialStudySection
         countryName={countryName}
-        countryCode={country}
-        destinationSlug={slug}
+        countryCode={countrySlug || undefined}
+        destinationSlug={trimmedSlug}
       />
       <ReviewSection />
       <RepresentativeVideoSlider />
