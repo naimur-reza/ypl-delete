@@ -1,0 +1,102 @@
+model Service {
+  id              String           @id @default(cuid())
+  title           String
+  slug            String           @unique
+  summary         String?
+  content         String?
+  image           String?
+  metaTitle       String?
+  metaDescription String?
+  metaKeywords    String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  heroSubtitle    String?
+  heroTitle       String?
+  stats           Json?
+  status          ContentStatus    @default(ACTIVE)
+  countries       ServiceCountry[]
+
+  @@index([status])
+}
+
+model Accreditation {
+  id        String                 @id @default(cuid())
+  name      String
+  logo      String?
+  website   String?
+  sortOrder Int?                   @default(0)
+  createdAt DateTime               @default(now())
+  updatedAt DateTime               @updatedAt
+  type      AccreditationType      @default(NEWS)
+  status    ContentStatus          @default(DRAFT)
+  countries AccreditationCountry[]
+
+  @@index([status])
+}
+
+model Career {
+  id               String           @id @default(cuid())
+  title            String
+  slug             String           @unique
+  department       String?
+  location         String?
+  jobType          String?
+  jobLocation      String?
+  description      String?
+  requirements     String?
+  responsibilities String?
+  benefits         String?
+  salaryMin        Int?
+  salaryMax        Int?
+  salaryCurrency   String?          @default("USD")
+  applyUrl         String?
+  deadline         DateTime?
+  metaTitle        String?
+  metaDescription  String?
+  metaKeywords     String?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  status           ContentStatus    @default(ACTIVE)
+  applications     JobApplication[]
+
+  @@index([status])
+}
+
+model JobApplication {
+  id                String               @id @default(cuid())
+  careerId          String
+  email             String
+  phone             String
+  coverLetter       String?
+  resumeUrl         String?
+  linkedinUrl       String?
+  portfolioUrl      String?
+  currentCompany    String?
+  yearsOfExperience Int?
+  expectedSalary    String?
+  availableFrom     DateTime?
+  notes             String?
+  createdAt         DateTime             @default(now())
+  updatedAt         DateTime             @updatedAt
+  name              String
+  status            JobApplicationStatus @default(PENDING)
+  career            Career               @relation(fields: [careerId], references: [id], onDelete: Cascade)
+
+  @@index([careerId])
+  @@index([email])
+  @@index([status])
+}
+
+enum JobApplicationStatus {
+  PENDING
+  REVIEWING
+  SHORTLISTED
+  REJECTED
+  HIRED
+}
+
+enum AccreditationType {
+  NEWS
+  PARTNER
+  ACCREDITATION
+}

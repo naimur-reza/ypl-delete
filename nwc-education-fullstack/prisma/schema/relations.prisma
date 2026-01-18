@@ -1,0 +1,247 @@
+model UniversityCountry {
+  id           String     @id @default(cuid())
+  universityId String
+  countryId    String
+  country      Country    @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  university   University @relation(fields: [universityId], references: [id], onDelete: Cascade)
+
+  @@unique([universityId, countryId])
+}
+
+model CourseCountry {
+  id        String  @id @default(cuid())
+  courseId  String
+  countryId String
+  country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  course    Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([courseId, countryId])
+}
+
+model ScholarshipCountry {
+  id            String      @id @default(cuid())
+  scholarshipId String
+  countryId     String
+  country       Country     @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  scholarship   Scholarship @relation(fields: [scholarshipId], references: [id], onDelete: Cascade)
+
+  @@unique([scholarshipId, countryId])
+}
+
+model EventCountry {
+  id        String  @id @default(cuid())
+  eventId   String
+  countryId String
+  country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  event     Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, countryId])
+}
+
+model BlogCountry {
+  id        String  @id @default(cuid())
+  blogId    String
+  countryId String
+  blog      Blog    @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+
+  @@unique([blogId, countryId])
+}
+
+model BlogUniversity {
+  id           String     @id @default(cuid())
+  blogId       String
+  universityId String
+  blog         Blog       @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  university   University @relation(fields: [universityId], references: [id], onDelete: Cascade)
+
+  @@unique([blogId, universityId])
+}
+
+model BlogCourse {
+  id       String @id @default(cuid())
+  blogId   String
+  courseId String
+  blog     Blog   @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([blogId, courseId])
+}
+
+model FAQCountry {
+  id        String  @id @default(cuid())
+  faqId     String
+  countryId String
+  country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  faq       FAQ     @relation(fields: [faqId], references: [id], onDelete: Cascade)
+
+  @@unique([faqId, countryId])
+}
+
+model FAQDestination {
+  id            String      @id @default(cuid())
+  faqId         String
+  destinationId String
+  destination   Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  faq           FAQ         @relation(fields: [faqId], references: [id], onDelete: Cascade)
+
+  @@unique([faqId, destinationId])
+}
+
+model FAQUniversity {
+  id           String     @id @default(cuid())
+  faqId        String
+  universityId String
+  faq          FAQ        @relation(fields: [faqId], references: [id], onDelete: Cascade)
+  university   University @relation(fields: [universityId], references: [id], onDelete: Cascade)
+
+  @@unique([faqId, universityId])
+}
+
+model FAQEvent {
+  id      String @id @default(cuid())
+  faqId   String
+  eventId String
+  event   Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  faq     FAQ    @relation(fields: [faqId], references: [id], onDelete: Cascade)
+
+  @@unique([faqId, eventId])
+}
+
+model FAQCourse {
+  id       String @id @default(cuid())
+  faqId    String
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  faq      FAQ    @relation(fields: [faqId], references: [id], onDelete: Cascade)
+
+  @@unique([faqId, courseId])
+}
+
+model FAQScholarship {
+  id            String      @id @default(cuid())
+  faqId         String
+  scholarshipId String
+  faq           FAQ         @relation(fields: [faqId], references: [id], onDelete: Cascade)
+  scholarship   Scholarship @relation(fields: [scholarshipId], references: [id], onDelete: Cascade)
+
+  @@unique([faqId, scholarshipId])
+}
+
+model FAQIntakePage {
+  id           String     @id @default(cuid())
+  faqId        String
+  intakePageId String
+  faq          FAQ        @relation(fields: [faqId], references: [id], onDelete: Cascade)
+  intakePage   IntakePage @relation(fields: [intakePageId], references: [id], onDelete: Cascade)
+
+  @@unique([faqId, intakePageId])
+}
+
+model GlobalOfficeCountry {
+  id             String       @id @default(cuid())
+  globalOfficeId String
+  countryId      String
+  country        Country      @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  globalOffice   GlobalOffice @relation(fields: [globalOfficeId], references: [id], onDelete: Cascade)
+
+  @@unique([globalOfficeId, countryId])
+}
+
+model DestinationCountry {
+  id            String      @id @default(cuid())
+  destinationId String
+  countryId     String
+  country       Country     @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  destination   Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+
+  @@unique([destinationId, countryId])
+}
+
+model TestimonialCountry {
+  id            String      @id @default(cuid())
+  testimonialId String
+  countryId     String
+  country       Country     @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  testimonial   Testimonial @relation(fields: [testimonialId], references: [id], onDelete: Cascade)
+
+  @@unique([testimonialId, countryId])
+}
+
+model TestimonialDestination {
+  id            String      @id @default(cuid())
+  testimonialId String
+  destinationId String
+  destination   Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  testimonial   Testimonial @relation(fields: [testimonialId], references: [id], onDelete: Cascade)
+
+  @@unique([testimonialId, destinationId])
+}
+
+model TestimonialUniversity {
+  id            String      @id @default(cuid())
+  testimonialId String
+  universityId  String
+  testimonial   Testimonial @relation(fields: [testimonialId], references: [id], onDelete: Cascade)
+  university    University  @relation(fields: [universityId], references: [id], onDelete: Cascade)
+
+  @@unique([testimonialId, universityId])
+}
+
+model TestimonialEvent {
+  id            String      @id @default(cuid())
+  testimonialId String
+  eventId       String
+  event         Event       @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  testimonial   Testimonial @relation(fields: [testimonialId], references: [id], onDelete: Cascade)
+
+  @@unique([testimonialId, eventId])
+}
+
+model AccreditationCountry {
+  id              String        @id @default(cuid())
+  countryId       String
+  accreditationId String
+  accreditation   Accreditation @relation(fields: [accreditationId], references: [id], onDelete: Cascade)
+  country         Country       @relation(fields: [countryId], references: [id], onDelete: Cascade)
+
+  @@unique([accreditationId, countryId])
+}
+
+model GalleryCountry {
+  id        String  @id @default(cuid())
+  galleryId String
+  countryId String
+  country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  gallery   Gallery @relation(fields: [galleryId], references: [id], onDelete: Cascade)
+
+  @@unique([galleryId, countryId])
+}
+
+model EssentialStudyCountry {
+  id               String         @id @default(cuid())
+  essentialStudyId String
+  countryId        String
+  createdAt        DateTime       @default(now())
+  country          Country        @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  essentialStudy   EssentialStudy @relation(fields: [essentialStudyId], references: [id], onDelete: Cascade)
+
+  @@unique([essentialStudyId, countryId])
+  @@index([essentialStudyId])
+  @@index([countryId])
+  @@map("essential_study_countries")
+}
+
+model ServiceCountry {
+  id        String   @id @default(cuid())
+  serviceId String
+  countryId String
+  createdAt DateTime @default(now())
+  country   Country  @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  service   Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@unique([serviceId, countryId])
+  @@index([serviceId])
+  @@index([countryId])
+  @@map("service_countries")
+}

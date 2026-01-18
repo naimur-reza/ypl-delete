@@ -1,0 +1,53 @@
+import { prisma } from "@/lib/prisma";
+import { resolveCountryContext } from "@/lib/country-resolver";
+import { GallerySection } from "@/app/[country]/(public)/(home)/components";
+import CallToActionBanner from "@/components/CallToActionBanner";
+
+export const metadata = {
+  title: "Gallery | NWC Education",
+  description:
+    "Explore our collection of visa success stories, team moments, and memorable events.",
+};
+
+// Enable ISR with 1 hour revalidation for SSG
+export const revalidate = 3600;
+
+type PageProps = {
+  params?: Promise<{ country?: string }>;
+};
+
+export default async function GalleryPage({ params }: PageProps) {
+  const resolvedParams = (await params) ?? { country: null };
+  const resolvedCountry = await resolveCountryContext(resolvedParams.country);
+  const countrySlug = resolvedCountry.slug;
+
+  const gallery = await prisma.gallery.findMany({
+    where: {
+      status: "ACTIVE",
+      ...(countrySlug && {
+        countries: {
+          some: {
+            country: {
+              slug: countrySlug,
+            },
+          },
+        },
+      }),
+    },
+    orderBy: { sortOrder: "asc" },
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      image: true,
+      type: true,
+    },
+  });
+
+  return (
+    <div className="min-h-screen">
+      <GallerySection gallery={gallery} />
+      <CallToActionBanner />
+    </div>
+  );
+}

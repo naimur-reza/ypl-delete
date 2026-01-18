@@ -1,0 +1,36 @@
+model Scholarship {
+  id                  String               @id @default(cuid())
+  title               String
+  slug                String               @unique
+  image               String?
+  description         String?
+  amount              Float?
+  deadline            DateTime?
+  metaTitle           String?
+  metaDescription     String?
+  metaKeywords        String?
+  overview            String?
+  benefits            String?
+  eligibilityCriteria String?
+  levelAndField       String?
+  providerInfo        String?
+  requiredDocuments   String?
+  howToApply          String?
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  createdBy           String?
+  updatedBy           String?
+  universityId        String?
+  destinationId       String
+  summary             String?
+  status              ContentStatus        @default(ACTIVE)
+  faqs                FAQScholarship[]
+  destination         Destination          @relation(fields: [destinationId], references: [id])
+  university          University?          @relation(fields: [universityId], references: [id])
+  countries           ScholarshipCountry[]
+  courses             Course[]             @relation("CourseToScholarship")
+
+  @@index([destinationId])
+  @@index([universityId])
+  @@index([status])
+}

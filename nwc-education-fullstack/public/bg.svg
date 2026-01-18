@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice">
+  <!-- Minimal outline-only pattern inspired by the provided reference -->
+
+  <style>
+    .line { stroke: currentColor; stroke-width: 2; stroke-opacity: 0.15; fill: none; }
+    .thin { stroke-width: 1.4; stroke-opacity: 0.10; }
+  </style>
+
+  <!-- Repeating angled wave pattern -->
+  <g>
+    <path class="line" d="M -100 60 Q 0 0, 120 60 T 340 60 T 560 60 T 780 60 T 1000 60 T 1220 60" />
+    <path class="line thin" d="M -100 120 Q 0 60, 120 120 T 340 120 T 560 120 T 780 120 T 1000 120 T 1220 120" />
+    <path class="line" d="M -100 180 Q 0 120, 120 180 T 340 180 T 560 180 T 780 180 T 1000 180 T 1220 180" />
+    <path class="line thin" d="M -100 240 Q 0 180, 120 240 T 340 240 T 560 240 T 780 240 T 1000 240 T 1220 240" />
+    <path class="line" d="M -100 300 Q 0 240, 120 300 T 340 300 T 560 300 T 780 300 T 1000 300 T 1220 300" />
+    <path class="line thin" d="M -100 360 Q 0 300, 120 360 T 340 360 T 560 360 T 780 360 T 1000 360 T 1220 360" />
+  </g>
+
+  <!-- Sparse vertical connectors for structure -->
+  <g>
+    <line class="thin" x1="120" x2="120" y1="0" y2="400" />
+    <line class="thin" x1="340" x2="340" y1="0" y2="400" />
+    <line class="thin" x1="560" x2="560" y1="0" y2="400" />
+    <line class="thin" x1="780" x2="780" y1="0" y2="400" />
+    <line class="thin" x1="1000" x2="1000" y1="0" y2="400" />
+  </g>
+
+</svg>

@@ -1,0 +1,30 @@
+model Hero {
+  id             String         @id @default(cuid())
+  title          String
+  subtitle       String?
+  buttonText     String?
+  buttonUrl      String?
+  learnMoreText  String?
+  learnMoreUrl   String?
+  backgroundType BackgroundType @default(IMAGE)
+  backgroundUrl  String
+  slug           String
+  order          Int            @default(0)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  status         ContentStatus  @default(ACTIVE)
+  countries      HeroCountry[]
+
+  @@index([slug])
+  @@index([status])
+}
+
+model HeroCountry {
+  id        String  @id @default(cuid())
+  heroId    String
+  countryId String
+  country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  hero      Hero    @relation(fields: [heroId], references: [id], onDelete: Cascade)
+
+  @@unique([heroId, countryId])
+}
