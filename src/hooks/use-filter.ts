@@ -13,14 +13,16 @@ export interface UseFilterOptions<T> {
     };
   };
   searchFields?: Array<keyof T | ((item: T) => string | null | undefined)>;
+  initialFilters?: FilterState;
 }
 
 export function useFilter<T>({
   data,
   filterConfig,
   searchFields = [],
+  initialFilters = {},
 }: UseFilterOptions<T>) {
-  const [filters, setFilters] = useState<FilterState>({});
+  const [filters, setFilters] = useState<FilterState>(initialFilters);
   const [searchQuery, setSearchQuery] = useState("");
 
   const toggleFilter = useCallback((category: string, value: string) => {

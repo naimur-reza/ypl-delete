@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 
 import { Pagination } from "@/components/ui/pagination";
 import { UniversityCard } from "./university-card";
@@ -10,10 +10,9 @@ import {
   extractUniversityFilterOptions,
   extractCity,
 } from "@/lib/university-filters";
-import { useFilter } from "@/hooks/use-filter";
+import { useFilter, FilterState } from "@/hooks/use-filter";
 import {
   University,
-  ProviderType,
 } from "../../../../../prisma/src/generated/prisma/client";
 
 const ITEMS_PER_PAGE = 9;
@@ -28,6 +27,9 @@ interface UniversityListingProps {
 }
 
 export function UniversityListing({ universities }: UniversityListingProps) {
+  const searchParams = useSearchParams();
+  const destinationId = searchParams.get("destinationId");
+
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState<
     "popularity" | "name-asc" | "name-desc" | "featured"
@@ -37,6 +39,14 @@ export function UniversityListing({ universities }: UniversityListingProps) {
     () => extractUniversityFilterOptions(universities),
     [universities]
   );
+
+  const initialFilters = useMemo<FilterState>(() => {
+    const filters: FilterState = {};
+    if (destinationId) {
+      filters.destination = [destinationId];
+    }
+    return filters;
+  }, [destinationId]);
 
   const {
     filters,
@@ -76,6 +86,7 @@ export function UniversityListing({ universities }: UniversityListingProps) {
       (uni) => uni.description,
       (uni) => uni.address,
     ],
+    initialFilters,
   });
 
   // Reset to page 1 when filters change

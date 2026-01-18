@@ -12,10 +12,10 @@ interface UniversityCardProps {
 export function UniversityCard({ university }: UniversityCardProps) {
   return (
     <div className="group bg-white rounded-2xl border border-slate-200 hover:shadow-xl hover:border-primary/20 transition-all duration-300 overflow-hidden">
-      {/* Horizontal Layout */}
-      <div className="flex flex-col sm:flex-row h-full">
+      {/* Vertical Layout */}
+      <div className="flex flex-col h-full">
         {/* Thumbnail */}
-        <div className="relative h-52 sm:h-auto sm:min-h-[220px] sm:w-[200px] shrink-0 overflow-hidden">
+        <div className="relative h-64 w-full shrink-0 overflow-hidden">
           <Image
             src={
               university.thumbnail ||
@@ -24,21 +24,21 @@ export function UniversityCard({ university }: UniversityCardProps) {
             }
             alt={university.name}
             fill
-            sizes="(max-width: 640px) 100vw, 200px"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover group-hover:scale-105 transition-transform duration-500"
           />
-          <div className="absolute inset-0 bg-linear-to-t sm:bg-linear-to-r from-black/40 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
 
           {/* Featured badge */}
           {university.isFeatured && (
-            <div className="absolute top-3 left-3 px-3 py-1.5 bg-linear-to-r from-amber-500 to-orange-500 text-white text-xs font-bold rounded-full shadow-lg">
+            <div className="absolute top-3 left-3 px-3 py-1.5 bg-black/60 text-white text-xs font-bold rounded-full shadow-lg">
               ⭐ Featured
             </div>
           )}
         </div>
 
         {/* Content */}
-        <div className="flex-1 p-5 sm:p-6 flex flex-col justify-between">
+        <div className="flex-1 p-5 flex flex-col justify-between">
           <div>
             {/* Logo and Title */}
             <div className="flex items-start gap-3 mb-3">

@@ -21,7 +21,7 @@ export function CourseCard({ course }: CourseCardProps) {
       {/* 1. Left: Course Image (Responsive width) */}
       <div className="relative w-full md:w-72 lg:w-80 h-48 md:h-auto shrink-0 overflow-hidden">
         <Image 
-          src={  "https://mie-global-te43fd.s3.amazonaws.com/static/images/BMSc-Medical-Education--Intercalated.original.webp"} 
+          src={course.image || "https://mie-global-te43fd.s3.amazonaws.com/static/images/BMSc-Medical-Education--Intercalated.original.webp"} 
           alt={course.title}
           fill
           className="object-cover group-hover:scale-105 transition-transform duration-500"

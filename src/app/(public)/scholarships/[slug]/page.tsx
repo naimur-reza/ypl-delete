@@ -359,11 +359,13 @@ export default async function ScholarshipDetailsPage({ params }: PageProps) {
           />
         )}
 
+       <BlogSlider countrySlug={slug} posts={posts} />
+
         {/* Book free counselling CTR Section */}
         <CallToActionBanner />
 
         {/* Article Related Scholarships */}
-        <BlogSlider countrySlug={slug} posts={posts} />
+ 
       </div>
     </div>
   );

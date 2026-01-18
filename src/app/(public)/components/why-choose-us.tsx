@@ -190,7 +190,7 @@ export default async function WhyChooseUs({ countrySlug }: WhyChooseUsProps) {
 
         {/* Stats Grid */}
         <div
-          className={`grid grid-cols-1 gap-8 ${
+          className={`grid grid-cols-1 gap-4 md:gap-8 ${
             displayStats.length === 2
               ? "md:grid-cols-2 max-w-3xl mx-auto"
               : displayStats.length >= 3
@@ -203,17 +203,17 @@ export default async function WhyChooseUs({ countrySlug }: WhyChooseUsProps) {
             return (
               <div
                 key={idx}
-                className="group bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-sm hover:shadow-2xl border border-white/50 transition-all duration-500 hover:-translate-y-2"
+                className="group bg-white/80 backdrop-blur-sm rounded-3xl p-6 md:p-8 shadow-sm hover:shadow-2xl border border-white/50 transition-all duration-500 hover:-translate-y-2"
               >
                 <div
                   className={`w-14 h-14 ${stat.colors.iconBg} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500`}
                 >
                   <Icon className={`w-7 h-7 ${stat.colors.iconColor}`} />
                 </div>
-                <div className="text-6xl font-bold text-transparent bg-clip-text bg-linear-to-br from-slate-800 to-slate-500 mb-4">
+                <div className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-linear-to-br from-slate-800 to-slate-500 mb-4">
                   {stat.title}
                 </div>
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">
+                <h3 className="text-lg md:text-2xl font-semibold text-slate-900 mb-2">
                   {stat.subtitle}
                 </h3>
                 {stat.description && (

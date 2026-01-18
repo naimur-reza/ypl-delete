@@ -20,6 +20,7 @@ export async function GET(req: NextRequest) {
     include: {
       countries: { include: { country: true } },
       destination: true,
+      detail: true,
     },
   });
 }
@@ -77,13 +78,28 @@ export async function POST(req: NextRequest) {
       metaDescription,
       metaKeywords,
       status: status || "DRAFT",
-      rankingNumber,
-      costOfStudying,
+      rankingNumber: body.rankingNumber,
+      costOfStudying: body.costOfStudying,
       countries: countryIds?.length
         ? {
             create: (countryIds as string[]).map((cid) => ({ countryId: cid })),
           }
         : undefined,
+      detail: {
+        create: {
+          overview: body.overview || "",
+          entryRequirements: body.entryRequirements || "",
+          ranking: body.ranking || null,
+          tuitionFees: body.tuitionFees || null,
+          famousFor: body.famousFor || null,
+          servicesHeading: body.servicesHeading || null,
+          servicesDescription: body.servicesDescription || null,
+          servicesImage: body.servicesImage || null,
+          accommodation: body.accommodation || null,
+          accommodationImage: body.accommodationImage || null,
+          description: body.description || null,
+        },
+      },
     } as unknown as Record<string, unknown>,
     prisma.university,
     {
@@ -115,6 +131,28 @@ export async function PUT(req: NextRequest) {
       create: (countryIds as string[]).map((cid) => ({ countryId: cid })),
     };
   }
+
+  // Handle nested detail update/create
+  const detailData = {
+    overview: body.overview || "",
+    entryRequirements: body.entryRequirements || "",
+    ranking: body.ranking || null,
+    tuitionFees: body.tuitionFees || null,
+    famousFor: body.famousFor || null,
+    servicesHeading: body.servicesHeading || null,
+    servicesDescription: body.servicesDescription || null,
+    servicesImage: body.servicesImage || null,
+    accommodation: body.accommodation || null,
+    accommodationImage: body.accommodationImage || null,
+    description: body.description || null,
+  };
+
+  updateData.detail = {
+    upsert: {
+      create: detailData,
+      update: detailData,
+    },
+  };
 
   return handleUpdate(id, updateData, prisma.university, {
     revalidatePaths: ["/dashboard/universities"],

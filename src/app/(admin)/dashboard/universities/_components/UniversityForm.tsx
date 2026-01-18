@@ -6,7 +6,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { FieldGroup } from "@/components/ui/field";
-import { useAppForm } from "@/hooks/hooks";
+import { useAppForm } from "@/hooks/use-field-context";
 import { useAutoSlug } from "@/hooks/use-auto-slug";
 import { universitySchema } from "@/schemas/university";
 import { toast } from "sonner";
@@ -20,6 +20,7 @@ import { CountrySelect } from "@/components/ui/region-select";
 import { FormBase } from "@/components/form/FormBase";
 import { Input } from "@/components/ui/input";
 import { University } from "../../../../../../prisma/src/generated/prisma/browser";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 type FormData = z.infer<typeof universitySchema>;
 
@@ -65,7 +66,8 @@ interface UniversityFormProps {
     country?: { name: string };
     destination?: { name: string };
     countries?: Array<{ country: { id: string } }>;
-    status?: "ACTIVE" | "DRAFT";
+    status?: any; // Enum type mismatch workaround
+    detail?: any; // Allow detail prop
   };
   onSuccess?: () => void;
 }
@@ -82,9 +84,14 @@ export function UniversityForm({
 
   const [imageUrl, setImageUrl] = useState<string>("");
   const [logoUrl, setLogoUrl] = useState<string>("");
+  const [servicesImageUrl, setServicesImageUrl] = useState<string>("");
+  const [accommodationImageUrl, setAccommodationImageUrl] = useState<string>("");
+
   const [countryIds, setCountryIds] = useState<string[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [isLogoUploading, setIsLogoUploading] = useState(false);
+  const [isServicesUploading, setIsServicesUploading] = useState(false);
+  const [isAccommodationUploading, setIsAccommodationUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const getDefaultValues = (): FormData => ({
@@ -104,14 +111,26 @@ export function UniversityForm({
     metaTitle: initialData?.metaTitle || "",
     metaDescription: initialData?.metaDescription || "",
     metaKeywords: initialData?.metaKeywords || "",
-    status: initialData?.status || "ACTIVE",
+    status: (initialData?.status as any) || "ACTIVE",
+    // Details
+    rankingNumber: initialData?.rankingNumber ?? null,
+    costOfStudying: initialData?.costOfStudying || "",
+    overview: initialData?.detail?.overview || "",
+    ranking: initialData?.detail?.ranking || "",
+    tuitionFees: initialData?.detail?.tuitionFees || "",
+    famousFor: initialData?.detail?.famousFor || "",
+    servicesHeading: initialData?.detail?.servicesHeading || "",
+    servicesDescription: initialData?.detail?.servicesDescription || "",
+    servicesImage: initialData?.detail?.servicesImage || "",
+    entryRequirements: initialData?.detail?.entryRequirements || "",
+    accommodation: initialData?.detail?.accommodation || "",
+    accommodationImage: initialData?.detail?.accommodationImage || "",
   });
 
   const form = useAppForm({
     defaultValues: getDefaultValues(),
     validators: { onSubmit: universitySchema as any },
     onSubmit: async ({ value }) => {
-      const castValue = value as any;
       setIsSubmitting(true);
       try {
         const transformToNullable = (data: FormData) => ({
@@ -126,6 +145,17 @@ export function UniversityForm({
           metaTitle: data.metaTitle || null,
           metaDescription: data.metaDescription || null,
           metaKeywords: data.metaKeywords || null,
+          // Detail fields transformation
+          servicesImage: servicesImageUrl || null,
+          accommodationImage: accommodationImageUrl || null,
+          ranking: data.ranking || null,
+          tuitionFees: data.tuitionFees || null,
+          famousFor: data.famousFor || null,
+          servicesHeading: data.servicesHeading || null,
+          servicesDescription: data.servicesDescription || null,
+          accommodation: data.accommodation || null,
+          rankingNumber: data.rankingNumber || null,
+          costOfStudying: data.costOfStudying || null,
         });
 
         const submitData = {
@@ -159,6 +189,8 @@ export function UniversityForm({
         setCountryIds([]);
         setImageUrl("");
         setLogoUrl("");
+        setServicesImageUrl("");
+        setAccommodationImageUrl("");
         await queryClient.invalidateQueries({
           queryKey: ["data-table", "/api/universities"],
         });
@@ -181,11 +213,15 @@ export function UniversityForm({
       form.setFieldValue("countryIds", initialCountryIds);
       setImageUrl(initialData.thumbnail || "");
       setLogoUrl(initialData.logo || "");
+      setServicesImageUrl(initialData.detail?.servicesImage || "");
+      setAccommodationImageUrl(initialData.detail?.accommodationImage || "");
     } else {
       setCountryIds([]);
       form.setFieldValue("countryIds", []);
       setImageUrl("");
       setLogoUrl("");
+      setServicesImageUrl("");
+      setAccommodationImageUrl("");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialData]);
@@ -205,146 +241,227 @@ export function UniversityForm({
       }}
     >
       <FieldGroup>
-        <form.AppField name="name">
-          {(field) => (
-            <FormBase label="Name">
-              <Input
-                id={field.name}
-                name={field.name}
-                value={field.state.value}
-                onChange={(e) => {
-                  field.handleChange(e.target.value);
-                  handleTitleChange(e.target.value);
-                }}
-                onBlur={field.handleBlur}
-              />
-            </FormBase>
-          )}
-        </form.AppField>
-        <form.AppField name="slug">
-          {(field) => (
-            <FormBase label="Slug" description="">
-              <Input
-                id={field.name}
-                name={field.name}
-                value={field.state.value}
-                onChange={(e) => {
-                  const slugValue = generateSlug(e.target.value);
-                  field.handleChange(slugValue);
-                  handleSlugChange(slugValue);
-                }}
-                onBlur={field.handleBlur}
-              />
-            </FormBase>
-          )}
-        </form.AppField>
-        <ImageUpload
-          value={logoUrl}
-          onChange={setLogoUrl}
-          folder="universities/logos"
-          label="University Logo"
-          onUploadingChange={setIsLogoUploading}
-        />
-        <ImageUpload
-          value={imageUrl}
-          onChange={setImageUrl}
-          folder="universities"
-          label="University Image"
-          onUploadingChange={setIsUploading}
-        />
-        <form.AppField name="rankingNumber">
-          {(field) => (
-            <field.Input label="Ranking Number" type="number" min={1} />
-          )}
-        </form.AppField>
-        <form.AppField name="costOfStudying">
-          {(field) => (
-            <field.Input
-              label="Cost of Studying"
-              placeholder="e.g. 10,000 USD/year"
-            />
-          )}
-        </form.AppField>
-        <form.AppField name="description">
-          {(field) => <field.Textarea label="Description" />}
-        </form.AppField>
-        <form.AppField name="providerType">
-          {(field) => (
-            <field.Select label="Provider Type">
-              <SelectItem value="UNIVERSITY">University</SelectItem>
-              <SelectItem value="GOVERNMENT">Government</SelectItem>
-              <SelectItem value="PRIVATE">Private</SelectItem>
-              <SelectItem value="EMBASSY">Embassy</SelectItem>
-            </field.Select>
-          )}
-        </form.AppField>
-
-        <form.AppField name="countryIds">
-          {(field) => (
-            <CountrySelect
-              value={countryIds}
-              onChange={(ids) => {
-                setCountryIds(ids);
-                field.handleChange(ids);
-              }}
-              label="Select Countries"
-            />
-          )}
-        </form.AppField>
-        <form.AppField name="destinationId">
-          {(field) => (
-            <field.Select label="Destination">
-              {loadingDestinations ? (
-                <SelectItem value="__loading__" disabled>
-                  Loading...
-                </SelectItem>
-              ) : destinations.length === 0 ? (
-                <SelectItem value="__empty__" disabled>
-                  No destinations available
-                </SelectItem>
-              ) : (
-                destinations.map((item) => (
-                  <SelectItem key={item.id} value={item.id}>
-                    {item.name}
-                  </SelectItem>
-                ))
+        <Tabs defaultValue="general" className="w-full">
+          <TabsList className="grid w-full grid-cols-5 h-auto mb-4">
+            <TabsTrigger value="general">General</TabsTrigger>
+            <TabsTrigger value="details">Details</TabsTrigger>
+            <TabsTrigger value="admissions">Admissions</TabsTrigger>
+            <TabsTrigger value="features">Features</TabsTrigger>
+            <TabsTrigger value="seo">SEO</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="general" className="space-y-4">
+            <form.AppField name="name">
+              {(field) => (
+                <FormBase label="Name">
+                  <Input
+                    id={field.name}
+                    name={field.name}
+                    value={field.state.value}
+                    onChange={(e) => {
+                      field.handleChange(e.target.value);
+                      handleTitleChange(e.target.value);
+                    }}
+                    onBlur={field.handleBlur}
+                  />
+                </FormBase>
               )}
-            </field.Select>
-          )}
-        </form.AppField>
-        <form.AppField name="website">
-          {(field) => <field.Input label="Website" />}
-        </form.AppField>
-        <form.AppField name="address">
-          {(field) => <field.Input label="Address" />}
-        </form.AppField>
-        <form.AppField name="phone">
-          {(field) => <field.Input label="Phone" />}
-        </form.AppField>
-        <form.AppField name="email">
-          {(field) => <field.Input label="Email" />}
-        </form.AppField>
-        <form.AppField name="isFeatured">
-          {(field) => <field.Checkbox label="Featured" />}
-        </form.AppField>
-        <form.AppField name="status">
-          {(field) => (
-            <field.Select label="Status">
-              <SelectItem value="ACTIVE">Active</SelectItem>
-              <SelectItem value="DRAFT">Draft</SelectItem>
-            </field.Select>
-          )}
-        </form.AppField>
-        <form.AppField name="metaTitle">
-          {(field) => <field.Input label="Meta Title" />}
-        </form.AppField>
-        <form.AppField name="metaDescription">
-          {(field) => <field.Textarea label="Meta Description" />}
-        </form.AppField>
-        <form.AppField name="metaKeywords">
-          {(field) => <field.Input label="Meta Keywords" />}
-        </form.AppField>
-        <div className="flex gap-2 justify-end">
+            </form.AppField>
+            <form.AppField name="slug">
+              {(field) => (
+                <FormBase label="Slug" description="">
+                  <Input
+                    id={field.name}
+                    name={field.name}
+                    value={field.state.value}
+                    onChange={(e) => {
+                      const slugValue = generateSlug(e.target.value);
+                      field.handleChange(slugValue);
+                      handleSlugChange(slugValue);
+                    }}
+                    onBlur={field.handleBlur}
+                  />
+                </FormBase>
+              )}
+            </form.AppField>
+            <div className="grid grid-cols-2 gap-4">
+              <ImageUpload
+                value={logoUrl}
+                onChange={setLogoUrl}
+                folder="universities/logos"
+                label="University Logo"
+                onUploadingChange={setIsLogoUploading}
+              />
+              <ImageUpload
+                value={imageUrl}
+                onChange={setImageUrl}
+                folder="universities"
+                label="University Image"
+                onUploadingChange={setIsUploading}
+              />
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+               <form.AppField name="providerType">
+                  {(field) => (
+                    <field.Select label="Provider Type">
+                      <SelectItem value="UNIVERSITY">University</SelectItem>
+                      <SelectItem value="GOVERNMENT">Government</SelectItem>
+                      <SelectItem value="PRIVATE">Private</SelectItem>
+                      <SelectItem value="EMBASSY">Embassy</SelectItem>
+                    </field.Select>
+                  )}
+                </form.AppField>
+                <form.AppField name="status">
+                  {(field) => (
+                    <field.Select label="Status">
+                      <SelectItem value="ACTIVE">Active</SelectItem>
+                      <SelectItem value="DRAFT">Draft</SelectItem>
+                    </field.Select>
+                  )}
+                </form.AppField>
+            </div>
+
+            <form.AppField name="countryIds">
+              {(field) => (
+                <CountrySelect
+                  value={countryIds}
+                  onChange={(ids) => {
+                    setCountryIds(ids);
+                    field.handleChange(ids);
+                  }}
+                  label="Select Countries"
+                />
+              )}
+            </form.AppField>
+            <form.AppField name="destinationId">
+              {(field) => (
+                <field.Select label="Destination">
+                  {loadingDestinations ? (
+                    <SelectItem value="__loading__" disabled>
+                      Loading...
+                    </SelectItem>
+                  ) : destinations.length === 0 ? (
+                    <SelectItem value="__empty__" disabled>
+                      No destinations available
+                    </SelectItem>
+                  ) : (
+                    destinations.map((item) => (
+                      <SelectItem key={item.id} value={item.id}>
+                        {item.name}
+                      </SelectItem>
+                    ))
+                  )}
+                </field.Select>
+              )}
+            </form.AppField>
+            <div className="grid grid-cols-2 gap-4">
+              <form.AppField name="website">
+                {(field) => <field.Input label="Website" />}
+              </form.AppField>
+              <form.AppField name="email">
+                {(field) => <field.Input label="Email" />}
+              </form.AppField>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <form.AppField name="address">
+                {(field) => <field.Input label="Address" />}
+              </form.AppField>
+              <form.AppField name="phone">
+                {(field) => <field.Input label="Phone" />}
+              </form.AppField>
+            </div>
+            <form.AppField name="isFeatured">
+              {(field) => <field.Checkbox label="Featured" />}
+            </form.AppField>
+          </TabsContent>
+
+          <TabsContent value="details" className="space-y-4">
+             <form.AppField name="overview">
+               {(field) => <field.RichText label="University Overview" placeholder="Detailed overview..." />}
+             </form.AppField>
+             <form.AppField name="description">
+              {(field) => <field.Textarea label="Short Description (for cards)" />}
+            </form.AppField>
+             <div className="grid grid-cols-2 gap-4">
+                 <form.AppField name="rankingNumber">
+                  {(field) => (
+                    <field.Input label="Global Ranking (Number)" type="number" min={1} />
+                  )}
+                </form.AppField>
+                 <form.AppField name="costOfStudying">
+                  {(field) => (
+                    <field.Input
+                      label="Cost of Studying (Display)"
+                      placeholder="e.g. 10,000 USD/year"
+                    />
+                  )}
+                </form.AppField>
+             </div>
+              <form.AppField name="ranking">
+               {(field) => <field.RichText label="Ranking Details" />}
+             </form.AppField>
+             <form.AppField name="tuitionFees">
+               {(field) => <field.RichText label="Tuition Fees Details" />}
+             </form.AppField>
+             <form.AppField name="famousFor">
+               {(field) => <field.RichText label="Famous For" />}
+             </form.AppField>
+          </TabsContent>
+
+          <TabsContent value="admissions" className="space-y-4">
+             <form.AppField name="entryRequirements">
+               {(field) => <field.RichText label="Entry Requirements" placeholder="Detailed entry requirements..." />}
+             </form.AppField>
+          </TabsContent>
+          
+          <TabsContent value="features" className="space-y-4">
+             <div className="space-y-4 border rounded-lg p-4 border-border">
+                <h4 className="font-medium">Services</h4>
+                <form.AppField name="servicesHeading">
+                   {(field) => <field.Input label="Services Heading" />}
+                 </form.AppField>
+                 <form.AppField name="servicesDescription">
+                   {(field) => <field.RichText label="Services Description" />}
+                 </form.AppField>
+                 <ImageUpload
+                    value={servicesImageUrl}
+                    onChange={setServicesImageUrl}
+                    folder="university-details"
+                    label="Services Image"
+                    onUploadingChange={setIsServicesUploading}
+                  />
+             </div>
+             
+             <div className="space-y-4 border rounded-lg p-4 border-border">
+                <h4 className="font-medium">Accommodation</h4>
+                <form.AppField name="accommodation">
+                   {(field) => <field.RichText label="Accommodation Details" />}
+                 </form.AppField>
+                 <ImageUpload
+                    value={accommodationImageUrl}
+                    onChange={setAccommodationImageUrl}
+                    folder="university-details"
+                    label="Accommodation Image"
+                    onUploadingChange={setIsAccommodationUploading}
+                  />
+             </div>
+          </TabsContent>
+
+          <TabsContent value="seo" className="space-y-4">
+              <form.AppField name="metaTitle">
+                  {(field) => <field.Input label="Meta Title" />}
+              </form.AppField>
+              <form.AppField name="metaDescription">
+                  {(field) => <field.Textarea label="Meta Description" />}
+              </form.AppField>
+              <form.AppField name="metaKeywords">
+                  {(field) => <field.Input label="Meta Keywords" />}
+              </form.AppField>
+          </TabsContent>
+        </Tabs>
+      
+        <div className="flex gap-2 justify-end pt-4 border-t border-border">
           <Button
             type="button"
             variant="outline"
@@ -355,7 +472,7 @@ export function UniversityForm({
           </Button>
           <SubmitButton
             isSubmitting={isSubmitting}
-            isUploading={isUploading || isLogoUploading}
+            isUploading={isUploading || isLogoUploading || isServicesUploading || isAccommodationUploading}
             submitText={isEditing ? "Update" : "Create"}
             submittingText={isEditing ? "Updating..." : "Creating..."}
           />

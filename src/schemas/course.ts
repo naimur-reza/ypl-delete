@@ -35,6 +35,7 @@ const courseSchema = z.object({
   description: z.string().optional().nullable(),
   summary: z.string().max(300).optional().nullable(),
   icon: z.string().max(50).optional().nullable(),
+  image: z.string().optional().nullable(),
   duration: z.string().optional().nullable(),
   studyLevel: studyLevelEnum.optional().nullable(),
   faculty: facultyEnum.optional().nullable(),

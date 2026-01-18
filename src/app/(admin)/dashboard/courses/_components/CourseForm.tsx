@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import z from "zod";
 import { createEntityApi, apiClient } from "@/lib/api-client";
 import { generateSlug } from "@/lib/utils";
+import { ImageUpload } from "@/components/ui/image-upload";
 
 import { SelectItem } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
@@ -58,6 +59,8 @@ export function CourseForm({ initialData, onSuccess }: CourseFormProps) {
   >([]);
   const [loadingUniversities, setLoadingUniversities] = useState(false);
   const [loadingDestinations, setLoadingDestinations] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
@@ -120,6 +123,7 @@ export function CourseForm({ initialData, onSuccess }: CourseFormProps) {
       description: initialData?.description || "",
       summary: initialData?.summary || "",
       icon: initialData?.icon || "",
+      image: (initialData as any)?.image || "",
       duration: initialData?.duration || "",
       studyLevel: initialData?.studyLevel || null,
       faculty: initialData?.faculty || null,
@@ -157,6 +161,7 @@ export function CourseForm({ initialData, onSuccess }: CourseFormProps) {
           metaDescription: value.metaDescription || null,
           metaKeywords: value.metaKeywords || null,
           sections: value.sections || null,
+          image: imageUrl || null,
         };
 
         if (isEditing && initialData?.id) {
@@ -197,6 +202,9 @@ export function CourseForm({ initialData, onSuccess }: CourseFormProps) {
   useEffect(() => {
     if (!initialData) {
       form.reset();
+      setImageUrl("");
+    } else {
+      setImageUrl((initialData as any).image || "");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialData]);
@@ -255,6 +263,14 @@ export function CourseForm({ initialData, onSuccess }: CourseFormProps) {
         <form.AppField name="summary">
           {(field) => <field.Input label="Summary (for cards)" />}
         </form.AppField>
+        <div className="space-y-2">
+            <ImageUpload
+              value={imageUrl}
+              onChange={setImageUrl}
+              label="Course Image"
+              onUploadingChange={setIsUploading}
+            />
+        </div>
         <form.AppField name="icon">
           {(field) => (
             <field.Select label="Icon">

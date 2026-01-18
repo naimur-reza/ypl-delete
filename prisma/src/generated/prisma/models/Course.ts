@@ -56,6 +56,7 @@ export type CourseMinAggregateOutputType = {
   universityId: string | null
   destinationId: string | null
   icon: string | null
+  image: string | null
   summary: string | null
   faculty: $Enums.Faculty | null
   studyLevel: $Enums.StudyLevel | null
@@ -82,6 +83,7 @@ export type CourseMaxAggregateOutputType = {
   universityId: string | null
   destinationId: string | null
   icon: string | null
+  image: string | null
   summary: string | null
   faculty: $Enums.Faculty | null
   studyLevel: $Enums.StudyLevel | null
@@ -109,6 +111,7 @@ export type CourseCountAggregateOutputType = {
   universityId: number
   destinationId: number
   icon: number
+  image: number
   summary: number
   faculty: number
   studyLevel: number
@@ -147,6 +150,7 @@ export type CourseMinAggregateInputType = {
   universityId?: true
   destinationId?: true
   icon?: true
+  image?: true
   summary?: true
   faculty?: true
   studyLevel?: true
@@ -173,6 +177,7 @@ export type CourseMaxAggregateInputType = {
   universityId?: true
   destinationId?: true
   icon?: true
+  image?: true
   summary?: true
   faculty?: true
   studyLevel?: true
@@ -200,6 +205,7 @@ export type CourseCountAggregateInputType = {
   universityId?: true
   destinationId?: true
   icon?: true
+  image?: true
   summary?: true
   faculty?: true
   studyLevel?: true
@@ -314,6 +320,7 @@ export type CourseGroupByOutputType = {
   universityId: string
   destinationId: string
   icon: string | null
+  image: string | null
   summary: string | null
   faculty: $Enums.Faculty | null
   studyLevel: $Enums.StudyLevel | null
@@ -364,6 +371,7 @@ export type CourseWhereInput = {
   universityId?: Prisma.StringFilter<"Course"> | string
   destinationId?: Prisma.StringFilter<"Course"> | string
   icon?: Prisma.StringNullableFilter<"Course"> | string | null
+  image?: Prisma.StringNullableFilter<"Course"> | string | null
   summary?: Prisma.StringNullableFilter<"Course"> | string | null
   faculty?: Prisma.EnumFacultyNullableFilter<"Course"> | $Enums.Faculty | null
   studyLevel?: Prisma.EnumStudyLevelNullableFilter<"Course"> | $Enums.StudyLevel | null
@@ -398,6 +406,7 @@ export type CourseOrderByWithRelationInput = {
   universityId?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
   icon?: Prisma.SortOrderInput | Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
   summary?: Prisma.SortOrderInput | Prisma.SortOrder
   faculty?: Prisma.SortOrderInput | Prisma.SortOrder
   studyLevel?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -435,6 +444,7 @@ export type CourseWhereUniqueInput = Prisma.AtLeast<{
   universityId?: Prisma.StringFilter<"Course"> | string
   destinationId?: Prisma.StringFilter<"Course"> | string
   icon?: Prisma.StringNullableFilter<"Course"> | string | null
+  image?: Prisma.StringNullableFilter<"Course"> | string | null
   summary?: Prisma.StringNullableFilter<"Course"> | string | null
   faculty?: Prisma.EnumFacultyNullableFilter<"Course"> | $Enums.Faculty | null
   studyLevel?: Prisma.EnumStudyLevelNullableFilter<"Course"> | $Enums.StudyLevel | null
@@ -469,6 +479,7 @@ export type CourseOrderByWithAggregationInput = {
   universityId?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
   icon?: Prisma.SortOrderInput | Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
   summary?: Prisma.SortOrderInput | Prisma.SortOrder
   faculty?: Prisma.SortOrderInput | Prisma.SortOrder
   studyLevel?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -504,6 +515,7 @@ export type CourseScalarWhereWithAggregatesInput = {
   universityId?: Prisma.StringWithAggregatesFilter<"Course"> | string
   destinationId?: Prisma.StringWithAggregatesFilter<"Course"> | string
   icon?: Prisma.StringNullableWithAggregatesFilter<"Course"> | string | null
+  image?: Prisma.StringNullableWithAggregatesFilter<"Course"> | string | null
   summary?: Prisma.StringNullableWithAggregatesFilter<"Course"> | string | null
   faculty?: Prisma.EnumFacultyNullableWithAggregatesFilter<"Course"> | $Enums.Faculty | null
   studyLevel?: Prisma.EnumStudyLevelNullableWithAggregatesFilter<"Course"> | $Enums.StudyLevel | null
@@ -529,6 +541,7 @@ export type CourseCreateInput = {
   createdBy?: string | null
   updatedBy?: string | null
   icon?: string | null
+  image?: string | null
   summary?: string | null
   faculty?: $Enums.Faculty | null
   studyLevel?: $Enums.StudyLevel | null
@@ -563,6 +576,7 @@ export type CourseUncheckedCreateInput = {
   universityId: string
   destinationId: string
   icon?: string | null
+  image?: string | null
   summary?: string | null
   faculty?: $Enums.Faculty | null
   studyLevel?: $Enums.StudyLevel | null
@@ -593,6 +607,7 @@ export type CourseUpdateInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
@@ -627,6 +642,7 @@ export type CourseUncheckedUpdateInput = {
   universityId?: Prisma.StringFieldUpdateOperationsInput | string
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
@@ -659,6 +675,7 @@ export type CourseCreateManyInput = {
   universityId: string
   destinationId: string
   icon?: string | null
+  image?: string | null
   summary?: string | null
   faculty?: $Enums.Faculty | null
   studyLevel?: $Enums.StudyLevel | null
@@ -684,6 +701,7 @@ export type CourseUpdateManyMutationInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
@@ -711,6 +729,7 @@ export type CourseUncheckedUpdateManyInput = {
   universityId?: Prisma.StringFieldUpdateOperationsInput | string
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
@@ -738,6 +757,7 @@ export type CourseCountOrderByAggregateInput = {
   universityId?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
   icon?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   summary?: Prisma.SortOrder
   faculty?: Prisma.SortOrder
   studyLevel?: Prisma.SortOrder
@@ -769,6 +789,7 @@ export type CourseMaxOrderByAggregateInput = {
   universityId?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
   icon?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   summary?: Prisma.SortOrder
   faculty?: Prisma.SortOrder
   studyLevel?: Prisma.SortOrder
@@ -795,6 +816,7 @@ export type CourseMinOrderByAggregateInput = {
   universityId?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
   icon?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   summary?: Prisma.SortOrder
   faculty?: Prisma.SortOrder
   studyLevel?: Prisma.SortOrder
@@ -1034,6 +1056,7 @@ export type CourseCreateWithoutIntakesInput = {
   createdBy?: string | null
   updatedBy?: string | null
   icon?: string | null
+  image?: string | null
   summary?: string | null
   faculty?: $Enums.Faculty | null
   studyLevel?: $Enums.StudyLevel | null
@@ -1067,6 +1090,7 @@ export type CourseUncheckedCreateWithoutIntakesInput = {
   universityId: string
   destinationId: string
   icon?: string | null
+  image?: string | null
   summary?: string | null
   faculty?: $Enums.Faculty | null
   studyLevel?: $Enums.StudyLevel | null
@@ -1112,6 +1136,7 @@ export type CourseUpdateWithoutIntakesInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
@@ -1145,6 +1170,7 @@ export type CourseUncheckedUpdateWithoutIntakesInput = {
   universityId?: Prisma.StringFieldUpdateOperationsInput | string
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
@@ -1174,6 +1200,7 @@ export type CourseCreateWithoutDestinationInput = {
   createdBy?: string | null
   updatedBy?: string | null
   icon?: string | null
+  image?: string | null
   summary?: string | null
   faculty?: $Enums.Faculty | null
   studyLevel?: $Enums.StudyLevel | null
@@ -1206,6 +1233,7 @@ export type CourseUncheckedCreateWithoutDestinationInput = {
   updatedBy?: string | null
   universityId: string
   icon?: string | null
+  image?: string | null
   summary?: string | null
   faculty?: $Enums.Faculty | null
   studyLevel?: $Enums.StudyLevel | null
@@ -1267,6 +1295,7 @@ export type CourseScalarWhereInput = {
   universityId?: Prisma.StringFilter<"Course"> | string
   destinationId?: Prisma.StringFilter<"Course"> | string
   icon?: Prisma.StringNullableFilter<"Course"> | string | null
+  image?: Prisma.StringNullableFilter<"Course"> | string | null
   summary?: Prisma.StringNullableFilter<"Course"> | string | null
   faculty?: Prisma.EnumFacultyNullableFilter<"Course"> | $Enums.Faculty | null
   studyLevel?: Prisma.EnumStudyLevelNullableFilter<"Course"> | $Enums.StudyLevel | null
@@ -1292,6 +1321,7 @@ export type CourseCreateWithoutCountriesInput = {
   createdBy?: string | null
   updatedBy?: string | null
   icon?: string | null
+  image?: string | null
   summary?: string | null
   faculty?: $Enums.Faculty | null
   studyLevel?: $Enums.StudyLevel | null
@@ -1325,6 +1355,7 @@ export type CourseUncheckedCreateWithoutCountriesInput = {
   universityId: string
   destinationId: string
   icon?: string | null
+  image?: string | null
   summary?: string | null
   faculty?: $Enums.Faculty | null
   studyLevel?: $Enums.StudyLevel | null
@@ -1370,6 +1401,7 @@ export type CourseUpdateWithoutCountriesInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
@@ -1403,6 +1435,7 @@ export type CourseUncheckedUpdateWithoutCountriesInput = {
   universityId?: Prisma.StringFieldUpdateOperationsInput | string
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
@@ -1432,6 +1465,7 @@ export type CourseCreateWithoutBlogLinksInput = {
   createdBy?: string | null
   updatedBy?: string | null
   icon?: string | null
+  image?: string | null
   summary?: string | null
   faculty?: $Enums.Faculty | null
   studyLevel?: $Enums.StudyLevel | null
@@ -1465,6 +1499,7 @@ export type CourseUncheckedCreateWithoutBlogLinksInput = {
   universityId: string
   destinationId: string
   icon?: string | null
+  image?: string | null
   summary?: string | null
   faculty?: $Enums.Faculty | null
   studyLevel?: $Enums.StudyLevel | null
@@ -1510,6 +1545,7 @@ export type CourseUpdateWithoutBlogLinksInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
@@ -1543,6 +1579,7 @@ export type CourseUncheckedUpdateWithoutBlogLinksInput = {
   universityId?: Prisma.StringFieldUpdateOperationsInput | string
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
@@ -1572,6 +1609,7 @@ export type CourseCreateWithoutFaqsInput = {
   createdBy?: string | null
   updatedBy?: string | null
   icon?: string | null
+  image?: string | null
   summary?: string | null
   faculty?: $Enums.Faculty | null
   studyLevel?: $Enums.StudyLevel | null
@@ -1605,6 +1643,7 @@ export type CourseUncheckedCreateWithoutFaqsInput = {
   universityId: string
   destinationId: string
   icon?: string | null
+  image?: string | null
   summary?: string | null
   faculty?: $Enums.Faculty | null
   studyLevel?: $Enums.StudyLevel | null
@@ -1650,6 +1689,7 @@ export type CourseUpdateWithoutFaqsInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
@@ -1683,6 +1723,7 @@ export type CourseUncheckedUpdateWithoutFaqsInput = {
   universityId?: Prisma.StringFieldUpdateOperationsInput | string
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
@@ -1712,6 +1753,7 @@ export type CourseCreateWithoutScholarshipsInput = {
   createdBy?: string | null
   updatedBy?: string | null
   icon?: string | null
+  image?: string | null
   summary?: string | null
   faculty?: $Enums.Faculty | null
   studyLevel?: $Enums.StudyLevel | null
@@ -1745,6 +1787,7 @@ export type CourseUncheckedCreateWithoutScholarshipsInput = {
   universityId: string
   destinationId: string
   icon?: string | null
+  image?: string | null
   summary?: string | null
   faculty?: $Enums.Faculty | null
   studyLevel?: $Enums.StudyLevel | null
@@ -1795,6 +1838,7 @@ export type CourseCreateWithoutUniversityInput = {
   createdBy?: string | null
   updatedBy?: string | null
   icon?: string | null
+  image?: string | null
   summary?: string | null
   faculty?: $Enums.Faculty | null
   studyLevel?: $Enums.StudyLevel | null
@@ -1827,6 +1871,7 @@ export type CourseUncheckedCreateWithoutUniversityInput = {
   updatedBy?: string | null
   destinationId: string
   icon?: string | null
+  image?: string | null
   summary?: string | null
   faculty?: $Enums.Faculty | null
   studyLevel?: $Enums.StudyLevel | null
@@ -1884,6 +1929,7 @@ export type CourseCreateManyDestinationInput = {
   updatedBy?: string | null
   universityId: string
   icon?: string | null
+  image?: string | null
   summary?: string | null
   faculty?: $Enums.Faculty | null
   studyLevel?: $Enums.StudyLevel | null
@@ -1909,6 +1955,7 @@ export type CourseUpdateWithoutDestinationInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
@@ -1941,6 +1988,7 @@ export type CourseUncheckedUpdateWithoutDestinationInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.StringFieldUpdateOperationsInput | string
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
@@ -1972,6 +2020,7 @@ export type CourseUncheckedUpdateManyWithoutDestinationInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.StringFieldUpdateOperationsInput | string
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
@@ -1997,6 +2046,7 @@ export type CourseUpdateWithoutScholarshipsInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
@@ -2030,6 +2080,7 @@ export type CourseUncheckedUpdateWithoutScholarshipsInput = {
   universityId?: Prisma.StringFieldUpdateOperationsInput | string
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
@@ -2061,6 +2112,7 @@ export type CourseUncheckedUpdateManyWithoutScholarshipsInput = {
   universityId?: Prisma.StringFieldUpdateOperationsInput | string
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
@@ -2087,6 +2139,7 @@ export type CourseCreateManyUniversityInput = {
   updatedBy?: string | null
   destinationId: string
   icon?: string | null
+  image?: string | null
   summary?: string | null
   faculty?: $Enums.Faculty | null
   studyLevel?: $Enums.StudyLevel | null
@@ -2112,6 +2165,7 @@ export type CourseUpdateWithoutUniversityInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
@@ -2144,6 +2198,7 @@ export type CourseUncheckedUpdateWithoutUniversityInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
@@ -2175,6 +2230,7 @@ export type CourseUncheckedUpdateManyWithoutUniversityInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faculty?: Prisma.NullableEnumFacultyFieldUpdateOperationsInput | $Enums.Faculty | null
   studyLevel?: Prisma.NullableEnumStudyLevelFieldUpdateOperationsInput | $Enums.StudyLevel | null
@@ -2269,6 +2325,7 @@ export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   universityId?: boolean
   destinationId?: boolean
   icon?: boolean
+  image?: boolean
   summary?: boolean
   faculty?: boolean
   studyLevel?: boolean
@@ -2304,6 +2361,7 @@ export type CourseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   universityId?: boolean
   destinationId?: boolean
   icon?: boolean
+  image?: boolean
   summary?: boolean
   faculty?: boolean
   studyLevel?: boolean
@@ -2333,6 +2391,7 @@ export type CourseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   universityId?: boolean
   destinationId?: boolean
   icon?: boolean
+  image?: boolean
   summary?: boolean
   faculty?: boolean
   studyLevel?: boolean
@@ -2362,13 +2421,14 @@ export type CourseSelectScalar = {
   universityId?: boolean
   destinationId?: boolean
   icon?: boolean
+  image?: boolean
   summary?: boolean
   faculty?: boolean
   studyLevel?: boolean
   status?: boolean
 }
 
-export type CourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "description" | "duration" | "tuitionMin" | "tuitionMax" | "currency" | "sections" | "isFeatured" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "universityId" | "destinationId" | "icon" | "summary" | "faculty" | "studyLevel" | "status", ExtArgs["result"]["course"]>
+export type CourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "description" | "duration" | "tuitionMin" | "tuitionMax" | "currency" | "sections" | "isFeatured" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "universityId" | "destinationId" | "icon" | "image" | "summary" | "faculty" | "studyLevel" | "status", ExtArgs["result"]["course"]>
 export type CourseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   blogLinks?: boolean | Prisma.Course$blogLinksArgs<ExtArgs>
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
@@ -2420,6 +2480,7 @@ export type $CoursePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     universityId: string
     destinationId: string
     icon: string | null
+    image: string | null
     summary: string | null
     faculty: $Enums.Faculty | null
     studyLevel: $Enums.StudyLevel | null
@@ -2874,6 +2935,7 @@ export interface CourseFieldRefs {
   readonly universityId: Prisma.FieldRef<"Course", 'String'>
   readonly destinationId: Prisma.FieldRef<"Course", 'String'>
   readonly icon: Prisma.FieldRef<"Course", 'String'>
+  readonly image: Prisma.FieldRef<"Course", 'String'>
   readonly summary: Prisma.FieldRef<"Course", 'String'>
   readonly faculty: Prisma.FieldRef<"Course", 'Faculty'>
   readonly studyLevel: Prisma.FieldRef<"Course", 'StudyLevel'>

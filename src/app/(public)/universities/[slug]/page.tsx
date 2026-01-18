@@ -29,6 +29,7 @@ import { UniversityEntryRequirements } from "@/components/university/UniversityE
 import { UniversityCostAndAccommodation } from "@/components/university/UniversityCostAndAccommodation";
 import { UniversityCourses } from "@/components/university/UniversityCourses";
 import { UniversityScholarships } from "@/components/university/UniversityScholarships";
+import { UniversitySidebar } from "../components/university-sidebar";
 
 import { ReviewSlider } from "@/components/sections/review-slider";
 
@@ -154,9 +155,23 @@ export default async function UniversityDetailsPage({ params }: PageProps) {
     6
   );
 
+  // Define sidebar steps
+  const sidebarSteps = [
+    { id: "overview", label: "Overview" },
+    university.detail?.servicesDescription
+      ? { id: "services", label: "Services" }
+      : null,
+    university.detail?.ranking ? { id: "rankings", label: "Rankings" } : null,
+    university.detail?.entryRequirements
+      ? { id: "requirements", label: "Entry Requirements" }
+      : null,
+    { id: "courses", label: "Courses" },
+    { id: "scholarships", label: "Scholarships" },
+    { id: "accommodation", label: "Cost & Accommodation" },
+  ].filter(Boolean) as { id: string; label: string }[];
+
   return (
     <main className="bg-slate-50 min-h-screen">
-      {/* 1. University Info / Hero Section */}
       {/* 1. University Info / Hero Section */}
       <UniversityHero
         university={{
@@ -174,54 +189,81 @@ export default async function UniversityDetailsPage({ params }: PageProps) {
         }}
       />
 
-      {/* 2. Overview Section */}
-      {university.detail?.overview && (
-        <UniversityOverview overview={university.detail.overview} />
-      )}
+      {/* Main Content with Sidebar */}
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        <div className="flex flex-col lg:flex-row gap-12">
+          {/* Sidebar Navigation */}
+          <aside className="w-full lg:w-1/4 shrink-0">
+            <UniversitySidebar steps={sidebarSteps} />
+          </aside>
 
-      {/* 3. Services Section */}
-      {university.detail?.servicesDescription && (
-        <UniversityServices
-          heading={university.detail?.servicesHeading}
-          description={university.detail?.servicesDescription}
-          image={
-            university.detail?.servicesImage ||
-            "https://thumbs.dreamstime.com/b/conceptual-hand-writing-showing-our-services-concept-meaning-occupation-function-serving-intangible-products-male-wear-160644151.jpg"
-          }
-        />
-      )}
+          {/* Content Area */}
+          <div className="flex-1 space-y-16">
+            {/* 2. Overview Section */}
+            {university.detail?.overview && (
+              <section id="overview" className="scroll-mt-32">
+                <UniversityOverview overview={university.detail.overview} />
+              </section>
+            )}
 
-      {/* 4. Rankings Details */}
-      {university.detail?.ranking && (
-        <UniversityRankings ranking={university.detail.ranking} />
-      )}
+            {/* 3. Services Section */}
+            {university.detail?.servicesDescription && (
+              <section id="services" className="scroll-mt-32">
+                <UniversityServices
+                  heading={university.detail?.servicesHeading}
+                  description={university.detail?.servicesDescription}
+                  image={
+                    university.detail?.servicesImage ||
+                    "https://thumbs.dreamstime.com/b/conceptual-hand-writing-showing-our-services-concept-meaning-occupation-function-serving-intangible-products-male-wear-160644151.jpg"
+                  }
+                />
+              </section>
+            )}
 
-      {/* 5. Entry Requirements */}
-      {university.detail?.entryRequirements && (
-        <UniversityEntryRequirements
-          requirements={university.detail.entryRequirements}
-        />
-      )}
+            {/* 4. Rankings Details */}
+            {university.detail?.ranking && (
+              <section id="rankings" className="scroll-mt-32">
+                <UniversityRankings ranking={university.detail.ranking} />
+              </section>
+            )}
 
-      {/* 6. Cost of Studying & Accommodation */}
-      <UniversityCostAndAccommodation
-        tuitionFees={university.detail?.tuitionFees}
-        accommodation={university.detail?.accommodation}
-        accommodationImage={university.detail?.accommodationImage}
-      />
+            {/* 5. Entry Requirements */}
+            {university.detail?.entryRequirements && (
+              <section id="requirements" className="scroll-mt-32">
+                <UniversityEntryRequirements
+                  requirements={university.detail.entryRequirements}
+                />
+              </section>
+            )}
 
-      {/* 7. Courses List - Filter (Limited to 6 initial, client component handles search) */}
-      <UniversityCourses
-        courses={university.courses}
-        universitySlug={university.slug}
-        countrySlug={country}
-      />
+            {/* 7. Courses List */}
+            <section id="courses" className="scroll-mt-32">
+              <UniversityCourses
+                courses={university.courses}
+                universitySlug={university.slug}
+                countrySlug={country}
+              />
+            </section>
 
-      {/* 8. Scholarships List */}
-      <UniversityScholarships
-        scholarships={university.scholarships}
-        countrySlug={country}
-      />
+            {/* 8. Scholarships List */}
+            <section id="scholarships" className="scroll-mt-32">
+              <UniversityScholarships
+                scholarships={university.scholarships}
+                countrySlug={country}
+              />
+            </section>
+
+            {/* 6. Cost of Studying & Accommodation */}
+            <section id="accommodation" className="scroll-mt-32">
+              <UniversityCostAndAccommodation
+                tuitionFees={university.detail?.tuitionFees}
+                accommodation={university.detail?.accommodation}
+                accommodationImage={university.detail?.accommodationImage}
+              />
+            </section>
+          </div>
+        </div>
+      </div>
 
       {/* 9. Intake Admission Section CTR */}
       <IntakeFeature />
@@ -232,16 +274,9 @@ export default async function UniversityDetailsPage({ params }: PageProps) {
           <ReviewSlider title="Student Reviews" items={reviews} type="text" />
         </div>
       )}
-      {/* If you have video reviews, you might want to fetch them or if they are mixed in reviews, filter them */}
-
-      {/* 11. Article Related this University Section */}
-      {/* Using BlogSlider as requested for 'Article Related' section */}
-      {/* <BlogSlider /> */}
 
       {/* 12. FAQ */}
       <FaqSection faqs={faqs} />
-
-      {/* 12.5. Global Branches */}
 
       {/* 13. Representative Video Slider */}
       <RepresentativeVideoSlider videos={representativeVideos} />

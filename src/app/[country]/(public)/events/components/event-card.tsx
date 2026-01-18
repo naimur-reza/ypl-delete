@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { Calendar, MapPin, Clock, Users, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { Event } from "@/generated/prisma/client";
+import { Event } from "../../../../../../prisma/src/generated/prisma/client";
+ 
 
 interface EventCardProps {
   event: Event;
@@ -14,9 +15,9 @@ export function EventCard({ event }: EventCardProps) {
   return (
     <div className="group bg-white rounded-2xl border border-slate-100 overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col h-full">
       {/* Header Image */}
-      <div className="relative h-48 overflow-hidden">
+      <div className="relative h-64 overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1000&auto=format&fit=crop"
+          src={event.banner || "/logo.svg"}
           alt={event.title}
           fill
           className="object-cover transition-transform duration-700 group-hover:scale-110"

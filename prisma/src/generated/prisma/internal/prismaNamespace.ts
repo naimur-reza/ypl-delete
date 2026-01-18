@@ -5098,6 +5098,7 @@ export const CourseScalarFieldEnum = {
   universityId: 'universityId',
   destinationId: 'destinationId',
   icon: 'icon',
+  image: 'image',
   summary: 'summary',
   faculty: 'faculty',
   studyLevel: 'studyLevel',

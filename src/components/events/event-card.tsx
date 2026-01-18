@@ -35,7 +35,10 @@ export function EventCard({ event, variant = "home" }: EventCardProps) {
         {/* Header Image */}
         <div className="relative h-48 overflow-hidden">
           <Image
-            src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1000&auto=format&fit=crop"
+            src={
+              event.banner ||
+              "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1000&auto=format&fit=crop"
+            }
             alt={event.title}
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-110"
@@ -126,13 +129,12 @@ export function EventCard({ event, variant = "home" }: EventCardProps) {
   return (
     <article className="bg-white rounded-2xl p-1 border border-gray-200 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 group flex flex-col h-full">
       <div className="relative p-7 flex flex-col h-full rounded-xl bg-white">
-        <div className="h-16 mb-4 flex items-start">
+        <div className="h-48 mb-4 relative overflow-hidden rounded-lg w-full">
           <Image
-            height={64}
-            width={150}
-            src="/logo.svg"
-            alt="Event"
-            className="object-contain"
+            src={event.banner || "/logo.svg"}
+            alt={event.title}
+            fill
+            className={event.banner ? "object-cover" : "object-contain p-4"}
           />
         </div>
 

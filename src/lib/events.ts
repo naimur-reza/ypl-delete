@@ -32,14 +32,16 @@ export type EventWithRelations = Prisma.EventGetPayload<{
   };
 }>;
 
-type EventPageQuery = {
+export type EventPageQuery = {
   countrySlug?: string | null;
   featuredOnly?: boolean;
+  limit?: number; // Added limit
 };
 
 export const fetchUpcomingEvents = async ({
   countrySlug,
   featuredOnly,
+  limit, // Destructure limit
 }: EventPageQuery): Promise<EventWithRelations[]> => {
   const now = new Date();
 
@@ -56,6 +58,7 @@ export const fetchUpcomingEvents = async ({
           },
         }
       : {}),
+      
   };
 
   return prisma.event.findMany({
@@ -89,6 +92,7 @@ export const fetchUpcomingEvents = async ({
       },
     },
     orderBy: { startDate: "asc" },
+    take: limit, // Use dynamic limit
   });
 };
 

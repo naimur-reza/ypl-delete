@@ -51,7 +51,7 @@ const HomePage = async () => {
         orderBy: { updatedAt: "desc" },
       }),
       // Home page: show only featured upcoming events
-      fetchUpcomingEvents({ countrySlug, featuredOnly: true }),
+      fetchUpcomingEvents({ countrySlug, featuredOnly: false }),
       fetchLatestBlogs(countrySlug ?? undefined, 4),
       fetchFaqsForHomePage(countrySlug, 6),
       fetchRepresentativeVideos(countrySlug),

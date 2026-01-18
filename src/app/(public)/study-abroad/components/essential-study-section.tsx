@@ -43,24 +43,6 @@ export async function EssentialStudySection({ countryName, countryCode, destinat
       description: `Learn more about the different university intakes in ${countryName} for international students and begin your application today.`,
       slug: "study-intakes",
     },
-    {
-      id: "4",
-      title: `${countryName} University Rankings 2026`,
-      description: `Explore ${countryName} university rankings 2026 and find the best institutions. Top-ranking universities in ${countryName} for international students.`,
-      slug: "university-rankings",
-    },
-    {
-      id: "5",
-      title: `Cost of Studying in ${countryName}`,
-      description: `Explore ${countryName} university course fees and study costs. Get insights into the cost of living and other financial aspects of studying in ${countryName}.`,
-      slug: "cost-of-studying",
-    },
-    {
-      id: "6",
-      title: `${countryName} Student Visa`,
-      description: `${countryName} student visa requirements and types for international students. Essential information for your student visa in ${countryName}.`,
-      slug: "student-visa",
-    },
   ];
 
   return (

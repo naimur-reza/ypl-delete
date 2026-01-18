@@ -25,8 +25,23 @@ const universitySchema = z.object({
   metaDescription: z.string().max(500).optional().nullable(),
   metaKeywords: z.string().max(500).optional().nullable(),
   status: z.enum(["ACTIVE", "DRAFT"]),
-  rankingNumber: z.coerce.number().int().positive().optional().nullable(),
+  rankingNumber: z.preprocess(
+    (val) => (val === "" ? null : Number(val)),
+    z.number().int().positive().nullable().optional()
+  ),
   costOfStudying: z.string().optional().nullable(),
+  // Details
+  overview: z.string().optional().nullable(),
+  ranking: z.string().optional().nullable(),
+  tuitionFees: z.string().optional().nullable(),
+  famousFor: z.string().optional().nullable(),
+  servicesHeading: z.string().optional().nullable(),
+  servicesDescription: z.string().optional().nullable(),
+  servicesImage: z.string().optional().nullable(),
+  entryRequirements: z.string().optional().nullable(),
+  // Additional detail fields
+  accommodation: z.string().optional().nullable(),
+  accommodationImage: z.string().optional().nullable(),
 });
 
 export { universitySchema };

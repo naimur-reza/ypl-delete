@@ -96,8 +96,8 @@ export function ReviewSlider({
             className={cn(
               "snap-center shrink-0 transition-all duration-300",
               type === "video"
-                ? "min-w-[300px] md:min-w-[400px]"
-                : "min-w-[320px] md:min-w-[380px]"
+                ? "min-w-[280px] sm:min-w-[300px] md:min-w-[400px]"
+                : "min-w-[280px] sm:min-w-[320px] md:min-w-[380px]"
             )}
           >
             {type === "video" ? (

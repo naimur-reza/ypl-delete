@@ -118,9 +118,9 @@ export default async function Footer({
                   {destination.id ? (
                     <CountryAwareLink
                       href={`/study-abroad/${destination.slug}`}
-                      className="hover:text-blue-400 transition-colors flex items-center gap-2 group"
+                      className="hover:text-primary transition-colors flex items-center gap-2 group"
                     >
-                      <span className="w-1.5 h-1.5 rounded-full bg-slate-700 group-hover:bg-blue-500 transition-colors"></span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-slate-700 group-hover:bg-primary-500 transition-colors"></span>
                       {destination.name}
                     </CountryAwareLink>
                   ) : (
@@ -142,9 +142,9 @@ export default async function Footer({
                 <li key={index}>
                   <CountryAwareLink
                     href={link.url}
-                    className="hover:text-blue-400 transition-colors flex items-center gap-2 group"
+                    className="hover:text-primary transition-colors flex items-center gap-2 group"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-slate-700 group-hover:bg-blue-500 transition-colors"></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-slate-700 group-hover:bg-primary-500 transition-colors"></span>
                     {link.label}
                   </CountryAwareLink>
                 </li>
@@ -158,7 +158,7 @@ export default async function Footer({
             <div className="space-y-5 text-sm">
               {settings.contactPhone && (
                 <div className="flex items-start gap-4">
-                  <div className="mt-1 w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 shrink-0">
+                  <div className="mt-1 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
                     <Phone size={16} />
                   </div>
                   <div>
@@ -167,7 +167,7 @@ export default async function Footer({
                     </p>
                     <a
                       href={`tel:${settings.contactPhone.replace(/\s/g, "")}`}
-                      className="text-white hover:text-blue-400 transition-colors font-medium"
+                      className="text-white hover:text-primary transition-colors font-medium"
                     >
                       {settings.contactPhone}
                     </a>
@@ -177,7 +177,7 @@ export default async function Footer({
 
               {settings.contactEmail && (
                 <div className="flex items-start gap-4">
-                  <div className="mt-1 w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 shrink-0">
+                  <div className="mt-1 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
                     <Mail size={16} />
                   </div>
                   <div>
@@ -186,7 +186,7 @@ export default async function Footer({
                     </p>
                     <a
                       href={`mailto:${settings.contactEmail}`}
-                      className="text-white hover:text-blue-400 transition-colors font-medium"
+                      className="text-white hover:text-primary transition-colors font-medium"
                     >
                       {settings.contactEmail}
                     </a>
@@ -196,7 +196,7 @@ export default async function Footer({
 
               {settings.contactAddress && (
                 <div className="flex items-start gap-4">
-                  <div className="mt-1 w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 shrink-0">
+                  <div className="mt-1 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
                     <MapPin size={16} />
                   </div>
                   <div>
@@ -229,7 +229,7 @@ export default async function Footer({
                       href={`/global-branches/${
                         office.countries[0] || "global"
                       }/${office.slug}`}
-                      className="text-slate-400 hover:text-blue-400 transition-colors"
+                      className="text-slate-400 hover:text-primary transition-colors"
                     >
                       {office.name}
                     </CountryAwareLink>
@@ -251,6 +251,17 @@ export default async function Footer({
             © {new Date().getFullYear()}{" "}
             <span className="text-slate-400 font-medium">NWC Education</span>.
             All rights reserved.
+          </p>
+          <p>
+            Designed and developed by{" "}
+            <a
+              href="https://codexaa.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-slate-300 font-medium hover:text-primary transition-colors"
+            >
+              Codexaa Limited
+            </a>
           </p>
           <div className="flex items-center gap-6">
             {settings.privacyPolicyUrl && (

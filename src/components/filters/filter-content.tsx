@@ -9,6 +9,7 @@ import { SearchInputWithSuggestions } from "./search-input-with-suggestions";
 import { FilterTabType, getFilterConfig } from "@/lib/filter-config";
 import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { CountryAwareLink } from "../common/navbar/country-aware-link";
 
 interface FilterContentProps {
   activeTab: FilterTabType;
@@ -199,11 +200,12 @@ export function FilterContent({
               minutes if you&apos;d get into the university you&apos;ve always
               dreamed of.
             </p>
-            <button
+<CountryAwareLink href="/apply-now">
+              <button
               onClick={handleSearch}
               className={cn(
                 "px-10 py-4 rounded-xl font-bold text-base transition-all duration-300",
-                "bg-linear-to-r from-blue-600 via-blue-700 to-purple-700 text-white shadow-lg shadow-blue-600/30",
+                "bg-linear-to-r from-blue-600 via-blue-700 to-purple-700 cursor-pointer text-white shadow-lg shadow-blue-600/30",
                 "hover:shadow-2xl hover:shadow-blue-600/50 hover:scale-105 active:scale-95",
                 "border-2 border-blue-500/50 relative overflow-hidden group"
               )}
@@ -211,6 +213,7 @@ export function FilterContent({
               <span className="relative z-10">Get started</span>
               <div className="absolute inset-0 bg-linear-to-r from-primary to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </button>
+</CountryAwareLink>
           </div>
         </div>
       </div>

@@ -21,6 +21,7 @@ import { ScholarshipSlider } from "../components/scholarship-slider";
 import { EssentialStudySection } from "../components/essential-study-section";
 import { buildMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
+import { UniversityFilterWithWizard } from "@/components/filters/university-filter-with-wizard";
 
 interface PageProps {
   params: Promise<{
@@ -75,6 +76,8 @@ export async function generateMetadata({
 
 const DestinationDetailsPage = async ({ params }: PageProps) => {
   const { country, slug } = await params;
+
+ 
   // Trim slug to handle any whitespace issues in database
   const trimmedSlug = slug.trim();
   // Capitalize slug for display (e.g., "uk" -> "UK", "usa" -> "USA", "canada" -> "Canada")
@@ -114,7 +117,7 @@ const DestinationDetailsPage = async ({ params }: PageProps) => {
     where: {
       status: "ACTIVE",
       destination: {
-        slug: slug,
+id: destination?.id
       },
     },
     take: 10, // Limit for slider
@@ -125,7 +128,7 @@ const DestinationDetailsPage = async ({ params }: PageProps) => {
     where: {
       status: "ACTIVE",
       destination: {
-        slug: slug,
+        slug: destination?.id,
       },
     },
     select: {
@@ -147,18 +150,37 @@ const DestinationDetailsPage = async ({ params }: PageProps) => {
     return name.replace(/^Study\s+in\s+/i, '').trim();
   };
 
+    const countries = await prisma.country.findMany({});
+  const destinations = await prisma.destination.findMany({
+    where: {
+      countries: {
+        some: {
+          country: {
+            slug: country,
+          },
+        },
+      },
+    },
+  });
+
   return (
     <div className="bg-white">
       <StudyAbroadHero
         countrySlug={country}
       />
-      <UniversityFilter />
+      <UniversityFilterWithWizard
+        countries={countries}
+        destinations={destinations}
+      />
       <IntakeFeature />
       <WhyChooseCountry
         countryName={cleanDestinationName(destination?.name)}
         sections={destination?.sections || []}
       />
-      <UniversitySlider universities={universities} />
+      <UniversitySlider
+        universities={universities}
+        destinationId={destination?.id}
+      />
       <PopularCourses countrySlug={countryName} destinationSlug={slug} />
       <ScholarshipSlider
         scholarships={scholarships}

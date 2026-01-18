@@ -63,7 +63,7 @@ export default async function BlogsPage({ params }: PageProps) {
           </div>
         </section>
 
-        <section className="py-16 md:py-24 bg-background">
+        <section className="py-16 md:py-16 bg-background">
           <div className="container mx-auto px-4">
             <BlogListClient
               blogs={allBlogs}

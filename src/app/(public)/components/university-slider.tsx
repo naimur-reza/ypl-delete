@@ -16,9 +16,10 @@ import { CountryAwareLink } from "@/components/common/navbar/country-aware-link"
 
 interface UniversitySliderProps {
   universities: University[];
+  destinationId?: string;
 }
 
-export function UniversitySlider({ universities }: UniversitySliderProps) {
+export function UniversitySlider({ universities, destinationId }: UniversitySliderProps) {
   const swiperRef = useRef<SwiperType>(null);
 
   return (
@@ -140,7 +141,13 @@ export function UniversitySlider({ universities }: UniversitySliderProps) {
         {/* Footer Action */}
         <div className="flex justify-center mt-8">
           <GradientButton variant="secondary" className="px-8">
-            <CountryAwareLink href="/universities">
+            <CountryAwareLink
+              href={
+                destinationId
+                  ? `/universities?destinationId=${destinationId}`
+                  : "/universities"
+              }
+            >
               Explore All Universities
             </CountryAwareLink>
           </GradientButton>

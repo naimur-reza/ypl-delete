@@ -19,6 +19,7 @@ model Course {
   universityId    String
   destinationId   String
   icon            String?
+  image           String?
   summary         String?
   faculty         Faculty?
   studyLevel      StudyLevel?

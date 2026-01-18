@@ -279,51 +279,7 @@ export default function Settings() {
           </TabsList>
 
           <TabsContent value="profile" className="space-y-6">
-            {/* Profile Information Card */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Profile Information</CardTitle>
-                <CardDescription>
-                  Update your personal information and profile settings
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="flex items-center gap-6">
-                  <Avatar className="h-20 w-20">
-                    <AvatarImage src="/placeholder.svg?height=80&width=80" />
-                    <AvatarFallback>JD</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <Button variant="outline">Change Photo</Button>
-                    <p className="text-sm text-muted-foreground mt-2">
-                      JPG, GIF or PNG. 1MB max.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="grid gap-4 md:grid-cols-2">
-                  <div className="space-y-2">
-                    <Label htmlFor="firstName">First Name</Label>
-                    <Input id="firstName" defaultValue="John" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="lastName">Last Name</Label>
-                    <Input id="lastName" defaultValue="Doe" />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    defaultValue="john@company.com"
-                  />
-                </div>
-
-                <Button>Save Profile</Button>
-              </CardContent>
-            </Card>
+ 
 
             {/* Change Password Card */}
             <Card className="border-border">

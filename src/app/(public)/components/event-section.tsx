@@ -26,7 +26,12 @@ export default function EventsSection({ events }: EventsSectionProps) {
   });
 
   const hasActiveFilters = Object.keys(filters).length > 0;
-  const displayEvents = filteredEvents.length > 0 ? filteredEvents : [];
+  
+  // If no filters are active, show only the first 3 events.
+  // If filters ARE active, show all matching events.
+  const displayEvents = filteredEvents.length > 0 
+    ? (hasActiveFilters ? filteredEvents : filteredEvents.slice(0, 3))
+    : [];
 
   return (
     <section className="relative bg-white py-14 overflow-hidden">
