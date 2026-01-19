@@ -36,6 +36,7 @@ interface Blog {
   excerpt?: string | null;
   image?: string | null;
   author?: string | null;
+  category?: string | null;
   isFeatured?: boolean;
   destinationId: string;
   createdAt: string;
@@ -50,8 +51,9 @@ const BlogsPage = () => {
   const [statusFilter, setStatusFilter] = useState<string>("all");
 
   const endpoint = useMemo(
-    () => `/api/blogs${statusFilter !== "all" ? `?status=${statusFilter}` : ""}`,
-    [statusFilter]
+    () =>
+      `/api/blogs${statusFilter !== "all" ? `?status=${statusFilter}` : ""}`,
+    [statusFilter],
   );
 
   const { table, isLoading, error, pagination, refetch } = useDataTable<Blog>({
@@ -108,6 +110,18 @@ const BlogsPage = () => {
         cell: ({ row }) => row.original.destination?.name || "-",
       },
       {
+        accessorKey: "category",
+        header: "Category",
+        cell: ({ row }) => {
+          const category = row.original.category;
+          return category ? (
+            <Badge variant="outline">{category}</Badge>
+          ) : (
+            <span className="text-muted-foreground">-</span>
+          );
+        },
+      },
+      {
         accessorKey: "status",
         header: "Status",
         cell: ({ row }) => {
@@ -157,7 +171,7 @@ const BlogsPage = () => {
         },
       },
     ],
-    [deleteDialog, router]
+    [deleteDialog, router],
   );
 
   if (table.options.columns.length === 0) {

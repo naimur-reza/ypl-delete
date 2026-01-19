@@ -44,8 +44,6 @@ export type CourseMinAggregateOutputType = {
   duration: string | null
   tuitionMin: number | null
   tuitionMax: number | null
-  currency: string | null
-  isFeatured: boolean | null
   metaTitle: string | null
   metaDescription: string | null
   metaKeywords: string | null
@@ -71,8 +69,6 @@ export type CourseMaxAggregateOutputType = {
   duration: string | null
   tuitionMin: number | null
   tuitionMax: number | null
-  currency: string | null
-  isFeatured: boolean | null
   metaTitle: string | null
   metaDescription: string | null
   metaKeywords: string | null
@@ -98,9 +94,6 @@ export type CourseCountAggregateOutputType = {
   duration: number
   tuitionMin: number
   tuitionMax: number
-  currency: number
-  sections: number
-  isFeatured: number
   metaTitle: number
   metaDescription: number
   metaKeywords: number
@@ -138,8 +131,6 @@ export type CourseMinAggregateInputType = {
   duration?: true
   tuitionMin?: true
   tuitionMax?: true
-  currency?: true
-  isFeatured?: true
   metaTitle?: true
   metaDescription?: true
   metaKeywords?: true
@@ -165,8 +156,6 @@ export type CourseMaxAggregateInputType = {
   duration?: true
   tuitionMin?: true
   tuitionMax?: true
-  currency?: true
-  isFeatured?: true
   metaTitle?: true
   metaDescription?: true
   metaKeywords?: true
@@ -192,9 +181,6 @@ export type CourseCountAggregateInputType = {
   duration?: true
   tuitionMin?: true
   tuitionMax?: true
-  currency?: true
-  sections?: true
-  isFeatured?: true
   metaTitle?: true
   metaDescription?: true
   metaKeywords?: true
@@ -307,9 +293,6 @@ export type CourseGroupByOutputType = {
   duration: string | null
   tuitionMin: number | null
   tuitionMax: number | null
-  currency: string | null
-  sections: runtime.JsonValue | null
-  isFeatured: boolean
   metaTitle: string | null
   metaDescription: string | null
   metaKeywords: string | null
@@ -358,9 +341,6 @@ export type CourseWhereInput = {
   duration?: Prisma.StringNullableFilter<"Course"> | string | null
   tuitionMin?: Prisma.FloatNullableFilter<"Course"> | number | null
   tuitionMax?: Prisma.FloatNullableFilter<"Course"> | number | null
-  currency?: Prisma.StringNullableFilter<"Course"> | string | null
-  sections?: Prisma.JsonNullableFilter<"Course">
-  isFeatured?: Prisma.BoolFilter<"Course"> | boolean
   metaTitle?: Prisma.StringNullableFilter<"Course"> | string | null
   metaDescription?: Prisma.StringNullableFilter<"Course"> | string | null
   metaKeywords?: Prisma.StringNullableFilter<"Course"> | string | null
@@ -393,9 +373,6 @@ export type CourseOrderByWithRelationInput = {
   duration?: Prisma.SortOrderInput | Prisma.SortOrder
   tuitionMin?: Prisma.SortOrderInput | Prisma.SortOrder
   tuitionMax?: Prisma.SortOrderInput | Prisma.SortOrder
-  currency?: Prisma.SortOrderInput | Prisma.SortOrder
-  sections?: Prisma.SortOrderInput | Prisma.SortOrder
-  isFeatured?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   metaDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   metaKeywords?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -431,9 +408,6 @@ export type CourseWhereUniqueInput = Prisma.AtLeast<{
   duration?: Prisma.StringNullableFilter<"Course"> | string | null
   tuitionMin?: Prisma.FloatNullableFilter<"Course"> | number | null
   tuitionMax?: Prisma.FloatNullableFilter<"Course"> | number | null
-  currency?: Prisma.StringNullableFilter<"Course"> | string | null
-  sections?: Prisma.JsonNullableFilter<"Course">
-  isFeatured?: Prisma.BoolFilter<"Course"> | boolean
   metaTitle?: Prisma.StringNullableFilter<"Course"> | string | null
   metaDescription?: Prisma.StringNullableFilter<"Course"> | string | null
   metaKeywords?: Prisma.StringNullableFilter<"Course"> | string | null
@@ -466,9 +440,6 @@ export type CourseOrderByWithAggregationInput = {
   duration?: Prisma.SortOrderInput | Prisma.SortOrder
   tuitionMin?: Prisma.SortOrderInput | Prisma.SortOrder
   tuitionMax?: Prisma.SortOrderInput | Prisma.SortOrder
-  currency?: Prisma.SortOrderInput | Prisma.SortOrder
-  sections?: Prisma.SortOrderInput | Prisma.SortOrder
-  isFeatured?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   metaDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   metaKeywords?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -502,9 +473,6 @@ export type CourseScalarWhereWithAggregatesInput = {
   duration?: Prisma.StringNullableWithAggregatesFilter<"Course"> | string | null
   tuitionMin?: Prisma.FloatNullableWithAggregatesFilter<"Course"> | number | null
   tuitionMax?: Prisma.FloatNullableWithAggregatesFilter<"Course"> | number | null
-  currency?: Prisma.StringNullableWithAggregatesFilter<"Course"> | string | null
-  sections?: Prisma.JsonNullableWithAggregatesFilter<"Course">
-  isFeatured?: Prisma.BoolWithAggregatesFilter<"Course"> | boolean
   metaTitle?: Prisma.StringNullableWithAggregatesFilter<"Course"> | string | null
   metaDescription?: Prisma.StringNullableWithAggregatesFilter<"Course"> | string | null
   metaKeywords?: Prisma.StringNullableWithAggregatesFilter<"Course"> | string | null
@@ -530,9 +498,6 @@ export type CourseCreateInput = {
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
-  currency?: string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -563,9 +528,6 @@ export type CourseUncheckedCreateInput = {
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
-  currency?: string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -596,9 +558,6 @@ export type CourseUpdateInput = {
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -629,9 +588,6 @@ export type CourseUncheckedUpdateInput = {
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -662,9 +618,6 @@ export type CourseCreateManyInput = {
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
-  currency?: string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -690,9 +643,6 @@ export type CourseUpdateManyMutationInput = {
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -716,9 +666,6 @@ export type CourseUncheckedUpdateManyInput = {
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -744,9 +691,6 @@ export type CourseCountOrderByAggregateInput = {
   duration?: Prisma.SortOrder
   tuitionMin?: Prisma.SortOrder
   tuitionMax?: Prisma.SortOrder
-  currency?: Prisma.SortOrder
-  sections?: Prisma.SortOrder
-  isFeatured?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrder
   metaDescription?: Prisma.SortOrder
   metaKeywords?: Prisma.SortOrder
@@ -777,8 +721,6 @@ export type CourseMaxOrderByAggregateInput = {
   duration?: Prisma.SortOrder
   tuitionMin?: Prisma.SortOrder
   tuitionMax?: Prisma.SortOrder
-  currency?: Prisma.SortOrder
-  isFeatured?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrder
   metaDescription?: Prisma.SortOrder
   metaKeywords?: Prisma.SortOrder
@@ -804,8 +746,6 @@ export type CourseMinOrderByAggregateInput = {
   duration?: Prisma.SortOrder
   tuitionMin?: Prisma.SortOrder
   tuitionMax?: Prisma.SortOrder
-  currency?: Prisma.SortOrder
-  isFeatured?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrder
   metaDescription?: Prisma.SortOrder
   metaKeywords?: Prisma.SortOrder
@@ -1045,9 +985,6 @@ export type CourseCreateWithoutIntakesInput = {
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
-  currency?: string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -1077,9 +1014,6 @@ export type CourseUncheckedCreateWithoutIntakesInput = {
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
-  currency?: string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -1125,9 +1059,6 @@ export type CourseUpdateWithoutIntakesInput = {
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1157,9 +1088,6 @@ export type CourseUncheckedUpdateWithoutIntakesInput = {
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1189,9 +1117,6 @@ export type CourseCreateWithoutDestinationInput = {
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
-  currency?: string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -1221,9 +1146,6 @@ export type CourseUncheckedCreateWithoutDestinationInput = {
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
-  currency?: string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -1282,9 +1204,6 @@ export type CourseScalarWhereInput = {
   duration?: Prisma.StringNullableFilter<"Course"> | string | null
   tuitionMin?: Prisma.FloatNullableFilter<"Course"> | number | null
   tuitionMax?: Prisma.FloatNullableFilter<"Course"> | number | null
-  currency?: Prisma.StringNullableFilter<"Course"> | string | null
-  sections?: Prisma.JsonNullableFilter<"Course">
-  isFeatured?: Prisma.BoolFilter<"Course"> | boolean
   metaTitle?: Prisma.StringNullableFilter<"Course"> | string | null
   metaDescription?: Prisma.StringNullableFilter<"Course"> | string | null
   metaKeywords?: Prisma.StringNullableFilter<"Course"> | string | null
@@ -1310,9 +1229,6 @@ export type CourseCreateWithoutCountriesInput = {
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
-  currency?: string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -1342,9 +1258,6 @@ export type CourseUncheckedCreateWithoutCountriesInput = {
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
-  currency?: string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -1390,9 +1303,6 @@ export type CourseUpdateWithoutCountriesInput = {
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1422,9 +1332,6 @@ export type CourseUncheckedUpdateWithoutCountriesInput = {
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1454,9 +1361,6 @@ export type CourseCreateWithoutBlogLinksInput = {
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
-  currency?: string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -1486,9 +1390,6 @@ export type CourseUncheckedCreateWithoutBlogLinksInput = {
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
-  currency?: string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -1534,9 +1435,6 @@ export type CourseUpdateWithoutBlogLinksInput = {
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1566,9 +1464,6 @@ export type CourseUncheckedUpdateWithoutBlogLinksInput = {
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1598,9 +1493,6 @@ export type CourseCreateWithoutFaqsInput = {
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
-  currency?: string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -1630,9 +1522,6 @@ export type CourseUncheckedCreateWithoutFaqsInput = {
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
-  currency?: string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -1678,9 +1567,6 @@ export type CourseUpdateWithoutFaqsInput = {
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1710,9 +1596,6 @@ export type CourseUncheckedUpdateWithoutFaqsInput = {
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1742,9 +1625,6 @@ export type CourseCreateWithoutScholarshipsInput = {
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
-  currency?: string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -1774,9 +1654,6 @@ export type CourseUncheckedCreateWithoutScholarshipsInput = {
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
-  currency?: string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -1827,9 +1704,6 @@ export type CourseCreateWithoutUniversityInput = {
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
-  currency?: string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -1859,9 +1733,6 @@ export type CourseUncheckedCreateWithoutUniversityInput = {
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
-  currency?: string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -1917,9 +1788,6 @@ export type CourseCreateManyDestinationInput = {
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
-  currency?: string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -1944,9 +1812,6 @@ export type CourseUpdateWithoutDestinationInput = {
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1976,9 +1841,6 @@ export type CourseUncheckedUpdateWithoutDestinationInput = {
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2008,9 +1870,6 @@ export type CourseUncheckedUpdateManyWithoutDestinationInput = {
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2035,9 +1894,6 @@ export type CourseUpdateWithoutScholarshipsInput = {
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2067,9 +1923,6 @@ export type CourseUncheckedUpdateWithoutScholarshipsInput = {
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2099,9 +1952,6 @@ export type CourseUncheckedUpdateManyWithoutScholarshipsInput = {
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2127,9 +1977,6 @@ export type CourseCreateManyUniversityInput = {
   duration?: string | null
   tuitionMin?: number | null
   tuitionMax?: number | null
-  currency?: string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -2154,9 +2001,6 @@ export type CourseUpdateWithoutUniversityInput = {
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2186,9 +2030,6 @@ export type CourseUncheckedUpdateWithoutUniversityInput = {
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2218,9 +2059,6 @@ export type CourseUncheckedUpdateManyWithoutUniversityInput = {
   duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionMin?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   tuitionMax?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sections?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2312,9 +2150,6 @@ export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   duration?: boolean
   tuitionMin?: boolean
   tuitionMax?: boolean
-  currency?: boolean
-  sections?: boolean
-  isFeatured?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
@@ -2348,9 +2183,6 @@ export type CourseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   duration?: boolean
   tuitionMin?: boolean
   tuitionMax?: boolean
-  currency?: boolean
-  sections?: boolean
-  isFeatured?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
@@ -2378,9 +2210,6 @@ export type CourseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   duration?: boolean
   tuitionMin?: boolean
   tuitionMax?: boolean
-  currency?: boolean
-  sections?: boolean
-  isFeatured?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
@@ -2408,9 +2237,6 @@ export type CourseSelectScalar = {
   duration?: boolean
   tuitionMin?: boolean
   tuitionMax?: boolean
-  currency?: boolean
-  sections?: boolean
-  isFeatured?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
@@ -2428,7 +2254,7 @@ export type CourseSelectScalar = {
   status?: boolean
 }
 
-export type CourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "description" | "duration" | "tuitionMin" | "tuitionMax" | "currency" | "sections" | "isFeatured" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "universityId" | "destinationId" | "icon" | "image" | "summary" | "faculty" | "studyLevel" | "status", ExtArgs["result"]["course"]>
+export type CourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "description" | "duration" | "tuitionMin" | "tuitionMax" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "universityId" | "destinationId" | "icon" | "image" | "summary" | "faculty" | "studyLevel" | "status", ExtArgs["result"]["course"]>
 export type CourseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   blogLinks?: boolean | Prisma.Course$blogLinksArgs<ExtArgs>
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
@@ -2467,9 +2293,6 @@ export type $CoursePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     duration: string | null
     tuitionMin: number | null
     tuitionMax: number | null
-    currency: string | null
-    sections: runtime.JsonValue | null
-    isFeatured: boolean
     metaTitle: string | null
     metaDescription: string | null
     metaKeywords: string | null
@@ -2922,9 +2745,6 @@ export interface CourseFieldRefs {
   readonly duration: Prisma.FieldRef<"Course", 'String'>
   readonly tuitionMin: Prisma.FieldRef<"Course", 'Float'>
   readonly tuitionMax: Prisma.FieldRef<"Course", 'Float'>
-  readonly currency: Prisma.FieldRef<"Course", 'String'>
-  readonly sections: Prisma.FieldRef<"Course", 'Json'>
-  readonly isFeatured: Prisma.FieldRef<"Course", 'Boolean'>
   readonly metaTitle: Prisma.FieldRef<"Course", 'String'>
   readonly metaDescription: Prisma.FieldRef<"Course", 'String'>
   readonly metaKeywords: Prisma.FieldRef<"Course", 'String'>

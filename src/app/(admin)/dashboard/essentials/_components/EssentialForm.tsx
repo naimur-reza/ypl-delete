@@ -19,11 +19,12 @@ import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { FormBase } from "@/components/form/FormBase";
 import { Input } from "@/components/ui/input";
 import { CountrySelect } from "@/components/ui/region-select";
+import { EssentialStudy } from "../../../../../../prisma/src/generated/prisma/client";
 
 type FormData = z.infer<typeof essentialSchema>;
 
 const essentialApi = createEntityApi<FormData & { id: string }>(
-  "/api/essential-studies"
+  "/api/essential-studies",
 );
 
 interface DestinationOption {
@@ -32,14 +33,7 @@ interface DestinationOption {
 }
 
 interface EssentialFormProps {
-  initialData?: {
-    id: string;
-    title: string;
-    slug: string;
-    description?: string | null;
-    content?: string | null;
-    destinationId: string;
-  };
+  initialData?: EssentialStudy;
   onSuccess?: () => void;
 }
 
@@ -59,13 +53,13 @@ export function EssentialForm({ initialData, onSuccess }: EssentialFormProps) {
       try {
         const response = await apiClient.get<{ data: DestinationOption[] }>(
           "/api/destinations",
-          { limit: "1000" }
+          { limit: "1000" },
         );
         if (response.data) {
           setDestinations(
             Array.isArray(response.data)
               ? response.data
-              : response.data.data || []
+              : response.data.data || [],
           );
         }
       } catch (error) {
@@ -84,8 +78,9 @@ export function EssentialForm({ initialData, onSuccess }: EssentialFormProps) {
       destinationId: initialData?.destinationId || "",
       description: initialData?.description || "",
       content: initialData?.content || "",
+      status: initialData?.status || "DRAFT",
     } satisfies FormData as FormData,
-    validators: { onSubmit: essentialSchema },
+    validators: { onSubmit: essentialSchema as any },
     onSubmit: async ({ value }) => {
       setIsSubmitting(true);
       try {
@@ -100,7 +95,7 @@ export function EssentialForm({ initialData, onSuccess }: EssentialFormProps) {
         if (isEditing && initialData?.id) {
           response = await essentialApi.update(
             initialData.id,
-            submitData as any
+            submitData as any,
           );
         } else {
           response = await essentialApi.create(submitData as any);
@@ -114,7 +109,7 @@ export function EssentialForm({ initialData, onSuccess }: EssentialFormProps) {
         toast.success(
           isEditing
             ? "Essential updated successfully"
-            : "Essential created successfully"
+            : "Essential created successfully",
         );
         form.reset();
         setContent("");
@@ -176,6 +171,14 @@ export function EssentialForm({ initialData, onSuccess }: EssentialFormProps) {
                 onBlur={field.handleBlur}
               />
             </FormBase>
+          )}
+        </form.AppField>
+        <form.AppField name="status">
+          {(field) => (
+            <field.Select label="Status">
+              <SelectItem value="ACTIVE">Active</SelectItem>
+              <SelectItem value="DRAFT">Draft</SelectItem>
+            </field.Select>
           )}
         </form.AppField>
         <form.AppField name="slug">

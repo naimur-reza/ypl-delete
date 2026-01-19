@@ -7,20 +7,29 @@ import { cn } from "@/lib/utils";
 
 interface BlogFilterProps {
   countries: { id: string; name: string }[];
+  categories: string[];
   initialCountry?: string | null;
 }
 
-export function BlogFilter({ countries, initialCountry }: BlogFilterProps) {
+export function BlogFilter({
+  countries,
+  categories,
+  initialCountry,
+}: BlogFilterProps) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
 
-  // Get country from URL params - if 'all' param exists, use All; 
+  // Get country from URL params - if 'all' param exists, use All;
   // if 'country' param exists, use that; otherwise use initialCountry
   const urlCountry = searchParams.get("country");
-  const isAllSelected = searchParams.has("all") || urlCountry === null && !initialCountry;
-  const currentCountry = isAllSelected ? "All" : (urlCountry || initialCountry || "All");
+  const isAllSelected =
+    searchParams.has("all") || (urlCountry === null && !initialCountry);
+  const currentCountry = isAllSelected
+    ? "All"
+    : urlCountry || initialCountry || "All";
   const currentSearch = searchParams.get("search") || "";
+  const currentCategory = searchParams.get("category") || "All";
 
   const handleSearch = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams);
@@ -44,6 +53,16 @@ export function BlogFilter({ countries, initialCountry }: BlogFilterProps) {
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
+  const handleCategoryChange = (categoryName: string) => {
+    const params = new URLSearchParams(searchParams);
+    if (categoryName === "All") {
+      params.delete("category");
+    } else {
+      params.set("category", categoryName);
+    }
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+  };
+
   return (
     <div className="space-y-8 mb-12">
       <div className="flex flex-col md:flex-row justify-between items-center gap-6">
@@ -54,14 +73,14 @@ export function BlogFilter({ countries, initialCountry }: BlogFilterProps) {
 
       <div className="flex flex-col md:flex-row justify-between items-center gap-6">
         {/* Country Tabs */}
-        <div className="flex flex-wrap gap-2">
+        {/* <div className="flex flex-wrap gap-2">
           <button
             onClick={() => handleCountryChange("All")}
             className={cn(
               "px-4 py-2 rounded-full text-sm font-medium transition-all duration-300",
               currentCountry === "All"
                 ? "bg-primary text-white shadow-lg shadow-primary/25"
-                : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+                : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700",
             )}
           >
             All
@@ -74,13 +93,44 @@ export function BlogFilter({ countries, initialCountry }: BlogFilterProps) {
                 "px-4 py-2 rounded-full text-sm font-medium transition-all duration-300",
                 currentCountry === country.name
                   ? "bg-primary text-white shadow-lg shadow-primary/25"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700",
               )}
             >
               {country.name}
             </button>
           ))}
-        </div>
+        </div> */}
+
+        {/* Category Tabs */}
+        {categories.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => handleCategoryChange("All")}
+              className={cn(
+                "px-4 py-2 rounded-full cursor-pointer text-sm font-medium transition-all duration-300",
+                currentCategory === "All"
+                  ? "bg-secondary text-white shadow-lg shadow-secondary/25"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700",
+              )}
+            >
+              All Categories
+            </button>
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => handleCategoryChange(category)}
+                className={cn(
+                  "px-4 py-2 rounded-full cursor-pointer text-sm font-medium transition-all duration-300",
+                  currentCategory === category
+                    ? "bg-secondary text-white shadow-lg shadow-secondary/25"
+                    : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700",
+                )}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Search Input */}
         <div className="relative w-full md:w-72">

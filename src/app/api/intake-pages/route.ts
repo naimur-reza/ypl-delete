@@ -32,10 +32,7 @@ export async function POST(req: NextRequest) {
       title,
       description,
       heroMedia,
-      eligibility,
       timelineJson,
-      ctaLabel,
-      ctaUrl,
       whyChooseTitle,
       whyChooseDescription,
       heroTitle,
@@ -52,7 +49,7 @@ export async function POST(req: NextRequest) {
     if (!destinationId || !intake || !title) {
       return Response.json(
         { error: "destinationId, intake, title are required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -61,12 +58,10 @@ export async function POST(req: NextRequest) {
         destinationId,
         intake,
         title,
+        slug: title.toLowerCase().replace(/\s+/g, "-"),
         description,
         heroMedia,
-        eligibility,
         timelineJson,
-        ctaLabel,
-        ctaUrl,
         whyChooseTitle,
         whyChooseDescription,
         heroTitle,
@@ -87,13 +82,13 @@ export async function POST(req: NextRequest) {
                     icon?: string;
                     sortOrder?: number;
                   },
-                  index: number
+                  index: number,
                 ) => ({
                   title: b.title,
                   description: b.description,
                   icon: b.icon,
                   sortOrder: b.sortOrder ?? index,
-                })
+                }),
               ),
             }
           : undefined,
@@ -106,7 +101,7 @@ export async function POST(req: NextRequest) {
     console.error("Error creating intake page:", error);
     return Response.json(
       { error: "Failed to create intake page" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -124,20 +119,14 @@ export async function PUT(req: NextRequest) {
       return Response.json({ error: "ID is required" }, { status: 400 });
     }
 
-    // Delete existing benefits and recreate if provided
-    if (benefits !== undefined) {
-      await prisma.intakePageBenefit.deleteMany({
-        where: { intakePageId: id },
-      });
-    }
-
     const updated = await prisma.intakePage.update({
       where: { id },
       data: {
         ...data,
-        benefits:
+        intakePageBenefits:
           benefits !== undefined
             ? {
+                deleteMany: {},
                 create: benefits.map(
                   (
                     b: {
@@ -146,13 +135,13 @@ export async function PUT(req: NextRequest) {
                       icon?: string;
                       sortOrder?: number;
                     },
-                    index: number
+                    index: number,
                   ) => ({
                     title: b.title,
                     description: b.description,
                     icon: b.icon,
                     sortOrder: b.sortOrder ?? index,
-                  })
+                  }),
                 ),
               }
             : undefined,
@@ -165,7 +154,7 @@ export async function PUT(req: NextRequest) {
     console.error("Error updating intake page:", error);
     return Response.json(
       { error: "Failed to update intake page" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -189,7 +178,7 @@ export async function DELETE(req: NextRequest) {
     console.error("Error deleting intake page:", error);
     return Response.json(
       { error: "Failed to delete intake page" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

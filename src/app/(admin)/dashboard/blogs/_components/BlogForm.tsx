@@ -38,6 +38,7 @@ interface BlogFormProps {
     content?: string | null;
     image?: string | null;
     author?: string | null;
+    category?: string | null;
     publishedAt?: string | null;
     isFeatured?: boolean;
     status?: string | null;
@@ -60,9 +61,9 @@ export function BlogForm({ initialData, onSuccess }: BlogFormProps) {
     (
       initialData?.countries?.map(
         (r: { country?: { id: string }; countryId?: string }) =>
-          r.country?.id || r.countryId || ""
+          r.country?.id || r.countryId || "",
       ) || []
-    ).filter((id) => id !== "")
+    ).filter((id) => id !== ""),
   );
   const [isUploading, setIsUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -73,7 +74,7 @@ export function BlogForm({ initialData, onSuccess }: BlogFormProps) {
     const fetchCurrentUser = async () => {
       try {
         const response = await apiClient.get<{ user: { name: string } }>(
-          "/api/auth/me"
+          "/api/auth/me",
         );
         if (response.data?.user?.name) {
           setCurrentUserName(response.data.user.name);
@@ -95,13 +96,13 @@ export function BlogForm({ initialData, onSuccess }: BlogFormProps) {
       try {
         const response = await apiClient.get<{ data: Destination[] }>(
           "/api/destinations",
-          { limit: "1000" }
+          { limit: "1000" },
         );
         if (response.data) {
           setDestinations(
             Array.isArray(response.data)
               ? response.data
-              : response.data.data || []
+              : response.data.data || [],
           );
         }
       } catch (error) {
@@ -119,6 +120,7 @@ export function BlogForm({ initialData, onSuccess }: BlogFormProps) {
       content: initialData?.content || "",
       image: initialData?.image || "",
       author: initialData?.author || "",
+      category: initialData?.category || "",
       publishedAt: initialData?.publishedAt
         ? new Date(initialData.publishedAt).toISOString().split("T")[0]
         : "",
@@ -157,7 +159,7 @@ export function BlogForm({ initialData, onSuccess }: BlogFormProps) {
         }
 
         toast.success(
-          isEditing ? "Blog updated successfully" : "Blog created successfully"
+          isEditing ? "Blog updated successfully" : "Blog created successfully",
         );
         form.reset();
         setImageUrl("");
@@ -183,23 +185,24 @@ export function BlogForm({ initialData, onSuccess }: BlogFormProps) {
       form.setFieldValue("excerpt", initialData.excerpt || "");
       form.setFieldValue("content", initialData.content || "");
       form.setFieldValue("author", initialData.author || "");
+      form.setFieldValue("category", initialData.category || "");
       form.setFieldValue(
         "publishedAt",
         initialData.publishedAt
           ? new Date(initialData.publishedAt).toISOString().split("T")[0]
-          : ""
+          : "",
       );
       form.setFieldValue("isFeatured", initialData.isFeatured || false);
       form.setFieldValue(
         "status",
-        initialData.status === "DRAFT" ? "DRAFT" : "ACTIVE"
+        initialData.status === "DRAFT" ? "DRAFT" : "ACTIVE",
       );
       form.setFieldValue("destinationId", initialData.destinationId || "");
       const countries = initialData.countries || [];
       const initialCountryIds = countries
         .map(
           (r: { country?: { id: string }; countryId?: string }) =>
-            r.country?.id || r.countryId || ""
+            r.country?.id || r.countryId || "",
         )
         .filter((id) => id !== "");
       setCountryIds(initialCountryIds);
@@ -273,6 +276,20 @@ export function BlogForm({ initialData, onSuccess }: BlogFormProps) {
                 </SelectItem>
               ))}
             </field.Select>
+          )}
+        </form.AppField>
+        <form.AppField name="category">
+          {(field) => (
+            <FormBase label="Category">
+              <Input
+                id={field.name}
+                name={field.name}
+                value={field.state.value || ""}
+                onChange={(e) => field.handleChange(e.target.value)}
+                onBlur={field.handleBlur}
+                placeholder="Enter blog category..."
+              />
+            </FormBase>
           )}
         </form.AppField>
         <form.AppField name="status">

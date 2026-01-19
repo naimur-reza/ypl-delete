@@ -5,6 +5,11 @@ const globalOfficeSchema = z.object({
     .string()
     .min(1, "Name is required")
     .max(100, "Name must be less than 100 characters"),
+  city: z
+    .string()
+    .max(100, "City must be less than 100 characters")
+    .optional()
+    .nullable(),
   subtitle: z
     .string()
     .max(200, "Subtitle must be less than 200 characters")

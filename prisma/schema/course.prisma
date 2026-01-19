@@ -6,12 +6,10 @@ model Course {
   duration        String?
   tuitionMin      Float?
   tuitionMax      Float?
-  currency        String?         @default("USD")
-  sections        Json?
-  isFeatured      Boolean         @default(false)
   metaTitle       String?
   metaDescription String?
   metaKeywords    String?
+
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
   createdBy       String?
@@ -51,29 +49,60 @@ model IntakePage {
   id                   String              @id @default(cuid())
   destinationId        String
   intake               IntakeMonth
+
+  // Country/Global Filtering
+  countryId            String?
+  isGlobal             Boolean             @default(false)
+
+  // Basic Content
   title                String
+  slug                 String              @default("")
   description          String?
-  heroMedia            String?
-  eligibility          String?
-  timelineJson         Json?
-  ctaLabel             String?
-  ctaUrl               String?
-  createdAt            DateTime            @default(now())
-  updatedAt            DateTime            @updatedAt
-  heroCTALabel         String?
-  heroCTAUrl           String?
-  heroSubtitle         String?
+
+  // Hero Section
   heroTitle            String?
+  heroSubtitle         String?
+  heroMedia            String?
+  heroMediaType        MediaType?          @default(IMAGE)
+  heroCTALabel         String?             @default("Apply Now")
+  heroCTAUrl           String?             @default("/apply-now")
+
+  // Why Choose Section
+  whyChooseTitle       String?
+  whyChooseDescription String?
+
+  // Timeline & Countdown
+  timelineJson         Json?
+  targetDate           DateTime?
+  timelineEnabled      Boolean             @default(true)
+
+  // Top Universities
+  // (auto-fetched; no stored JSON)
+
+  // How We Help Section
+  howWeHelpJson        Json?
+  howWeHelpEnabled     Boolean             @default(true)
+
+  // SEO
+  metaTitle            String?
   metaDescription      String?
   metaKeywords         String?
-  metaTitle            String?
-  whyChooseDescription String?
-  whyChooseTitle       String?
-  status               ContentStatus       @default(DRAFT)
-  faqs                 FAQIntakePage[]
-  destination          Destination         @relation(fields: [destinationId], references: [id])
-  intakePageBenefits   IntakePageBenefit[]
+  canonicalUrl         String?
 
-  @@unique([destinationId, intake])
+  // Metadata
+  createdAt            DateTime            @default(now())
+  updatedAt            DateTime            @updatedAt
+  status               ContentStatus       @default(DRAFT)
+
+  // Relations
+  destination          Destination         @relation(fields: [destinationId], references: [id])
+  country              Country?            @relation(fields: [countryId], references: [id])
+  intakePageBenefits   IntakePageBenefit[]
+  faqs                 FAQIntakePage[]
+
+  @@unique([destinationId, intake, countryId])
+  @@unique([destinationId, intake, isGlobal])
   @@index([status])
+  @@index([destinationId, intake])
+  @@index([countryId, isGlobal])
 }

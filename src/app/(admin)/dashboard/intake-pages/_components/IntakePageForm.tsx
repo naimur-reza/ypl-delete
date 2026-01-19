@@ -22,10 +22,9 @@ const schema = z.object({
   title: z.string().min(1, "Title is required").max(200),
   description: z.string().optional().nullable(),
   heroMedia: z.string().url().optional().nullable(),
-  eligibility: z.string().optional().nullable(),
   timelineJson: z.string().optional().nullable(),
-  ctaLabel: z.string().optional().nullable(),
-  ctaUrl: z.string().url().optional().nullable(),
+  heroCTALabel: z.string().optional().nullable(),
+  heroCTAUrl: z.string().url().optional().nullable(),
   status: z.enum(["ACTIVE", "DRAFT"]).default("DRAFT"),
 });
 
@@ -76,12 +75,11 @@ export function IntakePageForm({
       title: initialData?.title || "",
       description: initialData?.description || "",
       heroMedia: initialData?.heroMedia || "",
-      eligibility: initialData?.eligibility || "",
       timelineJson: initialData?.timelineJson
         ? JSON.stringify(initialData.timelineJson)
         : "",
-      ctaLabel: initialData?.ctaLabel || "",
-      ctaUrl: initialData?.ctaUrl || "",
+      heroCTALabel: (initialData as any)?.heroCTALabel || "",
+      heroCTAUrl: (initialData as any)?.heroCTAUrl || "",
       status: initialData?.status || "DRAFT",
     } as unknown as FormData,
     validators: { onSubmit: schema as any },
@@ -92,12 +90,11 @@ export function IntakePageForm({
           ...value,
           description: value.description || null,
           heroMedia: value.heroMedia || null,
-          eligibility: value.eligibility || null,
           timelineJson: value.timelineJson
             ? JSON.parse(value.timelineJson)
             : null,
-          ctaLabel: value.ctaLabel || null,
-          ctaUrl: value.ctaUrl || null,
+          heroCTALabel: (value as any).heroCTALabel || null,
+          heroCTAUrl: (value as any).heroCTAUrl || null,
           status: value.status || "DRAFT",
         } as Record<string, unknown>;
 
@@ -111,7 +108,7 @@ export function IntakePageForm({
           return;
         }
         toast.success(
-          isEditing ? "Intake page updated" : "Intake page created"
+          isEditing ? "Intake page updated" : "Intake page created",
         );
         await queryClient.invalidateQueries({
           queryKey: ["data-table", "/api/intake-pages"],
@@ -173,16 +170,13 @@ export function IntakePageForm({
         <form.AppField name="heroMedia">
           {(field) => <field.Input label="Hero Media URL" />}
         </form.AppField>
-        <form.AppField name="eligibility">
-          {(field) => <field.Textarea label="Eligibility" />}
-        </form.AppField>
         <form.AppField name="timelineJson">
           {(field) => <field.Textarea label="Timeline JSON" />}
         </form.AppField>
-        <form.AppField name="ctaLabel">
+        <form.AppField name="heroCTALabel">
           {(field) => <field.Input label="CTA Label" />}
         </form.AppField>
-        <form.AppField name="ctaUrl">
+        <form.AppField name="heroCTAUrl">
           {(field) => <field.Input label="CTA URL" />}
         </form.AppField>
         <div className="flex gap-2 justify-end">

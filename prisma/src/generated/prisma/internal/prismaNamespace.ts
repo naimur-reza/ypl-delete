@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.2.0
- * Query Engine version: 0c8ef2ce45c83248ab3df073180d5eda9e8be7a3
+ * Prisma Client JS version: 7.1.0
+ * Query Engine version: ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.2.0",
-  engine: "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3"
+  client: "7.1.0",
+  engine: "ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba"
 }
 
 /**
@@ -4974,6 +4974,7 @@ export const BlogScalarFieldEnum = {
   content: 'content',
   image: 'image',
   author: 'author',
+  category: 'category',
   publishedAt: 'publishedAt',
   isFeatured: 'isFeatured',
   metaTitle: 'metaTitle',
@@ -5085,9 +5086,6 @@ export const CourseScalarFieldEnum = {
   duration: 'duration',
   tuitionMin: 'tuitionMin',
   tuitionMax: 'tuitionMax',
-  currency: 'currency',
-  sections: 'sections',
-  isFeatured: 'isFeatured',
   metaTitle: 'metaTitle',
   metaDescription: 'metaDescription',
   metaKeywords: 'metaKeywords',
@@ -5121,24 +5119,30 @@ export const IntakePageScalarFieldEnum = {
   id: 'id',
   destinationId: 'destinationId',
   intake: 'intake',
+  countryId: 'countryId',
+  isGlobal: 'isGlobal',
   title: 'title',
+  slug: 'slug',
   description: 'description',
+  heroTitle: 'heroTitle',
+  heroSubtitle: 'heroSubtitle',
   heroMedia: 'heroMedia',
-  eligibility: 'eligibility',
-  timelineJson: 'timelineJson',
-  ctaLabel: 'ctaLabel',
-  ctaUrl: 'ctaUrl',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
+  heroMediaType: 'heroMediaType',
   heroCTALabel: 'heroCTALabel',
   heroCTAUrl: 'heroCTAUrl',
-  heroSubtitle: 'heroSubtitle',
-  heroTitle: 'heroTitle',
+  whyChooseTitle: 'whyChooseTitle',
+  whyChooseDescription: 'whyChooseDescription',
+  timelineJson: 'timelineJson',
+  targetDate: 'targetDate',
+  timelineEnabled: 'timelineEnabled',
+  howWeHelpJson: 'howWeHelpJson',
+  howWeHelpEnabled: 'howWeHelpEnabled',
+  metaTitle: 'metaTitle',
   metaDescription: 'metaDescription',
   metaKeywords: 'metaKeywords',
-  metaTitle: 'metaTitle',
-  whyChooseDescription: 'whyChooseDescription',
-  whyChooseTitle: 'whyChooseTitle',
+  canonicalUrl: 'canonicalUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
   status: 'status'
 } as const
 
@@ -5318,7 +5322,8 @@ export const IntakePageBenefitScalarFieldEnum = {
   title: 'title',
   description: 'description',
   icon: 'icon',
-  sortOrder: 'sortOrder'
+  sortOrder: 'sortOrder',
+  isActive: 'isActive'
 } as const
 
 export type IntakePageBenefitScalarFieldEnum = (typeof IntakePageBenefitScalarFieldEnum)[keyof typeof IntakePageBenefitScalarFieldEnum]
@@ -5363,6 +5368,7 @@ export type RecommendationScalarFieldEnum = (typeof RecommendationScalarFieldEnu
 export const GlobalOfficeScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  city: 'city',
   subtitle: 'subtitle',
   slug: 'slug',
   email: 'email',
@@ -6068,6 +6074,20 @@ export type ListEnumIntakeMonthFieldRefInput<$PrismaModel> = FieldRefInputType<$
 
 
 /**
+ * Reference to a field of type 'MediaType'
+ */
+export type EnumMediaTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaType'>
+    
+
+
+/**
+ * Reference to a field of type 'MediaType[]'
+ */
+export type ListEnumMediaTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaType[]'>
+    
+
+
+/**
  * Reference to a field of type 'EventType'
  */
 export type EnumEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventType'>
@@ -6134,20 +6154,6 @@ export type EnumTestimonialTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$
  * Reference to a field of type 'TestimonialType[]'
  */
 export type ListEnumTestimonialTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TestimonialType[]'>
-    
-
-
-/**
- * Reference to a field of type 'MediaType'
- */
-export type EnumMediaTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaType'>
-    
-
-
-/**
- * Reference to a field of type 'MediaType[]'
- */
-export type ListEnumMediaTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaType[]'>
     
 
 

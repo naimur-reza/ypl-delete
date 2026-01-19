@@ -18,19 +18,55 @@ interface DestinationSection {
 
 interface WhyChooseCountryProps {
   countryName: string;
+  whyChooseContent?: string | null;
   sections?: DestinationSection[];
 }
 
 export function WhyChooseCountry({
   countryName,
+  whyChooseContent,
   sections = [],
 }: WhyChooseCountryProps) {
-  const activeSections = sections.filter((s) => s.status === "ACTIVE");
+  const activeSections = sections.filter(
+    (s) => s.status === "ACTIVE" || s.status === "DRAFT",
+  );
   const [activeTab, setActiveTab] = useState(0);
 
-  // Don't render if no sections
-  if (activeSections.length === 0) {
+  // Create combined content from both whyChoose field and sections
+  const hasWhyChooseContent =
+    whyChooseContent && whyChooseContent.trim().length > 0;
+  const hasSections = activeSections.length > 0;
+
+  // Don't render if no content at all
+  if (!hasWhyChooseContent && !hasSections) {
     return null;
+  }
+
+  // If only whyChoose content exists, show it directly without tabs
+  if (hasWhyChooseContent && !hasSections) {
+    return (
+      <section className="relative w-full py-16 md:py-24 overflow-hidden bg-muted/30">
+        <div className="container mx-auto px-4 md:px-6 relative z-10">
+          {/* Header */}
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground tracking-tight">
+              Why choose {countryName}
+              <br />
+              for your studies?
+            </h2>
+          </div>
+
+          {/* Content Area */}
+          <div className="max-w-7xl mx-auto bg-white rounded-2xl shadow-sm border border-border overflow-hidden">
+            <div className="p-6 lg:p-10">
+              <div className="prose prose-slate max-w-none text-muted-foreground leading-relaxed">
+                <MarkdownContent content={whyChooseContent} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
   }
 
   const currentSection = activeSections[activeTab];
@@ -57,7 +93,7 @@ export function WhyChooseCountry({
                 "px-6 py-2.5 rounded-full cursor-pointer text-sm font-medium transition-all duration-300 border",
                 activeTab === index
                   ? "bg-secondary text-secondary-foreground border-secondary"
-                  : "bg-white text-foreground border-border hover:border-secondary/50 hover:text-secondary"
+                  : "bg-white text-foreground border-border hover:border-secondary/50 hover:text-secondary",
               )}
             >
               {section.title}

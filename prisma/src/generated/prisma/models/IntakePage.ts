@@ -28,23 +28,28 @@ export type IntakePageMinAggregateOutputType = {
   id: string | null
   destinationId: string | null
   intake: $Enums.IntakeMonth | null
+  countryId: string | null
+  isGlobal: boolean | null
   title: string | null
+  slug: string | null
   description: string | null
+  heroTitle: string | null
+  heroSubtitle: string | null
   heroMedia: string | null
-  eligibility: string | null
-  ctaLabel: string | null
-  ctaUrl: string | null
-  createdAt: Date | null
-  updatedAt: Date | null
+  heroMediaType: $Enums.MediaType | null
   heroCTALabel: string | null
   heroCTAUrl: string | null
-  heroSubtitle: string | null
-  heroTitle: string | null
+  whyChooseTitle: string | null
+  whyChooseDescription: string | null
+  targetDate: Date | null
+  timelineEnabled: boolean | null
+  howWeHelpEnabled: boolean | null
+  metaTitle: string | null
   metaDescription: string | null
   metaKeywords: string | null
-  metaTitle: string | null
-  whyChooseDescription: string | null
-  whyChooseTitle: string | null
+  canonicalUrl: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
   status: $Enums.ContentStatus | null
 }
 
@@ -52,23 +57,28 @@ export type IntakePageMaxAggregateOutputType = {
   id: string | null
   destinationId: string | null
   intake: $Enums.IntakeMonth | null
+  countryId: string | null
+  isGlobal: boolean | null
   title: string | null
+  slug: string | null
   description: string | null
+  heroTitle: string | null
+  heroSubtitle: string | null
   heroMedia: string | null
-  eligibility: string | null
-  ctaLabel: string | null
-  ctaUrl: string | null
-  createdAt: Date | null
-  updatedAt: Date | null
+  heroMediaType: $Enums.MediaType | null
   heroCTALabel: string | null
   heroCTAUrl: string | null
-  heroSubtitle: string | null
-  heroTitle: string | null
+  whyChooseTitle: string | null
+  whyChooseDescription: string | null
+  targetDate: Date | null
+  timelineEnabled: boolean | null
+  howWeHelpEnabled: boolean | null
+  metaTitle: string | null
   metaDescription: string | null
   metaKeywords: string | null
-  metaTitle: string | null
-  whyChooseDescription: string | null
-  whyChooseTitle: string | null
+  canonicalUrl: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
   status: $Enums.ContentStatus | null
 }
 
@@ -76,24 +86,30 @@ export type IntakePageCountAggregateOutputType = {
   id: number
   destinationId: number
   intake: number
+  countryId: number
+  isGlobal: number
   title: number
+  slug: number
   description: number
+  heroTitle: number
+  heroSubtitle: number
   heroMedia: number
-  eligibility: number
-  timelineJson: number
-  ctaLabel: number
-  ctaUrl: number
-  createdAt: number
-  updatedAt: number
+  heroMediaType: number
   heroCTALabel: number
   heroCTAUrl: number
-  heroSubtitle: number
-  heroTitle: number
+  whyChooseTitle: number
+  whyChooseDescription: number
+  timelineJson: number
+  targetDate: number
+  timelineEnabled: number
+  howWeHelpJson: number
+  howWeHelpEnabled: number
+  metaTitle: number
   metaDescription: number
   metaKeywords: number
-  metaTitle: number
-  whyChooseDescription: number
-  whyChooseTitle: number
+  canonicalUrl: number
+  createdAt: number
+  updatedAt: number
   status: number
   _all: number
 }
@@ -103,23 +119,28 @@ export type IntakePageMinAggregateInputType = {
   id?: true
   destinationId?: true
   intake?: true
+  countryId?: true
+  isGlobal?: true
   title?: true
+  slug?: true
   description?: true
+  heroTitle?: true
+  heroSubtitle?: true
   heroMedia?: true
-  eligibility?: true
-  ctaLabel?: true
-  ctaUrl?: true
-  createdAt?: true
-  updatedAt?: true
+  heroMediaType?: true
   heroCTALabel?: true
   heroCTAUrl?: true
-  heroSubtitle?: true
-  heroTitle?: true
+  whyChooseTitle?: true
+  whyChooseDescription?: true
+  targetDate?: true
+  timelineEnabled?: true
+  howWeHelpEnabled?: true
+  metaTitle?: true
   metaDescription?: true
   metaKeywords?: true
-  metaTitle?: true
-  whyChooseDescription?: true
-  whyChooseTitle?: true
+  canonicalUrl?: true
+  createdAt?: true
+  updatedAt?: true
   status?: true
 }
 
@@ -127,23 +148,28 @@ export type IntakePageMaxAggregateInputType = {
   id?: true
   destinationId?: true
   intake?: true
+  countryId?: true
+  isGlobal?: true
   title?: true
+  slug?: true
   description?: true
+  heroTitle?: true
+  heroSubtitle?: true
   heroMedia?: true
-  eligibility?: true
-  ctaLabel?: true
-  ctaUrl?: true
-  createdAt?: true
-  updatedAt?: true
+  heroMediaType?: true
   heroCTALabel?: true
   heroCTAUrl?: true
-  heroSubtitle?: true
-  heroTitle?: true
+  whyChooseTitle?: true
+  whyChooseDescription?: true
+  targetDate?: true
+  timelineEnabled?: true
+  howWeHelpEnabled?: true
+  metaTitle?: true
   metaDescription?: true
   metaKeywords?: true
-  metaTitle?: true
-  whyChooseDescription?: true
-  whyChooseTitle?: true
+  canonicalUrl?: true
+  createdAt?: true
+  updatedAt?: true
   status?: true
 }
 
@@ -151,24 +177,30 @@ export type IntakePageCountAggregateInputType = {
   id?: true
   destinationId?: true
   intake?: true
+  countryId?: true
+  isGlobal?: true
   title?: true
+  slug?: true
   description?: true
+  heroTitle?: true
+  heroSubtitle?: true
   heroMedia?: true
-  eligibility?: true
-  timelineJson?: true
-  ctaLabel?: true
-  ctaUrl?: true
-  createdAt?: true
-  updatedAt?: true
+  heroMediaType?: true
   heroCTALabel?: true
   heroCTAUrl?: true
-  heroSubtitle?: true
-  heroTitle?: true
+  whyChooseTitle?: true
+  whyChooseDescription?: true
+  timelineJson?: true
+  targetDate?: true
+  timelineEnabled?: true
+  howWeHelpJson?: true
+  howWeHelpEnabled?: true
+  metaTitle?: true
   metaDescription?: true
   metaKeywords?: true
-  metaTitle?: true
-  whyChooseDescription?: true
-  whyChooseTitle?: true
+  canonicalUrl?: true
+  createdAt?: true
+  updatedAt?: true
   status?: true
   _all?: true
 }
@@ -249,24 +281,30 @@ export type IntakePageGroupByOutputType = {
   id: string
   destinationId: string
   intake: $Enums.IntakeMonth
+  countryId: string | null
+  isGlobal: boolean
   title: string
+  slug: string
   description: string | null
+  heroTitle: string | null
+  heroSubtitle: string | null
   heroMedia: string | null
-  eligibility: string | null
-  timelineJson: runtime.JsonValue | null
-  ctaLabel: string | null
-  ctaUrl: string | null
-  createdAt: Date
-  updatedAt: Date
+  heroMediaType: $Enums.MediaType | null
   heroCTALabel: string | null
   heroCTAUrl: string | null
-  heroSubtitle: string | null
-  heroTitle: string | null
+  whyChooseTitle: string | null
+  whyChooseDescription: string | null
+  timelineJson: runtime.JsonValue | null
+  targetDate: Date | null
+  timelineEnabled: boolean
+  howWeHelpJson: runtime.JsonValue | null
+  howWeHelpEnabled: boolean
+  metaTitle: string | null
   metaDescription: string | null
   metaKeywords: string | null
-  metaTitle: string | null
-  whyChooseDescription: string | null
-  whyChooseTitle: string | null
+  canonicalUrl: string | null
+  createdAt: Date
+  updatedAt: Date
   status: $Enums.ContentStatus
   _count: IntakePageCountAggregateOutputType | null
   _min: IntakePageMinAggregateOutputType | null
@@ -295,112 +333,140 @@ export type IntakePageWhereInput = {
   id?: Prisma.StringFilter<"IntakePage"> | string
   destinationId?: Prisma.StringFilter<"IntakePage"> | string
   intake?: Prisma.EnumIntakeMonthFilter<"IntakePage"> | $Enums.IntakeMonth
+  countryId?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  isGlobal?: Prisma.BoolFilter<"IntakePage"> | boolean
   title?: Prisma.StringFilter<"IntakePage"> | string
+  slug?: Prisma.StringFilter<"IntakePage"> | string
   description?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  heroTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  heroSubtitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   heroMedia?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  eligibility?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  timelineJson?: Prisma.JsonNullableFilter<"IntakePage">
-  ctaLabel?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  ctaUrl?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"IntakePage"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"IntakePage"> | Date | string
+  heroMediaType?: Prisma.EnumMediaTypeNullableFilter<"IntakePage"> | $Enums.MediaType | null
   heroCTALabel?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   heroCTAUrl?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  heroSubtitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  heroTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  whyChooseTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  whyChooseDescription?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  timelineJson?: Prisma.JsonNullableFilter<"IntakePage">
+  targetDate?: Prisma.DateTimeNullableFilter<"IntakePage"> | Date | string | null
+  timelineEnabled?: Prisma.BoolFilter<"IntakePage"> | boolean
+  howWeHelpJson?: Prisma.JsonNullableFilter<"IntakePage">
+  howWeHelpEnabled?: Prisma.BoolFilter<"IntakePage"> | boolean
+  metaTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   metaDescription?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   metaKeywords?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  metaTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  whyChooseDescription?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  whyChooseTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  canonicalUrl?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"IntakePage"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"IntakePage"> | Date | string
   status?: Prisma.EnumContentStatusFilter<"IntakePage"> | $Enums.ContentStatus
-  faqs?: Prisma.FAQIntakePageListRelationFilter
   destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
+  country?: Prisma.XOR<Prisma.CountryNullableScalarRelationFilter, Prisma.CountryWhereInput> | null
   intakePageBenefits?: Prisma.IntakePageBenefitListRelationFilter
+  faqs?: Prisma.FAQIntakePageListRelationFilter
 }
 
 export type IntakePageOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
   intake?: Prisma.SortOrder
+  countryId?: Prisma.SortOrderInput | Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  heroTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  heroSubtitle?: Prisma.SortOrderInput | Prisma.SortOrder
   heroMedia?: Prisma.SortOrderInput | Prisma.SortOrder
-  eligibility?: Prisma.SortOrderInput | Prisma.SortOrder
-  timelineJson?: Prisma.SortOrderInput | Prisma.SortOrder
-  ctaLabel?: Prisma.SortOrderInput | Prisma.SortOrder
-  ctaUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  heroMediaType?: Prisma.SortOrderInput | Prisma.SortOrder
   heroCTALabel?: Prisma.SortOrderInput | Prisma.SortOrder
   heroCTAUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  heroSubtitle?: Prisma.SortOrderInput | Prisma.SortOrder
-  heroTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  whyChooseTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  whyChooseDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  timelineJson?: Prisma.SortOrderInput | Prisma.SortOrder
+  targetDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  timelineEnabled?: Prisma.SortOrder
+  howWeHelpJson?: Prisma.SortOrderInput | Prisma.SortOrder
+  howWeHelpEnabled?: Prisma.SortOrder
+  metaTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   metaDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   metaKeywords?: Prisma.SortOrderInput | Prisma.SortOrder
-  metaTitle?: Prisma.SortOrderInput | Prisma.SortOrder
-  whyChooseDescription?: Prisma.SortOrderInput | Prisma.SortOrder
-  whyChooseTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  canonicalUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  faqs?: Prisma.FAQIntakePageOrderByRelationAggregateInput
   destination?: Prisma.DestinationOrderByWithRelationInput
+  country?: Prisma.CountryOrderByWithRelationInput
   intakePageBenefits?: Prisma.IntakePageBenefitOrderByRelationAggregateInput
+  faqs?: Prisma.FAQIntakePageOrderByRelationAggregateInput
 }
 
 export type IntakePageWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  destinationId_intake?: Prisma.IntakePageDestinationIdIntakeCompoundUniqueInput
+  destinationId_intake_countryId?: Prisma.IntakePageDestinationIdIntakeCountryIdCompoundUniqueInput
+  destinationId_intake_isGlobal?: Prisma.IntakePageDestinationIdIntakeIsGlobalCompoundUniqueInput
   AND?: Prisma.IntakePageWhereInput | Prisma.IntakePageWhereInput[]
   OR?: Prisma.IntakePageWhereInput[]
   NOT?: Prisma.IntakePageWhereInput | Prisma.IntakePageWhereInput[]
   destinationId?: Prisma.StringFilter<"IntakePage"> | string
   intake?: Prisma.EnumIntakeMonthFilter<"IntakePage"> | $Enums.IntakeMonth
+  countryId?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  isGlobal?: Prisma.BoolFilter<"IntakePage"> | boolean
   title?: Prisma.StringFilter<"IntakePage"> | string
+  slug?: Prisma.StringFilter<"IntakePage"> | string
   description?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  heroTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  heroSubtitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   heroMedia?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  eligibility?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  timelineJson?: Prisma.JsonNullableFilter<"IntakePage">
-  ctaLabel?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  ctaUrl?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"IntakePage"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"IntakePage"> | Date | string
+  heroMediaType?: Prisma.EnumMediaTypeNullableFilter<"IntakePage"> | $Enums.MediaType | null
   heroCTALabel?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   heroCTAUrl?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  heroSubtitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  heroTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  whyChooseTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  whyChooseDescription?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  timelineJson?: Prisma.JsonNullableFilter<"IntakePage">
+  targetDate?: Prisma.DateTimeNullableFilter<"IntakePage"> | Date | string | null
+  timelineEnabled?: Prisma.BoolFilter<"IntakePage"> | boolean
+  howWeHelpJson?: Prisma.JsonNullableFilter<"IntakePage">
+  howWeHelpEnabled?: Prisma.BoolFilter<"IntakePage"> | boolean
+  metaTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   metaDescription?: Prisma.StringNullableFilter<"IntakePage"> | string | null
   metaKeywords?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  metaTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  whyChooseDescription?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  whyChooseTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  canonicalUrl?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"IntakePage"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"IntakePage"> | Date | string
   status?: Prisma.EnumContentStatusFilter<"IntakePage"> | $Enums.ContentStatus
-  faqs?: Prisma.FAQIntakePageListRelationFilter
   destination?: Prisma.XOR<Prisma.DestinationScalarRelationFilter, Prisma.DestinationWhereInput>
+  country?: Prisma.XOR<Prisma.CountryNullableScalarRelationFilter, Prisma.CountryWhereInput> | null
   intakePageBenefits?: Prisma.IntakePageBenefitListRelationFilter
-}, "id" | "destinationId_intake">
+  faqs?: Prisma.FAQIntakePageListRelationFilter
+}, "id" | "destinationId_intake_countryId" | "destinationId_intake_isGlobal">
 
 export type IntakePageOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
   intake?: Prisma.SortOrder
+  countryId?: Prisma.SortOrderInput | Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  heroTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  heroSubtitle?: Prisma.SortOrderInput | Prisma.SortOrder
   heroMedia?: Prisma.SortOrderInput | Prisma.SortOrder
-  eligibility?: Prisma.SortOrderInput | Prisma.SortOrder
-  timelineJson?: Prisma.SortOrderInput | Prisma.SortOrder
-  ctaLabel?: Prisma.SortOrderInput | Prisma.SortOrder
-  ctaUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  heroMediaType?: Prisma.SortOrderInput | Prisma.SortOrder
   heroCTALabel?: Prisma.SortOrderInput | Prisma.SortOrder
   heroCTAUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  heroSubtitle?: Prisma.SortOrderInput | Prisma.SortOrder
-  heroTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  whyChooseTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  whyChooseDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  timelineJson?: Prisma.SortOrderInput | Prisma.SortOrder
+  targetDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  timelineEnabled?: Prisma.SortOrder
+  howWeHelpJson?: Prisma.SortOrderInput | Prisma.SortOrder
+  howWeHelpEnabled?: Prisma.SortOrder
+  metaTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   metaDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   metaKeywords?: Prisma.SortOrderInput | Prisma.SortOrder
-  metaTitle?: Prisma.SortOrderInput | Prisma.SortOrder
-  whyChooseDescription?: Prisma.SortOrderInput | Prisma.SortOrder
-  whyChooseTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  canonicalUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
   _count?: Prisma.IntakePageCountOrderByAggregateInput
   _max?: Prisma.IntakePageMaxOrderByAggregateInput
@@ -414,181 +480,222 @@ export type IntakePageScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"IntakePage"> | string
   destinationId?: Prisma.StringWithAggregatesFilter<"IntakePage"> | string
   intake?: Prisma.EnumIntakeMonthWithAggregatesFilter<"IntakePage"> | $Enums.IntakeMonth
+  countryId?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
+  isGlobal?: Prisma.BoolWithAggregatesFilter<"IntakePage"> | boolean
   title?: Prisma.StringWithAggregatesFilter<"IntakePage"> | string
+  slug?: Prisma.StringWithAggregatesFilter<"IntakePage"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
+  heroTitle?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
+  heroSubtitle?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
   heroMedia?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
-  eligibility?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
-  timelineJson?: Prisma.JsonNullableWithAggregatesFilter<"IntakePage">
-  ctaLabel?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
-  ctaUrl?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"IntakePage"> | Date | string
-  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"IntakePage"> | Date | string
+  heroMediaType?: Prisma.EnumMediaTypeNullableWithAggregatesFilter<"IntakePage"> | $Enums.MediaType | null
   heroCTALabel?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
   heroCTAUrl?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
-  heroSubtitle?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
-  heroTitle?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
+  whyChooseTitle?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
+  whyChooseDescription?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
+  timelineJson?: Prisma.JsonNullableWithAggregatesFilter<"IntakePage">
+  targetDate?: Prisma.DateTimeNullableWithAggregatesFilter<"IntakePage"> | Date | string | null
+  timelineEnabled?: Prisma.BoolWithAggregatesFilter<"IntakePage"> | boolean
+  howWeHelpJson?: Prisma.JsonNullableWithAggregatesFilter<"IntakePage">
+  howWeHelpEnabled?: Prisma.BoolWithAggregatesFilter<"IntakePage"> | boolean
+  metaTitle?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
   metaDescription?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
   metaKeywords?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
-  metaTitle?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
-  whyChooseDescription?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
-  whyChooseTitle?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
+  canonicalUrl?: Prisma.StringNullableWithAggregatesFilter<"IntakePage"> | string | null
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"IntakePage"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"IntakePage"> | Date | string
   status?: Prisma.EnumContentStatusWithAggregatesFilter<"IntakePage"> | $Enums.ContentStatus
 }
 
 export type IntakePageCreateInput = {
   id?: string
   intake: $Enums.IntakeMonth
+  isGlobal?: boolean
   title: string
+  slug?: string
   description?: string | null
+  heroTitle?: string | null
+  heroSubtitle?: string | null
   heroMedia?: string | null
-  eligibility?: string | null
-  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ctaLabel?: string | null
-  ctaUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  heroMediaType?: $Enums.MediaType | null
   heroCTALabel?: string | null
   heroCTAUrl?: string | null
-  heroSubtitle?: string | null
-  heroTitle?: string | null
+  whyChooseTitle?: string | null
+  whyChooseDescription?: string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Date | string | null
+  timelineEnabled?: boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: boolean
+  metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
-  metaTitle?: string | null
-  whyChooseDescription?: string | null
-  whyChooseTitle?: string | null
+  canonicalUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   status?: $Enums.ContentStatus
-  faqs?: Prisma.FAQIntakePageCreateNestedManyWithoutIntakePageInput
   destination: Prisma.DestinationCreateNestedOneWithoutIntakePagesInput
+  country?: Prisma.CountryCreateNestedOneWithoutIntakePagesInput
   intakePageBenefits?: Prisma.IntakePageBenefitCreateNestedManyWithoutIntakePageInput
+  faqs?: Prisma.FAQIntakePageCreateNestedManyWithoutIntakePageInput
 }
 
 export type IntakePageUncheckedCreateInput = {
   id?: string
   destinationId: string
   intake: $Enums.IntakeMonth
+  countryId?: string | null
+  isGlobal?: boolean
   title: string
+  slug?: string
   description?: string | null
+  heroTitle?: string | null
+  heroSubtitle?: string | null
   heroMedia?: string | null
-  eligibility?: string | null
-  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ctaLabel?: string | null
-  ctaUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  heroMediaType?: $Enums.MediaType | null
   heroCTALabel?: string | null
   heroCTAUrl?: string | null
-  heroSubtitle?: string | null
-  heroTitle?: string | null
+  whyChooseTitle?: string | null
+  whyChooseDescription?: string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Date | string | null
+  timelineEnabled?: boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: boolean
+  metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
-  metaTitle?: string | null
-  whyChooseDescription?: string | null
-  whyChooseTitle?: string | null
+  canonicalUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   status?: $Enums.ContentStatus
-  faqs?: Prisma.FAQIntakePageUncheckedCreateNestedManyWithoutIntakePageInput
   intakePageBenefits?: Prisma.IntakePageBenefitUncheckedCreateNestedManyWithoutIntakePageInput
+  faqs?: Prisma.FAQIntakePageUncheckedCreateNestedManyWithoutIntakePageInput
 }
 
 export type IntakePageUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   intake?: Prisma.EnumIntakeMonthFieldUpdateOperationsInput | $Enums.IntakeMonth
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroMedia?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  eligibility?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  heroMediaType?: Prisma.NullableEnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType | null
   heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  timelineEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  canonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
-  faqs?: Prisma.FAQIntakePageUpdateManyWithoutIntakePageNestedInput
   destination?: Prisma.DestinationUpdateOneRequiredWithoutIntakePagesNestedInput
+  country?: Prisma.CountryUpdateOneWithoutIntakePagesNestedInput
   intakePageBenefits?: Prisma.IntakePageBenefitUpdateManyWithoutIntakePageNestedInput
+  faqs?: Prisma.FAQIntakePageUpdateManyWithoutIntakePageNestedInput
 }
 
 export type IntakePageUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   intake?: Prisma.EnumIntakeMonthFieldUpdateOperationsInput | $Enums.IntakeMonth
+  countryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroMedia?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  eligibility?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  heroMediaType?: Prisma.NullableEnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType | null
   heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  timelineEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  canonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
-  faqs?: Prisma.FAQIntakePageUncheckedUpdateManyWithoutIntakePageNestedInput
   intakePageBenefits?: Prisma.IntakePageBenefitUncheckedUpdateManyWithoutIntakePageNestedInput
+  faqs?: Prisma.FAQIntakePageUncheckedUpdateManyWithoutIntakePageNestedInput
 }
 
 export type IntakePageCreateManyInput = {
   id?: string
   destinationId: string
   intake: $Enums.IntakeMonth
+  countryId?: string | null
+  isGlobal?: boolean
   title: string
+  slug?: string
   description?: string | null
+  heroTitle?: string | null
+  heroSubtitle?: string | null
   heroMedia?: string | null
-  eligibility?: string | null
-  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ctaLabel?: string | null
-  ctaUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  heroMediaType?: $Enums.MediaType | null
   heroCTALabel?: string | null
   heroCTAUrl?: string | null
-  heroSubtitle?: string | null
-  heroTitle?: string | null
+  whyChooseTitle?: string | null
+  whyChooseDescription?: string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Date | string | null
+  timelineEnabled?: boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: boolean
+  metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
-  metaTitle?: string | null
-  whyChooseDescription?: string | null
-  whyChooseTitle?: string | null
+  canonicalUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   status?: $Enums.ContentStatus
 }
 
 export type IntakePageUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   intake?: Prisma.EnumIntakeMonthFieldUpdateOperationsInput | $Enums.IntakeMonth
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroMedia?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  eligibility?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  heroMediaType?: Prisma.NullableEnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType | null
   heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  timelineEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  canonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
@@ -596,54 +703,73 @@ export type IntakePageUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   intake?: Prisma.EnumIntakeMonthFieldUpdateOperationsInput | $Enums.IntakeMonth
+  countryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroMedia?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  eligibility?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  heroMediaType?: Prisma.NullableEnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType | null
   heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  timelineEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  canonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
-export type IntakePageDestinationIdIntakeCompoundUniqueInput = {
+export type IntakePageDestinationIdIntakeCountryIdCompoundUniqueInput = {
   destinationId: string
   intake: $Enums.IntakeMonth
+  countryId: string
+}
+
+export type IntakePageDestinationIdIntakeIsGlobalCompoundUniqueInput = {
+  destinationId: string
+  intake: $Enums.IntakeMonth
+  isGlobal: boolean
 }
 
 export type IntakePageCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
   intake?: Prisma.SortOrder
+  countryId?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  heroTitle?: Prisma.SortOrder
+  heroSubtitle?: Prisma.SortOrder
   heroMedia?: Prisma.SortOrder
-  eligibility?: Prisma.SortOrder
-  timelineJson?: Prisma.SortOrder
-  ctaLabel?: Prisma.SortOrder
-  ctaUrl?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  heroMediaType?: Prisma.SortOrder
   heroCTALabel?: Prisma.SortOrder
   heroCTAUrl?: Prisma.SortOrder
-  heroSubtitle?: Prisma.SortOrder
-  heroTitle?: Prisma.SortOrder
+  whyChooseTitle?: Prisma.SortOrder
+  whyChooseDescription?: Prisma.SortOrder
+  timelineJson?: Prisma.SortOrder
+  targetDate?: Prisma.SortOrder
+  timelineEnabled?: Prisma.SortOrder
+  howWeHelpJson?: Prisma.SortOrder
+  howWeHelpEnabled?: Prisma.SortOrder
+  metaTitle?: Prisma.SortOrder
   metaDescription?: Prisma.SortOrder
   metaKeywords?: Prisma.SortOrder
-  metaTitle?: Prisma.SortOrder
-  whyChooseDescription?: Prisma.SortOrder
-  whyChooseTitle?: Prisma.SortOrder
+  canonicalUrl?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
 }
 
@@ -651,23 +777,28 @@ export type IntakePageMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
   intake?: Prisma.SortOrder
+  countryId?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  heroTitle?: Prisma.SortOrder
+  heroSubtitle?: Prisma.SortOrder
   heroMedia?: Prisma.SortOrder
-  eligibility?: Prisma.SortOrder
-  ctaLabel?: Prisma.SortOrder
-  ctaUrl?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  heroMediaType?: Prisma.SortOrder
   heroCTALabel?: Prisma.SortOrder
   heroCTAUrl?: Prisma.SortOrder
-  heroSubtitle?: Prisma.SortOrder
-  heroTitle?: Prisma.SortOrder
+  whyChooseTitle?: Prisma.SortOrder
+  whyChooseDescription?: Prisma.SortOrder
+  targetDate?: Prisma.SortOrder
+  timelineEnabled?: Prisma.SortOrder
+  howWeHelpEnabled?: Prisma.SortOrder
+  metaTitle?: Prisma.SortOrder
   metaDescription?: Prisma.SortOrder
   metaKeywords?: Prisma.SortOrder
-  metaTitle?: Prisma.SortOrder
-  whyChooseDescription?: Prisma.SortOrder
-  whyChooseTitle?: Prisma.SortOrder
+  canonicalUrl?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
 }
 
@@ -675,23 +806,28 @@ export type IntakePageMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
   intake?: Prisma.SortOrder
+  countryId?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  heroTitle?: Prisma.SortOrder
+  heroSubtitle?: Prisma.SortOrder
   heroMedia?: Prisma.SortOrder
-  eligibility?: Prisma.SortOrder
-  ctaLabel?: Prisma.SortOrder
-  ctaUrl?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  heroMediaType?: Prisma.SortOrder
   heroCTALabel?: Prisma.SortOrder
   heroCTAUrl?: Prisma.SortOrder
-  heroSubtitle?: Prisma.SortOrder
-  heroTitle?: Prisma.SortOrder
+  whyChooseTitle?: Prisma.SortOrder
+  whyChooseDescription?: Prisma.SortOrder
+  targetDate?: Prisma.SortOrder
+  timelineEnabled?: Prisma.SortOrder
+  howWeHelpEnabled?: Prisma.SortOrder
+  metaTitle?: Prisma.SortOrder
   metaDescription?: Prisma.SortOrder
   metaKeywords?: Prisma.SortOrder
-  metaTitle?: Prisma.SortOrder
-  whyChooseDescription?: Prisma.SortOrder
-  whyChooseTitle?: Prisma.SortOrder
+  canonicalUrl?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
 }
 
@@ -710,6 +846,10 @@ export type IntakePageOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type NullableEnumMediaTypeFieldUpdateOperationsInput = {
+  set?: $Enums.MediaType | null
+}
+
 export type IntakePageCreateNestedOneWithoutIntakePageBenefitsInput = {
   create?: Prisma.XOR<Prisma.IntakePageCreateWithoutIntakePageBenefitsInput, Prisma.IntakePageUncheckedCreateWithoutIntakePageBenefitsInput>
   connectOrCreate?: Prisma.IntakePageCreateOrConnectWithoutIntakePageBenefitsInput
@@ -722,6 +862,48 @@ export type IntakePageUpdateOneRequiredWithoutIntakePageBenefitsNestedInput = {
   upsert?: Prisma.IntakePageUpsertWithoutIntakePageBenefitsInput
   connect?: Prisma.IntakePageWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.IntakePageUpdateToOneWithWhereWithoutIntakePageBenefitsInput, Prisma.IntakePageUpdateWithoutIntakePageBenefitsInput>, Prisma.IntakePageUncheckedUpdateWithoutIntakePageBenefitsInput>
+}
+
+export type IntakePageCreateNestedManyWithoutCountryInput = {
+  create?: Prisma.XOR<Prisma.IntakePageCreateWithoutCountryInput, Prisma.IntakePageUncheckedCreateWithoutCountryInput> | Prisma.IntakePageCreateWithoutCountryInput[] | Prisma.IntakePageUncheckedCreateWithoutCountryInput[]
+  connectOrCreate?: Prisma.IntakePageCreateOrConnectWithoutCountryInput | Prisma.IntakePageCreateOrConnectWithoutCountryInput[]
+  createMany?: Prisma.IntakePageCreateManyCountryInputEnvelope
+  connect?: Prisma.IntakePageWhereUniqueInput | Prisma.IntakePageWhereUniqueInput[]
+}
+
+export type IntakePageUncheckedCreateNestedManyWithoutCountryInput = {
+  create?: Prisma.XOR<Prisma.IntakePageCreateWithoutCountryInput, Prisma.IntakePageUncheckedCreateWithoutCountryInput> | Prisma.IntakePageCreateWithoutCountryInput[] | Prisma.IntakePageUncheckedCreateWithoutCountryInput[]
+  connectOrCreate?: Prisma.IntakePageCreateOrConnectWithoutCountryInput | Prisma.IntakePageCreateOrConnectWithoutCountryInput[]
+  createMany?: Prisma.IntakePageCreateManyCountryInputEnvelope
+  connect?: Prisma.IntakePageWhereUniqueInput | Prisma.IntakePageWhereUniqueInput[]
+}
+
+export type IntakePageUpdateManyWithoutCountryNestedInput = {
+  create?: Prisma.XOR<Prisma.IntakePageCreateWithoutCountryInput, Prisma.IntakePageUncheckedCreateWithoutCountryInput> | Prisma.IntakePageCreateWithoutCountryInput[] | Prisma.IntakePageUncheckedCreateWithoutCountryInput[]
+  connectOrCreate?: Prisma.IntakePageCreateOrConnectWithoutCountryInput | Prisma.IntakePageCreateOrConnectWithoutCountryInput[]
+  upsert?: Prisma.IntakePageUpsertWithWhereUniqueWithoutCountryInput | Prisma.IntakePageUpsertWithWhereUniqueWithoutCountryInput[]
+  createMany?: Prisma.IntakePageCreateManyCountryInputEnvelope
+  set?: Prisma.IntakePageWhereUniqueInput | Prisma.IntakePageWhereUniqueInput[]
+  disconnect?: Prisma.IntakePageWhereUniqueInput | Prisma.IntakePageWhereUniqueInput[]
+  delete?: Prisma.IntakePageWhereUniqueInput | Prisma.IntakePageWhereUniqueInput[]
+  connect?: Prisma.IntakePageWhereUniqueInput | Prisma.IntakePageWhereUniqueInput[]
+  update?: Prisma.IntakePageUpdateWithWhereUniqueWithoutCountryInput | Prisma.IntakePageUpdateWithWhereUniqueWithoutCountryInput[]
+  updateMany?: Prisma.IntakePageUpdateManyWithWhereWithoutCountryInput | Prisma.IntakePageUpdateManyWithWhereWithoutCountryInput[]
+  deleteMany?: Prisma.IntakePageScalarWhereInput | Prisma.IntakePageScalarWhereInput[]
+}
+
+export type IntakePageUncheckedUpdateManyWithoutCountryNestedInput = {
+  create?: Prisma.XOR<Prisma.IntakePageCreateWithoutCountryInput, Prisma.IntakePageUncheckedCreateWithoutCountryInput> | Prisma.IntakePageCreateWithoutCountryInput[] | Prisma.IntakePageUncheckedCreateWithoutCountryInput[]
+  connectOrCreate?: Prisma.IntakePageCreateOrConnectWithoutCountryInput | Prisma.IntakePageCreateOrConnectWithoutCountryInput[]
+  upsert?: Prisma.IntakePageUpsertWithWhereUniqueWithoutCountryInput | Prisma.IntakePageUpsertWithWhereUniqueWithoutCountryInput[]
+  createMany?: Prisma.IntakePageCreateManyCountryInputEnvelope
+  set?: Prisma.IntakePageWhereUniqueInput | Prisma.IntakePageWhereUniqueInput[]
+  disconnect?: Prisma.IntakePageWhereUniqueInput | Prisma.IntakePageWhereUniqueInput[]
+  delete?: Prisma.IntakePageWhereUniqueInput | Prisma.IntakePageWhereUniqueInput[]
+  connect?: Prisma.IntakePageWhereUniqueInput | Prisma.IntakePageWhereUniqueInput[]
+  update?: Prisma.IntakePageUpdateWithWhereUniqueWithoutCountryInput | Prisma.IntakePageUpdateWithWhereUniqueWithoutCountryInput[]
+  updateMany?: Prisma.IntakePageUpdateManyWithWhereWithoutCountryInput | Prisma.IntakePageUpdateManyWithWhereWithoutCountryInput[]
+  deleteMany?: Prisma.IntakePageScalarWhereInput | Prisma.IntakePageScalarWhereInput[]
 }
 
 export type IntakePageCreateNestedManyWithoutDestinationInput = {
@@ -783,51 +965,63 @@ export type IntakePageUpdateOneRequiredWithoutFaqsNestedInput = {
 export type IntakePageCreateWithoutIntakePageBenefitsInput = {
   id?: string
   intake: $Enums.IntakeMonth
+  isGlobal?: boolean
   title: string
+  slug?: string
   description?: string | null
+  heroTitle?: string | null
+  heroSubtitle?: string | null
   heroMedia?: string | null
-  eligibility?: string | null
-  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ctaLabel?: string | null
-  ctaUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  heroMediaType?: $Enums.MediaType | null
   heroCTALabel?: string | null
   heroCTAUrl?: string | null
-  heroSubtitle?: string | null
-  heroTitle?: string | null
+  whyChooseTitle?: string | null
+  whyChooseDescription?: string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Date | string | null
+  timelineEnabled?: boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: boolean
+  metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
-  metaTitle?: string | null
-  whyChooseDescription?: string | null
-  whyChooseTitle?: string | null
+  canonicalUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   status?: $Enums.ContentStatus
-  faqs?: Prisma.FAQIntakePageCreateNestedManyWithoutIntakePageInput
   destination: Prisma.DestinationCreateNestedOneWithoutIntakePagesInput
+  country?: Prisma.CountryCreateNestedOneWithoutIntakePagesInput
+  faqs?: Prisma.FAQIntakePageCreateNestedManyWithoutIntakePageInput
 }
 
 export type IntakePageUncheckedCreateWithoutIntakePageBenefitsInput = {
   id?: string
   destinationId: string
   intake: $Enums.IntakeMonth
+  countryId?: string | null
+  isGlobal?: boolean
   title: string
+  slug?: string
   description?: string | null
+  heroTitle?: string | null
+  heroSubtitle?: string | null
   heroMedia?: string | null
-  eligibility?: string | null
-  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ctaLabel?: string | null
-  ctaUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  heroMediaType?: $Enums.MediaType | null
   heroCTALabel?: string | null
   heroCTAUrl?: string | null
-  heroSubtitle?: string | null
-  heroTitle?: string | null
+  whyChooseTitle?: string | null
+  whyChooseDescription?: string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Date | string | null
+  timelineEnabled?: boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: boolean
+  metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
-  metaTitle?: string | null
-  whyChooseDescription?: string | null
-  whyChooseTitle?: string | null
+  canonicalUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   status?: $Enums.ContentStatus
   faqs?: Prisma.FAQIntakePageUncheckedCreateNestedManyWithoutIntakePageInput
 }
@@ -851,105 +1045,253 @@ export type IntakePageUpdateToOneWithWhereWithoutIntakePageBenefitsInput = {
 export type IntakePageUpdateWithoutIntakePageBenefitsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   intake?: Prisma.EnumIntakeMonthFieldUpdateOperationsInput | $Enums.IntakeMonth
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroMedia?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  eligibility?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  heroMediaType?: Prisma.NullableEnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType | null
   heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  timelineEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  canonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
-  faqs?: Prisma.FAQIntakePageUpdateManyWithoutIntakePageNestedInput
   destination?: Prisma.DestinationUpdateOneRequiredWithoutIntakePagesNestedInput
+  country?: Prisma.CountryUpdateOneWithoutIntakePagesNestedInput
+  faqs?: Prisma.FAQIntakePageUpdateManyWithoutIntakePageNestedInput
 }
 
 export type IntakePageUncheckedUpdateWithoutIntakePageBenefitsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   intake?: Prisma.EnumIntakeMonthFieldUpdateOperationsInput | $Enums.IntakeMonth
+  countryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroMedia?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  eligibility?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  heroMediaType?: Prisma.NullableEnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType | null
   heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  timelineEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  canonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   faqs?: Prisma.FAQIntakePageUncheckedUpdateManyWithoutIntakePageNestedInput
+}
+
+export type IntakePageCreateWithoutCountryInput = {
+  id?: string
+  intake: $Enums.IntakeMonth
+  isGlobal?: boolean
+  title: string
+  slug?: string
+  description?: string | null
+  heroTitle?: string | null
+  heroSubtitle?: string | null
+  heroMedia?: string | null
+  heroMediaType?: $Enums.MediaType | null
+  heroCTALabel?: string | null
+  heroCTAUrl?: string | null
+  whyChooseTitle?: string | null
+  whyChooseDescription?: string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Date | string | null
+  timelineEnabled?: boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: boolean
+  metaTitle?: string | null
+  metaDescription?: string | null
+  metaKeywords?: string | null
+  canonicalUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  status?: $Enums.ContentStatus
+  destination: Prisma.DestinationCreateNestedOneWithoutIntakePagesInput
+  intakePageBenefits?: Prisma.IntakePageBenefitCreateNestedManyWithoutIntakePageInput
+  faqs?: Prisma.FAQIntakePageCreateNestedManyWithoutIntakePageInput
+}
+
+export type IntakePageUncheckedCreateWithoutCountryInput = {
+  id?: string
+  destinationId: string
+  intake: $Enums.IntakeMonth
+  isGlobal?: boolean
+  title: string
+  slug?: string
+  description?: string | null
+  heroTitle?: string | null
+  heroSubtitle?: string | null
+  heroMedia?: string | null
+  heroMediaType?: $Enums.MediaType | null
+  heroCTALabel?: string | null
+  heroCTAUrl?: string | null
+  whyChooseTitle?: string | null
+  whyChooseDescription?: string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Date | string | null
+  timelineEnabled?: boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: boolean
+  metaTitle?: string | null
+  metaDescription?: string | null
+  metaKeywords?: string | null
+  canonicalUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  status?: $Enums.ContentStatus
+  intakePageBenefits?: Prisma.IntakePageBenefitUncheckedCreateNestedManyWithoutIntakePageInput
+  faqs?: Prisma.FAQIntakePageUncheckedCreateNestedManyWithoutIntakePageInput
+}
+
+export type IntakePageCreateOrConnectWithoutCountryInput = {
+  where: Prisma.IntakePageWhereUniqueInput
+  create: Prisma.XOR<Prisma.IntakePageCreateWithoutCountryInput, Prisma.IntakePageUncheckedCreateWithoutCountryInput>
+}
+
+export type IntakePageCreateManyCountryInputEnvelope = {
+  data: Prisma.IntakePageCreateManyCountryInput | Prisma.IntakePageCreateManyCountryInput[]
+  skipDuplicates?: boolean
+}
+
+export type IntakePageUpsertWithWhereUniqueWithoutCountryInput = {
+  where: Prisma.IntakePageWhereUniqueInput
+  update: Prisma.XOR<Prisma.IntakePageUpdateWithoutCountryInput, Prisma.IntakePageUncheckedUpdateWithoutCountryInput>
+  create: Prisma.XOR<Prisma.IntakePageCreateWithoutCountryInput, Prisma.IntakePageUncheckedCreateWithoutCountryInput>
+}
+
+export type IntakePageUpdateWithWhereUniqueWithoutCountryInput = {
+  where: Prisma.IntakePageWhereUniqueInput
+  data: Prisma.XOR<Prisma.IntakePageUpdateWithoutCountryInput, Prisma.IntakePageUncheckedUpdateWithoutCountryInput>
+}
+
+export type IntakePageUpdateManyWithWhereWithoutCountryInput = {
+  where: Prisma.IntakePageScalarWhereInput
+  data: Prisma.XOR<Prisma.IntakePageUpdateManyMutationInput, Prisma.IntakePageUncheckedUpdateManyWithoutCountryInput>
+}
+
+export type IntakePageScalarWhereInput = {
+  AND?: Prisma.IntakePageScalarWhereInput | Prisma.IntakePageScalarWhereInput[]
+  OR?: Prisma.IntakePageScalarWhereInput[]
+  NOT?: Prisma.IntakePageScalarWhereInput | Prisma.IntakePageScalarWhereInput[]
+  id?: Prisma.StringFilter<"IntakePage"> | string
+  destinationId?: Prisma.StringFilter<"IntakePage"> | string
+  intake?: Prisma.EnumIntakeMonthFilter<"IntakePage"> | $Enums.IntakeMonth
+  countryId?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  isGlobal?: Prisma.BoolFilter<"IntakePage"> | boolean
+  title?: Prisma.StringFilter<"IntakePage"> | string
+  slug?: Prisma.StringFilter<"IntakePage"> | string
+  description?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  heroTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  heroSubtitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  heroMedia?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  heroMediaType?: Prisma.EnumMediaTypeNullableFilter<"IntakePage"> | $Enums.MediaType | null
+  heroCTALabel?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  heroCTAUrl?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  whyChooseTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  whyChooseDescription?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  timelineJson?: Prisma.JsonNullableFilter<"IntakePage">
+  targetDate?: Prisma.DateTimeNullableFilter<"IntakePage"> | Date | string | null
+  timelineEnabled?: Prisma.BoolFilter<"IntakePage"> | boolean
+  howWeHelpJson?: Prisma.JsonNullableFilter<"IntakePage">
+  howWeHelpEnabled?: Prisma.BoolFilter<"IntakePage"> | boolean
+  metaTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  metaDescription?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  metaKeywords?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  canonicalUrl?: Prisma.StringNullableFilter<"IntakePage"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"IntakePage"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"IntakePage"> | Date | string
+  status?: Prisma.EnumContentStatusFilter<"IntakePage"> | $Enums.ContentStatus
 }
 
 export type IntakePageCreateWithoutDestinationInput = {
   id?: string
   intake: $Enums.IntakeMonth
+  isGlobal?: boolean
   title: string
+  slug?: string
   description?: string | null
+  heroTitle?: string | null
+  heroSubtitle?: string | null
   heroMedia?: string | null
-  eligibility?: string | null
-  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ctaLabel?: string | null
-  ctaUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  heroMediaType?: $Enums.MediaType | null
   heroCTALabel?: string | null
   heroCTAUrl?: string | null
-  heroSubtitle?: string | null
-  heroTitle?: string | null
+  whyChooseTitle?: string | null
+  whyChooseDescription?: string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Date | string | null
+  timelineEnabled?: boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: boolean
+  metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
-  metaTitle?: string | null
-  whyChooseDescription?: string | null
-  whyChooseTitle?: string | null
+  canonicalUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   status?: $Enums.ContentStatus
-  faqs?: Prisma.FAQIntakePageCreateNestedManyWithoutIntakePageInput
+  country?: Prisma.CountryCreateNestedOneWithoutIntakePagesInput
   intakePageBenefits?: Prisma.IntakePageBenefitCreateNestedManyWithoutIntakePageInput
+  faqs?: Prisma.FAQIntakePageCreateNestedManyWithoutIntakePageInput
 }
 
 export type IntakePageUncheckedCreateWithoutDestinationInput = {
   id?: string
   intake: $Enums.IntakeMonth
+  countryId?: string | null
+  isGlobal?: boolean
   title: string
+  slug?: string
   description?: string | null
+  heroTitle?: string | null
+  heroSubtitle?: string | null
   heroMedia?: string | null
-  eligibility?: string | null
-  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ctaLabel?: string | null
-  ctaUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  heroMediaType?: $Enums.MediaType | null
   heroCTALabel?: string | null
   heroCTAUrl?: string | null
-  heroSubtitle?: string | null
-  heroTitle?: string | null
+  whyChooseTitle?: string | null
+  whyChooseDescription?: string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Date | string | null
+  timelineEnabled?: boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: boolean
+  metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
-  metaTitle?: string | null
-  whyChooseDescription?: string | null
-  whyChooseTitle?: string | null
+  canonicalUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   status?: $Enums.ContentStatus
-  faqs?: Prisma.FAQIntakePageUncheckedCreateNestedManyWithoutIntakePageInput
   intakePageBenefits?: Prisma.IntakePageBenefitUncheckedCreateNestedManyWithoutIntakePageInput
+  faqs?: Prisma.FAQIntakePageUncheckedCreateNestedManyWithoutIntakePageInput
 }
 
 export type IntakePageCreateOrConnectWithoutDestinationInput = {
@@ -978,57 +1320,35 @@ export type IntakePageUpdateManyWithWhereWithoutDestinationInput = {
   data: Prisma.XOR<Prisma.IntakePageUpdateManyMutationInput, Prisma.IntakePageUncheckedUpdateManyWithoutDestinationInput>
 }
 
-export type IntakePageScalarWhereInput = {
-  AND?: Prisma.IntakePageScalarWhereInput | Prisma.IntakePageScalarWhereInput[]
-  OR?: Prisma.IntakePageScalarWhereInput[]
-  NOT?: Prisma.IntakePageScalarWhereInput | Prisma.IntakePageScalarWhereInput[]
-  id?: Prisma.StringFilter<"IntakePage"> | string
-  destinationId?: Prisma.StringFilter<"IntakePage"> | string
-  intake?: Prisma.EnumIntakeMonthFilter<"IntakePage"> | $Enums.IntakeMonth
-  title?: Prisma.StringFilter<"IntakePage"> | string
-  description?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  heroMedia?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  eligibility?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  timelineJson?: Prisma.JsonNullableFilter<"IntakePage">
-  ctaLabel?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  ctaUrl?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"IntakePage"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"IntakePage"> | Date | string
-  heroCTALabel?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  heroCTAUrl?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  heroSubtitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  heroTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  metaDescription?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  metaKeywords?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  metaTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  whyChooseDescription?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  whyChooseTitle?: Prisma.StringNullableFilter<"IntakePage"> | string | null
-  status?: Prisma.EnumContentStatusFilter<"IntakePage"> | $Enums.ContentStatus
-}
-
 export type IntakePageCreateWithoutFaqsInput = {
   id?: string
   intake: $Enums.IntakeMonth
+  isGlobal?: boolean
   title: string
+  slug?: string
   description?: string | null
+  heroTitle?: string | null
+  heroSubtitle?: string | null
   heroMedia?: string | null
-  eligibility?: string | null
-  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ctaLabel?: string | null
-  ctaUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  heroMediaType?: $Enums.MediaType | null
   heroCTALabel?: string | null
   heroCTAUrl?: string | null
-  heroSubtitle?: string | null
-  heroTitle?: string | null
+  whyChooseTitle?: string | null
+  whyChooseDescription?: string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Date | string | null
+  timelineEnabled?: boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: boolean
+  metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
-  metaTitle?: string | null
-  whyChooseDescription?: string | null
-  whyChooseTitle?: string | null
+  canonicalUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   status?: $Enums.ContentStatus
   destination: Prisma.DestinationCreateNestedOneWithoutIntakePagesInput
+  country?: Prisma.CountryCreateNestedOneWithoutIntakePagesInput
   intakePageBenefits?: Prisma.IntakePageBenefitCreateNestedManyWithoutIntakePageInput
 }
 
@@ -1036,24 +1356,30 @@ export type IntakePageUncheckedCreateWithoutFaqsInput = {
   id?: string
   destinationId: string
   intake: $Enums.IntakeMonth
+  countryId?: string | null
+  isGlobal?: boolean
   title: string
+  slug?: string
   description?: string | null
+  heroTitle?: string | null
+  heroSubtitle?: string | null
   heroMedia?: string | null
-  eligibility?: string | null
-  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ctaLabel?: string | null
-  ctaUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  heroMediaType?: $Enums.MediaType | null
   heroCTALabel?: string | null
   heroCTAUrl?: string | null
-  heroSubtitle?: string | null
-  heroTitle?: string | null
+  whyChooseTitle?: string | null
+  whyChooseDescription?: string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Date | string | null
+  timelineEnabled?: boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: boolean
+  metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
-  metaTitle?: string | null
-  whyChooseDescription?: string | null
-  whyChooseTitle?: string | null
+  canonicalUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   status?: $Enums.ContentStatus
   intakePageBenefits?: Prisma.IntakePageBenefitUncheckedCreateNestedManyWithoutIntakePageInput
 }
@@ -1077,26 +1403,32 @@ export type IntakePageUpdateToOneWithWhereWithoutFaqsInput = {
 export type IntakePageUpdateWithoutFaqsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   intake?: Prisma.EnumIntakeMonthFieldUpdateOperationsInput | $Enums.IntakeMonth
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroMedia?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  eligibility?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  heroMediaType?: Prisma.NullableEnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType | null
   heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  timelineEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  canonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   destination?: Prisma.DestinationUpdateOneRequiredWithoutIntakePagesNestedInput
+  country?: Prisma.CountryUpdateOneWithoutIntakePagesNestedInput
   intakePageBenefits?: Prisma.IntakePageBenefitUpdateManyWithoutIntakePageNestedInput
 }
 
@@ -1104,125 +1436,279 @@ export type IntakePageUncheckedUpdateWithoutFaqsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   intake?: Prisma.EnumIntakeMonthFieldUpdateOperationsInput | $Enums.IntakeMonth
+  countryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroMedia?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  eligibility?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  heroMediaType?: Prisma.NullableEnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType | null
   heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  timelineEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  canonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   intakePageBenefits?: Prisma.IntakePageBenefitUncheckedUpdateManyWithoutIntakePageNestedInput
+}
+
+export type IntakePageCreateManyCountryInput = {
+  id?: string
+  destinationId: string
+  intake: $Enums.IntakeMonth
+  isGlobal?: boolean
+  title: string
+  slug?: string
+  description?: string | null
+  heroTitle?: string | null
+  heroSubtitle?: string | null
+  heroMedia?: string | null
+  heroMediaType?: $Enums.MediaType | null
+  heroCTALabel?: string | null
+  heroCTAUrl?: string | null
+  whyChooseTitle?: string | null
+  whyChooseDescription?: string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Date | string | null
+  timelineEnabled?: boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: boolean
+  metaTitle?: string | null
+  metaDescription?: string | null
+  metaKeywords?: string | null
+  canonicalUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  status?: $Enums.ContentStatus
+}
+
+export type IntakePageUpdateWithoutCountryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  intake?: Prisma.EnumIntakeMonthFieldUpdateOperationsInput | $Enums.IntakeMonth
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroMedia?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroMediaType?: Prisma.NullableEnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType | null
+  heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  timelineEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  canonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  destination?: Prisma.DestinationUpdateOneRequiredWithoutIntakePagesNestedInput
+  intakePageBenefits?: Prisma.IntakePageBenefitUpdateManyWithoutIntakePageNestedInput
+  faqs?: Prisma.FAQIntakePageUpdateManyWithoutIntakePageNestedInput
+}
+
+export type IntakePageUncheckedUpdateWithoutCountryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  destinationId?: Prisma.StringFieldUpdateOperationsInput | string
+  intake?: Prisma.EnumIntakeMonthFieldUpdateOperationsInput | $Enums.IntakeMonth
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroMedia?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroMediaType?: Prisma.NullableEnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType | null
+  heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  timelineEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  canonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  intakePageBenefits?: Prisma.IntakePageBenefitUncheckedUpdateManyWithoutIntakePageNestedInput
+  faqs?: Prisma.FAQIntakePageUncheckedUpdateManyWithoutIntakePageNestedInput
+}
+
+export type IntakePageUncheckedUpdateManyWithoutCountryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  destinationId?: Prisma.StringFieldUpdateOperationsInput | string
+  intake?: Prisma.EnumIntakeMonthFieldUpdateOperationsInput | $Enums.IntakeMonth
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroMedia?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroMediaType?: Prisma.NullableEnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType | null
+  heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  timelineEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  canonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
 export type IntakePageCreateManyDestinationInput = {
   id?: string
   intake: $Enums.IntakeMonth
+  countryId?: string | null
+  isGlobal?: boolean
   title: string
+  slug?: string
   description?: string | null
+  heroTitle?: string | null
+  heroSubtitle?: string | null
   heroMedia?: string | null
-  eligibility?: string | null
-  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ctaLabel?: string | null
-  ctaUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  heroMediaType?: $Enums.MediaType | null
   heroCTALabel?: string | null
   heroCTAUrl?: string | null
-  heroSubtitle?: string | null
-  heroTitle?: string | null
+  whyChooseTitle?: string | null
+  whyChooseDescription?: string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Date | string | null
+  timelineEnabled?: boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: boolean
+  metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
-  metaTitle?: string | null
-  whyChooseDescription?: string | null
-  whyChooseTitle?: string | null
+  canonicalUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   status?: $Enums.ContentStatus
 }
 
 export type IntakePageUpdateWithoutDestinationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   intake?: Prisma.EnumIntakeMonthFieldUpdateOperationsInput | $Enums.IntakeMonth
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroMedia?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  eligibility?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  heroMediaType?: Prisma.NullableEnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType | null
   heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  timelineEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  canonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
-  faqs?: Prisma.FAQIntakePageUpdateManyWithoutIntakePageNestedInput
+  country?: Prisma.CountryUpdateOneWithoutIntakePagesNestedInput
   intakePageBenefits?: Prisma.IntakePageBenefitUpdateManyWithoutIntakePageNestedInput
+  faqs?: Prisma.FAQIntakePageUpdateManyWithoutIntakePageNestedInput
 }
 
 export type IntakePageUncheckedUpdateWithoutDestinationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   intake?: Prisma.EnumIntakeMonthFieldUpdateOperationsInput | $Enums.IntakeMonth
+  countryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroMedia?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  eligibility?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  heroMediaType?: Prisma.NullableEnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType | null
   heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  timelineEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  canonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
-  faqs?: Prisma.FAQIntakePageUncheckedUpdateManyWithoutIntakePageNestedInput
   intakePageBenefits?: Prisma.IntakePageBenefitUncheckedUpdateManyWithoutIntakePageNestedInput
+  faqs?: Prisma.FAQIntakePageUncheckedUpdateManyWithoutIntakePageNestedInput
 }
 
 export type IntakePageUncheckedUpdateManyWithoutDestinationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   intake?: Prisma.EnumIntakeMonthFieldUpdateOperationsInput | $Enums.IntakeMonth
+  countryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroMedia?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  eligibility?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  heroMediaType?: Prisma.NullableEnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType | null
   heroCTALabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heroCTAUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroSubtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timelineJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  targetDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  timelineEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  howWeHelpJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  howWeHelpEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  whyChooseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  canonicalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
@@ -1232,13 +1718,13 @@ export type IntakePageUncheckedUpdateManyWithoutDestinationInput = {
  */
 
 export type IntakePageCountOutputType = {
-  faqs: number
   intakePageBenefits: number
+  faqs: number
 }
 
 export type IntakePageCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  faqs?: boolean | IntakePageCountOutputTypeCountFaqsArgs
   intakePageBenefits?: boolean | IntakePageCountOutputTypeCountIntakePageBenefitsArgs
+  faqs?: boolean | IntakePageCountOutputTypeCountFaqsArgs
 }
 
 /**
@@ -1254,15 +1740,15 @@ export type IntakePageCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.E
 /**
  * IntakePageCountOutputType without action
  */
-export type IntakePageCountOutputTypeCountFaqsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.FAQIntakePageWhereInput
+export type IntakePageCountOutputTypeCountIntakePageBenefitsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.IntakePageBenefitWhereInput
 }
 
 /**
  * IntakePageCountOutputType without action
  */
-export type IntakePageCountOutputTypeCountIntakePageBenefitsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.IntakePageBenefitWhereInput
+export type IntakePageCountOutputTypeCountFaqsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FAQIntakePageWhereInput
 }
 
 
@@ -1270,28 +1756,35 @@ export type IntakePageSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   id?: boolean
   destinationId?: boolean
   intake?: boolean
+  countryId?: boolean
+  isGlobal?: boolean
   title?: boolean
+  slug?: boolean
   description?: boolean
+  heroTitle?: boolean
+  heroSubtitle?: boolean
   heroMedia?: boolean
-  eligibility?: boolean
-  timelineJson?: boolean
-  ctaLabel?: boolean
-  ctaUrl?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
+  heroMediaType?: boolean
   heroCTALabel?: boolean
   heroCTAUrl?: boolean
-  heroSubtitle?: boolean
-  heroTitle?: boolean
+  whyChooseTitle?: boolean
+  whyChooseDescription?: boolean
+  timelineJson?: boolean
+  targetDate?: boolean
+  timelineEnabled?: boolean
+  howWeHelpJson?: boolean
+  howWeHelpEnabled?: boolean
+  metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
-  metaTitle?: boolean
-  whyChooseDescription?: boolean
-  whyChooseTitle?: boolean
+  canonicalUrl?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   status?: boolean
-  faqs?: boolean | Prisma.IntakePage$faqsArgs<ExtArgs>
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  country?: boolean | Prisma.IntakePage$countryArgs<ExtArgs>
   intakePageBenefits?: boolean | Prisma.IntakePage$intakePageBenefitsArgs<ExtArgs>
+  faqs?: boolean | Prisma.IntakePage$faqsArgs<ExtArgs>
   _count?: boolean | Prisma.IntakePageCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["intakePage"]>
 
@@ -1299,122 +1792,152 @@ export type IntakePageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   id?: boolean
   destinationId?: boolean
   intake?: boolean
+  countryId?: boolean
+  isGlobal?: boolean
   title?: boolean
+  slug?: boolean
   description?: boolean
+  heroTitle?: boolean
+  heroSubtitle?: boolean
   heroMedia?: boolean
-  eligibility?: boolean
-  timelineJson?: boolean
-  ctaLabel?: boolean
-  ctaUrl?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
+  heroMediaType?: boolean
   heroCTALabel?: boolean
   heroCTAUrl?: boolean
-  heroSubtitle?: boolean
-  heroTitle?: boolean
+  whyChooseTitle?: boolean
+  whyChooseDescription?: boolean
+  timelineJson?: boolean
+  targetDate?: boolean
+  timelineEnabled?: boolean
+  howWeHelpJson?: boolean
+  howWeHelpEnabled?: boolean
+  metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
-  metaTitle?: boolean
-  whyChooseDescription?: boolean
-  whyChooseTitle?: boolean
+  canonicalUrl?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   status?: boolean
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  country?: boolean | Prisma.IntakePage$countryArgs<ExtArgs>
 }, ExtArgs["result"]["intakePage"]>
 
 export type IntakePageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   destinationId?: boolean
   intake?: boolean
+  countryId?: boolean
+  isGlobal?: boolean
   title?: boolean
+  slug?: boolean
   description?: boolean
+  heroTitle?: boolean
+  heroSubtitle?: boolean
   heroMedia?: boolean
-  eligibility?: boolean
-  timelineJson?: boolean
-  ctaLabel?: boolean
-  ctaUrl?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
+  heroMediaType?: boolean
   heroCTALabel?: boolean
   heroCTAUrl?: boolean
-  heroSubtitle?: boolean
-  heroTitle?: boolean
+  whyChooseTitle?: boolean
+  whyChooseDescription?: boolean
+  timelineJson?: boolean
+  targetDate?: boolean
+  timelineEnabled?: boolean
+  howWeHelpJson?: boolean
+  howWeHelpEnabled?: boolean
+  metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
-  metaTitle?: boolean
-  whyChooseDescription?: boolean
-  whyChooseTitle?: boolean
+  canonicalUrl?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   status?: boolean
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  country?: boolean | Prisma.IntakePage$countryArgs<ExtArgs>
 }, ExtArgs["result"]["intakePage"]>
 
 export type IntakePageSelectScalar = {
   id?: boolean
   destinationId?: boolean
   intake?: boolean
+  countryId?: boolean
+  isGlobal?: boolean
   title?: boolean
+  slug?: boolean
   description?: boolean
+  heroTitle?: boolean
+  heroSubtitle?: boolean
   heroMedia?: boolean
-  eligibility?: boolean
-  timelineJson?: boolean
-  ctaLabel?: boolean
-  ctaUrl?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
+  heroMediaType?: boolean
   heroCTALabel?: boolean
   heroCTAUrl?: boolean
-  heroSubtitle?: boolean
-  heroTitle?: boolean
+  whyChooseTitle?: boolean
+  whyChooseDescription?: boolean
+  timelineJson?: boolean
+  targetDate?: boolean
+  timelineEnabled?: boolean
+  howWeHelpJson?: boolean
+  howWeHelpEnabled?: boolean
+  metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
-  metaTitle?: boolean
-  whyChooseDescription?: boolean
-  whyChooseTitle?: boolean
+  canonicalUrl?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   status?: boolean
 }
 
-export type IntakePageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "destinationId" | "intake" | "title" | "description" | "heroMedia" | "eligibility" | "timelineJson" | "ctaLabel" | "ctaUrl" | "createdAt" | "updatedAt" | "heroCTALabel" | "heroCTAUrl" | "heroSubtitle" | "heroTitle" | "metaDescription" | "metaKeywords" | "metaTitle" | "whyChooseDescription" | "whyChooseTitle" | "status", ExtArgs["result"]["intakePage"]>
+export type IntakePageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "destinationId" | "intake" | "countryId" | "isGlobal" | "title" | "slug" | "description" | "heroTitle" | "heroSubtitle" | "heroMedia" | "heroMediaType" | "heroCTALabel" | "heroCTAUrl" | "whyChooseTitle" | "whyChooseDescription" | "timelineJson" | "targetDate" | "timelineEnabled" | "howWeHelpJson" | "howWeHelpEnabled" | "metaTitle" | "metaDescription" | "metaKeywords" | "canonicalUrl" | "createdAt" | "updatedAt" | "status", ExtArgs["result"]["intakePage"]>
 export type IntakePageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  faqs?: boolean | Prisma.IntakePage$faqsArgs<ExtArgs>
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  country?: boolean | Prisma.IntakePage$countryArgs<ExtArgs>
   intakePageBenefits?: boolean | Prisma.IntakePage$intakePageBenefitsArgs<ExtArgs>
+  faqs?: boolean | Prisma.IntakePage$faqsArgs<ExtArgs>
   _count?: boolean | Prisma.IntakePageCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type IntakePageIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  country?: boolean | Prisma.IntakePage$countryArgs<ExtArgs>
 }
 export type IntakePageIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
+  country?: boolean | Prisma.IntakePage$countryArgs<ExtArgs>
 }
 
 export type $IntakePagePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "IntakePage"
   objects: {
-    faqs: Prisma.$FAQIntakePagePayload<ExtArgs>[]
     destination: Prisma.$DestinationPayload<ExtArgs>
+    country: Prisma.$CountryPayload<ExtArgs> | null
     intakePageBenefits: Prisma.$IntakePageBenefitPayload<ExtArgs>[]
+    faqs: Prisma.$FAQIntakePagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     destinationId: string
     intake: $Enums.IntakeMonth
+    countryId: string | null
+    isGlobal: boolean
     title: string
+    slug: string
     description: string | null
+    heroTitle: string | null
+    heroSubtitle: string | null
     heroMedia: string | null
-    eligibility: string | null
-    timelineJson: runtime.JsonValue | null
-    ctaLabel: string | null
-    ctaUrl: string | null
-    createdAt: Date
-    updatedAt: Date
+    heroMediaType: $Enums.MediaType | null
     heroCTALabel: string | null
     heroCTAUrl: string | null
-    heroSubtitle: string | null
-    heroTitle: string | null
+    whyChooseTitle: string | null
+    whyChooseDescription: string | null
+    timelineJson: runtime.JsonValue | null
+    targetDate: Date | null
+    timelineEnabled: boolean
+    howWeHelpJson: runtime.JsonValue | null
+    howWeHelpEnabled: boolean
+    metaTitle: string | null
     metaDescription: string | null
     metaKeywords: string | null
-    metaTitle: string | null
-    whyChooseDescription: string | null
-    whyChooseTitle: string | null
+    canonicalUrl: string | null
+    createdAt: Date
+    updatedAt: Date
     status: $Enums.ContentStatus
   }, ExtArgs["result"]["intakePage"]>
   composites: {}
@@ -1810,9 +2333,10 @@ readonly fields: IntakePageFieldRefs;
  */
 export interface Prisma__IntakePageClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  faqs<T extends Prisma.IntakePage$faqsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.IntakePage$faqsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FAQIntakePagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   destination<T extends Prisma.DestinationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DestinationDefaultArgs<ExtArgs>>): Prisma.Prisma__DestinationClient<runtime.Types.Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  country<T extends Prisma.IntakePage$countryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.IntakePage$countryArgs<ExtArgs>>): Prisma.Prisma__CountryClient<runtime.Types.Result.GetResult<Prisma.$CountryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   intakePageBenefits<T extends Prisma.IntakePage$intakePageBenefitsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.IntakePage$intakePageBenefitsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IntakePageBenefitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  faqs<T extends Prisma.IntakePage$faqsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.IntakePage$faqsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FAQIntakePagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1845,24 +2369,30 @@ export interface IntakePageFieldRefs {
   readonly id: Prisma.FieldRef<"IntakePage", 'String'>
   readonly destinationId: Prisma.FieldRef<"IntakePage", 'String'>
   readonly intake: Prisma.FieldRef<"IntakePage", 'IntakeMonth'>
+  readonly countryId: Prisma.FieldRef<"IntakePage", 'String'>
+  readonly isGlobal: Prisma.FieldRef<"IntakePage", 'Boolean'>
   readonly title: Prisma.FieldRef<"IntakePage", 'String'>
+  readonly slug: Prisma.FieldRef<"IntakePage", 'String'>
   readonly description: Prisma.FieldRef<"IntakePage", 'String'>
+  readonly heroTitle: Prisma.FieldRef<"IntakePage", 'String'>
+  readonly heroSubtitle: Prisma.FieldRef<"IntakePage", 'String'>
   readonly heroMedia: Prisma.FieldRef<"IntakePage", 'String'>
-  readonly eligibility: Prisma.FieldRef<"IntakePage", 'String'>
-  readonly timelineJson: Prisma.FieldRef<"IntakePage", 'Json'>
-  readonly ctaLabel: Prisma.FieldRef<"IntakePage", 'String'>
-  readonly ctaUrl: Prisma.FieldRef<"IntakePage", 'String'>
-  readonly createdAt: Prisma.FieldRef<"IntakePage", 'DateTime'>
-  readonly updatedAt: Prisma.FieldRef<"IntakePage", 'DateTime'>
+  readonly heroMediaType: Prisma.FieldRef<"IntakePage", 'MediaType'>
   readonly heroCTALabel: Prisma.FieldRef<"IntakePage", 'String'>
   readonly heroCTAUrl: Prisma.FieldRef<"IntakePage", 'String'>
-  readonly heroSubtitle: Prisma.FieldRef<"IntakePage", 'String'>
-  readonly heroTitle: Prisma.FieldRef<"IntakePage", 'String'>
+  readonly whyChooseTitle: Prisma.FieldRef<"IntakePage", 'String'>
+  readonly whyChooseDescription: Prisma.FieldRef<"IntakePage", 'String'>
+  readonly timelineJson: Prisma.FieldRef<"IntakePage", 'Json'>
+  readonly targetDate: Prisma.FieldRef<"IntakePage", 'DateTime'>
+  readonly timelineEnabled: Prisma.FieldRef<"IntakePage", 'Boolean'>
+  readonly howWeHelpJson: Prisma.FieldRef<"IntakePage", 'Json'>
+  readonly howWeHelpEnabled: Prisma.FieldRef<"IntakePage", 'Boolean'>
+  readonly metaTitle: Prisma.FieldRef<"IntakePage", 'String'>
   readonly metaDescription: Prisma.FieldRef<"IntakePage", 'String'>
   readonly metaKeywords: Prisma.FieldRef<"IntakePage", 'String'>
-  readonly metaTitle: Prisma.FieldRef<"IntakePage", 'String'>
-  readonly whyChooseDescription: Prisma.FieldRef<"IntakePage", 'String'>
-  readonly whyChooseTitle: Prisma.FieldRef<"IntakePage", 'String'>
+  readonly canonicalUrl: Prisma.FieldRef<"IntakePage", 'String'>
+  readonly createdAt: Prisma.FieldRef<"IntakePage", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"IntakePage", 'DateTime'>
   readonly status: Prisma.FieldRef<"IntakePage", 'ContentStatus'>
 }
     
@@ -2260,27 +2790,22 @@ export type IntakePageDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
- * IntakePage.faqs
+ * IntakePage.country
  */
-export type IntakePage$faqsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type IntakePage$countryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the FAQIntakePage
+   * Select specific fields to fetch from the Country
    */
-  select?: Prisma.FAQIntakePageSelect<ExtArgs> | null
+  select?: Prisma.CountrySelect<ExtArgs> | null
   /**
-   * Omit specific fields from the FAQIntakePage
+   * Omit specific fields from the Country
    */
-  omit?: Prisma.FAQIntakePageOmit<ExtArgs> | null
+  omit?: Prisma.CountryOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.FAQIntakePageInclude<ExtArgs> | null
-  where?: Prisma.FAQIntakePageWhereInput
-  orderBy?: Prisma.FAQIntakePageOrderByWithRelationInput | Prisma.FAQIntakePageOrderByWithRelationInput[]
-  cursor?: Prisma.FAQIntakePageWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.FAQIntakePageScalarFieldEnum | Prisma.FAQIntakePageScalarFieldEnum[]
+  include?: Prisma.CountryInclude<ExtArgs> | null
+  where?: Prisma.CountryWhereInput
 }
 
 /**
@@ -2305,6 +2830,30 @@ export type IntakePage$intakePageBenefitsArgs<ExtArgs extends runtime.Types.Exte
   take?: number
   skip?: number
   distinct?: Prisma.IntakePageBenefitScalarFieldEnum | Prisma.IntakePageBenefitScalarFieldEnum[]
+}
+
+/**
+ * IntakePage.faqs
+ */
+export type IntakePage$faqsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FAQIntakePage
+   */
+  select?: Prisma.FAQIntakePageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FAQIntakePage
+   */
+  omit?: Prisma.FAQIntakePageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FAQIntakePageInclude<ExtArgs> | null
+  where?: Prisma.FAQIntakePageWhereInput
+  orderBy?: Prisma.FAQIntakePageOrderByWithRelationInput | Prisma.FAQIntakePageOrderByWithRelationInput[]
+  cursor?: Prisma.FAQIntakePageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FAQIntakePageScalarFieldEnum | Prisma.FAQIntakePageScalarFieldEnum[]
 }
 
 /**

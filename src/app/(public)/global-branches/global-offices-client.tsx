@@ -66,7 +66,7 @@ function convertToEmbedUrl(mapUrl: string): string {
     if (placeMatch) {
       const placeName = decodeURIComponent(placeMatch[1].replace(/\+/g, " "));
       return `https://maps.google.com/maps?q=${encodeURIComponent(
-        placeName
+        placeName,
       )}&output=embed`;
     }
   } catch (e) {
@@ -75,7 +75,7 @@ function convertToEmbedUrl(mapUrl: string): string {
 
   // Fallback: use the URL as search query
   return `https://maps.google.com/maps?q=${encodeURIComponent(
-    mapUrl
+    mapUrl,
   )}&output=embed`;
 }
 
@@ -84,6 +84,7 @@ export default function GlobalOfficesClient({
   countryCode,
 }: {
   offices: (GlobalOffice & {
+    city?: string | null;
     countries: {
       id: string;
       countryId: string;
@@ -100,19 +101,29 @@ export default function GlobalOfficesClient({
   // Extract countries and their cities
   const countriesWithCities = useMemo(() => {
     const countryMap = new Map<string, { name: string; cities: Set<string> }>();
+    const cityCountryMap = new Map<string, Set<string>>(); // Track which countries each city belongs to
 
     offices.forEach((office) => {
-      // Extract city from first word of office name
-      const city = office.name.split(" ")[0].trim();
+      // Use the actual city field from the office
+      const city = office.city || office.name.split(" ")[0].trim();
 
       office.countries?.forEach(({ country }) => {
         if (country) {
+          // Initialize country if not exists
           if (!countryMap.has(country.name)) {
             countryMap.set(country.name, {
               name: country.name,
               cities: new Set(),
             });
           }
+
+          // Track which countries this city belongs to
+          if (!cityCountryMap.has(city)) {
+            cityCountryMap.set(city, new Set());
+          }
+          cityCountryMap.get(city)!.add(country.name);
+
+          // Add city to this specific country
           countryMap.get(country.name)!.cities.add(city);
         }
       });
@@ -128,60 +139,62 @@ export default function GlobalOfficesClient({
 
   // Filter offices
   const filteredOffices = useMemo(() => {
-    return offices.filter((office) => {
-      // Search filter
-      if (searchQuery.trim()) {
-        const query = searchQuery.toLowerCase();
+    let officesToFilter = offices;
+
+    // Filter by selected countries
+    if (selectedFilters.length > 0) {
+      officesToFilter = officesToFilter.filter((office) => {
+        // Check if this office matches ALL selected country filters
+        const matchingCountries = selectedFilters
+          .filter((filter) => filter.startsWith("country:"))
+          .map((filter) => filter.replace("country:", ""));
+
+        // If no country filters are selected, don't filter by country
+        if (matchingCountries.length === 0) return true;
+
+        // Office must have countries and match at least one of the selected countries
+        return (
+          office.countries?.some(
+            ({ country }) =>
+              country && matchingCountries.includes(country.name),
+          ) || false
+        );
+      });
+    }
+
+    // Filter by search query (city or office name)
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      officesToFilter = officesToFilter.filter((office) => {
         const matchesSearch =
           office.name?.toLowerCase().includes(query) ||
+          office.city?.toLowerCase().includes(query) ||
           office.address?.toLowerCase().includes(query) ||
           office.email?.toLowerCase().includes(query) ||
           office.phone?.toLowerCase().includes(query);
-        if (!matchesSearch) return false;
-      }
+        return matchesSearch;
+      });
+    }
 
-      // Country/City filter
-      if (selectedFilters.length > 0) {
-        // Extract city from first word of office name
-        const city = office.name.split(" ")[0].trim();
-
-        // Check if office matches any selected filter (country or city)
-        const matchesFilter = selectedFilters.some((filter) => {
-          // Check if it's a city match
-          if (filter.startsWith("city:")) {
-            return city === filter.replace("city:", "");
-          }
-          // Check if it's a country match
-          if (filter.startsWith("country:")) {
-            const countryName = filter.replace("country:", "");
-            return office.countries?.some(
-              ({ country }) => country.name === countryName
-            );
-          }
-          return false;
-        });
-
-        if (!matchesFilter) return false;
-      }
-
-      return true;
-    });
-  }, [offices, searchQuery, selectedFilters]);
+    return officesToFilter;
+  }, [offices, selectedFilters, searchQuery]);
 
   // Group offices by country
   const officesByCountry = useMemo(() => {
     const grouped: Record<string, typeof offices> = {};
 
-    filteredOffices.forEach((office) => {
-      office.countries?.forEach(({ country }) => {
-        if (country) {
-          if (!grouped[country.name]) {
-            grouped[country.name] = [];
+    if (filteredOffices && Array.isArray(filteredOffices)) {
+      filteredOffices.forEach((office) => {
+        office.countries?.forEach(({ country }) => {
+          if (country) {
+            if (!grouped[country.name]) {
+              grouped[country.name] = [];
+            }
+            grouped[country.name].push(office);
           }
-          grouped[country.name].push(office);
-        }
+        });
       });
-    });
+    }
 
     return Object.entries(grouped).sort(([a], [b]) => a.localeCompare(b));
   }, [filteredOffices]);
@@ -190,7 +203,7 @@ export default function GlobalOfficesClient({
     setSelectedFilters((prev) =>
       prev.includes(filter)
         ? prev.filter((f) => f !== filter)
-        : [...prev, filter]
+        : [...prev, filter],
     );
   };
 
@@ -198,7 +211,7 @@ export default function GlobalOfficesClient({
     setExpandedCountries((prev) =>
       prev.includes(country)
         ? prev.filter((c) => c !== country)
-        : [...prev, country]
+        : [...prev, country],
     );
   };
 
@@ -218,11 +231,13 @@ export default function GlobalOfficesClient({
       <div className="w-full lg:w-72 shrink-0 order-2 lg:order-1">
         <div className="bg-white rounded-lg border border-gray-200 p-4 sm:p-6 lg:sticky lg:top-6">
           <div className="flex items-center justify-between mb-4 sm:mb-6">
-            <h3 className="text-base sm:text-lg font-semibold text-gray-900">Filters</h3>
+            <h3 className="text-base sm:text-lg font-semibold text-gray-900">
+              Filters
+            </h3>
             {selectedFilters.length > 0 && (
               <button
                 onClick={resetFilters}
-                className="text-xs sm:text-sm text-blue-600 hover:text-blue-700 touch-manipulation min-h-[44px] px-2"
+                className="text-xs sm:text-sm text-blue-600 hover:text-blue-700 touch-manipulation min-h-11 px-2"
               >
                 Reset
               </button>
@@ -238,7 +253,7 @@ export default function GlobalOfficesClient({
                   countryData.cities.map((city) => (
                     <label
                       key={city}
-                      className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 sm:p-2 rounded touch-manipulation min-h-[44px]"
+                      className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 sm:p-2 rounded touch-manipulation min-h-11"
                     >
                       <Checkbox
                         checked={selectedFilters.includes(`city:${city}`)}
@@ -247,7 +262,7 @@ export default function GlobalOfficesClient({
                       />
                       <span className="text-sm text-gray-700">{city}</span>
                     </label>
-                  ))
+                  )),
                 )}
               </>
             ) : (
@@ -270,7 +285,7 @@ export default function GlobalOfficesClient({
                       <label className="flex items-center gap-2 cursor-pointer flex-1">
                         <Checkbox
                           checked={selectedFilters.includes(
-                            `country:${countryData.name}`
+                            `country:${countryData.name}`,
                           )}
                           onCheckedChange={() =>
                             toggleFilter(`country:${countryData.name}`)
@@ -332,7 +347,11 @@ export default function GlobalOfficesClient({
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
             Available Offices{" "}
             <span className="text-gray-500 font-normal text-base sm:text-lg">
-              ({filteredOffices.length} Results)
+              (
+              {filteredOffices && Array.isArray(filteredOffices)
+                ? filteredOffices.length
+                : 0}{" "}
+              Results)
             </span>
           </h2>
         </div>
@@ -386,7 +405,10 @@ export default function GlobalOfficesClient({
                               {office.phone && (
                                 <div className="flex items-center gap-2 text-gray-600">
                                   <Phone className="w-4 h-4 shrink-0" />
-                                  <a href={`tel:${office.phone}`} className="text-xs sm:text-sm hover:text-blue-600">
+                                  <a
+                                    href={`tel:${office.phone}`}
+                                    className="text-xs sm:text-sm hover:text-blue-600"
+                                  >
                                     {office.phone}
                                   </a>
                                 </div>
@@ -399,7 +421,7 @@ export default function GlobalOfficesClient({
                                 office.countries?.[0]?.country?.slug || "global"
                               }/${office.slug}`}
                             >
-                              <Button className="bg-[#1e3a8a] hover:bg-[#1e3a8a]/90 text-white w-full sm:w-auto touch-manipulation min-h-[44px]">
+                              <Button className="bg-[#1e3a8a] hover:bg-[#1e3a8a]/90 text-white w-full sm:w-auto touch-manipulation min-h-11">
                                 View Office
                               </Button>
                             </CountryAwareLink>

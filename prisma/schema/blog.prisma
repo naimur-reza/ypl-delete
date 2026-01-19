@@ -6,6 +6,7 @@ model Blog {
   content         String?
   image           String?
   author          String?
+  category        String?
   publishedAt     DateTime?
   isFeatured      Boolean          @default(false)
   metaTitle       String?
@@ -24,4 +25,5 @@ model Blog {
 
   @@index([destinationId])
   @@index([status])
+  @@index([category])
 }

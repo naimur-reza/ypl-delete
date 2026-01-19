@@ -129,29 +129,6 @@ export default async function GlobalOfficePage({ params }: PageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Left Content */}
             <div className="lg:col-span-2 space-y-8">
-              {/* Content Section */}
-              <div className="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-sm">
-                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">
-                  Best Study Abroad and Education Consultants in {data.name}
-                </h2>
-
-                {data.content ? (
-                  <MarkdownContent
-                    content={data.content}
-                    className="prose-lg max-w-none text-muted-foreground"
-                  />
-                ) : (
-                  <p className="text-muted-foreground leading-relaxed">
-                    NWC {data.name} is the leading study abroad and education
-                    consultant in {data.name}
-                    {country ? `, ${country.name}` : ""}. Our team of
-                    experienced counselors is dedicated to helping students
-                    achieve their dreams of studying abroad at top universities
-                    worldwide.
-                  </p>
-                )}
-              </div>
-
               {/* Contact Information */}
               <div className="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-sm">
                 <h3 className="text-xl font-bold text-foreground mb-6 flex items-center gap-3">
@@ -256,7 +233,7 @@ export default async function GlobalOfficePage({ params }: PageProps) {
 
                         // Fallback: treat as query
                         return `https://maps.google.com/maps?q=${encodeURIComponent(
-                          data.mapUrl
+                          data.mapUrl,
                         )}&output=embed`;
                       })()}
                       width="100%"
@@ -272,6 +249,24 @@ export default async function GlobalOfficePage({ params }: PageProps) {
                   </div>
                 </div>
               )}
+              {/* Content Section */}
+              <div className="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-sm">
+                {data.content ? (
+                  <MarkdownContent
+                    content={data.content}
+                    className="prose-lg max-w-none text-muted-foreground"
+                  />
+                ) : (
+                  <p className="text-muted-foreground leading-relaxed">
+                    NWC {data.name} is the leading study abroad and education
+                    consultant in {data.name}
+                    {country ? `, ${country.name}` : ""}. Our team of
+                    experienced counselors is dedicated to helping students
+                    achieve their dreams of studying abroad at top universities
+                    worldwide.
+                  </p>
+                )}
+              </div>
             </div>
 
             {/* Right Sidebar */}

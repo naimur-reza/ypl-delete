@@ -139,11 +139,11 @@ const menuSections: MenuSection[] = [
             url: "/dashboard/intake-seasons",
             icon: CalendarClock,
           },
-          {
-            title: "University Details",
-            url: "/dashboard/university-details",
-            icon: Wrench,
-          },
+          // {
+          //   title: "University Details",
+          //   url: "/dashboard/university-details",
+          //   icon: Wrench,
+          // },
           {
             title: "Gallery",
             url: "/dashboard/gallery",
@@ -267,7 +267,7 @@ export function AppSidebar({ user }: AppSidebarProps) {
                                   className={cn(
                                     "gap-3 rounded-lg px-3 py-2 text-sm transition-all hover:bg-muted",
                                     childActive &&
-                                      "border border-primary/20 bg-primary/10 text-primary shadow-sm"
+                                      "border border-primary/20 bg-primary/10 text-primary shadow-sm",
                                   )}
                                 >
                                   <Link href={child.url} prefetch={false}>
@@ -300,7 +300,7 @@ export function AppSidebar({ user }: AppSidebarProps) {
                           className={cn(
                             "gap-3 rounded-lg px-3 py-2 text-sm transition-all hover:bg-muted",
                             active &&
-                              "border border-primary/25 bg-primary/10 text-primary shadow-sm"
+                              "border border-primary/25 bg-primary/10 text-primary shadow-sm",
                           )}
                         >
                           <Link href={item.url} prefetch={false}>

@@ -1,6 +1,7 @@
 model GlobalOffice {
   id              String                @id @default(cuid())
   name            String                @unique
+  city            String?
   subtitle        String?
   slug            String                @unique
   email           String?
@@ -47,6 +48,7 @@ model Country {
   globalOffices      GlobalOfficeCountry[]
   heroes             HeroCountry[]
   intakeSeasons      IntakeSeasonCountry[]
+  intakePages        IntakePage[]
   leads              Lead[]
   scholarships       ScholarshipCountry[]
   stats              StatCountry[]

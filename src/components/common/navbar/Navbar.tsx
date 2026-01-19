@@ -30,8 +30,15 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
     }
     : undefined;
 
-  const [destinations, universities, courses, events, globalOffices, countries] =
-    await Promise.all([
+  const [
+    destinations,
+    universities,
+    courses,
+    events,
+    globalOffices,
+    countries,
+    intakePages,
+  ] = await Promise.all([
       prisma.destination.findMany({
         select: { id: true, name: true, slug: true },
         where: countryScopedFilter
@@ -99,6 +106,14 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
         },
         orderBy: { name: "asc" },
       }),
+      prisma.intakePage.findMany({
+        where: { status: "ACTIVE" },
+        select: {
+          intake: true,
+          destination: { select: { slug: true, name: true } },
+        },
+        orderBy: [{ destination: { name: "asc" } }, { intake: "asc" }],
+      }),
     ]);
 
   const destinationItems = destinations.map((dest) => ({
@@ -136,6 +151,39 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
       countryName: firstCountry?.name || undefined,
     };
   });
+
+  const intakeItems = intakePages.map((intake) => {
+    const intakeSlug = intake.intake.toLowerCase();
+    const prefix = countrySlug ? `/${countrySlug}` : "";
+    return {
+      title: `${intake.destination.name} ${intakeSlug.replace(
+        intakeSlug[0],
+        intakeSlug[0].toUpperCase(),
+      )} Intake`,
+      href: `${prefix}/study-in-${intake.destination.slug}/${intakeSlug}`,
+      description: "Dates, timeline, and universities",
+    };
+  });
+
+  const resourceItems = [
+    {
+      title: "Careers",
+      href: "/careers",
+    },
+    {
+      title: "Services",
+      href: "/services",
+    },
+    {
+      title: "Gallery",
+      href: "/gallery",
+    },
+    {
+      title: "Blogs",
+      href: "/blogs",
+    },
+    ...intakeItems,
+  ];
 
   return (
     <nav className="sticky top-0 z-40 w-full border-b border-secondary/10 bg-white">
@@ -220,24 +268,7 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
               title="Resources"
               heading="Explore our resources"
               viewAllLink="/resources"
-              items={[
-                {
-                  title: "Careers",
-                  href: "/careers",
-                },
-                {
-                  title: "Services",
-                  href: "/services",
-                },
-                {
-                  title: "Gallery",
-                  href: "/gallery",
-                },
-                {
-                  title: "Blogs",
-                  href: "/blogs",
-                },
-              ]}
+              items={resourceItems}
             />
           </ul>
         </div>
@@ -272,6 +303,7 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
             offices={officeItems}
             countries={countries}
             currentCountrySlug={countrySlug}
+            resources={resourceItems}
           />
         </div>
       </div>

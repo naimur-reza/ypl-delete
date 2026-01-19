@@ -14,12 +14,14 @@ type BuildWhereArgs = {
   countrySlug?: string | null;
   countryFilterName?: string | null;
   searchQuery?: string | null;
+  category?: string | null;
 };
 
 const buildBlogWhere = ({
   countrySlug,
   countryFilterName,
   searchQuery,
+  category,
 }: BuildWhereArgs): Prisma.BlogWhereInput => {
   const filters: Prisma.BlogWhereInput[] = [];
 
@@ -53,6 +55,12 @@ const buildBlogWhere = ({
     });
   }
 
+  if (category && category !== "All") {
+    filters.push({
+      category: { equals: category, mode: "insensitive" },
+    });
+  }
+
   // Always filter by ACTIVE status for public queries
   filters.push({ status: "ACTIVE" });
 
@@ -65,6 +73,7 @@ type BlogPageQuery = {
   countrySlug?: string | null;
   countryFilterName?: string | null;
   searchQuery?: string | null;
+  category?: string | null;
   page?: number;
   limit?: number;
 };
@@ -73,10 +82,16 @@ export const fetchBlogPageData = async ({
   countrySlug,
   countryFilterName,
   searchQuery,
+  category,
   page = 1,
   limit = 9,
 }: BlogPageQuery) => {
-  const where = buildBlogWhere({ countrySlug, countryFilterName, searchQuery });
+  const where = buildBlogWhere({
+    countrySlug,
+    countryFilterName,
+    searchQuery,
+    category,
+  });
   const featuredWhere = buildBlogWhere({ countrySlug });
 
   const skip = (page - 1) * limit;
@@ -134,7 +149,7 @@ export const fetchBlogPageData = async ({
 
 export const fetchLatestBlogs = async (
   countrySlug?: string | null,
-  take = 4
+  take = 4,
 ) => {
   const where = buildBlogWhere({ countrySlug });
 
@@ -151,11 +166,11 @@ export const fetchLatestBlogs = async (
 
 // New function for client-side filtering - fetches all blogs at once
 export const fetchBlogPageDataForClientFilter = async (
-  countrySlug?: string | null
+  countrySlug?: string | null,
 ) => {
   const baseWhere = buildBlogWhere({ countrySlug });
 
-  const [destinations, featuredBlogs, allBlogs, sliderBlogs] =
+  const [destinations, featuredBlogs, allBlogs, sliderBlogs, categories] =
     await Promise.all([
       // Fetch destinations that have at least one blog
       prisma.destination.findMany({
@@ -193,7 +208,27 @@ export const fetchBlogPageDataForClientFilter = async (
           destination: true,
         },
       }),
+      // Fetch all unique categories
+      prisma.blog.findMany({
+        where: {
+          ...baseWhere,
+          category: { not: null },
+        },
+        select: { category: true },
+        distinct: ["category"],
+      }),
     ]);
 
-  return { destinations, featuredBlogs, allBlogs, sliderBlogs };
+  const uniqueCategories = categories
+    .map((c) => c.category)
+    .filter((c): c is string => c !== null && c !== undefined)
+    .sort();
+
+  return {
+    destinations,
+    featuredBlogs,
+    allBlogs,
+    sliderBlogs,
+    categories: uniqueCategories,
+  };
 };

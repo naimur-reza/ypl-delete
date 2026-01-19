@@ -1,7 +1,12 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { handleGetMany, handleDelete } from "@/lib/api-helpers";
-import { getSession, canManageContent, unauthorizedResponse, forbiddenResponse } from "@/lib/auth-helpers";
+import {
+  getSession,
+  canManageContent,
+  unauthorizedResponse,
+  forbiddenResponse,
+} from "@/lib/auth-helpers";
 
 export async function GET(req: NextRequest) {
   try {
@@ -19,8 +24,11 @@ export async function GET(req: NextRequest) {
   } catch (error: any) {
     console.error("DEBUG: API GET /api/global-offices failed:", error);
     return Response.json(
-      { error: "Internal Server Error", details: error.message || String(error) },
-      { status: 500 }
+      {
+        error: "Internal Server Error",
+        details: error.message || String(error),
+      },
+      { status: 500 },
     );
   }
 }
@@ -33,6 +41,7 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
   const {
     name,
+    city,
     subtitle,
     slug,
     email,
@@ -53,7 +62,7 @@ export async function POST(req: NextRequest) {
   if (!name || !slug) {
     return Response.json(
       { error: "Name and slug are required" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -61,6 +70,7 @@ export async function POST(req: NextRequest) {
     const globalOffice = await prisma.globalOffice.create({
       data: {
         name,
+        city,
         subtitle,
         slug,
         email,
@@ -81,7 +91,7 @@ export async function POST(req: NextRequest) {
               countryId,
             })) || [],
         },
-      },
+      } as any,
       include: {
         countries: {
           include: {
@@ -96,12 +106,12 @@ export async function POST(req: NextRequest) {
     if (error.code === "P2002") {
       return Response.json(
         { error: "A global office with this slug already exists" },
-        { status: 400 }
+        { status: 400 },
       );
     }
     return Response.json(
       { error: error.message || "Failed to create global office" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -150,12 +160,12 @@ export async function PUT(req: NextRequest) {
     if (error instanceof Error) {
       return Response.json(
         { error: error.message || "Failed to update global office" },
-        { status: 500 }
+        { status: 500 },
       );
     }
     return Response.json(
       { error: "Failed to update global office" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

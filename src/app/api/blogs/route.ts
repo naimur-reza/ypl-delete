@@ -2,7 +2,12 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { handleGetMany, handleDelete } from "@/lib/api-helpers";
-import { getSession, canManageContent, unauthorizedResponse, forbiddenResponse } from "@/lib/auth-helpers";
+import {
+  getSession,
+  canManageContent,
+  unauthorizedResponse,
+  forbiddenResponse,
+} from "@/lib/auth-helpers";
 
 export async function GET(req: NextRequest) {
   return handleGetMany(req, prisma.blog, {
@@ -28,6 +33,7 @@ export async function POST(req: NextRequest) {
     content,
     image,
     author,
+    category,
     publishedAt,
     isFeatured,
     destinationId,
@@ -43,7 +49,7 @@ export async function POST(req: NextRequest) {
   if (!title || !slug || !destinationId) {
     return Response.json(
       { error: "Title, slug, and destinationId are required" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -56,6 +62,7 @@ export async function POST(req: NextRequest) {
         content,
         image,
         author,
+        category,
         publishedAt: publishedAt ? new Date(publishedAt) : null,
         isFeatured: isFeatured || false,
         destinationId,

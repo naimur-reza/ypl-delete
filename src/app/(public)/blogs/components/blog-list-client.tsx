@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { BlogCard } from "@/components/cards/blog-card";
+import { BlogFilter } from "./blog-filter";
 import { BlogWithCountry } from "@/lib/blogs";
 
 interface Destination {
@@ -15,6 +16,7 @@ interface Destination {
 interface BlogListClientProps {
   blogs: BlogWithCountry[];
   destinations: Destination[];
+  categories: string[];
   countrySlug: string;
   itemsPerPage?: number;
 }
@@ -22,6 +24,7 @@ interface BlogListClientProps {
 export function BlogListClient({
   blogs,
   destinations,
+  categories,
   countrySlug,
   itemsPerPage = 9,
 }: BlogListClientProps) {
@@ -29,6 +32,7 @@ export function BlogListClient({
   const searchParams = useSearchParams();
   const selectedDestination = searchParams.get("destination") || "All";
   const searchQuery = searchParams.get("search") || "";
+  const selectedCategory = searchParams.get("category") || "All";
   const currentPage = Number(searchParams.get("page")) || 1;
 
   // Client-side filtering
@@ -38,7 +42,7 @@ export function BlogListClient({
     // Filter by destination
     if (selectedDestination !== "All") {
       result = result.filter(
-        (blog) => blog.destination?.name === selectedDestination
+        (blog) => blog.destination?.name === selectedDestination,
       );
     }
 
@@ -49,12 +53,17 @@ export function BlogListClient({
         (blog) =>
           blog.title.toLowerCase().includes(searchLower) ||
           blog.excerpt?.toLowerCase().includes(searchLower) ||
-          blog.content?.toLowerCase().includes(searchLower)
+          blog.content?.toLowerCase().includes(searchLower),
       );
     }
 
+    // Filter by category
+    if (selectedCategory !== "All") {
+      result = result.filter((blog) => blog.category === selectedCategory);
+    }
+
     return result;
-  }, [blogs, selectedDestination, searchQuery]);
+  }, [blogs, selectedDestination, searchQuery, selectedCategory]);
 
   // Pagination
   const totalPages = Math.ceil(filteredBlogs.length / itemsPerPage);
@@ -67,7 +76,7 @@ export function BlogListClient({
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", page.toString());
     router.push(`?${params.toString()}`, { scroll: false });
-    
+
     document
       .getElementById("blog-grid")
       ?.scrollIntoView({ behavior: "smooth" });
@@ -75,6 +84,11 @@ export function BlogListClient({
 
   return (
     <div id="blog-grid" className="scroll-mt-24">
+      <BlogFilter
+        countries={destinations}
+        categories={categories}
+        initialCountry={countrySlug === "global" ? null : countrySlug}
+      />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {paginatedBlogs.length ? (
           paginatedBlogs.map((blog) => (
@@ -113,7 +127,7 @@ export function BlogListClient({
                   "w-10 h-10 rounded-lg text-sm font-medium transition-colors",
                   currentPage === page
                     ? "bg-primary text-white"
-                    : "border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800"
+                    : "border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800",
                 )}
               >
                 {page}

@@ -10,6 +10,7 @@ export const blogSchema = z.object({
     .optional()
     .nullable(),
   author: z.string().max(100).optional().nullable(),
+  category: z.string().max(50).optional().nullable(),
   publishedAt: z.string().optional().nullable(),
   isFeatured: z.boolean().optional(),
   destinationId: z.string().min(1, "Destination is required"),

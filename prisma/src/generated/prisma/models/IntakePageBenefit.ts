@@ -41,6 +41,7 @@ export type IntakePageBenefitMinAggregateOutputType = {
   description: string | null
   icon: string | null
   sortOrder: number | null
+  isActive: boolean | null
 }
 
 export type IntakePageBenefitMaxAggregateOutputType = {
@@ -50,6 +51,7 @@ export type IntakePageBenefitMaxAggregateOutputType = {
   description: string | null
   icon: string | null
   sortOrder: number | null
+  isActive: boolean | null
 }
 
 export type IntakePageBenefitCountAggregateOutputType = {
@@ -59,6 +61,7 @@ export type IntakePageBenefitCountAggregateOutputType = {
   description: number
   icon: number
   sortOrder: number
+  isActive: number
   _all: number
 }
 
@@ -78,6 +81,7 @@ export type IntakePageBenefitMinAggregateInputType = {
   description?: true
   icon?: true
   sortOrder?: true
+  isActive?: true
 }
 
 export type IntakePageBenefitMaxAggregateInputType = {
@@ -87,6 +91,7 @@ export type IntakePageBenefitMaxAggregateInputType = {
   description?: true
   icon?: true
   sortOrder?: true
+  isActive?: true
 }
 
 export type IntakePageBenefitCountAggregateInputType = {
@@ -96,6 +101,7 @@ export type IntakePageBenefitCountAggregateInputType = {
   description?: true
   icon?: true
   sortOrder?: true
+  isActive?: true
   _all?: true
 }
 
@@ -192,6 +198,7 @@ export type IntakePageBenefitGroupByOutputType = {
   description: string | null
   icon: string | null
   sortOrder: number
+  isActive: boolean
   _count: IntakePageBenefitCountAggregateOutputType | null
   _avg: IntakePageBenefitAvgAggregateOutputType | null
   _sum: IntakePageBenefitSumAggregateOutputType | null
@@ -224,6 +231,7 @@ export type IntakePageBenefitWhereInput = {
   description?: Prisma.StringNullableFilter<"IntakePageBenefit"> | string | null
   icon?: Prisma.StringNullableFilter<"IntakePageBenefit"> | string | null
   sortOrder?: Prisma.IntFilter<"IntakePageBenefit"> | number
+  isActive?: Prisma.BoolFilter<"IntakePageBenefit"> | boolean
   intakePage?: Prisma.XOR<Prisma.IntakePageScalarRelationFilter, Prisma.IntakePageWhereInput>
 }
 
@@ -234,6 +242,7 @@ export type IntakePageBenefitOrderByWithRelationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   icon?: Prisma.SortOrderInput | Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   intakePage?: Prisma.IntakePageOrderByWithRelationInput
 }
 
@@ -247,6 +256,7 @@ export type IntakePageBenefitWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringNullableFilter<"IntakePageBenefit"> | string | null
   icon?: Prisma.StringNullableFilter<"IntakePageBenefit"> | string | null
   sortOrder?: Prisma.IntFilter<"IntakePageBenefit"> | number
+  isActive?: Prisma.BoolFilter<"IntakePageBenefit"> | boolean
   intakePage?: Prisma.XOR<Prisma.IntakePageScalarRelationFilter, Prisma.IntakePageWhereInput>
 }, "id">
 
@@ -257,6 +267,7 @@ export type IntakePageBenefitOrderByWithAggregationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   icon?: Prisma.SortOrderInput | Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   _count?: Prisma.IntakePageBenefitCountOrderByAggregateInput
   _avg?: Prisma.IntakePageBenefitAvgOrderByAggregateInput
   _max?: Prisma.IntakePageBenefitMaxOrderByAggregateInput
@@ -274,6 +285,7 @@ export type IntakePageBenefitScalarWhereWithAggregatesInput = {
   description?: Prisma.StringNullableWithAggregatesFilter<"IntakePageBenefit"> | string | null
   icon?: Prisma.StringNullableWithAggregatesFilter<"IntakePageBenefit"> | string | null
   sortOrder?: Prisma.IntWithAggregatesFilter<"IntakePageBenefit"> | number
+  isActive?: Prisma.BoolWithAggregatesFilter<"IntakePageBenefit"> | boolean
 }
 
 export type IntakePageBenefitCreateInput = {
@@ -282,6 +294,7 @@ export type IntakePageBenefitCreateInput = {
   description?: string | null
   icon?: string | null
   sortOrder?: number
+  isActive?: boolean
   intakePage: Prisma.IntakePageCreateNestedOneWithoutIntakePageBenefitsInput
 }
 
@@ -292,6 +305,7 @@ export type IntakePageBenefitUncheckedCreateInput = {
   description?: string | null
   icon?: string | null
   sortOrder?: number
+  isActive?: boolean
 }
 
 export type IntakePageBenefitUpdateInput = {
@@ -300,6 +314,7 @@ export type IntakePageBenefitUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   intakePage?: Prisma.IntakePageUpdateOneRequiredWithoutIntakePageBenefitsNestedInput
 }
 
@@ -310,6 +325,7 @@ export type IntakePageBenefitUncheckedUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type IntakePageBenefitCreateManyInput = {
@@ -319,6 +335,7 @@ export type IntakePageBenefitCreateManyInput = {
   description?: string | null
   icon?: string | null
   sortOrder?: number
+  isActive?: boolean
 }
 
 export type IntakePageBenefitUpdateManyMutationInput = {
@@ -327,6 +344,7 @@ export type IntakePageBenefitUpdateManyMutationInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type IntakePageBenefitUncheckedUpdateManyInput = {
@@ -336,6 +354,7 @@ export type IntakePageBenefitUncheckedUpdateManyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type IntakePageBenefitListRelationFilter = {
@@ -355,6 +374,7 @@ export type IntakePageBenefitCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   icon?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
 }
 
 export type IntakePageBenefitAvgOrderByAggregateInput = {
@@ -368,6 +388,7 @@ export type IntakePageBenefitMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   icon?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
 }
 
 export type IntakePageBenefitMinOrderByAggregateInput = {
@@ -377,6 +398,7 @@ export type IntakePageBenefitMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   icon?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
 }
 
 export type IntakePageBenefitSumOrderByAggregateInput = {
@@ -431,6 +453,7 @@ export type IntakePageBenefitCreateWithoutIntakePageInput = {
   description?: string | null
   icon?: string | null
   sortOrder?: number
+  isActive?: boolean
 }
 
 export type IntakePageBenefitUncheckedCreateWithoutIntakePageInput = {
@@ -439,6 +462,7 @@ export type IntakePageBenefitUncheckedCreateWithoutIntakePageInput = {
   description?: string | null
   icon?: string | null
   sortOrder?: number
+  isActive?: boolean
 }
 
 export type IntakePageBenefitCreateOrConnectWithoutIntakePageInput = {
@@ -477,6 +501,7 @@ export type IntakePageBenefitScalarWhereInput = {
   description?: Prisma.StringNullableFilter<"IntakePageBenefit"> | string | null
   icon?: Prisma.StringNullableFilter<"IntakePageBenefit"> | string | null
   sortOrder?: Prisma.IntFilter<"IntakePageBenefit"> | number
+  isActive?: Prisma.BoolFilter<"IntakePageBenefit"> | boolean
 }
 
 export type IntakePageBenefitCreateManyIntakePageInput = {
@@ -485,6 +510,7 @@ export type IntakePageBenefitCreateManyIntakePageInput = {
   description?: string | null
   icon?: string | null
   sortOrder?: number
+  isActive?: boolean
 }
 
 export type IntakePageBenefitUpdateWithoutIntakePageInput = {
@@ -493,6 +519,7 @@ export type IntakePageBenefitUpdateWithoutIntakePageInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type IntakePageBenefitUncheckedUpdateWithoutIntakePageInput = {
@@ -501,6 +528,7 @@ export type IntakePageBenefitUncheckedUpdateWithoutIntakePageInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type IntakePageBenefitUncheckedUpdateManyWithoutIntakePageInput = {
@@ -509,6 +537,7 @@ export type IntakePageBenefitUncheckedUpdateManyWithoutIntakePageInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 
@@ -520,6 +549,7 @@ export type IntakePageBenefitSelect<ExtArgs extends runtime.Types.Extensions.Int
   description?: boolean
   icon?: boolean
   sortOrder?: boolean
+  isActive?: boolean
   intakePage?: boolean | Prisma.IntakePageDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["intakePageBenefit"]>
 
@@ -530,6 +560,7 @@ export type IntakePageBenefitSelectCreateManyAndReturn<ExtArgs extends runtime.T
   description?: boolean
   icon?: boolean
   sortOrder?: boolean
+  isActive?: boolean
   intakePage?: boolean | Prisma.IntakePageDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["intakePageBenefit"]>
 
@@ -540,6 +571,7 @@ export type IntakePageBenefitSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   description?: boolean
   icon?: boolean
   sortOrder?: boolean
+  isActive?: boolean
   intakePage?: boolean | Prisma.IntakePageDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["intakePageBenefit"]>
 
@@ -550,9 +582,10 @@ export type IntakePageBenefitSelectScalar = {
   description?: boolean
   icon?: boolean
   sortOrder?: boolean
+  isActive?: boolean
 }
 
-export type IntakePageBenefitOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "intakePageId" | "title" | "description" | "icon" | "sortOrder", ExtArgs["result"]["intakePageBenefit"]>
+export type IntakePageBenefitOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "intakePageId" | "title" | "description" | "icon" | "sortOrder" | "isActive", ExtArgs["result"]["intakePageBenefit"]>
 export type IntakePageBenefitInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   intakePage?: boolean | Prisma.IntakePageDefaultArgs<ExtArgs>
 }
@@ -575,6 +608,7 @@ export type $IntakePageBenefitPayload<ExtArgs extends runtime.Types.Extensions.I
     description: string | null
     icon: string | null
     sortOrder: number
+    isActive: boolean
   }, ExtArgs["result"]["intakePageBenefit"]>
   composites: {}
 }
@@ -1005,6 +1039,7 @@ export interface IntakePageBenefitFieldRefs {
   readonly description: Prisma.FieldRef<"IntakePageBenefit", 'String'>
   readonly icon: Prisma.FieldRef<"IntakePageBenefit", 'String'>
   readonly sortOrder: Prisma.FieldRef<"IntakePageBenefit", 'Int'>
+  readonly isActive: Prisma.FieldRef<"IntakePageBenefit", 'Boolean'>
 }
     
 

@@ -34,9 +34,10 @@ model IntakePageBenefit {
   intakePageId String
   title        String
   description  String?
-  icon         String?
+  icon         String?    // Lucide icon name or custom icon URL
   sortOrder    Int        @default(0)
+  isActive     Boolean    @default(true)
   intakePage   IntakePage @relation(fields: [intakePageId], references: [id], onDelete: Cascade)
-
-  @@index([intakePageId])
+  
+  @@index([intakePageId, sortOrder])
 }

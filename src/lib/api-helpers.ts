@@ -36,7 +36,7 @@ export function getPaginationParams(request: NextRequest): {
   const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10));
   const limit = Math.min(
     100,
-    Math.max(1, parseInt(searchParams.get("limit") || "10", 10))
+    Math.max(1, parseInt(searchParams.get("limit") || "10", 10)),
   );
   const sortBy = searchParams.get("sortBy") || undefined;
   const sortOrder = (searchParams.get("sortOrder") || "asc") as "asc" | "desc";
@@ -56,7 +56,7 @@ export function createPaginatedResponse<T>(
   data: T[],
   total: number,
   page: number,
-  limit: number
+  limit: number,
 ): PaginatedResponse<T> {
   return {
     data,
@@ -83,20 +83,22 @@ export async function handleGetMany<T>(
     searchFields?: string[];
     revalidatePaths?: string[];
     transform?: (item: T) => any;
-  }
+  },
 ): Promise<Response> {
   try {
     const { page, limit, skip, sortBy, sortOrder, search } =
       getPaginationParams(request);
 
     // Build where clause - deep clone to avoid mutation issues
-    const baseWhere: any = options?.where ? JSON.parse(JSON.stringify(options.where)) : {};
+    const baseWhere: any = options?.where
+      ? JSON.parse(JSON.stringify(options.where))
+      : {};
     const where: any = {};
 
     // Collect all top-level conditions (excluding OR, AND, NOT)
     const topLevelConditions: any = {};
     for (const key in baseWhere) {
-      if (!['OR', 'AND', 'NOT'].includes(key)) {
+      if (!["OR", "AND", "NOT"].includes(key)) {
         topLevelConditions[key] = baseWhere[key];
       }
     }
@@ -147,7 +149,7 @@ export async function handleGetMany<T>(
       // Use AND to combine top-level conditions with OR clauses
       where.AND = [
         topLevelConditions,
-        ...(allOR.length > 0 ? [{ OR: allOR }] : [])
+        ...(allOR.length > 0 ? [{ OR: allOR }] : []),
       ];
     } else if (hasTopLevelConditions) {
       // Only top-level conditions, no OR
@@ -193,9 +195,7 @@ export async function handleGetMany<T>(
       model.count({ where }),
     ]);
 
-    const finalData = options?.transform
-      ? data.map(options.transform)
-      : data;
+    const finalData = options?.transform ? data.map(options.transform) : data;
 
     const response = createPaginatedResponse(finalData, total, page, limit);
 
@@ -203,11 +203,15 @@ export async function handleGetMany<T>(
   } catch (error: any) {
     console.error("Error fetching data:", error);
     // Provide better error messages for debugging
-    const errorMessage = error?.message || String(error) || "Failed to fetch data";
-    const errorDetails = process.env.NODE_ENV === "development" ? {
-      message: errorMessage,
-      stack: error?.stack,
-    } : { message: errorMessage };
+    const errorMessage =
+      error?.message || String(error) || "Failed to fetch data";
+    const errorDetails =
+      process.env.NODE_ENV === "development"
+        ? {
+            message: errorMessage,
+            stack: error?.stack,
+          }
+        : { message: errorMessage };
     return Response.json({ error: errorDetails }, { status: 500 });
   }
 }
@@ -221,7 +225,7 @@ export async function handleCreate<T>(
   options?: {
     uniqueField?: string;
     revalidatePaths?: string[];
-  }
+  },
 ): Promise<Response> {
   try {
     // Check for unique constraint if specified
@@ -232,7 +236,7 @@ export async function handleCreate<T>(
       if (existing) {
         return Response.json(
           { error: `${options.uniqueField} already exists` },
-          { status: 400 }
+          { status: 400 },
         );
       }
     }
@@ -250,12 +254,12 @@ export async function handleCreate<T>(
     if (error.code === "P2002") {
       return Response.json(
         { error: "Record with this value already exists" },
-        { status: 400 }
+        { status: 400 },
       );
     }
     return Response.json(
       { error: error.message || "Failed to create" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -268,7 +272,7 @@ export async function handleUpdate<T>(
   },
   options?: {
     revalidatePaths?: string[];
-  }
+  },
 ): Promise<Response> {
   try {
     const result = await model.update({
@@ -289,7 +293,7 @@ export async function handleUpdate<T>(
     }
     return Response.json(
       { error: error.message || "Failed to update" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -392,7 +396,7 @@ export async function handleDelete(
   options?: {
     revalidatePaths?: string[];
     modelName?: string;
-  }
+  },
 ): Promise<Response> {
   try {
     await model.delete({ where: { id } });
@@ -446,14 +450,14 @@ export async function handleDelete(
           code: "FOREIGN_KEY_VIOLATION",
           constraint: constraintName || "unknown",
         },
-        { status: 409 } // Conflict status code
+        { status: 409 }, // Conflict status code
       );
     }
 
     // Generic error
     return Response.json(
       { error: error.message || "Failed to delete record" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

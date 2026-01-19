@@ -27,6 +27,7 @@ import {
 type GlobalOfficeWithCountries = {
   id: string;
   name: string;
+  city?: string | null;
   subtitle?: string | null;
   slug: string;
   email?: string | null;
@@ -45,7 +46,7 @@ type GlobalOfficeWithCountries = {
 };
 
 const globalOfficeApi = createEntityApi<GlobalOfficeWithCountries>(
-  "/api/global-offices"
+  "/api/global-offices",
 );
 
 interface GlobalOfficeFormProps {
@@ -67,12 +68,13 @@ export function GlobalOfficeForm({
   const [imageUrl, setImageUrl] = useState<string>("");
   const [bannerImageUrl, setBannerImageUrl] = useState<string>("");
   const [openingHours, setOpeningHours] = useState<OpeningHoursData | null>(
-    null
+    null,
   );
 
   const form = useAppForm({
     defaultValues: {
       name: initialData?.name || "",
+      city: initialData?.city || "",
       subtitle: initialData?.subtitle || "",
       slug: initialData?.slug || "",
       email: initialData?.email || "",
@@ -101,6 +103,7 @@ export function GlobalOfficeForm({
           metaTitle: value.metaTitle || null,
           metaDescription: value.metaDescription || null,
           metaKeywords: value.metaKeywords || null,
+          city: value.city || null,
         };
 
         if (isEditing && initialData?.id) {
@@ -117,7 +120,7 @@ export function GlobalOfficeForm({
         toast.success(
           isEditing
             ? "Global office updated successfully"
-            : "Global office created successfully"
+            : "Global office created successfully",
         );
         form.reset();
         setCountryIds([]);
@@ -150,6 +153,7 @@ export function GlobalOfficeForm({
   useEffect(() => {
     if (initialData) {
       form.setFieldValue("name", initialData.name || "");
+      form.setFieldValue("city", initialData.city || "");
       form.setFieldValue("subtitle", initialData.subtitle || "");
       form.setFieldValue("slug", initialData.slug || "");
       form.setFieldValue("email", initialData.email || "");
@@ -209,6 +213,9 @@ export function GlobalOfficeForm({
         </form.AppField>
         <form.AppField name="subtitle">
           {(field) => <field.Input label="Subtitle" />}
+        </form.AppField>
+        <form.AppField name="city">
+          {(field) => <field.Input label="City" />}
         </form.AppField>
         <form.AppField name="slug">
           {(field) => (

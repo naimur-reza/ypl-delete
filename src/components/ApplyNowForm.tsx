@@ -8,7 +8,6 @@ import { SelectItem } from "./ui/select";
 import { toast } from "sonner";
 import { Loader2, Send } from "lucide-react"; // Added icons
 import { cn } from "@/lib/utils";
-import { Destination } from "../../prisma/src/generated/prisma/client";
 
 type ApplyNowFormData = {
   name: string;
@@ -23,7 +22,7 @@ type ApplyNowFormProps = {
   destinationId?: string;
   officeSlug?: string;
   className?: string;
-  destinations: Destination[];
+  destinations: Array<{ id: string; name: string }>;
 };
 
 export function ApplyNowForm({ countryId, destinationId, officeSlug, className, destinations }: ApplyNowFormProps) {
@@ -38,7 +37,6 @@ export function ApplyNowForm({ countryId, destinationId, officeSlug, className, 
       message: "",
     },
   });
-  console.log(destinationId)
 
   const onSubmit = async (data: ApplyNowFormData) => {
     setIsSubmitting(true);

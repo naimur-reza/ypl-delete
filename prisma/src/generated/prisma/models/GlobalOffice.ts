@@ -27,6 +27,7 @@ export type AggregateGlobalOffice = {
 export type GlobalOfficeMinAggregateOutputType = {
   id: string | null
   name: string | null
+  city: string | null
   subtitle: string | null
   slug: string | null
   email: string | null
@@ -47,6 +48,7 @@ export type GlobalOfficeMinAggregateOutputType = {
 export type GlobalOfficeMaxAggregateOutputType = {
   id: string | null
   name: string | null
+  city: string | null
   subtitle: string | null
   slug: string | null
   email: string | null
@@ -67,6 +69,7 @@ export type GlobalOfficeMaxAggregateOutputType = {
 export type GlobalOfficeCountAggregateOutputType = {
   id: number
   name: number
+  city: number
   subtitle: number
   slug: number
   email: number
@@ -90,6 +93,7 @@ export type GlobalOfficeCountAggregateOutputType = {
 export type GlobalOfficeMinAggregateInputType = {
   id?: true
   name?: true
+  city?: true
   subtitle?: true
   slug?: true
   email?: true
@@ -110,6 +114,7 @@ export type GlobalOfficeMinAggregateInputType = {
 export type GlobalOfficeMaxAggregateInputType = {
   id?: true
   name?: true
+  city?: true
   subtitle?: true
   slug?: true
   email?: true
@@ -130,6 +135,7 @@ export type GlobalOfficeMaxAggregateInputType = {
 export type GlobalOfficeCountAggregateInputType = {
   id?: true
   name?: true
+  city?: true
   subtitle?: true
   slug?: true
   email?: true
@@ -224,6 +230,7 @@ export type GlobalOfficeGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 export type GlobalOfficeGroupByOutputType = {
   id: string
   name: string
+  city: string | null
   subtitle: string | null
   slug: string
   email: string | null
@@ -266,6 +273,7 @@ export type GlobalOfficeWhereInput = {
   NOT?: Prisma.GlobalOfficeWhereInput | Prisma.GlobalOfficeWhereInput[]
   id?: Prisma.StringFilter<"GlobalOffice"> | string
   name?: Prisma.StringFilter<"GlobalOffice"> | string
+  city?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   subtitle?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   slug?: Prisma.StringFilter<"GlobalOffice"> | string
   email?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
@@ -288,6 +296,7 @@ export type GlobalOfficeWhereInput = {
 export type GlobalOfficeOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  city?: Prisma.SortOrderInput | Prisma.SortOrder
   subtitle?: Prisma.SortOrderInput | Prisma.SortOrder
   slug?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -314,6 +323,7 @@ export type GlobalOfficeWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.GlobalOfficeWhereInput | Prisma.GlobalOfficeWhereInput[]
   OR?: Prisma.GlobalOfficeWhereInput[]
   NOT?: Prisma.GlobalOfficeWhereInput | Prisma.GlobalOfficeWhereInput[]
+  city?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   subtitle?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   email?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   phone?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
@@ -335,6 +345,7 @@ export type GlobalOfficeWhereUniqueInput = Prisma.AtLeast<{
 export type GlobalOfficeOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  city?: Prisma.SortOrderInput | Prisma.SortOrder
   subtitle?: Prisma.SortOrderInput | Prisma.SortOrder
   slug?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -362,6 +373,7 @@ export type GlobalOfficeScalarWhereWithAggregatesInput = {
   NOT?: Prisma.GlobalOfficeScalarWhereWithAggregatesInput | Prisma.GlobalOfficeScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"GlobalOffice"> | string
   name?: Prisma.StringWithAggregatesFilter<"GlobalOffice"> | string
+  city?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
   subtitle?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
   slug?: Prisma.StringWithAggregatesFilter<"GlobalOffice"> | string
   email?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
@@ -383,6 +395,7 @@ export type GlobalOfficeScalarWhereWithAggregatesInput = {
 export type GlobalOfficeCreateInput = {
   id?: string
   name: string
+  city?: string | null
   subtitle?: string | null
   slug: string
   email?: string | null
@@ -405,6 +418,7 @@ export type GlobalOfficeCreateInput = {
 export type GlobalOfficeUncheckedCreateInput = {
   id?: string
   name: string
+  city?: string | null
   subtitle?: string | null
   slug: string
   email?: string | null
@@ -427,6 +441,7 @@ export type GlobalOfficeUncheckedCreateInput = {
 export type GlobalOfficeUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -449,6 +464,7 @@ export type GlobalOfficeUpdateInput = {
 export type GlobalOfficeUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -471,6 +487,7 @@ export type GlobalOfficeUncheckedUpdateInput = {
 export type GlobalOfficeCreateManyInput = {
   id?: string
   name: string
+  city?: string | null
   subtitle?: string | null
   slug: string
   email?: string | null
@@ -492,6 +509,7 @@ export type GlobalOfficeCreateManyInput = {
 export type GlobalOfficeUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -513,6 +531,7 @@ export type GlobalOfficeUpdateManyMutationInput = {
 export type GlobalOfficeUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -534,6 +553,7 @@ export type GlobalOfficeUncheckedUpdateManyInput = {
 export type GlobalOfficeCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  city?: Prisma.SortOrder
   subtitle?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   email?: Prisma.SortOrder
@@ -555,6 +575,7 @@ export type GlobalOfficeCountOrderByAggregateInput = {
 export type GlobalOfficeMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  city?: Prisma.SortOrder
   subtitle?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   email?: Prisma.SortOrder
@@ -575,6 +596,7 @@ export type GlobalOfficeMaxOrderByAggregateInput = {
 export type GlobalOfficeMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  city?: Prisma.SortOrder
   subtitle?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   email?: Prisma.SortOrder
@@ -614,6 +636,7 @@ export type GlobalOfficeUpdateOneRequiredWithoutCountriesNestedInput = {
 export type GlobalOfficeCreateWithoutCountriesInput = {
   id?: string
   name: string
+  city?: string | null
   subtitle?: string | null
   slug: string
   email?: string | null
@@ -635,6 +658,7 @@ export type GlobalOfficeCreateWithoutCountriesInput = {
 export type GlobalOfficeUncheckedCreateWithoutCountriesInput = {
   id?: string
   name: string
+  city?: string | null
   subtitle?: string | null
   slug: string
   email?: string | null
@@ -672,6 +696,7 @@ export type GlobalOfficeUpdateToOneWithWhereWithoutCountriesInput = {
 export type GlobalOfficeUpdateWithoutCountriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -693,6 +718,7 @@ export type GlobalOfficeUpdateWithoutCountriesInput = {
 export type GlobalOfficeUncheckedUpdateWithoutCountriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -745,6 +771,7 @@ export type GlobalOfficeCountOutputTypeCountCountriesArgs<ExtArgs extends runtim
 export type GlobalOfficeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  city?: boolean
   subtitle?: boolean
   slug?: boolean
   email?: boolean
@@ -768,6 +795,7 @@ export type GlobalOfficeSelect<ExtArgs extends runtime.Types.Extensions.Internal
 export type GlobalOfficeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  city?: boolean
   subtitle?: boolean
   slug?: boolean
   email?: boolean
@@ -789,6 +817,7 @@ export type GlobalOfficeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
 export type GlobalOfficeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  city?: boolean
   subtitle?: boolean
   slug?: boolean
   email?: boolean
@@ -810,6 +839,7 @@ export type GlobalOfficeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
 export type GlobalOfficeSelectScalar = {
   id?: boolean
   name?: boolean
+  city?: boolean
   subtitle?: boolean
   slug?: boolean
   email?: boolean
@@ -828,7 +858,7 @@ export type GlobalOfficeSelectScalar = {
   status?: boolean
 }
 
-export type GlobalOfficeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "subtitle" | "slug" | "email" | "phone" | "address" | "mapUrl" | "content" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "bannerImage" | "image" | "openingHours" | "status", ExtArgs["result"]["globalOffice"]>
+export type GlobalOfficeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "city" | "subtitle" | "slug" | "email" | "phone" | "address" | "mapUrl" | "content" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "bannerImage" | "image" | "openingHours" | "status", ExtArgs["result"]["globalOffice"]>
 export type GlobalOfficeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   countries?: boolean | Prisma.GlobalOffice$countriesArgs<ExtArgs>
   _count?: boolean | Prisma.GlobalOfficeCountOutputTypeDefaultArgs<ExtArgs>
@@ -844,6 +874,7 @@ export type $GlobalOfficePayload<ExtArgs extends runtime.Types.Extensions.Intern
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
+    city: string | null
     subtitle: string | null
     slug: string
     email: string | null
@@ -1286,6 +1317,7 @@ export interface Prisma__GlobalOfficeClient<T, Null = never, ExtArgs extends run
 export interface GlobalOfficeFieldRefs {
   readonly id: Prisma.FieldRef<"GlobalOffice", 'String'>
   readonly name: Prisma.FieldRef<"GlobalOffice", 'String'>
+  readonly city: Prisma.FieldRef<"GlobalOffice", 'String'>
   readonly subtitle: Prisma.FieldRef<"GlobalOffice", 'String'>
   readonly slug: Prisma.FieldRef<"GlobalOffice", 'String'>
   readonly email: Prisma.FieldRef<"GlobalOffice", 'String'>

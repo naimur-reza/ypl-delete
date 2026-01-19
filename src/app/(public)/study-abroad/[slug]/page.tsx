@@ -84,7 +84,7 @@ const DestinationDetailsPage = async ({ params }: PageProps) => {
     trimmedSlug.toUpperCase() === "UK" || trimmedSlug.toUpperCase() === "USA"
       ? trimmedSlug.toUpperCase()
       : trimmedSlug.charAt(0).toUpperCase() + trimmedSlug.slice(1);
-  
+
   // Extract country slug from URL if available (lowercase for filtering)
   const countrySlug = country ? country.toLowerCase() : null;
 
@@ -95,9 +95,16 @@ const DestinationDetailsPage = async ({ params }: PageProps) => {
         contains: trimmedSlug,
       },
     },
-    include: {
+    select: {
+      id: true,
+      name: true,
+      slug: true,
+      whyChoose: true,
+      topUniversities: true,
+      campusAndCommunity: true,
+      destinationLife: true,
       sections: {
-        where: { status: "ACTIVE" },
+        where: { status: { in: ["ACTIVE", "DRAFT"] } },
         orderBy: { displayOrder: "asc" },
         select: {
           id: true,
@@ -119,7 +126,7 @@ const DestinationDetailsPage = async ({ params }: PageProps) => {
     where: {
       status: "ACTIVE",
       destination: {
-id: destination?.id
+        id: destination?.id,
       },
     },
     take: 10, // Limit for slider
@@ -149,7 +156,7 @@ id: destination?.id
   // Clean destination name by removing "Study in" prefix
   const cleanDestinationName = (name: string | undefined) => {
     if (!name) return countryName;
-    return name.replace(/^Study\s+in\s+/i, '').trim();
+    return name.replace(/^Study\s+in\s+/i, "").trim();
   };
 
   const countries = await prisma.country.findMany({});
@@ -167,32 +174,35 @@ id: destination?.id
       : undefined,
   });
 
+  console.log(destination);
   return (
     <div className="bg-white">
-      <StudyAbroadHero
-        countrySlug={countrySlug || undefined}
-      />
+      <StudyAbroadHero countrySlug={countrySlug || undefined} />
       <UniversityFilterWithWizard
         countries={countries}
         destinations={destinations}
       />
       <IntakeFeature />
       <WhyChooseCountry
-        countryName={cleanDestinationName(destination?.name)}
+        countryName={cleanDestinationName(destination?.name || "")}
+        whyChooseContent={destination?.whyChoose}
         sections={destination?.sections || []}
       />
       <UniversitySlider
         universities={universities}
         destinationId={destination?.id}
       />
-      <PopularCourses countrySlug={countrySlug || undefined} destinationSlug={trimmedSlug} />
+      <PopularCourses
+        countrySlug={countrySlug || undefined}
+        destinationSlug={trimmedSlug}
+      />
       <ScholarshipSlider
         scholarships={scholarships}
         title={`Scholarships to Study in ${countryName}`}
       />
       <EssentialStudySection
-        countryName={countryName}
-        countryCode={countrySlug || undefined}
+        countryName={countryName || "Unknown"}
+        countryCode={countrySlug as any}
         destinationSlug={trimmedSlug}
       />
       <ReviewSection />
