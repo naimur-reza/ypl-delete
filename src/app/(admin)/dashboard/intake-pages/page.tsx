@@ -7,7 +7,7 @@ import { DataTable } from "@/components/table/data-table";
 import { useDataTable } from "@/hooks/use-data-table";
 import { createEntityApi } from "@/lib/api-client";
 import { toast } from "sonner";
-import { MoreHorizontal, Plus, Pencil, Trash2 } from "lucide-react";
+import { MoreHorizontal, Plus, Pencil, Trash2, Eye, ExternalLink } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -35,6 +35,12 @@ interface Item {
   title: string;
   intake: string;
   createdAt: string;
+  status?: string;
+  destination?: {
+    id: string;
+    name: string;
+    slug: string;
+  };
 }
 
 const api = createEntityApi<Item>("/api/intake-pages");
@@ -113,6 +119,21 @@ export default function IntakePages() {
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={() => {
+                    const destSlug = (item.destination as any)?.slug || 'uk';
+                    const intakeSlug = item.intake.toLowerCase();
+                    // Use [program]/[intake] route - strip study-in- prefix if present
+                    const cleanSlug = destSlug.startsWith('study-in-')
+                      ? destSlug.replace('study-in-', '')
+                      : destSlug;
+                    // URL: /bangladesh/uk/january (uses [program]/[intake] route)
+                    window.open(`/bangladesh/${cleanSlug}/${intakeSlug}`, '_blank');
+                  }}
+                >
+                  <ExternalLink className="mr-2 h-4 w-4" />
+                  View Page
+                </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => router.push(`/dashboard/intake-pages/${item.id}/edit`)}
                 >

@@ -8,11 +8,12 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    
+
     const intakePage = await prisma.intakePage.findUnique({
       where: { id },
       include: {
         destination: true,
+        country: true,
         intakePageBenefits: { orderBy: { sortOrder: "asc" } },
       },
     });

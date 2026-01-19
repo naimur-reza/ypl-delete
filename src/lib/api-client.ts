@@ -60,21 +60,19 @@ export class ApiClient {
         } catch {
           // If JSON parsing fails, return a helpful error
           return {
-            error: `Invalid JSON response from server. ${
-              response.status === 404
+            error: `Invalid JSON response from server. ${response.status === 404
                 ? "Route not found."
                 : "Server may have returned an error page."
-            }`,
+              }`,
           };
         }
       } else if (text && !response.ok) {
         // If it's not JSON and not OK, it's likely an HTML error page
         return {
-          error: `Server returned ${response.status} ${response.statusText}. ${
-            response.status === 404
+          error: `Server returned ${response.status} ${response.statusText}. ${response.status === 404
               ? "The requested endpoint may not exist."
               : "Please check the server logs."
-          }`,
+            }`,
         };
       }
 
@@ -101,15 +99,22 @@ export class ApiClient {
     endpoint: string,
     params?: Record<string, string | number | undefined>
   ): Promise<ApiResponse<T>> {
-    const queryString = params
-      ? "?" +
-        Object.entries(params)
-          .filter(([, value]) => value !== undefined)
-          .map(([key, value]) => `${key}=${encodeURIComponent(value!)}`)
-          .join("&")
-      : "";
+    let url = endpoint;
 
-    return this.request<T>(`${endpoint}${queryString}`, {
+    if (params) {
+      const queryParams = Object.entries(params)
+        .filter(([, value]) => value !== undefined)
+        .map(([key, value]) => `${key}=${encodeURIComponent(value!)}`)
+        .join("&");
+
+      if (queryParams) {
+        // Use & if endpoint already has query params, otherwise use ?
+        const separator = endpoint.includes("?") ? "&" : "?";
+        url = `${endpoint}${separator}${queryParams}`;
+      }
+    }
+
+    return this.request<T>(url, {
       method: "GET",
     });
   }

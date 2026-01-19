@@ -1,4 +1,4 @@
- "use client";
+"use client";
 
 import { ApplicationCountdown } from "./ApplicationCountdown";
 
@@ -40,7 +40,7 @@ export function ApplicationTimeline({ steps, targetDate, intakeName }: Props) {
           </div>
         )}
 
-        <div className="space-y-4">
+        {/* <div className="space-y-4">
           {hasSteps ? (
             <div className="grid gap-4">
               {steps!.map((step, idx) => (
@@ -76,7 +76,7 @@ export function ApplicationTimeline({ steps, targetDate, intakeName }: Props) {
               Timeline steps will appear here once configured.
             </div>
           )}
-        </div>
+        </div> */}
       </div>
     </section>
   );

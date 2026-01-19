@@ -40,12 +40,27 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // If setting this as active, deactivate all others first (optional business logic)
-    if (status === "ACTIVE") {
-      await prisma.intakeSeason.updateMany({
-        where: { status: "ACTIVE" },
-        data: { status: "DRAFT" },
+    // If setting this as active and has countries, deactivate other active seasons for same countries
+    if (status === "ACTIVE" && countryIds?.length) {
+      // Find seasons that have any of the same countries and are active
+      const overlappingSeasons = await prisma.intakeSeason.findMany({
+        where: {
+          status: "ACTIVE",
+          countries: {
+            some: {
+              countryId: { in: countryIds },
+            },
+          },
+        },
+        select: { id: true },
       });
+
+      if (overlappingSeasons.length > 0) {
+        await prisma.intakeSeason.updateMany({
+          where: { id: { in: overlappingSeasons.map(s => s.id) } },
+          data: { status: "DRAFT" },
+        });
+      }
     }
 
     const created = await prisma.intakeSeason.create({
@@ -65,8 +80,8 @@ export async function POST(req: NextRequest) {
         status: status || "DRAFT",
         countries: countryIds?.length
           ? {
-              create: countryIds.map((countryId: string) => ({ countryId })),
-            }
+            create: countryIds.map((countryId: string) => ({ countryId })),
+          }
           : undefined,
       },
       include: { countries: { include: { country: true } } },
@@ -109,12 +124,42 @@ export async function PUT(req: NextRequest) {
       return Response.json({ error: "ID is required" }, { status: 400 });
     }
 
-    // If setting this as active, deactivate all others first
+    // If setting this as active, deactivate other active seasons for same countries
     if (status === "ACTIVE") {
-      await prisma.intakeSeason.updateMany({
-        where: { status: "ACTIVE", NOT: { id } },
-        data: { status: "DRAFT" },
-      });
+      // Get the country IDs to check - either from request or fetch existing
+      let targetCountryIds = countryIds;
+
+      if (!targetCountryIds) {
+        // Fetch existing countries for this season
+        const existing = await prisma.intakeSeason.findUnique({
+          where: { id },
+          include: { countries: { select: { countryId: true } } },
+        });
+        targetCountryIds = existing?.countries.map(c => c.countryId) || [];
+      }
+
+      if (targetCountryIds.length > 0) {
+        // Find seasons (excluding this one) that have any of the same countries and are active
+        const overlappingSeasons = await prisma.intakeSeason.findMany({
+          where: {
+            id: { not: id },
+            status: "ACTIVE",
+            countries: {
+              some: {
+                countryId: { in: targetCountryIds },
+              },
+            },
+          },
+          select: { id: true },
+        });
+
+        if (overlappingSeasons.length > 0) {
+          await prisma.intakeSeason.updateMany({
+            where: { id: { in: overlappingSeasons.map(s => s.id) } },
+            data: { status: "DRAFT" },
+          });
+        }
+      }
     }
 
     // Delete existing country relations and recreate
@@ -135,16 +180,20 @@ export async function PUT(req: NextRequest) {
         backgroundImage,
         ctaLabel,
         ctaUrl,
-        applicationDeadline: applicationDeadline
-          ? new Date(applicationDeadline)
-          : null,
-        intakeStartDate: intakeStartDate ? new Date(intakeStartDate) : null,
-        status: status || undefined,
+        // Only update dates if explicitly provided (not undefined)
+        ...(applicationDeadline !== undefined && {
+          applicationDeadline: applicationDeadline ? new Date(applicationDeadline) : null,
+        }),
+        ...(intakeStartDate !== undefined && {
+          intakeStartDate: intakeStartDate ? new Date(intakeStartDate) : null,
+        }),
+        // Status should update even if empty string (to allow clearing)
+        ...(status !== undefined && { status }),
         countries:
           countryIds !== undefined
             ? {
-                create: countryIds.map((countryId: string) => ({ countryId })),
-              }
+              create: countryIds.map((countryId: string) => ({ countryId })),
+            }
             : undefined,
       },
       include: { countries: { include: { country: true } } },

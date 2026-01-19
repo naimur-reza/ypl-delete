@@ -27,6 +27,12 @@ function formatIntakeName(intake: string): string {
   return intake.charAt(0).toUpperCase() + intake.slice(1).toLowerCase();
 }
 
+// Clean destination slug (strip study-in- prefix if present since route already has it)
+function cleanDestinationSlug(slug: string | undefined): string {
+  if (!slug) return '';
+  return slug.startsWith('study-in-') ? slug.replace('study-in-', '') : slug;
+}
+
 // Helper function to validate intake month
 function isValidIntake(intake: string): intake is IntakeMonth {
   const validIntakes: IntakeMonth[] = ["JANUARY", "MAY", "SEPTEMBER"];
@@ -38,6 +44,7 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { destination, intake } = await params;
+  const cleanedSlug = cleanDestinationSlug(destination);
 
   if (!isValidIntake(intake)) {
     return buildMetadata({
@@ -47,7 +54,7 @@ export async function generateMetadata({
   }
 
   const intakeData = await IntakeService.getIntakePage({
-    destinationSlug: destination,
+    destinationSlug: cleanedSlug,
     intake: intake.toUpperCase() as IntakeMonth,
   });
 
@@ -76,74 +83,30 @@ export async function generateMetadata({
   });
 }
 
-// Application Timeline Component (placeholder)
-function ApplicationTimeline({ intakeName }: { intakeName: string }) {
-  return (
-    <section className="py-16 bg-white">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Application Timeline
-          </h2>
-          <p className="text-lg text-gray-600">
-            Important dates for the {intakeName} intake
-          </p>
-        </div>
-
-        <div className="bg-blue-50 rounded-2xl p-8 text-center">
-          <h3 className="text-xl font-semibold text-gray-900 mb-4">
-            Application Deadlines Coming Soon
-          </h3>
-          <p className="text-gray-600 mb-6">
-            Stay tuned for updated application deadlines and important dates for
-            the {intakeName} intake.
-          </p>
-          <div className="inline-flex items-center gap-2 text-blue-600">
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            <span className="font-medium">Check back for updates</span>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function HowWeHelp({ steps }: { steps?: Array<{ title?: string; description?: string }> }) {
   const displaySteps =
     steps && steps.length
       ? steps
       : [
-          {
-            title: "Free Consultation",
-            description:
-              "Get personalized guidance on course selection and university options",
-          },
-          {
-            title: "Application Support",
-            description:
-              "Complete assistance with your university applications and documents",
-          },
-          {
-            title: "Scholarship Guidance",
-            description: "Help identify and apply for relevant scholarship programs",
-          },
-          {
-            title: "Visa Assistance",
-            description: "Expert support throughout the visa application process",
-          },
-        ];
+        {
+          title: "Free Consultation",
+          description:
+            "Get personalized guidance on course selection and university options",
+        },
+        {
+          title: "Application Support",
+          description:
+            "Complete assistance with your university applications and documents",
+        },
+        {
+          title: "Scholarship Guidance",
+          description: "Help identify and apply for relevant scholarship programs",
+        },
+        {
+          title: "Visa Assistance",
+          description: "Expert support throughout the visa application process",
+        },
+      ];
 
   return (
     <section className="py-16 bg-gray-900 text-white">
@@ -176,6 +139,7 @@ function HowWeHelp({ steps }: { steps?: Array<{ title?: string; description?: st
 
 export default async function GlobalIntakePage({ params }: PageProps) {
   const { destination, intake } = await params;
+  const cleanedSlug = cleanDestinationSlug(destination);
 
   // Validate intake
   if (!isValidIntake(intake)) {
@@ -183,7 +147,7 @@ export default async function GlobalIntakePage({ params }: PageProps) {
   }
 
   const intakeData = await IntakeService.getIntakePage({
-    destinationSlug: destination,
+    destinationSlug: cleanedSlug,
     intake: intake.toUpperCase() as IntakeMonth,
   });
 
@@ -195,7 +159,7 @@ export default async function GlobalIntakePage({ params }: PageProps) {
   const destinationName = intakeData.destination.name;
 
   // Get universities for this destination (all active, paginated client-side)
-  const { items: universities } = await IntakeService.getTopUniversities(destination);
+  const { items: universities } = await IntakeService.getTopUniversities(cleanedSlug);
 
   // Get FAQs for this intake page
   const faqs = await IntakeService.getIntakeFAQs(intakeData.id, 8);

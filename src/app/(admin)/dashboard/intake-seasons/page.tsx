@@ -37,7 +37,7 @@ interface Item {
   subtitle?: string;
   intake: IntakeType;
   year: number;
- 
+  status?: string;
   applicationDeadline?: string;
   createdAt: string;
   countries?: { country: { id: string; name: string } }[];
@@ -78,6 +78,24 @@ export default function IntakeSeasonsPage() {
       }
     },
   });
+
+  // Handle status toggle (Activate/Deactivate)
+  const handleStatusToggle = async (item: Item) => {
+    const currentStatus = (item as any).status || "DRAFT";
+    const newStatus = currentStatus === "ACTIVE" ? "DRAFT" : "ACTIVE";
+
+    try {
+      const response = await api.update(item.id, { id: item.id, status: newStatus });
+      if (response.error) {
+        toast.error(response.error);
+      } else {
+        toast.success(`Intake season ${newStatus === "ACTIVE" ? "activated" : "deactivated"} successfully`);
+        refetch();
+      }
+    } catch (error) {
+      toast.error("Failed to update status");
+    }
+  };
 
   const columns: ColumnDef<Item>[] = useMemo(
     () => [
@@ -148,6 +166,15 @@ export default function IntakeSeasonsPage() {
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={() => handleStatusToggle(item)}
+                >
+                  {(item.status || "DRAFT") === "ACTIVE" ? (
+                    <><X className="mr-2 h-4 w-4" /> Deactivate</>
+                  ) : (
+                    <><Check className="mr-2 h-4 w-4" /> Activate</>
+                  )}
+                </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => router.push(`/dashboard/intake-seasons/${item.id}/edit`)}
                 >
