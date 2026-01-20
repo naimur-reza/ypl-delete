@@ -182,10 +182,10 @@ async function getDashboardData() {
     const dayEnd = new Date(date.setHours(23, 59, 59, 999));
 
     const dayRegistrations = registrationsLast7Days.filter(
-      (r) => r.createdAt >= dayStart && r.createdAt <= dayEnd,
+      (r) => r.createdAt >= dayStart && r.createdAt <= dayEnd
     ).length;
     const dayAppointments = appointmentsLast7Days.filter(
-      (a) => a.createdAt >= dayStart && a.createdAt <= dayEnd,
+      (a) => a.createdAt >= dayStart && a.createdAt <= dayEnd
     ).length;
 
     registrationsTrend.push({
@@ -205,10 +205,10 @@ async function getDashboardData() {
   // Weekly activity
   const weeklyActivity = dayNames.map((day, index) => {
     const dayEvents = eventsWithDates.filter(
-      (e) => e.createdAt.getDay() === index,
+      (e) => e.createdAt.getDay() === index
     ).length;
     const dayRegs = registrationsLast7Days.filter(
-      (r) => r.createdAt.getDay() === index,
+      (r) => r.createdAt.getDay() === index
     ).length;
     return { day, events: dayEvents, registrations: dayRegs };
   });
@@ -216,10 +216,10 @@ async function getDashboardData() {
   // Monthly comparison
   const monthlyComparison = monthNames.map((month, index) => {
     const thisYearCount = thisYearRegistrations.filter(
-      (r) => r.createdAt.getMonth() === index,
+      (r) => r.createdAt.getMonth() === index
     ).length;
     const lastYearCount = lastYearRegistrations.filter(
-      (r) => r.createdAt.getMonth() === index,
+      (r) => r.createdAt.getMonth() === index
     ).length;
     return { month, thisYear: thisYearCount, lastYear: lastYearCount };
   });
@@ -258,7 +258,7 @@ export default async function Dashboard() {
       ? Math.round(
           ((data.totalRegistrations - data.pendingRegistrations) /
             data.totalRegistrations) *
-            100,
+            100
         )
       : 0;
 
@@ -316,7 +316,7 @@ export default async function Dashboard() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {statCards.map((stat) => (
             <Link key={stat.title} href={stat.href}>
-              <Card className="border-border hover:border-primary/50 hover:shadow-md transition-all cursor-pointer group">
+              <Card className="border-border/70 hover:border-primary/50 hover:shadow-md transition-all cursor-pointer group">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium group-hover:text-primary transition-colors">
                     {stat.title}
@@ -335,7 +335,7 @@ export default async function Dashboard() {
         </div>
 
         <div className="grid gap-4 lg:grid-cols-7">
-          <Card className="col-span-7 lg:col-span-4 border-border">
+          <Card className="col-span-7 lg:col-span-4 border-border/70">
             <CardHeader className="flex flex-row items-center justify-between">
               <div>
                 <CardTitle>Upcoming Events</CardTitle>
@@ -385,7 +385,7 @@ export default async function Dashboard() {
             </CardContent>
           </Card>
 
-          <Card className="col-span-7 lg:col-span-3 border-border">
+          <Card className="col-span-7 lg:col-span-3 border-border/70">
             <CardHeader>
               <CardTitle>Applications Snapshot</CardTitle>
               <CardDescription>
@@ -438,7 +438,7 @@ export default async function Dashboard() {
         <ChartsWrapper data={data.chartData as any} />
 
         <div className="grid gap-4 lg:grid-cols-2">
-          <Card className="border-border">
+          <Card className="border-border/70">
             <CardHeader className="flex flex-row items-center justify-between">
               <div>
                 <CardTitle>Recent Event Applications</CardTitle>
@@ -458,7 +458,7 @@ export default async function Dashboard() {
                   {data.recentRegistrations.map((registration) => (
                     <Link
                       key={registration.id}
-                      href={`/dashboard/registrations`}
+                      href={`/dashboard/registrations/${registration.id}`}
                       className="flex items-center justify-between rounded-lg border border-border/80 px-4 py-3 hover:border-primary/50 hover:bg-muted/50 transition-all"
                     >
                       <div>
@@ -489,7 +489,7 @@ export default async function Dashboard() {
             </CardContent>
           </Card>
 
-          <Card className="border-border">
+          <Card className="border-border/70">
             <CardHeader className="flex flex-row items-center justify-between">
               <div>
                 <CardTitle>Recent Appointments</CardTitle>
@@ -519,7 +519,7 @@ export default async function Dashboard() {
                         <p className="text-xs text-muted-foreground">
                           {appointment.event?.title || "General consultation"} •{" "}
                           {detailedDateFormatter.format(
-                            appointment.preferredAt || appointment.createdAt,
+                            appointment.preferredAt || appointment.createdAt
                           )}
                         </p>
                       </div>

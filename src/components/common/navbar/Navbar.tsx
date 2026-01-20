@@ -6,10 +6,6 @@ import {
   GraduationCap,
   CalendarDays,
   LayoutDashboard,
-  Briefcase,
-  Wrench,
-  Images,
-  FileText,
 } from "lucide-react";
 import { CountryAwareLink } from "./country-aware-link";
 import NavDropdown from "./navbar-dropdown";
@@ -28,10 +24,10 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
 
   const countryScopedFilter = countrySlug
     ? {
-        some: {
-          country: { slug: countrySlug },
-        },
-      }
+      some: {
+        country: { slug: countrySlug },
+      },
+    }
     : undefined;
 
   const [
@@ -41,83 +37,84 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
     events,
     globalOffices,
     countries,
+    intakePages,
   ] = await Promise.all([
-    prisma.destination.findMany({
-      select: { id: true, name: true, slug: true },
-      where: countryScopedFilter
-        ? { countries: countryScopedFilter }
-        : undefined,
-    }),
-    prisma.university.findMany({
-      select: { id: true, name: true, slug: true },
-      where: countryScopedFilter
-        ? {
+      prisma.destination.findMany({
+        select: { id: true, name: true, slug: true },
+        where: countryScopedFilter
+          ? { countries: countryScopedFilter }
+          : undefined,
+      }),
+      prisma.university.findMany({
+        select: { id: true, name: true, slug: true },
+        where: countryScopedFilter
+          ? {
             status: "ACTIVE",
             countries: countryScopedFilter,
           }
-        : { status: "ACTIVE" },
-      take: 20,
-    }),
-    prisma.course.findMany({
-      select: { id: true, title: true, slug: true },
-      where: countryScopedFilter
-        ? {
+          : { status: "ACTIVE" },
+        take: 20,
+      }),
+      prisma.course.findMany({
+        select: { id: true, title: true, slug: true },
+        where: countryScopedFilter
+          ? {
             status: "ACTIVE",
           }
-        : { status: "ACTIVE" },
-      take: 20,
-    }),
-    prisma.event.findMany({
-      select: { id: true, title: true, slug: true, eventType: true },
-      where: countryScopedFilter
-        ? {
+          : { status: "ACTIVE" },
+        take: 20,
+      }),
+      prisma.event.findMany({
+        select: { id: true, title: true, slug: true, eventType: true },
+        where: countryScopedFilter
+          ? {
             countries: countryScopedFilter,
           }
-        : undefined,
-      take: 10,
-    }),
-    prisma.globalOffice.findMany({
-      where: countryScopedFilter
-        ? { countries: countryScopedFilter }
-        : undefined,
-      select: {
-        id: true,
-        name: true,
-        slug: true,
-        phone: true,
-        countries: {
-          select: {
-            country: {
-              select: {
-                id: true,
-                name: true,
-                flag: true,
-                slug: true,
+          : undefined,
+        take: 10,
+      }),
+      prisma.globalOffice.findMany({
+        where: countryScopedFilter
+          ? { countries: countryScopedFilter }
+          : undefined,
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+          phone: true,
+          countries: {
+            select: {
+              country: {
+                select: {
+                  id: true,
+                  name: true,
+                  flag: true,
+                  slug: true,
+                },
               },
             },
           },
         },
-      },
-    }),
-    prisma.country.findMany({
-      where: { status: "ACTIVE" },
-      select: {
-        id: true,
-        name: true,
-        slug: true,
-        flag: true,
-      },
-      orderBy: { name: "asc" },
-    }),
-    prisma.intakePage.findMany({
-      where: { status: "ACTIVE" },
-      select: {
-        intake: true,
-        destination: { select: { slug: true, name: true } },
-      },
-      orderBy: [{ destination: { name: "asc" } }, { intake: "asc" }],
-    }),
-  ]);
+      }),
+      prisma.country.findMany({
+        where: { status: "ACTIVE" },
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+          flag: true,
+        },
+        orderBy: { name: "asc" },
+      }),
+      prisma.intakePage.findMany({
+        where: { status: "ACTIVE" },
+        select: {
+          intake: true,
+          destination: { select: { slug: true, name: true } },
+        },
+        orderBy: [{ destination: { name: "asc" } }, { intake: "asc" }],
+      }),
+    ]);
 
   const destinationItems = destinations.map((dest) => ({
     icon: <GraduationCap size={18} />,
@@ -155,27 +152,37 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
     };
   });
 
+  const intakeItems = intakePages.map((intake) => {
+    const intakeSlug = intake.intake.toLowerCase();
+    const prefix = countrySlug ? `/${countrySlug}` : "";
+    return {
+      title: `${intake.destination.name} ${intakeSlug.replace(
+        intakeSlug[0],
+        intakeSlug[0].toUpperCase(),
+      )} Intake`,
+      href: `${prefix}/study-in-${intake.destination.slug}/${intakeSlug}`,
+      description: "Dates, timeline, and universities",
+    };
+  });
+
   const resourceItems = [
     {
-      icon: <Briefcase size={18} />,
       title: "Careers",
       href: "/careers",
     },
     {
-      icon: <Wrench size={18} />,
       title: "Services",
       href: "/services",
     },
     {
-      icon: <Images size={18} />,
       title: "Gallery",
       href: "/gallery",
     },
     {
-      icon: <FileText size={18} />,
       title: "Blogs",
       href: "/blogs",
     },
+    ...intakeItems,
   ];
 
   return (

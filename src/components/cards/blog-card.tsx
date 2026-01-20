@@ -56,9 +56,6 @@ export function BlogCard({
               alt={blog.title}
               fill
               className="object-cover group-hover:scale-110 transition-transform duration-700"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              priority={false}
-              loading="lazy"
             />
           ) : (
             <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
@@ -126,9 +123,6 @@ export function BlogCard({
           alt={blog.title}
           fill
           className="object-cover"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          priority={false}
-          loading="lazy"
         />
       </div>
 

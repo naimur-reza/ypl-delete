@@ -1,34 +1,10 @@
 import { prisma } from "@/lib/prisma";
 import { CountryAwareLink } from "@/components/common/navbar/country-aware-link";
 
-export async function IntakeFeature({
-  countrySlug,
-  destinationId,
-}: {
-  countrySlug?: string;
-  destinationId?: string;
-  buttonTitle?: "View details";
-  buttonUrl?: string;
-}) {
+export async function IntakeFeature() {
   // Fetch the currently active intake season
   const season = await prisma.intakeSeason.findFirst({
-    where: {
-      status: "ACTIVE",
-      // If season has no countries specified, it applies to all
-      // If it has countries, check if our country is in the list
-      OR: [
-        { countries: { none: {} } }, // Global season (no countries specified)
-        countrySlug
-          ? {
-              countries: {
-                some: {
-                  country: { slug: countrySlug },
-                },
-              },
-            }
-          : {},
-      ],
-    },
+    where: { status: "ACTIVE" },
     select: {
       id: true,
       title: true,
@@ -41,23 +17,7 @@ export async function IntakeFeature({
       year: true,
       applicationDeadline: true,
     },
-    orderBy: { createdAt: "desc" },
   });
-
-  const intakePage = season
-    ? await prisma.intakePage.findFirst({
-        where: {
-          destinationId: destinationId,
-        },
-        include: {
-          destination: {
-            select: {
-              slug: true,
-            },
-          },
-        },
-      })
-    : null;
 
   // If no active season, don't render anything
   if (!season) {
@@ -93,9 +53,7 @@ export async function IntakeFeature({
           )}
 
           {/* Main headline */}
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">
-            {season.title}
-          </h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">{season.title}</h2>
 
           {/* Description */}
           {season.description && (
@@ -105,27 +63,12 @@ export async function IntakeFeature({
           )}
 
           {/* CTA Button */}
-          {intakePage?.destinationId ? (
-            <CountryAwareLink
-              href={
-                countrySlug
-                  ? `/${intakePage?.destination?.slug}/${intakePage.intake.toLowerCase()}`
-                  : `/intake/${intakePage.destination.slug}/${intakePage.intake.toLowerCase()}`
-              }
-              className="bg-primary hover:bg-primary/90 active:bg-primary/80 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 md:px-10 rounded-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 text-base sm:text-lg cursor-pointer inline-block touch-manipulation min-h-[44px] flex items-center justify-center"
-            >
-              View Details
-            </CountryAwareLink>
-          ) : (
-            <>
-              <CountryAwareLink
-                href={season.ctaUrl || "/apply-now"}
-                className="bg-primary hover:bg-primary/90 active:bg-primary/80 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 md:px-10 rounded-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 text-base sm:text-lg cursor-pointer inline-block touch-manipulation min-h-[44px] flex items-center justify-center"
-              >
-                {season.ctaLabel || "Apply Now"}
-              </CountryAwareLink>
-            </>
-          )}
+          <CountryAwareLink
+            href={season.ctaUrl || "/apply-now"}
+            className="bg-primary hover:bg-primary/90 active:bg-primary/80 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 md:px-10 rounded-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 text-base sm:text-lg cursor-pointer inline-block touch-manipulation min-h-[44px] flex items-center justify-center"
+          >
+            {season.ctaLabel || "Apply Now"}
+          </CountryAwareLink>
         </div>
       </div>
     </section>

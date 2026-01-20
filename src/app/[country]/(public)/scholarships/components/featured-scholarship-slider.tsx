@@ -5,13 +5,13 @@ import Image from "next/image";
 import {
   ChevronLeft,
   ChevronRight,
+  GraduationCap,
   MapPin,
   Calendar,
+  BookOpen,
   ArrowRight,
 } from "lucide-react";
 import { Scholarship } from "../../../../../../prisma/src/generated/prisma/browser";
-
-import { CountryAwareLink } from "@/components/common/navbar/country-aware-link";
 
 type TScholarship = Scholarship & {
   destination?: {
@@ -181,13 +181,13 @@ export default function FeaturedScholarshipSlider({
                   </div>
                 </div>
 
-                <CountryAwareLink
+                <a
                   href={`/scholarships/${item.slug}`}
                   className="w-full mt-auto bg-slate-900 text-white py-3 rounded-xl font-semibold flex items-center justify-center gap-2 group-hover:bg-blue-600 transition-colors duration-300"
                 >
                   Show Details
                   <ArrowRight className="w-4 h-4" />
-                </CountryAwareLink>
+                </a>
               </div>
             </div>
           ))}

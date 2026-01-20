@@ -19,10 +19,7 @@ interface UniversitySliderProps {
   destinationId?: string;
 }
 
-export function UniversitySlider({
-  universities,
-  destinationId,
-}: UniversitySliderProps) {
+export function UniversitySlider({ universities, destinationId }: UniversitySliderProps) {
   const swiperRef = useRef<SwiperType>(null);
 
   return (
@@ -49,18 +46,19 @@ export function UniversitySlider({
 
         {/* Slider Container */}
         <div className="relative group px-2 sm:px-4 md:px-12">
+          
           {/* Custom Navigation Buttons - Always visible on mobile */}
           <button
             onClick={() => swiperRef.current?.slidePrev()}
-            className="absolute left-2 sm:left-2 md:left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 bg-white/95 backdrop-blur-sm border border-slate-200 rounded-full shadow-lg flex items-center justify-center text-slate-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-300 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 pointer-events-auto touch-manipulation active:scale-95"
-            aria-label="Previous slide"
+            className="absolute left-0 sm:left-2 md:left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-full shadow-lg flex items-center justify-center text-slate-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-300 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 pointer-events-auto sm:pointer-events-none sm:group-hover:pointer-events-auto touch-manipulation"
+             aria-label="Previous slide"
           >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
 
           <button
             onClick={() => swiperRef.current?.slideNext()}
-            className="absolute right-2 sm:right-2 md:right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 bg-white/95 backdrop-blur-sm border border-slate-200 rounded-full shadow-lg flex items-center justify-center text-slate-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-300 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 pointer-events-auto touch-manipulation active:scale-95"
+            className="absolute right-0 sm:right-2 md:right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-full shadow-lg flex items-center justify-center text-slate-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-300 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 pointer-events-auto sm:pointer-events-none sm:group-hover:pointer-events-auto touch-manipulation"
             aria-label="Next slide"
           >
             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -71,49 +69,31 @@ export function UniversitySlider({
             onBeforeInit={(swiper) => {
               swiperRef.current = swiper;
             }}
-            spaceBetween={16}
-            slidesPerView={1.1}
-            centeredSlides={true}
+            spaceBetween={24}
+            slidesPerView={1.2}
+            breakpoints={{
+              640: {
+                slidesPerView: 2,
+              },
+              1024: {
+                slidesPerView: 3,
+              },
+              1280: {
+                slidesPerView: 4,
+              },
+            }}
             loop={true}
             autoplay={{
               delay: 5000,
               disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            }}
-            breakpoints={{
-              640: {
-                slidesPerView: 1.5,
-                centeredSlides: false,
-                spaceBetween: 20,
-              },
-              768: {
-                slidesPerView: 2,
-                centeredSlides: false,
-                spaceBetween: 24,
-              },
-              1024: {
-                slidesPerView: 3,
-                centeredSlides: false,
-                spaceBetween: 24,
-              },
-              1280: {
-                slidesPerView: 4,
-                centeredSlides: false,
-                spaceBetween: 24,
-              },
             }}
             className="pb-10!"
-            resistance={true}
-            resistanceRatio={0.85}
-            touchEventsTarget="wrapper"
-            preventClicks={false}
-            preventClicksPropagation={false}
           >
             {universities.map((uni) => (
               <SwiperSlide key={uni.id} className="h-auto">
-                <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-xl hover:border-blue-100 transition-all duration-300 h-full flex flex-col group/card cursor-pointer mx-1">
+                <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-xl hover:border-blue-100 transition-all duration-300 h-full flex flex-col group/card cursor-pointer">
                   {/* Image Container */}
-                  <div className="relative h-40 sm:h-48 overflow-hidden">
+                  <div className="relative h-48 overflow-hidden">
                     <Image
                       src={
                         uni.thumbnail ||
@@ -123,8 +103,6 @@ export function UniversitySlider({
                       width={340}
                       height={200}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-110"
-                      priority={false}
-                      loading="lazy"
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"></div>
 
@@ -138,18 +116,18 @@ export function UniversitySlider({
                   {/* Content */}
                   <CountryAwareLink
                     href={`/universities/${uni.slug}`}
-                    className="p-4 sm:p-6 flex-1 flex flex-col"
+                    className="p-6 flex-1 flex flex-col"
                   >
-                    <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2 line-clamp-2 group-hover/card:text-primary transition-colors">
+                    <h3 className="text-xl font-bold text-slate-900 mb-2 line-clamp-2 group-hover/card:text-primary transition-colors">
                       {uni.name}
                     </h3>
-                    <p className="text-slate-500 text-xs sm:text-sm line-clamp-2 sm:line-clamp-3 mb-3 sm:mb-4 flex-1">
+                    <p className="text-slate-500 text-sm line-clamp-3 mb-4 flex-1">
                       {uni.description ||
                         "A leading institution known for academic excellence and research innovation."}
                     </p>
 
-                    <div className="pt-3 sm:pt-4 border-t border-slate-100 flex items-center justify-between">
-                      <span className="text-slate-400 text-xs sm:text-sm group-hover/card:translate-x-1 transition-transform duration-300">
+                    <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+                      <span className="text-slate-400 text-sm group-hover/card:translate-x-1 transition-transform duration-300">
                         View details →
                       </span>
                     </div>

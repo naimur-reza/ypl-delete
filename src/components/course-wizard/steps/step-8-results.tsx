@@ -83,7 +83,7 @@ export function Step8Results({ wizardData, onClose }: Step8ResultsProps) {
     } catch (err) {
       console.error("Error matching courses:", err);
       setError(
-        err instanceof Error ? err.message : "Failed to find matching courses",
+        err instanceof Error ? err.message : "Failed to find matching courses"
       );
     } finally {
       setIsLoading(false);
@@ -92,6 +92,7 @@ export function Step8Results({ wizardData, onClose }: Step8ResultsProps) {
 
   const handleGoogleAuth = () => {
     // TODO: Implement Google OAuth
+    console.log("Google auth clicked");
   };
 
   if (showResults) {
@@ -240,7 +241,7 @@ export function Step8Results({ wizardData, onClose }: Step8ResultsProps) {
           className={cn(
             "w-full h-12 text-base font-semibold",
             "bg-linear-to-r from-purple-600 to-purple-400 hover:from-purple-700 hover:to-purple-500",
-            "text-white disabled:opacity-50 disabled:cursor-not-allowed",
+            "text-white disabled:opacity-50 disabled:cursor-not-allowed"
           )}
         >
           {isLoading ? "Finding your matches..." : "Continue"}

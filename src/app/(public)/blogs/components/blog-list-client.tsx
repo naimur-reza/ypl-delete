@@ -1,10 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { BlogCard } from "@/components/cards/blog-card";
-import { BlogCardSkeleton } from "@/components/blog-card-skeleton";
 import { BlogFilter } from "./blog-filter";
 import { BlogWithCountry } from "@/lib/blogs";
 
@@ -31,8 +30,6 @@ export function BlogListClient({
 }: BlogListClientProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [isLoading, setIsLoading] = useState(false);
-
   const selectedDestination = searchParams.get("destination") || "All";
   const searchQuery = searchParams.get("search") || "";
   const selectedCategory = searchParams.get("category") || "All";
@@ -76,18 +73,13 @@ export function BlogListClient({
   }, [filteredBlogs, currentPage, itemsPerPage]);
 
   const handlePageChange = (page: number) => {
-    setIsLoading(true);
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", page.toString());
     router.push(`?${params.toString()}`, { scroll: false });
 
-    // Reset loading state after a short delay for better UX
-    setTimeout(() => {
-      setIsLoading(false);
-      document
-        .getElementById("blog-grid")
-        ?.scrollIntoView({ behavior: "smooth" });
-    }, 300);
+    document
+      .getElementById("blog-grid")
+      ?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -98,12 +90,7 @@ export function BlogListClient({
         initialCountry={countrySlug === "global" ? null : countrySlug}
       />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {isLoading ? (
-          // Show skeleton cards while loading
-          Array.from({ length: itemsPerPage }).map((_, index) => (
-            <BlogCardSkeleton key={`skeleton-${index}`} />
-          ))
-        ) : paginatedBlogs.length ? (
+        {paginatedBlogs.length ? (
           paginatedBlogs.map((blog) => (
             <BlogCard key={blog.id} blog={blog} countrySlug={countrySlug} />
           ))

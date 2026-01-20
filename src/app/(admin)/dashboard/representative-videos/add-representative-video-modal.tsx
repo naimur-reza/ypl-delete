@@ -79,10 +79,10 @@ export default function RepresentativeVideoFormModal({
     setImageUrl(selected?.thumbnail || "");
     setCountryIds(selected?.countries?.map((c: any) => c.country.id) || []);
     setDestinationIds(
-      selected?.destinations?.map((d: any) => d.destination.id) || [],
+      selected?.destinations?.map((d: any) => d.destination.id) || []
     );
     setUniversityIds(
-      selected?.universities?.map((u: any) => u.university.id) || [],
+      selected?.universities?.map((u: any) => u.university.id) || []
     );
     setEventIds(selected?.events?.map((e: any) => e.event.id) || []);
   }, [selected]);
@@ -93,15 +93,15 @@ export default function RepresentativeVideoFormModal({
         const [dRes, uRes, eRes] = await Promise.all([
           apiClient.get<{ data: { id: string; name: string }[] }>(
             "/api/destinations",
-            { limit: "1000" },
+            { limit: "1000" }
           ),
           apiClient.get<{ data: { id: string; name: string }[] }>(
             "/api/universities",
-            { limit: "1000" },
+            { limit: "1000" }
           ),
           apiClient.get<{ data: { id: string; title: string }[] }>(
             "/api/events",
-            { limit: "1000" },
+            { limit: "1000" }
           ),
         ]);
         if (dRes.data) {
@@ -154,6 +154,7 @@ export default function RepresentativeVideoFormModal({
           universityIds,
           eventIds,
         } as Record<string, unknown>;
+        console.log("Payload:", payload);
         const res =
           isEditing && selected?.id
             ? await api.update(selected.id, payload)
@@ -245,7 +246,7 @@ export default function RepresentativeVideoFormModal({
                           setDestinationIds((prev) => [...prev, d.id]);
                         } else {
                           setDestinationIds((prev) =>
-                            prev.filter((x) => x !== d.id),
+                            prev.filter((x) => x !== d.id)
                           );
                         }
                       }}
@@ -277,7 +278,7 @@ export default function RepresentativeVideoFormModal({
                           setUniversityIds((prev) => [...prev, u.id]);
                         } else {
                           setUniversityIds((prev) =>
-                            prev.filter((x) => x !== u.id),
+                            prev.filter((x) => x !== u.id)
                           );
                         }
                       }}

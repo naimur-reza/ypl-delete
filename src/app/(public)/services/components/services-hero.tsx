@@ -39,7 +39,7 @@ export default function ServicesHero() {
       />
 
       {/* Bottom Section with Dark Navy Background */}
-      <div className="bg-[#0a1628] py-12 md:py-16 ">
+      <div className="bg-[#0a1628] py-12 md:py-16 lg:py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white text-balance">
@@ -48,7 +48,7 @@ export default function ServicesHero() {
             </h2>
           </div>
 
-          {/* Stats Grid
+          {/* Stats Grid */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 max-w-6xl mx-auto">
             {stats.map((stat, index) => (
               <div key={index} className="relative">
@@ -58,7 +58,7 @@ export default function ServicesHero() {
                 )}
               </div>
             ))}
-          </div> */}
+          </div>
         </div>
       </div>
     </section>

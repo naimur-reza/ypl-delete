@@ -33,7 +33,7 @@ const CountryFormModal = ({
   onSuccess?: () => void;
 }) => {
   const [countryFlag, setCountryFlag] = useState<string>(
-    selectedCountry?.flag || "",
+    selectedCountry?.flag || ""
   );
   const [isUploading, setIsUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -64,11 +64,12 @@ const CountryFormModal = ({
         if (isEditing && selectedCountry?.id) {
           response = await countryApi.update(selectedCountry.id, submitData);
         } else {
+          console.log(submitData);
           response = await countryApi.create(
             submitData as unknown as Omit<
               Country,
               "id" | "createdAt" | "updatedAt"
-            >,
+            >
           );
         }
 
@@ -80,7 +81,7 @@ const CountryFormModal = ({
         toast.success(
           isEditing
             ? "Country updated successfully"
-            : "Country created successfully",
+            : "Country created successfully"
         );
         form.reset();
         onClose();
@@ -103,7 +104,7 @@ const CountryFormModal = ({
       form.setFieldValue("metaTitle", selectedCountry.metaTitle || "");
       form.setFieldValue(
         "metaDescription",
-        selectedCountry.metaDescription || "",
+        selectedCountry.metaDescription || ""
       );
       form.setFieldValue("metaKeywords", selectedCountry.metaKeywords || "");
     } else {
@@ -144,13 +145,17 @@ const CountryFormModal = ({
                     handleTitleChange(e.target.value);
                   }}
                   onBlur={field.handleBlur}
+ 
                 />
               </FormBase>
             )}
           </form.AppField>
           <form.AppField name="slug">
             {(field) => (
-              <FormBase label="Slug" description="">
+              <FormBase
+                label="Slug"
+                description=""
+              >
                 <Input
                   id={field.name}
                   name={field.name}
@@ -161,6 +166,7 @@ const CountryFormModal = ({
                     handleSlugChange(slugValue);
                   }}
                   onBlur={field.handleBlur}
+              
                 />
               </FormBase>
             )}

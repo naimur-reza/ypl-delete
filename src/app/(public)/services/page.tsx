@@ -6,18 +6,13 @@ import ServicesList from "./components/services-list";
 
 export const revalidate = 3600;
 
-const ServicesPage = async ({
-  params,
-}: {
-  params: Promise<{ country: string }>;
-}) => {
-  const country = (await params).country;
+const ServicesPage = () => {
   return (
     <section className="">
       <ServicesHero />
       <ServicesList />
-      <ReviewSection countrySlug={country} />
-      <FaqSection countryId={country} />
+      <ReviewSection />
+      <FaqSection />
       <CallToActionBanner />
     </section>
   );

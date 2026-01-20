@@ -103,11 +103,11 @@ export function DestinationForm({
         if (isEditing && initialData?.id) {
           response = await destinationApi.update(
             initialData.id,
-            submitData as unknown as Record<string, unknown>,
+            submitData as unknown as Record<string, unknown>
           );
         } else {
           response = await destinationApi.create(
-            submitData as unknown as Record<string, unknown>,
+            submitData as unknown as Record<string, unknown>
           );
         }
 
@@ -119,7 +119,7 @@ export function DestinationForm({
         toast.success(
           isEditing
             ? "Destination updated successfully"
-            : "Destination created successfully",
+            : "Destination created successfully"
         );
         form.reset();
         setCountryIds([]);
@@ -197,7 +197,7 @@ export function DestinationForm({
   const updateSection = (
     index: number,
     field: keyof DestinationSection,
-    value: any,
+    value: any
   ) => {
     const updated = [...sections];
     updated[index] = { ...updated[index], [field]: value };
@@ -295,7 +295,7 @@ export function DestinationForm({
           </form.AppField>
         </div>
 
-        <div className="space-y-4 pt-6 border-t border-border">
+        <div className="space-y-4 pt-6 border-t">
           <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
             Hero Section
           </h3>
@@ -336,7 +336,7 @@ export function DestinationForm({
           </div>
 
           {sections.length === 0 ? (
-            <div className="text-center py-8 bg-muted/30 rounded-lg border border-dashed border-border">
+            <div className="text-center py-8 bg-muted/30 rounded-lg border border-dashed">
               <p className="text-muted-foreground text-sm mb-2">
                 No sections added yet
               </p>
@@ -350,16 +350,16 @@ export function DestinationForm({
               {sections.map((section, index) => (
                 <div
                   key={index}
-                  className="border rounded-lg overflow-hidden bg-card border-border"
+                  className="border rounded-lg overflow-hidden bg-card"
                 >
                   <div
                     className={cn(
                       "flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-muted/50 transition-colors",
-                      expandedSection === index && "bg-muted/50",
+                      expandedSection === index && "bg-muted/50"
                     )}
                     onClick={() =>
                       setExpandedSection(
-                        expandedSection === index ? null : index,
+                        expandedSection === index ? null : index
                       )
                     }
                   >
@@ -410,7 +410,7 @@ export function DestinationForm({
                   </div>
 
                   {expandedSection === index && (
-                    <div className="p-4 border-t space-y-4 bg-background border-border">
+                    <div className="p-4 border-t space-y-4 bg-background">
                       <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
                           <label className="text-sm font-medium">
@@ -418,7 +418,7 @@ export function DestinationForm({
                           </label>
                           <input
                             type="text"
-                            className="flex h-10 w-full rounded-md border border-input  bg-background px-3 py-2 text-sm"
+                            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                             value={section.title}
                             onChange={(e) =>
                               updateSection(index, "title", e.target.value)
@@ -463,7 +463,7 @@ export function DestinationForm({
           )}
         </div>
 
-        <div className="space-y-4 pt-6 border-t border-border">
+        <div className="space-y-4 pt-6 border-t">
           <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
             SEO Settings
           </h3>
@@ -478,7 +478,7 @@ export function DestinationForm({
           </form.AppField>
         </div>
 
-        <div className="flex gap-2 justify-end pt-6 border-t border-border">
+        <div className="flex gap-2 justify-end pt-6 border-t">
           <Button
             type="button"
             variant="outline"

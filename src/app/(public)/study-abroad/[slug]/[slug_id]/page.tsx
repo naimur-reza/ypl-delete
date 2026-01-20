@@ -145,6 +145,10 @@ export default async function EssentialStudyDetailsPage({ params }: PageProps) {
                   >
                     Apply Now
                   </Link>
+                  <button className="px-4 py-2.5 border border-slate-200 hover:bg-slate-50 text-slate-700 font-medium rounded-lg transition-colors flex items-center gap-2">
+                    <Share2 className="w-4 h-4" />
+                    Share
+                  </button>
                 </div>
               </div>
 

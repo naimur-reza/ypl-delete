@@ -11,7 +11,7 @@ import { IntakeList } from "./_components/IntakeList";
 export const metadata: Metadata = {
   title: "Intake Management - Admin Dashboard",
   description: "Manage intake pages for study abroad programs",
-};
+}; 
 
 interface IntakesPageProps {
   searchParams: Promise<SearchParams>;

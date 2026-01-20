@@ -121,13 +121,16 @@ export function IntakeList({ searchParams }: IntakeListProps) {
 
   const handleDuplicate = (id: string) => {
     // Handle duplicate logic
+    console.log("Duplicate intake:", id);
   };
 
   const handleDelete = (id: string) => {
     // Handle delete logic
+    console.log("Delete intake:", id);
   };
 
   const handleBulkAction = (action: string) => {
+    console.log(`Bulk ${action}:`, selectedItems);
     // Handle bulk actions
   };
 

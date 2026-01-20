@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { IntakeService } from "@/lib/intake-service-v2";
+import { IntakeService, IntakePageData } from "@/lib/intake-service-v2";
 import { HeroSection } from "@/components/intake/HeroSection";
 import { WhyChooseIntake } from "@/components/intake/WhyChooseIntake";
 import { TopUniversities } from "@/components/intake/TopUniversities";
@@ -8,6 +8,7 @@ import { ApplicationTimeline } from "@/components/intake/ApplicationTimeline";
 import { ApplyNowForm } from "@/components/ApplyNowForm";
 import { ReviewSection } from "@/components/sections/review-section";
 import { FaqSection } from "@/components/sections/faq-section";
+import { RepresentativeVideoSlider } from "@/components/sections/representative-video-slider";
 import CallToActionBanner from "@/components/CallToActionBanner";
 import { EventsSection } from "@/app/(public)/components";
 import { buildMetadata } from "@/lib/metadata";
@@ -26,10 +27,10 @@ function formatIntakeName(intake: string): string {
   return intake.charAt(0).toUpperCase() + intake.slice(1).toLowerCase();
 }
 
-// Clean destination slug (strip study-in- prefix if present)
+// Clean destination slug (strip study-in- prefix if present since route already has it)
 function cleanDestinationSlug(slug: string | undefined): string {
-  if (!slug) return "";
-  return slug.startsWith("study-in-") ? slug.replace("study-in-", "") : slug;
+  if (!slug) return '';
+  return slug.startsWith('study-in-') ? slug.replace('study-in-', '') : slug;
 }
 
 // Helper function to validate intake month
@@ -55,7 +56,6 @@ export async function generateMetadata({
   const intakeData = await IntakeService.getIntakePage({
     destinationSlug: cleanedSlug,
     intake: intake.toUpperCase() as IntakeMonth,
-    // No country slug - global view
   });
 
   if (!intakeData) {
@@ -83,36 +83,30 @@ export async function generateMetadata({
   });
 }
 
-function HowWeHelp({
-  steps,
-}: {
-  steps?: Array<{ title?: string; description?: string }>;
-}) {
+function HowWeHelp({ steps }: { steps?: Array<{ title?: string; description?: string }> }) {
   const displaySteps =
     steps && steps.length
       ? steps
       : [
-          {
-            title: "Free Consultation",
-            description:
-              "Get personalized guidance on course selection and university options",
-          },
-          {
-            title: "Application Support",
-            description:
-              "Complete assistance with your university applications and documents",
-          },
-          {
-            title: "Scholarship Guidance",
-            description:
-              "Help identify and apply for relevant scholarship programs",
-          },
-          {
-            title: "Visa Assistance",
-            description:
-              "Expert support throughout the visa application process",
-          },
-        ];
+        {
+          title: "Free Consultation",
+          description:
+            "Get personalized guidance on course selection and university options",
+        },
+        {
+          title: "Application Support",
+          description:
+            "Complete assistance with your university applications and documents",
+        },
+        {
+          title: "Scholarship Guidance",
+          description: "Help identify and apply for relevant scholarship programs",
+        },
+        {
+          title: "Visa Assistance",
+          description: "Expert support throughout the visa application process",
+        },
+      ];
 
   return (
     <section className="py-16 bg-gray-900 text-white">
@@ -152,11 +146,9 @@ export default async function GlobalIntakePage({ params }: PageProps) {
     notFound();
   }
 
-  // Get intake data WITHOUT country context (global view)
   const intakeData = await IntakeService.getIntakePage({
     destinationSlug: cleanedSlug,
     intake: intake.toUpperCase() as IntakeMonth,
-    // No countrySlug - shows global data
   });
 
   if (!intakeData) {
@@ -166,23 +158,18 @@ export default async function GlobalIntakePage({ params }: PageProps) {
   const intakeName = formatIntakeName(intake);
   const destinationName = intakeData.destination.name;
 
-  // Get ALL universities for this destination (no country filter)
-  const { items: universities } = await IntakeService.getTopUniversities(
-    cleanedSlug,
-    // No country filter - shows all universities
-  );
+  // Get universities for this destination (all active, paginated client-side)
+  const { items: universities } = await IntakeService.getTopUniversities(cleanedSlug);
 
   // Get FAQs for this intake page
   const faqs = await IntakeService.getIntakeFAQs(intakeData.id, 8);
 
-  // Get ALL upcoming events (no country filter)
+  // Upcoming events for reusable events section
   const events = await prisma.event.findMany({
     where: {
       startDate: {
         gte: new Date(),
       },
-      status: "ACTIVE",
-      // No country filter - global events
     },
     orderBy: {
       startDate: "asc",
@@ -198,7 +185,7 @@ export default async function GlobalIntakePage({ params }: PageProps) {
 
   return (
     <>
-      {/* Hero Section (global view) */}
+      {/* Hero Section */}
       <HeroSection
         title={intakeData.heroTitle}
         subtitle={intakeData.heroSubtitle}
@@ -207,7 +194,6 @@ export default async function GlobalIntakePage({ params }: PageProps) {
         ctaUrl={intakeData.heroCTAUrl}
         destinationName={destinationName}
         intakeName={intakeName}
-        // No countrySlug - global view
       />
 
       {/* Why Choose Intake Section */}
@@ -219,7 +205,7 @@ export default async function GlobalIntakePage({ params }: PageProps) {
         destinationName={destinationName}
       />
 
-      {/* Eligibility Form (global view) */}
+      {/* Eligibility Form */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
@@ -227,25 +213,24 @@ export default async function GlobalIntakePage({ params }: PageProps) {
               Check Your Eligibility
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Find out if you are eligible for the upcoming intake by filling
-              out this form. Our counselors will get back to you shortly.
+              Find out if you are eligible for the upcoming intake by filling out
+              this form. Our counselors will get back to you shortly.
             </p>
           </div>
           <ApplyNowForm
             destinations={destinations as any}
             destinationId={intakeData.destination.id}
-            // No countryId - user can select their country in the form
+            countryId={intakeData.country?.id || undefined}
           />
         </div>
       </section>
 
-      {/* Top Universities (all universities, no country filter) */}
+      {/* Top Universities */}
       <TopUniversities
         universities={universities}
         destinationSlug={destination}
         intakeName={intakeName}
         pageSize={6}
-        // No countrySlug - shows all universities
       />
 
       {/* Application Timeline */}
@@ -253,11 +238,7 @@ export default async function GlobalIntakePage({ params }: PageProps) {
         <ApplicationTimeline
           intakeName={intakeName}
           targetDate={intakeData.targetDate || undefined}
-          steps={
-            Array.isArray(intakeData.timelineJson)
-              ? intakeData.timelineJson
-              : []
-          }
+          steps={Array.isArray(intakeData.timelineJson) ? intakeData.timelineJson : []}
         />
       )}
 
@@ -265,17 +246,15 @@ export default async function GlobalIntakePage({ params }: PageProps) {
       {intakeData.howWeHelpEnabled !== false && (
         <HowWeHelp
           steps={
-            Array.isArray(intakeData.howWeHelpJson)
-              ? intakeData.howWeHelpJson
-              : undefined
+            Array.isArray(intakeData.howWeHelpJson) ? intakeData.howWeHelpJson : undefined
           }
         />
       )}
 
-      {/* Student Review Video Slider (all reviews, no country filter) */}
+      {/* Student Review Video Slider + Google My Business Review Slider */}
       <ReviewSection />
 
-      {/* Upcoming Events (all events, no country filter) */}
+      {/* Upcoming Events */}
       <EventsSection events={events as any} />
 
       {/* FAQs */}
@@ -285,26 +264,4 @@ export default async function GlobalIntakePage({ params }: PageProps) {
       <CallToActionBanner />
     </>
   );
-}
-
-// Generate static params for all destination/intake combinations
-export async function generateStaticParams() {
-  const intakes = await prisma.intakePage.findMany({
-    where: { status: "ACTIVE" },
-    include: { destination: true },
-  });
-
-  const params = [];
-
-  for (const intake of intakes) {
-    // Remove "study-in-" prefix for the URL param
-    const destination = intake.destination.slug.replace("study-in-", "");
-
-    params.push({
-      destination: destination,
-      intake: intake.slug.toLowerCase(),
-    });
-  }
-
-  return params;
 }

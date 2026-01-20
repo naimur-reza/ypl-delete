@@ -6,12 +6,7 @@ import {
   handleUpdate,
   handleDelete,
 } from "@/lib/api-helpers";
-import {
-  getSession,
-  canManageContent,
-  unauthorizedResponse,
-  forbiddenResponse,
-} from "@/lib/auth-helpers";
+import { getSession, canManageContent, unauthorizedResponse, forbiddenResponse } from "@/lib/auth-helpers";
 
 export async function GET(req: NextRequest) {
   return handleGetMany(req, prisma.country, {
@@ -26,37 +21,19 @@ export async function POST(req: NextRequest) {
   if (!canManageContent(session)) return forbiddenResponse();
 
   const body = await req.json();
-  const {
-    name,
-    slug,
-    isoCode,
-    flag,
-    metaTitle,
-    metaDescription,
-    metaKeywords,
-    status,
-  } = body;
+  const { name, slug, isoCode, flag, metaTitle, metaDescription, metaKeywords, status } = body;
 
   if (!name || !slug || !isoCode) {
     return Response.json(
       { error: "Name, slug, and ISO code are required" },
-      { status: 400 },
+      { status: 400 }
     );
   }
 
   return handleCreate(
-    {
-      name,
-      slug,
-      isoCode,
-      flag,
-      metaTitle,
-      metaDescription,
-      metaKeywords,
-      status: status || "DRAFT",
-    },
+    { name, slug, isoCode, flag, metaTitle, metaDescription, metaKeywords, status: status || "DRAFT" },
     prisma.country,
-    { uniqueField: "slug", revalidatePaths: ["/dashboard/countries"] },
+    { uniqueField: "slug", revalidatePaths: ["/dashboard/countries"] }
   );
 }
 

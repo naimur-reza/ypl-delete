@@ -1,10 +1,6 @@
 import { Prisma } from "../../prisma/src/generated/prisma/client";
 import { prisma } from "./prisma";
 
-// Simple in-memory cache for performance
-const cache = new Map<string, { data: any; timestamp: number }>();
-const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
-
 export type BlogWithCountry = Prisma.BlogGetPayload<{
   include: {
     countries: {
@@ -168,113 +164,10 @@ export const fetchLatestBlogs = async (
   });
 };
 
-// Optimized function for server-side filtering and pagination
-export const fetchBlogPageDataOptimized = async (
-  countrySlug?: string | null,
-  page = 1,
-  limit = 9,
-  destination?: string | null,
-  searchQuery?: string | null,
-  category?: string | null,
-) => {
-  const where = buildBlogWhere({
-    countrySlug,
-    countryFilterName: destination,
-    searchQuery,
-    category,
-  });
-  const featuredWhere = buildBlogWhere({ countrySlug });
-
-  const skip = (page - 1) * limit;
-
-  const [
-    destinations,
-    featuredBlogs,
-    blogs,
-    totalCount,
-    sliderBlogs,
-    categories,
-  ] = await Promise.all([
-    // Fetch destinations that have at least one blog
-    prisma.destination.findMany({
-      where: {
-        status: "ACTIVE",
-        blogs: { some: { status: "ACTIVE" } },
-      },
-      select: { id: true, name: true, slug: true },
-      orderBy: { name: "asc" },
-    }),
-    prisma.blog.findMany({
-      where: { ...featuredWhere, isFeatured: true, status: "ACTIVE" },
-      orderBy: { publishedAt: "desc" },
-      take: 3,
-      include: {
-        countries: { include: { country: true } },
-        destination: true,
-      },
-    }),
-    // Fetch paginated blogs for better performance
-    prisma.blog.findMany({
-      where,
-      orderBy: { publishedAt: "desc" },
-      skip,
-      take: limit,
-      include: {
-        countries: { include: { country: true } },
-        destination: true,
-      },
-    }),
-    prisma.blog.count({ where }),
-    prisma.blog.findMany({
-      where: featuredWhere,
-      orderBy: { publishedAt: "desc" },
-      take: 5,
-      include: {
-        countries: { include: { country: true } },
-        destination: true,
-      },
-    }),
-    // Fetch all unique categories
-    prisma.blog.findMany({
-      where: {
-        ...where,
-        category: { not: null },
-      },
-      select: { category: true },
-      distinct: ["category"],
-    }),
-  ]);
-
-  const uniqueCategories = categories
-    .map((c) => c.category)
-    .filter((c): c is string => c !== null && c !== undefined)
-    .sort();
-
-  const totalPages = Math.ceil(totalCount / limit);
-
-  return {
-    destinations,
-    featuredBlogs,
-    blogs,
-    sliderBlogs,
-    categories: uniqueCategories,
-    totalCount,
-    totalPages,
-    currentPage: page,
-  };
-};
-
-// New function for client-side filtering - fetches all blogs at once with caching
+// New function for client-side filtering - fetches all blogs at once
 export const fetchBlogPageDataForClientFilter = async (
   countrySlug?: string | null,
 ) => {
-  const cacheKey = `blogPageData_${countrySlug || "global"}`;
-  const cached = cache.get(cacheKey);
-
-  if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
-    return cached.data;
-  }
-
   const baseWhere = buildBlogWhere({ countrySlug });
 
   const [destinations, featuredBlogs, allBlogs, sliderBlogs, categories] =
@@ -331,16 +224,11 @@ export const fetchBlogPageDataForClientFilter = async (
     .filter((c): c is string => c !== null && c !== undefined)
     .sort();
 
-  const result = {
+  return {
     destinations,
     featuredBlogs,
     allBlogs,
     sliderBlogs,
     categories: uniqueCategories,
   };
-
-  // Cache the result
-  cache.set(cacheKey, { data: result, timestamp: Date.now() });
-
-  return result;
 };
