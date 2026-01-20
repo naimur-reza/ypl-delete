@@ -2,14 +2,13 @@ import { prisma } from "@/lib/prisma";
 import { CountryAwareLink } from "@/components/common/navbar/country-aware-link";
 
 export async function IntakeFeature({
-  intakePageProps,
+  countrySlug,
+  destinationId,
 }: {
-  intakePageProps?: {
-    countrySlug?: string;
-    destinationId?: string;
-    buttonTitle: "View details";
-    buttonUrl: string;
-  };
+  countrySlug?: string;
+  destinationId?: string;
+  buttonTitle?: "View details";
+  buttonUrl?: string;
 }) {
   // Fetch the currently active intake season
   const season = await prisma.intakeSeason.findFirst({
@@ -31,7 +30,7 @@ export async function IntakeFeature({
   const intakePage = season
     ? await prisma.intakePage.findFirst({
         where: {
-          destinationId: intakePageProps?.destinationId,
+          destinationId: destinationId,
         },
         include: {
           destination: {
@@ -92,7 +91,7 @@ export async function IntakeFeature({
           {intakePage?.destinationId && (
             <CountryAwareLink
               href={
-                intakePage.countryId
+                countrySlug
                   ? `/${intakePage?.destination?.slug}/${intakePage.intake.toLowerCase()}`
                   : `/intake/${intakePage.destination.slug}/${intakePage.intake.toLowerCase()}`
               }

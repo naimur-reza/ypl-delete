@@ -1,21 +1,32 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-/**
- * Multi-provider geo-location detection
- * Priority order:
- * 1. Vercel's x-vercel-ip-country header (most accurate on Vercel)
- * 2. Cloudflare's CF-IPCountry header (if using Cloudflare)
- * 3. ipinfo.io API (external service, more accurate than geoip-lite)
- * 4. geoip-lite (local database, last resort)
- */
+// Cache for country lookups to reduce database queries
+const countryCache = new Map<string, { data: any; timestamp: number }>();
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 
 interface GeoResult {
   country: string | null;
   source: string;
 }
 
-async function detectCountryFromHeaders(request: NextRequest): Promise<GeoResult | null> {
+// Fast in-memory cache lookup
+function getCachedCountry(isoCode: string) {
+  const cached = countryCache.get(isoCode);
+  if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+    return cached.data;
+  }
+  return null;
+}
+
+// Cache country lookup result
+function setCachedCountry(isoCode: string, data: any) {
+  countryCache.set(isoCode, { data, timestamp: Date.now() });
+}
+
+async function detectCountryFromHeaders(
+  request: NextRequest,
+): Promise<GeoResult | null> {
   // Check Vercel's geo header first (most reliable on Vercel deployment)
   const vercelCountry = request.headers.get("x-vercel-ip-country");
   if (vercelCountry) {
@@ -31,12 +42,14 @@ async function detectCountryFromHeaders(request: NextRequest): Promise<GeoResult
   return null;
 }
 
-async function detectCountryFromIpinfoApi(ip: string): Promise<GeoResult | null> {
+async function detectCountryFromIpinfoApi(
+  ip: string,
+): Promise<GeoResult | null> {
   try {
     // ipinfo.io free tier - 50k requests/month
     const response = await fetch(`https://ipinfo.io/${ip}/json?token=`, {
       headers: { Accept: "application/json" },
-      signal: AbortSignal.timeout(3000),
+      signal: AbortSignal.timeout(1000), // Reduced timeout to 1 second
     });
 
     if (response.ok) {
@@ -51,7 +64,9 @@ async function detectCountryFromIpinfoApi(ip: string): Promise<GeoResult | null>
   return null;
 }
 
-async function detectCountryFromGeoipLite(ip: string): Promise<GeoResult | null> {
+async function detectCountryFromGeoipLite(
+  ip: string,
+): Promise<GeoResult | null> {
   try {
     const geoip = require("geoip-lite");
     const geo = geoip.lookup(ip);
@@ -69,7 +84,9 @@ export async function GET(request: NextRequest) {
     // Get IP from request headers
     const forwarded = request.headers.get("x-forwarded-for");
     const realIp = request.headers.get("x-real-ip");
-    const ip = forwarded ? forwarded.split(",")[0].trim() : realIp || "127.0.0.1";
+    const ip = forwarded
+      ? forwarded.split(",")[0].trim()
+      : realIp || "127.0.0.1";
 
     // Check if localhost (development mode)
     const isLocalhost =
@@ -102,7 +119,7 @@ export async function GET(request: NextRequest) {
             source: "test-mode",
             message: "Localhost - TEST MODE with Bangladesh",
           },
-          { status: 200 }
+          { status: 200 },
         );
 
         response.cookies.set("detected_geo_origin", testCountry.isoCode, {
@@ -114,8 +131,13 @@ export async function GET(request: NextRequest) {
       }
 
       return NextResponse.json(
-        { country: null, countrySlug: null, ip, message: "Localhost - no test country found" },
-        { status: 200 }
+        {
+          country: null,
+          countrySlug: null,
+          ip,
+          message: "Localhost - no test country found",
+        },
+        { status: 200 },
       );
     }
 
@@ -141,24 +163,34 @@ export async function GET(request: NextRequest) {
           country: null,
           countrySlug: null,
           ip,
-          message: "No geo data found from any provider"
+          message: "No geo data found from any provider",
         },
-        { status: 200 }
+        { status: 200 },
       );
     }
 
-    // Find matching country in database
-    const matchedCountry = await prisma.country.findFirst({
-      where: {
-        isoCode: geoResult.country.toUpperCase(),
-        status: "ACTIVE",
-      },
-      select: {
-        slug: true,
-        name: true,
-        isoCode: true,
-      },
-    });
+    // Find matching country in database - use cache
+    const isoCode = geoResult.country.toUpperCase();
+    let matchedCountry = getCachedCountry(isoCode);
+
+    if (!matchedCountry) {
+      matchedCountry = await prisma.country.findFirst({
+        where: {
+          isoCode: isoCode,
+          status: "ACTIVE",
+        },
+        select: {
+          slug: true,
+          name: true,
+          isoCode: true,
+        },
+      });
+
+      // Cache the result
+      if (matchedCountry) {
+        setCachedCountry(isoCode, matchedCountry);
+      }
+    }
 
     const response = NextResponse.json(
       {
@@ -168,15 +200,19 @@ export async function GET(request: NextRequest) {
         ip,
         source: geoResult.source,
       },
-      { status: 200 }
+      { status: 200 },
     );
 
     // Set cookie for future reference
     if (geoResult.country) {
-      response.cookies.set("detected_geo_origin", geoResult.country.toUpperCase(), {
-        maxAge: 60 * 60 * 24 * 365, // 1 year
-        path: "/",
-      });
+      response.cookies.set(
+        "detected_geo_origin",
+        geoResult.country.toUpperCase(),
+        {
+          maxAge: 60 * 60 * 24 * 365, // 1 year
+          path: "/",
+        },
+      );
     }
 
     return response;
@@ -188,7 +224,7 @@ export async function GET(request: NextRequest) {
         countrySlug: null,
         details: error instanceof Error ? error.message : "Unknown error",
       },
-      { status: 200 }
+      { status: 200 },
     );
   }
 }

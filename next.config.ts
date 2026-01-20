@@ -26,7 +26,7 @@ const nextConfig: NextConfig = {
     },
   },
   experimental: {
-    turbopackFileSystemCacheForDev: true,
+    // turbopackFileSystemCacheForDev: true,
     // Optimize package imports for better code splitting and faster route transitions
     optimizePackageImports: [
       "lucide-react",

@@ -68,7 +68,7 @@ export function DynamicHero({
         // If countrySlug exists, first fetch the country ID
         if (countrySlug) {
           const countryResponse = await fetch(
-            `/api/countries?slug=${countrySlug}`
+            `/api/countries?slug=${countrySlug}`,
           );
           if (countryResponse.ok) {
             const countryData = await countryResponse.json();
@@ -198,7 +198,7 @@ export function DynamicHero({
   return (
     <section
       className={`relative ${
-        isSlider ? "h-[600px] md:h-[750px]" : "h-[60vh] min-h-[400px]"
+        isSlider ? "h-[670px] md:h-[750px]" : "h-[60vh] min-h-[500px]"
       } flex items-center justify-center overflow-hidden bg-slate-900 group`}
     >
       {/* Background Slides */}
@@ -254,7 +254,7 @@ export function DynamicHero({
                 "Global",
               ];
               const shouldHighlight = highlightWords.some((hw) =>
-                word.includes(hw)
+                word.includes(hw),
               );
 
               return (

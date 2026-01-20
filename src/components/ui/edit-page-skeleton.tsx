@@ -50,7 +50,7 @@ export function EditPageSkeleton() {
         </div>
 
         {/* Divider */}
-        <div className="border-t" />
+        <div className="border-t border-border" />
 
         {/* Advanced Fields */}
         <div className="space-y-4">
@@ -76,4 +76,3 @@ export function EditPageSkeleton() {
     </div>
   );
 }
-

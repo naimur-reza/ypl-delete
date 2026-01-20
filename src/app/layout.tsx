@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { GeoRedirect } from "@/components/GeoRedirect";
+import {
+  GeoRedirectOptimized,
+  PerformanceMonitor,
+} from "@/components/ClientComponents";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -22,8 +25,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`}>
-        <GeoRedirect />
         {children}
+        <PerformanceMonitor />
+        <GeoRedirectOptimized />
       </body>
     </html>
   );
