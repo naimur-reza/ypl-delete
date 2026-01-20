@@ -70,20 +70,9 @@ export function HeroSection({
           <Button
             asChild
             size="lg"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg font-semibold min-h-[56px]"
+            className="  text-white px-8 py-4 text-lg font-semibold min-h-[56px]"
           >
             <Link href={ctaUrl}>{ctaLabel}</Link>
-          </Button>
-
-          <Button
-            asChild
-            variant="outline"
-            size="lg"
-            className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 text-lg font-semibold min-h-[56px]"
-          >
-            <Link href={`/${countrySlug ? `${countrySlug}/` : ""}contact`}>
-              Free Counselling
-            </Link>
           </Button>
         </div>
       </div>
