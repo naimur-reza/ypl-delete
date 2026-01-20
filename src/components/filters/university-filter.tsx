@@ -17,8 +17,6 @@ export function UniversityFilter({ onOpenWizard }: UniversityFilterProps = {}) {
   const country = (params?.country as string) || "bd";
 
   const handleSearch = (value: string) => {
-    console.log(`Searching in ${activeTab}:`, value);
-
     // Parse the filter values
     const filters: Record<string, string> = {};
     if (value) {

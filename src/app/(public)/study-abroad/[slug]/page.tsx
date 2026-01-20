@@ -174,7 +174,6 @@ const DestinationDetailsPage = async ({ params }: PageProps) => {
       : undefined,
   });
 
-  console.log(destination);
   return (
     <div className="bg-white">
       <StudyAbroadHero countrySlug={countrySlug || undefined} />

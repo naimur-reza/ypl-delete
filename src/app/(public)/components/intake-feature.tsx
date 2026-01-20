@@ -43,7 +43,6 @@ export async function IntakeFeature({
       })
     : null;
 
-  console.log(intakePage);
   // If no active season, don't render anything
   if (!season) {
     return null;

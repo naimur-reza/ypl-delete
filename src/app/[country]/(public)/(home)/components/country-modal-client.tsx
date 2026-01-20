@@ -45,7 +45,7 @@ const CountryModalClient = ({
   const activeCountrySlug =
     currentCountry || countryFromCookie || currentCountrySlug;
   const currentCountryData = countries.find(
-    (c) => c.slug === activeCountrySlug
+    (c) => c.slug === activeCountrySlug,
   );
   const currentFlag = currentCountryData?.flag;
 
@@ -62,20 +62,17 @@ const CountryModalClient = ({
     // Always navigate to country home page
     const newPath = `/${country.slug}`;
 
-    console.log("🔄 Switching country:", {
-      from: currentCountry,
-      to: country.slug,
-      newPath: newPath,
-    });
-
-    // Close modal first
-    setIsOpen(false);
+    router.push(newPath);
+    router.refresh();
 
     // Use startTransition for smoother navigation and refresh router cache
     startTransition(() => {
       router.push(newPath);
       router.refresh(); // Clear router cache to ensure fresh data
     });
+
+    // Close modal first
+    setIsOpen(false);
   };
 
   const handleGoGlobal = () => {
@@ -91,12 +88,8 @@ const CountryModalClient = ({
     // Always navigate to global home page
     const newPath = "/";
 
-    console.log("🌐 Switching to global:", {
-      from: currentCountry,
-      isCountrySpecific,
-      oldPath: pathname,
-      newPath: newPath,
-    });
+    router.push(newPath);
+    router.refresh();
 
     // Close modal first
     setIsOpen(false);
@@ -149,7 +142,7 @@ const CountryModalClient = ({
           <div className="mt-4 sm:mt-6 grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 place-items-center overflow-y-auto flex-1">
             {/* Global Option */}
             <button
-              className="flex flex-col items-center gap-2 sm:gap-2 hover:scale-105 active:scale-95 transition-transform cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation min-w-[80px] sm:min-w-[100px]"
+              className="flex flex-col items-center gap-2 sm:gap-2 hover:scale-105 active:scale-95 transition-transform cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation min-w-20 sm:min-w-[100px]"
               onClick={handleGoGlobal}
               disabled={isPending}
             >
@@ -174,7 +167,7 @@ const CountryModalClient = ({
             {countries.map((country) => (
               <button
                 key={country.id}
-                className="flex flex-col items-center gap-2 sm:gap-2 hover:scale-105 active:scale-95 transition-transform cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation min-w-[80px] sm:min-w-[100px]"
+                className="flex flex-col items-center gap-2 sm:gap-2 hover:scale-105 active:scale-95 transition-transform cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation min-w-20 sm:min-w-[100px]"
                 onClick={() => handleCountryChange(country)}
                 disabled={isPending}
               >
