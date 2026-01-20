@@ -159,7 +159,7 @@ export default async function ScholarshipDetailsPage({ params }: PageProps) {
       destinationId: scholarship.destinationId,
       universityId: scholarship.universityId || undefined,
     },
-    6
+    6,
   );
 
   const posts = await prisma.blog.findMany({
@@ -242,7 +242,7 @@ export default async function ScholarshipDetailsPage({ params }: PageProps) {
                         year: "numeric",
                         month: "long",
                         day: "numeric",
-                      }
+                      },
                     )}
                   </span>
                 </div>
@@ -349,7 +349,7 @@ export default async function ScholarshipDetailsPage({ params }: PageProps) {
         <FaqSection faqs={faqs} />
 
         {/* Student Review Video Slider + Google My Business Review Slider */}
-        <ReviewSection />
+        <ReviewSection countrySlug={country} />
 
         {/* Related Scholarships Section */}
         {relatedScholarships.length > 0 && (
@@ -359,13 +359,12 @@ export default async function ScholarshipDetailsPage({ params }: PageProps) {
           />
         )}
 
-       <BlogSlider countrySlug={slug} posts={posts} />
+        <BlogSlider countrySlug={slug} posts={posts} />
 
         {/* Book free counselling CTR Section */}
         <CallToActionBanner />
 
         {/* Article Related Scholarships */}
- 
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { BlogCard } from "@/components/cards/blog-card";
@@ -14,7 +14,7 @@ interface Destination {
   slug: string;
 }
 
-interface BlogListClientProps {
+interface BlogListClientOptimizedProps {
   blogs: BlogWithCountry[];
   destinations: Destination[];
   categories: string[];
@@ -22,36 +22,39 @@ interface BlogListClientProps {
   itemsPerPage?: number;
 }
 
-export function BlogListClient({
+export function BlogListClientOptimized({
   blogs,
   destinations,
   categories,
   countrySlug,
   itemsPerPage = 9,
-}: BlogListClientProps) {
+}: BlogListClientOptimizedProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
 
-  const selectedDestination = searchParams.get("destination") || "All";
-  const searchQuery = searchParams.get("search") || "";
-  const selectedCategory = searchParams.get("category") || "All";
-  const currentPage = Number(searchParams.get("page")) || 1;
+  // State for client-side filtering
+  const [filters, setFilters] = useState({
+    destination: searchParams.get("destination") || "All",
+    search: searchParams.get("search") || "",
+    category: searchParams.get("category") || "All",
+    page: Number(searchParams.get("page")) || 1,
+  });
 
-  // Client-side filtering
+  // Client-side filtering with memoization for performance
   const filteredBlogs = useMemo(() => {
     let result = blogs;
 
     // Filter by destination
-    if (selectedDestination !== "All") {
+    if (filters.destination !== "All") {
       result = result.filter(
-        (blog) => blog.destination?.name === selectedDestination,
+        (blog) => blog.destination?.name === filters.destination,
       );
     }
 
     // Filter by search query
-    if (searchQuery) {
-      const searchLower = searchQuery.toLowerCase();
+    if (filters.search) {
+      const searchLower = filters.search.toLowerCase();
       result = result.filter(
         (blog) =>
           blog.title.toLowerCase().includes(searchLower) ||
@@ -61,34 +64,69 @@ export function BlogListClient({
     }
 
     // Filter by category
-    if (selectedCategory !== "All") {
-      result = result.filter((blog) => blog.category === selectedCategory);
+    if (filters.category !== "All") {
+      result = result.filter((blog) => blog.category === filters.category);
     }
 
     return result;
-  }, [blogs, selectedDestination, searchQuery, selectedCategory]);
+  }, [blogs, filters.destination, filters.search, filters.category]);
 
-  // Pagination
-  const totalPages = Math.ceil(filteredBlogs.length / itemsPerPage);
+  // Pagination with memoization
+  const totalPages = useMemo(
+    () => Math.ceil(filteredBlogs.length / itemsPerPage),
+    [filteredBlogs.length, itemsPerPage],
+  );
+
   const paginatedBlogs = useMemo(() => {
-    const start = (currentPage - 1) * itemsPerPage;
+    const start = (filters.page - 1) * itemsPerPage;
     return filteredBlogs.slice(start, start + itemsPerPage);
-  }, [filteredBlogs, currentPage, itemsPerPage]);
+  }, [filteredBlogs, filters.page, itemsPerPage]);
 
-  const handlePageChange = (page: number) => {
-    setIsLoading(true);
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("page", page.toString());
-    router.push(`?${params.toString()}`, { scroll: false });
+  // Optimized filter change handler
+  const handleFilterChange = useCallback(
+    (newFilters: typeof filters) => {
+      setIsLoading(true);
+      setFilters((prev) => ({ ...prev, ...newFilters, page: 1 })); // Reset to page 1 on filter change
 
-    // Reset loading state after a short delay for better UX
-    setTimeout(() => {
-      setIsLoading(false);
-      document
-        .getElementById("blog-grid")
-        ?.scrollIntoView({ behavior: "smooth" });
-    }, 300);
-  };
+      // Update URL for bookmarking/sharing
+      const params = new URLSearchParams();
+      if (newFilters.destination && newFilters.destination !== "All") {
+        params.set("destination", newFilters.destination);
+      }
+      if (newFilters.search) {
+        params.set("search", newFilters.search);
+      }
+      if (newFilters.category && newFilters.category !== "All") {
+        params.set("category", newFilters.category);
+      }
+      params.set("page", "1");
+
+      router.push(`?${params.toString()}`, { scroll: false });
+
+      // Simulate loading state for better UX
+      setTimeout(() => setIsLoading(false), 150);
+    },
+    [router],
+  );
+
+  const handlePageChange = useCallback(
+    (page: number) => {
+      setIsLoading(true);
+      setFilters((prev) => ({ ...prev, page }));
+
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("page", page.toString());
+      router.push(`?${params.toString()}`, { scroll: false });
+
+      setTimeout(() => {
+        setIsLoading(false);
+        document
+          .getElementById("blog-grid")
+          ?.scrollIntoView({ behavior: "smooth" });
+      }, 150);
+    },
+    [router, searchParams],
+  );
 
   return (
     <div id="blog-grid" className="scroll-mt-24">
@@ -97,6 +135,7 @@ export function BlogListClient({
         categories={categories}
         initialCountry={countrySlug === "global" ? null : countrySlug}
       />
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {isLoading ? (
           // Show skeleton cards while loading
@@ -117,17 +156,17 @@ export function BlogListClient({
       </div>
 
       {/* Pagination */}
-      {totalPages > 1 && (
+      {!isLoading && totalPages > 1 && (
         <div className="mt-12 flex flex-col items-center gap-4">
           <p className="text-sm text-slate-500">
-            Showing {(currentPage - 1) * itemsPerPage + 1} to{" "}
-            {Math.min(currentPage * itemsPerPage, filteredBlogs.length)} of{" "}
+            Showing {(filters.page - 1) * itemsPerPage + 1} to{" "}
+            {Math.min(filters.page * itemsPerPage, filteredBlogs.length)} of{" "}
             {filteredBlogs.length} articles
           </p>
           <div className="flex items-center gap-2">
             <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
+              onClick={() => handlePageChange(filters.page - 1)}
+              disabled={filters.page === 1}
               className="px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
               Previous
@@ -138,7 +177,7 @@ export function BlogListClient({
                 onClick={() => handlePageChange(page)}
                 className={cn(
                   "w-10 h-10 rounded-lg text-sm font-medium transition-colors",
-                  currentPage === page
+                  filters.page === page
                     ? "bg-primary text-white"
                     : "border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800",
                 )}
@@ -147,8 +186,8 @@ export function BlogListClient({
               </button>
             ))}
             <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
+              onClick={() => handlePageChange(filters.page + 1)}
+              disabled={filters.page === totalPages}
               className="px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
               Next

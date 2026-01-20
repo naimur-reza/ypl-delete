@@ -181,15 +181,18 @@ const DestinationDetailsPage = async ({ params }: PageProps) => {
         countries={countries}
         destinations={destinations}
       />
-      <IntakeFeature
-        countrySlug={countrySlug as string}
-        destinationId={destination?.id}
-      />
+
       <WhyChooseCountry
         countryName={cleanDestinationName(destination?.name || "")}
         whyChooseContent={destination?.whyChoose}
         sections={destination?.sections || []}
       />
+
+      <IntakeFeature
+        countrySlug={countrySlug as string}
+        destinationId={destination?.id}
+      />
+
       <UniversitySlider
         universities={universities}
         destinationId={destination?.id}

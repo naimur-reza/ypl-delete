@@ -294,7 +294,7 @@ export function DynamicHero({
               }
             >
               <Link href={currentHero.buttonUrl}>
-                <GradientButton>{currentHero.buttonText}</GradientButton>
+                {/* <GradientButton>{currentHero.buttonText}</GradientButton> */}
               </Link>
               {currentHero.learnMoreText && currentHero.learnMoreUrl && (
                 <Link href={currentHero.learnMoreUrl}>

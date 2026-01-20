@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { BlogListClient } from "./components/blog-list-client";
+import { BlogListClientOptimized } from "./components/blog-list-client-optimized";
 import { BlogHero } from "./components/blog-hero";
 import { BlogSlider } from "./components/blog-slider";
 import { RepresentativeVideoSlider } from "@/components/sections/representative-video-slider";
@@ -11,6 +11,7 @@ import { fetchBlogPageDataForClientFilter } from "@/lib/blogs";
 import { fetchRepresentativeVideos } from "@/lib/representative-videos";
 import { buildMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
+import { prisma } from "@/lib/prisma";
 
 export const generateMetadata = async (): Promise<Metadata> =>
   buildMetadata({
@@ -24,11 +25,41 @@ export const generateMetadata = async (): Promise<Metadata> =>
 export const revalidate = 300;
 export const dynamicParams = true;
 
+// Generate static params for better performance
+export async function generateStaticParams() {
+  // Generate static pages for popular destinations and categories
+  const destinations = await prisma.destination.findMany({
+    where: { status: "ACTIVE" },
+    select: { slug: true },
+    take: 10, // Limit to top 10 destinations
+  });
+
+  const categories = await prisma.blog.findMany({
+    where: {
+      category: { not: null },
+      status: "ACTIVE",
+    },
+    select: { category: true },
+    distinct: ["category"],
+    take: 10, // Limit to top 10 categories
+  });
+
+  const params: { country?: string | undefined }[] = [{ country: undefined }]; // Default global page
+
+  // Add destination-specific pages
+  destinations.forEach((destination) => {
+    params.push({ country: destination.slug as string });
+  });
+
+  return params;
+}
+
 type PageProps = {
   params?: Promise<{ country?: string }>;
 };
 
 export default async function BlogsPage({ params }: PageProps) {
+  const country = (await params)?.country;
   const resolvedParams = (await params) ?? { country: null };
   const resolvedCountry = await resolveCountryContext(resolvedParams.country);
 
@@ -39,12 +70,10 @@ export default async function BlogsPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
-      {/* Animated background elements */}
+      {/* Reduced animated background elements for better performance */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute top-40 right-20 w-48 h-48 bg-accent/5 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div className="absolute bottom-20 left-1/3 w-56 h-56 bg-blue-500/5 rounded-full blur-3xl animate-pulse delay-500" />
-        <div className="absolute top-1/2 right-1/4 w-40 h-40 bg-purple-500/5 rounded-full blur-3xl animate-pulse delay-700" />
+        <div className="absolute top-20 left-10 w-64 h-64 bg-primary/3 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 left-1/3 w-56 h-56 bg-blue-500/3 rounded-full blur-3xl animate-pulse delay-500" />
       </div>
 
       <Suspense fallback={<div className="h-96"></div>}>
@@ -59,7 +88,7 @@ export default async function BlogsPage({ params }: PageProps) {
 
         <section className="py-16 md:py-16 bg-background relative">
           <div className="container mx-auto px-4 relative z-10">
-            <BlogListClient
+            <BlogListClientOptimized
               blogs={allBlogs}
               destinations={destinations}
               categories={categories}
@@ -67,10 +96,6 @@ export default async function BlogsPage({ params }: PageProps) {
               itemsPerPage={9}
             />
           </div>
-
-          {/* Floating elements */}
-          <div className="absolute top-10 right-10 w-20 h-20 bg-primary/10 rounded-full blur-2xl animate-pulse delay-300" />
-          <div className="absolute bottom-10 left-10 w-16 h-16 bg-accent/10 rounded-full blur-2xl animate-pulse delay-600" />
         </section>
 
         <section className="py-12 bg-background relative overflow-hidden">
@@ -83,7 +108,7 @@ export default async function BlogsPage({ params }: PageProps) {
         </section>
       </Suspense>
 
-      <ReviewSection />
+      <ReviewSection countrySlug={country} />
 
       <RepresentativeVideoSlider videos={videos} />
 
