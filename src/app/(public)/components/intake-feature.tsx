@@ -1,7 +1,16 @@
 import { prisma } from "@/lib/prisma";
 import { CountryAwareLink } from "@/components/common/navbar/country-aware-link";
 
-export async function IntakeFeature() {
+export async function IntakeFeature({
+  intakePageProps,
+}: {
+  intakePageProps?: {
+    countrySlug?: string;
+    destinationId?: string;
+    buttonTitle: "View details";
+    buttonUrl: string;
+  };
+}) {
   // Fetch the currently active intake season
   const season = await prisma.intakeSeason.findFirst({
     where: { status: "ACTIVE" },
@@ -19,6 +28,22 @@ export async function IntakeFeature() {
     },
   });
 
+  const intakePage = season
+    ? await prisma.intakePage.findFirst({
+        where: {
+          destinationId: intakePageProps?.destinationId,
+        },
+        include: {
+          destination: {
+            select: {
+              slug: true,
+            },
+          },
+        },
+      })
+    : null;
+
+  console.log(intakePage);
   // If no active season, don't render anything
   if (!season) {
     return null;
@@ -53,7 +78,9 @@ export async function IntakeFeature() {
           )}
 
           {/* Main headline */}
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">{season.title}</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">
+            {season.title}
+          </h2>
 
           {/* Description */}
           {season.description && (
@@ -63,12 +90,18 @@ export async function IntakeFeature() {
           )}
 
           {/* CTA Button */}
-          <CountryAwareLink
-            href={season.ctaUrl || "/apply-now"}
-            className="bg-primary hover:bg-primary/90 active:bg-primary/80 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 md:px-10 rounded-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 text-base sm:text-lg cursor-pointer inline-block touch-manipulation min-h-[44px] flex items-center justify-center"
-          >
-            {season.ctaLabel || "Apply Now"}
-          </CountryAwareLink>
+          {intakePage?.destinationId && (
+            <CountryAwareLink
+              href={
+                intakePage.countryId
+                  ? `/${intakePage?.destination?.slug}/${intakePage.intake.toLowerCase()}`
+                  : `/intake/${intakePage.destination.slug}/${intakePage.intake.toLowerCase()}`
+              }
+              className="bg-primary hover:bg-primary/90 active:bg-primary/80 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 md:px-10 rounded-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 text-base sm:text-lg cursor-pointer inline-block touch-manipulation min-h-[44px] flex items-center justify-center"
+            >
+              View Details
+            </CountryAwareLink>
+          )}
         </div>
       </div>
     </section>

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { CountryAwareLink } from "../common/navbar/country-aware-link";
 
 interface HeroSectionProps {
   title?: string;
@@ -72,7 +73,7 @@ export function HeroSection({
             size="lg"
             className="  text-white px-8 py-4 text-lg font-semibold min-h-[56px]"
           >
-            <Link href={ctaUrl}>{ctaLabel}</Link>
+            <CountryAwareLink href={ctaUrl}>{ctaLabel}</CountryAwareLink>
           </Button>
         </div>
       </div>

@@ -549,7 +549,7 @@ export function IntakePageForm({
               {benefits.map((benefit, index) => (
                 <div
                   key={index}
-                  className="flex gap-3 items-start p-4 bg-muted/50 rounded-lg border"
+                  className="flex gap-3 items-start p-4 bg-muted/40 rounded-lg border border-border"
                 >
                   <div className="flex-shrink-0 mt-2 text-muted-foreground cursor-grab">
                     <GripVertical className="h-4 w-4" />
@@ -689,7 +689,7 @@ export function IntakePageForm({
             {helpSteps.map((step, index) => (
               <div
                 key={index}
-                className="flex gap-3 items-start p-4 bg-muted/50 rounded-lg border"
+                className="flex gap-3 items-start p-4 bg-muted/40 rounded-lg border border-border"
               >
                 <div className="flex-shrink-0 mt-2">
                   <div className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-bold">
