@@ -13,6 +13,7 @@ export const blogSchema = z.object({
   category: z.string().max(50).optional().nullable(),
   publishedAt: z.string().optional().nullable(),
   isFeatured: z.boolean().optional(),
+  isGlobal: z.boolean().optional().default(false),
   destinationId: z.string().min(1, "Destination is required"),
   status: z.enum(["ACTIVE", "DRAFT"]).default("ACTIVE"),
   countryIds: z.array(z.string()).optional().nullable(),

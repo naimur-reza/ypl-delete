@@ -45,20 +45,36 @@ export const fetchUpcomingEvents = async ({
 }: EventPageQuery): Promise<EventWithRelations[]> => {
   const now = new Date();
 
-  const where: Prisma.EventWhereInput = {
-    startDate: { gte: now },
-    status: "ACTIVE",
-    ...(featuredOnly ? { isFeatured: true } : {}),
-    ...(countrySlug
-      ? {
+  // Build country/global filter
+  let countryFilter: Prisma.EventWhereInput = {};
+  if (countrySlug) {
+    // When on a country route, show country-specific events OR global events
+    countryFilter = {
+      OR: [
+        {
           countries: {
             some: {
               country: { slug: countrySlug },
             },
           },
-        }
-      : {}),
-      
+        },
+        {
+          isGlobal: true,
+        },
+      ],
+    };
+  } else {
+    // When on global route (no countrySlug), show only global events
+    countryFilter = {
+      isGlobal: true,
+    };
+  }
+
+  const where: Prisma.EventWhereInput = {
+    startDate: { gte: now },
+    status: "ACTIVE",
+    ...(featuredOnly ? { isFeatured: true } : {}),
+    ...countryFilter,
   };
 
   return prisma.event.findMany({
@@ -101,18 +117,35 @@ export const fetchPastEvents = async ({
 }: EventPageQuery): Promise<EventWithRelations[]> => {
   const now = new Date();
 
-  const where: Prisma.EventWhereInput = {
-    startDate: { lt: now },
-    status: "ACTIVE",
-    ...(countrySlug
-      ? {
+  // Build country/global filter
+  let countryFilter: Prisma.EventWhereInput = {};
+  if (countrySlug) {
+    // When on a country route, show country-specific events OR global events
+    countryFilter = {
+      OR: [
+        {
           countries: {
             some: {
               country: { slug: countrySlug },
             },
           },
-        }
-      : {}),
+        },
+        {
+          isGlobal: true,
+        },
+      ],
+    };
+  } else {
+    // When on global route (no countrySlug), show only global events
+    countryFilter = {
+      isGlobal: true,
+    };
+  }
+
+  const where: Prisma.EventWhereInput = {
+    startDate: { lt: now },
+    status: "ACTIVE",
+    ...countryFilter,
   };
 
   return prisma.event.findMany({

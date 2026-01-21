@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Search } from "lucide-react";
+import { Search, ChevronDown, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useDebouncedCallback } from "use-debounce";
 
@@ -14,23 +14,49 @@ interface Destination {
 
 interface BlogHeroProps {
   destinations: Destination[];
+  categories?: string[];
 }
 
-export function BlogHero({ destinations }: BlogHeroProps) {
+export function BlogHero({ destinations, categories = [] }: BlogHeroProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const initialDestination = searchParams.get("destination") || "All";
   const initialSearch = searchParams.get("search") || "";
+  const initialCategory = searchParams.get("category") || "All";
 
   const [selectedDestination, setSelectedDestination] =
     useState(initialDestination);
   const [searchQuery, setSearchQuery] = useState(initialSearch);
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [dropdownPosition, setDropdownPosition] = useState({
+    top: 0,
+    left: 0,
+    width: 0,
+  });
 
-  // Sync state with URL if URL changes externally (e.g. back button)
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Sync state with URL if URL changes externally (e.g back button)
   useEffect(() => {
     setSelectedDestination(searchParams.get("destination") || "All");
     setSearchQuery(searchParams.get("search") || "");
+    setSelectedCategory(searchParams.get("category") || "All");
   }, [searchParams]);
 
   const updateUrl = (key: string, value: string) => {
@@ -51,6 +77,12 @@ export function BlogHero({ destinations }: BlogHeroProps) {
     updateUrl("destination", destinationName);
   };
 
+  const handleCategoryChange = (categoryName: string) => {
+    setSelectedCategory(categoryName);
+    updateUrl("category", categoryName);
+    setIsDropdownOpen(false);
+  };
+
   const handleSearch = useDebouncedCallback((term: string) => {
     updateUrl("search", term);
   }, 300);
@@ -61,73 +93,159 @@ export function BlogHero({ destinations }: BlogHeroProps) {
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-center py-10 text-center space-y-8 relative">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-10 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute top-20 right-20 w-40 h-40 bg-accent/10 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div className="absolute bottom-10 left-1/4 w-36 h-36 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-500" />
-      </div>
-
+    <div className="w-full flex flex-col items-center justify-center py-16 md:py-20 text-center space-y-10 relative">
+      {/* Main content */}
       <div className="relative z-10">
-        <h1 className="text-4xl md:text-6xl font-bold   tracking-tight mb-4">
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-slate-900 dark:text-white">
           Explore more study guides
         </h1>
-        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+        <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto font-medium">
           Discover insights, tips, and stories from students worldwide
         </p>
       </div>
 
+      {/* Destination buttons */}
       <div className="flex flex-wrap justify-center gap-3 relative z-10">
         <button
           onClick={() => handleDestinationChange("All")}
           className={cn(
-            "px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 border transform hover:scale-105 hover:shadow-lg",
+            "px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 border transform hover:scale-105 hover:shadow-md",
             selectedDestination === "All"
-              ? "bg-linear-to-r from-primary to-primary/90 text-white border-primary shadow-lg shadow-primary/25 ring-2 ring-primary/20"
-              : "bg-white/80 backdrop-blur-sm border-slate-200 text-slate-600 hover:bg-white hover:border-primary/30 hover:text-primary hover:shadow-primary/10 dark:bg-slate-800/80 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-700/80",
+              ? "bg-red-500 text-white border-red-500 shadow-md shadow-red-500/20"
+              : "bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-400 dark:hover:border-slate-600",
           )}
         >
           All
         </button>
-        {destinations.map((destination, index) => (
+        {destinations.map((destination) => (
           <button
             key={destination.id}
             onClick={() => handleDestinationChange(destination.name)}
             className={cn(
-              "px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 border transform hover:scale-105 hover:shadow-lg",
+              "px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 border transform hover:scale-105 hover:shadow-md",
               selectedDestination === destination.name
-                ? "bg-linear-to-r from-primary to-primary/90 text-white border-primary shadow-lg shadow-primary/25 ring-2 ring-primary/20"
-                : "bg-white/80 backdrop-blur-sm border-slate-200 text-slate-600 hover:bg-white hover:border-primary/30 hover:text-primary hover:shadow-primary/10 dark:bg-slate-800/80 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-700/80",
+                ? "bg-red-500 text-white border-red-500 shadow-md shadow-red-500/20"
+                : "bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-400 dark:hover:border-slate-600",
             )}
-            style={{
-              animationDelay: `${index * 100}ms`,
-            }}
           >
             {destination.name}
           </button>
         ))}
       </div>
 
-      <div className="w-full max-w-2xl px-4 relative z-10">
-        <div className="relative group">
-          <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-            <Search className="h-5 w-5 text-slate-400 group-focus-within:text-primary transition-all duration-300 group-focus-within:scale-110" />
-          </div>
-          <input
-            type="text"
-            placeholder="Search guides..."
-            value={searchQuery}
-            onChange={(e) => handleSearchChange(e.target.value)}
-            className="w-full pl-12 pr-16 py-4 bg-white/80 backdrop-blur-sm dark:bg-slate-900/80 border border-slate-200/60 dark:border-slate-700/60 rounded-2xl shadow-sm focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 text-lg placeholder-slate-400 hover:bg-white hover:shadow-md hover:border-slate-300/80 dark:hover:bg-slate-900/90 dark:hover:border-slate-600/80"
-          />
-          <div className="absolute inset-y-2 right-2">
-            <button className="h-full aspect-square bg-linear-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-white rounded-xl flex items-center justify-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-primary/25 group">
-              <Search className="h-5 w-5 group-hover:rotate-12 transition-transform duration-300" />
+      {/* Search and Filter section */}
+      <div
+        className="w-full max-w-5xl px-4 z-10"
+        style={{ overflow: "visible" }}
+      >
+        <div
+          className="flex gap-3 flex-col sm:flex-row items-stretch"
+          style={{ overflow: "visible" }}
+        >
+          {/* Search bar */}
+          <div className="flex-1 relative group">
+            <input
+              type="text"
+              placeholder="Search guides..."
+              value={searchQuery}
+              onChange={(e) => handleSearchChange(e.target.value)}
+              className="w-full px-6 py-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all duration-300 text-base placeholder-slate-400 dark:placeholder-slate-500"
+            />
+            <button className="absolute right-2 top-1/2 -translate-y-1/2 bg-red-500 hover:bg-red-600 text-white rounded-full p-3 transition-all duration-300 hover:shadow-lg hover:shadow-red-500/25">
+              <Search className="h-5 w-5" />
             </button>
           </div>
-          {/* Animated border effect */}
-          <div className="absolute inset-0 rounded-2xl bg-linear-to-r from-primary via-accent to-primary opacity-0 group-focus-within:opacity-20 transition-opacity duration-300 pointer-events-none" />
+
+          {/* Category Filter Dropdown */}
+          <div
+            className="relative w-full sm:w-80"
+            ref={dropdownRef}
+            style={{ overflow: "visible" }}
+          >
+            <button
+              onClick={() => {
+                if (dropdownRef.current) {
+                  const rect = dropdownRef.current.getBoundingClientRect();
+                  setDropdownPosition({
+                    top: rect.bottom + window.scrollY,
+                    left: rect.left,
+                    width: rect.width,
+                  });
+                }
+                setIsDropdownOpen(!isDropdownOpen);
+              }}
+              className={cn(
+                "w-full flex items-center justify-between gap-2 px-5 py-4 rounded-full border-2 font-semibold text-sm transition-all duration-300 shadow-md",
+                isDropdownOpen
+                  ? "border-red-500 bg-red-50 dark:bg-red-950/20 shadow-lg"
+                  : "border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-slate-400 dark:hover:border-slate-600 hover:shadow-lg",
+              )}
+            >
+              <div className="flex items-center gap-2 min-w-0">
+                <Search className="w-4 h-4 text-slate-400 shrink-0" />
+                <span className="text-slate-700 dark:text-slate-300 truncate text-sm">
+                  {selectedCategory === "All" ? "All Blogs" : selectedCategory}
+                </span>
+              </div>
+              <ChevronDown
+                className={cn(
+                  "w-4 h-4 shrink-0 text-slate-400 transition-transform duration-300",
+                  isDropdownOpen ? "rotate-180" : "",
+                )}
+              />
+            </button>
+
+            {/* Dropdown Menu - Using fixed positioning to escape constraints */}
+            {isDropdownOpen && (
+              <div
+                className="fixed bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg shadow-xl z-50"
+                style={{
+                  top: `${dropdownPosition.top}px`,
+                  left: `${dropdownPosition.left}px`,
+                  width: `${dropdownPosition.width}px`,
+                  maxHeight: "320px",
+                  overflow: "hidden",
+                }}
+              >
+                <div className="max-h-80 overflow-y-auto overflow-x-hidden">
+                  {/* All Blogs Option */}
+                  <button
+                    onClick={() => handleCategoryChange("All")}
+                    className={cn(
+                      "w-full text-left px-5 py-3 text-sm font-semibold transition-colors duration-200",
+                      selectedCategory === "All"
+                        ? "bg-red-500 text-white"
+                        : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800",
+                    )}
+                  >
+                    All Blogs
+                  </button>
+
+                  {/* Category Items */}
+                  {categories && categories.length > 0 ? (
+                    categories.map((category) => (
+                      <button
+                        key={category}
+                        onClick={() => handleCategoryChange(category)}
+                        className={cn(
+                          "w-full text-left px-5 py-3 text-sm font-semibold transition-colors duration-200",
+                          selectedCategory === category
+                            ? "bg-red-500 text-white"
+                            : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800",
+                        )}
+                      >
+                        {category}
+                      </button>
+                    ))
+                  ) : (
+                    <div className="px-5 py-3 text-sm text-slate-500 dark:text-slate-400">
+                      No categories available
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

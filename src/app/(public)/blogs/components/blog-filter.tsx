@@ -1,9 +1,9 @@
 "use client";
 
-import { Search } from "lucide-react";
+import { Search, ChevronDown, X } from "lucide-react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
-import { useDebouncedCallback } from "use-debounce";
 import { cn } from "@/lib/utils";
+import { useState, useRef, useEffect } from "react";
 
 interface BlogFilterProps {
   countries: { id: string; name: string }[];
@@ -19,39 +19,25 @@ export function BlogFilter({
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Get country from URL params - if 'all' param exists, use All;
-  // if 'country' param exists, use that; otherwise use initialCountry
-  const urlCountry = searchParams.get("country");
-  const isAllSelected =
-    searchParams.has("all") || (urlCountry === null && !initialCountry);
-  const currentCountry = isAllSelected
-    ? "All"
-    : urlCountry || initialCountry || "All";
-  const currentSearch = searchParams.get("search") || "";
   const currentCategory = searchParams.get("category") || "All";
 
-  const handleSearch = useDebouncedCallback((term: string) => {
-    const params = new URLSearchParams(searchParams);
-    if (term) {
-      params.set("search", term);
-    } else {
-      params.delete("search");
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
     }
-    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
-  }, 300);
 
-  const handleCountryChange = (countryName: string) => {
-    const params = new URLSearchParams(searchParams);
-    if (countryName === "All") {
-      params.delete("country");
-      params.set("all", "true"); // Explicitly mark All as selected
-    } else {
-      params.set("country", countryName);
-      params.delete("all");
-    }
-    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
-  };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const handleCategoryChange = (categoryName: string) => {
     const params = new URLSearchParams(searchParams);
@@ -61,71 +47,90 @@ export function BlogFilter({
       params.set("category", categoryName);
     }
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+    setIsDropdownOpen(false);
+  };
+
+  const clearFilter = () => {
+    const params = new URLSearchParams(searchParams);
+    params.delete("category");
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+    setIsDropdownOpen(false);
   };
 
   return (
-    <div className="space-y-8 mb-12">
-      <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-        {/* Country Tabs */}
-        {/* <div className="flex flex-wrap gap-2">
-          <button
-            onClick={() => handleCountryChange("All")}
+    <div className="flex items-center justify-center gap-2">
+      {/* Category Filter Dropdown */}
+      <div className="relative w-full max-w-sm" ref={dropdownRef}>
+        <button
+          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          className={cn(
+            "w-full flex items-center justify-between gap-2 px-5 py-3 rounded-full border-2 font-semibold text-sm transition-all duration-300 shadow-md",
+            isDropdownOpen
+              ? "border-primary bg-primary/5 shadow-lg"
+              : "border-slate-300 bg-white hover:border-slate-400 hover:shadow-lg",
+          )}
+        >
+          <div className="flex items-center gap-2">
+            <Search className="w-4 h-4 text-slate-400 flex-shrink-0" />
+            <span className="text-slate-700 truncate text-sm">
+              {currentCategory === "All" ? "All Blogs" : currentCategory}
+            </span>
+          </div>
+          <ChevronDown
             className={cn(
-              "px-4 py-2 rounded-full text-sm font-medium transition-all duration-300",
-              currentCountry === "All"
-                ? "bg-primary text-white shadow-lg shadow-primary/25"
-                : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700",
+              "w-4 h-4 flex-shrink-0 text-slate-400 transition-transform duration-300",
+              isDropdownOpen ? "rotate-180" : "",
             )}
-          >
-            All
-          </button>
-          {countries.map((country) => (
-            <button
-              key={country.id}
-              onClick={() => handleCountryChange(country.name)}
-              className={cn(
-                "px-4 py-2 rounded-full text-sm font-medium transition-all duration-300",
-                currentCountry === country.name
-                  ? "bg-primary text-white shadow-lg shadow-primary/25"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700",
-              )}
-            >
-              {country.name}
-            </button>
-          ))}
-        </div> */}
+          />
+        </button>
 
-        {/* Category Tabs */}
-        {categories.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            <button
-              onClick={() => handleCategoryChange("All")}
-              className={cn(
-                "px-4 py-2 rounded-full cursor-pointer text-sm font-medium transition-all duration-300",
-                currentCategory === "All"
-                  ? "bg-secondary text-white shadow-lg shadow-secondary/25"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700",
-              )}
-            >
-              All Categories
-            </button>
-            {categories.map((category) => (
+        {/* Dropdown Menu */}
+        {isDropdownOpen && (
+          <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-slate-300 rounded-lg shadow-xl z-50 overflow-hidden">
+            <div className="max-h-80 overflow-y-auto">
+              {/* All Blogs Option */}
               <button
-                key={category}
-                onClick={() => handleCategoryChange(category)}
+                onClick={() => handleCategoryChange("All")}
                 className={cn(
-                  "px-4 py-2 rounded-full cursor-pointer text-sm font-medium transition-all duration-300",
-                  currentCategory === category
-                    ? "bg-secondary text-white shadow-lg shadow-secondary/25"
-                    : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700",
+                  "w-full text-left px-5 py-3 text-sm font-semibold transition-colors duration-200",
+                  currentCategory === "All"
+                    ? "bg-primary text-white"
+                    : "text-slate-700 hover:bg-slate-100",
                 )}
               >
-                {category}
+                All Blogs
               </button>
-            ))}
+
+              {/* Category Items */}
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => handleCategoryChange(category)}
+                  className={cn(
+                    "w-full text-left px-5 py-3 text-sm font-semibold transition-colors duration-200",
+                    currentCategory === category
+                      ? "bg-primary text-white"
+                      : "text-slate-700 hover:bg-slate-100",
+                  )}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
           </div>
         )}
       </div>
+
+      {/* Clear Button */}
+      {currentCategory !== "All" && (
+        <button
+          onClick={clearFilter}
+          className="p-2.5 hover:bg-slate-100 rounded-full transition-colors flex-shrink-0"
+          aria-label="Clear filter"
+        >
+          <X className="w-5 h-5 text-slate-400 hover:text-slate-600" />
+        </button>
+      )}
     </div>
   );
 }

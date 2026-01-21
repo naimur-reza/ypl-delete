@@ -88,6 +88,7 @@ export async function POST(req: NextRequest) {
         city,
         isFeatured: isFeatured || false,
         universityId: universityId || null,
+        isGlobal: body.isGlobal || false,
         banner: banner || null,
         metaTitle,
         metaDescription,
@@ -131,7 +132,7 @@ export async function PUT(req: NextRequest) {
   if (!canManageContent(session)) return forbiddenResponse();
 
   const body = await req.json();
-  const { id, countryIds, destinationIds, ...data } = body;
+  const { id, countryIds, destinationIds, universityId, isGlobal, ...data } = body;
 
   if (!id) {
     return Response.json({ error: "ID is required" }, { status: 400 });
@@ -157,6 +158,10 @@ export async function PUT(req: NextRequest) {
         where: { id },
         data: {
           ...data,
+          isGlobal: isGlobal ?? false,
+          university: universityId 
+            ? { connect: { id: universityId } } 
+            : { disconnect: true },
           countries: countryIds?.length
             ? {
                 create: (countryIds || []).map((countryId: string) => ({

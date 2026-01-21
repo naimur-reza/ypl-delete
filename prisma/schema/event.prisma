@@ -26,6 +26,7 @@ model Event {
   universityId           String?
   successSummary         String?
   status                 ContentStatus       @default(ACTIVE)
+  isGlobal               Boolean             @default(false)
   appointments           Appointment[]
   destinations           EventDestination[]
   university             University?         @relation(fields: [universityId], references: [id])

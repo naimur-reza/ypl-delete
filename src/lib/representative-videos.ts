@@ -13,18 +13,35 @@ export type RepresentativeVideo = {
 export const fetchRepresentativeVideos = async (
   countrySlug?: string | null
 ): Promise<RepresentativeVideo[]> => {
-  const baseQuery = {
+  // Build country/global filter
+  let countryFilter: any = {};
+  if (countrySlug) {
+    // When on a country route, show country-specific videos OR global videos
+    countryFilter = {
+      OR: [
+        {
+          countries: {
+            some: { country: { slug: countrySlug } },
+          },
+        },
+        {
+          isGlobal: true,
+        },
+      ],
+    };
+  } else {
+    // When on global route (no countrySlug), show only global videos
+    countryFilter = {
+      isGlobal: true,
+    };
+  }
+
+  return prisma.testimonial.findMany({
     where: {
       status: "ACTIVE" as any,
       type: "REPRESENTATIVE" as const,
       mediaType: "VIDEO" as const,
-      ...(countrySlug
-        ? {
-            countries: {
-              some: { country: { slug: countrySlug } },
-            },
-          }
-        : {}),
+      ...countryFilter,
     },
     select: {
       id: true,
@@ -40,21 +57,6 @@ export const fetchRepresentativeVideos = async (
     },
     orderBy: { order: "asc" as const },
     take: 12,
-  };
-
-  const scoped = await prisma.testimonial.findMany(baseQuery);
-
-  if (scoped.length > 0 || !countrySlug) {
-    return scoped;
-  }
-
-  // Fallback to global set when no matches for country-specific query
-  return prisma.testimonial.findMany({
-    ...baseQuery,
-    where: {
-      status: "ACTIVE" as any,
-      type: "REPRESENTATIVE" as const,
-      mediaType: "VIDEO" as const,
-    },
   });
 };
+

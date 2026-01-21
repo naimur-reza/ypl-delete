@@ -164,6 +164,7 @@ export const BlogScalarFieldEnum = {
   category: 'category',
   publishedAt: 'publishedAt',
   isFeatured: 'isFeatured',
+  isGlobal: 'isGlobal',
   metaTitle: 'metaTitle',
   metaDescription: 'metaDescription',
   metaKeywords: 'metaKeywords',
@@ -193,7 +194,8 @@ export const ServiceScalarFieldEnum = {
   heroSubtitle: 'heroSubtitle',
   heroTitle: 'heroTitle',
   stats: 'stats',
-  status: 'status'
+  status: 'status',
+  isGlobal: 'isGlobal'
 } as const
 
 export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
@@ -208,7 +210,8 @@ export const AccreditationScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   type: 'type',
-  status: 'status'
+  status: 'status',
+  isGlobal: 'isGlobal'
 } as const
 
 export type AccreditationScalarFieldEnum = (typeof AccreditationScalarFieldEnum)[keyof typeof AccreditationScalarFieldEnum]
@@ -285,6 +288,7 @@ export const CourseScalarFieldEnum = {
   icon: 'icon',
   image: 'image',
   summary: 'summary',
+  sections: 'sections',
   faculty: 'faculty',
   studyLevel: 'studyLevel',
   status: 'status'
@@ -364,6 +368,7 @@ export const EventScalarFieldEnum = {
   universityId: 'universityId',
   successSummary: 'successSummary',
   status: 'status',
+  isGlobal: 'isGlobal',
   destinationId: 'destinationId'
 } as const
 
@@ -445,7 +450,8 @@ export const GalleryScalarFieldEnum = {
   sortOrder: 'sortOrder',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  status: 'status'
+  status: 'status',
+  isGlobal: 'isGlobal'
 } as const
 
 export type GalleryScalarFieldEnum = (typeof GalleryScalarFieldEnum)[keyof typeof GalleryScalarFieldEnum]
@@ -465,7 +471,8 @@ export const HeroScalarFieldEnum = {
   order: 'order',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  status: 'status'
+  status: 'status',
+  isGlobal: 'isGlobal'
 } as const
 
 export type HeroScalarFieldEnum = (typeof HeroScalarFieldEnum)[keyof typeof HeroScalarFieldEnum]
@@ -577,7 +584,8 @@ export const GlobalOfficeScalarFieldEnum = {
   bannerImage: 'bannerImage',
   image: 'image',
   openingHours: 'openingHours',
-  status: 'status'
+  status: 'status',
+  isGlobal: 'isGlobal'
 } as const
 
 export type GlobalOfficeScalarFieldEnum = (typeof GlobalOfficeScalarFieldEnum)[keyof typeof GlobalOfficeScalarFieldEnum]
@@ -616,7 +624,8 @@ export const DestinationScalarFieldEnum = {
   metaKeywords: 'metaKeywords',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  status: 'status'
+  status: 'status',
+  isGlobal: 'isGlobal'
 } as const
 
 export type DestinationScalarFieldEnum = (typeof DestinationScalarFieldEnum)[keyof typeof DestinationScalarFieldEnum]
@@ -631,7 +640,8 @@ export const EssentialStudyScalarFieldEnum = {
   destinationId: 'destinationId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  status: 'status'
+  status: 'status',
+  isGlobal: 'isGlobal'
 } as const
 
 export type EssentialStudyScalarFieldEnum = (typeof EssentialStudyScalarFieldEnum)[keyof typeof EssentialStudyScalarFieldEnum]
@@ -896,7 +906,8 @@ export const ScholarshipScalarFieldEnum = {
   universityId: 'universityId',
   destinationId: 'destinationId',
   summary: 'summary',
-  status: 'status'
+  status: 'status',
+  isGlobal: 'isGlobal'
 } as const
 
 export type ScholarshipScalarFieldEnum = (typeof ScholarshipScalarFieldEnum)[keyof typeof ScholarshipScalarFieldEnum]
@@ -937,7 +948,8 @@ export const StatScalarFieldEnum = {
   sortOrder: 'sortOrder',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  status: 'status'
+  status: 'status',
+  isGlobal: 'isGlobal'
 } as const
 
 export type StatScalarFieldEnum = (typeof StatScalarFieldEnum)[keyof typeof StatScalarFieldEnum]
@@ -967,7 +979,8 @@ export const TestimonialScalarFieldEnum = {
   order: 'order',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  status: 'status'
+  status: 'status',
+  isGlobal: 'isGlobal'
 } as const
 
 export type TestimonialScalarFieldEnum = (typeof TestimonialScalarFieldEnum)[keyof typeof TestimonialScalarFieldEnum]
@@ -996,7 +1009,8 @@ export const UniversityScalarFieldEnum = {
   createdBy: 'createdBy',
   updatedBy: 'updatedBy',
   destinationId: 'destinationId',
-  status: 'status'
+  status: 'status',
+  isGlobal: 'isGlobal'
 } as const
 
 export type UniversityScalarFieldEnum = (typeof UniversityScalarFieldEnum)[keyof typeof UniversityScalarFieldEnum]

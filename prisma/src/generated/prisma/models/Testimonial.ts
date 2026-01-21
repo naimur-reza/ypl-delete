@@ -52,6 +52,7 @@ export type TestimonialMinAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   status: $Enums.ContentStatus | null
+  isGlobal: boolean | null
 }
 
 export type TestimonialMaxAggregateOutputType = {
@@ -70,6 +71,7 @@ export type TestimonialMaxAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   status: $Enums.ContentStatus | null
+  isGlobal: boolean | null
 }
 
 export type TestimonialCountAggregateOutputType = {
@@ -88,6 +90,7 @@ export type TestimonialCountAggregateOutputType = {
   createdAt: number
   updatedAt: number
   status: number
+  isGlobal: number
   _all: number
 }
 
@@ -118,6 +121,7 @@ export type TestimonialMinAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   status?: true
+  isGlobal?: true
 }
 
 export type TestimonialMaxAggregateInputType = {
@@ -136,6 +140,7 @@ export type TestimonialMaxAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   status?: true
+  isGlobal?: true
 }
 
 export type TestimonialCountAggregateInputType = {
@@ -154,6 +159,7 @@ export type TestimonialCountAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   status?: true
+  isGlobal?: true
   _all?: true
 }
 
@@ -259,6 +265,7 @@ export type TestimonialGroupByOutputType = {
   createdAt: Date
   updatedAt: Date
   status: $Enums.ContentStatus
+  isGlobal: boolean
   _count: TestimonialCountAggregateOutputType | null
   _avg: TestimonialAvgAggregateOutputType | null
   _sum: TestimonialSumAggregateOutputType | null
@@ -300,6 +307,7 @@ export type TestimonialWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Testimonial"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Testimonial"> | Date | string
   status?: Prisma.EnumContentStatusFilter<"Testimonial"> | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFilter<"Testimonial"> | boolean
   countries?: Prisma.TestimonialCountryListRelationFilter
   destinations?: Prisma.TestimonialDestinationListRelationFilter
   events?: Prisma.TestimonialEventListRelationFilter
@@ -322,6 +330,7 @@ export type TestimonialOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
   countries?: Prisma.TestimonialCountryOrderByRelationAggregateInput
   destinations?: Prisma.TestimonialDestinationOrderByRelationAggregateInput
   events?: Prisma.TestimonialEventOrderByRelationAggregateInput
@@ -347,6 +356,7 @@ export type TestimonialWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Testimonial"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Testimonial"> | Date | string
   status?: Prisma.EnumContentStatusFilter<"Testimonial"> | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFilter<"Testimonial"> | boolean
   countries?: Prisma.TestimonialCountryListRelationFilter
   destinations?: Prisma.TestimonialDestinationListRelationFilter
   events?: Prisma.TestimonialEventListRelationFilter
@@ -369,6 +379,7 @@ export type TestimonialOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
   _count?: Prisma.TestimonialCountOrderByAggregateInput
   _avg?: Prisma.TestimonialAvgOrderByAggregateInput
   _max?: Prisma.TestimonialMaxOrderByAggregateInput
@@ -395,6 +406,7 @@ export type TestimonialScalarWhereWithAggregatesInput = {
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Testimonial"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Testimonial"> | Date | string
   status?: Prisma.EnumContentStatusWithAggregatesFilter<"Testimonial"> | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolWithAggregatesFilter<"Testimonial"> | boolean
 }
 
 export type TestimonialCreateInput = {
@@ -413,6 +425,7 @@ export type TestimonialCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   countries?: Prisma.TestimonialCountryCreateNestedManyWithoutTestimonialInput
   destinations?: Prisma.TestimonialDestinationCreateNestedManyWithoutTestimonialInput
   events?: Prisma.TestimonialEventCreateNestedManyWithoutTestimonialInput
@@ -435,6 +448,7 @@ export type TestimonialUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   countries?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutTestimonialInput
   destinations?: Prisma.TestimonialDestinationUncheckedCreateNestedManyWithoutTestimonialInput
   events?: Prisma.TestimonialEventUncheckedCreateNestedManyWithoutTestimonialInput
@@ -457,6 +471,7 @@ export type TestimonialUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.TestimonialCountryUpdateManyWithoutTestimonialNestedInput
   destinations?: Prisma.TestimonialDestinationUpdateManyWithoutTestimonialNestedInput
   events?: Prisma.TestimonialEventUpdateManyWithoutTestimonialNestedInput
@@ -479,6 +494,7 @@ export type TestimonialUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutTestimonialNestedInput
   destinations?: Prisma.TestimonialDestinationUncheckedUpdateManyWithoutTestimonialNestedInput
   events?: Prisma.TestimonialEventUncheckedUpdateManyWithoutTestimonialNestedInput
@@ -501,6 +517,7 @@ export type TestimonialCreateManyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
 }
 
 export type TestimonialUpdateManyMutationInput = {
@@ -519,6 +536,7 @@ export type TestimonialUpdateManyMutationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type TestimonialUncheckedUpdateManyInput = {
@@ -537,6 +555,7 @@ export type TestimonialUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type TestimonialScalarRelationFilter = {
@@ -560,6 +579,7 @@ export type TestimonialCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
 }
 
 export type TestimonialAvgOrderByAggregateInput = {
@@ -583,6 +603,7 @@ export type TestimonialMaxOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
 }
 
 export type TestimonialMinOrderByAggregateInput = {
@@ -601,6 +622,7 @@ export type TestimonialMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
 }
 
 export type TestimonialSumOrderByAggregateInput = {
@@ -688,6 +710,7 @@ export type TestimonialCreateWithoutCountriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   destinations?: Prisma.TestimonialDestinationCreateNestedManyWithoutTestimonialInput
   events?: Prisma.TestimonialEventCreateNestedManyWithoutTestimonialInput
   universities?: Prisma.TestimonialUniversityCreateNestedManyWithoutTestimonialInput
@@ -709,6 +732,7 @@ export type TestimonialUncheckedCreateWithoutCountriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   destinations?: Prisma.TestimonialDestinationUncheckedCreateNestedManyWithoutTestimonialInput
   events?: Prisma.TestimonialEventUncheckedCreateNestedManyWithoutTestimonialInput
   universities?: Prisma.TestimonialUniversityUncheckedCreateNestedManyWithoutTestimonialInput
@@ -746,6 +770,7 @@ export type TestimonialUpdateWithoutCountriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   destinations?: Prisma.TestimonialDestinationUpdateManyWithoutTestimonialNestedInput
   events?: Prisma.TestimonialEventUpdateManyWithoutTestimonialNestedInput
   universities?: Prisma.TestimonialUniversityUpdateManyWithoutTestimonialNestedInput
@@ -767,6 +792,7 @@ export type TestimonialUncheckedUpdateWithoutCountriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   destinations?: Prisma.TestimonialDestinationUncheckedUpdateManyWithoutTestimonialNestedInput
   events?: Prisma.TestimonialEventUncheckedUpdateManyWithoutTestimonialNestedInput
   universities?: Prisma.TestimonialUniversityUncheckedUpdateManyWithoutTestimonialNestedInput
@@ -788,6 +814,7 @@ export type TestimonialCreateWithoutDestinationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   countries?: Prisma.TestimonialCountryCreateNestedManyWithoutTestimonialInput
   events?: Prisma.TestimonialEventCreateNestedManyWithoutTestimonialInput
   universities?: Prisma.TestimonialUniversityCreateNestedManyWithoutTestimonialInput
@@ -809,6 +836,7 @@ export type TestimonialUncheckedCreateWithoutDestinationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   countries?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutTestimonialInput
   events?: Prisma.TestimonialEventUncheckedCreateNestedManyWithoutTestimonialInput
   universities?: Prisma.TestimonialUniversityUncheckedCreateNestedManyWithoutTestimonialInput
@@ -846,6 +874,7 @@ export type TestimonialUpdateWithoutDestinationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.TestimonialCountryUpdateManyWithoutTestimonialNestedInput
   events?: Prisma.TestimonialEventUpdateManyWithoutTestimonialNestedInput
   universities?: Prisma.TestimonialUniversityUpdateManyWithoutTestimonialNestedInput
@@ -867,6 +896,7 @@ export type TestimonialUncheckedUpdateWithoutDestinationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutTestimonialNestedInput
   events?: Prisma.TestimonialEventUncheckedUpdateManyWithoutTestimonialNestedInput
   universities?: Prisma.TestimonialUniversityUncheckedUpdateManyWithoutTestimonialNestedInput
@@ -888,6 +918,7 @@ export type TestimonialCreateWithoutUniversitiesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   countries?: Prisma.TestimonialCountryCreateNestedManyWithoutTestimonialInput
   destinations?: Prisma.TestimonialDestinationCreateNestedManyWithoutTestimonialInput
   events?: Prisma.TestimonialEventCreateNestedManyWithoutTestimonialInput
@@ -909,6 +940,7 @@ export type TestimonialUncheckedCreateWithoutUniversitiesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   countries?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutTestimonialInput
   destinations?: Prisma.TestimonialDestinationUncheckedCreateNestedManyWithoutTestimonialInput
   events?: Prisma.TestimonialEventUncheckedCreateNestedManyWithoutTestimonialInput
@@ -946,6 +978,7 @@ export type TestimonialUpdateWithoutUniversitiesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.TestimonialCountryUpdateManyWithoutTestimonialNestedInput
   destinations?: Prisma.TestimonialDestinationUpdateManyWithoutTestimonialNestedInput
   events?: Prisma.TestimonialEventUpdateManyWithoutTestimonialNestedInput
@@ -967,6 +1000,7 @@ export type TestimonialUncheckedUpdateWithoutUniversitiesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutTestimonialNestedInput
   destinations?: Prisma.TestimonialDestinationUncheckedUpdateManyWithoutTestimonialNestedInput
   events?: Prisma.TestimonialEventUncheckedUpdateManyWithoutTestimonialNestedInput
@@ -988,6 +1022,7 @@ export type TestimonialCreateWithoutEventsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   countries?: Prisma.TestimonialCountryCreateNestedManyWithoutTestimonialInput
   destinations?: Prisma.TestimonialDestinationCreateNestedManyWithoutTestimonialInput
   universities?: Prisma.TestimonialUniversityCreateNestedManyWithoutTestimonialInput
@@ -1009,6 +1044,7 @@ export type TestimonialUncheckedCreateWithoutEventsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   countries?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutTestimonialInput
   destinations?: Prisma.TestimonialDestinationUncheckedCreateNestedManyWithoutTestimonialInput
   universities?: Prisma.TestimonialUniversityUncheckedCreateNestedManyWithoutTestimonialInput
@@ -1046,6 +1082,7 @@ export type TestimonialUpdateWithoutEventsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.TestimonialCountryUpdateManyWithoutTestimonialNestedInput
   destinations?: Prisma.TestimonialDestinationUpdateManyWithoutTestimonialNestedInput
   universities?: Prisma.TestimonialUniversityUpdateManyWithoutTestimonialNestedInput
@@ -1067,6 +1104,7 @@ export type TestimonialUncheckedUpdateWithoutEventsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutTestimonialNestedInput
   destinations?: Prisma.TestimonialDestinationUncheckedUpdateManyWithoutTestimonialNestedInput
   universities?: Prisma.TestimonialUniversityUncheckedUpdateManyWithoutTestimonialNestedInput
@@ -1146,6 +1184,7 @@ export type TestimonialSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   createdAt?: boolean
   updatedAt?: boolean
   status?: boolean
+  isGlobal?: boolean
   countries?: boolean | Prisma.Testimonial$countriesArgs<ExtArgs>
   destinations?: boolean | Prisma.Testimonial$destinationsArgs<ExtArgs>
   events?: boolean | Prisma.Testimonial$eventsArgs<ExtArgs>
@@ -1169,6 +1208,7 @@ export type TestimonialSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   createdAt?: boolean
   updatedAt?: boolean
   status?: boolean
+  isGlobal?: boolean
 }, ExtArgs["result"]["testimonial"]>
 
 export type TestimonialSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1187,6 +1227,7 @@ export type TestimonialSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   createdAt?: boolean
   updatedAt?: boolean
   status?: boolean
+  isGlobal?: boolean
 }, ExtArgs["result"]["testimonial"]>
 
 export type TestimonialSelectScalar = {
@@ -1205,9 +1246,10 @@ export type TestimonialSelectScalar = {
   createdAt?: boolean
   updatedAt?: boolean
   status?: boolean
+  isGlobal?: boolean
 }
 
-export type TestimonialOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "mediaType" | "name" | "role" | "content" | "rating" | "avatar" | "videoUrl" | "url" | "isFeatured" | "order" | "createdAt" | "updatedAt" | "status", ExtArgs["result"]["testimonial"]>
+export type TestimonialOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "mediaType" | "name" | "role" | "content" | "rating" | "avatar" | "videoUrl" | "url" | "isFeatured" | "order" | "createdAt" | "updatedAt" | "status" | "isGlobal", ExtArgs["result"]["testimonial"]>
 export type TestimonialInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   countries?: boolean | Prisma.Testimonial$countriesArgs<ExtArgs>
   destinations?: boolean | Prisma.Testimonial$destinationsArgs<ExtArgs>
@@ -1242,6 +1284,7 @@ export type $TestimonialPayload<ExtArgs extends runtime.Types.Extensions.Interna
     createdAt: Date
     updatedAt: Date
     status: $Enums.ContentStatus
+    isGlobal: boolean
   }, ExtArgs["result"]["testimonial"]>
   composites: {}
 }
@@ -1684,6 +1727,7 @@ export interface TestimonialFieldRefs {
   readonly createdAt: Prisma.FieldRef<"Testimonial", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Testimonial", 'DateTime'>
   readonly status: Prisma.FieldRef<"Testimonial", 'ContentStatus'>
+  readonly isGlobal: Prisma.FieldRef<"Testimonial", 'Boolean'>
 }
     
 

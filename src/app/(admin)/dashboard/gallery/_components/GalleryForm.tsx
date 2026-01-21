@@ -75,6 +75,7 @@ export function GalleryForm({ initialData, onSuccess }: GalleryFormProps) {
   );
   const [isUploading, setIsUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isGlobal, setIsGlobal] = useState<boolean>((initialData as any)?.isGlobal || false);
   const [images, setImages] = useState<string[]>(
     initialData?.image ? [initialData.image] : []
   );
@@ -107,7 +108,8 @@ export function GalleryForm({ initialData, onSuccess }: GalleryFormProps) {
             sortOrder:
               typeof value.sortOrder === "number" ? value.sortOrder : null,
             status,
-            countryIds,
+            countryIds: isGlobal ? [] : countryIds,
+            isGlobal,
           } as Record<string, unknown>;
 
           const res = await api.update(initialData.id, payload);
@@ -121,7 +123,8 @@ export function GalleryForm({ initialData, onSuccess }: GalleryFormProps) {
             sortOrder:
               typeof value.sortOrder === "number" ? value.sortOrder : null,
             status,
-            countryIds,
+            countryIds: isGlobal ? [] : countryIds,
+            isGlobal,
           };
 
           const results = await Promise.all(
@@ -278,6 +281,12 @@ export function GalleryForm({ initialData, onSuccess }: GalleryFormProps) {
                 field.handleChange(ids);
               }}
               label="Select Countries (Optional)"
+              showGlobalOption={true}
+              isGlobal={isGlobal}
+              onGlobalChange={(checked) => {
+                setIsGlobal(checked);
+                if (checked) setCountryIds([]);
+              }}
             />
           )}
         </form.AppField>

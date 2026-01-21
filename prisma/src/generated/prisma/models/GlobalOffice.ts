@@ -43,6 +43,7 @@ export type GlobalOfficeMinAggregateOutputType = {
   bannerImage: string | null
   image: string | null
   status: $Enums.ContentStatus | null
+  isGlobal: boolean | null
 }
 
 export type GlobalOfficeMaxAggregateOutputType = {
@@ -64,6 +65,7 @@ export type GlobalOfficeMaxAggregateOutputType = {
   bannerImage: string | null
   image: string | null
   status: $Enums.ContentStatus | null
+  isGlobal: boolean | null
 }
 
 export type GlobalOfficeCountAggregateOutputType = {
@@ -86,6 +88,7 @@ export type GlobalOfficeCountAggregateOutputType = {
   image: number
   openingHours: number
   status: number
+  isGlobal: number
   _all: number
 }
 
@@ -109,6 +112,7 @@ export type GlobalOfficeMinAggregateInputType = {
   bannerImage?: true
   image?: true
   status?: true
+  isGlobal?: true
 }
 
 export type GlobalOfficeMaxAggregateInputType = {
@@ -130,6 +134,7 @@ export type GlobalOfficeMaxAggregateInputType = {
   bannerImage?: true
   image?: true
   status?: true
+  isGlobal?: true
 }
 
 export type GlobalOfficeCountAggregateInputType = {
@@ -152,6 +157,7 @@ export type GlobalOfficeCountAggregateInputType = {
   image?: true
   openingHours?: true
   status?: true
+  isGlobal?: true
   _all?: true
 }
 
@@ -247,6 +253,7 @@ export type GlobalOfficeGroupByOutputType = {
   image: string | null
   openingHours: runtime.JsonValue | null
   status: $Enums.ContentStatus
+  isGlobal: boolean
   _count: GlobalOfficeCountAggregateOutputType | null
   _min: GlobalOfficeMinAggregateOutputType | null
   _max: GlobalOfficeMaxAggregateOutputType | null
@@ -290,6 +297,7 @@ export type GlobalOfficeWhereInput = {
   image?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   openingHours?: Prisma.JsonNullableFilter<"GlobalOffice">
   status?: Prisma.EnumContentStatusFilter<"GlobalOffice"> | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFilter<"GlobalOffice"> | boolean
   countries?: Prisma.GlobalOfficeCountryListRelationFilter
 }
 
@@ -313,6 +321,7 @@ export type GlobalOfficeOrderByWithRelationInput = {
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   openingHours?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
   countries?: Prisma.GlobalOfficeCountryOrderByRelationAggregateInput
 }
 
@@ -339,6 +348,7 @@ export type GlobalOfficeWhereUniqueInput = Prisma.AtLeast<{
   image?: Prisma.StringNullableFilter<"GlobalOffice"> | string | null
   openingHours?: Prisma.JsonNullableFilter<"GlobalOffice">
   status?: Prisma.EnumContentStatusFilter<"GlobalOffice"> | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFilter<"GlobalOffice"> | boolean
   countries?: Prisma.GlobalOfficeCountryListRelationFilter
 }, "id" | "name" | "slug">
 
@@ -362,6 +372,7 @@ export type GlobalOfficeOrderByWithAggregationInput = {
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   openingHours?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
   _count?: Prisma.GlobalOfficeCountOrderByAggregateInput
   _max?: Prisma.GlobalOfficeMaxOrderByAggregateInput
   _min?: Prisma.GlobalOfficeMinOrderByAggregateInput
@@ -390,6 +401,7 @@ export type GlobalOfficeScalarWhereWithAggregatesInput = {
   image?: Prisma.StringNullableWithAggregatesFilter<"GlobalOffice"> | string | null
   openingHours?: Prisma.JsonNullableWithAggregatesFilter<"GlobalOffice">
   status?: Prisma.EnumContentStatusWithAggregatesFilter<"GlobalOffice"> | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolWithAggregatesFilter<"GlobalOffice"> | boolean
 }
 
 export type GlobalOfficeCreateInput = {
@@ -412,6 +424,7 @@ export type GlobalOfficeCreateInput = {
   image?: string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   countries?: Prisma.GlobalOfficeCountryCreateNestedManyWithoutGlobalOfficeInput
 }
 
@@ -435,6 +448,7 @@ export type GlobalOfficeUncheckedCreateInput = {
   image?: string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   countries?: Prisma.GlobalOfficeCountryUncheckedCreateNestedManyWithoutGlobalOfficeInput
 }
 
@@ -458,6 +472,7 @@ export type GlobalOfficeUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.GlobalOfficeCountryUpdateManyWithoutGlobalOfficeNestedInput
 }
 
@@ -481,6 +496,7 @@ export type GlobalOfficeUncheckedUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.GlobalOfficeCountryUncheckedUpdateManyWithoutGlobalOfficeNestedInput
 }
 
@@ -504,6 +520,7 @@ export type GlobalOfficeCreateManyInput = {
   image?: string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
 }
 
 export type GlobalOfficeUpdateManyMutationInput = {
@@ -526,6 +543,7 @@ export type GlobalOfficeUpdateManyMutationInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type GlobalOfficeUncheckedUpdateManyInput = {
@@ -548,6 +566,7 @@ export type GlobalOfficeUncheckedUpdateManyInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type GlobalOfficeCountOrderByAggregateInput = {
@@ -570,6 +589,7 @@ export type GlobalOfficeCountOrderByAggregateInput = {
   image?: Prisma.SortOrder
   openingHours?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
 }
 
 export type GlobalOfficeMaxOrderByAggregateInput = {
@@ -591,6 +611,7 @@ export type GlobalOfficeMaxOrderByAggregateInput = {
   bannerImage?: Prisma.SortOrder
   image?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
 }
 
 export type GlobalOfficeMinOrderByAggregateInput = {
@@ -612,6 +633,7 @@ export type GlobalOfficeMinOrderByAggregateInput = {
   bannerImage?: Prisma.SortOrder
   image?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
 }
 
 export type GlobalOfficeScalarRelationFilter = {
@@ -653,6 +675,7 @@ export type GlobalOfficeCreateWithoutCountriesInput = {
   image?: string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
 }
 
 export type GlobalOfficeUncheckedCreateWithoutCountriesInput = {
@@ -675,6 +698,7 @@ export type GlobalOfficeUncheckedCreateWithoutCountriesInput = {
   image?: string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
 }
 
 export type GlobalOfficeCreateOrConnectWithoutCountriesInput = {
@@ -713,6 +737,7 @@ export type GlobalOfficeUpdateWithoutCountriesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type GlobalOfficeUncheckedUpdateWithoutCountriesInput = {
@@ -735,6 +760,7 @@ export type GlobalOfficeUncheckedUpdateWithoutCountriesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 
@@ -788,6 +814,7 @@ export type GlobalOfficeSelect<ExtArgs extends runtime.Types.Extensions.Internal
   image?: boolean
   openingHours?: boolean
   status?: boolean
+  isGlobal?: boolean
   countries?: boolean | Prisma.GlobalOffice$countriesArgs<ExtArgs>
   _count?: boolean | Prisma.GlobalOfficeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["globalOffice"]>
@@ -812,6 +839,7 @@ export type GlobalOfficeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   image?: boolean
   openingHours?: boolean
   status?: boolean
+  isGlobal?: boolean
 }, ExtArgs["result"]["globalOffice"]>
 
 export type GlobalOfficeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -834,6 +862,7 @@ export type GlobalOfficeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   image?: boolean
   openingHours?: boolean
   status?: boolean
+  isGlobal?: boolean
 }, ExtArgs["result"]["globalOffice"]>
 
 export type GlobalOfficeSelectScalar = {
@@ -856,9 +885,10 @@ export type GlobalOfficeSelectScalar = {
   image?: boolean
   openingHours?: boolean
   status?: boolean
+  isGlobal?: boolean
 }
 
-export type GlobalOfficeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "city" | "subtitle" | "slug" | "email" | "phone" | "address" | "mapUrl" | "content" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "bannerImage" | "image" | "openingHours" | "status", ExtArgs["result"]["globalOffice"]>
+export type GlobalOfficeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "city" | "subtitle" | "slug" | "email" | "phone" | "address" | "mapUrl" | "content" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "bannerImage" | "image" | "openingHours" | "status" | "isGlobal", ExtArgs["result"]["globalOffice"]>
 export type GlobalOfficeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   countries?: boolean | Prisma.GlobalOffice$countriesArgs<ExtArgs>
   _count?: boolean | Prisma.GlobalOfficeCountOutputTypeDefaultArgs<ExtArgs>
@@ -891,6 +921,7 @@ export type $GlobalOfficePayload<ExtArgs extends runtime.Types.Extensions.Intern
     image: string | null
     openingHours: runtime.JsonValue | null
     status: $Enums.ContentStatus
+    isGlobal: boolean
   }, ExtArgs["result"]["globalOffice"]>
   composites: {}
 }
@@ -1334,6 +1365,7 @@ export interface GlobalOfficeFieldRefs {
   readonly image: Prisma.FieldRef<"GlobalOffice", 'String'>
   readonly openingHours: Prisma.FieldRef<"GlobalOffice", 'Json'>
   readonly status: Prisma.FieldRef<"GlobalOffice", 'ContentStatus'>
+  readonly isGlobal: Prisma.FieldRef<"GlobalOffice", 'Boolean'>
 }
     
 

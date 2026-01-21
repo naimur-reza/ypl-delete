@@ -129,8 +129,6 @@ export function CourseForm({ initialData, onSuccess }: CourseFormProps) {
       faculty: initialData?.faculty || null,
       tuitionMin: initialData?.tuitionMin || null,
       tuitionMax: initialData?.tuitionMax || null,
-      currency: initialData?.currency || "USD",
-      isFeatured: initialData?.isFeatured ?? false,
       status: initialData?.status || "ACTIVE",
       universityId: initialData?.universityId || "",
       destinationId: initialData?.destinationId || "",
@@ -154,8 +152,6 @@ export function CourseForm({ initialData, onSuccess }: CourseFormProps) {
           faculty: value.faculty || null,
           tuitionMin: value.tuitionMin || null,
           tuitionMax: value.tuitionMax || null,
-          currency: value.currency || "USD",
-          isFeatured: value.isFeatured ?? false,
           status: value.status || "ACTIVE",
           metaTitle: value.metaTitle || null,
           metaDescription: value.metaDescription || null,
@@ -351,9 +347,6 @@ export function CourseForm({ initialData, onSuccess }: CourseFormProps) {
             );
           }}
         </form.AppField>
-        <form.AppField name="currency">
-          {(field) => <field.Input label="Currency" />}
-        </form.AppField>
         <form.AppField name="universityId">
           {(field) => (
             <field.Select label="University">
@@ -439,9 +432,6 @@ export function CourseForm({ initialData, onSuccess }: CourseFormProps) {
           )}
         </form.AppField>
 
-        <form.AppField name="isFeatured">
-          {(field) => <field.Checkbox label="Featured" />}
-        </form.AppField>
         <form.AppField name="status">
           {(field) => (
             <field.Select label="Status">

@@ -70,6 +70,7 @@ export function GlobalOfficeForm({
   const [openingHours, setOpeningHours] = useState<OpeningHoursData | null>(
     null,
   );
+  const [isGlobal, setIsGlobal] = useState<boolean>((initialData as any)?.isGlobal || false);
 
   const form = useAppForm({
     defaultValues: {
@@ -99,7 +100,8 @@ export function GlobalOfficeForm({
           image: imageUrl || null,
           bannerImage: bannerImageUrl || null,
           openingHours: openingHours || null,
-          countryIds,
+          countryIds: isGlobal ? [] : countryIds,
+          isGlobal: isGlobal,
           metaTitle: value.metaTitle || null,
           metaDescription: value.metaDescription || null,
           metaKeywords: value.metaKeywords || null,
@@ -172,11 +174,13 @@ export function GlobalOfficeForm({
       if (initialData.countries) {
         setCountryIds(initialData.countries.map((c) => c.country.id));
       }
+      setIsGlobal((initialData as any)?.isGlobal || false);
     } else {
       form.reset();
       setCountryIds([]);
       setContent("");
       setOpeningHours(null);
+      setIsGlobal(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialData]);
@@ -304,6 +308,12 @@ export function GlobalOfficeForm({
             value={countryIds}
             onChange={setCountryIds}
             label="Select Countries"
+            showGlobalOption={true}
+            isGlobal={isGlobal}
+            onGlobalChange={(checked) => {
+              setIsGlobal(checked);
+              if (checked) setCountryIds([]);
+            }}
           />
         </div>
 

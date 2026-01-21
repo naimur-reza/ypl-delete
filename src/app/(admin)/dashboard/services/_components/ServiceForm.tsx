@@ -47,7 +47,12 @@ export function ServiceForm({ initialData, onSuccess }: ServiceFormProps) {
   const [imageUrl, setImageUrl] = useState<string>(initialData?.image || "");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
-  const [countryIds, setCountryIds] = useState<string[]>([]);
+  const [countryIds, setCountryIds] = useState<string[]>(
+    (initialData as any)?.countries?.map((c: { country?: { id: string }; countryId?: string }) => 
+      c.country?.id || c.countryId || ""
+    ).filter((id: string) => id !== "") || []
+  );
+  const [isGlobal, setIsGlobal] = useState<boolean>((initialData as any)?.isGlobal || false);
 
   const form = useAppForm({
     defaultValues: {
@@ -74,7 +79,8 @@ export function ServiceForm({ initialData, onSuccess }: ServiceFormProps) {
           metaDescription: value.metaDescription || null,
           metaKeywords: value.metaKeywords || null,
           status: value.status || "ACTIVE",
-          countryIds,
+          countryIds: isGlobal ? [] : countryIds,
+          isGlobal: isGlobal,
         } as Record<string, unknown>;
 
         const res =
@@ -189,6 +195,12 @@ export function ServiceForm({ initialData, onSuccess }: ServiceFormProps) {
             value={countryIds}
             onChange={setCountryIds}
             label="Select Countries"
+            showGlobalOption={true}
+            isGlobal={isGlobal}
+            onGlobalChange={(checked) => {
+              setIsGlobal(checked);
+              if (checked) setCountryIds([]);
+            }}
           />
         </div>
         <div className="flex gap-2 justify-end">

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { ApplyNowForm } from "@/components/ApplyNowForm";
+import { BookConsultationFormInline } from "@/components/BookConsultationFormInline";
 import { Mail, Phone, MapPin, Building2 } from "lucide-react";
 import { Metadata } from "next";
 import { MarkdownContent } from "@/components/ui/markdown-content";
@@ -272,10 +272,14 @@ export default async function GlobalOfficePage({ params }: PageProps) {
             {/* Right Sidebar */}
             <div className="lg:col-span-1">
               <div className="sticky top-24">
-                <ApplyNowForm
+                <BookConsultationFormInline
                   destinations={destinations}
                   countryId={country?.id}
                   officeSlug={data.slug}
+                  defaultCountry={country?.name}
+                  headerTitle="Apply Now"
+                  headerSubtitle="Fill out the form below and our team will get back to you shortly."
+                  singleColumn={true}
                 />
               </div>
             </div>

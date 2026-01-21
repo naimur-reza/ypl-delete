@@ -41,6 +41,7 @@ export type DestinationMinAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   status: $Enums.ContentStatus | null
+  isGlobal: boolean | null
 }
 
 export type DestinationMaxAggregateOutputType = {
@@ -60,6 +61,7 @@ export type DestinationMaxAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   status: $Enums.ContentStatus | null
+  isGlobal: boolean | null
 }
 
 export type DestinationCountAggregateOutputType = {
@@ -79,6 +81,7 @@ export type DestinationCountAggregateOutputType = {
   createdAt: number
   updatedAt: number
   status: number
+  isGlobal: number
   _all: number
 }
 
@@ -100,6 +103,7 @@ export type DestinationMinAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   status?: true
+  isGlobal?: true
 }
 
 export type DestinationMaxAggregateInputType = {
@@ -119,6 +123,7 @@ export type DestinationMaxAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   status?: true
+  isGlobal?: true
 }
 
 export type DestinationCountAggregateInputType = {
@@ -138,6 +143,7 @@ export type DestinationCountAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   status?: true
+  isGlobal?: true
   _all?: true
 }
 
@@ -230,6 +236,7 @@ export type DestinationGroupByOutputType = {
   createdAt: Date
   updatedAt: Date
   status: $Enums.ContentStatus
+  isGlobal: boolean
   _count: DestinationCountAggregateOutputType | null
   _min: DestinationMinAggregateOutputType | null
   _max: DestinationMaxAggregateOutputType | null
@@ -270,6 +277,7 @@ export type DestinationWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Destination"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Destination"> | Date | string
   status?: Prisma.EnumContentStatusFilter<"Destination"> | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFilter<"Destination"> | boolean
   blogs?: Prisma.BlogListRelationFilter
   courses?: Prisma.CourseListRelationFilter
   countries?: Prisma.DestinationCountryListRelationFilter
@@ -302,6 +310,7 @@ export type DestinationOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
   blogs?: Prisma.BlogOrderByRelationAggregateInput
   courses?: Prisma.CourseOrderByRelationAggregateInput
   countries?: Prisma.DestinationCountryOrderByRelationAggregateInput
@@ -337,6 +346,7 @@ export type DestinationWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Destination"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Destination"> | Date | string
   status?: Prisma.EnumContentStatusFilter<"Destination"> | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFilter<"Destination"> | boolean
   blogs?: Prisma.BlogListRelationFilter
   courses?: Prisma.CourseListRelationFilter
   countries?: Prisma.DestinationCountryListRelationFilter
@@ -369,6 +379,7 @@ export type DestinationOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
   _count?: Prisma.DestinationCountOrderByAggregateInput
   _max?: Prisma.DestinationMaxOrderByAggregateInput
   _min?: Prisma.DestinationMinOrderByAggregateInput
@@ -394,6 +405,7 @@ export type DestinationScalarWhereWithAggregatesInput = {
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Destination"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Destination"> | Date | string
   status?: Prisma.EnumContentStatusWithAggregatesFilter<"Destination"> | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolWithAggregatesFilter<"Destination"> | boolean
 }
 
 export type DestinationCreateInput = {
@@ -413,6 +425,7 @@ export type DestinationCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogs?: Prisma.BlogCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryCreateNestedManyWithoutDestinationInput
@@ -445,6 +458,7 @@ export type DestinationUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutDestinationInput
@@ -477,6 +491,7 @@ export type DestinationUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogs?: Prisma.BlogUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUpdateManyWithoutDestinationNestedInput
@@ -509,6 +524,7 @@ export type DestinationUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUncheckedUpdateManyWithoutDestinationNestedInput
@@ -541,6 +557,7 @@ export type DestinationCreateManyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
 }
 
 export type DestinationUpdateManyMutationInput = {
@@ -560,6 +577,7 @@ export type DestinationUpdateManyMutationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type DestinationUncheckedUpdateManyInput = {
@@ -579,6 +597,7 @@ export type DestinationUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type DestinationScalarRelationFilter = {
@@ -608,6 +627,7 @@ export type DestinationCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
 }
 
 export type DestinationMaxOrderByAggregateInput = {
@@ -627,6 +647,7 @@ export type DestinationMaxOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
 }
 
 export type DestinationMinOrderByAggregateInput = {
@@ -646,6 +667,7 @@ export type DestinationMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
 }
 
 export type DestinationCreateNestedOneWithoutBlogsInput = {
@@ -851,6 +873,7 @@ export type DestinationCreateWithoutBlogsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   courses?: Prisma.CourseCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryCreateNestedManyWithoutDestinationInput
   sections?: Prisma.DestinationSectionCreateNestedManyWithoutDestinationInput
@@ -882,6 +905,7 @@ export type DestinationUncheckedCreateWithoutBlogsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutDestinationInput
   sections?: Prisma.DestinationSectionUncheckedCreateNestedManyWithoutDestinationInput
@@ -929,6 +953,7 @@ export type DestinationUpdateWithoutBlogsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   courses?: Prisma.CourseUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUpdateManyWithoutDestinationNestedInput
   sections?: Prisma.DestinationSectionUpdateManyWithoutDestinationNestedInput
@@ -960,6 +985,7 @@ export type DestinationUncheckedUpdateWithoutBlogsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUncheckedUpdateManyWithoutDestinationNestedInput
   sections?: Prisma.DestinationSectionUncheckedUpdateManyWithoutDestinationNestedInput
@@ -991,6 +1017,7 @@ export type DestinationCreateWithoutCoursesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogs?: Prisma.BlogCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryCreateNestedManyWithoutDestinationInput
   sections?: Prisma.DestinationSectionCreateNestedManyWithoutDestinationInput
@@ -1022,6 +1049,7 @@ export type DestinationUncheckedCreateWithoutCoursesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutDestinationInput
   sections?: Prisma.DestinationSectionUncheckedCreateNestedManyWithoutDestinationInput
@@ -1069,6 +1097,7 @@ export type DestinationUpdateWithoutCoursesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogs?: Prisma.BlogUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUpdateManyWithoutDestinationNestedInput
   sections?: Prisma.DestinationSectionUpdateManyWithoutDestinationNestedInput
@@ -1100,6 +1129,7 @@ export type DestinationUncheckedUpdateWithoutCoursesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUncheckedUpdateManyWithoutDestinationNestedInput
   sections?: Prisma.DestinationSectionUncheckedUpdateManyWithoutDestinationNestedInput
@@ -1131,6 +1161,7 @@ export type DestinationCreateWithoutIntakePagesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogs?: Prisma.BlogCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryCreateNestedManyWithoutDestinationInput
@@ -1162,6 +1193,7 @@ export type DestinationUncheckedCreateWithoutIntakePagesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutDestinationInput
@@ -1209,6 +1241,7 @@ export type DestinationUpdateWithoutIntakePagesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogs?: Prisma.BlogUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUpdateManyWithoutDestinationNestedInput
@@ -1240,6 +1273,7 @@ export type DestinationUncheckedUpdateWithoutIntakePagesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUncheckedUpdateManyWithoutDestinationNestedInput
@@ -1271,6 +1305,7 @@ export type DestinationCreateWithoutEventsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogs?: Prisma.BlogCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryCreateNestedManyWithoutDestinationInput
@@ -1302,6 +1337,7 @@ export type DestinationUncheckedCreateWithoutEventsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutDestinationInput
@@ -1349,6 +1385,7 @@ export type DestinationUpdateWithoutEventsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogs?: Prisma.BlogUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUpdateManyWithoutDestinationNestedInput
@@ -1380,6 +1417,7 @@ export type DestinationUncheckedUpdateWithoutEventsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUncheckedUpdateManyWithoutDestinationNestedInput
@@ -1411,6 +1449,7 @@ export type DestinationCreateWithoutEventDestinationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogs?: Prisma.BlogCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryCreateNestedManyWithoutDestinationInput
@@ -1442,6 +1481,7 @@ export type DestinationUncheckedCreateWithoutEventDestinationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutDestinationInput
@@ -1489,6 +1529,7 @@ export type DestinationUpdateWithoutEventDestinationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogs?: Prisma.BlogUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUpdateManyWithoutDestinationNestedInput
@@ -1520,6 +1561,7 @@ export type DestinationUncheckedUpdateWithoutEventDestinationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUncheckedUpdateManyWithoutDestinationNestedInput
@@ -1551,6 +1593,7 @@ export type DestinationCreateWithoutLeadsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogs?: Prisma.BlogCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryCreateNestedManyWithoutDestinationInput
@@ -1582,6 +1625,7 @@ export type DestinationUncheckedCreateWithoutLeadsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutDestinationInput
@@ -1629,6 +1673,7 @@ export type DestinationUpdateWithoutLeadsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogs?: Prisma.BlogUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUpdateManyWithoutDestinationNestedInput
@@ -1660,6 +1705,7 @@ export type DestinationUncheckedUpdateWithoutLeadsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUncheckedUpdateManyWithoutDestinationNestedInput
@@ -1691,6 +1737,7 @@ export type DestinationCreateWithoutEssentialStudiesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogs?: Prisma.BlogCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryCreateNestedManyWithoutDestinationInput
@@ -1722,6 +1769,7 @@ export type DestinationUncheckedCreateWithoutEssentialStudiesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutDestinationInput
@@ -1769,6 +1817,7 @@ export type DestinationUpdateWithoutEssentialStudiesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogs?: Prisma.BlogUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUpdateManyWithoutDestinationNestedInput
@@ -1800,6 +1849,7 @@ export type DestinationUncheckedUpdateWithoutEssentialStudiesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUncheckedUpdateManyWithoutDestinationNestedInput
@@ -1831,6 +1881,7 @@ export type DestinationCreateWithoutSectionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogs?: Prisma.BlogCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryCreateNestedManyWithoutDestinationInput
@@ -1862,6 +1913,7 @@ export type DestinationUncheckedCreateWithoutSectionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutDestinationInput
@@ -1909,6 +1961,7 @@ export type DestinationUpdateWithoutSectionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogs?: Prisma.BlogUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUpdateManyWithoutDestinationNestedInput
@@ -1940,6 +1993,7 @@ export type DestinationUncheckedUpdateWithoutSectionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUncheckedUpdateManyWithoutDestinationNestedInput
@@ -1971,6 +2025,7 @@ export type DestinationCreateWithoutFaqLinksInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogs?: Prisma.BlogCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryCreateNestedManyWithoutDestinationInput
@@ -2002,6 +2057,7 @@ export type DestinationUncheckedCreateWithoutFaqLinksInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutDestinationInput
@@ -2049,6 +2105,7 @@ export type DestinationUpdateWithoutFaqLinksInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogs?: Prisma.BlogUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUpdateManyWithoutDestinationNestedInput
@@ -2080,6 +2137,7 @@ export type DestinationUncheckedUpdateWithoutFaqLinksInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUncheckedUpdateManyWithoutDestinationNestedInput
@@ -2111,6 +2169,7 @@ export type DestinationCreateWithoutCountriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogs?: Prisma.BlogCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseCreateNestedManyWithoutDestinationInput
   sections?: Prisma.DestinationSectionCreateNestedManyWithoutDestinationInput
@@ -2142,6 +2201,7 @@ export type DestinationUncheckedCreateWithoutCountriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDestinationInput
   sections?: Prisma.DestinationSectionUncheckedCreateNestedManyWithoutDestinationInput
@@ -2189,6 +2249,7 @@ export type DestinationUpdateWithoutCountriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogs?: Prisma.BlogUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDestinationNestedInput
   sections?: Prisma.DestinationSectionUpdateManyWithoutDestinationNestedInput
@@ -2220,6 +2281,7 @@ export type DestinationUncheckedUpdateWithoutCountriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDestinationNestedInput
   sections?: Prisma.DestinationSectionUncheckedUpdateManyWithoutDestinationNestedInput
@@ -2251,6 +2313,7 @@ export type DestinationCreateWithoutTestimonialsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogs?: Prisma.BlogCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryCreateNestedManyWithoutDestinationInput
@@ -2282,6 +2345,7 @@ export type DestinationUncheckedCreateWithoutTestimonialsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutDestinationInput
@@ -2329,6 +2393,7 @@ export type DestinationUpdateWithoutTestimonialsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogs?: Prisma.BlogUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUpdateManyWithoutDestinationNestedInput
@@ -2360,6 +2425,7 @@ export type DestinationUncheckedUpdateWithoutTestimonialsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUncheckedUpdateManyWithoutDestinationNestedInput
@@ -2391,6 +2457,7 @@ export type DestinationCreateWithoutScholarshipsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogs?: Prisma.BlogCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryCreateNestedManyWithoutDestinationInput
@@ -2422,6 +2489,7 @@ export type DestinationUncheckedCreateWithoutScholarshipsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutDestinationInput
@@ -2469,6 +2537,7 @@ export type DestinationUpdateWithoutScholarshipsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogs?: Prisma.BlogUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUpdateManyWithoutDestinationNestedInput
@@ -2500,6 +2569,7 @@ export type DestinationUncheckedUpdateWithoutScholarshipsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUncheckedUpdateManyWithoutDestinationNestedInput
@@ -2531,6 +2601,7 @@ export type DestinationCreateWithoutUniversitiesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogs?: Prisma.BlogCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryCreateNestedManyWithoutDestinationInput
@@ -2562,6 +2633,7 @@ export type DestinationUncheckedCreateWithoutUniversitiesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutDestinationInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDestinationInput
   countries?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutDestinationInput
@@ -2609,6 +2681,7 @@ export type DestinationUpdateWithoutUniversitiesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogs?: Prisma.BlogUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUpdateManyWithoutDestinationNestedInput
@@ -2640,6 +2713,7 @@ export type DestinationUncheckedUpdateWithoutUniversitiesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutDestinationNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDestinationNestedInput
   countries?: Prisma.DestinationCountryUncheckedUpdateManyWithoutDestinationNestedInput
@@ -2810,6 +2884,7 @@ export type DestinationSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   createdAt?: boolean
   updatedAt?: boolean
   status?: boolean
+  isGlobal?: boolean
   blogs?: boolean | Prisma.Destination$blogsArgs<ExtArgs>
   courses?: boolean | Prisma.Destination$coursesArgs<ExtArgs>
   countries?: boolean | Prisma.Destination$countriesArgs<ExtArgs>
@@ -2843,6 +2918,7 @@ export type DestinationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   createdAt?: boolean
   updatedAt?: boolean
   status?: boolean
+  isGlobal?: boolean
 }, ExtArgs["result"]["destination"]>
 
 export type DestinationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -2862,6 +2938,7 @@ export type DestinationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   createdAt?: boolean
   updatedAt?: boolean
   status?: boolean
+  isGlobal?: boolean
 }, ExtArgs["result"]["destination"]>
 
 export type DestinationSelectScalar = {
@@ -2881,9 +2958,10 @@ export type DestinationSelectScalar = {
   createdAt?: boolean
   updatedAt?: boolean
   status?: boolean
+  isGlobal?: boolean
 }
 
-export type DestinationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "heroTitle" | "thumbnail" | "heroSubtitle" | "whyChoose" | "topUniversities" | "campusAndCommunity" | "destinationLife" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "status", ExtArgs["result"]["destination"]>
+export type DestinationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "heroTitle" | "thumbnail" | "heroSubtitle" | "whyChoose" | "topUniversities" | "campusAndCommunity" | "destinationLife" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "status" | "isGlobal", ExtArgs["result"]["destination"]>
 export type DestinationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   blogs?: boolean | Prisma.Destination$blogsArgs<ExtArgs>
   courses?: boolean | Prisma.Destination$coursesArgs<ExtArgs>
@@ -2937,6 +3015,7 @@ export type $DestinationPayload<ExtArgs extends runtime.Types.Extensions.Interna
     createdAt: Date
     updatedAt: Date
     status: $Enums.ContentStatus
+    isGlobal: boolean
   }, ExtArgs["result"]["destination"]>
   composites: {}
 }
@@ -3389,6 +3468,7 @@ export interface DestinationFieldRefs {
   readonly createdAt: Prisma.FieldRef<"Destination", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Destination", 'DateTime'>
   readonly status: Prisma.FieldRef<"Destination", 'ContentStatus'>
+  readonly isGlobal: Prisma.FieldRef<"Destination", 'Boolean'>
 }
     
 

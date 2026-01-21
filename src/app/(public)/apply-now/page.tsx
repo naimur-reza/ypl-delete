@@ -394,7 +394,7 @@ function BookConsultationForm() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className={`w-1/2 mx-auto cursor-pointer py-4 px-6 rounded-xl text-lg font-bold text-white shadow-lg shadow-red-500/20 transform transition-all duration-200 
+                className={`lg:w-1/2 mx-auto cursor-pointer py-4 px-6 rounded-xl text-lg font-bold text-white shadow-lg shadow-red-500/20 transform transition-all duration-200 
                 ${
                   isLoading
                     ? "bg-red-400 cursor-not-allowed scale-[0.99]"

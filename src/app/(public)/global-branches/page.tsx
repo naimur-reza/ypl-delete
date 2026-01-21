@@ -24,13 +24,22 @@ export default async function GlobalBranchesPage({ params }: PageProps) {
   const globalOffices = await prisma.globalOffice.findMany({
     where: {
       status: "ACTIVE",
-      countries: {
-        some: {
-          country: {
-            slug: country,
+      OR: [
+        // Offices that match the specific country
+        {
+          countries: {
+            some: {
+              country: {
+                slug: country,
+              },
+            },
           },
         },
-      },
+        // Global offices (isGlobal = true, should be visible everywhere)
+        {
+          isGlobal: true,
+        },
+      ],
     },
     include: {
       countries: {

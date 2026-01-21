@@ -50,6 +50,8 @@ const HeroFormModal = ({
     order: number;
     status?: "ACTIVE" | "DRAFT";
     countries?: Array<{ country?: { id: string }; countryId?: string }>;
+    learnMoreText?: string | null;
+    learnMoreUrl?: string | null;
   };
   onClose: () => void;
   onSuccess?: () => void;
@@ -70,6 +72,7 @@ const HeroFormModal = ({
       ) || []
     ).filter((id) => id !== "")
   );
+  const [isGlobal, setIsGlobal] = useState<boolean>((selectedHero as any)?.isGlobal || false);
 
   const form = useAppForm({
     defaultValues: {
@@ -116,7 +119,8 @@ const HeroFormModal = ({
           learnMoreUrl: value.learnMoreUrl || undefined,
           backgroundUrl,
           status: value.status || "ACTIVE",
-          countryIds: countryIds,
+          countryIds: isGlobal ? [] : countryIds,
+          isGlobal: isGlobal,
         };
 
         if (isEditing && selectedHero?.id) {
@@ -136,6 +140,7 @@ const HeroFormModal = ({
         form.reset();
         setImageUrl("");
         setCountryIds([]);
+        setIsGlobal(false);
         onClose();
         onSuccess?.();
       } catch (err) {
@@ -179,11 +184,13 @@ const HeroFormModal = ({
         )
         .filter((id) => id !== "");
       setCountryIds(initialCountryIds);
+      setIsGlobal((selectedHero as any)?.isGlobal || false);
       form.setFieldValue("countryIds", initialCountryIds);
     } else {
       form.reset();
       setImageUrl("");
       setCountryIds([]);
+      setIsGlobal(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedHero]);
@@ -342,7 +349,13 @@ const HeroFormModal = ({
                   setCountryIds(ids);
                   field.handleChange(ids);
                 }}
-                label="Countries (Optional - Leave empty for all countries)"
+                label="Countries (Optional)"
+                showGlobalOption={true}
+                isGlobal={isGlobal}
+                onGlobalChange={(checked) => {
+                  setIsGlobal(checked);
+                  if (checked) setCountryIds([]);
+                }}
               />
             )}
           </form.AppField>

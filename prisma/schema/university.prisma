@@ -22,6 +22,7 @@ model University {
   updatedBy       String?
   destinationId   String
   status          ContentStatus           @default(ACTIVE)
+  isGlobal        Boolean                 @default(false)
   blogLinks       BlogUniversity[]
   courses         Course[]
   events          Event[]

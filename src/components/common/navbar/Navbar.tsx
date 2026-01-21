@@ -260,7 +260,6 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
               href={"#"}
               title="Resources"
               heading="Explore our resources"
-              viewAllLink="/resources"
               items={resourceItems}
             />
           </ul>

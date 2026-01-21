@@ -60,6 +60,7 @@ export function EventForm({ event, onSuccess }: EventFormProps) {
     ).filter((id) => id !== "")
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isGlobal, setIsGlobal] = useState<boolean>((event as any)?.isGlobal || false);
   const [isUploading, setIsUploading] = useState(false);
   const [selectedDestinations, setSelectedDestinations] = useState<string[]>(
     event?.destinations?.length
@@ -149,7 +150,8 @@ export function EventForm({ event, onSuccess }: EventFormProps) {
           ...value,
           endDate: value.endDate || null,
           universityId: value.universityId || null,
-          countryIds: countryIds,
+          countryIds: isGlobal ? [] : countryIds,
+          isGlobal: isGlobal,
           destinationIds: value.destinationIds,
           city: value.city || null,
           banner: bannerUrl || null,
@@ -242,6 +244,7 @@ export function EventForm({ event, onSuccess }: EventFormProps) {
         )
         .filter((id: string) => id !== "");
       setCountryIds(initialCountryIds);
+      setIsGlobal(e.isGlobal || false);
       form.setFieldValue("countryIds", initialCountryIds);
       
       form.setFieldValue("video", e.video || "");
@@ -372,6 +375,12 @@ export function EventForm({ event, onSuccess }: EventFormProps) {
                 field.handleChange(ids);
               }}
               label="Countries"
+              showGlobalOption={true}
+              isGlobal={isGlobal}
+              onGlobalChange={(checked) => {
+                setIsGlobal(checked);
+                if (checked) setCountryIds([]);
+              }}
             />
           )}
         </form.AppField>

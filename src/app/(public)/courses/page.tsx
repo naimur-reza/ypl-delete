@@ -32,17 +32,9 @@ const CoursesPage = async ({
   const resolvedParams = (await params) ?? { country: null };
   const resolvedCountry = await resolveCountryContext(resolvedParams.country);
 
+  // Show all active courses regardless of country since courses don't have country selection
   const where: Prisma.CourseWhereInput = {
     status: "ACTIVE",
-    ...(resolvedCountry.slug
-      ? {
-          countries: {
-            some: {
-              country: { slug: resolvedCountry.slug },
-            },
-          },
-        }
-      : {}),
   };
 
   const courses = await prisma.course.findMany({

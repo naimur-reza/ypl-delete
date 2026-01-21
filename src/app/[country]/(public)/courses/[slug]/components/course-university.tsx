@@ -2,6 +2,7 @@ import { Building2 } from "lucide-react";
 import { MarkdownContent } from "@/components/ui/markdown-content";
 import Image from "next/image";
 import Link from "next/link";
+import { CountryAwareLink } from "@/components/common/navbar/country-aware-link";
 
 interface CourseUniversityProps {
   university: {
@@ -47,13 +48,13 @@ export function CourseUniversity({ university, countrySlug }: CourseUniversityPr
           {university.description && (
             <p className="text-slate-600 mb-4 line-clamp-3">{university.description}</p>
           )}
-          <Link 
-            href={`/${countrySlug}/universities/${university.slug}`}
+          <CountryAwareLink 
+            href={`/universities/${university.slug}`}
             className="inline-flex items-center gap-2 text-primary font-medium hover:underline"
           >
             View University Details
             <span>→</span>
-          </Link>
+          </CountryAwareLink>
         </div>
       </div>
     </div>

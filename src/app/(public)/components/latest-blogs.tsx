@@ -41,7 +41,7 @@ export default function BlogSection({ blogs }: BlogSectionProps) {
         <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[120px]" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto   relative z-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 border-b border-white/5 pb-8">
           <div className="max-w-2xl">
             <h2 className="section-title text-white">

@@ -26,7 +26,6 @@ export default function OurServices() {
       icon: GraduationCap,
       color: "text-pink-600",
       bgColor: "bg-pink-50",
-      href: "/services/admission",
     },
     {
       title: "Finance Application Support",
@@ -35,7 +34,6 @@ export default function OurServices() {
       icon: BadgeDollarSign,
       color: "text-purple-600",
       bgColor: "bg-purple-50",
-      href: "/services/finance",
     },
     {
       title: "Visa Application Support",
@@ -44,7 +42,6 @@ export default function OurServices() {
       icon: Plane,
       color: "text-blue-600",
       bgColor: "bg-blue-50",
-      href: "/services/visa",
     },
     {
       title: "IELTS 360",
@@ -53,7 +50,6 @@ export default function OurServices() {
       icon: BookOpen,
       color: "text-emerald-600",
       bgColor: "bg-emerald-50",
-      href: "/services/ielts",
     },
   ];
 
@@ -152,8 +148,7 @@ export default function OurServices() {
 
             <div className="space-y-4">
               {services.map((service, index) => (
-                <Link
-                  href={service.href}
+                <div
                   key={index}
                   className="group block p-5 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-lg hover:border-pink-100 transition-all duration-300"
                 >
@@ -180,7 +175,7 @@ export default function OurServices() {
                       <ArrowRight className="w-5 h-5 text-slate-400 group-hover:text-pink-600" />
                     </div>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           </div>

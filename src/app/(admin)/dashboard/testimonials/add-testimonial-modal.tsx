@@ -79,6 +79,7 @@ const TestimonialFormModal = ({
   const [loading, setLoading] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isGlobal, setIsGlobal] = useState<boolean>((selectedTestimonial as any)?.isGlobal || false);
 
   // Local state for conditional rendering (replaces useStore)
   const [type, setType] = useState<"STUDENT" | "REPRESENTATIVE" | "GMB">(
@@ -152,7 +153,8 @@ const TestimonialFormModal = ({
         const submitData = {
           ...value,
           status: value.status || "ACTIVE",
-          countryIds,
+          countryIds: isGlobal ? [] : countryIds,
+          isGlobal: isGlobal,
           destinationIds,
           universityIds,
           eventIds,
@@ -189,6 +191,7 @@ const TestimonialFormModal = ({
         setDestinationIds([]);
         setUniversityIds([]);
         setEventIds([]);
+        setIsGlobal(false);
         onClose();
         onSuccess?.();
       } catch (err) {
@@ -245,11 +248,13 @@ const TestimonialFormModal = ({
           form.setFieldValue(key, values[key]);
         }
       });
+      setIsGlobal((selectedTestimonial as any)?.isGlobal || false);
     } else {
       setCountryIds([]);
       setDestinationIds([]);
       setUniversityIds([]);
       setEventIds([]);
+      setIsGlobal(false);
       form.reset();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -430,6 +435,12 @@ const TestimonialFormModal = ({
                           field.handleChange(ids);
                         }}
                         label="Select Countries"
+                        showGlobalOption={true}
+                        isGlobal={isGlobal}
+                        onGlobalChange={(checked) => {
+                          setIsGlobal(checked);
+                          if (checked) setCountryIds([]);
+                        }}
                       />
                     )}
                   </form.AppField>

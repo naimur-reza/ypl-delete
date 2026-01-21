@@ -4,7 +4,6 @@ import { MarkdownContent } from "@/components/ui/markdown-content";
 interface CourseCostOfStudyProps {
   tuitionMin?: number | null;
   tuitionMax?: number | null;
-  currency?: string | null;
   duration?: string | null;
   content?: string | null;
 }
@@ -12,14 +11,13 @@ interface CourseCostOfStudyProps {
 export function CourseCostOfStudy({ 
   tuitionMin, 
   tuitionMax, 
-  currency = "USD",
   duration,
   content 
 }: CourseCostOfStudyProps) {
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: currency || "USD",
+      currency: "USD",
       maximumFractionDigits: 0,
     }).format(amount);
   };
@@ -59,7 +57,11 @@ export function CourseCostOfStudy({
         )}
       </div>
 
-      {content && <MarkdownContent content={content} />}
+      {content ? (
+        <MarkdownContent content={content} />
+      ) : (
+        <p className="text-slate-500">Contact us for more details about cost of study.</p>
+      )}
     </div>
   );
 }

@@ -35,6 +35,7 @@ export type BlogMinAggregateOutputType = {
   category: string | null
   publishedAt: Date | null
   isFeatured: boolean | null
+  isGlobal: boolean | null
   metaTitle: string | null
   metaDescription: string | null
   metaKeywords: string | null
@@ -57,6 +58,7 @@ export type BlogMaxAggregateOutputType = {
   category: string | null
   publishedAt: Date | null
   isFeatured: boolean | null
+  isGlobal: boolean | null
   metaTitle: string | null
   metaDescription: string | null
   metaKeywords: string | null
@@ -79,6 +81,7 @@ export type BlogCountAggregateOutputType = {
   category: number
   publishedAt: number
   isFeatured: number
+  isGlobal: number
   metaTitle: number
   metaDescription: number
   metaKeywords: number
@@ -103,6 +106,7 @@ export type BlogMinAggregateInputType = {
   category?: true
   publishedAt?: true
   isFeatured?: true
+  isGlobal?: true
   metaTitle?: true
   metaDescription?: true
   metaKeywords?: true
@@ -125,6 +129,7 @@ export type BlogMaxAggregateInputType = {
   category?: true
   publishedAt?: true
   isFeatured?: true
+  isGlobal?: true
   metaTitle?: true
   metaDescription?: true
   metaKeywords?: true
@@ -147,6 +152,7 @@ export type BlogCountAggregateInputType = {
   category?: true
   publishedAt?: true
   isFeatured?: true
+  isGlobal?: true
   metaTitle?: true
   metaDescription?: true
   metaKeywords?: true
@@ -242,6 +248,7 @@ export type BlogGroupByOutputType = {
   category: string | null
   publishedAt: Date | null
   isFeatured: boolean
+  isGlobal: boolean
   metaTitle: string | null
   metaDescription: string | null
   metaKeywords: string | null
@@ -285,6 +292,7 @@ export type BlogWhereInput = {
   category?: Prisma.StringNullableFilter<"Blog"> | string | null
   publishedAt?: Prisma.DateTimeNullableFilter<"Blog"> | Date | string | null
   isFeatured?: Prisma.BoolFilter<"Blog"> | boolean
+  isGlobal?: Prisma.BoolFilter<"Blog"> | boolean
   metaTitle?: Prisma.StringNullableFilter<"Blog"> | string | null
   metaDescription?: Prisma.StringNullableFilter<"Blog"> | string | null
   metaKeywords?: Prisma.StringNullableFilter<"Blog"> | string | null
@@ -311,6 +319,7 @@ export type BlogOrderByWithRelationInput = {
   category?: Prisma.SortOrderInput | Prisma.SortOrder
   publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   metaDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   metaKeywords?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -340,6 +349,7 @@ export type BlogWhereUniqueInput = Prisma.AtLeast<{
   category?: Prisma.StringNullableFilter<"Blog"> | string | null
   publishedAt?: Prisma.DateTimeNullableFilter<"Blog"> | Date | string | null
   isFeatured?: Prisma.BoolFilter<"Blog"> | boolean
+  isGlobal?: Prisma.BoolFilter<"Blog"> | boolean
   metaTitle?: Prisma.StringNullableFilter<"Blog"> | string | null
   metaDescription?: Prisma.StringNullableFilter<"Blog"> | string | null
   metaKeywords?: Prisma.StringNullableFilter<"Blog"> | string | null
@@ -366,6 +376,7 @@ export type BlogOrderByWithAggregationInput = {
   category?: Prisma.SortOrderInput | Prisma.SortOrder
   publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   metaDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   metaKeywords?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -394,6 +405,7 @@ export type BlogScalarWhereWithAggregatesInput = {
   category?: Prisma.StringNullableWithAggregatesFilter<"Blog"> | string | null
   publishedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Blog"> | Date | string | null
   isFeatured?: Prisma.BoolWithAggregatesFilter<"Blog"> | boolean
+  isGlobal?: Prisma.BoolWithAggregatesFilter<"Blog"> | boolean
   metaTitle?: Prisma.StringNullableWithAggregatesFilter<"Blog"> | string | null
   metaDescription?: Prisma.StringNullableWithAggregatesFilter<"Blog"> | string | null
   metaKeywords?: Prisma.StringNullableWithAggregatesFilter<"Blog"> | string | null
@@ -416,6 +428,7 @@ export type BlogCreateInput = {
   category?: string | null
   publishedAt?: Date | string | null
   isFeatured?: boolean
+  isGlobal?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -441,6 +454,7 @@ export type BlogUncheckedCreateInput = {
   category?: string | null
   publishedAt?: Date | string | null
   isFeatured?: boolean
+  isGlobal?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -466,6 +480,7 @@ export type BlogUpdateInput = {
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -491,6 +506,7 @@ export type BlogUncheckedUpdateInput = {
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -516,6 +532,7 @@ export type BlogCreateManyInput = {
   category?: string | null
   publishedAt?: Date | string | null
   isFeatured?: boolean
+  isGlobal?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -538,6 +555,7 @@ export type BlogUpdateManyMutationInput = {
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -559,6 +577,7 @@ export type BlogUncheckedUpdateManyInput = {
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -581,6 +600,7 @@ export type BlogCountOrderByAggregateInput = {
   category?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrder
   metaDescription?: Prisma.SortOrder
   metaKeywords?: Prisma.SortOrder
@@ -603,6 +623,7 @@ export type BlogMaxOrderByAggregateInput = {
   category?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrder
   metaDescription?: Prisma.SortOrder
   metaKeywords?: Prisma.SortOrder
@@ -625,6 +646,7 @@ export type BlogMinOrderByAggregateInput = {
   category?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrder
   metaDescription?: Prisma.SortOrder
   metaKeywords?: Prisma.SortOrder
@@ -754,6 +776,7 @@ export type BlogCreateWithoutDestinationInput = {
   category?: string | null
   publishedAt?: Date | string | null
   isFeatured?: boolean
+  isGlobal?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -778,6 +801,7 @@ export type BlogUncheckedCreateWithoutDestinationInput = {
   category?: string | null
   publishedAt?: Date | string | null
   isFeatured?: boolean
+  isGlobal?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -831,6 +855,7 @@ export type BlogScalarWhereInput = {
   category?: Prisma.StringNullableFilter<"Blog"> | string | null
   publishedAt?: Prisma.DateTimeNullableFilter<"Blog"> | Date | string | null
   isFeatured?: Prisma.BoolFilter<"Blog"> | boolean
+  isGlobal?: Prisma.BoolFilter<"Blog"> | boolean
   metaTitle?: Prisma.StringNullableFilter<"Blog"> | string | null
   metaDescription?: Prisma.StringNullableFilter<"Blog"> | string | null
   metaKeywords?: Prisma.StringNullableFilter<"Blog"> | string | null
@@ -853,6 +878,7 @@ export type BlogCreateWithoutCountriesInput = {
   category?: string | null
   publishedAt?: Date | string | null
   isFeatured?: boolean
+  isGlobal?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -877,6 +903,7 @@ export type BlogUncheckedCreateWithoutCountriesInput = {
   category?: string | null
   publishedAt?: Date | string | null
   isFeatured?: boolean
+  isGlobal?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -917,6 +944,7 @@ export type BlogUpdateWithoutCountriesInput = {
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -941,6 +969,7 @@ export type BlogUncheckedUpdateWithoutCountriesInput = {
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -965,6 +994,7 @@ export type BlogCreateWithoutUniversitiesInput = {
   category?: string | null
   publishedAt?: Date | string | null
   isFeatured?: boolean
+  isGlobal?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -989,6 +1019,7 @@ export type BlogUncheckedCreateWithoutUniversitiesInput = {
   category?: string | null
   publishedAt?: Date | string | null
   isFeatured?: boolean
+  isGlobal?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -1029,6 +1060,7 @@ export type BlogUpdateWithoutUniversitiesInput = {
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1053,6 +1085,7 @@ export type BlogUncheckedUpdateWithoutUniversitiesInput = {
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1077,6 +1110,7 @@ export type BlogCreateWithoutCoursesInput = {
   category?: string | null
   publishedAt?: Date | string | null
   isFeatured?: boolean
+  isGlobal?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -1101,6 +1135,7 @@ export type BlogUncheckedCreateWithoutCoursesInput = {
   category?: string | null
   publishedAt?: Date | string | null
   isFeatured?: boolean
+  isGlobal?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -1141,6 +1176,7 @@ export type BlogUpdateWithoutCoursesInput = {
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1165,6 +1201,7 @@ export type BlogUncheckedUpdateWithoutCoursesInput = {
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1189,6 +1226,7 @@ export type BlogCreateManyDestinationInput = {
   category?: string | null
   publishedAt?: Date | string | null
   isFeatured?: boolean
+  isGlobal?: boolean
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -1210,6 +1248,7 @@ export type BlogUpdateWithoutDestinationInput = {
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1234,6 +1273,7 @@ export type BlogUncheckedUpdateWithoutDestinationInput = {
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1258,6 +1298,7 @@ export type BlogUncheckedUpdateManyWithoutDestinationInput = {
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1328,6 +1369,7 @@ export type BlogSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   category?: boolean
   publishedAt?: boolean
   isFeatured?: boolean
+  isGlobal?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
@@ -1355,6 +1397,7 @@ export type BlogSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   category?: boolean
   publishedAt?: boolean
   isFeatured?: boolean
+  isGlobal?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
@@ -1378,6 +1421,7 @@ export type BlogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   category?: boolean
   publishedAt?: boolean
   isFeatured?: boolean
+  isGlobal?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
@@ -1401,6 +1445,7 @@ export type BlogSelectScalar = {
   category?: boolean
   publishedAt?: boolean
   isFeatured?: boolean
+  isGlobal?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
@@ -1412,7 +1457,7 @@ export type BlogSelectScalar = {
   status?: boolean
 }
 
-export type BlogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "excerpt" | "content" | "image" | "author" | "category" | "publishedAt" | "isFeatured" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "destinationId" | "status", ExtArgs["result"]["blog"]>
+export type BlogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "excerpt" | "content" | "image" | "author" | "category" | "publishedAt" | "isFeatured" | "isGlobal" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "destinationId" | "status", ExtArgs["result"]["blog"]>
 export type BlogInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
   countries?: boolean | Prisma.Blog$countriesArgs<ExtArgs>
@@ -1446,6 +1491,7 @@ export type $BlogPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     category: string | null
     publishedAt: Date | null
     isFeatured: boolean
+    isGlobal: boolean
     metaTitle: string | null
     metaDescription: string | null
     metaKeywords: string | null
@@ -1892,6 +1938,7 @@ export interface BlogFieldRefs {
   readonly category: Prisma.FieldRef<"Blog", 'String'>
   readonly publishedAt: Prisma.FieldRef<"Blog", 'DateTime'>
   readonly isFeatured: Prisma.FieldRef<"Blog", 'Boolean'>
+  readonly isGlobal: Prisma.FieldRef<"Blog", 'Boolean'>
   readonly metaTitle: Prisma.FieldRef<"Blog", 'String'>
   readonly metaDescription: Prisma.FieldRef<"Blog", 'String'>
   readonly metaKeywords: Prisma.FieldRef<"Blog", 'String'>

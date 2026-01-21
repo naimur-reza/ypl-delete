@@ -18,6 +18,7 @@ model GlobalOffice {
   image           String?
   openingHours    Json?
   status          ContentStatus         @default(DRAFT)
+  isGlobal        Boolean               @default(false)
   countries       GlobalOfficeCountry[]
 
   @@index([status])
@@ -77,6 +78,7 @@ model Destination {
   createdAt          DateTime                 @default(now())
   updatedAt          DateTime                 @updatedAt
   status             ContentStatus            @default(ACTIVE)
+  isGlobal           Boolean                  @default(false)
   blogs              Blog[]
   courses            Course[]
   countries          DestinationCountry[]
@@ -104,6 +106,7 @@ model EssentialStudy {
   createdAt     DateTime                @default(now())
   updatedAt     DateTime                @updatedAt
   status        ContentStatus           @default(DRAFT)
+  isGlobal      Boolean                 @default(false)
   destination   Destination             @relation(fields: [destinationId], references: [id])
   countries     EssentialStudyCountry[]
 

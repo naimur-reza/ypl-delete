@@ -25,13 +25,27 @@ const buildBlogWhere = ({
 }: BuildWhereArgs): Prisma.BlogWhereInput => {
   const filters: Prisma.BlogWhereInput[] = [];
 
+  // Handle country/global filtering
   if (countrySlug) {
+    // When on a country route, show country-specific blogs OR global blogs
     filters.push({
-      countries: {
-        some: {
-          country: { slug: countrySlug },
+      OR: [
+        {
+          countries: {
+            some: {
+              country: { slug: countrySlug },
+            },
+          },
         },
-      },
+        {
+          isGlobal: true,
+        },
+      ],
+    });
+  } else {
+    // When on global route (no countrySlug), show only global blogs
+    filters.push({
+      isGlobal: true,
     });
   }
 

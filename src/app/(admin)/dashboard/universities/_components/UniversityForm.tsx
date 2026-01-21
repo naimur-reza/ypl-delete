@@ -93,6 +93,7 @@ export function UniversityForm({
   const [isServicesUploading, setIsServicesUploading] = useState(false);
   const [isAccommodationUploading, setIsAccommodationUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isGlobal, setIsGlobal] = useState<boolean>((initialData as any)?.isGlobal || false);
 
   const getDefaultValues = (): FormData => ({
     name: initialData?.name || "",
@@ -162,7 +163,8 @@ export function UniversityForm({
 
         const submitData = {
           ...transformToNullable(value),
-          countryIds: countryIds,
+          countryIds: isGlobal ? [] : countryIds,
+          isGlobal: isGlobal,
         };
 
         const response =
@@ -217,6 +219,7 @@ export function UniversityForm({
       setLogoUrl(initialData.logo || "");
       setServicesImageUrl(initialData.detail?.servicesImage || "");
       setAccommodationImageUrl(initialData.detail?.accommodationImage || "");
+      setIsGlobal((initialData as any)?.isGlobal || false);
     } else {
       setCountryIds([]);
       form.setFieldValue("countryIds", []);
@@ -332,6 +335,12 @@ export function UniversityForm({
                     onChange={(ids) => {
                       setCountryIds(ids);
                       field.handleChange(ids);
+                    }}
+                    showGlobalOption={true}
+                    isGlobal={isGlobal}
+                    onGlobalChange={(checked) => {
+                      setIsGlobal(checked);
+                      if (checked) setCountryIds([]);
                     }}
                   />
                 </FormBase>

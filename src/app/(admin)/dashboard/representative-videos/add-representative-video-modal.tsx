@@ -64,6 +64,7 @@ export default function RepresentativeVideoFormModal({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [countryIds, setCountryIds] = useState<string[]>([]);
+  const [isGlobal, setIsGlobal] = useState<boolean>((selected as any)?.isGlobal || false);
   const [destinationIds, setDestinationIds] = useState<string[]>([]);
   const [universityIds, setUniversityIds] = useState<string[]>([]);
   const [eventIds, setEventIds] = useState<string[]>([]);
@@ -85,6 +86,7 @@ export default function RepresentativeVideoFormModal({
       selected?.universities?.map((u: any) => u.university.id) || []
     );
     setEventIds(selected?.events?.map((e: any) => e.event.id) || []);
+    setIsGlobal((selected as any)?.isGlobal || false);
   }, [selected]);
 
   useEffect(() => {
@@ -149,7 +151,8 @@ export default function RepresentativeVideoFormModal({
           url: value.url,
           thumbnail: imageUrl || null,
           status: value.status || "ACTIVE",
-          countryIds,
+          countryIds: isGlobal ? [] : countryIds,
+          isGlobal: isGlobal,
           destinationIds,
           universityIds,
           eventIds,
@@ -228,6 +231,12 @@ export default function RepresentativeVideoFormModal({
               value={countryIds}
               onChange={setCountryIds}
               label="Select Countries"
+              showGlobalOption={true}
+              isGlobal={isGlobal}
+              onGlobalChange={(checked) => {
+                setIsGlobal(checked);
+                if (checked) setCountryIds([]);
+              }}
             />
           </div>
 

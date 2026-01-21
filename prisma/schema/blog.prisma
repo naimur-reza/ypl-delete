@@ -9,6 +9,7 @@ model Blog {
   category        String?
   publishedAt     DateTime?
   isFeatured      Boolean          @default(false)
+  isGlobal        Boolean          @default(false)
   metaTitle       String?
   metaDescription String?
   metaKeywords    String?

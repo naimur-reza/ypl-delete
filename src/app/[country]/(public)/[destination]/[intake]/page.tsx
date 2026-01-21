@@ -5,7 +5,7 @@ import { HeroSection } from "@/components/intake/HeroSection";
 import { WhyChooseIntake } from "@/components/intake/WhyChooseIntake";
 import { TopUniversities } from "@/components/intake/TopUniversities";
 import { ApplicationTimeline } from "@/components/intake/ApplicationTimeline";
-import { ApplyNowForm } from "@/components/ApplyNowForm";
+import { BookConsultationFormInline } from "@/components/BookConsultationFormInline";
 import { ReviewSection } from "@/components/sections/review-section";
 import { FaqSection } from "@/components/sections/faq-section";
 import CallToActionBanner from "@/components/CallToActionBanner";
@@ -269,19 +269,13 @@ export default async function CountryIntakePage({ params }: PageProps) {
       {/* Eligibility Form with country context */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Check Your Eligibility
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Find out if you are eligible for the upcoming intake by filling
-              out this form. Our counselors will get back to you shortly.
-            </p>
-          </div>
-          <ApplyNowForm
+          <BookConsultationFormInline
             destinations={destinations as any}
-            destinationId={intakeData.destination.id}
-            countryId={countryData.id} // Use actual country ID
+            defaultDestination={intakeData.destination.name}
+            defaultCountry={countryData.name}
+            countryId={countryData.id}
+            headerTitle="Check Your Eligibility"
+            headerSubtitle={`Find out if you are eligible for the ${intakeName} intake to study in ${destinationName} from ${countryData.name}. Our counselors will get back to you shortly.`}
           />
         </div>
       </section>

@@ -41,6 +41,7 @@ interface BlogFormProps {
     category?: string | null;
     publishedAt?: string | null;
     isFeatured?: boolean;
+    isGlobal?: boolean;
     status?: string | null;
     destinationId: string;
     countries?: Array<{ country?: { id: string }; countryId?: string }>;
@@ -65,6 +66,7 @@ export function BlogForm({ initialData, onSuccess }: BlogFormProps) {
       ) || []
     ).filter((id) => id !== ""),
   );
+  const [isGlobal, setIsGlobal] = useState<boolean>(initialData?.isGlobal || false);
   const [isUploading, setIsUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [currentUserName, setCurrentUserName] = useState<string>("");
@@ -141,7 +143,8 @@ export function BlogForm({ initialData, onSuccess }: BlogFormProps) {
           ...value,
           image: imageUrl || null,
           publishedAt: value.publishedAt || null,
-          countryIds: countryIds,
+          countryIds: isGlobal ? [] : countryIds,
+          isGlobal: isGlobal,
           metaTitle: value.metaTitle || null,
           metaDescription: value.metaDescription || null,
           metaKeywords: value.metaKeywords || null,
@@ -164,6 +167,7 @@ export function BlogForm({ initialData, onSuccess }: BlogFormProps) {
         form.reset();
         setImageUrl("");
         setCountryIds([]);
+        setIsGlobal(false);
         await queryClient.invalidateQueries({
           queryKey: ["data-table", "/api/blogs"],
         });
@@ -211,10 +215,12 @@ export function BlogForm({ initialData, onSuccess }: BlogFormProps) {
       form.setFieldValue("metaDescription", initialData.metaDescription || "");
       form.setFieldValue("metaKeywords", initialData.metaKeywords || "");
       setImageUrl(initialData.image || "");
+      setIsGlobal(initialData.isGlobal || false);
     } else {
       form.reset();
       setImageUrl("");
       setCountryIds([]);
+      setIsGlobal(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialData]);
@@ -309,6 +315,15 @@ export function BlogForm({ initialData, onSuccess }: BlogFormProps) {
                 field.handleChange(ids);
               }}
               label="Countries"
+              showGlobalOption={true}
+              isGlobal={isGlobal}
+              onGlobalChange={(checked) => {
+                setIsGlobal(checked);
+                if (checked) {
+                  setCountryIds([]);
+                  field.handleChange([]);
+                }
+              }}
             />
           )}
         </form.AppField>

@@ -45,6 +45,8 @@ import { CourseScholarships } from "@/app/[country]/(public)/courses/[slug]/comp
 import { CourseCareers } from "@/app/[country]/(public)/courses/[slug]/components/course-careers";
 import { CourseAdmission } from "@/app/[country]/(public)/courses/[slug]/components/course-admission";
 import { CountryAwareLink } from "@/components/common/navbar/country-aware-link";
+import { ShareCourseButton } from "@/components/share-course-button";
+import { MarkdownContent } from "@/components/ui/markdown-content";
 
 interface PageProps {
   params: Promise<{
@@ -58,6 +60,7 @@ interface CourseSections {
   overview?: string;
   entryRequirements?: string;
   costOfStudy?: string;
+  scholarships?: string;
   careers?: string;
   admission?: string;
 }
@@ -150,24 +153,14 @@ export default async function CourseDetailsPage({ params }: PageProps) {
   // Parse sections from JSON
   const sections = (course.sections as CourseSections) || {};
 
-  // Build sidebar steps dynamically based on available content
+  // Build sidebar steps - show all 6 form sections plus University
   const sidebarSteps = [
-    ...(sections.overview || course.description
-      ? [{ id: "overview", label: "Course Overview" }]
-      : []),
-    ...(course.university
-      ? [{ id: "university", label: "About University" }]
-      : []),
-    ...(sections.entryRequirements
-      ? [{ id: "entry-requirements", label: "Entry Requirements" }]
-      : []),
-    ...(course.tuitionMin || course.tuitionMax || sections.costOfStudy
-      ? [{ id: "cost-of-study", label: "Cost of Study" }]
-      : []),
-    ...(course.scholarships.length > 0
-      ? [{ id: "scholarships", label: "Scholarships" }]
-      : []),
-    ...(sections.careers ? [{ id: "careers", label: "Careers" }] : []),
+    { id: "overview", label: "Overview" },
+    { id: "university", label: "University" },
+    { id: "entry-requirements", label: "Requirements" },
+    { id: "cost-of-study", label: "Cost & Aid" },
+    { id: "scholarships", label: "Scholarships" },
+    { id: "careers", label: "Careers" },
     { id: "admission", label: "Admission" },
   ];
 
@@ -204,7 +197,7 @@ export default async function CourseDetailsPage({ params }: PageProps) {
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: course.currency || "USD",
+      currency:   "USD",
       maximumFractionDigits: 0,
     }).format(amount);
   };
@@ -262,10 +255,7 @@ export default async function CourseDetailsPage({ params }: PageProps) {
                 Apply Now
               </button>
             </CountryAwareLink>
-            <button className="px-6 py-3.5 cursor-pointer bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white font-bold rounded-xl transition-all flex items-center gap-2">
-              <Share2 className="w-5 h-5" />
-              Share Course
-            </button>
+            <ShareCourseButton title={course.title} />
           </div>
         </div>
       </div>
@@ -357,64 +347,67 @@ export default async function CourseDetailsPage({ params }: PageProps) {
           <main className="flex-1 min-w-0">
             <div className="space-y-8">
               {/* Course Overview */}
-              {(sections.overview || course.description) && (
-                <section id="overview" className="scroll-mt-32">
-                  <CourseOverview
-                    content={sections.overview || course.description || ""}
-                  />
-                </section>
-              )}
+              <section id="overview" className="scroll-mt-32">
+                <CourseOverview
+                  content={sections.overview || course.description || "Contact us for course overview."}
+                />
+              </section>
 
               {/* About University */}
-              {course.university && (
-                <section id="university" className="scroll-mt-32">
+              <section id="university" className="scroll-mt-32">
+                {course.university ? (
                   <CourseUniversity
                     university={course.university}
                     countrySlug={country}
                   />
-                </section>
-              )}
+                ) : (
+                  <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+                    <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-4">About University</h2>
+                    <p className="text-slate-500">University information coming soon.</p>
+                  </div>
+                )}
+              </section>
 
               {/* Entry Requirements */}
-              {sections.entryRequirements && (
-                <section id="entry-requirements" className="scroll-mt-32">
-                  <CourseEntryRequirements
-                    content={sections.entryRequirements}
-                  />
-                </section>
-              )}
+              <section id="entry-requirements" className="scroll-mt-32">
+                <CourseEntryRequirements
+                  content={sections.entryRequirements || "Contact us for entry requirements."}
+                />
+              </section>
 
               {/* Cost of Study */}
-              {(course.tuitionMin ||
-                course.tuitionMax ||
-                sections.costOfStudy) && (
-                <section id="cost-of-study" className="scroll-mt-32">
-                  <CourseCostOfStudy
-                    tuitionMin={course.tuitionMin}
-                    tuitionMax={course.tuitionMax}
-                    currency={course.currency}
-                    duration={course.duration}
-                    content={sections.costOfStudy}
-                  />
-                </section>
-              )}
+              <section id="cost-of-study" className="scroll-mt-32">
+                <CourseCostOfStudy
+                  tuitionMin={course.tuitionMin}
+                  tuitionMax={course.tuitionMax}
+                  duration={course.duration}
+                  content={sections.costOfStudy}
+                />
+              </section>
 
-              {/* Scholarships */}
-              {course.scholarships.length > 0 && (
-                <section id="scholarships" className="scroll-mt-32">
-                  <CourseScholarships
-                    scholarships={course.scholarships}
-                    countrySlug={country}
-                  />
-                </section>
-              )}
+              {/* Scholarships - Show markdown content from sections */}
+              <section id="scholarships" className="scroll-mt-32">
+                <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                      <span className="text-purple-600 text-lg">🎓</span>
+                    </div>
+                    <h2 className="text-xl md:text-2xl font-bold text-slate-900">
+                      Scholarships
+                    </h2>
+                  </div>
+                  {sections.scholarships ? (
+                    <MarkdownContent content={sections.scholarships} />
+                  ) : (
+                    <p className="text-slate-500">Contact us for scholarship information.</p>
+                  )}
+                </div>
+              </section>
 
               {/* Careers */}
-              {sections.careers && (
-                <section id="careers" className="scroll-mt-32">
-                  <CourseCareers content={sections.careers} />
-                </section>
-              )}
+              <section id="careers" className="scroll-mt-32">
+                <CourseCareers content={sections.careers || "Contact us for career information."} />
+              </section>
 
               {/* Admission */}
               <section id="admission" className="scroll-mt-32">

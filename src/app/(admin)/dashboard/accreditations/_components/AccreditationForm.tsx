@@ -72,6 +72,7 @@ export function AccreditationForm({
   );
   const [isUploading, setIsUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isGlobal, setIsGlobal] = useState<boolean>((initialData as any)?.isGlobal || false);
 
   const form = useAppForm({
     defaultValues: {
@@ -89,11 +90,12 @@ export function AccreditationForm({
       setIsSubmitting(true);
       try {
         const finalCountryIds =
-          countryIds.length > 0 ? countryIds : value.countryIds || [];
+          isGlobal ? [] : (countryIds.length > 0 ? countryIds : value.countryIds || []);
 
         const payload = {
           ...value,
           countryIds: finalCountryIds,
+          isGlobal: isGlobal,
           logo: value.logo || null,
           website:
             value.website && value.website.trim() !== "" ? value.website : null,
@@ -242,6 +244,12 @@ export function AccreditationForm({
                 field.handleChange(ids);
               }}
               label="Select Countries"
+              showGlobalOption={true}
+              isGlobal={isGlobal}
+              onGlobalChange={(checked) => {
+                setIsGlobal(checked);
+                if (checked) setCountryIds([]);
+              }}
             />
           )}
         </form.AppField>

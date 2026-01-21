@@ -8,16 +8,18 @@ import { ReviewSection } from "@/components/sections/review-section";
 import { BlogSection } from "@/app/(public)/components";
 import { CountryAwareLink } from "@/components/common/navbar/country-aware-link";
 import { MarkdownContent } from "@/components/ui/markdown-content";
+import { fetchLatestBlogs } from "@/lib/blogs";
 
 interface PageProps {
   params: Promise<{
+    country?: string; // Country slug
     slug: string; // Destination slug
     slug_id: string; // Essential Study slug
   }>;
 }
 
 export default async function EssentialStudyDetailsPage({ params }: PageProps) {
-  const { slug, slug_id } = await params;
+  const { slug, slug_id, country } = await params;
 
   if (!slug || !slug_id) {
     return notFound();
@@ -47,6 +49,9 @@ export default async function EssentialStudyDetailsPage({ params }: PageProps) {
       slug: true,
     },
   });
+
+  // Fetch blogs with country+global filtering
+  const blogs = await fetchLatestBlogs(country || null, 4);
 
   // Capitalize country for display
   // Capitalize country for display (using slug as country/destination name)
@@ -193,8 +198,9 @@ export default async function EssentialStudyDetailsPage({ params }: PageProps) {
         </div>
       </div>
 
-      <ReviewSection countrySlug={null} />
-      <BlogSection />
+      <ReviewSection countrySlug={country} />
+      <BlogSection blogs={blogs} />
     </div>
   );
 }
+

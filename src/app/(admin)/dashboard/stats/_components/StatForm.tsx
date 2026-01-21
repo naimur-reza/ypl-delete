@@ -86,6 +86,7 @@ export function StatForm({ initialData, onSuccess }: StatFormProps) {
       ) || []
     ).filter((id) => id !== "")
   );
+  const [isGlobal, setIsGlobal] = useState<boolean>((initialData as any)?.isGlobal || false);
 
   const form = useAppForm({
     defaultValues: {
@@ -110,7 +111,8 @@ export function StatForm({ initialData, onSuccess }: StatFormProps) {
           color: value.color === "none" ? undefined : value.color || undefined,
           slideIndex: value.slideIndex ?? undefined,
           status: value.status || "ACTIVE",
-          countryIds: countryIds,
+          countryIds: isGlobal ? [] : countryIds,
+          isGlobal: isGlobal,
         };
 
         if (isEditing && initialData?.id) {
@@ -238,6 +240,12 @@ export function StatForm({ initialData, onSuccess }: StatFormProps) {
                 field.handleChange(ids);
               }}
               label="Select Countries (Optional)"
+              showGlobalOption={true}
+              isGlobal={isGlobal}
+              onGlobalChange={(checked) => {
+                setIsGlobal(checked);
+                if (checked) setCountryIds([]);
+              }}
             />
           )}
         </form.AppField>

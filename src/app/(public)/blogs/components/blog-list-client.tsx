@@ -4,7 +4,6 @@ import { useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { BlogCard } from "@/components/cards/blog-card";
-import { BlogFilter } from "./blog-filter";
 import { BlogWithCountry } from "@/lib/blogs";
 
 interface Destination {
@@ -83,30 +82,37 @@ export function BlogListClient({
   };
 
   return (
-    <div id="blog-grid" className="scroll-mt-24">
-      <BlogFilter
-        countries={destinations}
-        categories={categories}
-        initialCountry={countrySlug === "global" ? null : countrySlug}
-      />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div id="blog-grid" className="scroll-mt-24 space-y-8">
+      {/* Blog grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {paginatedBlogs.length ? (
           paginatedBlogs.map((blog) => (
             <BlogCard key={blog.id} blog={blog} countrySlug={countrySlug} />
           ))
         ) : (
-          <div className="col-span-full text-center py-12">
-            <p className="text-slate-500 text-lg">
+          <div className="col-span-full text-center py-16">
+            <p className="text-slate-500 text-lg font-medium">
               No study guides found matching your criteria.
             </p>
+            <button
+              onClick={() => {
+                const params = new URLSearchParams(searchParams.toString());
+                params.delete("search");
+                params.delete("category");
+                router.push(`?${params.toString()}`, { scroll: false });
+              }}
+              className="mt-4 px-6 py-2.5 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-medium"
+            >
+              Clear Filters
+            </button>
           </div>
         )}
       </div>
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="mt-12 flex flex-col items-center gap-4">
-          <p className="text-sm text-slate-500">
+        <div className="mt-16 flex flex-col items-center gap-6">
+          <p className="text-sm text-slate-600 dark:text-slate-400 font-medium">
             Showing {(currentPage - 1) * itemsPerPage + 1} to{" "}
             {Math.min(currentPage * itemsPerPage, filteredBlogs.length)} of{" "}
             {filteredBlogs.length} articles
@@ -115,7 +121,7 @@ export function BlogListClient({
             <button
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
-              className="px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 text-sm font-semibold text-slate-700 dark:text-slate-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
               Previous
             </button>
@@ -124,10 +130,10 @@ export function BlogListClient({
                 key={page}
                 onClick={() => handlePageChange(page)}
                 className={cn(
-                  "w-10 h-10 rounded-lg text-sm font-medium transition-colors",
+                  "w-10 h-10 rounded-lg text-sm font-semibold transition-all duration-300",
                   currentPage === page
-                    ? "bg-primary text-white"
-                    : "border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800",
+                    ? "bg-primary text-white shadow-md shadow-primary/25"
+                    : "border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:border-primary dark:hover:border-primary/40",
                 )}
               >
                 {page}
@@ -136,7 +142,7 @@ export function BlogListClient({
             <button
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
-              className="px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 text-sm font-semibold text-slate-700 dark:text-slate-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
               Next
             </button>

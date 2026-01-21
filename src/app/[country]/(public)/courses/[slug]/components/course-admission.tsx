@@ -36,7 +36,11 @@ export function CourseAdmission({ content, intakes }: CourseAdmissionProps) {
         </div>
       )}
 
-      {content && <MarkdownContent content={content} />}
+      {content ? (
+        <MarkdownContent content={content} />
+      ) : (
+        <p className="text-slate-500">Contact us for admission details.</p>
+      )}
 
       <div className="mt-6 pt-6 border-t border-blue-200">
         <Link href="/apply-now">

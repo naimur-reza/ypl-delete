@@ -49,6 +49,7 @@ export type HeroMinAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   status: $Enums.ContentStatus | null
+  isGlobal: boolean | null
 }
 
 export type HeroMaxAggregateOutputType = {
@@ -66,6 +67,7 @@ export type HeroMaxAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   status: $Enums.ContentStatus | null
+  isGlobal: boolean | null
 }
 
 export type HeroCountAggregateOutputType = {
@@ -83,6 +85,7 @@ export type HeroCountAggregateOutputType = {
   createdAt: number
   updatedAt: number
   status: number
+  isGlobal: number
   _all: number
 }
 
@@ -110,6 +113,7 @@ export type HeroMinAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   status?: true
+  isGlobal?: true
 }
 
 export type HeroMaxAggregateInputType = {
@@ -127,6 +131,7 @@ export type HeroMaxAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   status?: true
+  isGlobal?: true
 }
 
 export type HeroCountAggregateInputType = {
@@ -144,6 +149,7 @@ export type HeroCountAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   status?: true
+  isGlobal?: true
   _all?: true
 }
 
@@ -248,6 +254,7 @@ export type HeroGroupByOutputType = {
   createdAt: Date
   updatedAt: Date
   status: $Enums.ContentStatus
+  isGlobal: boolean
   _count: HeroCountAggregateOutputType | null
   _avg: HeroAvgAggregateOutputType | null
   _sum: HeroSumAggregateOutputType | null
@@ -288,6 +295,7 @@ export type HeroWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Hero"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Hero"> | Date | string
   status?: Prisma.EnumContentStatusFilter<"Hero"> | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFilter<"Hero"> | boolean
   countries?: Prisma.HeroCountryListRelationFilter
 }
 
@@ -306,6 +314,7 @@ export type HeroOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
   countries?: Prisma.HeroCountryOrderByRelationAggregateInput
 }
 
@@ -327,6 +336,7 @@ export type HeroWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Hero"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Hero"> | Date | string
   status?: Prisma.EnumContentStatusFilter<"Hero"> | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFilter<"Hero"> | boolean
   countries?: Prisma.HeroCountryListRelationFilter
 }, "id">
 
@@ -345,6 +355,7 @@ export type HeroOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
   _count?: Prisma.HeroCountOrderByAggregateInput
   _avg?: Prisma.HeroAvgOrderByAggregateInput
   _max?: Prisma.HeroMaxOrderByAggregateInput
@@ -370,6 +381,7 @@ export type HeroScalarWhereWithAggregatesInput = {
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Hero"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Hero"> | Date | string
   status?: Prisma.EnumContentStatusWithAggregatesFilter<"Hero"> | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolWithAggregatesFilter<"Hero"> | boolean
 }
 
 export type HeroCreateInput = {
@@ -387,6 +399,7 @@ export type HeroCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   countries?: Prisma.HeroCountryCreateNestedManyWithoutHeroInput
 }
 
@@ -405,6 +418,7 @@ export type HeroUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   countries?: Prisma.HeroCountryUncheckedCreateNestedManyWithoutHeroInput
 }
 
@@ -423,6 +437,7 @@ export type HeroUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.HeroCountryUpdateManyWithoutHeroNestedInput
 }
 
@@ -441,6 +456,7 @@ export type HeroUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.HeroCountryUncheckedUpdateManyWithoutHeroNestedInput
 }
 
@@ -459,6 +475,7 @@ export type HeroCreateManyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
 }
 
 export type HeroUpdateManyMutationInput = {
@@ -476,6 +493,7 @@ export type HeroUpdateManyMutationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type HeroUncheckedUpdateManyInput = {
@@ -493,6 +511,7 @@ export type HeroUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type HeroCountOrderByAggregateInput = {
@@ -510,6 +529,7 @@ export type HeroCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
 }
 
 export type HeroAvgOrderByAggregateInput = {
@@ -531,6 +551,7 @@ export type HeroMaxOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
 }
 
 export type HeroMinOrderByAggregateInput = {
@@ -548,6 +569,7 @@ export type HeroMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
 }
 
 export type HeroSumOrderByAggregateInput = {
@@ -600,6 +622,7 @@ export type HeroCreateWithoutCountriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
 }
 
 export type HeroUncheckedCreateWithoutCountriesInput = {
@@ -617,6 +640,7 @@ export type HeroUncheckedCreateWithoutCountriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
 }
 
 export type HeroCreateOrConnectWithoutCountriesInput = {
@@ -650,6 +674,7 @@ export type HeroUpdateWithoutCountriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type HeroUncheckedUpdateWithoutCountriesInput = {
@@ -667,6 +692,7 @@ export type HeroUncheckedUpdateWithoutCountriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 
@@ -715,6 +741,7 @@ export type HeroSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   updatedAt?: boolean
   status?: boolean
+  isGlobal?: boolean
   countries?: boolean | Prisma.Hero$countriesArgs<ExtArgs>
   _count?: boolean | Prisma.HeroCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["hero"]>
@@ -734,6 +761,7 @@ export type HeroSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   createdAt?: boolean
   updatedAt?: boolean
   status?: boolean
+  isGlobal?: boolean
 }, ExtArgs["result"]["hero"]>
 
 export type HeroSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -751,6 +779,7 @@ export type HeroSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   createdAt?: boolean
   updatedAt?: boolean
   status?: boolean
+  isGlobal?: boolean
 }, ExtArgs["result"]["hero"]>
 
 export type HeroSelectScalar = {
@@ -768,9 +797,10 @@ export type HeroSelectScalar = {
   createdAt?: boolean
   updatedAt?: boolean
   status?: boolean
+  isGlobal?: boolean
 }
 
-export type HeroOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "subtitle" | "buttonText" | "buttonUrl" | "learnMoreText" | "learnMoreUrl" | "backgroundType" | "backgroundUrl" | "slug" | "order" | "createdAt" | "updatedAt" | "status", ExtArgs["result"]["hero"]>
+export type HeroOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "subtitle" | "buttonText" | "buttonUrl" | "learnMoreText" | "learnMoreUrl" | "backgroundType" | "backgroundUrl" | "slug" | "order" | "createdAt" | "updatedAt" | "status" | "isGlobal", ExtArgs["result"]["hero"]>
 export type HeroInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   countries?: boolean | Prisma.Hero$countriesArgs<ExtArgs>
   _count?: boolean | Prisma.HeroCountOutputTypeDefaultArgs<ExtArgs>
@@ -798,6 +828,7 @@ export type $HeroPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     createdAt: Date
     updatedAt: Date
     status: $Enums.ContentStatus
+    isGlobal: boolean
   }, ExtArgs["result"]["hero"]>
   composites: {}
 }
@@ -1236,6 +1267,7 @@ export interface HeroFieldRefs {
   readonly createdAt: Prisma.FieldRef<"Hero", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Hero", 'DateTime'>
   readonly status: Prisma.FieldRef<"Hero", 'ContentStatus'>
+  readonly isGlobal: Prisma.FieldRef<"Hero", 'Boolean'>
 }
     
 

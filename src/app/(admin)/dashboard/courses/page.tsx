@@ -114,11 +114,10 @@ const CoursesPage = () => {
         cell: ({ row }) => {
           const min = row.original.tuitionMin;
           const max = row.original.tuitionMax;
-          const currency = row.original.currency || "USD";
           if (min && max) {
-            return `${currency} ${min.toLocaleString()} - ${max.toLocaleString()}`;
+            return `$${min.toLocaleString()} - $${max.toLocaleString()}`;
           } else if (min) {
-            return `${currency} ${min.toLocaleString()}+`;
+            return `$${min.toLocaleString()}+`;
           }
           return "-";
         },

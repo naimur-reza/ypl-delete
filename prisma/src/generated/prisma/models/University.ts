@@ -58,6 +58,7 @@ export type UniversityMinAggregateOutputType = {
   updatedBy: string | null
   destinationId: string | null
   status: $Enums.ContentStatus | null
+  isGlobal: boolean | null
 }
 
 export type UniversityMaxAggregateOutputType = {
@@ -84,6 +85,7 @@ export type UniversityMaxAggregateOutputType = {
   updatedBy: string | null
   destinationId: string | null
   status: $Enums.ContentStatus | null
+  isGlobal: boolean | null
 }
 
 export type UniversityCountAggregateOutputType = {
@@ -110,6 +112,7 @@ export type UniversityCountAggregateOutputType = {
   updatedBy: number
   destinationId: number
   status: number
+  isGlobal: number
   _all: number
 }
 
@@ -146,6 +149,7 @@ export type UniversityMinAggregateInputType = {
   updatedBy?: true
   destinationId?: true
   status?: true
+  isGlobal?: true
 }
 
 export type UniversityMaxAggregateInputType = {
@@ -172,6 +176,7 @@ export type UniversityMaxAggregateInputType = {
   updatedBy?: true
   destinationId?: true
   status?: true
+  isGlobal?: true
 }
 
 export type UniversityCountAggregateInputType = {
@@ -198,6 +203,7 @@ export type UniversityCountAggregateInputType = {
   updatedBy?: true
   destinationId?: true
   status?: true
+  isGlobal?: true
   _all?: true
 }
 
@@ -311,6 +317,7 @@ export type UniversityGroupByOutputType = {
   updatedBy: string | null
   destinationId: string
   status: $Enums.ContentStatus
+  isGlobal: boolean
   _count: UniversityCountAggregateOutputType | null
   _avg: UniversityAvgAggregateOutputType | null
   _sum: UniversitySumAggregateOutputType | null
@@ -360,6 +367,7 @@ export type UniversityWhereInput = {
   updatedBy?: Prisma.StringNullableFilter<"University"> | string | null
   destinationId?: Prisma.StringFilter<"University"> | string
   status?: Prisma.EnumContentStatusFilter<"University"> | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFilter<"University"> | boolean
   blogLinks?: Prisma.BlogUniversityListRelationFilter
   courses?: Prisma.CourseListRelationFilter
   events?: Prisma.EventListRelationFilter
@@ -395,6 +403,7 @@ export type UniversityOrderByWithRelationInput = {
   updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   destinationId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
   blogLinks?: Prisma.BlogUniversityOrderByRelationAggregateInput
   courses?: Prisma.CourseOrderByRelationAggregateInput
   events?: Prisma.EventOrderByRelationAggregateInput
@@ -433,6 +442,7 @@ export type UniversityWhereUniqueInput = Prisma.AtLeast<{
   updatedBy?: Prisma.StringNullableFilter<"University"> | string | null
   destinationId?: Prisma.StringFilter<"University"> | string
   status?: Prisma.EnumContentStatusFilter<"University"> | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFilter<"University"> | boolean
   blogLinks?: Prisma.BlogUniversityListRelationFilter
   courses?: Prisma.CourseListRelationFilter
   events?: Prisma.EventListRelationFilter
@@ -468,6 +478,7 @@ export type UniversityOrderByWithAggregationInput = {
   updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   destinationId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
   _count?: Prisma.UniversityCountOrderByAggregateInput
   _avg?: Prisma.UniversityAvgOrderByAggregateInput
   _max?: Prisma.UniversityMaxOrderByAggregateInput
@@ -502,6 +513,7 @@ export type UniversityScalarWhereWithAggregatesInput = {
   updatedBy?: Prisma.StringNullableWithAggregatesFilter<"University"> | string | null
   destinationId?: Prisma.StringWithAggregatesFilter<"University"> | string
   status?: Prisma.EnumContentStatusWithAggregatesFilter<"University"> | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolWithAggregatesFilter<"University"> | boolean
 }
 
 export type UniversityCreateInput = {
@@ -527,6 +539,7 @@ export type UniversityCreateInput = {
   createdBy?: string | null
   updatedBy?: string | null
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogLinks?: Prisma.BlogUniversityCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventCreateNestedManyWithoutUniversityInput
@@ -562,6 +575,7 @@ export type UniversityUncheckedCreateInput = {
   updatedBy?: string | null
   destinationId: string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogLinks?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUniversityInput
@@ -595,6 +609,7 @@ export type UniversityUpdateInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogLinks?: Prisma.BlogUniversityUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUpdateManyWithoutUniversityNestedInput
@@ -630,6 +645,7 @@ export type UniversityUncheckedUpdateInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogLinks?: Prisma.BlogUniversityUncheckedUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUniversityNestedInput
@@ -664,6 +680,7 @@ export type UniversityCreateManyInput = {
   updatedBy?: string | null
   destinationId: string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
 }
 
 export type UniversityUpdateManyMutationInput = {
@@ -689,6 +706,7 @@ export type UniversityUpdateManyMutationInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type UniversityUncheckedUpdateManyInput = {
@@ -715,6 +733,7 @@ export type UniversityUncheckedUpdateManyInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type UniversityScalarRelationFilter = {
@@ -761,6 +780,7 @@ export type UniversityCountOrderByAggregateInput = {
   updatedBy?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
 }
 
 export type UniversityAvgOrderByAggregateInput = {
@@ -791,6 +811,7 @@ export type UniversityMaxOrderByAggregateInput = {
   updatedBy?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
 }
 
 export type UniversityMinOrderByAggregateInput = {
@@ -817,6 +838,7 @@ export type UniversityMinOrderByAggregateInput = {
   updatedBy?: Prisma.SortOrder
   destinationId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
 }
 
 export type UniversitySumOrderByAggregateInput = {
@@ -1008,6 +1030,7 @@ export type UniversityCreateWithoutCoursesInput = {
   createdBy?: string | null
   updatedBy?: string | null
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogLinks?: Prisma.BlogUniversityCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventCreateNestedManyWithoutUniversityInput
   faqLinks?: Prisma.FAQUniversityCreateNestedManyWithoutUniversityInput
@@ -1042,6 +1065,7 @@ export type UniversityUncheckedCreateWithoutCoursesInput = {
   updatedBy?: string | null
   destinationId: string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogLinks?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUniversityInput
   faqLinks?: Prisma.FAQUniversityUncheckedCreateNestedManyWithoutUniversityInput
@@ -1090,6 +1114,7 @@ export type UniversityUpdateWithoutCoursesInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogLinks?: Prisma.BlogUniversityUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUpdateManyWithoutUniversityNestedInput
   faqLinks?: Prisma.FAQUniversityUpdateManyWithoutUniversityNestedInput
@@ -1124,6 +1149,7 @@ export type UniversityUncheckedUpdateWithoutCoursesInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogLinks?: Prisma.BlogUniversityUncheckedUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUniversityNestedInput
   faqLinks?: Prisma.FAQUniversityUncheckedUpdateManyWithoutUniversityNestedInput
@@ -1156,6 +1182,7 @@ export type UniversityCreateWithoutEventsInput = {
   createdBy?: string | null
   updatedBy?: string | null
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogLinks?: Prisma.BlogUniversityCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseCreateNestedManyWithoutUniversityInput
   faqLinks?: Prisma.FAQUniversityCreateNestedManyWithoutUniversityInput
@@ -1190,6 +1217,7 @@ export type UniversityUncheckedCreateWithoutEventsInput = {
   updatedBy?: string | null
   destinationId: string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogLinks?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutUniversityInput
   faqLinks?: Prisma.FAQUniversityUncheckedCreateNestedManyWithoutUniversityInput
@@ -1238,6 +1266,7 @@ export type UniversityUpdateWithoutEventsInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogLinks?: Prisma.BlogUniversityUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUpdateManyWithoutUniversityNestedInput
   faqLinks?: Prisma.FAQUniversityUpdateManyWithoutUniversityNestedInput
@@ -1272,6 +1301,7 @@ export type UniversityUncheckedUpdateWithoutEventsInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogLinks?: Prisma.BlogUniversityUncheckedUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutUniversityNestedInput
   faqLinks?: Prisma.FAQUniversityUncheckedUpdateManyWithoutUniversityNestedInput
@@ -1304,6 +1334,7 @@ export type UniversityCreateWithoutDestinationInput = {
   createdBy?: string | null
   updatedBy?: string | null
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogLinks?: Prisma.BlogUniversityCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventCreateNestedManyWithoutUniversityInput
@@ -1337,6 +1368,7 @@ export type UniversityUncheckedCreateWithoutDestinationInput = {
   createdBy?: string | null
   updatedBy?: string | null
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogLinks?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUniversityInput
@@ -1400,6 +1432,7 @@ export type UniversityScalarWhereInput = {
   updatedBy?: Prisma.StringNullableFilter<"University"> | string | null
   destinationId?: Prisma.StringFilter<"University"> | string
   status?: Prisma.EnumContentStatusFilter<"University"> | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFilter<"University"> | boolean
 }
 
 export type UniversityCreateWithoutCountriesInput = {
@@ -1425,6 +1458,7 @@ export type UniversityCreateWithoutCountriesInput = {
   createdBy?: string | null
   updatedBy?: string | null
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogLinks?: Prisma.BlogUniversityCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventCreateNestedManyWithoutUniversityInput
@@ -1459,6 +1493,7 @@ export type UniversityUncheckedCreateWithoutCountriesInput = {
   updatedBy?: string | null
   destinationId: string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogLinks?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUniversityInput
@@ -1507,6 +1542,7 @@ export type UniversityUpdateWithoutCountriesInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogLinks?: Prisma.BlogUniversityUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUpdateManyWithoutUniversityNestedInput
@@ -1541,6 +1577,7 @@ export type UniversityUncheckedUpdateWithoutCountriesInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogLinks?: Prisma.BlogUniversityUncheckedUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUniversityNestedInput
@@ -1573,6 +1610,7 @@ export type UniversityCreateWithoutBlogLinksInput = {
   createdBy?: string | null
   updatedBy?: string | null
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   courses?: Prisma.CourseCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventCreateNestedManyWithoutUniversityInput
   faqLinks?: Prisma.FAQUniversityCreateNestedManyWithoutUniversityInput
@@ -1607,6 +1645,7 @@ export type UniversityUncheckedCreateWithoutBlogLinksInput = {
   updatedBy?: string | null
   destinationId: string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUniversityInput
   faqLinks?: Prisma.FAQUniversityUncheckedCreateNestedManyWithoutUniversityInput
@@ -1655,6 +1694,7 @@ export type UniversityUpdateWithoutBlogLinksInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   courses?: Prisma.CourseUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUpdateManyWithoutUniversityNestedInput
   faqLinks?: Prisma.FAQUniversityUpdateManyWithoutUniversityNestedInput
@@ -1689,6 +1729,7 @@ export type UniversityUncheckedUpdateWithoutBlogLinksInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   courses?: Prisma.CourseUncheckedUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUniversityNestedInput
   faqLinks?: Prisma.FAQUniversityUncheckedUpdateManyWithoutUniversityNestedInput
@@ -1721,6 +1762,7 @@ export type UniversityCreateWithoutFaqLinksInput = {
   createdBy?: string | null
   updatedBy?: string | null
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogLinks?: Prisma.BlogUniversityCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventCreateNestedManyWithoutUniversityInput
@@ -1755,6 +1797,7 @@ export type UniversityUncheckedCreateWithoutFaqLinksInput = {
   updatedBy?: string | null
   destinationId: string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogLinks?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUniversityInput
@@ -1803,6 +1846,7 @@ export type UniversityUpdateWithoutFaqLinksInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogLinks?: Prisma.BlogUniversityUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUpdateManyWithoutUniversityNestedInput
@@ -1837,6 +1881,7 @@ export type UniversityUncheckedUpdateWithoutFaqLinksInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogLinks?: Prisma.BlogUniversityUncheckedUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUniversityNestedInput
@@ -1869,6 +1914,7 @@ export type UniversityCreateWithoutTestimonialsInput = {
   createdBy?: string | null
   updatedBy?: string | null
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogLinks?: Prisma.BlogUniversityCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventCreateNestedManyWithoutUniversityInput
@@ -1903,6 +1949,7 @@ export type UniversityUncheckedCreateWithoutTestimonialsInput = {
   updatedBy?: string | null
   destinationId: string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogLinks?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUniversityInput
@@ -1951,6 +1998,7 @@ export type UniversityUpdateWithoutTestimonialsInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogLinks?: Prisma.BlogUniversityUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUpdateManyWithoutUniversityNestedInput
@@ -1985,6 +2033,7 @@ export type UniversityUncheckedUpdateWithoutTestimonialsInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogLinks?: Prisma.BlogUniversityUncheckedUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUniversityNestedInput
@@ -2017,6 +2066,7 @@ export type UniversityCreateWithoutScholarshipsInput = {
   createdBy?: string | null
   updatedBy?: string | null
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogLinks?: Prisma.BlogUniversityCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventCreateNestedManyWithoutUniversityInput
@@ -2051,6 +2101,7 @@ export type UniversityUncheckedCreateWithoutScholarshipsInput = {
   updatedBy?: string | null
   destinationId: string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogLinks?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUniversityInput
@@ -2099,6 +2150,7 @@ export type UniversityUpdateWithoutScholarshipsInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogLinks?: Prisma.BlogUniversityUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUpdateManyWithoutUniversityNestedInput
@@ -2133,6 +2185,7 @@ export type UniversityUncheckedUpdateWithoutScholarshipsInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogLinks?: Prisma.BlogUniversityUncheckedUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUniversityNestedInput
@@ -2165,6 +2218,7 @@ export type UniversityCreateWithoutDetailInput = {
   createdBy?: string | null
   updatedBy?: string | null
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogLinks?: Prisma.BlogUniversityCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventCreateNestedManyWithoutUniversityInput
@@ -2199,6 +2253,7 @@ export type UniversityUncheckedCreateWithoutDetailInput = {
   updatedBy?: string | null
   destinationId: string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   blogLinks?: Prisma.BlogUniversityUncheckedCreateNestedManyWithoutUniversityInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutUniversityInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUniversityInput
@@ -2247,6 +2302,7 @@ export type UniversityUpdateWithoutDetailInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogLinks?: Prisma.BlogUniversityUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUpdateManyWithoutUniversityNestedInput
@@ -2281,6 +2337,7 @@ export type UniversityUncheckedUpdateWithoutDetailInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogLinks?: Prisma.BlogUniversityUncheckedUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUniversityNestedInput
@@ -2313,6 +2370,7 @@ export type UniversityCreateManyDestinationInput = {
   createdBy?: string | null
   updatedBy?: string | null
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
 }
 
 export type UniversityUpdateWithoutDestinationInput = {
@@ -2338,6 +2396,7 @@ export type UniversityUpdateWithoutDestinationInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogLinks?: Prisma.BlogUniversityUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUpdateManyWithoutUniversityNestedInput
@@ -2371,6 +2430,7 @@ export type UniversityUncheckedUpdateWithoutDestinationInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   blogLinks?: Prisma.BlogUniversityUncheckedUpdateManyWithoutUniversityNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutUniversityNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUniversityNestedInput
@@ -2404,6 +2464,7 @@ export type UniversityUncheckedUpdateManyWithoutDestinationInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 
@@ -2515,6 +2576,7 @@ export type UniversitySelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   updatedBy?: boolean
   destinationId?: boolean
   status?: boolean
+  isGlobal?: boolean
   blogLinks?: boolean | Prisma.University$blogLinksArgs<ExtArgs>
   courses?: boolean | Prisma.University$coursesArgs<ExtArgs>
   events?: boolean | Prisma.University$eventsArgs<ExtArgs>
@@ -2551,6 +2613,7 @@ export type UniversitySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   updatedBy?: boolean
   destinationId?: boolean
   status?: boolean
+  isGlobal?: boolean
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["university"]>
 
@@ -2578,6 +2641,7 @@ export type UniversitySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   updatedBy?: boolean
   destinationId?: boolean
   status?: boolean
+  isGlobal?: boolean
   destination?: boolean | Prisma.DestinationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["university"]>
 
@@ -2605,9 +2669,10 @@ export type UniversitySelectScalar = {
   updatedBy?: boolean
   destinationId?: boolean
   status?: boolean
+  isGlobal?: boolean
 }
 
-export type UniversityOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "rankingNumber" | "costOfStudying" | "name" | "slug" | "logo" | "thumbnail" | "description" | "providerType" | "isFeatured" | "website" | "address" | "phone" | "email" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "destinationId" | "status", ExtArgs["result"]["university"]>
+export type UniversityOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "rankingNumber" | "costOfStudying" | "name" | "slug" | "logo" | "thumbnail" | "description" | "providerType" | "isFeatured" | "website" | "address" | "phone" | "email" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "destinationId" | "status" | "isGlobal", ExtArgs["result"]["university"]>
 export type UniversityInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   blogLinks?: boolean | Prisma.University$blogLinksArgs<ExtArgs>
   courses?: boolean | Prisma.University$coursesArgs<ExtArgs>
@@ -2664,6 +2729,7 @@ export type $UniversityPayload<ExtArgs extends runtime.Types.Extensions.Internal
     updatedBy: string | null
     destinationId: string
     status: $Enums.ContentStatus
+    isGlobal: boolean
   }, ExtArgs["result"]["university"]>
   composites: {}
 }
@@ -3119,6 +3185,7 @@ export interface UniversityFieldRefs {
   readonly updatedBy: Prisma.FieldRef<"University", 'String'>
   readonly destinationId: Prisma.FieldRef<"University", 'String'>
   readonly status: Prisma.FieldRef<"University", 'ContentStatus'>
+  readonly isGlobal: Prisma.FieldRef<"University", 'Boolean'>
 }
     
 

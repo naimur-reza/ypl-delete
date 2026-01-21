@@ -24,6 +24,7 @@ model Scholarship {
   destinationId       String
   summary             String?
   status              ContentStatus        @default(ACTIVE)
+  isGlobal            Boolean              @default(false)
   faqs                FAQScholarship[]
   destination         Destination          @relation(fields: [destinationId], references: [id], onDelete: Cascade)
   university          University?          @relation(fields: [universityId], references: [id])

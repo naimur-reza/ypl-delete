@@ -46,6 +46,7 @@ export function EssentialForm({ initialData, onSuccess }: EssentialFormProps) {
   const [loadingDestinations, setLoadingDestinations] = useState(false);
   const [content, setContent] = useState<string>(initialData?.content || "");
   const [countryIds, setCountryIds] = useState<string[]>([]);
+  const [isGlobal, setIsGlobal] = useState<boolean>((initialData as any)?.isGlobal || false);
 
   useEffect(() => {
     const fetchDestinations = async () => {
@@ -89,7 +90,8 @@ export function EssentialForm({ initialData, onSuccess }: EssentialFormProps) {
           ...value,
           description: value.description || null,
           content: content || null,
-          countryIds,
+          countryIds: isGlobal ? [] : countryIds,
+          isGlobal: isGlobal,
         };
 
         if (isEditing && initialData?.id) {
@@ -135,9 +137,17 @@ export function EssentialForm({ initialData, onSuccess }: EssentialFormProps) {
       form.setFieldValue("destinationId", initialData.destinationId || "");
       form.setFieldValue("description", initialData.description || "");
       setContent(initialData.content || "");
+      // Set countryIds from initialData.countries
+      const initialCountryIds = (initialData as any)?.countries?.map(
+        (c: { country?: { id: string }; countryId?: string }) => c.country?.id || c.countryId || ""
+      ).filter((id: string) => id !== "") || [];
+      setCountryIds(initialCountryIds);
+      setIsGlobal((initialData as any)?.isGlobal || false);
     } else {
       form.reset();
       setContent("");
+      setCountryIds([]);
+      setIsGlobal(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialData]);
@@ -235,6 +245,12 @@ export function EssentialForm({ initialData, onSuccess }: EssentialFormProps) {
             value={countryIds}
             onChange={setCountryIds}
             label="Select Countries"
+            showGlobalOption={true}
+            isGlobal={isGlobal}
+            onGlobalChange={(checked) => {
+              setIsGlobal(checked);
+              if (checked) setCountryIds([]);
+            }}
           />
         </div>
         <div className="flex gap-2 justify-end">

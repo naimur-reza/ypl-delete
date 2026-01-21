@@ -66,6 +66,7 @@ export function DestinationForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [sections, setSections] = useState<DestinationSection[]>([]);
   const [expandedSection, setExpandedSection] = useState<number | null>(null);
+  const [isGlobal, setIsGlobal] = useState<boolean>((initialData as any)?.isGlobal || false);
 
   const form = useAppForm({
     defaultValues: {
@@ -92,7 +93,8 @@ export function DestinationForm({
         let response;
         const submitData = {
           ...value,
-          countryIds: countryIds,
+          countryIds: isGlobal ? [] : countryIds,
+          isGlobal: isGlobal,
           sections: sections.map((s, i) => ({ ...s, displayOrder: i })),
           metaTitle: value.metaTitle || null,
           metaDescription: value.metaDescription || null,
@@ -167,6 +169,7 @@ export function DestinationForm({
           form.setFieldValue(key, values[key]);
         }
       });
+      setIsGlobal((initialData as any)?.isGlobal || false);
     } else {
       setCountryIds([]);
       setSections([]);
@@ -282,6 +285,12 @@ export function DestinationForm({
                   field.handleChange(ids);
                 }}
                 label="Select Countries"
+                showGlobalOption={true}
+                isGlobal={isGlobal}
+                onGlobalChange={(checked) => {
+                  setIsGlobal(checked);
+                  if (checked) setCountryIds([]);
+                }}
               />
             )}
           </form.AppField>

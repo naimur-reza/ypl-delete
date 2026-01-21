@@ -48,6 +48,7 @@ export type StatMinAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   status: $Enums.ContentStatus | null
+  isGlobal: boolean | null
 }
 
 export type StatMaxAggregateOutputType = {
@@ -62,6 +63,7 @@ export type StatMaxAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   status: $Enums.ContentStatus | null
+  isGlobal: boolean | null
 }
 
 export type StatCountAggregateOutputType = {
@@ -76,6 +78,7 @@ export type StatCountAggregateOutputType = {
   createdAt: number
   updatedAt: number
   status: number
+  isGlobal: number
   _all: number
 }
 
@@ -102,6 +105,7 @@ export type StatMinAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   status?: true
+  isGlobal?: true
 }
 
 export type StatMaxAggregateInputType = {
@@ -116,6 +120,7 @@ export type StatMaxAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   status?: true
+  isGlobal?: true
 }
 
 export type StatCountAggregateInputType = {
@@ -130,6 +135,7 @@ export type StatCountAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   status?: true
+  isGlobal?: true
   _all?: true
 }
 
@@ -231,6 +237,7 @@ export type StatGroupByOutputType = {
   createdAt: Date
   updatedAt: Date
   status: $Enums.ContentStatus
+  isGlobal: boolean
   _count: StatCountAggregateOutputType | null
   _avg: StatAvgAggregateOutputType | null
   _sum: StatSumAggregateOutputType | null
@@ -268,6 +275,7 @@ export type StatWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Stat"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Stat"> | Date | string
   status?: Prisma.EnumContentStatusFilter<"Stat"> | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFilter<"Stat"> | boolean
   countries?: Prisma.StatCountryListRelationFilter
 }
 
@@ -283,6 +291,7 @@ export type StatOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
   countries?: Prisma.StatCountryOrderByRelationAggregateInput
 }
 
@@ -301,6 +310,7 @@ export type StatWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Stat"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Stat"> | Date | string
   status?: Prisma.EnumContentStatusFilter<"Stat"> | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFilter<"Stat"> | boolean
   countries?: Prisma.StatCountryListRelationFilter
 }, "id">
 
@@ -316,6 +326,7 @@ export type StatOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
   _count?: Prisma.StatCountOrderByAggregateInput
   _avg?: Prisma.StatAvgOrderByAggregateInput
   _max?: Prisma.StatMaxOrderByAggregateInput
@@ -338,6 +349,7 @@ export type StatScalarWhereWithAggregatesInput = {
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Stat"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Stat"> | Date | string
   status?: Prisma.EnumContentStatusWithAggregatesFilter<"Stat"> | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolWithAggregatesFilter<"Stat"> | boolean
 }
 
 export type StatCreateInput = {
@@ -352,6 +364,7 @@ export type StatCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   countries?: Prisma.StatCountryCreateNestedManyWithoutStatInput
 }
 
@@ -367,6 +380,7 @@ export type StatUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
   countries?: Prisma.StatCountryUncheckedCreateNestedManyWithoutStatInput
 }
 
@@ -382,6 +396,7 @@ export type StatUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.StatCountryUpdateManyWithoutStatNestedInput
 }
 
@@ -397,6 +412,7 @@ export type StatUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   countries?: Prisma.StatCountryUncheckedUpdateManyWithoutStatNestedInput
 }
 
@@ -412,6 +428,7 @@ export type StatCreateManyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
 }
 
 export type StatUpdateManyMutationInput = {
@@ -426,6 +443,7 @@ export type StatUpdateManyMutationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type StatUncheckedUpdateManyInput = {
@@ -440,6 +458,7 @@ export type StatUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type StatCountOrderByAggregateInput = {
@@ -454,6 +473,7 @@ export type StatCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
 }
 
 export type StatAvgOrderByAggregateInput = {
@@ -473,6 +493,7 @@ export type StatMaxOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
 }
 
 export type StatMinOrderByAggregateInput = {
@@ -487,6 +508,7 @@ export type StatMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
 }
 
 export type StatSumOrderByAggregateInput = {
@@ -525,6 +547,7 @@ export type StatCreateWithoutCountriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
 }
 
 export type StatUncheckedCreateWithoutCountriesInput = {
@@ -539,6 +562,7 @@ export type StatUncheckedCreateWithoutCountriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
 }
 
 export type StatCreateOrConnectWithoutCountriesInput = {
@@ -569,6 +593,7 @@ export type StatUpdateWithoutCountriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type StatUncheckedUpdateWithoutCountriesInput = {
@@ -583,6 +608,7 @@ export type StatUncheckedUpdateWithoutCountriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 
@@ -628,6 +654,7 @@ export type StatSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   updatedAt?: boolean
   status?: boolean
+  isGlobal?: boolean
   countries?: boolean | Prisma.Stat$countriesArgs<ExtArgs>
   _count?: boolean | Prisma.StatCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["stat"]>
@@ -644,6 +671,7 @@ export type StatSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   createdAt?: boolean
   updatedAt?: boolean
   status?: boolean
+  isGlobal?: boolean
 }, ExtArgs["result"]["stat"]>
 
 export type StatSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -658,6 +686,7 @@ export type StatSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   createdAt?: boolean
   updatedAt?: boolean
   status?: boolean
+  isGlobal?: boolean
 }, ExtArgs["result"]["stat"]>
 
 export type StatSelectScalar = {
@@ -672,9 +701,10 @@ export type StatSelectScalar = {
   createdAt?: boolean
   updatedAt?: boolean
   status?: boolean
+  isGlobal?: boolean
 }
 
-export type StatOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "subtitle" | "icon" | "color" | "section" | "slideIndex" | "sortOrder" | "createdAt" | "updatedAt" | "status", ExtArgs["result"]["stat"]>
+export type StatOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "subtitle" | "icon" | "color" | "section" | "slideIndex" | "sortOrder" | "createdAt" | "updatedAt" | "status" | "isGlobal", ExtArgs["result"]["stat"]>
 export type StatInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   countries?: boolean | Prisma.Stat$countriesArgs<ExtArgs>
   _count?: boolean | Prisma.StatCountOutputTypeDefaultArgs<ExtArgs>
@@ -699,6 +729,7 @@ export type $StatPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     createdAt: Date
     updatedAt: Date
     status: $Enums.ContentStatus
+    isGlobal: boolean
   }, ExtArgs["result"]["stat"]>
   composites: {}
 }
@@ -1134,6 +1165,7 @@ export interface StatFieldRefs {
   readonly createdAt: Prisma.FieldRef<"Stat", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Stat", 'DateTime'>
   readonly status: Prisma.FieldRef<"Stat", 'ContentStatus'>
+  readonly isGlobal: Prisma.FieldRef<"Stat", 'Boolean'>
 }
     
 

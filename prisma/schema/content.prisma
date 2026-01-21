@@ -14,6 +14,7 @@ model Service {
   heroTitle       String?
   stats           Json?
   status          ContentStatus    @default(ACTIVE)
+  isGlobal        Boolean          @default(false)
   countries       ServiceCountry[]
 
   @@index([status])
@@ -29,6 +30,7 @@ model Accreditation {
   updatedAt DateTime               @updatedAt
   type      AccreditationType      @default(NEWS)
   status    ContentStatus          @default(DRAFT)
+  isGlobal  Boolean                @default(false)
   countries AccreditationCountry[]
 
   @@index([status])

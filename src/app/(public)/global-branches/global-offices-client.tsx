@@ -98,7 +98,7 @@ export default function GlobalOfficesClient({
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   const [expandedCountries, setExpandedCountries] = useState<string[]>([]);
 
-  // Extract countries and their cities
+  // Extract countries and their cities, including "Global" category for global offices
   const countriesWithCities = useMemo(() => {
     const countryMap = new Map<string, { name: string; cities: Set<string> }>();
     const cityCountryMap = new Map<string, Set<string>>(); // Track which countries each city belongs to
@@ -106,6 +106,26 @@ export default function GlobalOfficesClient({
     offices.forEach((office) => {
       // Use the actual city field from the office
       const city = office.city || office.name.split(" ")[0].trim();
+
+      // Check if this is a global office (has isGlobal = true and no countries)
+      const isGlobalOffice = (office as any).isGlobal === true || (!office.countries || office.countries.length === 0);
+
+      if (isGlobalOffice) {
+        // Add to "Global" category
+        if (!countryMap.has("Global")) {
+          countryMap.set("Global", {
+            name: "Global",
+            cities: new Set(),
+          });
+        }
+        countryMap.get("Global")!.cities.add(city);
+        
+        // Also track the city
+        if (!cityCountryMap.has(city)) {
+          cityCountryMap.set(city, new Set());
+        }
+        cityCountryMap.get(city)!.add("Global");
+      }
 
       office.countries?.forEach(({ country }) => {
         if (country) {
@@ -134,7 +154,12 @@ export default function GlobalOfficesClient({
         name: countryName,
         cities: Array.from(data.cities).sort(),
       }))
-      .sort((a, b) => a.name.localeCompare(b.name));
+      .sort((a, b) => {
+        // Put "Global" at the top
+        if (a.name === "Global") return -1;
+        if (b.name === "Global") return 1;
+        return a.name.localeCompare(b.name);
+      });
   }, [offices]);
 
   // Filter offices
@@ -151,6 +176,14 @@ export default function GlobalOfficesClient({
 
         // If no country filters are selected, don't filter by country
         if (matchingCountries.length === 0) return true;
+
+        // Check if "Global" filter is selected and this is a global office
+        const isGlobalOffice = (office as any).isGlobal === true || (!office.countries || office.countries.length === 0);
+        const globalFilterSelected = matchingCountries.includes("Global");
+
+        if (globalFilterSelected && isGlobalOffice) {
+          return true;
+        }
 
         // Office must have countries and match at least one of the selected countries
         return (
@@ -185,6 +218,17 @@ export default function GlobalOfficesClient({
 
     if (filteredOffices && Array.isArray(filteredOffices)) {
       filteredOffices.forEach((office) => {
+        // Check if this is a global office
+        const isGlobalOffice = (office as any).isGlobal === true || (!office.countries || office.countries.length === 0);
+
+        if (isGlobalOffice) {
+          // Add to "Global" group
+          if (!grouped["Global"]) {
+            grouped["Global"] = [];
+          }
+          grouped["Global"].push(office);
+        }
+
         office.countries?.forEach(({ country }) => {
           if (country) {
             if (!grouped[country.name]) {
@@ -196,7 +240,12 @@ export default function GlobalOfficesClient({
       });
     }
 
-    return Object.entries(grouped).sort(([a], [b]) => a.localeCompare(b));
+    return Object.entries(grouped).sort(([a], [b]) => {
+      // Put "Global" at the top
+      if (a === "Global") return -1;
+      if (b === "Global") return 1;
+      return a.localeCompare(b);
+    });
   }, [filteredOffices]);
 
   const toggleFilter = (filter: string) => {
