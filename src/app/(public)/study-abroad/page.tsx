@@ -125,7 +125,7 @@ const StudyAbroadPage = async ({ params }: StudyAbroadPageProps) => {
       />
 
       {/* 6. Intake Features */}
-      <IntakeFeature />
+      <IntakeFeature countrySlug={country}/>
 
       {/* 7. Scholarship Slider - Dynamic */}
       <ScholarshipSlider

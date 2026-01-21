@@ -410,7 +410,7 @@ export default async function CourseDetailsPage({ params }: PageProps) {
       <div className="space-y-0">
         {/* Intake admission Section CTR */}
         <div className="bg-white">
-          <IntakeFeature />
+          <IntakeFeature countrySlug={country} />
         </div>
 
         {/* FAQ Section */}

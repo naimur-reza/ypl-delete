@@ -84,7 +84,7 @@ const HomePage = async () => {
         destinations={destinations}
       />
       <AboutSection />
-      <IntakeFeature />
+      <IntakeFeature countrySlug={countrySlug}/>
       <CountriesSection />
       <UniversitySlider universities={universities} />
       <WhyChooseUs countrySlug={countrySlug} />

@@ -38,8 +38,9 @@ import { RepresentativeVideoSlider } from "@/components/sections/representative-
 import CallToActionBanner from "@/components/CallToActionBanner";
 
 import { fetchFaqsByContext } from "@/lib/faqs";
+import { IntakeFeature } from "@/app/[country]/(public)/(home)/components";
 
-import { IntakeFeature } from "../../components";
+ 
 
 interface PageProps {
   params: Promise<{
@@ -272,7 +273,7 @@ export default async function UniversityDetailsPage({ params }: PageProps) {
       </div>
 
       {/* 9. Intake Admission Section CTR */}
-      <IntakeFeature />
+      <IntakeFeature countrySlug={country} />
 
       {/* 10. Student Review Video Slider */}
       {reviews.length > 0 && (

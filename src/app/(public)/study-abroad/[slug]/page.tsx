@@ -22,6 +22,8 @@ import { EssentialStudySection } from "../components/essential-study-section";
 import { buildMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 import { UniversityFilterWithWizard } from "@/components/filters/university-filter-with-wizard";
+import { IntakeFeatureStudyAbroad } from "@/app/[country]/(public)/(home)/components/intake-feature-study-abroad";
+ 
 
 interface PageProps {
   params: Promise<{
@@ -188,7 +190,7 @@ const DestinationDetailsPage = async ({ params }: PageProps) => {
         sections={destination?.sections || []}
       />
 
-      <IntakeFeature
+      <IntakeFeatureStudyAbroad
         countrySlug={countrySlug as string}
         destinationId={destination?.id}
       />

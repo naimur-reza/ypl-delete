@@ -181,7 +181,7 @@ export default async function ScholarshipDetailsPage({ params }: PageProps) {
   return (
     <div className="bg-slate-50 min-h-screen">
       {/* Hero Section */}
-      <div className="relative h-[400px] w-full overflow-hidden">
+      <div className="relative h-120 w-full overflow-hidden">
         <Image
           src={
             scholarship.image ||
@@ -192,7 +192,7 @@ export default async function ScholarshipDetailsPage({ params }: PageProps) {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-linear-to-r from-blue-900/90 via-blue-800/80 to-transparent" />
+        <div className="absolute inset-0 bg-black/60" />
         <div className="absolute inset-0 flex flex-col justify-center max-w-7xl mx-auto px-6">
           <div className="flex items-center gap-2 text-white/80 text-sm mb-4">
             <Link
@@ -268,10 +268,6 @@ export default async function ScholarshipDetailsPage({ params }: PageProps) {
             <div className="flex gap-3">
               <button className="px-6 py-2.5 bg-primary hover:bg-primary/90 text-white font-semibold rounded-lg transition-colors shadow-sm">
                 Apply Now
-              </button>
-              <button className="px-4 py-2.5 border border-slate-200 hover:bg-slate-50 text-slate-700 font-medium rounded-lg transition-colors flex items-center gap-2">
-                <Share2 className="w-4 h-4" />
-                Share
               </button>
             </div>
           </div>
@@ -349,7 +345,7 @@ export default async function ScholarshipDetailsPage({ params }: PageProps) {
       {/* Section Part - Below Main Content */}
       <div className="bg-white">
         {/* Intake Admission Section CTR */}
-        <IntakeFeature />
+        <IntakeFeature countrySlug={country} />
 
         {/* FAQ */}
         <FaqSection faqs={faqs} />

@@ -166,32 +166,46 @@ export default function GlobalOfficesClient({
   const filteredOffices = useMemo(() => {
     let officesToFilter = offices;
 
-    // Filter by selected countries
+    // Filter by selected filters (countries and cities)
     if (selectedFilters.length > 0) {
       officesToFilter = officesToFilter.filter((office) => {
-        // Check if this office matches ALL selected country filters
+        // Extract country and city filters
         const matchingCountries = selectedFilters
           .filter((filter) => filter.startsWith("country:"))
           .map((filter) => filter.replace("country:", ""));
 
-        // If no country filters are selected, don't filter by country
-        if (matchingCountries.length === 0) return true;
+        const matchingCities = selectedFilters
+          .filter((filter) => filter.startsWith("city:"))
+          .map((filter) => filter.replace("city:", ""));
 
-        // Check if "Global" filter is selected and this is a global office
-        const isGlobalOffice = (office as any).isGlobal === true || (!office.countries || office.countries.length === 0);
-        const globalFilterSelected = matchingCountries.includes("Global");
+        // Check country filters
+        let matchesCountryFilter = true;
+        if (matchingCountries.length > 0) {
+          // Check if "Global" filter is selected and this is a global office
+          const isGlobalOffice = (office as any).isGlobal === true || (!office.countries || office.countries.length === 0);
+          const globalFilterSelected = matchingCountries.includes("Global");
 
-        if (globalFilterSelected && isGlobalOffice) {
-          return true;
+          if (globalFilterSelected && isGlobalOffice) {
+            matchesCountryFilter = true;
+          } else {
+            // Office must have countries and match at least one of the selected countries
+            matchesCountryFilter =
+              office.countries?.some(
+                ({ country }) =>
+                  country && matchingCountries.includes(country.name),
+              ) || false;
+          }
         }
 
-        // Office must have countries and match at least one of the selected countries
-        return (
-          office.countries?.some(
-            ({ country }) =>
-              country && matchingCountries.includes(country.name),
-          ) || false
-        );
+        // Check city filters
+        let matchesCityFilter = true;
+        if (matchingCities.length > 0) {
+          const officeCity = office.city || office.name.split(" ")[0].trim();
+          matchesCityFilter = matchingCities.includes(officeCity);
+        }
+
+        // Office must match both country AND city filters (if they exist)
+        return matchesCountryFilter && matchesCityFilter;
       });
     }
 

@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { CountryAwareLink } from "@/components/common/navbar/country-aware-link";
 
-export async function IntakeFeature({
+export async function IntakeFeatureStudyAbroad({
   countrySlug,
   destinationId,
 }: {
@@ -105,15 +105,28 @@ export async function IntakeFeature({
             </p>
           )}
 
- 
+          {/* CTA Button */}
+          {intakePage?.destinationId ? (
+            <CountryAwareLink
+              href={
+                countrySlug
+                  ? `/${intakePage?.destination?.slug}/${intakePage.intake.toLowerCase()}`
+                  : `/intake/${intakePage.destination.slug}/${intakePage.intake.toLowerCase()}`
+              }
+              className="bg-primary hover:bg-primary/90 active:bg-primary/80 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 md:px-10 rounded-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 text-base sm:text-lg cursor-pointer inline-block touch-manipulation min-h-[44px] flex items-center justify-center"
+            >
+              View Details
+            </CountryAwareLink>
+          ) : (
+            <>
               <CountryAwareLink
                 href={season.ctaUrl || "/apply-now"}
                 className="bg-primary hover:bg-primary/90 active:bg-primary/80 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 md:px-10 rounded-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 text-base sm:text-lg cursor-pointer inline-block touch-manipulation min-h-[44px] flex items-center justify-center"
               >
                 {season.ctaLabel || "Apply Now"}
               </CountryAwareLink>
-   
-  
+            </>
+          )}
         </div>
       </div>
     </section>
