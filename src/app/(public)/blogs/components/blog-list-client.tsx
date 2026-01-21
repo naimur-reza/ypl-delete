@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useTransition, useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { BlogCard } from "@/components/cards/blog-card";
@@ -20,6 +20,25 @@ interface BlogListClientProps {
   itemsPerPage?: number;
 }
 
+// Skeleton component for blog cards
+function BlogCardSkeleton() {
+  return (
+    <div className="bg-white rounded-xl overflow-hidden shadow-sm border border-slate-200 animate-pulse">
+      <div className="h-48 bg-slate-200" />
+      <div className="p-5 space-y-3">
+        <div className="h-4 bg-slate-200 rounded w-1/4" />
+        <div className="h-6 bg-slate-200 rounded w-3/4" />
+        <div className="h-4 bg-slate-200 rounded w-full" />
+        <div className="h-4 bg-slate-200 rounded w-2/3" />
+        <div className="flex items-center gap-2 pt-2">
+          <div className="h-8 w-8 bg-slate-200 rounded-full" />
+          <div className="h-4 bg-slate-200 rounded w-24" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function BlogListClient({
   blogs,
   destinations,
@@ -33,6 +52,22 @@ export function BlogListClient({
   const searchQuery = searchParams.get("search") || "";
   const selectedCategory = searchParams.get("category") || "All";
   const currentPage = Number(searchParams.get("page")) || 1;
+
+  // Loading state for skeleton
+  const [isLoading, setIsLoading] = useState(false);
+  const [prevParams, setPrevParams] = useState(searchParams.toString());
+
+  // Show skeleton when search params change
+  useEffect(() => {
+    const currentParams = searchParams.toString();
+    if (currentParams !== prevParams) {
+      setIsLoading(true);
+      setPrevParams(currentParams);
+      // Simulate brief loading for visual feedback
+      const timer = setTimeout(() => setIsLoading(false), 300);
+      return () => clearTimeout(timer);
+    }
+  }, [searchParams, prevParams]);
 
   // Client-side filtering
   const filteredBlogs = useMemo(() => {
@@ -85,7 +120,14 @@ export function BlogListClient({
     <div id="blog-grid" className="scroll-mt-24 space-y-8">
       {/* Blog grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {paginatedBlogs.length ? (
+        {isLoading ? (
+          // Skeleton loaders
+          <>
+            {Array.from({ length: 6 }).map((_, i) => (
+              <BlogCardSkeleton key={i} />
+            ))}
+          </>
+        ) : paginatedBlogs.length ? (
           paginatedBlogs.map((blog) => (
             <BlogCard key={blog.id} blog={blog} countrySlug={countrySlug} />
           ))
@@ -110,7 +152,7 @@ export function BlogListClient({
       </div>
 
       {/* Pagination */}
-      {totalPages > 1 && (
+      {totalPages > 1 && !isLoading && (
         <div className="mt-16 flex flex-col items-center gap-6">
           <p className="text-sm text-slate-600 dark:text-slate-400 font-medium">
             Showing {(currentPage - 1) * itemsPerPage + 1} to{" "}
@@ -152,3 +194,4 @@ export function BlogListClient({
     </div>
   );
 }
+

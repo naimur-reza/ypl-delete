@@ -86,7 +86,7 @@ export function BlogFilter({
 
         {/* Dropdown Menu */}
         {isDropdownOpen && (
-          <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-slate-300 rounded-lg shadow-xl z-50 overflow-hidden">
+          <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-slate-300 rounded-lg shadow-xl z-[100] overflow-hidden">
             <div className="max-h-80 overflow-y-auto">
               {/* All Blogs Option */}
               <button

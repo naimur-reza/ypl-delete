@@ -42,12 +42,8 @@ const buildBlogWhere = ({
         },
       ],
     });
-  } else {
-    // When on global route (no countrySlug), show only global blogs
-    filters.push({
-      isGlobal: true,
-    });
   }
+  // When on global route (no countrySlug), show ALL active blogs (no country filter)
 
   if (countryFilterName && countryFilterName !== "All") {
     filters.push({

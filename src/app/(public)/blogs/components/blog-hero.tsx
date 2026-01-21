@@ -195,17 +195,10 @@ export function BlogHero({ destinations, categories = [] }: BlogHeroProps) {
               />
             </button>
 
-            {/* Dropdown Menu - Using fixed positioning to escape constraints */}
+            {/* Dropdown Menu */}
             {isDropdownOpen && (
               <div
-                className="fixed bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg shadow-xl z-50"
-                style={{
-                  top: `${dropdownPosition.top}px`,
-                  left: `${dropdownPosition.left}px`,
-                  width: `${dropdownPosition.width}px`,
-                  maxHeight: "320px",
-                  overflow: "hidden",
-                }}
+                className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg shadow-xl z-[9999] max-h-80 overflow-hidden"
               >
                 <div className="max-h-80 overflow-y-auto overflow-x-hidden">
                   {/* All Blogs Option */}
