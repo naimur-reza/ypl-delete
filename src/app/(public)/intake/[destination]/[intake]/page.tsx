@@ -16,6 +16,7 @@ import { prisma } from "@/lib/prisma";
 
 interface PageProps {
   params: Promise<{
+    country?: string;
     destination: string;
     intake: string;
   }>;
@@ -42,7 +43,7 @@ function isValidIntake(intake: string): intake is IntakeMonth {
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const { destination, intake } = await params;
+  const { destination, intake, country } = await params;
   const cleanedSlug = cleanDestinationSlug(destination);
 
   if (!isValidIntake(intake)) {
@@ -144,7 +145,7 @@ function HowWeHelp({
 }
 
 export default async function GlobalIntakePage({ params }: PageProps) {
-  const { destination, intake } = await params;
+  const { destination, intake, country } = await params;
   const cleanedSlug = cleanDestinationSlug(destination);
 
   // Validate intake
@@ -273,7 +274,7 @@ export default async function GlobalIntakePage({ params }: PageProps) {
       )}
 
       {/* Student Review Video Slider (all reviews, no country filter) */}
-      <ReviewSection />
+      <ReviewSection countrySlug={country} />
 
       {/* Upcoming Events (all events, no country filter) */}
       <EventsSection events={events as any} />

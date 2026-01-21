@@ -83,7 +83,7 @@ export default async function BlogsPage({ params }: PageProps) {
         </section>
       </Suspense>
 
-      <ReviewSection />
+      <ReviewSection countrySlug={resolvedCountry.slug} />
 
       <RepresentativeVideoSlider videos={videos} />
 

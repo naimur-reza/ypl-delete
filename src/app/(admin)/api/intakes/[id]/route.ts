@@ -24,7 +24,7 @@ const intakeSchema = z.object({
 
   // Timeline & Countdown
   timelineJson: z.string().optional(),
-  targetDate: z.string().datetime().optional(),
+  targetDate: z.string().optional(),
   timelineEnabled: z.boolean().default(true),
 
   // How We Help
@@ -233,23 +233,44 @@ export async function POST(
     }
 
     // Create duplicate with new title
-    const duplicatedIntake = await prisma.intakePage.create({
-      data: {
-        ...originalIntake,
-        id: undefined, // Remove original ID
-        title: newTitle || `${originalIntake.title} (Copy)`,
-        status: "DRAFT", // Start as draft
-        createdAt: undefined, // Let database set new timestamp
-        updatedAt: undefined,
-        intakePageBenefits: {
-          create: originalIntake.intakePageBenefits.map((benefit) => ({
-            title: benefit.title,
-            description: benefit.description,
-            icon: benefit.icon,
-            sortOrder: benefit.sortOrder,
-          })),
-        },
+    const {
+      id: _,
+      createdAt: __,
+      updatedAt: ___,
+      intakePageBenefits,
+      ...rest
+    } = originalIntake;
+
+    // Remove null timelineJson/howWeHelpJson fields to avoid Prisma type error
+    const data: any = {
+      ...rest,
+      title: newTitle || `${originalIntake.title} (Copy)`,
+      status: "DRAFT",
+      intakePageBenefits: {
+        create: intakePageBenefits.map((benefit) => ({
+          title: benefit.title,
+          description: benefit.description,
+          icon: benefit.icon,
+          sortOrder: benefit.sortOrder,
+        })),
       },
+    };
+
+    if (
+      originalIntake.timelineJson !== null &&
+      originalIntake.timelineJson !== undefined
+    ) {
+      data.timelineJson = originalIntake.timelineJson;
+    }
+    if (
+      originalIntake.howWeHelpJson !== null &&
+      originalIntake.howWeHelpJson !== undefined
+    ) {
+      data.howWeHelpJson = originalIntake.howWeHelpJson;
+    }
+
+    const duplicatedIntake = await prisma.intakePage.create({
+      data,
       include: {
         destination: true,
         country: true,

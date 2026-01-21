@@ -106,7 +106,7 @@ export function WhyChooseIntake({
                 key={benefit.id}
                 className="bg-gray-50 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 hover:scale-105 border border-gray-100"
               >
-                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-4">
+                <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary mb-4">
                   <IconComponent className="w-6 h-6" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">

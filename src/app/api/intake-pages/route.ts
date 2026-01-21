@@ -44,6 +44,7 @@ export async function POST(req: NextRequest) {
       metaKeywords,
       benefits,
       status,
+      targetDate,
     } = body;
 
     if (!destinationId || !intake || !title) {
@@ -71,6 +72,7 @@ export async function POST(req: NextRequest) {
         metaTitle,
         metaDescription,
         metaKeywords,
+        targetDate: targetDate ? new Date(targetDate) : null,
         status: status || "DRAFT",
         intakePageBenefits: benefits?.length
           ? {
@@ -113,7 +115,7 @@ export async function PUT(req: NextRequest) {
 
   try {
     const body = await req.json();
-    const { id, benefits, ...data } = body;
+    const { id, benefits, targetDate, ...data } = body;
 
     if (!id) {
       return Response.json({ error: "ID is required" }, { status: 400 });
@@ -123,6 +125,7 @@ export async function PUT(req: NextRequest) {
       where: { id },
       data: {
         ...data,
+        targetDate: targetDate ? new Date(targetDate) : null,
         intakePageBenefits:
           benefits !== undefined
             ? {

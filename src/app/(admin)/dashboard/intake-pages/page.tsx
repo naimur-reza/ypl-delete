@@ -7,7 +7,14 @@ import { DataTable } from "@/components/table/data-table";
 import { useDataTable } from "@/hooks/use-data-table";
 import { createEntityApi } from "@/lib/api-client";
 import { toast } from "sonner";
-import { MoreHorizontal, Plus, Pencil, Trash2, Eye, ExternalLink } from "lucide-react";
+import {
+  MoreHorizontal,
+  Plus,
+  Pencil,
+  Trash2,
+  Eye,
+  ExternalLink,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -50,8 +57,9 @@ export default function IntakePages() {
   const [statusFilter, setStatusFilter] = useState<string>("all");
 
   const endpoint = useMemo(
-    () => `/api/intake-pages${statusFilter !== "all" ? `?status=${statusFilter}` : ""}`,
-    [statusFilter]
+    () =>
+      `/api/intake-pages${statusFilter !== "all" ? `?status=${statusFilter}` : ""}`,
+    [statusFilter],
   );
 
   const { table, isLoading, error, pagination, refetch } = useDataTable<Item>({
@@ -121,21 +129,26 @@ export default function IntakePages() {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   onClick={() => {
-                    const destSlug = (item.destination as any)?.slug || 'uk';
+                    const destSlug = (item.destination as any)?.slug || "uk";
                     const intakeSlug = item.intake.toLowerCase();
                     // Use [program]/[intake] route - strip study-in- prefix if present
-                    const cleanSlug = destSlug.startsWith('study-in-')
-                      ? destSlug.replace('study-in-', '')
+                    const cleanSlug = destSlug.startsWith("study-in-")
+                      ? destSlug.replace("study-in-", "")
                       : destSlug;
                     // URL: /bangladesh/uk/january (uses [program]/[intake] route)
-                    window.open(`/bangladesh/${cleanSlug}/${intakeSlug}`, '_blank');
+                    window.open(
+                      `/bangladesh/${cleanSlug}/${intakeSlug}`,
+                      "_blank",
+                    );
                   }}
                 >
                   <ExternalLink className="mr-2 h-4 w-4" />
                   View Page
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  onClick={() => router.push(`/dashboard/intake-pages/${item.id}/edit`)}
+                  onClick={() =>
+                    router.push(`/dashboard/intake-pages/${item.id}/edit`)
+                  }
                 >
                   <Pencil className="mr-2 h-4 w-4" />
                   Edit
@@ -153,14 +166,12 @@ export default function IntakePages() {
         },
       },
     ],
-    [deleteDialog, router]
+    [deleteDialog, router],
   );
 
   if (table.options.columns.length === 0) {
     table.setOptions((prev) => ({ ...prev, columns }));
   }
-
-
 
   return (
     <div className="space-y-6">
@@ -170,8 +181,6 @@ export default function IntakePages() {
           Manage destination-specific intake content
         </p>
       </div>
-
-
 
       <ConfirmDialog
         open={deleteDialog.isOpen}
