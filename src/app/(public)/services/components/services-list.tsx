@@ -1,15 +1,12 @@
 import { prisma } from "@/lib/prisma";
 import ServicesList from "./service-list-client";
 
-export default async function ServicesListServer() {
-  const countries = await prisma.country.findMany({
-    orderBy: { name: "asc" },
-  });
+interface ServicesListServerProps {
+  services: any[];
+}
 
-  const services = await prisma.service.findMany({
-    where: { status: "ACTIVE" },
-    orderBy: { title: "asc" },
-  });
-
-  return <ServicesList countries={countries} services={services} />;
+export default async function ServicesListServer({
+  services,
+}: ServicesListServerProps) {
+  return <ServicesList services={services} />;
 }

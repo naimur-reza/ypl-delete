@@ -5,7 +5,6 @@ import { PopularCourses } from "./components/popular-courses";
 import { ScholarshipSlider } from "./components/scholarship-slider";
 
 import { UniversityLogoSlider } from "./components/university-logo-slider";
-import { ReviewSection } from "./components/review-section";
 
 import CallToActionBanner from "@/components/CallToActionBanner";
 
@@ -17,6 +16,8 @@ import {
   IntakeFeature,
 } from "@/app/[country]/(public)/(home)/components";
 import { UniversityFilterWithWizard } from "@/components/filters/university-filter-with-wizard";
+import { ReviewSection } from "@/components/sections/review-section";
+import { fetchFaqsForHomePage, fetchFaqsForScholarshipsPage } from "@/lib/faqs";
 
 export const metadata = {
   title: "Study Abroad - NWC Education",
@@ -58,6 +59,10 @@ const StudyAbroadPage = async ({ params }: StudyAbroadPageProps) => {
   });
 
   const countries = await prisma.country.findMany({});
+
+  // Fetch country data for filtering
+  const faqs = await fetchFaqsForHomePage(country, 6);
+
   const destinations = await prisma.destination.findMany({
     where: {
       countries: {
@@ -132,13 +137,13 @@ const StudyAbroadPage = async ({ params }: StudyAbroadPageProps) => {
       <UniversityLogoSlider />
 
       {/* 9. Student Review Video Slider + Google My Business Review Slider */}
-      <ReviewSection />
+      <ReviewSection countrySlug={country} />
 
       {/* 10. Upcoming Event */}
       <EventsSection events={events as any} />
 
       {/* 11. FAQs */}
-      <FaqSection />
+      <FaqSection faqs={faqs} />
 
       {/* 12. Book free counselling CTR Section */}
       <CallToActionBanner />

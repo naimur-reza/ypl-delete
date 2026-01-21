@@ -33,6 +33,12 @@ export type FAQMinAggregateOutputType = {
   createdBy: string | null
   updatedBy: string | null
   isGlobal: boolean | null
+  showOnUniversitiesMainPage: boolean | null
+  showOnCoursesMainPage: boolean | null
+  showOnEventsMainPage: boolean | null
+  showOnScholarshipsMainPage: boolean | null
+  showOnDestinationsMainPage: boolean | null
+  showOnIntakePagesMainPage: boolean | null
   status: $Enums.ContentStatus | null
 }
 
@@ -45,6 +51,12 @@ export type FAQMaxAggregateOutputType = {
   createdBy: string | null
   updatedBy: string | null
   isGlobal: boolean | null
+  showOnUniversitiesMainPage: boolean | null
+  showOnCoursesMainPage: boolean | null
+  showOnEventsMainPage: boolean | null
+  showOnScholarshipsMainPage: boolean | null
+  showOnDestinationsMainPage: boolean | null
+  showOnIntakePagesMainPage: boolean | null
   status: $Enums.ContentStatus | null
 }
 
@@ -57,6 +69,12 @@ export type FAQCountAggregateOutputType = {
   createdBy: number
   updatedBy: number
   isGlobal: number
+  showOnUniversitiesMainPage: number
+  showOnCoursesMainPage: number
+  showOnEventsMainPage: number
+  showOnScholarshipsMainPage: number
+  showOnDestinationsMainPage: number
+  showOnIntakePagesMainPage: number
   status: number
   _all: number
 }
@@ -71,6 +89,12 @@ export type FAQMinAggregateInputType = {
   createdBy?: true
   updatedBy?: true
   isGlobal?: true
+  showOnUniversitiesMainPage?: true
+  showOnCoursesMainPage?: true
+  showOnEventsMainPage?: true
+  showOnScholarshipsMainPage?: true
+  showOnDestinationsMainPage?: true
+  showOnIntakePagesMainPage?: true
   status?: true
 }
 
@@ -83,6 +107,12 @@ export type FAQMaxAggregateInputType = {
   createdBy?: true
   updatedBy?: true
   isGlobal?: true
+  showOnUniversitiesMainPage?: true
+  showOnCoursesMainPage?: true
+  showOnEventsMainPage?: true
+  showOnScholarshipsMainPage?: true
+  showOnDestinationsMainPage?: true
+  showOnIntakePagesMainPage?: true
   status?: true
 }
 
@@ -95,6 +125,12 @@ export type FAQCountAggregateInputType = {
   createdBy?: true
   updatedBy?: true
   isGlobal?: true
+  showOnUniversitiesMainPage?: true
+  showOnCoursesMainPage?: true
+  showOnEventsMainPage?: true
+  showOnScholarshipsMainPage?: true
+  showOnDestinationsMainPage?: true
+  showOnIntakePagesMainPage?: true
   status?: true
   _all?: true
 }
@@ -180,6 +216,12 @@ export type FAQGroupByOutputType = {
   createdBy: string | null
   updatedBy: string | null
   isGlobal: boolean
+  showOnUniversitiesMainPage: boolean
+  showOnCoursesMainPage: boolean
+  showOnEventsMainPage: boolean
+  showOnScholarshipsMainPage: boolean
+  showOnDestinationsMainPage: boolean
+  showOnIntakePagesMainPage: boolean
   status: $Enums.ContentStatus
   _count: FAQCountAggregateOutputType | null
   _min: FAQMinAggregateOutputType | null
@@ -213,6 +255,12 @@ export type FAQWhereInput = {
   createdBy?: Prisma.StringNullableFilter<"FAQ"> | string | null
   updatedBy?: Prisma.StringNullableFilter<"FAQ"> | string | null
   isGlobal?: Prisma.BoolFilter<"FAQ"> | boolean
+  showOnUniversitiesMainPage?: Prisma.BoolFilter<"FAQ"> | boolean
+  showOnCoursesMainPage?: Prisma.BoolFilter<"FAQ"> | boolean
+  showOnEventsMainPage?: Prisma.BoolFilter<"FAQ"> | boolean
+  showOnScholarshipsMainPage?: Prisma.BoolFilter<"FAQ"> | boolean
+  showOnDestinationsMainPage?: Prisma.BoolFilter<"FAQ"> | boolean
+  showOnIntakePagesMainPage?: Prisma.BoolFilter<"FAQ"> | boolean
   status?: Prisma.EnumContentStatusFilter<"FAQ"> | $Enums.ContentStatus
   countries?: Prisma.FAQCountryListRelationFilter
   courses?: Prisma.FAQCourseListRelationFilter
@@ -232,6 +280,12 @@ export type FAQOrderByWithRelationInput = {
   createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   isGlobal?: Prisma.SortOrder
+  showOnUniversitiesMainPage?: Prisma.SortOrder
+  showOnCoursesMainPage?: Prisma.SortOrder
+  showOnEventsMainPage?: Prisma.SortOrder
+  showOnScholarshipsMainPage?: Prisma.SortOrder
+  showOnDestinationsMainPage?: Prisma.SortOrder
+  showOnIntakePagesMainPage?: Prisma.SortOrder
   status?: Prisma.SortOrder
   countries?: Prisma.FAQCountryOrderByRelationAggregateInput
   courses?: Prisma.FAQCourseOrderByRelationAggregateInput
@@ -254,6 +308,12 @@ export type FAQWhereUniqueInput = Prisma.AtLeast<{
   createdBy?: Prisma.StringNullableFilter<"FAQ"> | string | null
   updatedBy?: Prisma.StringNullableFilter<"FAQ"> | string | null
   isGlobal?: Prisma.BoolFilter<"FAQ"> | boolean
+  showOnUniversitiesMainPage?: Prisma.BoolFilter<"FAQ"> | boolean
+  showOnCoursesMainPage?: Prisma.BoolFilter<"FAQ"> | boolean
+  showOnEventsMainPage?: Prisma.BoolFilter<"FAQ"> | boolean
+  showOnScholarshipsMainPage?: Prisma.BoolFilter<"FAQ"> | boolean
+  showOnDestinationsMainPage?: Prisma.BoolFilter<"FAQ"> | boolean
+  showOnIntakePagesMainPage?: Prisma.BoolFilter<"FAQ"> | boolean
   status?: Prisma.EnumContentStatusFilter<"FAQ"> | $Enums.ContentStatus
   countries?: Prisma.FAQCountryListRelationFilter
   courses?: Prisma.FAQCourseListRelationFilter
@@ -273,6 +333,12 @@ export type FAQOrderByWithAggregationInput = {
   createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   isGlobal?: Prisma.SortOrder
+  showOnUniversitiesMainPage?: Prisma.SortOrder
+  showOnCoursesMainPage?: Prisma.SortOrder
+  showOnEventsMainPage?: Prisma.SortOrder
+  showOnScholarshipsMainPage?: Prisma.SortOrder
+  showOnDestinationsMainPage?: Prisma.SortOrder
+  showOnIntakePagesMainPage?: Prisma.SortOrder
   status?: Prisma.SortOrder
   _count?: Prisma.FAQCountOrderByAggregateInput
   _max?: Prisma.FAQMaxOrderByAggregateInput
@@ -291,6 +357,12 @@ export type FAQScalarWhereWithAggregatesInput = {
   createdBy?: Prisma.StringNullableWithAggregatesFilter<"FAQ"> | string | null
   updatedBy?: Prisma.StringNullableWithAggregatesFilter<"FAQ"> | string | null
   isGlobal?: Prisma.BoolWithAggregatesFilter<"FAQ"> | boolean
+  showOnUniversitiesMainPage?: Prisma.BoolWithAggregatesFilter<"FAQ"> | boolean
+  showOnCoursesMainPage?: Prisma.BoolWithAggregatesFilter<"FAQ"> | boolean
+  showOnEventsMainPage?: Prisma.BoolWithAggregatesFilter<"FAQ"> | boolean
+  showOnScholarshipsMainPage?: Prisma.BoolWithAggregatesFilter<"FAQ"> | boolean
+  showOnDestinationsMainPage?: Prisma.BoolWithAggregatesFilter<"FAQ"> | boolean
+  showOnIntakePagesMainPage?: Prisma.BoolWithAggregatesFilter<"FAQ"> | boolean
   status?: Prisma.EnumContentStatusWithAggregatesFilter<"FAQ"> | $Enums.ContentStatus
 }
 
@@ -303,6 +375,12 @@ export type FAQCreateInput = {
   createdBy?: string | null
   updatedBy?: string | null
   isGlobal?: boolean
+  showOnUniversitiesMainPage?: boolean
+  showOnCoursesMainPage?: boolean
+  showOnEventsMainPage?: boolean
+  showOnScholarshipsMainPage?: boolean
+  showOnDestinationsMainPage?: boolean
+  showOnIntakePagesMainPage?: boolean
   status?: $Enums.ContentStatus
   countries?: Prisma.FAQCountryCreateNestedManyWithoutFaqInput
   courses?: Prisma.FAQCourseCreateNestedManyWithoutFaqInput
@@ -322,6 +400,12 @@ export type FAQUncheckedCreateInput = {
   createdBy?: string | null
   updatedBy?: string | null
   isGlobal?: boolean
+  showOnUniversitiesMainPage?: boolean
+  showOnCoursesMainPage?: boolean
+  showOnEventsMainPage?: boolean
+  showOnScholarshipsMainPage?: boolean
+  showOnDestinationsMainPage?: boolean
+  showOnIntakePagesMainPage?: boolean
   status?: $Enums.ContentStatus
   countries?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutFaqInput
   courses?: Prisma.FAQCourseUncheckedCreateNestedManyWithoutFaqInput
@@ -341,6 +425,12 @@ export type FAQUpdateInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnUniversitiesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnCoursesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnEventsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnScholarshipsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnDestinationsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnIntakePagesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.FAQCountryUpdateManyWithoutFaqNestedInput
   courses?: Prisma.FAQCourseUpdateManyWithoutFaqNestedInput
@@ -360,6 +450,12 @@ export type FAQUncheckedUpdateInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnUniversitiesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnCoursesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnEventsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnScholarshipsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnDestinationsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnIntakePagesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.FAQCountryUncheckedUpdateManyWithoutFaqNestedInput
   courses?: Prisma.FAQCourseUncheckedUpdateManyWithoutFaqNestedInput
@@ -379,6 +475,12 @@ export type FAQCreateManyInput = {
   createdBy?: string | null
   updatedBy?: string | null
   isGlobal?: boolean
+  showOnUniversitiesMainPage?: boolean
+  showOnCoursesMainPage?: boolean
+  showOnEventsMainPage?: boolean
+  showOnScholarshipsMainPage?: boolean
+  showOnDestinationsMainPage?: boolean
+  showOnIntakePagesMainPage?: boolean
   status?: $Enums.ContentStatus
 }
 
@@ -391,6 +493,12 @@ export type FAQUpdateManyMutationInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnUniversitiesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnCoursesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnEventsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnScholarshipsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnDestinationsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnIntakePagesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
@@ -403,6 +511,12 @@ export type FAQUncheckedUpdateManyInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnUniversitiesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnCoursesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnEventsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnScholarshipsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnDestinationsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnIntakePagesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
 }
 
@@ -415,6 +529,12 @@ export type FAQCountOrderByAggregateInput = {
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
   isGlobal?: Prisma.SortOrder
+  showOnUniversitiesMainPage?: Prisma.SortOrder
+  showOnCoursesMainPage?: Prisma.SortOrder
+  showOnEventsMainPage?: Prisma.SortOrder
+  showOnScholarshipsMainPage?: Prisma.SortOrder
+  showOnDestinationsMainPage?: Prisma.SortOrder
+  showOnIntakePagesMainPage?: Prisma.SortOrder
   status?: Prisma.SortOrder
 }
 
@@ -427,6 +547,12 @@ export type FAQMaxOrderByAggregateInput = {
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
   isGlobal?: Prisma.SortOrder
+  showOnUniversitiesMainPage?: Prisma.SortOrder
+  showOnCoursesMainPage?: Prisma.SortOrder
+  showOnEventsMainPage?: Prisma.SortOrder
+  showOnScholarshipsMainPage?: Prisma.SortOrder
+  showOnDestinationsMainPage?: Prisma.SortOrder
+  showOnIntakePagesMainPage?: Prisma.SortOrder
   status?: Prisma.SortOrder
 }
 
@@ -439,6 +565,12 @@ export type FAQMinOrderByAggregateInput = {
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
   isGlobal?: Prisma.SortOrder
+  showOnUniversitiesMainPage?: Prisma.SortOrder
+  showOnCoursesMainPage?: Prisma.SortOrder
+  showOnEventsMainPage?: Prisma.SortOrder
+  showOnScholarshipsMainPage?: Prisma.SortOrder
+  showOnDestinationsMainPage?: Prisma.SortOrder
+  showOnIntakePagesMainPage?: Prisma.SortOrder
   status?: Prisma.SortOrder
 }
 
@@ -554,6 +686,12 @@ export type FAQCreateWithoutCountriesInput = {
   createdBy?: string | null
   updatedBy?: string | null
   isGlobal?: boolean
+  showOnUniversitiesMainPage?: boolean
+  showOnCoursesMainPage?: boolean
+  showOnEventsMainPage?: boolean
+  showOnScholarshipsMainPage?: boolean
+  showOnDestinationsMainPage?: boolean
+  showOnIntakePagesMainPage?: boolean
   status?: $Enums.ContentStatus
   courses?: Prisma.FAQCourseCreateNestedManyWithoutFaqInput
   destinations?: Prisma.FAQDestinationCreateNestedManyWithoutFaqInput
@@ -572,6 +710,12 @@ export type FAQUncheckedCreateWithoutCountriesInput = {
   createdBy?: string | null
   updatedBy?: string | null
   isGlobal?: boolean
+  showOnUniversitiesMainPage?: boolean
+  showOnCoursesMainPage?: boolean
+  showOnEventsMainPage?: boolean
+  showOnScholarshipsMainPage?: boolean
+  showOnDestinationsMainPage?: boolean
+  showOnIntakePagesMainPage?: boolean
   status?: $Enums.ContentStatus
   courses?: Prisma.FAQCourseUncheckedCreateNestedManyWithoutFaqInput
   destinations?: Prisma.FAQDestinationUncheckedCreateNestedManyWithoutFaqInput
@@ -606,6 +750,12 @@ export type FAQUpdateWithoutCountriesInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnUniversitiesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnCoursesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnEventsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnScholarshipsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnDestinationsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnIntakePagesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   courses?: Prisma.FAQCourseUpdateManyWithoutFaqNestedInput
   destinations?: Prisma.FAQDestinationUpdateManyWithoutFaqNestedInput
@@ -624,6 +774,12 @@ export type FAQUncheckedUpdateWithoutCountriesInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnUniversitiesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnCoursesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnEventsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnScholarshipsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnDestinationsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnIntakePagesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   courses?: Prisma.FAQCourseUncheckedUpdateManyWithoutFaqNestedInput
   destinations?: Prisma.FAQDestinationUncheckedUpdateManyWithoutFaqNestedInput
@@ -642,6 +798,12 @@ export type FAQCreateWithoutDestinationsInput = {
   createdBy?: string | null
   updatedBy?: string | null
   isGlobal?: boolean
+  showOnUniversitiesMainPage?: boolean
+  showOnCoursesMainPage?: boolean
+  showOnEventsMainPage?: boolean
+  showOnScholarshipsMainPage?: boolean
+  showOnDestinationsMainPage?: boolean
+  showOnIntakePagesMainPage?: boolean
   status?: $Enums.ContentStatus
   countries?: Prisma.FAQCountryCreateNestedManyWithoutFaqInput
   courses?: Prisma.FAQCourseCreateNestedManyWithoutFaqInput
@@ -660,6 +822,12 @@ export type FAQUncheckedCreateWithoutDestinationsInput = {
   createdBy?: string | null
   updatedBy?: string | null
   isGlobal?: boolean
+  showOnUniversitiesMainPage?: boolean
+  showOnCoursesMainPage?: boolean
+  showOnEventsMainPage?: boolean
+  showOnScholarshipsMainPage?: boolean
+  showOnDestinationsMainPage?: boolean
+  showOnIntakePagesMainPage?: boolean
   status?: $Enums.ContentStatus
   countries?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutFaqInput
   courses?: Prisma.FAQCourseUncheckedCreateNestedManyWithoutFaqInput
@@ -694,6 +862,12 @@ export type FAQUpdateWithoutDestinationsInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnUniversitiesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnCoursesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnEventsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnScholarshipsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnDestinationsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnIntakePagesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.FAQCountryUpdateManyWithoutFaqNestedInput
   courses?: Prisma.FAQCourseUpdateManyWithoutFaqNestedInput
@@ -712,6 +886,12 @@ export type FAQUncheckedUpdateWithoutDestinationsInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnUniversitiesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnCoursesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnEventsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnScholarshipsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnDestinationsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnIntakePagesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.FAQCountryUncheckedUpdateManyWithoutFaqNestedInput
   courses?: Prisma.FAQCourseUncheckedUpdateManyWithoutFaqNestedInput
@@ -730,6 +910,12 @@ export type FAQCreateWithoutUniversitiesInput = {
   createdBy?: string | null
   updatedBy?: string | null
   isGlobal?: boolean
+  showOnUniversitiesMainPage?: boolean
+  showOnCoursesMainPage?: boolean
+  showOnEventsMainPage?: boolean
+  showOnScholarshipsMainPage?: boolean
+  showOnDestinationsMainPage?: boolean
+  showOnIntakePagesMainPage?: boolean
   status?: $Enums.ContentStatus
   countries?: Prisma.FAQCountryCreateNestedManyWithoutFaqInput
   courses?: Prisma.FAQCourseCreateNestedManyWithoutFaqInput
@@ -748,6 +934,12 @@ export type FAQUncheckedCreateWithoutUniversitiesInput = {
   createdBy?: string | null
   updatedBy?: string | null
   isGlobal?: boolean
+  showOnUniversitiesMainPage?: boolean
+  showOnCoursesMainPage?: boolean
+  showOnEventsMainPage?: boolean
+  showOnScholarshipsMainPage?: boolean
+  showOnDestinationsMainPage?: boolean
+  showOnIntakePagesMainPage?: boolean
   status?: $Enums.ContentStatus
   countries?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutFaqInput
   courses?: Prisma.FAQCourseUncheckedCreateNestedManyWithoutFaqInput
@@ -782,6 +974,12 @@ export type FAQUpdateWithoutUniversitiesInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnUniversitiesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnCoursesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnEventsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnScholarshipsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnDestinationsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnIntakePagesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.FAQCountryUpdateManyWithoutFaqNestedInput
   courses?: Prisma.FAQCourseUpdateManyWithoutFaqNestedInput
@@ -800,6 +998,12 @@ export type FAQUncheckedUpdateWithoutUniversitiesInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnUniversitiesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnCoursesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnEventsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnScholarshipsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnDestinationsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnIntakePagesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.FAQCountryUncheckedUpdateManyWithoutFaqNestedInput
   courses?: Prisma.FAQCourseUncheckedUpdateManyWithoutFaqNestedInput
@@ -818,6 +1022,12 @@ export type FAQCreateWithoutEventsInput = {
   createdBy?: string | null
   updatedBy?: string | null
   isGlobal?: boolean
+  showOnUniversitiesMainPage?: boolean
+  showOnCoursesMainPage?: boolean
+  showOnEventsMainPage?: boolean
+  showOnScholarshipsMainPage?: boolean
+  showOnDestinationsMainPage?: boolean
+  showOnIntakePagesMainPage?: boolean
   status?: $Enums.ContentStatus
   countries?: Prisma.FAQCountryCreateNestedManyWithoutFaqInput
   courses?: Prisma.FAQCourseCreateNestedManyWithoutFaqInput
@@ -836,6 +1046,12 @@ export type FAQUncheckedCreateWithoutEventsInput = {
   createdBy?: string | null
   updatedBy?: string | null
   isGlobal?: boolean
+  showOnUniversitiesMainPage?: boolean
+  showOnCoursesMainPage?: boolean
+  showOnEventsMainPage?: boolean
+  showOnScholarshipsMainPage?: boolean
+  showOnDestinationsMainPage?: boolean
+  showOnIntakePagesMainPage?: boolean
   status?: $Enums.ContentStatus
   countries?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutFaqInput
   courses?: Prisma.FAQCourseUncheckedCreateNestedManyWithoutFaqInput
@@ -870,6 +1086,12 @@ export type FAQUpdateWithoutEventsInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnUniversitiesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnCoursesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnEventsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnScholarshipsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnDestinationsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnIntakePagesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.FAQCountryUpdateManyWithoutFaqNestedInput
   courses?: Prisma.FAQCourseUpdateManyWithoutFaqNestedInput
@@ -888,6 +1110,12 @@ export type FAQUncheckedUpdateWithoutEventsInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnUniversitiesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnCoursesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnEventsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnScholarshipsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnDestinationsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnIntakePagesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.FAQCountryUncheckedUpdateManyWithoutFaqNestedInput
   courses?: Prisma.FAQCourseUncheckedUpdateManyWithoutFaqNestedInput
@@ -906,6 +1134,12 @@ export type FAQCreateWithoutCoursesInput = {
   createdBy?: string | null
   updatedBy?: string | null
   isGlobal?: boolean
+  showOnUniversitiesMainPage?: boolean
+  showOnCoursesMainPage?: boolean
+  showOnEventsMainPage?: boolean
+  showOnScholarshipsMainPage?: boolean
+  showOnDestinationsMainPage?: boolean
+  showOnIntakePagesMainPage?: boolean
   status?: $Enums.ContentStatus
   countries?: Prisma.FAQCountryCreateNestedManyWithoutFaqInput
   destinations?: Prisma.FAQDestinationCreateNestedManyWithoutFaqInput
@@ -924,6 +1158,12 @@ export type FAQUncheckedCreateWithoutCoursesInput = {
   createdBy?: string | null
   updatedBy?: string | null
   isGlobal?: boolean
+  showOnUniversitiesMainPage?: boolean
+  showOnCoursesMainPage?: boolean
+  showOnEventsMainPage?: boolean
+  showOnScholarshipsMainPage?: boolean
+  showOnDestinationsMainPage?: boolean
+  showOnIntakePagesMainPage?: boolean
   status?: $Enums.ContentStatus
   countries?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutFaqInput
   destinations?: Prisma.FAQDestinationUncheckedCreateNestedManyWithoutFaqInput
@@ -958,6 +1198,12 @@ export type FAQUpdateWithoutCoursesInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnUniversitiesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnCoursesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnEventsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnScholarshipsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnDestinationsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnIntakePagesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.FAQCountryUpdateManyWithoutFaqNestedInput
   destinations?: Prisma.FAQDestinationUpdateManyWithoutFaqNestedInput
@@ -976,6 +1222,12 @@ export type FAQUncheckedUpdateWithoutCoursesInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnUniversitiesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnCoursesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnEventsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnScholarshipsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnDestinationsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnIntakePagesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.FAQCountryUncheckedUpdateManyWithoutFaqNestedInput
   destinations?: Prisma.FAQDestinationUncheckedUpdateManyWithoutFaqNestedInput
@@ -994,6 +1246,12 @@ export type FAQCreateWithoutScholarshipsInput = {
   createdBy?: string | null
   updatedBy?: string | null
   isGlobal?: boolean
+  showOnUniversitiesMainPage?: boolean
+  showOnCoursesMainPage?: boolean
+  showOnEventsMainPage?: boolean
+  showOnScholarshipsMainPage?: boolean
+  showOnDestinationsMainPage?: boolean
+  showOnIntakePagesMainPage?: boolean
   status?: $Enums.ContentStatus
   countries?: Prisma.FAQCountryCreateNestedManyWithoutFaqInput
   courses?: Prisma.FAQCourseCreateNestedManyWithoutFaqInput
@@ -1012,6 +1270,12 @@ export type FAQUncheckedCreateWithoutScholarshipsInput = {
   createdBy?: string | null
   updatedBy?: string | null
   isGlobal?: boolean
+  showOnUniversitiesMainPage?: boolean
+  showOnCoursesMainPage?: boolean
+  showOnEventsMainPage?: boolean
+  showOnScholarshipsMainPage?: boolean
+  showOnDestinationsMainPage?: boolean
+  showOnIntakePagesMainPage?: boolean
   status?: $Enums.ContentStatus
   countries?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutFaqInput
   courses?: Prisma.FAQCourseUncheckedCreateNestedManyWithoutFaqInput
@@ -1046,6 +1310,12 @@ export type FAQUpdateWithoutScholarshipsInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnUniversitiesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnCoursesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnEventsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnScholarshipsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnDestinationsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnIntakePagesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.FAQCountryUpdateManyWithoutFaqNestedInput
   courses?: Prisma.FAQCourseUpdateManyWithoutFaqNestedInput
@@ -1064,6 +1334,12 @@ export type FAQUncheckedUpdateWithoutScholarshipsInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnUniversitiesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnCoursesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnEventsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnScholarshipsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnDestinationsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnIntakePagesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.FAQCountryUncheckedUpdateManyWithoutFaqNestedInput
   courses?: Prisma.FAQCourseUncheckedUpdateManyWithoutFaqNestedInput
@@ -1082,6 +1358,12 @@ export type FAQCreateWithoutIntakePagesInput = {
   createdBy?: string | null
   updatedBy?: string | null
   isGlobal?: boolean
+  showOnUniversitiesMainPage?: boolean
+  showOnCoursesMainPage?: boolean
+  showOnEventsMainPage?: boolean
+  showOnScholarshipsMainPage?: boolean
+  showOnDestinationsMainPage?: boolean
+  showOnIntakePagesMainPage?: boolean
   status?: $Enums.ContentStatus
   countries?: Prisma.FAQCountryCreateNestedManyWithoutFaqInput
   courses?: Prisma.FAQCourseCreateNestedManyWithoutFaqInput
@@ -1100,6 +1382,12 @@ export type FAQUncheckedCreateWithoutIntakePagesInput = {
   createdBy?: string | null
   updatedBy?: string | null
   isGlobal?: boolean
+  showOnUniversitiesMainPage?: boolean
+  showOnCoursesMainPage?: boolean
+  showOnEventsMainPage?: boolean
+  showOnScholarshipsMainPage?: boolean
+  showOnDestinationsMainPage?: boolean
+  showOnIntakePagesMainPage?: boolean
   status?: $Enums.ContentStatus
   countries?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutFaqInput
   courses?: Prisma.FAQCourseUncheckedCreateNestedManyWithoutFaqInput
@@ -1134,6 +1422,12 @@ export type FAQUpdateWithoutIntakePagesInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnUniversitiesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnCoursesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnEventsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnScholarshipsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnDestinationsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnIntakePagesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.FAQCountryUpdateManyWithoutFaqNestedInput
   courses?: Prisma.FAQCourseUpdateManyWithoutFaqNestedInput
@@ -1152,6 +1446,12 @@ export type FAQUncheckedUpdateWithoutIntakePagesInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnUniversitiesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnCoursesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnEventsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnScholarshipsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnDestinationsMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnIntakePagesMainPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   countries?: Prisma.FAQCountryUncheckedUpdateManyWithoutFaqNestedInput
   courses?: Prisma.FAQCourseUncheckedUpdateManyWithoutFaqNestedInput
@@ -1255,6 +1555,12 @@ export type FAQSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   createdBy?: boolean
   updatedBy?: boolean
   isGlobal?: boolean
+  showOnUniversitiesMainPage?: boolean
+  showOnCoursesMainPage?: boolean
+  showOnEventsMainPage?: boolean
+  showOnScholarshipsMainPage?: boolean
+  showOnDestinationsMainPage?: boolean
+  showOnIntakePagesMainPage?: boolean
   status?: boolean
   countries?: boolean | Prisma.FAQ$countriesArgs<ExtArgs>
   courses?: boolean | Prisma.FAQ$coursesArgs<ExtArgs>
@@ -1275,6 +1581,12 @@ export type FAQSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extension
   createdBy?: boolean
   updatedBy?: boolean
   isGlobal?: boolean
+  showOnUniversitiesMainPage?: boolean
+  showOnCoursesMainPage?: boolean
+  showOnEventsMainPage?: boolean
+  showOnScholarshipsMainPage?: boolean
+  showOnDestinationsMainPage?: boolean
+  showOnIntakePagesMainPage?: boolean
   status?: boolean
 }, ExtArgs["result"]["fAQ"]>
 
@@ -1287,6 +1599,12 @@ export type FAQSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extension
   createdBy?: boolean
   updatedBy?: boolean
   isGlobal?: boolean
+  showOnUniversitiesMainPage?: boolean
+  showOnCoursesMainPage?: boolean
+  showOnEventsMainPage?: boolean
+  showOnScholarshipsMainPage?: boolean
+  showOnDestinationsMainPage?: boolean
+  showOnIntakePagesMainPage?: boolean
   status?: boolean
 }, ExtArgs["result"]["fAQ"]>
 
@@ -1299,10 +1617,16 @@ export type FAQSelectScalar = {
   createdBy?: boolean
   updatedBy?: boolean
   isGlobal?: boolean
+  showOnUniversitiesMainPage?: boolean
+  showOnCoursesMainPage?: boolean
+  showOnEventsMainPage?: boolean
+  showOnScholarshipsMainPage?: boolean
+  showOnDestinationsMainPage?: boolean
+  showOnIntakePagesMainPage?: boolean
   status?: boolean
 }
 
-export type FAQOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "question" | "answer" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "isGlobal" | "status", ExtArgs["result"]["fAQ"]>
+export type FAQOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "question" | "answer" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "isGlobal" | "showOnUniversitiesMainPage" | "showOnCoursesMainPage" | "showOnEventsMainPage" | "showOnScholarshipsMainPage" | "showOnDestinationsMainPage" | "showOnIntakePagesMainPage" | "status", ExtArgs["result"]["fAQ"]>
 export type FAQInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   countries?: boolean | Prisma.FAQ$countriesArgs<ExtArgs>
   courses?: boolean | Prisma.FAQ$coursesArgs<ExtArgs>
@@ -1336,6 +1660,12 @@ export type $FAQPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     createdBy: string | null
     updatedBy: string | null
     isGlobal: boolean
+    showOnUniversitiesMainPage: boolean
+    showOnCoursesMainPage: boolean
+    showOnEventsMainPage: boolean
+    showOnScholarshipsMainPage: boolean
+    showOnDestinationsMainPage: boolean
+    showOnIntakePagesMainPage: boolean
     status: $Enums.ContentStatus
   }, ExtArgs["result"]["fAQ"]>
   composites: {}
@@ -1775,6 +2105,12 @@ export interface FAQFieldRefs {
   readonly createdBy: Prisma.FieldRef<"FAQ", 'String'>
   readonly updatedBy: Prisma.FieldRef<"FAQ", 'String'>
   readonly isGlobal: Prisma.FieldRef<"FAQ", 'Boolean'>
+  readonly showOnUniversitiesMainPage: Prisma.FieldRef<"FAQ", 'Boolean'>
+  readonly showOnCoursesMainPage: Prisma.FieldRef<"FAQ", 'Boolean'>
+  readonly showOnEventsMainPage: Prisma.FieldRef<"FAQ", 'Boolean'>
+  readonly showOnScholarshipsMainPage: Prisma.FieldRef<"FAQ", 'Boolean'>
+  readonly showOnDestinationsMainPage: Prisma.FieldRef<"FAQ", 'Boolean'>
+  readonly showOnIntakePagesMainPage: Prisma.FieldRef<"FAQ", 'Boolean'>
   readonly status: Prisma.FieldRef<"FAQ", 'ContentStatus'>
 }
     

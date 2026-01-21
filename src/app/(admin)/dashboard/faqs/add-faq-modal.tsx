@@ -43,6 +43,12 @@ const FAQFormModal = ({
     answer: string;
     status?: "ACTIVE" | "DRAFT";
     isGlobal?: boolean;
+    showOnUniversitiesMainPage?: boolean;
+    showOnCoursesMainPage?: boolean;
+    showOnEventsMainPage?: boolean;
+    showOnScholarshipsMainPage?: boolean;
+    showOnDestinationsMainPage?: boolean;
+    showOnIntakePagesMainPage?: boolean;
     countries?: Array<{ country?: { id: string }; countryId?: string }>;
     destinations?: Array<{
       destination?: { id: string };
@@ -68,49 +74,62 @@ const FAQFormModal = ({
   const [countryIds, setCountryIds] = useState<string[]>(
     selectedFAQ?.countries?.map(
       (r: { country?: { id: string }; countryId?: string }) =>
-        r.country?.id || r.countryId || ""
-    ) || []
+        r.country?.id || r.countryId || "",
+    ) || [],
   );
   const [destinationIds, setDestinationIds] = useState<string[]>(
     selectedFAQ?.destinations?.map(
       (r: { destination?: { id: string }; destinationId?: string }) =>
-        r.destination?.id || r.destinationId || ""
-    ) || []
+        r.destination?.id || r.destinationId || "",
+    ) || [],
   );
   const [universityIds, setUniversityIds] = useState<string[]>(
     selectedFAQ?.universities?.map(
       (r: { university?: { id: string }; universityId?: string }) =>
-        r.university?.id || r.universityId || ""
-    ) || []
+        r.university?.id || r.universityId || "",
+    ) || [],
   );
   const [eventIds, setEventIds] = useState<string[]>(
     selectedFAQ?.events?.map(
       (r: { event?: { id: string }; eventId?: string }) =>
-        r.event?.id || r.eventId || ""
-    ) || []
+        r.event?.id || r.eventId || "",
+    ) || [],
   );
   const [courseIds, setCourseIds] = useState<string[]>(
     selectedFAQ?.courses?.map(
       (r: { course?: { id: string }; courseId?: string }) =>
-        r.course?.id || r.courseId || ""
-    ) || []
+        r.course?.id || r.courseId || "",
+    ) || [],
   );
   const [scholarshipIds, setScholarshipIds] = useState<string[]>(
     selectedFAQ?.scholarships?.map(
       (r: { scholarship?: { id: string }; scholarshipId?: string }) =>
-        r.scholarship?.id || r.scholarshipId || ""
-    ) || []
+        r.scholarship?.id || r.scholarshipId || "",
+    ) || [],
   );
   const [intakePageIds, setIntakePageIds] = useState<string[]>(
     selectedFAQ?.intakePages?.map(
       (r: { intakePage?: { id: string }; intakePageId?: string }) =>
-        r.intakePage?.id || r.intakePageId || ""
-    ) || []
+        r.intakePage?.id || r.intakePageId || "",
+    ) || [],
   );
   const [isGlobal, setIsGlobal] = useState<boolean>(
-    selectedFAQ?.isGlobal || false
+    selectedFAQ?.isGlobal || false,
   );
-
+  const [showOnUniversitiesMainPage, setShowOnUniversitiesMainPage] =
+    useState<boolean>(selectedFAQ?.showOnUniversitiesMainPage || false);
+  const [showOnCoursesMainPage, setShowOnCoursesMainPage] = useState<boolean>(
+    selectedFAQ?.showOnCoursesMainPage || false,
+  );
+  const [showOnEventsMainPage, setShowOnEventsMainPage] = useState<boolean>(
+    selectedFAQ?.showOnEventsMainPage || false,
+  );
+  const [showOnScholarshipsMainPage, setShowOnScholarshipsMainPage] =
+    useState<boolean>(selectedFAQ?.showOnScholarshipsMainPage || false);
+  const [showOnDestinationsMainPage, setShowOnDestinationsMainPage] =
+    useState<boolean>(selectedFAQ?.showOnDestinationsMainPage || false);
+  const [showOnIntakePagesMainPage, setShowOnIntakePagesMainPage] =
+    useState<boolean>(selectedFAQ?.showOnIntakePagesMainPage || false);
   // Entity lists
   const [destinations, setDestinations] = useState<Entity[]>([]);
   const [universities, setUniversities] = useState<Entity[]>([]);
@@ -136,7 +155,7 @@ const FAQFormModal = ({
       (e) =>
         e.name?.toLowerCase().includes(term) ||
         e.title?.toLowerCase().includes(term) ||
-        e.slug?.toLowerCase().includes(term)
+        e.slug?.toLowerCase().includes(term),
     );
   };
 
@@ -148,7 +167,7 @@ const FAQFormModal = ({
     fieldName: keyof FormData,
     searchTerm: string,
     setSearchTerm: React.Dispatch<React.SetStateAction<string>>,
-    entityType: string
+    entityType: string,
   ) => {
     const filtered = filterEntities(entities, searchTerm);
     const allSelected =
@@ -210,7 +229,7 @@ const FAQFormModal = ({
             </Button>
           )}
         </div>
-        <div className="h-64 border rounded-md p-3 overflow-y-auto">
+        <div className="h-64 border border-border rounded-md p-3 overflow-y-auto">
           {loading ? (
             <p className="text-sm text-muted-foreground text-center py-8">
               Loading...
@@ -234,7 +253,7 @@ const FAQFormModal = ({
                         entity.id,
                         selectedIds,
                         setSelectedIds,
-                        fieldName
+                        fieldName,
                       )
                     }
                   />
@@ -286,30 +305,30 @@ const FAQFormModal = ({
         ]);
 
         setDestinations(
-          Array.isArray(destRes.data) ? destRes.data : destRes.data?.data || []
+          Array.isArray(destRes.data) ? destRes.data : destRes.data?.data || [],
         );
         setUniversities(
-          Array.isArray(uniRes.data) ? uniRes.data : uniRes.data?.data || []
+          Array.isArray(uniRes.data) ? uniRes.data : uniRes.data?.data || [],
         );
         setEvents(
           Array.isArray(eventRes.data)
             ? eventRes.data
-            : eventRes.data?.data || []
+            : eventRes.data?.data || [],
         );
         setCourses(
           Array.isArray(courseRes.data)
             ? courseRes.data
-            : courseRes.data?.data || []
+            : courseRes.data?.data || [],
         );
         setScholarships(
           Array.isArray(scholarshipRes.data)
             ? scholarshipRes.data
-            : scholarshipRes.data?.data || []
+            : scholarshipRes.data?.data || [],
         );
         setIntakePages(
           Array.isArray(intakeRes.data)
             ? intakeRes.data
-            : intakeRes.data?.data || []
+            : intakeRes.data?.data || [],
         );
       } catch (error) {
         console.error("Failed to fetch entities:", error);
@@ -333,6 +352,12 @@ const FAQFormModal = ({
       scholarshipIds: scholarshipIds,
       intakePageIds: intakePageIds,
       isGlobal: isGlobal,
+      showOnUniversitiesMainPage: showOnUniversitiesMainPage,
+      showOnCoursesMainPage: showOnCoursesMainPage,
+      showOnEventsMainPage: showOnEventsMainPage,
+      showOnScholarshipsMainPage: showOnScholarshipsMainPage,
+      showOnDestinationsMainPage: showOnDestinationsMainPage,
+      showOnIntakePagesMainPage: showOnIntakePagesMainPage,
     } satisfies FormData as FormData,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     validators: { onSubmit: faqSchema as any },
@@ -343,6 +368,12 @@ const FAQFormModal = ({
         const submitData = {
           ...value,
           isGlobal: isGlobal,
+          showOnUniversitiesMainPage: showOnUniversitiesMainPage,
+          showOnCoursesMainPage: showOnCoursesMainPage,
+          showOnEventsMainPage: showOnEventsMainPage,
+          showOnScholarshipsMainPage: showOnScholarshipsMainPage,
+          showOnDestinationsMainPage: showOnDestinationsMainPage,
+          showOnIntakePagesMainPage: showOnIntakePagesMainPage,
         };
         if (isEditing && selectedFAQ?.id) {
           response = await faqApi.update(selectedFAQ.id, submitData);
@@ -356,7 +387,7 @@ const FAQFormModal = ({
         }
 
         toast.success(
-          isEditing ? "FAQ updated successfully" : "FAQ created successfully"
+          isEditing ? "FAQ updated successfully" : "FAQ created successfully",
         );
         form.reset();
         setCountryIds([]);
@@ -382,7 +413,7 @@ const FAQFormModal = ({
     entityId: string,
     currentIds: string[],
     setIds: React.Dispatch<React.SetStateAction<string[]>>,
-    fieldName: keyof FormData
+    fieldName: keyof FormData,
   ) => {
     const newIds = currentIds.includes(entityId)
       ? currentIds.filter((id) => id !== entityId)
@@ -398,12 +429,50 @@ const FAQFormModal = ({
       form.setFieldValue("status", selectedFAQ.status || "DRAFT");
       setIsGlobal(selectedFAQ.isGlobal || false);
       form.setFieldValue("isGlobal", selectedFAQ.isGlobal || false);
+      setShowOnUniversitiesMainPage(
+        selectedFAQ.showOnUniversitiesMainPage || false,
+      );
+      form.setFieldValue(
+        "showOnUniversitiesMainPage",
+        selectedFAQ.showOnUniversitiesMainPage || false,
+      );
+      setShowOnCoursesMainPage(selectedFAQ.showOnCoursesMainPage || false);
+      form.setFieldValue(
+        "showOnCoursesMainPage",
+        selectedFAQ.showOnCoursesMainPage || false,
+      );
+      setShowOnEventsMainPage(selectedFAQ.showOnEventsMainPage || false);
+      form.setFieldValue(
+        "showOnEventsMainPage",
+        selectedFAQ.showOnEventsMainPage || false,
+      );
+      setShowOnScholarshipsMainPage(
+        selectedFAQ.showOnScholarshipsMainPage || false,
+      );
+      form.setFieldValue(
+        "showOnScholarshipsMainPage",
+        selectedFAQ.showOnScholarshipsMainPage || false,
+      );
+      setShowOnDestinationsMainPage(
+        selectedFAQ.showOnDestinationsMainPage || false,
+      );
+      form.setFieldValue(
+        "showOnDestinationsMainPage",
+        selectedFAQ.showOnDestinationsMainPage || false,
+      );
+      setShowOnIntakePagesMainPage(
+        selectedFAQ.showOnIntakePagesMainPage || false,
+      );
+      form.setFieldValue(
+        "showOnIntakePagesMainPage",
+        selectedFAQ.showOnIntakePagesMainPage || false,
+      );
 
       const countries = selectedFAQ.countries || [];
       const initialCountryIds = countries
         .map(
           (r: { country?: { id: string }; countryId?: string }) =>
-            r.country?.id || r.countryId || ""
+            r.country?.id || r.countryId || "",
         )
         .filter((id) => id !== "");
       setCountryIds(initialCountryIds);
@@ -413,7 +482,7 @@ const FAQFormModal = ({
       const initialDestinationIds = destinations
         .map(
           (r: { destination?: { id: string }; destinationId?: string }) =>
-            r.destination?.id || r.destinationId || ""
+            r.destination?.id || r.destinationId || "",
         )
         .filter((id) => id !== "");
       setDestinationIds(initialDestinationIds);
@@ -423,7 +492,7 @@ const FAQFormModal = ({
       const initialUniversityIds = universities
         .map(
           (r: { university?: { id: string }; universityId?: string }) =>
-            r.university?.id || r.universityId || ""
+            r.university?.id || r.universityId || "",
         )
         .filter((id) => id !== "");
       setUniversityIds(initialUniversityIds);
@@ -433,7 +502,7 @@ const FAQFormModal = ({
       const initialEventIds = events
         .map(
           (r: { event?: { id: string }; eventId?: string }) =>
-            r.event?.id || r.eventId || ""
+            r.event?.id || r.eventId || "",
         )
         .filter((id) => id !== "");
       setEventIds(initialEventIds);
@@ -443,7 +512,7 @@ const FAQFormModal = ({
       const initialCourseIds = courses
         .map(
           (r: { course?: { id: string }; courseId?: string }) =>
-            r.course?.id || r.courseId || ""
+            r.course?.id || r.courseId || "",
         )
         .filter((id) => id !== "");
       setCourseIds(initialCourseIds);
@@ -453,7 +522,7 @@ const FAQFormModal = ({
       const initialScholarshipIds = scholarships
         .map(
           (r: { scholarship?: { id: string }; scholarshipId?: string }) =>
-            r.scholarship?.id || r.scholarshipId || ""
+            r.scholarship?.id || r.scholarshipId || "",
         )
         .filter((id) => id !== "");
       setScholarshipIds(initialScholarshipIds);
@@ -463,7 +532,7 @@ const FAQFormModal = ({
       const initialIntakePageIds = intakePages
         .map(
           (r: { intakePage?: { id: string }; intakePageId?: string }) =>
-            r.intakePage?.id || r.intakePageId || ""
+            r.intakePage?.id || r.intakePageId || "",
         )
         .filter((id) => id !== "");
       setIntakePageIds(initialIntakePageIds);
@@ -478,6 +547,12 @@ const FAQFormModal = ({
       setScholarshipIds([]);
       setIntakePageIds([]);
       setIsGlobal(false);
+      setShowOnUniversitiesMainPage(false);
+      setShowOnCoursesMainPage(false);
+      setShowOnEventsMainPage(false);
+      setShowOnScholarshipsMainPage(false);
+      setShowOnDestinationsMainPage(false);
+      setShowOnIntakePagesMainPage(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFAQ]);
@@ -532,8 +607,138 @@ const FAQFormModal = ({
             )}
           </form.AppField>
 
+          <div className="space-y-3 p-4 border border-border rounded-lg bg-muted/10">
+            <h3 className="font-semibold text-sm">Show on Entity Main Pages</h3>
+
+            <form.AppField name="showOnUniversitiesMainPage">
+              {(field) => (
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="showOnUniversitiesMainPage"
+                    checked={showOnUniversitiesMainPage}
+                    onCheckedChange={(checked) => {
+                      setShowOnUniversitiesMainPage(checked === true);
+                      field.handleChange(checked === true);
+                    }}
+                  />
+                  <Label
+                    htmlFor="showOnUniversitiesMainPage"
+                    className="text-sm font-medium cursor-pointer"
+                  >
+                    Universities Page
+                  </Label>
+                </div>
+              )}
+            </form.AppField>
+
+            <form.AppField name="showOnCoursesMainPage">
+              {(field) => (
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="showOnCoursesMainPage"
+                    checked={showOnCoursesMainPage}
+                    onCheckedChange={(checked) => {
+                      setShowOnCoursesMainPage(checked === true);
+                      field.handleChange(checked === true);
+                    }}
+                  />
+                  <Label
+                    htmlFor="showOnCoursesMainPage"
+                    className="text-sm font-medium cursor-pointer"
+                  >
+                    Courses Page
+                  </Label>
+                </div>
+              )}
+            </form.AppField>
+
+            <form.AppField name="showOnEventsMainPage">
+              {(field) => (
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="showOnEventsMainPage"
+                    checked={showOnEventsMainPage}
+                    onCheckedChange={(checked) => {
+                      setShowOnEventsMainPage(checked === true);
+                      field.handleChange(checked === true);
+                    }}
+                  />
+                  <Label
+                    htmlFor="showOnEventsMainPage"
+                    className="text-sm font-medium cursor-pointer"
+                  >
+                    Events Page
+                  </Label>
+                </div>
+              )}
+            </form.AppField>
+
+            <form.AppField name="showOnScholarshipsMainPage">
+              {(field) => (
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="showOnScholarshipsMainPage"
+                    checked={showOnScholarshipsMainPage}
+                    onCheckedChange={(checked) => {
+                      setShowOnScholarshipsMainPage(checked === true);
+                      field.handleChange(checked === true);
+                    }}
+                  />
+                  <Label
+                    htmlFor="showOnScholarshipsMainPage"
+                    className="text-sm font-medium cursor-pointer"
+                  >
+                    Scholarships Page
+                  </Label>
+                </div>
+              )}
+            </form.AppField>
+
+            <form.AppField name="showOnDestinationsMainPage">
+              {(field) => (
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="showOnDestinationsMainPage"
+                    checked={showOnDestinationsMainPage}
+                    onCheckedChange={(checked) => {
+                      setShowOnDestinationsMainPage(checked === true);
+                      field.handleChange(checked === true);
+                    }}
+                  />
+                  <Label
+                    htmlFor="showOnDestinationsMainPage"
+                    className="text-sm font-medium cursor-pointer"
+                  >
+                    Destinations Page
+                  </Label>
+                </div>
+              )}
+            </form.AppField>
+
+            <form.AppField name="showOnIntakePagesMainPage">
+              {(field) => (
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="showOnIntakePagesMainPage"
+                    checked={showOnIntakePagesMainPage}
+                    onCheckedChange={(checked) => {
+                      setShowOnIntakePagesMainPage(checked === true);
+                      field.handleChange(checked === true);
+                    }}
+                  />
+                  <Label
+                    htmlFor="showOnIntakePagesMainPage"
+                    className="text-sm font-medium cursor-pointer"
+                  >
+                    Intake Pages
+                  </Label>
+                </div>
+              )}
+            </form.AppField>
+          </div>
+
           {/* Entity Associations - Tabbed Interface */}
-          <div className="space-y-4 rounded-lg border p-4 bg-muted/20">
+          <div className="space-y-4 rounded-lg border border-border p-4 bg-muted/20">
             <div className="flex items-center justify-between">
               <h3 className="font-semibold text-sm">Entity Associations</h3>
               <div className="flex gap-2 text-xs text-muted-foreground">
@@ -656,7 +861,7 @@ const FAQFormModal = ({
                   "destinationIds",
                   searchDestinations,
                   setSearchDestinations,
-                  "destination"
+                  "destination",
                 )}
               </TabsContent>
 
@@ -668,7 +873,7 @@ const FAQFormModal = ({
                   "universityIds",
                   searchUniversities,
                   setSearchUniversities,
-                  "university"
+                  "university",
                 )}
               </TabsContent>
 
@@ -680,7 +885,7 @@ const FAQFormModal = ({
                   "eventIds",
                   searchEvents,
                   setSearchEvents,
-                  "event"
+                  "event",
                 )}
               </TabsContent>
 
@@ -692,7 +897,7 @@ const FAQFormModal = ({
                   "courseIds",
                   searchCourses,
                   setSearchCourses,
-                  "course"
+                  "course",
                 )}
               </TabsContent>
 
@@ -704,7 +909,7 @@ const FAQFormModal = ({
                   "scholarshipIds",
                   searchScholarships,
                   setSearchScholarships,
-                  "scholarship"
+                  "scholarship",
                 )}
               </TabsContent>
 
@@ -716,7 +921,7 @@ const FAQFormModal = ({
                   "intakePageIds",
                   searchIntakePages,
                   setSearchIntakePages,
-                  "intakePage"
+                  "intakePage",
                 )}
               </TabsContent>
             </Tabs>

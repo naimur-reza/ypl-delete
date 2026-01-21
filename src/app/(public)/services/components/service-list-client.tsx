@@ -7,27 +7,13 @@ import { GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  Country,
-  Service,
-} from "../../../../../prisma/src/generated/prisma/client";
+import { Service } from "../../../../../prisma/src/generated/prisma/client";
 
 interface ServicesListProps {
-  countries: Country[];
   services: Service[];
 }
 
-const ServicesList = ({ countries, services }: ServicesListProps) => {
-  // Country filtering commented out as requested
-  // const [selectedCountry, setSelectedCountry] = useState(
-  //   countries[0]?.id || ""
-  // );
-
-  // const filteredServices = services.filter(
-  //   (service) => selectedCountry === "" || service.id !== selectedCountry
-  // );
-
-  // Show all services
+const ServicesList = ({ services }: ServicesListProps) => {
   const filteredServices = services;
 
   return (
@@ -43,30 +29,13 @@ const ServicesList = ({ countries, services }: ServicesListProps) => {
           </p>
         </div>
 
-        {/* Country Tabs - COMMENTED OUT AS REQUESTED */}
-        {/* <div className="flex flex-wrap justify-center gap-3 mb-12">
-          {countries.map((country) => (
-            <button
-              key={country.id}
-              onClick={() => setSelectedCountry(country.id)}
-              className={`px-6 py-2.5 rounded-lg font-medium text-sm transition-all cursor-pointer ${
-                selectedCountry === country.id
-                  ? "bg-blue-700 text-white outline-2"
-                  : "bg-white text-blue-700 outline-blue-700  outline-2 hover:bg-blue-50"
-              }`}
-            >
-              {country.name}
-            </button>
-          ))}
-        </div> */}
-
         {/* Services List */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
           {filteredServices.map((service) => (
             <Link
               key={service.id}
               href={`/services/${service.slug}`}
-              className="bg-white border-2 border-gray-200 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 relative overflow-hidden group hover:bg-blue-600 hover:border-blue-600 cursor-pointer block"
+              className="bg-white border-2 border-gray-200 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 relative overflow-hidden group hover:bg-primary hover:border-primary cursor-pointer block"
             >
               <div className="absolute -bottom-5 -right-5 w-32 h-32 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <svg
@@ -99,8 +68,8 @@ const ServicesList = ({ countries, services }: ServicesListProps) => {
               </div>
 
               <div className="relative z-10 space-y-4">
-                <div className="w-12 h-12 bg-blue-700 group-hover:bg-white rounded-lg flex items-center justify-center transition-colors duration-300">
-                  <GraduationCap className="w-7 h-7 text-white group-hover:text-blue-600 transition-colors duration-300" />
+                <div className="w-12 h-12 bg-primary group-hover:bg-white rounded-lg flex items-center justify-center transition-colors duration-300">
+                  <GraduationCap className="w-7 h-7 text-white group-hover:text-primary transition-colors duration-300" />
                 </div>
 
                 <h3 className="text-2xl font-bold text-black group-hover:text-white transition-colors duration-300">
@@ -113,7 +82,7 @@ const ServicesList = ({ countries, services }: ServicesListProps) => {
 
                 <Button
                   size={"lg"}
-                  className="bg-blue-700 hover:bg-blue-800 group-hover:bg-white group-hover:text-blue-600 group-hover:hover:bg-gray-100 text-white font-semibold px-6 py-2.5 rounded-lg transition-all duration-300"
+                  className="bg-primary hover:bg-primary/90 group-hover:bg-white group-hover:text-primary group-hover:hover:bg-gray-100 text-white font-semibold px-6 py-2.5 rounded-lg transition-all duration-300"
                 >
                   Learn More
                 </Button>

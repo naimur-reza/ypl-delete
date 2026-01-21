@@ -49,7 +49,7 @@ export default function ScholarshipList({
 
   const filterOptions = useMemo(
     () => extractScholarshipFilterOptions(scholarships),
-    [scholarships]
+    [scholarships],
   );
 
   const {
@@ -96,7 +96,7 @@ export default function ScholarshipList({
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedData = filteredData.slice(
     startIndex,
-    startIndex + itemsPerPage
+    startIndex + itemsPerPage,
   );
 
   const formatAmount = (amount: number | null | undefined) => {
@@ -120,6 +120,14 @@ export default function ScholarshipList({
     } catch {
       return deadline;
     }
+  };
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    // Scroll to the top of the scholarship list
+    document
+      .getElementById("#scholarships")
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   // Generate page numbers
@@ -268,13 +276,15 @@ export default function ScholarshipList({
 
                 <div className="flex items-center gap-2">
                   <button
-                    onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                    onClick={() =>
+                      handlePageChange(Math.max(1, currentPage - 1))
+                    }
                     disabled={currentPage === 1}
                     className={cn(
                       "flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-lg border transition-colors",
                       currentPage === 1
                         ? "border-slate-200 text-slate-300 cursor-not-allowed"
-                        : "border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300"
+                        : "border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300",
                     )}
                   >
                     <ChevronLeft className="w-4 h-4" />
@@ -293,17 +303,17 @@ export default function ScholarshipList({
                       ) : (
                         <button
                           key={page}
-                          onClick={() => setCurrentPage(page)}
+                          onClick={() => handlePageChange(page)}
                           className={cn(
                             "w-10 h-10 flex items-center justify-center text-sm font-medium rounded-lg transition-colors",
                             currentPage === page
                               ? "bg-primary text-white"
-                              : "text-slate-600 hover:bg-slate-100"
+                              : "text-slate-600 hover:bg-slate-100",
                           )}
                         >
                           {page}
                         </button>
-                      )
+                      ),
                     )}
                   </div>
 
@@ -313,14 +323,14 @@ export default function ScholarshipList({
 
                   <button
                     onClick={() =>
-                      setCurrentPage((p) => Math.min(totalPages, p + 1))
+                      handlePageChange(Math.min(totalPages, currentPage + 1))
                     }
                     disabled={currentPage === totalPages}
                     className={cn(
                       "flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-lg border transition-colors",
                       currentPage === totalPages
                         ? "border-slate-200 text-slate-300 cursor-not-allowed"
-                        : "border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300"
+                        : "border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300",
                     )}
                   >
                     Next

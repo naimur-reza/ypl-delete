@@ -74,7 +74,7 @@ const CoursesPage = async ({
     <main className="bg-white">
       <CoursesHero />
       <CourseListing courses={courses} />
-      <ReviewSection />
+      <ReviewSection countrySlug={resolvedParams.country} />
       <FaqSection faqs={faqs} />
       <CallToActionBanner />
     </main>

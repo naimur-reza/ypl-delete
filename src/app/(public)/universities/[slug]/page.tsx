@@ -83,6 +83,12 @@ export async function generateMetadata({
 export default async function UniversityDetailsPage({ params }: PageProps) {
   const { country, slug } = await params;
 
+  // Fetch country data for filtering
+  const countryData = await prisma.country.findFirst({
+    where: { slug: country },
+    select: { id: true },
+  });
+
   const university = await prisma.university.findFirst({
     where: { slug, status: "ACTIVE" },
     include: {
@@ -129,7 +135,7 @@ export default async function UniversityDetailsPage({ params }: PageProps) {
   // Map testimonials to ReviewItem shape - filter for student reviews
   const reviews = university.testimonials
     .filter(
-      (t) => t.testimonial.type === "STUDENT" || t.testimonial.type === "GMB"
+      (t) => t.testimonial.type === "STUDENT" || t.testimonial.type === "GMB",
     )
     .map((t) => ({
       id: t.testimonial.id,
@@ -143,7 +149,7 @@ export default async function UniversityDetailsPage({ params }: PageProps) {
   // Filter for representative videos
   const representativeVideos = university.testimonials
     .filter(
-      (t) => t.testimonial.type === "REPRESENTATIVE" && t.testimonial.videoUrl
+      (t) => t.testimonial.type === "REPRESENTATIVE" && t.testimonial.videoUrl,
     )
     .map((t) => t.testimonial);
 
@@ -152,7 +158,7 @@ export default async function UniversityDetailsPage({ params }: PageProps) {
     {
       universityId: university.id,
     },
-    6
+    6,
   );
 
   // Define sidebar steps

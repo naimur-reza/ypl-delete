@@ -14,7 +14,6 @@ export async function GET(req: NextRequest) {
     defaultSort: { updatedAt: "desc" },
     include: {
       destination: true,
-      country: true,
       intakePageBenefits: { orderBy: { sortOrder: "asc" } },
     },
   });
@@ -45,13 +44,6 @@ export async function POST(req: NextRequest) {
       metaKeywords,
       benefits,
       status,
-      // New fields
-      countryId,
-      isGlobal,
-      targetDate,
-      timelineEnabled,
-      howWeHelpJson,
-      howWeHelpEnabled,
     } = body;
 
     if (!destinationId || !intake || !title) {
@@ -80,32 +72,25 @@ export async function POST(req: NextRequest) {
         metaDescription,
         metaKeywords,
         status: status || "DRAFT",
-        // New fields
-        countryId: countryId || null,
-        isGlobal: isGlobal || false,
-        targetDate: targetDate ? new Date(targetDate) : null,
-        timelineEnabled: timelineEnabled ?? true,
-        howWeHelpJson,
-        howWeHelpEnabled: howWeHelpEnabled ?? true,
         intakePageBenefits: benefits?.length
           ? {
-            create: benefits.map(
-              (
-                b: {
-                  title: string;
-                  description?: string;
-                  icon?: string;
-                  sortOrder?: number;
-                },
-                index: number,
-              ) => ({
-                title: b.title,
-                description: b.description,
-                icon: b.icon,
-                sortOrder: b.sortOrder ?? index,
-              }),
-            ),
-          }
+              create: benefits.map(
+                (
+                  b: {
+                    title: string;
+                    description?: string;
+                    icon?: string;
+                    sortOrder?: number;
+                  },
+                  index: number,
+                ) => ({
+                  title: b.title,
+                  description: b.description,
+                  icon: b.icon,
+                  sortOrder: b.sortOrder ?? index,
+                }),
+              ),
+            }
           : undefined,
       },
       include: { intakePageBenefits: true, destination: true },
@@ -128,7 +113,7 @@ export async function PUT(req: NextRequest) {
 
   try {
     const body = await req.json();
-    const { id, benefits, targetDate, countryId, ...data } = body;
+    const { id, benefits, ...data } = body;
 
     if (!id) {
       return Response.json({ error: "ID is required" }, { status: 400 });
@@ -138,32 +123,30 @@ export async function PUT(req: NextRequest) {
       where: { id },
       data: {
         ...data,
-        countryId: countryId || null,
-        targetDate: targetDate ? new Date(targetDate) : null,
         intakePageBenefits:
           benefits !== undefined
             ? {
-              deleteMany: {},
-              create: benefits.map(
-                (
-                  b: {
-                    title: string;
-                    description?: string;
-                    icon?: string;
-                    sortOrder?: number;
-                  },
-                  index: number,
-                ) => ({
-                  title: b.title,
-                  description: b.description,
-                  icon: b.icon,
-                  sortOrder: b.sortOrder ?? index,
-                }),
-              ),
-            }
+                deleteMany: {},
+                create: benefits.map(
+                  (
+                    b: {
+                      title: string;
+                      description?: string;
+                      icon?: string;
+                      sortOrder?: number;
+                    },
+                    index: number,
+                  ) => ({
+                    title: b.title,
+                    description: b.description,
+                    icon: b.icon,
+                    sortOrder: b.sortOrder ?? index,
+                  }),
+                ),
+              }
             : undefined,
       },
-      include: { intakePageBenefits: true, destination: true, country: true },
+      include: { intakePageBenefits: true, destination: true },
     });
 
     return Response.json(updated);

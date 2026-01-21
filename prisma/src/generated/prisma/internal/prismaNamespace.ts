@@ -5237,6 +5237,12 @@ export const FAQScalarFieldEnum = {
   createdBy: 'createdBy',
   updatedBy: 'updatedBy',
   isGlobal: 'isGlobal',
+  showOnUniversitiesMainPage: 'showOnUniversitiesMainPage',
+  showOnCoursesMainPage: 'showOnCoursesMainPage',
+  showOnEventsMainPage: 'showOnEventsMainPage',
+  showOnScholarshipsMainPage: 'showOnScholarshipsMainPage',
+  showOnDestinationsMainPage: 'showOnDestinationsMainPage',
+  showOnIntakePagesMainPage: 'showOnIntakePagesMainPage',
   status: 'status'
 } as const
 

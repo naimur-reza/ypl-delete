@@ -47,11 +47,6 @@ export interface IntakePageData {
     slug: string;
     thumbnail?: string;
   };
-  country?: {
-    id: string;
-    name: string;
-    slug: string;
-  };
   intake: IntakeMonth;
   status: string;
 }
@@ -76,27 +71,9 @@ export class IntakeService {
   ): Promise<IntakePageData | null> {
     const { destinationSlug, intake } = query;
 
-    console.log('[IntakeService] getIntakePage called with:', { destinationSlug, intake });
-
-    // Return null if required params are missing
-    if (!destinationSlug || !intake) {
-      console.log('[IntakeService] Missing required params');
-      return null;
-    }
-
-    // Prepare both possible slug formats
-    // Route captures: /study-in-[destination] -> destination = "uk"
-    // But DB might have: "study-in-uk" or just "uk"
-    const slugWithoutPrefix = destinationSlug.startsWith('study-in-')
-      ? destinationSlug.replace('study-in-', '')
-      : destinationSlug;
-    const slugWithPrefix = `study-in-${slugWithoutPrefix}`;
-
-    console.log('[IntakeService] Trying slugs:', { slugWithPrefix, slugWithoutPrefix });
-
-    // First, try to find destination with prefix (DB stores 'study-in-uk')
-    let destination = await prisma.destination.findUnique({
-      where: { slug: slugWithPrefix },
+    // First, get the destination
+    const destination = await prisma.destination.findUnique({
+      where: { slug: destinationSlug },
       select: {
         id: true,
         name: true,
@@ -105,100 +82,25 @@ export class IntakeService {
       },
     });
 
-    console.log('[IntakeService] Destination with prefix:', destination);
-
-    // If not found, try without prefix (DB stores 'uk')
     if (!destination) {
-      destination = await prisma.destination.findUnique({
-        where: { slug: slugWithoutPrefix },
-        select: {
-          id: true,
-          name: true,
-          slug: true,
-          thumbnail: true,
-        },
-      });
-      console.log('[IntakeService] Destination without prefix:', destination);
-    }
-
-    if (!destination) {
-      console.log('[IntakeService] No destination found');
       return null;
     }
 
-    // Get country ID if countrySlug is provided
-    let countryId: string | null = null;
-    if (query.countrySlug) {
-      const country = await prisma.country.findUnique({
-        where: { slug: query.countrySlug },
-        select: { id: true },
-      });
-      countryId = country?.id || null;
-      console.log('[IntakeService] Country lookup:', { countrySlug: query.countrySlug, countryId });
-    }
-
-    // Strategy: 
-    // 1. First, try to find a country-specific intake page
-    // 2. If not found, fall back to a global intake page (isGlobal=true or countryId=null)
-    let intakePage = null;
-
-    // Try country-specific page first (if country was provided)
-    if (countryId) {
-      intakePage = await prisma.intakePage.findFirst({
-        where: {
-          destinationId: destination.id,
-          intake,
-          countryId,
-          status: "ACTIVE",
+    // Find intake page (existing schema is country-agnostic)
+    const intakePage = await prisma.intakePage.findFirst({
+      where: {
+        destinationId: destination.id,
+        intake,
+        status: "ACTIVE",
+      },
+      include: {
+        intakePageBenefits: {
+          orderBy: { sortOrder: "asc" },
         },
-        include: {
-          intakePageBenefits: {
-            orderBy: { sortOrder: "asc" },
-          },
-          country: {
-            select: {
-              id: true,
-              name: true,
-              slug: true,
-            },
-          },
-        },
-      });
-      console.log('[IntakeService] Country-specific IntakePage:', intakePage ? { id: intakePage.id, title: intakePage.title } : null);
-    }
-
-    // Fall back to global intake page (no countryId or isGlobal=true)
-    if (!intakePage) {
-      intakePage = await prisma.intakePage.findFirst({
-        where: {
-          destinationId: destination.id,
-          intake,
-          status: "ACTIVE",
-          OR: [
-            { isGlobal: true },
-            { countryId: null },
-          ],
-        },
-        include: {
-          intakePageBenefits: {
-            orderBy: { sortOrder: "asc" },
-          },
-          country: {
-            select: {
-              id: true,
-              name: true,
-              slug: true,
-            },
-          },
-        },
-      });
-      console.log('[IntakeService] Global IntakePage fallback:', intakePage ? { id: intakePage.id, title: intakePage.title } : null);
-    }
-
-    console.log('[IntakeService] IntakePage found:', intakePage ? { id: intakePage.id, title: intakePage.title, status: intakePage.status } : null);
+      },
+    });
 
     if (!intakePage) {
-      console.log('[IntakeService] No intake page found');
       return null;
     }
 
@@ -324,10 +226,10 @@ export class IntakeService {
     const limit = options?.limit ?? 200;
     const countryFilter = options?.countrySlug
       ? {
-        some: {
-          country: { slug: options.countrySlug },
-        },
-      }
+          some: {
+            country: { slug: options.countrySlug },
+          },
+        }
       : undefined;
 
     const universities = await prisma.university.findMany({

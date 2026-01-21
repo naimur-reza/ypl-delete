@@ -174,7 +174,6 @@ const DestinationDetailsPage = async ({ params }: PageProps) => {
       : undefined,
   });
 
-  console.log(destination);
   return (
     <div className="bg-white">
       <StudyAbroadHero countrySlug={countrySlug || undefined} />
@@ -182,11 +181,16 @@ const DestinationDetailsPage = async ({ params }: PageProps) => {
         countries={countries}
         destinations={destinations}
       />
-      <IntakeFeature />
+
       <WhyChooseCountry
         countryName={cleanDestinationName(destination?.name || "")}
         whyChooseContent={destination?.whyChoose}
         sections={destination?.sections || []}
+      />
+
+      <IntakeFeature
+        countrySlug={countrySlug as string}
+        destinationId={destination?.id}
       />
       <UniversitySlider
         universities={universities}
@@ -205,7 +209,7 @@ const DestinationDetailsPage = async ({ params }: PageProps) => {
         countryCode={countrySlug as any}
         destinationSlug={trimmedSlug}
       />
-      <ReviewSection />
+      <ReviewSection countrySlug={countrySlug} />
       <RepresentativeVideoSlider />
       <EventsSection />
       <FaqSection faqs={faqs} />

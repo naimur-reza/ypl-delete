@@ -20,13 +20,6 @@ function Stat({ value, label }: StatProps) {
 }
 
 export default function ServicesHero() {
-  const stats = [
-    { value: "99.95%", label: "Visas approved" },
-    { value: "100+", label: "Global offices" },
-    { value: "2006", label: "Established" },
-    { value: "250+", label: "Universities partnered" },
-  ];
-
   return (
     <section className="w-full">
       {/* Top Section with Dynamic Hero */}
@@ -39,25 +32,13 @@ export default function ServicesHero() {
       />
 
       {/* Bottom Section with Dark Navy Background */}
-      <div className="bg-[#0a1628] py-12 md:py-16 lg:py-20">
+      <div className="bg-[#0a1628] py-12 md:py-16 ">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white text-balance">
               We've assisted 1.3M+ students achieve their dream of studying
               abroad
             </h2>
-          </div>
-
-          {/* Stats Grid */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 max-w-6xl mx-auto">
-            {stats.map((stat, index) => (
-              <div key={index} className="relative">
-                <Stat value={stat.value} label={stat.label} />
-                {index < stats.length - 1 && (
-                  <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-px h-24 bg-white/20" />
-                )}
-              </div>
-            ))}
           </div>
         </div>
       </div>

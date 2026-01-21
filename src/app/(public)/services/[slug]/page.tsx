@@ -1,15 +1,18 @@
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { DynamicHero } from "@/components/hero/DynamicHero";
-import { FaqSection } from "../../components/faq-section";
+
 import { ReviewSection } from "@/components/sections/review-section";
 import CallToActionBanner from "@/components/CallToActionBanner";
 import { MarkdownContent } from "@/components/ui/markdown-content";
 import { Metadata } from "next";
+import { FaqSection } from "@/components/sections/faq-section";
+import { fetchFaqsForHomePage } from "@/lib/faqs";
 
 type PageProps = {
   params: Promise<{
     slug: string;
+    country?: string;
   }>;
 };
 
@@ -26,9 +29,11 @@ export async function generateStaticParams() {
 }
 
 // Generate metadata for SEO
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  
+
   const service = await prisma.service.findFirst({
     where: { slug, status: "ACTIVE" },
   });
@@ -41,16 +46,37 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: service.metaTitle || `${service.title} | NWC Education`,
-    description: service.metaDescription || service.summary || `Learn about our ${service.title} service`,
+    description:
+      service.metaDescription ||
+      service.summary ||
+      `Learn about our ${service.title} service`,
     keywords: service.metaKeywords || undefined,
   };
 }
 
 export default async function ServiceDetailsPage({ params }: PageProps) {
-  const { slug } = await params;
+  const { slug, country } = await params;
+
+  // Fetch country data if country is provided
+  const countryData = country
+    ? await prisma.country.findFirst({
+        where: { slug: country },
+        select: { id: true },
+      })
+    : null;
 
   const service = await prisma.service.findFirst({
-    where: { slug, status: "ACTIVE" },
+    where: {
+      slug,
+      status: "ACTIVE",
+      ...(country && {
+        countries: {
+          some: {
+            country: { slug: country },
+          },
+        },
+      }),
+    },
   });
 
   if (!service) {
@@ -58,17 +84,22 @@ export default async function ServiceDetailsPage({ params }: PageProps) {
   }
 
   // Parse stats from JSON
-  const stats = (service.stats as Array<{ label: string; value: string }>) || [];
+  const stats =
+    (service.stats as Array<{ label: string; value: string }>) || [];
 
+  const faqs = await fetchFaqsForHomePage(country, 6);
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <DynamicHero
         slug={slug}
-        countrySlug={null}
+        countrySlug={country || null}
         defaultTitle={service.heroTitle || service.title}
         defaultSubtitle={service.heroSubtitle || service.summary || ""}
-        defaultBackgroundUrl={service.image || "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070"}
+        defaultBackgroundUrl={
+          service.image ||
+          "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070"
+        }
       />
 
       {/* Stats Section */}
@@ -111,10 +142,10 @@ export default async function ServiceDetailsPage({ params }: PageProps) {
       )}
 
       {/* Review Section */}
-      <ReviewSection />
+      <ReviewSection countrySlug={country || null} />
 
       {/* FAQ Section */}
-      <FaqSection />
+      <FaqSection faqs={faqs} />
 
       {/* Call to Action */}
       <CallToActionBanner />

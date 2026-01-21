@@ -85,7 +85,7 @@ export default async function ScholarshipPage({ params }: PageProps) {
       <HowToApplySteps />
 
       {/* Student & Google Reviews */}
-      <ReviewSection />
+      <ReviewSection countrySlug={resolvedCountry.slug} />
 
       {/* FAQs */}
       <FaqSection faqs={faqs} />

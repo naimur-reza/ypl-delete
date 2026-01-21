@@ -32,13 +32,19 @@ export async function POST(req: NextRequest) {
     scholarshipIds,
     intakePageIds,
     isGlobal,
+    showOnUniversitiesMainPage,
+    showOnCoursesMainPage,
+    showOnEventsMainPage,
+    showOnScholarshipsMainPage,
+    showOnDestinationsMainPage,
+    showOnIntakePagesMainPage,
     status,
   } = body;
 
   if (!question || !answer) {
     return Response.json(
       { error: "Question and answer are required" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -49,6 +55,12 @@ export async function POST(req: NextRequest) {
         answer,
         status: status || "DRAFT",
         isGlobal: isGlobal || false,
+        showOnUniversitiesMainPage: showOnUniversitiesMainPage || false,
+        showOnCoursesMainPage: showOnCoursesMainPage || false,
+        showOnEventsMainPage: showOnEventsMainPage || false,
+        showOnScholarshipsMainPage: showOnScholarshipsMainPage || false,
+        showOnDestinationsMainPage: showOnDestinationsMainPage || false,
+        showOnIntakePagesMainPage: showOnIntakePagesMainPage || false,
         countries: countryIds?.length
           ? {
               create: (countryIds || []).map((countryId: string) => ({
@@ -244,14 +256,14 @@ export async function PATCH(req: NextRequest) {
   if (!faqIds || !Array.isArray(faqIds) || faqIds.length === 0) {
     return Response.json(
       { error: "FAQ IDs array is required" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
   if (!operation || !["assign", "remove"].includes(operation)) {
     return Response.json(
       { error: "Operation must be 'assign' or 'remove'" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -262,7 +274,7 @@ export async function PATCH(req: NextRequest) {
   if (!entityIds || !Array.isArray(entityIds) || entityIds.length === 0) {
     return Response.json(
       { error: "Entity IDs array is required" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -335,13 +347,13 @@ export async function PATCH(req: NextRequest) {
         ...result,
         message: `Successfully ${operation}ed ${result.successCount} FAQ(s)`,
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error: any) {
     console.error("Error in bulk operation:", error);
     return Response.json(
       { error: "Failed to perform bulk operation" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

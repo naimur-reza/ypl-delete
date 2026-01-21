@@ -343,7 +343,7 @@ export function DashboardCharts({ data }: { data: ChartData }) {
                   strokeWidth={2}
                   strokeDasharray="5 5"
                   dot={{ fill: "#94a3b8", strokeWidth: 2, r: 3 }}
-                  name="2025"
+                  name="2026"
                 />
                 <Legend
                   wrapperStyle={{ paddingTop: "10px" }}

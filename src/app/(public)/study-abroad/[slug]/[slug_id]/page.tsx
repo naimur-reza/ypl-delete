@@ -193,7 +193,7 @@ export default async function EssentialStudyDetailsPage({ params }: PageProps) {
         </div>
       </div>
 
-      <ReviewSection />
+      <ReviewSection countrySlug={null} />
       <BlogSection />
     </div>
   );

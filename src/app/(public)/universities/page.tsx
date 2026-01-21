@@ -24,6 +24,12 @@ const UniversitiesPage = async ({
 }) => {
   const { country } = await params;
 
+  // Fetch country data
+  const countryData = await prisma.country.findFirst({
+    where: { slug: country },
+    select: { id: true },
+  });
+
   const universities = await prisma.university.findMany({
     where: {
       status: "ACTIVE",
@@ -55,7 +61,7 @@ const UniversitiesPage = async ({
       <UniversityListing universities={universities} />
 
       {/* 3. Student Review Video Slider + Google My Business Review Slider */}
-      <ReviewSection />
+      <ReviewSection countrySlug={country} />
 
       {/* 4. FAQs */}
       <FaqSection faqs={faqs} />

@@ -25,7 +25,7 @@ type FAQContext = {
  */
 export async function fetchFaqsByCountrySlug(
   countrySlug: string | null | undefined,
-  limit: number = 6
+  limit: number = 6,
 ): Promise<FAQItem[]> {
   return prisma.fAQ.findMany({
     where: countrySlug
@@ -54,7 +54,7 @@ export async function fetchFaqsByCountrySlug(
  */
 export async function fetchFaqsByEventId(
   eventId: string,
-  limit: number = 6
+  limit: number = 6,
 ): Promise<FAQItem[]> {
   return prisma.fAQ.findMany({
     where: {
@@ -80,7 +80,7 @@ export async function fetchFaqsByEventId(
  */
 export async function fetchFaqsByCourseId(
   courseId: string,
-  limit: number = 6
+  limit: number = 6,
 ): Promise<FAQItem[]> {
   return prisma.fAQ.findMany({
     where: {
@@ -106,7 +106,7 @@ export async function fetchFaqsByCourseId(
  */
 export async function fetchFaqsByScholarshipId(
   scholarshipId: string,
-  limit: number = 6
+  limit: number = 6,
 ): Promise<FAQItem[]> {
   return prisma.fAQ.findMany({
     where: {
@@ -130,50 +130,13 @@ export async function fetchFaqsByScholarshipId(
 /**
  * Fetch FAQs by intake page (destination + intake month)
  */
-export async function fetchFaqsByIntakePage(
-  destinationId: string,
-  intake: IntakeMonth,
-  limit: number = 6
-): Promise<FAQItem[]> {
-  // First find the intake page
-  const intakePage = await prisma.intakePage.findUnique({
-    where: {
-      destinationId_intake: {
-        destinationId,
-        intake,
-      },
-    },
-  });
-
-  if (!intakePage) {
-    return [];
-  }
-
-  return prisma.fAQ.findMany({
-    where: {
-      status: "ACTIVE",
-      intakePages: {
-        some: {
-          intakePageId: intakePage.id,
-        },
-      },
-    },
-    orderBy: { updatedAt: "desc" },
-    take: limit,
-    select: {
-      id: true,
-      question: true,
-      answer: true,
-    },
-  });
-}
 
 /**
  * Fetch FAQs for home page (global + country-specific)
  */
 export async function fetchFaqsForHomePage(
   countrySlug?: string | null,
-  limit: number = 6
+  limit: number = 6,
 ): Promise<FAQItem[]> {
   const whereConditions: any[] = [
     {
@@ -213,7 +176,7 @@ export async function fetchFaqsForHomePage(
  */
 export async function fetchFaqsByContext(
   context: FAQContext,
-  limit: number = 6
+  limit: number = 6,
 ): Promise<FAQItem[]> {
   let faqs: FAQItem[] = [];
 
@@ -375,11 +338,6 @@ export async function fetchFaqsByContext(
       },
     });
   } else if (context.intakePage) {
-    faqs = await fetchFaqsByIntakePage(
-      context.intakePage.destinationId,
-      context.intakePage.intake,
-      limit
-    );
   }
 
   return faqs;
@@ -387,213 +345,286 @@ export async function fetchFaqsByContext(
 
 /**
  * Fetch FAQs for scholarships listing page
- * Returns FAQs linked to 2+ scholarships (indicates general relevance)
+ * Uses showOnScholarshipsMainPage flag
  */
 export async function fetchFaqsForScholarshipsPage(
   countrySlug?: string | null,
-  limit: number = 6
+  limit: number = 6,
 ): Promise<FAQItem[]> {
   const where: any = {
     status: "ACTIVE",
-    scholarships: {
-      some: {},
-    },
+    showOnScholarshipsMainPage: true,
   };
 
   // Filter by country if provided
   if (countrySlug) {
-    where.countries = {
-      some: {
-        country: {
-          slug: countrySlug,
+    where.OR = [
+      {
+        isGlobal: true,
+      },
+      {
+        countries: {
+          some: {
+            country: {
+              slug: countrySlug,
+            },
+          },
         },
       },
-    };
+    ];
+  } else {
+    where.isGlobal = true;
   }
 
-  // Get all FAQs with scholarships, then filter those with 2+
-  const allFaqs = await prisma.fAQ.findMany({
+  return prisma.fAQ.findMany({
     where,
-    include: {
-      scholarships: true,
-    },
     orderBy: { updatedAt: "desc" },
+    take: limit,
+    select: {
+      id: true,
+      question: true,
+      answer: true,
+    },
   });
-
-  // Filter FAQs that have 2+ scholarships
-  const filteredFaqs = allFaqs.filter((faq) => faq.scholarships.length >= 2);
-
-  return filteredFaqs.slice(0, limit).map((faq) => ({
-    id: faq.id,
-    question: faq.question,
-    answer: faq.answer,
-  }));
 }
 
 /**
  * Fetch FAQs for universities listing page
- * Returns FAQs linked to 2+ universities
+ * Uses showOnUniversitiesMainPage flag
  */
 export async function fetchFaqsForUniversitiesPage(
   countrySlug?: string | null,
-  limit: number = 6
+  limit: number = 6,
 ): Promise<FAQItem[]> {
   const where: any = {
     status: "ACTIVE",
-    universities: {
-      some: {},
-    },
+    showOnUniversitiesMainPage: true,
   };
 
   if (countrySlug) {
-    where.countries = {
-      some: {
-        country: {
-          slug: countrySlug,
+    where.OR = [
+      {
+        isGlobal: true,
+      },
+      {
+        countries: {
+          some: {
+            country: {
+              slug: countrySlug,
+            },
+          },
         },
       },
-    };
+    ];
+  } else {
+    where.isGlobal = true;
   }
 
-  const allFaqs = await prisma.fAQ.findMany({
+  return prisma.fAQ.findMany({
     where,
-    include: {
-      universities: true,
-    },
     orderBy: { updatedAt: "desc" },
+    take: limit,
+    select: {
+      id: true,
+      question: true,
+      answer: true,
+    },
   });
-
-  const filteredFaqs = allFaqs.filter((faq) => faq.universities.length >= 2);
-
-  return filteredFaqs.slice(0, limit).map((faq) => ({
-    id: faq.id,
-    question: faq.question,
-    answer: faq.answer,
-  }));
 }
 
 /**
  * Fetch FAQs for events listing page
- * Returns FAQs linked to 2+ events
+ * Uses showOnEventsMainPage flag
  */
 export async function fetchFaqsForEventsPage(
   countrySlug?: string | null,
-  limit: number = 6
+  limit: number = 6,
 ): Promise<FAQItem[]> {
   const where: any = {
     status: "ACTIVE",
-    events: {
-      some: {},
-    },
+    showOnEventsMainPage: true,
   };
 
   if (countrySlug) {
-    where.countries = {
-      some: {
-        country: {
-          slug: countrySlug,
+    where.OR = [
+      {
+        isGlobal: true,
+      },
+      {
+        countries: {
+          some: {
+            country: {
+              slug: countrySlug,
+            },
+          },
         },
       },
-    };
+    ];
+  } else {
+    where.isGlobal = true;
   }
 
-  const allFaqs = await prisma.fAQ.findMany({
+  return prisma.fAQ.findMany({
     where,
-    include: {
-      events: true,
-    },
     orderBy: { updatedAt: "desc" },
+    take: limit,
+    select: {
+      id: true,
+      question: true,
+      answer: true,
+    },
   });
-
-  const filteredFaqs = allFaqs.filter((faq) => faq.events.length >= 2);
-
-  return filteredFaqs.slice(0, limit).map((faq) => ({
-    id: faq.id,
-    question: faq.question,
-    answer: faq.answer,
-  }));
 }
 
 /**
  * Fetch FAQs for courses listing page
- * Returns FAQs linked to 2+ courses
+ * Uses showOnCoursesMainPage flag
  */
 export async function fetchFaqsForCoursesPage(
   countrySlug?: string | null,
-  limit: number = 6
+  limit: number = 6,
 ): Promise<FAQItem[]> {
   const where: any = {
     status: "ACTIVE",
-    courses: {
-      some: {},
-    },
+    showOnCoursesMainPage: true,
   };
 
   if (countrySlug) {
-    where.countries = {
-      some: {
-        country: {
-          slug: countrySlug,
+    where.OR = [
+      {
+        isGlobal: true,
+      },
+      {
+        countries: {
+          some: {
+            country: {
+              slug: countrySlug,
+            },
+          },
         },
       },
-    };
+    ];
+  } else {
+    where.isGlobal = true;
   }
 
-  const allFaqs = await prisma.fAQ.findMany({
+  return prisma.fAQ.findMany({
     where,
-    include: {
-      courses: true,
-    },
     orderBy: { updatedAt: "desc" },
+    take: limit,
+    select: {
+      id: true,
+      question: true,
+      answer: true,
+    },
   });
-
-  const filteredFaqs = allFaqs.filter((faq) => faq.courses.length >= 2);
-
-  return filteredFaqs.slice(0, limit).map((faq) => ({
-    id: faq.id,
-    question: faq.question,
-    answer: faq.answer,
-  }));
 }
 
 /**
  * Fetch FAQs for destinations listing page
- * Returns FAQs linked to 2+ destinations
+ * Uses showOnDestinationsMainPage flag
  */
 export async function fetchFaqsForDestinationsPage(
   countrySlug?: string | null,
-  limit: number = 6
+  limit: number = 6,
 ): Promise<FAQItem[]> {
   const where: any = {
     status: "ACTIVE",
-    destinations: {
-      some: {},
-    },
+    showOnDestinationsMainPage: true,
   };
 
   if (countrySlug) {
-    where.countries = {
-      some: {
-        country: {
-          slug: countrySlug,
+    where.OR = [
+      {
+        isGlobal: true,
+      },
+      {
+        countries: {
+          some: {
+            country: {
+              slug: countrySlug,
+            },
+          },
         },
       },
-    };
+    ];
+  } else {
+    where.isGlobal = true;
   }
 
-  const allFaqs = await prisma.fAQ.findMany({
+  return prisma.fAQ.findMany({
     where,
-    include: {
-      destinations: true,
-    },
     orderBy: { updatedAt: "desc" },
+    take: limit,
+    select: {
+      id: true,
+      question: true,
+      answer: true,
+    },
+  });
+}
+
+/**
+ * Fetch FAQs for main listing pages (Universities, Scholarships, Study Abroad, etc.)
+ * Uses entity-specific showOnMainPage flags to filter FAQs
+ */
+export async function fetchFaqsForMainPage(
+  countrySlug?: string | null,
+  entityType?:
+    | "universities"
+    | "scholarships"
+    | "destinations"
+    | "events"
+    | "courses",
+  limit: number = 6,
+): Promise<FAQItem[]> {
+  let where: any = {
+    status: "ACTIVE",
+  };
+
+  // Add country filter if provided
+  if (countrySlug) {
+    where.OR = [
+      {
+        isGlobal: true,
+      },
+      {
+        countries: {
+          some: {
+            country: {
+              slug: countrySlug,
+            },
+          },
+        },
+      },
+    ];
+  } else {
+    where.isGlobal = true;
+  }
+
+  // Filter by entity-specific showOnMainPage flag
+  if (entityType === "universities") {
+    where.showOnUniversitiesMainPage = true;
+  } else if (entityType === "scholarships") {
+    where.showOnScholarshipsMainPage = true;
+  } else if (entityType === "destinations") {
+    where.showOnDestinationsMainPage = true;
+  } else if (entityType === "events") {
+    where.showOnEventsMainPage = true;
+  } else if (entityType === "courses") {
+    where.showOnCoursesMainPage = true;
+  }
+
+  const faqs = await prisma.fAQ.findMany({
+    where,
+    orderBy: { updatedAt: "desc" },
+    take: limit,
+    select: {
+      id: true,
+      question: true,
+      answer: true,
+    },
   });
 
-  const filteredFaqs = allFaqs.filter((faq) => faq.destinations.length >= 2);
-
-  return filteredFaqs.slice(0, limit).map((faq) => ({
-    id: faq.id,
-    question: faq.question,
-    answer: faq.answer,
-  }));
+  return faqs;
 }

@@ -12,4 +12,10 @@ export const faqSchema = z.object({
   scholarshipIds: z.array(z.string()).optional().default([]),
   intakePageIds: z.array(z.string()).optional().default([]),
   isGlobal: z.boolean().optional().default(false),
+  showOnUniversitiesMainPage: z.boolean().optional().default(false),
+  showOnCoursesMainPage: z.boolean().optional().default(false),
+  showOnEventsMainPage: z.boolean().optional().default(false),
+  showOnScholarshipsMainPage: z.boolean().optional().default(false),
+  showOnDestinationsMainPage: z.boolean().optional().default(false),
+  showOnIntakePagesMainPage: z.boolean().optional().default(false),
 });
