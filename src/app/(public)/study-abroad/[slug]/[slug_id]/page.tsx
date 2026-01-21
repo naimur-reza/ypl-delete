@@ -203,4 +203,3 @@ export default async function EssentialStudyDetailsPage({ params }: PageProps) {
     </div>
   );
 }
-

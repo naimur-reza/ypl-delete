@@ -55,19 +55,15 @@ export function BlogListClient({
 
   // Loading state for skeleton
   const [isLoading, setIsLoading] = useState(false);
-  const [prevParams, setPrevParams] = useState(searchParams.toString());
+ 
 
-  // Show skeleton when search params change
+  // Show skeleton when filters change
   useEffect(() => {
-    const currentParams = searchParams.toString();
-    if (currentParams !== prevParams) {
-      setIsLoading(true);
-      setPrevParams(currentParams);
-      // Simulate brief loading for visual feedback
-      const timer = setTimeout(() => setIsLoading(false), 300);
-      return () => clearTimeout(timer);
-    }
-  }, [searchParams, prevParams]);
+    setIsLoading(true);
+    // Simulate brief loading for visual feedback
+    const timer = setTimeout(() => setIsLoading(false), 500);
+    return () => clearTimeout(timer);
+  }, [selectedDestination, searchQuery, selectedCategory, currentPage]);
 
   // Client-side filtering
   const filteredBlogs = useMemo(() => {
