@@ -57,6 +57,7 @@ export const ModelName = {
   Accreditation: 'Accreditation',
   Career: 'Career',
   JobApplication: 'JobApplication',
+  LegalPage: 'LegalPage',
   Course: 'Course',
   CourseIntake: 'CourseIntake',
   IntakePage: 'IntakePage',
@@ -266,6 +267,18 @@ export const JobApplicationScalarFieldEnum = {
 } as const
 
 export type JobApplicationScalarFieldEnum = (typeof JobApplicationScalarFieldEnum)[keyof typeof JobApplicationScalarFieldEnum]
+
+
+export const LegalPageScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  title: 'title',
+  subtitle: 'subtitle',
+  content: 'content',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LegalPageScalarFieldEnum = (typeof LegalPageScalarFieldEnum)[keyof typeof LegalPageScalarFieldEnum]
 
 
 export const CourseScalarFieldEnum = {

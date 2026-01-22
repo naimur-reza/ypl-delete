@@ -46,8 +46,10 @@ import {
   Eye,
   EyeOff,
   Settings as SettingsIcon,
+  FileText,
 } from "lucide-react";
 import FooterSettings from "./footer/page";
+import LegalSettings from "./legal/page";
 import { toast } from "sonner";
 
 interface TeamMember {
@@ -263,7 +265,7 @@ export default function Settings() {
         </div>
 
         <Tabs defaultValue="profile" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="profile" className="flex items-center gap-2">
               <User className="h-4 w-4" />
               Profile
@@ -275,6 +277,10 @@ export default function Settings() {
             <TabsTrigger value="footer" className="flex items-center gap-2">
               <SettingsIcon className="h-4 w-4" />
               Footer
+            </TabsTrigger>
+            <TabsTrigger value="legal" className="flex items-center gap-2">
+              <FileText className="h-4 w-4" />
+              Legal
             </TabsTrigger>
           </TabsList>
 
@@ -566,6 +572,10 @@ export default function Settings() {
 
           <TabsContent value="footer" className="space-y-6">
             <FooterSettings />
+          </TabsContent>
+
+          <TabsContent value="legal" className="space-y-6">
+            <LegalSettings />
           </TabsContent>
         </Tabs>
       </div>

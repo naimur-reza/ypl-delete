@@ -1,12 +1,11 @@
 import { EventHero } from "@/app/[country]/(public)/events/components/event-hero";
 import { EventListing } from "@/app/[country]/(public)/events/components/event-listing";
 import { WhyAttendSection } from "@/app/[country]/(public)/events/components/why-attend-section";
-import { PastEventsSection } from "@/app/[country]/(public)/events/components/past-events-section";
 import { FaqSection } from "@/components/sections/faq-section";
 import { RepresentativeVideoSlider } from "@/components/sections/representative-video-slider";
 import CallToActionBanner from "@/components/CallToActionBanner";
 import { resolveCountryContext } from "@/lib/country-resolver";
-import { fetchPastEvents, fetchUpcomingEvents } from "@/lib/events";
+import { fetchAllEventsForListing } from "@/lib/events";
 import { fetchRepresentativeVideos } from "@/lib/representative-videos";
 import { fetchFaqsForEventsPage } from "@/lib/faqs";
 import { buildMetadata } from "@/lib/metadata";
@@ -31,9 +30,8 @@ const EventsPage = async ({ params }: PageProps) => {
   const resolvedParams = (await params) ?? { country: null };
   const resolvedCountry = await resolveCountryContext(resolvedParams.country);
 
-  const [upcomingEvents, pastEvents, videos, faqs] = await Promise.all([
-    fetchUpcomingEvents({ countrySlug: resolvedCountry.slug }),
-    fetchPastEvents({ countrySlug: resolvedCountry.slug }),
+  const [allEvents, videos, faqs] = await Promise.all([
+    fetchAllEventsForListing({ countrySlug: resolvedCountry.slug }),
     fetchRepresentativeVideos(resolvedCountry.slug),
     fetchFaqsForEventsPage(resolvedCountry.slug, 6),
   ]);
@@ -43,14 +41,11 @@ const EventsPage = async ({ params }: PageProps) => {
       {/* 1. Hero Section (Replaces Slider) */}
       <EventHero />
 
-      {/* 2. Event Listing with Sidebar Filters */}
-      <EventListing events={upcomingEvents} />
+      {/* 2. Event Listing: all events, upcoming first then past (past most recent first) */}
+      <EventListing events={allEvents} />
 
       {/* 3. Why Attend Section */}
       <WhyAttendSection />
-
-      {/* 5. Past Event Card Box */}
-      <PastEventsSection events={pastEvents} />
 
       {/* 6. FAQ */}
       <FaqSection faqs={faqs} />

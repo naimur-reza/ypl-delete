@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+ 
 
 export const revalidate = 300;
 
@@ -12,10 +13,11 @@ import { fetchFaqsByContext } from "@/lib/faqs";
 import { EventDetailsHero } from "@/app/[country]/(public)/events/components/event-details-hero";
 import { EventRegistrationFormEnhanced } from "@/app/[country]/(public)/events/components/event-registration-form-enhanced";
 import { RelatedEventsSection } from "@/app/[country]/(public)/events/components/related-events-section";
+import type { Prisma } from "../../../../../prisma/src/generated/prisma/client";
 
 interface PageProps {
   params: Promise<{
-    country: string;
+    country?: string;
     slug: string;
   }>;
 }
@@ -53,7 +55,7 @@ export async function generateMetadata({
 }
 
 export default async function EventDetailsPage({ params }: PageProps) {
-  const { country, slug } = await params;
+  const { country: countrySlug, slug } = await params;
 
   // Fetch the main event with all details
   const event = await prisma.event.findFirst({
@@ -73,18 +75,32 @@ export default async function EventDetailsPage({ params }: PageProps) {
     notFound();
   }
 
-  // Fetch related events (same destination or event type, excluding current)
+  // Country filter: when on a country route (e.g. Bangladesh), show only events
+  // for that country OR global events—not all countries.
+  let countryFilter: Prisma.EventWhereInput = {};
+  if (countrySlug) {
+    countryFilter = {
+      OR: [
+        { countries: { some: { country: { slug: countrySlug } } } },
+        { isGlobal: true },
+      ],
+    };
+  }
+
+  // Fetch related events: same destination or event type, in current country (or global), excluding current
   const relatedEvents = await prisma.event.findMany({
     where: {
       AND: [
         { id: { not: event.id } },
+        { status: "ACTIVE" },
         { startDate: { gte: new Date() } }, // Only upcoming events
         {
           OR: [
-            { destinationId: event.destinationId },
+            ...(event.destinationId ? [{ destinationId: event.destinationId }] : []),
             { eventType: event.eventType },
           ],
         },
+        ...(Object.keys(countryFilter).length > 0 ? [countryFilter] : []),
       ],
     },
     orderBy: { startDate: "asc" },
@@ -109,7 +125,7 @@ export default async function EventDetailsPage({ params }: PageProps) {
       <EventRegistrationFormEnhanced event={event} />
 
       {/* 3. Related Events Section */}
-      <RelatedEventsSection events={relatedEvents} countrySlug={country} />
+      <RelatedEventsSection events={relatedEvents} countrySlug={countrySlug ?? undefined} />
 
       {/* 4. FAQ Section */}
       <FaqSection faqs={faqs} title="Frequently Asked Questions" />

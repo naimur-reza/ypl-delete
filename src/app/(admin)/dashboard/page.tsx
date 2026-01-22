@@ -458,7 +458,7 @@ export default async function Dashboard() {
                   {data.recentRegistrations.map((registration) => (
                     <Link
                       key={registration.id}
-                      href={`/dashboard/registrations/${registration.id}`}
+                      href={`/dashboard/registrations`}
                       className="flex items-center justify-between rounded-lg border border-border/80 px-4 py-3 hover:border-primary/50 hover:bg-muted/50 transition-all"
                     >
                       <div>

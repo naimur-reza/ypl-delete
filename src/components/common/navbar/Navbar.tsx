@@ -252,10 +252,10 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
             )}
 
             <NavDropdown
-              href={"#"}
+            
               title="Resources"
               heading="Explore our resources"
-              viewAllLink="/resources"
+               
               items={resourceItems}
             />
           </ul>

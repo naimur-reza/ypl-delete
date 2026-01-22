@@ -294,6 +294,23 @@ export type EnumJobApplicationStatusWithAggregatesFilter<$PrismaModel = never> =
   _max?: Prisma.NestedEnumJobApplicationStatusFilter<$PrismaModel>
 }
 
+export type EnumLegalPageTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.LegalPageType | Prisma.EnumLegalPageTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LegalPageType[] | Prisma.ListEnumLegalPageTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LegalPageType[] | Prisma.ListEnumLegalPageTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLegalPageTypeFilter<$PrismaModel> | $Enums.LegalPageType
+}
+
+export type EnumLegalPageTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LegalPageType | Prisma.EnumLegalPageTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LegalPageType[] | Prisma.ListEnumLegalPageTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LegalPageType[] | Prisma.ListEnumLegalPageTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLegalPageTypeWithAggregatesFilter<$PrismaModel> | $Enums.LegalPageType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLegalPageTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLegalPageTypeFilter<$PrismaModel>
+}
+
 export type FloatNullableFilter<$PrismaModel = never> = {
   equals?: number | Prisma.FloatFieldRefInput<$PrismaModel> | null
   in?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel> | null
@@ -867,6 +884,23 @@ export type NestedEnumJobApplicationStatusWithAggregatesFilter<$PrismaModel = ne
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumJobApplicationStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumJobApplicationStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumLegalPageTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.LegalPageType | Prisma.EnumLegalPageTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LegalPageType[] | Prisma.ListEnumLegalPageTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LegalPageType[] | Prisma.ListEnumLegalPageTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLegalPageTypeFilter<$PrismaModel> | $Enums.LegalPageType
+}
+
+export type NestedEnumLegalPageTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LegalPageType | Prisma.EnumLegalPageTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LegalPageType[] | Prisma.ListEnumLegalPageTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LegalPageType[] | Prisma.ListEnumLegalPageTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLegalPageTypeWithAggregatesFilter<$PrismaModel> | $Enums.LegalPageType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLegalPageTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLegalPageTypeFilter<$PrismaModel>
 }
 
 export type NestedEnumFacultyNullableFilter<$PrismaModel = never> = {

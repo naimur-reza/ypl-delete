@@ -192,7 +192,7 @@ export default function LoginPage() {
             System Status: Operational
           </p>
           <div className="flex items-center gap-6">
-            <Link href="/privacy" className="hover:text-foreground transition-colors">
+            <Link href="/privacy-policy" className="hover:text-foreground transition-colors">
               Privacy Policy
             </Link>
             <Link href="/support" className="hover:text-foreground transition-colors">

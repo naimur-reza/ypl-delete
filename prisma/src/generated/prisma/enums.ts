@@ -29,6 +29,14 @@ export const AccreditationType = {
 export type AccreditationType = (typeof AccreditationType)[keyof typeof AccreditationType]
 
 
+export const LegalPageType = {
+  PRIVACY_POLICY: 'PRIVACY_POLICY',
+  TERMS_AND_CONDITIONS: 'TERMS_AND_CONDITIONS'
+} as const
+
+export type LegalPageType = (typeof LegalPageType)[keyof typeof LegalPageType]
+
+
 export const GalleryType = {
   VISA_SUCCESS: 'VISA_SUCCESS',
   REPRESENTATIVE: 'REPRESENTATIVE',

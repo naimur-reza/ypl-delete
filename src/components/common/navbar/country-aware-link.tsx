@@ -19,24 +19,27 @@ const isExternal = (href: string) =>
 const isHash = (href: string) => href.startsWith("#");
 
 /**
- * Check if a route is an admin/system route that should never have country prefix
+ * Check if a route is an admin/system route or global-only route that should never have country prefix
  */
-const isAdminRoute = (href: string): boolean => {
+const isAdminOrGlobalRoute = (href: string): boolean => {
   // Remove leading slash for easier matching
   const cleanHref = href.startsWith("/") ? href.slice(1) : href;
 
-  // Admin routes that should never have country prefix
   const adminRoutePrefixes = [
     "dashboard",
     "auth",
     "login",
     "api",
     "admin",
-    "_next", // Next.js internal routes
+    "_next",
   ];
 
-  // Check if href starts with any admin route prefix
-  return adminRoutePrefixes.some((prefix) => cleanHref.startsWith(prefix));
+  const globalOnlyPaths = ["privacy-policy", "terms-and-conditions"];
+
+  return (
+    adminRoutePrefixes.some((p) => cleanHref.startsWith(p)) ||
+    globalOnlyPaths.some((p) => cleanHref === p || cleanHref.startsWith(`${p}/`))
+  );
 };
 
 /**
@@ -93,7 +96,7 @@ export function CountryAwareLink({
     // - Hash links
     // - Admin/system routes (dashboard, auth, login, api, etc.)
     // - When user explicitly chose global
-    if (!country || isExternal(href) || isHash(href) || isAdminRoute(href)) {
+    if (!country || isExternal(href) || isHash(href) || isAdminOrGlobalRoute(href)) {
       return href;
     }
 

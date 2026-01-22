@@ -263,30 +263,19 @@ export default async function Footer({
             </a>
           </p>
           <div className="flex items-center gap-6">
-            {settings.privacyPolicyUrl && (
-              <CountryAwareLink
-                href={settings.privacyPolicyUrl}
-                className="hover:text-slate-400 transition-colors"
-              >
-                Privacy Policy
-              </CountryAwareLink>
-            )}
-            {settings.termsOfServiceUrl && (
-              <CountryAwareLink
-                href={settings.termsOfServiceUrl}
-                className="hover:text-slate-400 transition-colors"
-              >
-                Terms of Service
-              </CountryAwareLink>
-            )}
-            {settings.cookiePolicyUrl && (
-              <CountryAwareLink
-                href={settings.cookiePolicyUrl}
-                className="hover:text-slate-400 transition-colors"
-              >
-                Cookie Policy
-              </CountryAwareLink>
-            )}
+            <CountryAwareLink
+              href="/privacy-policy"
+              className="hover:text-slate-400 transition-colors"
+            >
+              Privacy Policy
+            </CountryAwareLink>
+            <CountryAwareLink
+              href="/terms-and-conditions"
+              className="hover:text-slate-400 transition-colors"
+            >
+              Terms of Service
+            </CountryAwareLink>
+ 
           </div>
         </div>
       </div>

@@ -102,3 +102,17 @@ enum AccreditationType {
   PARTNER
   ACCREDITATION
 }
+
+enum LegalPageType {
+  PRIVACY_POLICY
+  TERMS_AND_CONDITIONS
+}
+
+model LegalPage {
+  id        String        @id @default(cuid())
+  type      LegalPageType @unique
+  title     String
+  subtitle  String?
+  content   String?       @db.Text
+  updatedAt DateTime      @updatedAt
+}

@@ -48,6 +48,11 @@ export type Career = Prisma.CareerModel
  */
 export type JobApplication = Prisma.JobApplicationModel
 /**
+ * Model LegalPage
+ * 
+ */
+export type LegalPage = Prisma.LegalPageModel
+/**
  * Model Course
  * 
  */

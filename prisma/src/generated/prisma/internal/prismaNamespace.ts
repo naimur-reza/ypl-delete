@@ -390,6 +390,7 @@ export const ModelName = {
   Accreditation: 'Accreditation',
   Career: 'Career',
   JobApplication: 'JobApplication',
+  LegalPage: 'LegalPage',
   Course: 'Course',
   CourseIntake: 'CourseIntake',
   IntakePage: 'IntakePage',
@@ -459,7 +460,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "appointment" | "blog" | "service" | "accreditation" | "career" | "jobApplication" | "course" | "courseIntake" | "intakePage" | "event" | "eventDestination" | "eventMedia" | "eventRegistration" | "fAQ" | "gallery" | "hero" | "heroCountry" | "intakeSeason" | "intakeSeasonCountry" | "intakePageBenefit" | "lead" | "offerRequest" | "recommendation" | "globalOffice" | "country" | "destination" | "essentialStudy" | "destinationSection" | "universityCountry" | "courseCountry" | "scholarshipCountry" | "eventCountry" | "blogCountry" | "blogUniversity" | "blogCourse" | "fAQCountry" | "fAQDestination" | "fAQUniversity" | "fAQEvent" | "fAQCourse" | "fAQScholarship" | "fAQIntakePage" | "globalOfficeCountry" | "destinationCountry" | "testimonialCountry" | "testimonialDestination" | "testimonialUniversity" | "testimonialEvent" | "accreditationCountry" | "galleryCountry" | "essentialStudyCountry" | "serviceCountry" | "scholarship" | "settings" | "stat" | "statCountry" | "testimonial" | "university" | "universityDetail" | "user"
+    modelProps: "appointment" | "blog" | "service" | "accreditation" | "career" | "jobApplication" | "legalPage" | "course" | "courseIntake" | "intakePage" | "event" | "eventDestination" | "eventMedia" | "eventRegistration" | "fAQ" | "gallery" | "hero" | "heroCountry" | "intakeSeason" | "intakeSeasonCountry" | "intakePageBenefit" | "lead" | "offerRequest" | "recommendation" | "globalOffice" | "country" | "destination" | "essentialStudy" | "destinationSection" | "universityCountry" | "courseCountry" | "scholarshipCountry" | "eventCountry" | "blogCountry" | "blogUniversity" | "blogCourse" | "fAQCountry" | "fAQDestination" | "fAQUniversity" | "fAQEvent" | "fAQCourse" | "fAQScholarship" | "fAQIntakePage" | "globalOfficeCountry" | "destinationCountry" | "testimonialCountry" | "testimonialDestination" | "testimonialUniversity" | "testimonialEvent" | "accreditationCountry" | "galleryCountry" | "essentialStudyCountry" | "serviceCountry" | "scholarship" | "settings" | "stat" | "statCountry" | "testimonial" | "university" | "universityDetail" | "user"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -904,6 +905,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.JobApplicationCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.JobApplicationCountAggregateOutputType> | number
+        }
+      }
+    }
+    LegalPage: {
+      payload: Prisma.$LegalPagePayload<ExtArgs>
+      fields: Prisma.LegalPageFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LegalPageFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LegalPagePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LegalPageFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LegalPagePayload>
+        }
+        findFirst: {
+          args: Prisma.LegalPageFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LegalPagePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LegalPageFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LegalPagePayload>
+        }
+        findMany: {
+          args: Prisma.LegalPageFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LegalPagePayload>[]
+        }
+        create: {
+          args: Prisma.LegalPageCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LegalPagePayload>
+        }
+        createMany: {
+          args: Prisma.LegalPageCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LegalPageCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LegalPagePayload>[]
+        }
+        delete: {
+          args: Prisma.LegalPageDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LegalPagePayload>
+        }
+        update: {
+          args: Prisma.LegalPageUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LegalPagePayload>
+        }
+        deleteMany: {
+          args: Prisma.LegalPageDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LegalPageUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LegalPageUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LegalPagePayload>[]
+        }
+        upsert: {
+          args: Prisma.LegalPageUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LegalPagePayload>
+        }
+        aggregate: {
+          args: Prisma.LegalPageAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLegalPage>
+        }
+        groupBy: {
+          args: Prisma.LegalPageGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LegalPageGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LegalPageCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LegalPageCountAggregateOutputType> | number
         }
       }
     }
@@ -5081,6 +5156,18 @@ export const JobApplicationScalarFieldEnum = {
 export type JobApplicationScalarFieldEnum = (typeof JobApplicationScalarFieldEnum)[keyof typeof JobApplicationScalarFieldEnum]
 
 
+export const LegalPageScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  title: 'title',
+  subtitle: 'subtitle',
+  content: 'content',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LegalPageScalarFieldEnum = (typeof LegalPageScalarFieldEnum)[keyof typeof LegalPageScalarFieldEnum]
+
+
 export const CourseScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -6038,6 +6125,20 @@ export type ListEnumJobApplicationStatusFieldRefInput<$PrismaModel> = FieldRefIn
 
 
 /**
+ * Reference to a field of type 'LegalPageType'
+ */
+export type EnumLegalPageTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LegalPageType'>
+    
+
+
+/**
+ * Reference to a field of type 'LegalPageType[]'
+ */
+export type ListEnumLegalPageTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LegalPageType[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -6305,6 +6406,7 @@ export type GlobalOmitConfig = {
   accreditation?: Prisma.AccreditationOmit
   career?: Prisma.CareerOmit
   jobApplication?: Prisma.JobApplicationOmit
+  legalPage?: Prisma.LegalPageOmit
   course?: Prisma.CourseOmit
   courseIntake?: Prisma.CourseIntakeOmit
   intakePage?: Prisma.IntakePageOmit

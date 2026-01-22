@@ -378,50 +378,7 @@ export default function FooterSettings() {
         </CardContent>
       </Card>
 
-      {/* Legal Pages */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Legal Pages</CardTitle>
-          <CardDescription>
-            Set URLs for privacy policy, terms of service, and cookie policy
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="privacyPolicyUrl">Privacy Policy URL</Label>
-            <Input
-              id="privacyPolicyUrl"
-              value={settings.privacyPolicyUrl || ""}
-              onChange={(e) =>
-                setSettings({ ...settings, privacyPolicyUrl: e.target.value })
-              }
-              placeholder="/privacy-policy"
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="termsOfServiceUrl">Terms of Service URL</Label>
-            <Input
-              id="termsOfServiceUrl"
-              value={settings.termsOfServiceUrl || ""}
-              onChange={(e) =>
-                setSettings({ ...settings, termsOfServiceUrl: e.target.value })
-              }
-              placeholder="/terms-of-service"
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="cookiePolicyUrl">Cookie Policy URL</Label>
-            <Input
-              id="cookiePolicyUrl"
-              value={settings.cookiePolicyUrl || ""}
-              onChange={(e) =>
-                setSettings({ ...settings, cookiePolicyUrl: e.target.value })
-              }
-              placeholder="/cookie-policy"
-            />
-          </div>
-        </CardContent>
-      </Card>
+ 
 
       {/* Footer Description */}
       <Card>

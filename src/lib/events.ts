@@ -182,3 +182,81 @@ export const fetchPastEvents = async ({
     take: 9,
   });
 };
+
+const eventListingInclude = {
+  destination: {
+    select: {
+      id: true,
+      name: true,
+      slug: true,
+    },
+  },
+  university: {
+    select: {
+      id: true,
+      name: true,
+      logo: true,
+      slug: true,
+    },
+  },
+  countries: {
+    include: {
+      country: {
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+        },
+      },
+    },
+  },
+} as const;
+
+/**
+ * Fetches all events (upcoming + past) for the events listing.
+ * Order: upcoming first (asc), then past (desc, most recent first).
+ * Respects country filter (country-specific + global when countrySlug provided).
+ */
+export const fetchAllEventsForListing = async ({
+  countrySlug,
+}: EventPageQuery): Promise<EventWithRelations[]> => {
+  const now = new Date();
+
+  let countryFilter: Prisma.EventWhereInput = {};
+  if (countrySlug) {
+    countryFilter = {
+      OR: [
+        {
+          countries: {
+            some: {
+              country: { slug: countrySlug },
+            },
+          },
+        },
+        { isGlobal: true },
+      ],
+    };
+  } else {
+    countryFilter = { isGlobal: true };
+  }
+
+  const baseWhere: Prisma.EventWhereInput = {
+    status: "ACTIVE",
+    ...countryFilter,
+  };
+
+  const [upcoming, past] = await Promise.all([
+    prisma.event.findMany({
+      where: { ...baseWhere, startDate: { gte: now } },
+      include: eventListingInclude,
+      orderBy: { startDate: "asc" },
+    }),
+    prisma.event.findMany({
+      where: { ...baseWhere, startDate: { lt: now } },
+      include: eventListingInclude,
+      orderBy: { startDate: "desc" },
+    }),
+  ]);
+
+  return [...upcoming, ...past];
+};
