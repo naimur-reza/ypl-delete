@@ -37,7 +37,7 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
     events,
     globalOffices,
     countries,
-    intakePages,
+ 
   ] = await Promise.all([
       prisma.destination.findMany({
         select: { id: true, name: true, slug: true },
@@ -151,19 +151,7 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
       countryName: firstCountry?.name || undefined,
     };
   });
-
-  const intakeItems = intakePages.map((intake) => {
-    const intakeSlug = intake.intake.toLowerCase();
-    const prefix = countrySlug ? `/${countrySlug}` : "";
-    return {
-      title: `${intake.destination.name} ${intakeSlug.replace(
-        intakeSlug[0],
-        intakeSlug[0].toUpperCase(),
-      )} Intake`,
-      href: `${prefix}/study-in-${intake.destination.slug}/${intakeSlug}`,
-      description: "Dates, timeline, and universities",
-    };
-  });
+ 
 
   const resourceItems = [
     {
@@ -182,7 +170,7 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
       title: "Blogs",
       href: "/blogs",
     },
-    ...intakeItems,
+ 
   ];
 
   return (
