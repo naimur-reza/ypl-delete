@@ -14,6 +14,10 @@ export function RelatedEventsSection({ events, countrySlug }: RelatedEventsSecti
     return null;
   }
 
+  
+
+
+
   const baseUrl = countrySlug ? `/${countrySlug}/events` : "/events";
 
   return (

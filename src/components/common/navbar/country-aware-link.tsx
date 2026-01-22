@@ -84,7 +84,8 @@ export function CountryAwareLink({
   // Don't use cookie country if user explicitly chose global
   const country = isGlobalPreference
     ? null
-    : contextCountry || (isHydrated ? cookieCountry : null);
+    : contextCountry ||
+      (isHydrated && !isGlobalPreference ? cookieCountry : null);
 
   const finalHref = useMemo(() => {
     // Don't add country prefix for:

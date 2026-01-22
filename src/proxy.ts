@@ -3,8 +3,8 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 // In-memory cache with 5-minute expiration
-let countriesCache: { 
-  slugs: Set<string>; 
+let countriesCache: {
+  slugs: Set<string>;
   isoToSlug: Map<string, string>;
   timestamp: number;
 } | null = null;
@@ -46,7 +46,11 @@ async function getCountriesCache() {
     return countriesCache;
   } catch (error) {
     console.error("Error fetching countries:", error);
-    return { slugs: new Set<string>(), isoToSlug: new Map<string, string>(), timestamp: now };
+    return {
+      slugs: new Set<string>(),
+      isoToSlug: new Map<string, string>(),
+      timestamp: now,
+    };
   }
 }
 
@@ -72,13 +76,16 @@ async function detectCountrySlug(request: NextRequest): Promise<string | null> {
 
   // Fallback to IP-based detection
   const forwarded = request.headers.get("x-forwarded-for");
-  const ip = forwarded?.split(",")[0].trim() || request.headers.get("x-real-ip");
+  const ip =
+    forwarded?.split(",")[0].trim() || request.headers.get("x-real-ip");
 
   // Skip private/local IPs
-  if (!ip || 
-      ip === "127.0.0.1" || 
-      ip === "::1" || 
-      /^(192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[01])\.)/.test(ip)) {
+  if (
+    !ip ||
+    ip === "127.0.0.1" ||
+    ip === "::1" ||
+    /^(192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[01])\.)/.test(ip)
+  ) {
     return null;
   }
 
@@ -98,10 +105,15 @@ async function detectCountrySlug(request: NextRequest): Promise<string | null> {
 /**
  * Create response with country header
  */
-const withCountryHeader = (request: NextRequest, country: string | null): NextResponse => {
+const withCountryHeader = (
+  request: NextRequest,
+  country: string | null,
+): NextResponse => {
   const headers = new Headers(request.headers);
-  country ? headers.set("x-country-slug", country) : headers.delete("x-country-slug");
-  
+  country
+    ? headers.set("x-country-slug", country)
+    : headers.delete("x-country-slug");
+
   return NextResponse.next({ request: { headers } });
 };
 
@@ -169,7 +181,9 @@ export async function proxy(request: NextRequest) {
     if (!detectedGeoOrigin) {
       const detectedSlug = await detectCountrySlug(request);
       if (detectedSlug && cache.slugs.has(detectedSlug)) {
-        const response = NextResponse.redirect(new URL(`/${detectedSlug}`, request.url));
+        const response = NextResponse.redirect(
+          new URL(`/${detectedSlug}`, request.url),
+        );
         setCountryCookie(response, detectedSlug);
         return response;
       }
@@ -186,13 +200,22 @@ export async function proxy(request: NextRequest) {
   }
 
   // Non-country route with cookie - redirect to country version
-  // (but not if user chose global)
+  // (but not if user chose global OR if already on a global route)
   if (
     cookieCountry &&
     cache.slugs.has(cookieCountry) &&
-    countryPreference !== "global"
+    countryPreference !== "global" &&
+    !pathname.startsWith("/blogs") && // Don't redirect blog routes
+    !pathname.startsWith("/study-abroad") && // Don't redirect study-abroad routes
+    !pathname.startsWith("/universities") && // Don't redirect university routes
+    !pathname.startsWith("/courses") && // Don't redirect course routes
+    !pathname.startsWith("/events") && // Don't redirect event routes
+    !pathname.startsWith("/scholarships") && // Don't redirect scholarship routes
+    !pathname.startsWith("/apply-now") // Don't redirect apply-now route
   ) {
-    return NextResponse.redirect(new URL(`/${cookieCountry}${pathname}`, request.url));
+    return NextResponse.redirect(
+      new URL(`/${cookieCountry}${pathname}`, request.url),
+    );
   }
 
   return withCountryHeader(request, null);
