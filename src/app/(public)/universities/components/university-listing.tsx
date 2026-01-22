@@ -11,9 +11,7 @@ import {
   extractCity,
 } from "@/lib/university-filters";
 import { useFilter, FilterState } from "@/hooks/use-filter";
-import {
-  University,
-} from "../../../../../prisma/src/generated/prisma/client";
+import { University } from "../../../../../prisma/src/generated/prisma/client";
 
 const ITEMS_PER_PAGE = 9;
 
@@ -37,7 +35,7 @@ export function UniversityListing({ universities }: UniversityListingProps) {
 
   const filterOptions = useMemo(
     () => extractUniversityFilterOptions(universities),
-    [universities]
+    [universities],
   );
 
   const initialFilters = useMemo<FilterState>(() => {
@@ -106,7 +104,7 @@ export function UniversityListing({ universities }: UniversityListingProps) {
         return data.sort((a, b) => b.name.localeCompare(a.name));
       case "featured":
         return data.sort(
-          (a, b) => (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0)
+          (a, b) => (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0),
         );
       case "popularity":
       default:
@@ -125,7 +123,10 @@ export function UniversityListing({ universities }: UniversityListingProps) {
   const paginatedData = sortedData.slice(startIndex, endIndex);
 
   return (
-    <section className="py-12 px-4 md:px-8 lg:px-12 bg-slate-50">
+    <section
+      id="university-listing"
+      className="py-12 px-4 md:px-8 lg:px-12 bg-slate-50"
+    >
       <div className="max-w-[1600px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar */}

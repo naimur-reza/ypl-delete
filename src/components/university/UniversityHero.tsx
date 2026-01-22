@@ -109,7 +109,7 @@ export function UniversityHero({ university }: UniversityHeroProps) {
                   <span
                     className={cn(
                       "text-2xl font-bold text-primary",
-                      university.logo ? "hidden" : ""
+                      university.logo ? "hidden" : "",
                     )}
                   >
                     {university.name.substring(0, 2)}
@@ -151,9 +151,9 @@ export function UniversityHero({ university }: UniversityHeroProps) {
                       Famous For
                     </span>
                   </div>
-                  <p className="text-slate-200 text-sm leading-relaxed">
+                  <div className="text-slate-200 text-sm leading-relaxed">
                     <MarkdownContent content={university.famousFor || "N/A"} />
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>

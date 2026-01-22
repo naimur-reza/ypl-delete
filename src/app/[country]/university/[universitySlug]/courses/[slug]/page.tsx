@@ -13,11 +13,11 @@ export const dynamicParams = true;
 export async function generateStaticParams() {
   const courses = await prisma.course.findMany({
     where: { status: "ACTIVE" },
-    select: { 
+    select: {
       slug: true,
       university: {
-        select: { slug: true }
-      }
+        select: { slug: true },
+      },
     },
     orderBy: { updatedAt: "desc" },
     take: 50,
@@ -50,6 +50,7 @@ import { MarkdownContent } from "@/components/ui/markdown-content";
 
 interface PageProps {
   params: Promise<{
+    country: string;
     universitySlug: string;
     slug: string;
   }>;
@@ -71,17 +72,17 @@ export async function generateMetadata({
   const { universitySlug, slug } = await params;
 
   const course = await prisma.course.findFirst({
-    where: { 
-      slug, 
+    where: {
+      slug,
       status: "ACTIVE",
-      university: { slug: universitySlug } 
+      university: { slug: universitySlug },
     },
     select: {
       title: true,
       metaTitle: true,
       metaDescription: true,
       metaKeywords: true,
-      university: { select: { name: true } }
+      university: { select: { name: true } },
     },
   });
 
@@ -97,20 +98,19 @@ export async function generateMetadata({
       course.metaDescription ||
       `Learn about ${course.title} at ${course.university.name}, requirements, fees, and how to apply.`,
     keywords:
-      course.metaKeywords || `Course, ${course.title}, ${course.university.name}`,
+      course.metaKeywords ||
+      `Course, ${course.title}, ${course.university.name}`,
   };
 }
 
 export default async function CourseDetailsPage({ params }: PageProps) {
-  const { universitySlug, slug } = await params;
-  
-  const country = "global"; 
+  const { universitySlug, slug, country } = await params;
 
   const course = await prisma.course.findFirst({
-    where: { 
-      slug, 
-      status: "ACTIVE", 
-      university: { slug: universitySlug }
+    where: {
+      slug,
+      status: "ACTIVE",
+      university: { slug: universitySlug },
     },
     include: {
       university: {
@@ -171,7 +171,7 @@ export default async function CourseDetailsPage({ params }: PageProps) {
       universityId: course.university?.id,
       destinationId: course.destinationId,
     },
-    6
+    6,
   );
 
   // Fetch related blogs
@@ -197,7 +197,7 @@ export default async function CourseDetailsPage({ params }: PageProps) {
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency:   "USD",
+      currency: "USD",
       maximumFractionDigits: 0,
     }).format(amount);
   };
@@ -220,14 +220,11 @@ export default async function CourseDetailsPage({ params }: PageProps) {
         <div className="absolute inset-0 flex flex-col justify-center container mx-auto px-6">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-white/80 text-sm mb-6">
-            <Link
-              href="/"
-              className="hover:text-white transition-colors"
-            >
+            <Link href="/" className="hover:text-white transition-colors">
               Home
             </Link>
             <ChevronRight className="w-4 h-4" />
-             <Link
+            <Link
               href={`/universities/${course.university.slug}`}
               className="hover:text-white transition-colors"
             >
@@ -288,13 +285,13 @@ export default async function CourseDetailsPage({ params }: PageProps) {
                     <span className="font-bold text-primary">
                       {course.tuitionMin && course.tuitionMax
                         ? `${formatCurrency(
-                            course.tuitionMin
+                            course.tuitionMin,
                           )} - ${formatCurrency(course.tuitionMax)}`
                         : course.tuitionMin
-                        ? `From ${formatCurrency(course.tuitionMin)}`
-                        : course.tuitionMax
-                        ? `Up to ${formatCurrency(course.tuitionMax)}`
-                        : "Contact for details"}
+                          ? `From ${formatCurrency(course.tuitionMin)}`
+                          : course.tuitionMax
+                            ? `Up to ${formatCurrency(course.tuitionMax)}`
+                            : "Contact for details"}
                     </span>
                   </div>
                 </div>
@@ -349,7 +346,11 @@ export default async function CourseDetailsPage({ params }: PageProps) {
               {/* Course Overview */}
               <section id="overview" className="scroll-mt-32">
                 <CourseOverview
-                  content={sections.overview || course.description || "Contact us for course overview."}
+                  content={
+                    sections.overview ||
+                    course.description ||
+                    "Contact us for course overview."
+                  }
                 />
               </section>
 
@@ -362,8 +363,12 @@ export default async function CourseDetailsPage({ params }: PageProps) {
                   />
                 ) : (
                   <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
-                    <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-4">About University</h2>
-                    <p className="text-slate-500">University information coming soon.</p>
+                    <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-4">
+                      About University
+                    </h2>
+                    <p className="text-slate-500">
+                      University information coming soon.
+                    </p>
                   </div>
                 )}
               </section>
@@ -371,7 +376,10 @@ export default async function CourseDetailsPage({ params }: PageProps) {
               {/* Entry Requirements */}
               <section id="entry-requirements" className="scroll-mt-32">
                 <CourseEntryRequirements
-                  content={sections.entryRequirements || "Contact us for entry requirements."}
+                  content={
+                    sections.entryRequirements ||
+                    "Contact us for entry requirements."
+                  }
                 />
               </section>
 
@@ -399,14 +407,20 @@ export default async function CourseDetailsPage({ params }: PageProps) {
                   {sections.scholarships ? (
                     <MarkdownContent content={sections.scholarships} />
                   ) : (
-                    <p className="text-slate-500">Contact us for scholarship information.</p>
+                    <p className="text-slate-500">
+                      Contact us for scholarship information.
+                    </p>
                   )}
                 </div>
               </section>
 
               {/* Careers */}
               <section id="careers" className="scroll-mt-32">
-                <CourseCareers content={sections.careers || "Contact us for career information."} />
+                <CourseCareers
+                  content={
+                    sections.careers || "Contact us for career information."
+                  }
+                />
               </section>
 
               {/* Admission */}
@@ -425,7 +439,7 @@ export default async function CourseDetailsPage({ params }: PageProps) {
       <div className="space-y-0">
         {/* Intake admission Section CTR */}
         <div className="bg-white">
-          <IntakeFeature countrySlug={country}/>
+          <IntakeFeature countrySlug={country} />
         </div>
 
         {/* FAQ Section */}
@@ -439,7 +453,7 @@ export default async function CourseDetailsPage({ params }: PageProps) {
           countrySlug={country}
         />
 
-                {/* Related Articles */}
+        {/* Related Articles */}
         {relatedBlogs.length > 0 && (
           <div className="bg-slate-50 py-16 px-6">
             <div className="container mx-auto">
@@ -458,8 +472,6 @@ export default async function CourseDetailsPage({ params }: PageProps) {
 
         {/* Book free counselling CTR Section */}
         <CallToActionBanner />
-
-
       </div>
     </div>
   );

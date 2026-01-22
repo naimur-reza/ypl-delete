@@ -14,7 +14,7 @@ export function UniversitiesHero({ countrySlug }: UniversitiesHeroProps) {
       defaultTitle="Find Your Dream University"
       defaultSubtitle="Browse through our extensive list of top-ranked universities from around the world. Filter by country, course, and more to find the perfect match for your academic goals."
       defaultButtonText="Explore Universities"
-      defaultButtonUrl="#"
+      defaultButtonUrl="#university-listing"
       defaultBackgroundUrl="https://www.ncuk.ac.uk/wp-content/uploads/2018/05/The-University-of-Western-Australia-Website-Header-Mobile-2023.jpg"
     />
   );

@@ -118,14 +118,14 @@ const StudyAbroadPage = async ({ params }: StudyAbroadPageProps) => {
       <PopularCourses />
 
       {/* 5. University Partners */}
-      <AccredianSection
+      {/* <AccredianSection
         accreditations={partners}
         title="Our University"
         highlightedWord="Partners"
-      />
+      /> */}
 
       {/* 6. Intake Features */}
-      <IntakeFeature countrySlug={country}/>
+      <IntakeFeature countrySlug={country} />
 
       {/* 7. Scholarship Slider - Dynamic */}
       <ScholarshipSlider

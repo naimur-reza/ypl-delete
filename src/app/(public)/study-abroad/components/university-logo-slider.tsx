@@ -27,7 +27,7 @@ const LogoRow = ({
         {[...items, ...items].map((uni, idx) => (
           <div
             key={`${uni.id}-${idx}`}
-            className="relative w-40 h-16 grayscale opacity-70 transition-all duration-500 hover:grayscale-0 hover:opacity-100 flex items-center justify-center px-4 shrink-0"
+            className="relative w-40 h-16  transition-all duration-500   flex items-center justify-center px-4 shrink-0"
           >
             {uni.logo ? (
               <Image
@@ -49,10 +49,17 @@ const LogoRow = ({
 };
 
 export async function UniversityLogoSlider() {
-  const allUniversities = await prisma.university.findMany({
-    where: { logo: { not: null } },
-    take: 45, // Grab enough to fill 3 distinct rows
-    select: { id: true, name: true, logo: true },
+  const allUniversities = await prisma.accreditation.findMany({
+    where: {
+      status: "ACTIVE",
+      type: "PARTNER",
+    },
+    select: {
+      id: true,
+      name: true,
+      logo: true,
+    },
+    orderBy: { createdAt: "desc" },
   });
 
   // Split data into 3 chunks for the staggered look
@@ -65,7 +72,7 @@ export async function UniversityLogoSlider() {
       {/* Header styled like your reference image */}
       <div className="max-w-7xl mx-auto px-4 mb-12 text-center">
         <h2 className="text-4xl md:text-5xl font-serif text-slate-900 tracking-tight">
-          <span className="text-blue-700 font-sans font-bold">250+</span> global
+          <span className="text-primary font-sans font-bold">250+</span> global
           university partners
         </h2>
       </div>

@@ -22,7 +22,7 @@ export function UniversityListing({ universities }: UniversityListingProps) {
 
   const filterOptions = useMemo(
     () => extractUniversityFilterOptions(universities),
-    [universities]
+    [universities],
   );
 
   const {
@@ -59,7 +59,7 @@ export function UniversityListing({ universities }: UniversityListingProps) {
   const paginatedData = filteredData.slice(startIndex, endIndex);
 
   return (
-    <section className="py-12 px-4 md:px-8 bg-slate-50">
+    <section id="university-listing" className="py-12 px-4 md:px-8 bg-slate-50">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar */}
