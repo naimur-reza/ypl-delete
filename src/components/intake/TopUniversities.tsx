@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
@@ -48,10 +48,7 @@ export function TopUniversities({
 
   const visible = useMemo(
     () =>
-      universities.slice(
-        (page - 1) * pageSize,
-        (page - 1) * pageSize + pageSize,
-      ),
+      universities.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize),
     [page, universities, pageSize],
   );
 
@@ -135,12 +132,7 @@ export function TopUniversities({
         {/* Pagination & Apply CTA */}
         <div className="flex flex-col items-center gap-4">
           <div className="flex items-center gap-3">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={prevPage}
-              disabled={page === 1}
-            >
+            <Button variant="outline" size="sm" onClick={prevPage} disabled={page === 1}>
               Previous
             </Button>
             <span className="text-sm text-gray-600">
@@ -159,6 +151,25 @@ export function TopUniversities({
             <Button size="lg" className="gap-2">
               Apply Now <Send className="w-4 h-4" />
             </Button>
+          </Link>
+        </div>
+
+        {/* Additional Info */}
+        <div className="mt-16 bg-blue-50 rounded-2xl p-8 text-center">
+          <h3 className="text-xl font-semibold text-gray-900 mb-4">
+            Need Help Choosing a University?
+          </h3>
+          <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+            Our expert counselors can help you find the perfect university based
+            on your academic background, career goals, and preferences for the{" "}
+            {intakeName} intake.
+          </p>
+          <Link
+            href={`${baseUrl}/contact`}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+          >
+            Get Free Counseling
+            <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </div>

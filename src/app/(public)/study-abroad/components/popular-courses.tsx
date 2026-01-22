@@ -172,7 +172,8 @@ export async function PopularCourses({
       title: true,
       slug: true,
     },
-    take: 100,
+    take: 20,
+    orderBy: { createdAt: "desc" },
   });
 
   // Group courses by category (extract first meaningful word or use full title)

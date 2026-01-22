@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 /**
- * Multi-provider geo-location detection
+ * Multi-provider geo-location detection with caching
  * Priority order:
  * 1. Vercel's x-vercel-ip-country header (most accurate on Vercel)
  * 2. Cloudflare's CF-IPCountry header (if using Cloudflare)
@@ -14,6 +14,14 @@ interface GeoResult {
   country: string | null;
   source: string;
 }
+
+// In-memory cache for IP geolocation results (24 hours)
+const ipGeoCache = new Map<string, { result: GeoResult; timestamp: number }>();
+const IP_CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
+
+// In-memory cache for database country lookups (5 minutes)
+const countryDbCache = new Map<string, { country: any; timestamp: number }>();
+const DB_CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
 
 async function detectCountryFromHeaders(request: NextRequest): Promise<GeoResult | null> {
   // Check Vercel's geo header first (most reliable on Vercel deployment)
@@ -64,6 +72,28 @@ async function detectCountryFromGeoipLite(ip: string): Promise<GeoResult | null>
   return null;
 }
 
+async function getCachedCountryFromDb(isoCode: string) {
+  const cacheKey = isoCode.toUpperCase();
+  const now = Date.now();
+  
+  // Check cache first
+  const cached = countryDbCache.get(cacheKey);
+  if (cached && now - cached.timestamp < DB_CACHE_DURATION) {
+    return cached.country;
+  }
+  
+  // Fetch from database
+  const country = await prisma.country.findFirst({
+    where: { isoCode: cacheKey, status: "ACTIVE" },
+    select: { slug: true, name: true, isoCode: true },
+  });
+  
+  // Store in cache
+  countryDbCache.set(cacheKey, { country, timestamp: now });
+  
+  return country;
+}
+
 export async function GET(request: NextRequest) {
   try {
     // Get IP from request headers
@@ -87,10 +117,7 @@ export async function GET(request: NextRequest) {
 
     if (isLocalhost) {
       // Test mode: return Bangladesh for local development
-      const testCountry = await prisma.country.findFirst({
-        where: { isoCode: "BD", status: "ACTIVE" },
-        select: { slug: true, name: true, isoCode: true },
-      });
+      const testCountry = await getCachedCountryFromDb("BD");
 
       if (testCountry) {
         const response = NextResponse.json(
@@ -121,18 +148,32 @@ export async function GET(request: NextRequest) {
 
     // Multi-provider geo detection for production
     let geoResult: GeoResult | null = null;
+    
+    // Check if we have cached result for this IP
+    const cachedIpGeo = ipGeoCache.get(ip);
+    const now = Date.now();
+    
+    if (cachedIpGeo && now - cachedIpGeo.timestamp < IP_CACHE_DURATION) {
+      // Use cached result
+      geoResult = cachedIpGeo.result;
+    } else {
+      // 1. Try Vercel/Cloudflare headers first (fastest, most accurate)
+      geoResult = await detectCountryFromHeaders(request);
 
-    // 1. Try Vercel/Cloudflare headers first (fastest, most accurate)
-    geoResult = await detectCountryFromHeaders(request);
+      // 2. If no header detection, try ipinfo.io API
+      if (!geoResult) {
+        geoResult = await detectCountryFromIpinfoApi(ip);
+      }
 
-    // 2. If no header detection, try ipinfo.io API
-    if (!geoResult) {
-      geoResult = await detectCountryFromIpinfoApi(ip);
-    }
-
-    // 3. Last resort: geoip-lite local database
-    if (!geoResult) {
-      geoResult = await detectCountryFromGeoipLite(ip);
+      // 3. Last resort: geoip-lite local database
+      if (!geoResult) {
+        geoResult = await detectCountryFromGeoipLite(ip);
+      }
+      
+      // Cache the result if we found one
+      if (geoResult) {
+        ipGeoCache.set(ip, { result: geoResult, timestamp: now });
+      }
     }
 
     if (!geoResult || !geoResult.country) {
@@ -147,18 +188,8 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Find matching country in database
-    const matchedCountry = await prisma.country.findFirst({
-      where: {
-        isoCode: geoResult.country.toUpperCase(),
-        status: "ACTIVE",
-      },
-      select: {
-        slug: true,
-        name: true,
-        isoCode: true,
-      },
-    });
+    // Find matching country in database using cached lookup
+    const matchedCountry = await getCachedCountryFromDb(geoResult.country);
 
     const response = NextResponse.json(
       {

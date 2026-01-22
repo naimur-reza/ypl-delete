@@ -62,19 +62,14 @@ const CountryModalClient = ({
     // Always navigate to country home page
     const newPath = `/${country.slug}`;
 
-    console.log("🔄 Switching country:", {
-      from: currentCountry,
-      to: country.slug,
-      newPath: newPath,
-    });
+ 
 
     // Close modal first
     setIsOpen(false);
 
-    // Use startTransition for smoother navigation and refresh router cache
+    // Use startTransition for smoother navigation
     startTransition(() => {
       router.push(newPath);
-      router.refresh(); // Clear router cache to ensure fresh data
     });
   };
 
@@ -91,20 +86,14 @@ const CountryModalClient = ({
     // Always navigate to global home page
     const newPath = "/";
 
-    console.log("🌐 Switching to global:", {
-      from: currentCountry,
-      isCountrySpecific,
-      oldPath: pathname,
-      newPath: newPath,
-    });
+ 
 
     // Close modal first
     setIsOpen(false);
 
-    // Use startTransition for smoother navigation and refresh router cache
+    // Use startTransition for smoother navigation
     startTransition(() => {
       router.push(newPath);
-      router.refresh(); // Clear router cache to ensure fresh data
     });
   };
 

@@ -25,7 +25,7 @@ const intakeSchema = z.object({
 
   // Timeline & Countdown
   timelineJson: z.string().optional(),
-  targetDate: z.string().optional(),
+  targetDate: z.string().datetime().optional(),
   timelineEnabled: z.boolean().default(true),
 
   // How We Help
@@ -180,7 +180,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: "Validation failed", details: error },
+        { error: "Validation failed", details: error.errors },
         { status: 400 },
       );
     }

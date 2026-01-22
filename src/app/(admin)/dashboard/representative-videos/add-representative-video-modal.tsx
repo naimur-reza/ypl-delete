@@ -157,7 +157,7 @@ export default function RepresentativeVideoFormModal({
           universityIds,
           eventIds,
         } as Record<string, unknown>;
-        console.log("Payload:", payload);
+         
         const res =
           isEditing && selected?.id
             ? await api.update(selected.id, payload)

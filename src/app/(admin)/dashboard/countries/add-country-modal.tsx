@@ -64,7 +64,7 @@ const CountryFormModal = ({
         if (isEditing && selectedCountry?.id) {
           response = await countryApi.update(selectedCountry.id, submitData);
         } else {
-          console.log(submitData);
+           
           response = await countryApi.create(
             submitData as unknown as Omit<
               Country,

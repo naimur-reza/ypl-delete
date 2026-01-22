@@ -150,6 +150,8 @@ const HomePage = async ({ params }: PageProps) => {
     }),
   ]);
 
+
+ 
   return (
     <div>
       <HeroSlider countrySlug={countrySlug} />

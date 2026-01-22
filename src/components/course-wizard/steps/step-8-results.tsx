@@ -92,7 +92,7 @@ export function Step8Results({ wizardData, onClose }: Step8ResultsProps) {
 
   const handleGoogleAuth = () => {
     // TODO: Implement Google OAuth
-    console.log("Google auth clicked");
+ 
   };
 
   if (showResults) {

@@ -6,6 +6,16 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
+// StudyLevel enum values from Prisma schema
+type StudyLevel =
+  | "FOUNDATION"
+  | "BACHELOR"
+  | "MASTER"
+  | "PHD"
+  | "DIPLOMA"
+  | "CERTIFICATE"
+  | "PATHWAY";
+
 interface Course {
   id: string;
   title: string;
@@ -15,6 +25,7 @@ interface Course {
   tuitionMin?: number | null;
   tuitionMax?: number | null;
   currency?: string | null;
+  studyLevel?: StudyLevel | null;
   university?: {
     name: string;
     logo?: string | null;
@@ -28,7 +39,18 @@ interface UniversityCoursesProps {
   countrySlug?: string;
 }
 
-type FilterTab = "all" | "postgraduate" | "research" | "undergraduate";
+type FilterTab = "all" | StudyLevel;
+
+// Human-readable labels for study levels
+const STUDY_LEVEL_LABELS: Record<StudyLevel, string> = {
+  FOUNDATION: "Foundation",
+  BACHELOR: "Bachelor's Degree",
+  MASTER: "Master's Degree",
+  PHD: "PhD / Doctorate",
+  DIPLOMA: "Diploma",
+  CERTIFICATE: "Certificate",
+  PATHWAY: "Pathway Program",
+};
 
 export function UniversityCourses({
   courses,
@@ -38,61 +60,41 @@ export function UniversityCourses({
   const [search, setSearch] = useState("");
   const [activeFilter, setActiveFilter] = useState<FilterTab>("all");
 
+  // Get unique study levels from courses for dynamic tabs
+  const availableStudyLevels = Array.from(
+    new Set(
+      courses
+        .map((c) => c.studyLevel)
+        .filter((level): level is StudyLevel => level !== null && level !== undefined)
+    )
+  );
+
+  // Build filter tabs dynamically based on available study levels
   const filterTabs: { value: FilterTab; label: string }[] = [
     { value: "all", label: "All" },
-    { value: "postgraduate", label: "Postgraduate" },
-    { value: "research", label: "Research" },
-    { value: "undergraduate", label: "Undergraduate" },
+    ...availableStudyLevels.map((level) => ({
+      value: level,
+      label: STUDY_LEVEL_LABELS[level] || level,
+    })),
   ];
 
-  // Filter by search and tab
+  // Filter by search and study level
   const filteredCourses = courses.filter((course) => {
     const matchesSearch = course.title
       .toLowerCase()
       .includes(search.toLowerCase());
 
     if (!matchesSearch) return false;
-    if (activeFilter === "all") return true;
 
-    const title = course.title.toLowerCase();
-    if (activeFilter === "postgraduate") {
-      return (
-        title.includes("msc") ||
-        title.includes("mba") ||
-        title.includes("master") ||
-        title.includes("postgrad")
-      );
-    }
-    if (activeFilter === "research") {
-      return (
-        title.includes("phd") ||
-        title.includes("research") ||
-        title.includes("doctorate")
-      );
-    }
-    if (activeFilter === "undergraduate") {
-      return (
-        title.includes("bsc") ||
-        title.includes("ba ") ||
-        title.includes("bachelor") ||
-        title.includes("undergrad")
-      );
-    }
-    return true;
+    // Study level filter
+    if (activeFilter === "all") return true;
+    return course.studyLevel === activeFilter;
   });
 
-  // Helper to extract degree type from title
-  const getDegreeType = (title: string): string => {
-    const lowerTitle = title.toLowerCase();
-    if (lowerTitle.includes("msc")) return "MSc";
-    if (lowerTitle.includes("mba")) return "MBA";
-    if (lowerTitle.includes("ma ")) return "MA";
-    if (lowerTitle.includes("phd")) return "PhD";
-    if (lowerTitle.includes("bsc")) return "BSc";
-    if (lowerTitle.includes("ba ")) return "BA";
-    if (lowerTitle.includes("llm")) return "LLM";
-    if (lowerTitle.includes("llb")) return "LLB";
-    return "Degree";
+  // Helper to get study level display
+  const getStudyLevelDisplay = (level: StudyLevel | null | undefined): string => {
+    if (!level) return "—";
+    return STUDY_LEVEL_LABELS[level] || level;
   };
 
   // Helper to get intake display
@@ -116,7 +118,7 @@ export function UniversityCourses({
         monthMap[course.intakes[0].intake] || course.intakes[0].intake;
       return `${intakeMonth} 2026`;
     }
-    return "Jan 2026";
+    return "—";
   };
 
   return (
@@ -150,10 +152,10 @@ export function UniversityCourses({
             <button
               key={tab.value}
               onClick={() => setActiveFilter(tab.value)}
-              className={`px-5 py-2.5 rounded-md text-sm font-medium transition-colors ${
+              className={`px-5 py-2.5 rounded-full text-sm font-medium transition-colors ${
                 activeFilter === tab.value
                   ? "bg-blue-600 text-white"
-                  : "bg-transparent text-slate-700 hover:bg-slate-100"
+                  : "bg-slate-100 text-slate-700 hover:bg-slate-200"
               }`}
             >
               {tab.label}
@@ -164,10 +166,10 @@ export function UniversityCourses({
         {/* Table */}
         <div className="overflow-x-auto rounded-lg border border-slate-200">
           {/* Table Header */}
-          <div className="hidden md:grid md:grid-cols-12 gap-4 bg-slate-100 px-6 py-4 font-semibold text-slate-700 text-sm">
+          <div className="hidden md:grid md:grid-cols-12 gap-4 bg-slate-50 px-6 py-4 font-semibold text-slate-700 text-sm border-b border-slate-200">
             <div className="col-span-5">Course Name</div>
             <div className="col-span-2">Intake</div>
-            <div className="col-span-3">Degree</div>
+            <div className="col-span-3">Study Level</div>
             <div className="col-span-2 text-right"></div>
           </div>
 
@@ -192,7 +194,7 @@ export function UniversityCourses({
                     {/* Mobile only info */}
                     <div className="md:hidden mt-2 flex flex-wrap gap-4 text-sm text-slate-500">
                       <span>Intake: {getIntakeDisplay(course)}</span>
-                      <span>Degree: {getDegreeType(course.title)}</span>
+                      <span>Level: {getStudyLevelDisplay(course.studyLevel)}</span>
                     </div>
                   </div>
 
@@ -201,9 +203,13 @@ export function UniversityCourses({
                     {getIntakeDisplay(course)}
                   </div>
 
-                  {/* Degree */}
-                  <div className="hidden md:block md:col-span-3 text-slate-600">
-                    {getDegreeType(course.title)}
+                  {/* Study Level */}
+                  <div className="hidden md:block md:col-span-3">
+                    {course.studyLevel && (
+                      <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-700">
+                        {getStudyLevelDisplay(course.studyLevel)}
+                      </span>
+                    )}
                   </div>
 
                   {/* Action Button */}

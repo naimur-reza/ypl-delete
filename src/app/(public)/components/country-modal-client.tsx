@@ -57,12 +57,7 @@ const CountryModalClient = ({
 
     // Always navigate to country home page
     const newPath = `/${country.slug}`;
-
-    console.log("🔄 Switching country:", {
-      from: currentCountry,
-      to: country.slug,
-      newPath: newPath,
-    });
+ 
 
     // Close modal and navigate
     setIsOpen(false);
@@ -76,12 +71,7 @@ const CountryModalClient = ({
     // Always navigate to global home page
     const newPath = "/";
 
-    console.log("🌐 Switching to global:", {
-      from: currentCountry,
-      isCountrySpecific,
-      oldPath: pathname,
-      newPath: newPath,
-    });
+ 
 
     // Close modal and navigate
     setIsOpen(false);

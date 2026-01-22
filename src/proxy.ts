@@ -150,6 +150,7 @@ export async function proxy(request: NextRequest) {
 
   const cookieCountry = request.cookies.get("user-country")?.value;
   const countryPreference = request.cookies.get("country-preference")?.value;
+  const detectedGeoOrigin = request.cookies.get("detected_geo_origin")?.value;
 
   // Homepage logic
   if (pathname === "/") {
@@ -163,12 +164,15 @@ export async function proxy(request: NextRequest) {
       return NextResponse.redirect(new URL(`/${cookieCountry}`, request.url));
     }
 
-    // Try geo-detection
-    const detectedSlug = await detectCountrySlug(request);
-    if (detectedSlug && cache.slugs.has(detectedSlug)) {
-      const response = NextResponse.redirect(new URL(`/${detectedSlug}`, request.url));
-      setCountryCookie(response, detectedSlug);
-      return response;
+    // Only run geo-detection if we haven't detected before (no detected_geo_origin cookie)
+    // This avoids repeated expensive geo-detection calls for returning visitors
+    if (!detectedGeoOrigin) {
+      const detectedSlug = await detectCountrySlug(request);
+      if (detectedSlug && cache.slugs.has(detectedSlug)) {
+        const response = NextResponse.redirect(new URL(`/${detectedSlug}`, request.url));
+        setCountryCookie(response, detectedSlug);
+        return response;
+      }
     }
 
     return withCountryHeader(request, null);

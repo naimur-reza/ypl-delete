@@ -6,11 +6,13 @@ const LogoRow = ({
   items,
   direction = "left",
   speed = "normal",
+  rowIndex = 0,
 }: {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   items: any;
   direction?: "left" | "right";
   speed?: "slow" | "normal";
+  rowIndex?: number;
 }) => {
   // Mapping logic for v4 classes
   const getAnimationClass = () => {
@@ -18,26 +20,38 @@ const LogoRow = ({
     return speed === "slow" ? "animate-marquee-slow" : "animate-marquee";
   };
 
+  // Progressive reveal animation delay based on row index
+  const animationDelay = rowIndex * 0.2;
+
+  // First row images should load with priority for better LCP
+  const isPriorityRow = rowIndex === 0;
+
   return (
-    <div className="flex overflow-hidden py-2">
+    <div 
+      className="flex overflow-hidden py-4 animate-fadeIn"
+      style={{ animationDelay: `${animationDelay}s` }}
+    >
       <div
-        className={`flex items-center gap-12 whitespace-nowrap ${getAnimationClass()}`}
+        className={`flex items-center gap-16 whitespace-nowrap ${getAnimationClass()}`}
+        style={{ minWidth: 'max-content' }}
       >
         {/* We loop twice to ensure the "infinite" scroll doesn't have a gap */}
         {[...items, ...items].map((uni, idx) => (
           <div
             key={`${uni.id}-${idx}`}
-            className="relative w-40 h-16  transition-all duration-500   flex items-center justify-center px-4 shrink-0"
+            className="relative w-56 h-20 transition-all duration-500 flex items-center justify-center px-6 shrink-0"
           >
             {uni.logo ? (
               <Image
-                src={uni.logo}
+                src={uni.logo || "/placeholder.svg"}
                 alt={uni.name}
                 fill
                 className="object-contain"
+                priority={isPriorityRow && idx < 3}
+                sizes="224px"
               />
             ) : (
-              <span className="text-xs font-bold text-slate-400">
+              <span className="text-sm font-bold text-slate-400">
                 {uni.name}
               </span>
             )}
@@ -49,6 +63,7 @@ const LogoRow = ({
 };
 
 export async function UniversityLogoSlider() {
+  // Limit to 30 universities for better performance
   const allUniversities = await prisma.accreditation.findMany({
     where: {
       status: "ACTIVE",
@@ -59,7 +74,8 @@ export async function UniversityLogoSlider() {
       name: true,
       logo: true,
     },
-    orderBy: { createdAt: "desc" },
+    orderBy: { sortOrder: "asc" },
+    take: 30,
   });
 
   // Split data into 3 chunks for the staggered look
@@ -82,10 +98,10 @@ export async function UniversityLogoSlider() {
         <div className="absolute inset-y-0 left-0 w-24 md:w-48 bg-linear-to-r from-white to-transparent z-10 pointer-events-none" />
         <div className="absolute inset-y-0 right-0 w-24 md:w-48 bg-linear-to-l from-white to-transparent z-10 pointer-events-none" />
 
-        <div className="flex flex-col gap-6">
-          <LogoRow items={row1} direction="left" speed="normal" />
-          <LogoRow items={row2} direction="right" />
-          <LogoRow items={row3} direction="left" speed="slow" />
+        <div className="flex flex-col gap-8">
+          <LogoRow items={row1} direction="left" speed="normal" rowIndex={0} />
+          <LogoRow items={row2} direction="right" speed="normal" rowIndex={1} />
+          <LogoRow items={row3} direction="left" speed="slow" rowIndex={2} />
         </div>
       </div>
     </section>

@@ -32,7 +32,7 @@ export async function StudyAbroadCountries({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {destinations.map((dest) => {
+          {destinations.map((dest, index) => {
             return (
               <CountryAwareLink
                 href={`/study-abroad/${dest.slug}`}
@@ -45,6 +45,8 @@ export async function StudyAbroadCountries({
                   alt={dest.name}
                   fill
                   className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                  priority={index === 0}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
 
                 {/* Default Overlay: Just the name in the center */}

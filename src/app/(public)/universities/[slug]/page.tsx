@@ -39,6 +39,7 @@ import CallToActionBanner from "@/components/CallToActionBanner";
 
 import { fetchFaqsByContext } from "@/lib/faqs";
 import { IntakeFeature } from "@/app/[country]/(public)/(home)/components";
+import { ReviewSection } from "@/components/sections/review-section";
 
  
 
@@ -98,7 +99,15 @@ export default async function UniversityDetailsPage({ params }: PageProps) {
       courses: {
         where: { status: "ACTIVE" },
         take: 10,
-        include: {
+        select: {
+          id: true,
+          title: true,
+          slug: true,
+          description: true,
+          duration: true,
+          tuitionMin: true,
+          tuitionMax: true,
+          studyLevel: true,
           university: {
             select: {
               name: true,
@@ -277,9 +286,9 @@ export default async function UniversityDetailsPage({ params }: PageProps) {
 
       {/* 10. Student Review Video Slider */}
       {reviews.length > 0 && (
-        <div className="container mx-auto">
-          <ReviewSlider title="Student Reviews" items={reviews} type="text" />
-        </div>
+ 
+         <ReviewSection  universityId={university.id} />
+ 
       )}
 
       {/* 12. FAQ */}

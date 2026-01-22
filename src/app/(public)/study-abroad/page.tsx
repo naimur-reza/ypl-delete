@@ -36,69 +36,80 @@ type StudyAbroadPageProps = {
 const StudyAbroadPage = async ({ params }: StudyAbroadPageProps) => {
   const { country } = await params;
 
-  // Fetch upcoming events
-  const events = await prisma.event.findMany({
-    where: {
-      startDate: {
-        gte: new Date(),
+  // Fetch all data in parallel for better performance
+  const [events, partners, countries, faqs, destinations, scholarships] = await Promise.all([
+    // Fetch upcoming events (limit to 6)
+    prisma.event.findMany({
+      where: {
+        startDate: {
+          gte: new Date(),
+        },
       },
-    },
-    orderBy: {
-      startDate: "asc",
-    },
-  });
+      orderBy: {
+        startDate: "asc",
+      },
+      take: 6,
+    }),
 
-  // Fetch university partners
-  const partners = await prisma.accreditation.findMany({
-    where: {
-      type: "PARTNER",
-    },
-    orderBy: {
-      sortOrder: "asc",
-    },
-  });
+    // Fetch university partners (limit to 12 for display)
+    prisma.accreditation.findMany({
+      where: {
+        type: "PARTNER",
+        status: "ACTIVE",
+      },
+      orderBy: {
+        sortOrder: "asc",
+      },
+      take: 12,
+    }),
 
-  const countries = await prisma.country.findMany({});
+    // Fetch countries
+    prisma.country.findMany({}),
 
-  // Fetch country data for filtering
-  const faqs = await fetchFaqsForHomePage(country, 6);
+    // Fetch FAQs
+    fetchFaqsForHomePage(country, 6),
 
-  const destinations = await prisma.destination.findMany({
-    where: {
-      countries: {
-        some: {
-          country: {
-            slug: country,
+    // Fetch destinations for this country
+    prisma.destination.findMany({
+      where: {
+        countries: {
+          some: {
+            country: {
+              slug: country,
+            },
           },
         },
       },
-    },
-  });
+      orderBy: {
+        name: "asc",
+      },
+    }),
 
-  // Fetch scholarships for the slider
-  const scholarships = await prisma.scholarship.findMany({
-    where: {
-      status: "ACTIVE",
-      countries: {
-        some: {
-          country: {
-            slug: country,
+    // Fetch scholarships for the slider (limit to 10)
+    prisma.scholarship.findMany({
+      where: {
+        status: "ACTIVE",
+        countries: {
+          some: {
+            country: {
+              slug: country,
+            },
           },
         },
       },
-    },
-    select: {
-      id: true,
-      title: true,
-      description: true,
-      slug: true,
-      createdAt: true,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-    take: 10,
-  });
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        slug: true,
+        createdAt: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      take: 10,
+    }),
+  ]);
 
   return (
     <main className="bg-white">

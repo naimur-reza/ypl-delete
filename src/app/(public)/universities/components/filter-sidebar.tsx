@@ -25,10 +25,13 @@ const FILTER_OPTIONS: FilterOption[] = [
     id: "level",
     label: "Level of Study",
     options: [
-      { label: "Undergraduate", value: "ug", count: 250 },
-      { label: "Postgraduate", value: "pg", count: 180 },
-      { label: "PhD / Doctorate", value: "phd", count: 40 },
-      { label: "Foundation", value: "foundation", count: 60 },
+      { label: "Foundation", value: "FOUNDATION" },
+      { label: "Bachelor's Degree", value: "BACHELOR" },
+      { label: "Master's Degree", value: "MASTER" },
+      { label: "PhD / Doctorate", value: "PHD" },
+      { label: "Diploma", value: "DIPLOMA" },
+      { label: "Certificate", value: "CERTIFICATE" },
+      { label: "Pathway Program", value: "PATHWAY" },
     ],
   },
   {

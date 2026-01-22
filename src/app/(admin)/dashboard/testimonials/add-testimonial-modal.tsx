@@ -42,6 +42,7 @@ interface TestimonialFormModalProps {
     url?: string | null;
     isFeatured: boolean;
     order: number;
+    isGlobal?: boolean;
     countries?: Array<{ countryId: string }>;
     destinations?: Array<{ destinationId: string }>;
     universities?: Array<{ universityId: string }>;
@@ -79,7 +80,7 @@ const TestimonialFormModal = ({
   const [loading, setLoading] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isGlobal, setIsGlobal] = useState<boolean>((selectedTestimonial as any)?.isGlobal || false);
+  const [isGlobal, setIsGlobal] = useState<boolean>(selectedTestimonial?.isGlobal || false);
 
   // Local state for conditional rendering (replaces useStore)
   const [type, setType] = useState<"STUDENT" | "REPRESENTATIVE" | "GMB">(
@@ -150,8 +151,16 @@ const TestimonialFormModal = ({
       setIsSubmitting(true);
       try {
         let response;
+        
+        // Auto-set mediaType to VIDEO for REPRESENTATIVE type when videoUrl is provided
+        let finalMediaType = value.mediaType;
+        if (value.type === "REPRESENTATIVE" && value.videoUrl && value.videoUrl.trim()) {
+          finalMediaType = "VIDEO";
+        }
+        
         const submitData = {
           ...value,
+          mediaType: finalMediaType,
           status: value.status || "ACTIVE",
           countryIds: isGlobal ? [] : countryIds,
           isGlobal: isGlobal,
@@ -248,7 +257,7 @@ const TestimonialFormModal = ({
           form.setFieldValue(key, values[key]);
         }
       });
-      setIsGlobal((selectedTestimonial as any)?.isGlobal || false);
+      setIsGlobal(selectedTestimonial?.isGlobal || false);
     } else {
       setCountryIds([]);
       setDestinationIds([]);
