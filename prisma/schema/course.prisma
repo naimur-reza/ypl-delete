@@ -19,6 +19,7 @@ model Course {
   icon            String?
   image           String?
   summary         String?
+  sections        Json?
   faculty         Faculty?
   studyLevel      StudyLevel?
   status          ContentStatus   @default(ACTIVE)
