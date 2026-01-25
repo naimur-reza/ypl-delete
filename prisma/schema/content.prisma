@@ -5,6 +5,7 @@ model Service {
   summary         String?
   content         String?
   image           String?
+  icon            String?
   metaTitle       String?
   metaDescription String?
   metaKeywords    String?

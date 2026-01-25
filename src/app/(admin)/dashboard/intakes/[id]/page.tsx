@@ -24,83 +24,31 @@ export const metadata: Metadata = {
   description: "Edit intake page for study abroad programs",
 };
 
+import { prisma } from "@/lib/prisma";
+
 async function getIntakeData(id: string) {
-  // TODO: Implement server-side data fetching
-  // This would typically fetch from your database
-  const mockIntake = {
-    id,
-    title: "May Intake 2024",
-    slug: "may-intake",
-    description: "Comprehensive guide for May 2024 intake",
-    destinationId: "uk",
-    intake: "MAY",
-    countryId: null,
-    isGlobal: true,
-    status: "ACTIVE",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-
-    // Hero Section
-    heroTitle: "Study in UK - May Intake 2024",
-    heroSubtitle: "Start your journey to top UK universities",
-    heroMedia: "/images/hero-may-2024.jpg",
-    heroMediaType: "IMAGE" as const,
-    heroCTALabel: "Apply Now",
-    heroCTAUrl: "/apply-now",
-
-    // Why Choose Section
-    whyChooseTitle: "Why Choose May Intake?",
-    whyChooseDescription: "Discover the advantages of May intake",
-
-    // Timeline
-    timelineJson: [],
-    targetDate: new Date(),
-    timelineEnabled: true,
-
-    // How We Help
-    howWeHelpJson: [],
-    howWeHelpEnabled: true,
-
-    // SEO
-    metaTitle: "May Intake 2024 - Study in UK | NWC Education",
-    metaDescription:
-      "Apply for May 2024 intake to study in UK. Get expert guidance on universities and courses.",
-    metaKeywords:
-      "may intake, study in uk, uk universities, international students",
-    canonicalUrl: "https://www.nwc.education.com/study-in-uk/may-intake",
-
-    // Relations
-    destination: {
-      id: "uk",
-      name: "United Kingdom",
-      slug: "uk",
-    },
-    country: null,
-    intakePageBenefits: [
-      {
-        id: "1",
-        title: "Wide Course Selection",
-        description: "Access to hundreds of programs",
-        icon: "BookOpen",
-        sortOrder: 0,
-        isActive: true,
+  const intake = await prisma.intakePage.findUnique({
+    where: { id },
+    include: {
+      destination: true,
+      countries: { include: { country: true } },
+      topUniversities: { include: { university: true } },
+      intakePageBenefits: { orderBy: { sortOrder: "asc" } },
+      howWeHelpItems: { orderBy: { sortOrder: "asc" } },
+      intakeSeason: true,
+      _count: {
+        select: { faqs: true },
       },
-      {
-        id: "2",
-        title: "Early Application Advantage",
-        description: "Apply early to secure your spot",
-        icon: "Clock",
-        sortOrder: 1,
-        isActive: true,
-      },
-    ],
-    _count: {
-      faqs: 0,
     },
-  };
+  });
 
-  return mockIntake;
+  return intake;
 }
+
+import {
+  handleUpdateIntakeAction,
+  handleDeleteIntakeAction,
+} from "@/app/actions/intake-actions";
 
 export default async function EditIntakePage({ params }: EditIntakePageProps) {
   const { id } = await params;
@@ -112,43 +60,8 @@ export default async function EditIntakePage({ params }: EditIntakePageProps) {
     notFound();
   }
 
-  const handleUpdateIntake = async (data: any) => {
-    "use server";
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL || ""}/api/admin/intakes/${id}`,
-      {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-        cache: "no-store",
-      },
-    );
-
-    if (!res.ok) {
-      const payload = await res.json().catch(() => ({}));
-      throw new Error(payload.error || "Failed to update intake");
-    }
-
-    redirect("/admin/dashboard/intakes");
-  };
-
-  const handleDeleteIntake = async () => {
-    "use server";
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL || ""}/api/admin/intakes/${id}`,
-      {
-        method: "DELETE",
-        cache: "no-store",
-      },
-    );
-
-    if (!res.ok) {
-      const payload = await res.json().catch(() => ({}));
-      throw new Error(payload.error || "Failed to delete intake");
-    }
-
-    redirect("/admin/dashboard/intakes");
-  };
+  const deleteActionWithId = handleDeleteIntakeAction.bind(null, id);
+  const updateActionWithId = handleUpdateIntakeAction.bind(null, id);
 
   return (
     <div className="space-y-6">
@@ -156,22 +69,22 @@ export default async function EditIntakePage({ params }: EditIntakePageProps) {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Button variant="ghost" asChild>
-            <Link href="/admin/dashboard/intakes">
+            <Link href="/dashboard/intake-management?tab=details">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Intakes
             </Link>
           </Button>
 
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Edit Intake</h1>
+            <h1 className="text-3xl font-bold text-gray-900">Edit Intake Detail</h1>
             <p className="text-gray-600 mt-1">
-              Update intake page details for <strong>{intake.title}</strong>
+              Update the configuration and content for this intake.
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
-          <Button variant="destructive" onClick={handleDeleteIntake}>
+          <Button variant="destructive" onClick={deleteActionWithId}>
             <Trash2 className="w-4 h-4 mr-2" />
             Delete
           </Button>
@@ -189,7 +102,7 @@ export default async function EditIntakePage({ params }: EditIntakePageProps) {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <IntakeForm intake={intake} onSubmit={handleUpdateIntake} />
+            <IntakeForm intake={intake} onSubmit={updateActionWithId} />
           </CardContent>
         </Card>
       </Suspense>
@@ -206,7 +119,7 @@ export default async function EditIntakePage({ params }: EditIntakePageProps) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Button variant="outline" className="h-auto p-4 flex-col" asChild>
               <Link
-                href={`/study-in-${intake.destination.slug}/${intake.intake.toLowerCase()}`}
+                href={`/study-in-${intake.destination?.slug}/${intake?.intake?.toLowerCase()}`}
                 target="_blank"
               >
                 <div className="text-lg mb-2">👁️</div>
@@ -216,7 +129,7 @@ export default async function EditIntakePage({ params }: EditIntakePageProps) {
             </Button>
 
             <Button variant="outline" className="h-auto p-4 flex-col" asChild>
-              <Link href={`/admin/dashboard/intakes/${id}/faqs`}>
+              <Link href={`/dashboard/intakes/${id}/faqs`}>
                 <div className="text-lg mb-2">❓</div>
                 <div className="text-sm font-medium">Manage FAQs</div>
                 <div className="text-xs text-gray-500">Edit FAQ content</div>
@@ -224,7 +137,7 @@ export default async function EditIntakePage({ params }: EditIntakePageProps) {
             </Button>
 
             <Button variant="outline" className="h-auto p-4 flex-col" asChild>
-              <Link href={`/admin/dashboard/intakes/${id}/analytics`}>
+              <Link href={`/dashboard/intakes/${id}/analytics`}>
                 <div className="text-lg mb-2">📊</div>
                 <div className="text-sm font-medium">View Analytics</div>
                 <div className="text-xs text-gray-500">Page performance</div>
@@ -267,7 +180,7 @@ export default async function EditIntakePage({ params }: EditIntakePageProps) {
                 </div>
                 <div className="flex justify-between">
                   <dt className="text-gray-600">Destination:</dt>
-                  <dd>{intake.destination.name}</dd>
+                  <dd>{intake.destination?.name}</dd>
                 </div>
                 <div className="flex justify-between">
                   <dt className="text-gray-600">Intake:</dt>

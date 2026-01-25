@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
+import { ImageUpload } from "@/components/ui/image-upload";
 import {
   Card,
   CardContent,
@@ -25,83 +26,36 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Plus, X, Upload, Eye, Save } from "lucide-react";
 import { IntakePageWithRelations } from "@/types";
+import { IconPicker } from "@/components/ui/icon-picker";
+import { apiClient } from "@/lib/api-client";
+import { useEffect, useTransition } from "react";
+import MultiSelect from "@/components/ui/multi-select";
+import { toast } from "sonner";
 
 interface IntakeFormProps {
   intake?: IntakePageWithRelations;
-  onSubmit: (data: any) => void;
+  onSubmit: (data: any) => Promise<void>;
   isLoading?: boolean;
 }
 
 type IntakeFormValues = {
-  title: string;
-  slug: string;
-  description: string;
-  destinationId: string;
-  intake: string;
-  countryId: string;
-  isGlobal: boolean;
+  intakeSeasonId: string;
+  universityIds: string[];
   status: string;
   heroTitle: string;
   heroSubtitle: string;
   heroMedia: string;
-  heroMediaType: "IMAGE" | "VIDEO" | "TEXT_ONLY";
   heroCTALabel: string;
   heroCTAUrl: string;
   whyChooseTitle: string;
   whyChooseDescription: string;
-  timelineJson: string;
   targetDate: string;
   timelineEnabled: boolean;
-  howWeHelpJson: string;
   howWeHelpEnabled: boolean;
   metaTitle: string;
   metaDescription: string;
   metaKeywords: string;
-  canonicalUrl: string;
 };
-
-const INTAKE_OPTIONS = [
-  { value: "JANUARY", label: "January" },
-  { value: "MAY", label: "May" },
-  { value: "SEPTEMBER", label: "September" },
-];
-
-const DESTINATION_OPTIONS = [
-  { value: "uk", label: "United Kingdom" },
-  { value: "usa", label: "United States" },
-  { value: "canada", label: "Canada" },
-  { value: "australia", label: "Australia" },
-];
-
-const COUNTRY_OPTIONS = [
-  { value: "", label: "Global (All Countries)" },
-  { value: "bangladesh", label: "Bangladesh" },
-  { value: "india", label: "India" },
-  { value: "pakistan", label: "Pakistan" },
-  { value: "srilanka", label: "Sri Lanka" },
-  { value: "nepal", label: "Nepal" },
-];
-
-const ICON_OPTIONS = [
-  "GraduationCap",
-  "Clock",
-  "DollarSign",
-  "Users",
-  "Star",
-  "Award",
-  "BookOpen",
-  "Target",
-  "CheckCircle",
-  "FileText",
-  "Plane",
-  "Building",
-];
-
-const HERO_MEDIA_OPTIONS = [
-  { value: "IMAGE", label: "Image" },
-  { value: "VIDEO", label: "Video" },
-  { value: "TEXT_ONLY", label: "Text Only" },
-];
 
 export function IntakeForm({
   intake,
@@ -109,18 +63,69 @@ export function IntakeForm({
   isLoading = false,
 }: IntakeFormProps) {
   const [activeTab, setActiveTab] = useState("basic");
+  const [intakeSeasons, setIntakeSeasons] = useState<any[]>([]);
+  const [universities, setUniversities] = useState<any[]>([]);
+  const [loadingSeasons, setLoadingSeasons] = useState(false);
+  const [loadingUniversities, setLoadingUniversities] = useState(false);
   const [benefits, setBenefits] = useState(
     intake?.intakePageBenefits || [
       {
         id: "1",
-        title: "",
-        description: "",
-        icon: "",
+        title: "Diverse Course Options",
+        description: "Explore a wide range of programs tailored to your career goals.",
+        icon: "BookOpen",
         sortOrder: 0,
         isActive: true,
       },
     ],
   );
+
+  const [howWeHelpItems, setHowWeHelpItems] = useState<any[]>(
+    intake?.howWeHelpItems || [
+      {
+        id: "1",
+        title: "Expert Consultation",
+        description: "Our advisors guide you through every step of the process.",
+        icon: "Users",
+        sortOrder: 0,
+        isActive: true,
+      },
+    ],
+  );
+
+  useEffect(() => {
+    const fetchSeasons = async () => {
+      setLoadingSeasons(true);
+      try {
+        const res = await apiClient.get<any>("/api/intake-seasons", { limit: "1000" });
+        if (res.data) {
+          const arr = Array.isArray(res.data) ? res.data : (res.data as any).data || [];
+          setIntakeSeasons(arr);
+        }
+      } catch (e) {
+        console.error("Failed to fetch intake seasons", e);
+      } finally {
+        setLoadingSeasons(false);
+      }
+    };
+    fetchSeasons();
+
+    const fetchUniversities = async () => {
+      setLoadingUniversities(true);
+      try {
+        const res = await apiClient.get<any>("/api/universities", { limit: "1000", status: "ACTIVE" });
+        if (res.data) {
+          const arr = Array.isArray(res.data) ? res.data : (res.data as any).data || [];
+          setUniversities(arr.map((u: any) => ({ value: u.id, label: u.name })));
+        }
+      } catch (e) {
+        console.error("Failed to fetch universities", e);
+      } finally {
+        setLoadingUniversities(false);
+      }
+    };
+    fetchUniversities();
+  }, []);
 
   const {
     register,
@@ -130,20 +135,14 @@ export function IntakeForm({
     formState: { errors },
   } = useForm<IntakeFormValues>({
     defaultValues: {
-      title: intake?.title || "",
-      slug: intake?.slug || "",
-      description: intake?.description || "",
-      destinationId: intake?.destinationId || "",
-      intake: intake?.intake || "",
-      countryId: intake?.countryId || "",
-      isGlobal: intake?.isGlobal || false,
+      intakeSeasonId: intake?.intakeSeasonId || "__none__",
+      universityIds: intake?.topUniversities?.map((u: any) => u.universityId) || [],
       status: intake?.status || "DRAFT",
 
       // Hero Section
       heroTitle: intake?.heroTitle || "",
       heroSubtitle: intake?.heroSubtitle || "",
       heroMedia: intake?.heroMedia || "",
-      heroMediaType: intake?.heroMediaType || "IMAGE",
       heroCTALabel: intake?.heroCTALabel || "Apply Now",
       heroCTAUrl: intake?.heroCTAUrl || "/apply-now",
 
@@ -152,29 +151,21 @@ export function IntakeForm({
       whyChooseDescription: intake?.whyChooseDescription || "",
 
       // Timeline
-      timelineJson: intake?.timelineJson
-        ? JSON.stringify(intake.timelineJson, null, 2)
-        : "",
       targetDate: intake?.targetDate
         ? new Date(intake.targetDate).toISOString().slice(0, 10)
         : "",
       timelineEnabled: intake?.timelineEnabled ?? true,
 
       // How We Help
-      howWeHelpJson: intake?.howWeHelpJson
-        ? JSON.stringify(intake.howWeHelpJson, null, 2)
-        : "",
       howWeHelpEnabled: intake?.howWeHelpEnabled ?? true,
 
       // SEO
       metaTitle: intake?.metaTitle || "",
       metaDescription: intake?.metaDescription || "",
       metaKeywords: intake?.metaKeywords || "",
-      canonicalUrl: intake?.canonicalUrl || "",
     },
   });
 
-  const isGlobal = watch("isGlobal");
   const addBenefit = () => {
     const newBenefit = {
       id: Date.now().toString(),
@@ -197,12 +188,50 @@ export function IntakeForm({
     );
   };
 
-  const onFormSubmit = (data: any) => {
+  const addHowWeHelpItem = () => {
+    const newItem = {
+      id: Date.now().toString(),
+      title: "",
+      description: "",
+      icon: "",
+      sortOrder: howWeHelpItems.length,
+      isActive: true,
+    };
+    setHowWeHelpItems([...howWeHelpItems, newItem]);
+  };
+
+  const removeHowWeHelpItem = (id: string) => {
+    setHowWeHelpItems(howWeHelpItems.filter((i: any) => i.id !== id));
+  };
+
+  const updateHowWeHelpItem = (id: string, field: string, value: any) => {
+    setHowWeHelpItems(
+      howWeHelpItems.map((i: any) => (i.id === id ? { ...i, [field]: value } : i)),
+    );
+  };
+
+  const [isPending, startTransition] = useTransition();
+
+  const onFormSubmit = async (data: any) => {
     const formData = {
       ...data,
+      intakeSeasonId: data.intakeSeasonId === "__none__" ? null : data.intakeSeasonId,
+      universityIds: data.universityIds || [],
       intakePageBenefits: benefits,
+      howWeHelpItems: howWeHelpItems,
     };
-    onSubmit(formData);
+
+    startTransition(async () => {
+      try {
+        await onSubmit(formData);
+        toast.success(intake ? "Intake updated successfully" : "Intake created successfully");
+      } catch (e: any) {
+        if (e.message !== "NEXT_REDIRECT") {
+          console.error("Form submission failed", e);
+          toast.error(e.message || "Failed to save intake");
+        }
+      }
+    });
   };
 
   return (
@@ -223,9 +252,9 @@ export function IntakeForm({
             <Eye className="w-4 h-4 mr-2" />
             Preview
           </Button>
-          <Button type="submit" disabled={isLoading}>
+          <Button type="submit" disabled={isPending}>
             <Save className="w-4 h-4 mr-2" />
-            {isLoading ? "Saving..." : "Save"}
+            {isPending ? "Saving..." : "Save"}
           </Button>
         </div>
       </div>
@@ -250,64 +279,23 @@ export function IntakeForm({
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="destination">Destination *</Label>
+                  <Label htmlFor="intakeSeasonId">Intake Season (link to details)</Label>
                   <Select
-                    value={watch("destinationId")}
-                    onValueChange={(value) => setValue("destinationId", value)}
+                    value={watch("intakeSeasonId")}
+                    onValueChange={(value) => setValue("intakeSeasonId", value)}
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder="Select destination" />
+                      <SelectValue placeholder={loadingSeasons ? "Loading seasons..." : "Select intake season"} />
                     </SelectTrigger>
                     <SelectContent>
-                      {DESTINATION_OPTIONS.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
+                      <SelectItem value="__none__">None / Select later</SelectItem>
+                      {intakeSeasons.map((season) => (
+                        <SelectItem key={season.id} value={season.id}>
+                          {season.title} ({season.intake} {season.year})
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
-                </div>
-
-                <div>
-                  <Label htmlFor="intake">Intake *</Label>
-                  <Select
-                    value={watch("intake")}
-                    onValueChange={(value) => setValue("intake", value)}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select intake" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {INTAKE_OPTIONS.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <Label htmlFor="title">Title *</Label>
-                  <Input
-                    id="title"
-                    {...register("title", { required: true })}
-                    placeholder="e.g., May Intake 2024"
-                  />
-                  {errors.title && (
-                    <p className="text-sm text-red-600 mt-1">
-                      {errors.title.message}
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <Label htmlFor="slug">Slug *</Label>
-                  <Input
-                    id="slug"
-                    {...register("slug", { required: true })}
-                    placeholder="may-intake"
-                  />
                 </div>
 
                 <div>
@@ -325,60 +313,6 @@ export function IntakeForm({
                     </SelectContent>
                   </Select>
                 </div>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="flex items-center gap-3">
-                  <Switch
-                    id="isGlobal"
-                    checked={isGlobal}
-                    onCheckedChange={(checked) => setValue("isGlobal", checked)}
-                  />
-                  <Label htmlFor="isGlobal">Global intake (all countries)</Label>
-                </div>
-                <div>
-                  <Label htmlFor="countryId">Country (if country-specific)</Label>
-                  <Select
-                    value={watch("countryId") || ""}
-                    onValueChange={(value) => setValue("countryId", value || "")}
-                    disabled={isGlobal}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select country" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {COUNTRY_OPTIONS.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-              <div>
-                <Label htmlFor="heroMediaType">Hero Media Type</Label>
-                <Select
-                  value={
-                    watch("heroMediaType") as IntakeFormValues["heroMediaType"]
-                  }
-                  onValueChange={(value) =>
-                    setValue(
-                      "heroMediaType",
-                      value as IntakeFormValues["heroMediaType"],
-                    )
-                  }
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select media type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {HERO_MEDIA_OPTIONS.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
               </div>
             </CardContent>
           </Card>
@@ -408,11 +342,11 @@ export function IntakeForm({
                   />
                 </div>
                 <div>
-                  <Label htmlFor="heroMedia">Background Media (image/video)</Label>
-                  <Input
-                    id="heroMedia"
-                    placeholder="https://..."
-                    {...register("heroMedia")}
+               
+                  <ImageUpload
+                    value={watch("heroMedia")}
+                    onChange={(url) => setValue("heroMedia", url || "")}
+                    folder="intakes"
                   />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -493,22 +427,20 @@ export function IntakeForm({
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <Input
-                          placeholder="Title"
                           value={benefit.title}
                           onChange={(e) =>
                             updateBenefit(benefit.id, "title", e.target.value)
                           }
                         />
-                        <Input
-                          placeholder="Icon (Lucide name)"
+                        <IconPicker
+                          label="Icon"
                           value={benefit.icon || ""}
-                          onChange={(e) =>
-                            updateBenefit(benefit.id, "icon", e.target.value)
+                          onChange={(iconName) =>
+                            updateBenefit(benefit.id, "icon", iconName)
                           }
                         />
                       </div>
                       <Textarea
-                        placeholder="Description"
                         value={benefit.description || ""}
                         onChange={(e) =>
                           updateBenefit(
@@ -555,7 +487,7 @@ export function IntakeForm({
                   checked={watch("timelineEnabled")}
                   onCheckedChange={(checked) => setValue("timelineEnabled", checked)}
                 />
-                <Label htmlFor="timelineEnabled">Enable timeline</Label>
+                <Label htmlFor="timelineEnabled">Enable timeline countdown</Label>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -566,15 +498,6 @@ export function IntakeForm({
                     {...register("targetDate")}
                   />
                 </div>
-              </div>
-              <div>
-                <Label htmlFor="timelineJson">Timeline JSON</Label>
-                <Textarea
-                  id="timelineJson"
-                  rows={6}
-                  placeholder='[{"title":"Apply","date":"2024-12-01","description":"Submit application"}]'
-                  {...register("timelineJson")}
-                />
               </div>
             </CardContent>
           </Card>
@@ -591,16 +514,92 @@ export function IntakeForm({
                   checked={watch("howWeHelpEnabled")}
                   onCheckedChange={(checked) => setValue("howWeHelpEnabled", checked)}
                 />
-                <Label htmlFor="howWeHelpEnabled">Enable How We Help</Label>
+                <Label htmlFor="howWeHelpEnabled">Enable How We Help section</Label>
               </div>
-              <div>
-                <Label htmlFor="howWeHelpJson">How We Help JSON</Label>
-                <Textarea
-                  id="howWeHelpJson"
-                  rows={6}
-                  placeholder='[{"title":"Free Consultation","description":"We guide you"}]'
-                  {...register("howWeHelpJson")}
-                />
+
+              <div className="flex items-center justify-between">
+                <h4 className="text-sm font-semibold">Help Items</h4>
+                <Button type="button" size="sm" onClick={addHowWeHelpItem}>
+                  <Plus className="w-4 h-4 mr-1" /> Add Help Item
+                </Button>
+              </div>
+
+              <div className="space-y-4">
+                {howWeHelpItems.map((item: any, index: number) => (
+                  <Card key={item.id}>
+                    <CardContent className="pt-6 space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-medium">
+                          Item {index + 1}
+                        </span>
+                        <div className="flex items-center gap-3">
+                          <div className="flex items-center gap-2">
+                            <Switch
+                              checked={item.isActive ?? true}
+                              onCheckedChange={(checked) =>
+                                updateHowWeHelpItem(item.id, "isActive", checked)
+                              }
+                              id={`help-active-${item.id}`}
+                            />
+                            <Label htmlFor={`help-active-${item.id}`}>
+                              Active
+                            </Label>
+                          </div>
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => removeHowWeHelpItem(item.id)}
+                          >
+                            <X className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <Input
+                          value={item.title}
+                          onChange={(e) =>
+                            updateHowWeHelpItem(item.id, "title", e.target.value)
+                          }
+                        />
+                        <IconPicker
+                          label="Icon"
+                          value={item.icon || ""}
+                          onChange={(iconName) =>
+                            updateHowWeHelpItem(item.id, "icon", iconName)
+                          }
+                        />
+                      </div>
+                      <Textarea
+                        value={item.description || ""}
+                        onChange={(e) =>
+                          updateHowWeHelpItem(
+                            item.id,
+                            "description",
+                            e.target.value,
+                          )
+                        }
+                      />
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div>
+                          <Label>Sort Order</Label>
+                          <Input
+                            type="number"
+                            value={item.sortOrder}
+                            onChange={(e) =>
+                              updateHowWeHelpItem(
+                                item.id,
+                                "sortOrder",
+                                Number(e.target.value),
+                              )
+                            }
+                          />
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
               </div>
             </CardContent>
           </Card>
@@ -609,9 +608,17 @@ export function IntakeForm({
             <CardHeader>
               <CardTitle>Top Universities</CardTitle>
               <CardDescription>
-                This section auto-loads all ACTIVE universities for the destination. No manual config needed.
+                Select the top universities to display on this intake page.
               </CardDescription>
             </CardHeader>
+            <CardContent>
+              <MultiSelect
+                options={universities}
+                value={watch("universityIds") || []}
+                onChange={(value) => setValue("universityIds", value)}
+                placeholder={loadingUniversities ? "Loading universities..." : "Select universities"}
+              />
+            </CardContent>
           </Card>
         </TabsContent>
 
@@ -630,7 +637,6 @@ export function IntakeForm({
                 <Input
                   id="metaTitle"
                   {...register("metaTitle")}
-                  placeholder="SEO meta title (max 60 characters)"
                   maxLength={60}
                 />
                 <p className="text-xs text-gray-500 mt-1">
@@ -643,7 +649,6 @@ export function IntakeForm({
                 <Textarea
                   id="metaDescription"
                   {...register("metaDescription")}
-                  placeholder="SEO meta description (max 160 characters)"
                   rows={3}
                   maxLength={160}
                 />
@@ -657,21 +662,12 @@ export function IntakeForm({
                 <Input
                   id="metaKeywords"
                   {...register("metaKeywords")}
-                  placeholder="keyword1, keyword2, keyword3"
                 />
                 <p className="text-xs text-gray-500 mt-1">
                   Separate keywords with commas
                 </p>
               </div>
 
-              <div>
-                <Label htmlFor="canonicalUrl">Canonical URL</Label>
-                <Input
-                  id="canonicalUrl"
-                  {...register("canonicalUrl")}
-                  placeholder="https://www.nwc.education.com/intake-page"
-                />
-              </div>
             </CardContent>
           </Card>
         </TabsContent>

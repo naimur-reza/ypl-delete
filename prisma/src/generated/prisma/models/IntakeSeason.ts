@@ -49,6 +49,8 @@ export type IntakeSeasonMinAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   status: $Enums.ContentStatus | null
+  isGlobal: boolean | null
+  destinationId: string | null
 }
 
 export type IntakeSeasonMaxAggregateOutputType = {
@@ -66,6 +68,8 @@ export type IntakeSeasonMaxAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   status: $Enums.ContentStatus | null
+  isGlobal: boolean | null
+  destinationId: string | null
 }
 
 export type IntakeSeasonCountAggregateOutputType = {
@@ -83,6 +87,8 @@ export type IntakeSeasonCountAggregateOutputType = {
   createdAt: number
   updatedAt: number
   status: number
+  isGlobal: number
+  destinationId: number
   _all: number
 }
 
@@ -110,6 +116,8 @@ export type IntakeSeasonMinAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   status?: true
+  isGlobal?: true
+  destinationId?: true
 }
 
 export type IntakeSeasonMaxAggregateInputType = {
@@ -127,6 +135,8 @@ export type IntakeSeasonMaxAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   status?: true
+  isGlobal?: true
+  destinationId?: true
 }
 
 export type IntakeSeasonCountAggregateInputType = {
@@ -144,6 +154,8 @@ export type IntakeSeasonCountAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   status?: true
+  isGlobal?: true
+  destinationId?: true
   _all?: true
 }
 
@@ -248,6 +260,8 @@ export type IntakeSeasonGroupByOutputType = {
   createdAt: Date
   updatedAt: Date
   status: $Enums.ContentStatus
+  isGlobal: boolean
+  destinationId: string | null
   _count: IntakeSeasonCountAggregateOutputType | null
   _avg: IntakeSeasonAvgAggregateOutputType | null
   _sum: IntakeSeasonSumAggregateOutputType | null
@@ -288,7 +302,11 @@ export type IntakeSeasonWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"IntakeSeason"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"IntakeSeason"> | Date | string
   status?: Prisma.EnumContentStatusFilter<"IntakeSeason"> | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFilter<"IntakeSeason"> | boolean
+  destinationId?: Prisma.StringNullableFilter<"IntakeSeason"> | string | null
+  destination?: Prisma.XOR<Prisma.DestinationNullableScalarRelationFilter, Prisma.DestinationWhereInput> | null
   countries?: Prisma.IntakeSeasonCountryListRelationFilter
+  intakePages?: Prisma.IntakePageListRelationFilter
 }
 
 export type IntakeSeasonOrderByWithRelationInput = {
@@ -306,7 +324,11 @@ export type IntakeSeasonOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
+  destinationId?: Prisma.SortOrderInput | Prisma.SortOrder
+  destination?: Prisma.DestinationOrderByWithRelationInput
   countries?: Prisma.IntakeSeasonCountryOrderByRelationAggregateInput
+  intakePages?: Prisma.IntakePageOrderByRelationAggregateInput
 }
 
 export type IntakeSeasonWhereUniqueInput = Prisma.AtLeast<{
@@ -327,7 +349,11 @@ export type IntakeSeasonWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"IntakeSeason"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"IntakeSeason"> | Date | string
   status?: Prisma.EnumContentStatusFilter<"IntakeSeason"> | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFilter<"IntakeSeason"> | boolean
+  destinationId?: Prisma.StringNullableFilter<"IntakeSeason"> | string | null
+  destination?: Prisma.XOR<Prisma.DestinationNullableScalarRelationFilter, Prisma.DestinationWhereInput> | null
   countries?: Prisma.IntakeSeasonCountryListRelationFilter
+  intakePages?: Prisma.IntakePageListRelationFilter
 }, "id">
 
 export type IntakeSeasonOrderByWithAggregationInput = {
@@ -345,6 +371,8 @@ export type IntakeSeasonOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
+  destinationId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.IntakeSeasonCountOrderByAggregateInput
   _avg?: Prisma.IntakeSeasonAvgOrderByAggregateInput
   _max?: Prisma.IntakeSeasonMaxOrderByAggregateInput
@@ -370,6 +398,8 @@ export type IntakeSeasonScalarWhereWithAggregatesInput = {
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"IntakeSeason"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"IntakeSeason"> | Date | string
   status?: Prisma.EnumContentStatusWithAggregatesFilter<"IntakeSeason"> | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolWithAggregatesFilter<"IntakeSeason"> | boolean
+  destinationId?: Prisma.StringNullableWithAggregatesFilter<"IntakeSeason"> | string | null
 }
 
 export type IntakeSeasonCreateInput = {
@@ -387,7 +417,10 @@ export type IntakeSeasonCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
+  destination?: Prisma.DestinationCreateNestedOneWithoutIntakeSeasonsInput
   countries?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutIntakeSeasonInput
+  intakePages?: Prisma.IntakePageCreateNestedManyWithoutIntakeSeasonInput
 }
 
 export type IntakeSeasonUncheckedCreateInput = {
@@ -405,7 +438,10 @@ export type IntakeSeasonUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
+  destinationId?: string | null
   countries?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutIntakeSeasonInput
+  intakePages?: Prisma.IntakePageUncheckedCreateNestedManyWithoutIntakeSeasonInput
 }
 
 export type IntakeSeasonUpdateInput = {
@@ -423,7 +459,10 @@ export type IntakeSeasonUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  destination?: Prisma.DestinationUpdateOneWithoutIntakeSeasonsNestedInput
   countries?: Prisma.IntakeSeasonCountryUpdateManyWithoutIntakeSeasonNestedInput
+  intakePages?: Prisma.IntakePageUpdateManyWithoutIntakeSeasonNestedInput
 }
 
 export type IntakeSeasonUncheckedUpdateInput = {
@@ -441,7 +480,10 @@ export type IntakeSeasonUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  destinationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   countries?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutIntakeSeasonNestedInput
+  intakePages?: Prisma.IntakePageUncheckedUpdateManyWithoutIntakeSeasonNestedInput
 }
 
 export type IntakeSeasonCreateManyInput = {
@@ -459,6 +501,8 @@ export type IntakeSeasonCreateManyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
+  destinationId?: string | null
 }
 
 export type IntakeSeasonUpdateManyMutationInput = {
@@ -476,6 +520,7 @@ export type IntakeSeasonUpdateManyMutationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type IntakeSeasonUncheckedUpdateManyInput = {
@@ -493,6 +538,13 @@ export type IntakeSeasonUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  destinationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type IntakeSeasonNullableScalarRelationFilter = {
+  is?: Prisma.IntakeSeasonWhereInput | null
+  isNot?: Prisma.IntakeSeasonWhereInput | null
 }
 
 export type IntakeSeasonCountOrderByAggregateInput = {
@@ -510,6 +562,8 @@ export type IntakeSeasonCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
+  destinationId?: Prisma.SortOrder
 }
 
 export type IntakeSeasonAvgOrderByAggregateInput = {
@@ -531,6 +585,8 @@ export type IntakeSeasonMaxOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
+  destinationId?: Prisma.SortOrder
 }
 
 export type IntakeSeasonMinOrderByAggregateInput = {
@@ -548,6 +604,8 @@ export type IntakeSeasonMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isGlobal?: Prisma.SortOrder
+  destinationId?: Prisma.SortOrder
 }
 
 export type IntakeSeasonSumOrderByAggregateInput = {
@@ -557,6 +615,32 @@ export type IntakeSeasonSumOrderByAggregateInput = {
 export type IntakeSeasonScalarRelationFilter = {
   is?: Prisma.IntakeSeasonWhereInput
   isNot?: Prisma.IntakeSeasonWhereInput
+}
+
+export type IntakeSeasonListRelationFilter = {
+  every?: Prisma.IntakeSeasonWhereInput
+  some?: Prisma.IntakeSeasonWhereInput
+  none?: Prisma.IntakeSeasonWhereInput
+}
+
+export type IntakeSeasonOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
+export type IntakeSeasonCreateNestedOneWithoutIntakePagesInput = {
+  create?: Prisma.XOR<Prisma.IntakeSeasonCreateWithoutIntakePagesInput, Prisma.IntakeSeasonUncheckedCreateWithoutIntakePagesInput>
+  connectOrCreate?: Prisma.IntakeSeasonCreateOrConnectWithoutIntakePagesInput
+  connect?: Prisma.IntakeSeasonWhereUniqueInput
+}
+
+export type IntakeSeasonUpdateOneWithoutIntakePagesNestedInput = {
+  create?: Prisma.XOR<Prisma.IntakeSeasonCreateWithoutIntakePagesInput, Prisma.IntakeSeasonUncheckedCreateWithoutIntakePagesInput>
+  connectOrCreate?: Prisma.IntakeSeasonCreateOrConnectWithoutIntakePagesInput
+  upsert?: Prisma.IntakeSeasonUpsertWithoutIntakePagesInput
+  disconnect?: Prisma.IntakeSeasonWhereInput | boolean
+  delete?: Prisma.IntakeSeasonWhereInput | boolean
+  connect?: Prisma.IntakeSeasonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.IntakeSeasonUpdateToOneWithWhereWithoutIntakePagesInput, Prisma.IntakeSeasonUpdateWithoutIntakePagesInput>, Prisma.IntakeSeasonUncheckedUpdateWithoutIntakePagesInput>
 }
 
 export type IntakeSeasonCreateNestedOneWithoutCountriesInput = {
@@ -571,6 +655,144 @@ export type IntakeSeasonUpdateOneRequiredWithoutCountriesNestedInput = {
   upsert?: Prisma.IntakeSeasonUpsertWithoutCountriesInput
   connect?: Prisma.IntakeSeasonWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.IntakeSeasonUpdateToOneWithWhereWithoutCountriesInput, Prisma.IntakeSeasonUpdateWithoutCountriesInput>, Prisma.IntakeSeasonUncheckedUpdateWithoutCountriesInput>
+}
+
+export type IntakeSeasonCreateNestedManyWithoutDestinationInput = {
+  create?: Prisma.XOR<Prisma.IntakeSeasonCreateWithoutDestinationInput, Prisma.IntakeSeasonUncheckedCreateWithoutDestinationInput> | Prisma.IntakeSeasonCreateWithoutDestinationInput[] | Prisma.IntakeSeasonUncheckedCreateWithoutDestinationInput[]
+  connectOrCreate?: Prisma.IntakeSeasonCreateOrConnectWithoutDestinationInput | Prisma.IntakeSeasonCreateOrConnectWithoutDestinationInput[]
+  createMany?: Prisma.IntakeSeasonCreateManyDestinationInputEnvelope
+  connect?: Prisma.IntakeSeasonWhereUniqueInput | Prisma.IntakeSeasonWhereUniqueInput[]
+}
+
+export type IntakeSeasonUncheckedCreateNestedManyWithoutDestinationInput = {
+  create?: Prisma.XOR<Prisma.IntakeSeasonCreateWithoutDestinationInput, Prisma.IntakeSeasonUncheckedCreateWithoutDestinationInput> | Prisma.IntakeSeasonCreateWithoutDestinationInput[] | Prisma.IntakeSeasonUncheckedCreateWithoutDestinationInput[]
+  connectOrCreate?: Prisma.IntakeSeasonCreateOrConnectWithoutDestinationInput | Prisma.IntakeSeasonCreateOrConnectWithoutDestinationInput[]
+  createMany?: Prisma.IntakeSeasonCreateManyDestinationInputEnvelope
+  connect?: Prisma.IntakeSeasonWhereUniqueInput | Prisma.IntakeSeasonWhereUniqueInput[]
+}
+
+export type IntakeSeasonUpdateManyWithoutDestinationNestedInput = {
+  create?: Prisma.XOR<Prisma.IntakeSeasonCreateWithoutDestinationInput, Prisma.IntakeSeasonUncheckedCreateWithoutDestinationInput> | Prisma.IntakeSeasonCreateWithoutDestinationInput[] | Prisma.IntakeSeasonUncheckedCreateWithoutDestinationInput[]
+  connectOrCreate?: Prisma.IntakeSeasonCreateOrConnectWithoutDestinationInput | Prisma.IntakeSeasonCreateOrConnectWithoutDestinationInput[]
+  upsert?: Prisma.IntakeSeasonUpsertWithWhereUniqueWithoutDestinationInput | Prisma.IntakeSeasonUpsertWithWhereUniqueWithoutDestinationInput[]
+  createMany?: Prisma.IntakeSeasonCreateManyDestinationInputEnvelope
+  set?: Prisma.IntakeSeasonWhereUniqueInput | Prisma.IntakeSeasonWhereUniqueInput[]
+  disconnect?: Prisma.IntakeSeasonWhereUniqueInput | Prisma.IntakeSeasonWhereUniqueInput[]
+  delete?: Prisma.IntakeSeasonWhereUniqueInput | Prisma.IntakeSeasonWhereUniqueInput[]
+  connect?: Prisma.IntakeSeasonWhereUniqueInput | Prisma.IntakeSeasonWhereUniqueInput[]
+  update?: Prisma.IntakeSeasonUpdateWithWhereUniqueWithoutDestinationInput | Prisma.IntakeSeasonUpdateWithWhereUniqueWithoutDestinationInput[]
+  updateMany?: Prisma.IntakeSeasonUpdateManyWithWhereWithoutDestinationInput | Prisma.IntakeSeasonUpdateManyWithWhereWithoutDestinationInput[]
+  deleteMany?: Prisma.IntakeSeasonScalarWhereInput | Prisma.IntakeSeasonScalarWhereInput[]
+}
+
+export type IntakeSeasonUncheckedUpdateManyWithoutDestinationNestedInput = {
+  create?: Prisma.XOR<Prisma.IntakeSeasonCreateWithoutDestinationInput, Prisma.IntakeSeasonUncheckedCreateWithoutDestinationInput> | Prisma.IntakeSeasonCreateWithoutDestinationInput[] | Prisma.IntakeSeasonUncheckedCreateWithoutDestinationInput[]
+  connectOrCreate?: Prisma.IntakeSeasonCreateOrConnectWithoutDestinationInput | Prisma.IntakeSeasonCreateOrConnectWithoutDestinationInput[]
+  upsert?: Prisma.IntakeSeasonUpsertWithWhereUniqueWithoutDestinationInput | Prisma.IntakeSeasonUpsertWithWhereUniqueWithoutDestinationInput[]
+  createMany?: Prisma.IntakeSeasonCreateManyDestinationInputEnvelope
+  set?: Prisma.IntakeSeasonWhereUniqueInput | Prisma.IntakeSeasonWhereUniqueInput[]
+  disconnect?: Prisma.IntakeSeasonWhereUniqueInput | Prisma.IntakeSeasonWhereUniqueInput[]
+  delete?: Prisma.IntakeSeasonWhereUniqueInput | Prisma.IntakeSeasonWhereUniqueInput[]
+  connect?: Prisma.IntakeSeasonWhereUniqueInput | Prisma.IntakeSeasonWhereUniqueInput[]
+  update?: Prisma.IntakeSeasonUpdateWithWhereUniqueWithoutDestinationInput | Prisma.IntakeSeasonUpdateWithWhereUniqueWithoutDestinationInput[]
+  updateMany?: Prisma.IntakeSeasonUpdateManyWithWhereWithoutDestinationInput | Prisma.IntakeSeasonUpdateManyWithWhereWithoutDestinationInput[]
+  deleteMany?: Prisma.IntakeSeasonScalarWhereInput | Prisma.IntakeSeasonScalarWhereInput[]
+}
+
+export type IntakeSeasonCreateWithoutIntakePagesInput = {
+  id?: string
+  title: string
+  subtitle?: string | null
+  description?: string | null
+  intake: $Enums.IntakeMonth
+  year: number
+  backgroundImage?: string | null
+  ctaLabel?: string | null
+  ctaUrl?: string | null
+  applicationDeadline?: Date | string | null
+  intakeStartDate?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  status?: $Enums.ContentStatus
+  isGlobal?: boolean
+  destination?: Prisma.DestinationCreateNestedOneWithoutIntakeSeasonsInput
+  countries?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutIntakeSeasonInput
+}
+
+export type IntakeSeasonUncheckedCreateWithoutIntakePagesInput = {
+  id?: string
+  title: string
+  subtitle?: string | null
+  description?: string | null
+  intake: $Enums.IntakeMonth
+  year: number
+  backgroundImage?: string | null
+  ctaLabel?: string | null
+  ctaUrl?: string | null
+  applicationDeadline?: Date | string | null
+  intakeStartDate?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  status?: $Enums.ContentStatus
+  isGlobal?: boolean
+  destinationId?: string | null
+  countries?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutIntakeSeasonInput
+}
+
+export type IntakeSeasonCreateOrConnectWithoutIntakePagesInput = {
+  where: Prisma.IntakeSeasonWhereUniqueInput
+  create: Prisma.XOR<Prisma.IntakeSeasonCreateWithoutIntakePagesInput, Prisma.IntakeSeasonUncheckedCreateWithoutIntakePagesInput>
+}
+
+export type IntakeSeasonUpsertWithoutIntakePagesInput = {
+  update: Prisma.XOR<Prisma.IntakeSeasonUpdateWithoutIntakePagesInput, Prisma.IntakeSeasonUncheckedUpdateWithoutIntakePagesInput>
+  create: Prisma.XOR<Prisma.IntakeSeasonCreateWithoutIntakePagesInput, Prisma.IntakeSeasonUncheckedCreateWithoutIntakePagesInput>
+  where?: Prisma.IntakeSeasonWhereInput
+}
+
+export type IntakeSeasonUpdateToOneWithWhereWithoutIntakePagesInput = {
+  where?: Prisma.IntakeSeasonWhereInput
+  data: Prisma.XOR<Prisma.IntakeSeasonUpdateWithoutIntakePagesInput, Prisma.IntakeSeasonUncheckedUpdateWithoutIntakePagesInput>
+}
+
+export type IntakeSeasonUpdateWithoutIntakePagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  intake?: Prisma.EnumIntakeMonthFieldUpdateOperationsInput | $Enums.IntakeMonth
+  year?: Prisma.IntFieldUpdateOperationsInput | number
+  backgroundImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  intakeStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  destination?: Prisma.DestinationUpdateOneWithoutIntakeSeasonsNestedInput
+  countries?: Prisma.IntakeSeasonCountryUpdateManyWithoutIntakeSeasonNestedInput
+}
+
+export type IntakeSeasonUncheckedUpdateWithoutIntakePagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  intake?: Prisma.EnumIntakeMonthFieldUpdateOperationsInput | $Enums.IntakeMonth
+  year?: Prisma.IntFieldUpdateOperationsInput | number
+  backgroundImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  intakeStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  destinationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  countries?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutIntakeSeasonNestedInput
 }
 
 export type IntakeSeasonCreateWithoutCountriesInput = {
@@ -588,6 +810,9 @@ export type IntakeSeasonCreateWithoutCountriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
+  destination?: Prisma.DestinationCreateNestedOneWithoutIntakeSeasonsInput
+  intakePages?: Prisma.IntakePageCreateNestedManyWithoutIntakeSeasonInput
 }
 
 export type IntakeSeasonUncheckedCreateWithoutCountriesInput = {
@@ -605,6 +830,9 @@ export type IntakeSeasonUncheckedCreateWithoutCountriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   status?: $Enums.ContentStatus
+  isGlobal?: boolean
+  destinationId?: string | null
+  intakePages?: Prisma.IntakePageUncheckedCreateNestedManyWithoutIntakeSeasonInput
 }
 
 export type IntakeSeasonCreateOrConnectWithoutCountriesInput = {
@@ -638,6 +866,9 @@ export type IntakeSeasonUpdateWithoutCountriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  destination?: Prisma.DestinationUpdateOneWithoutIntakeSeasonsNestedInput
+  intakePages?: Prisma.IntakePageUpdateManyWithoutIntakeSeasonNestedInput
 }
 
 export type IntakeSeasonUncheckedUpdateWithoutCountriesInput = {
@@ -655,6 +886,173 @@ export type IntakeSeasonUncheckedUpdateWithoutCountriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  destinationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  intakePages?: Prisma.IntakePageUncheckedUpdateManyWithoutIntakeSeasonNestedInput
+}
+
+export type IntakeSeasonCreateWithoutDestinationInput = {
+  id?: string
+  title: string
+  subtitle?: string | null
+  description?: string | null
+  intake: $Enums.IntakeMonth
+  year: number
+  backgroundImage?: string | null
+  ctaLabel?: string | null
+  ctaUrl?: string | null
+  applicationDeadline?: Date | string | null
+  intakeStartDate?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  status?: $Enums.ContentStatus
+  isGlobal?: boolean
+  countries?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutIntakeSeasonInput
+  intakePages?: Prisma.IntakePageCreateNestedManyWithoutIntakeSeasonInput
+}
+
+export type IntakeSeasonUncheckedCreateWithoutDestinationInput = {
+  id?: string
+  title: string
+  subtitle?: string | null
+  description?: string | null
+  intake: $Enums.IntakeMonth
+  year: number
+  backgroundImage?: string | null
+  ctaLabel?: string | null
+  ctaUrl?: string | null
+  applicationDeadline?: Date | string | null
+  intakeStartDate?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  status?: $Enums.ContentStatus
+  isGlobal?: boolean
+  countries?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutIntakeSeasonInput
+  intakePages?: Prisma.IntakePageUncheckedCreateNestedManyWithoutIntakeSeasonInput
+}
+
+export type IntakeSeasonCreateOrConnectWithoutDestinationInput = {
+  where: Prisma.IntakeSeasonWhereUniqueInput
+  create: Prisma.XOR<Prisma.IntakeSeasonCreateWithoutDestinationInput, Prisma.IntakeSeasonUncheckedCreateWithoutDestinationInput>
+}
+
+export type IntakeSeasonCreateManyDestinationInputEnvelope = {
+  data: Prisma.IntakeSeasonCreateManyDestinationInput | Prisma.IntakeSeasonCreateManyDestinationInput[]
+  skipDuplicates?: boolean
+}
+
+export type IntakeSeasonUpsertWithWhereUniqueWithoutDestinationInput = {
+  where: Prisma.IntakeSeasonWhereUniqueInput
+  update: Prisma.XOR<Prisma.IntakeSeasonUpdateWithoutDestinationInput, Prisma.IntakeSeasonUncheckedUpdateWithoutDestinationInput>
+  create: Prisma.XOR<Prisma.IntakeSeasonCreateWithoutDestinationInput, Prisma.IntakeSeasonUncheckedCreateWithoutDestinationInput>
+}
+
+export type IntakeSeasonUpdateWithWhereUniqueWithoutDestinationInput = {
+  where: Prisma.IntakeSeasonWhereUniqueInput
+  data: Prisma.XOR<Prisma.IntakeSeasonUpdateWithoutDestinationInput, Prisma.IntakeSeasonUncheckedUpdateWithoutDestinationInput>
+}
+
+export type IntakeSeasonUpdateManyWithWhereWithoutDestinationInput = {
+  where: Prisma.IntakeSeasonScalarWhereInput
+  data: Prisma.XOR<Prisma.IntakeSeasonUpdateManyMutationInput, Prisma.IntakeSeasonUncheckedUpdateManyWithoutDestinationInput>
+}
+
+export type IntakeSeasonScalarWhereInput = {
+  AND?: Prisma.IntakeSeasonScalarWhereInput | Prisma.IntakeSeasonScalarWhereInput[]
+  OR?: Prisma.IntakeSeasonScalarWhereInput[]
+  NOT?: Prisma.IntakeSeasonScalarWhereInput | Prisma.IntakeSeasonScalarWhereInput[]
+  id?: Prisma.StringFilter<"IntakeSeason"> | string
+  title?: Prisma.StringFilter<"IntakeSeason"> | string
+  subtitle?: Prisma.StringNullableFilter<"IntakeSeason"> | string | null
+  description?: Prisma.StringNullableFilter<"IntakeSeason"> | string | null
+  intake?: Prisma.EnumIntakeMonthFilter<"IntakeSeason"> | $Enums.IntakeMonth
+  year?: Prisma.IntFilter<"IntakeSeason"> | number
+  backgroundImage?: Prisma.StringNullableFilter<"IntakeSeason"> | string | null
+  ctaLabel?: Prisma.StringNullableFilter<"IntakeSeason"> | string | null
+  ctaUrl?: Prisma.StringNullableFilter<"IntakeSeason"> | string | null
+  applicationDeadline?: Prisma.DateTimeNullableFilter<"IntakeSeason"> | Date | string | null
+  intakeStartDate?: Prisma.DateTimeNullableFilter<"IntakeSeason"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"IntakeSeason"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"IntakeSeason"> | Date | string
+  status?: Prisma.EnumContentStatusFilter<"IntakeSeason"> | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFilter<"IntakeSeason"> | boolean
+  destinationId?: Prisma.StringNullableFilter<"IntakeSeason"> | string | null
+}
+
+export type IntakeSeasonCreateManyDestinationInput = {
+  id?: string
+  title: string
+  subtitle?: string | null
+  description?: string | null
+  intake: $Enums.IntakeMonth
+  year: number
+  backgroundImage?: string | null
+  ctaLabel?: string | null
+  ctaUrl?: string | null
+  applicationDeadline?: Date | string | null
+  intakeStartDate?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  status?: $Enums.ContentStatus
+  isGlobal?: boolean
+}
+
+export type IntakeSeasonUpdateWithoutDestinationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  intake?: Prisma.EnumIntakeMonthFieldUpdateOperationsInput | $Enums.IntakeMonth
+  year?: Prisma.IntFieldUpdateOperationsInput | number
+  backgroundImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  intakeStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  countries?: Prisma.IntakeSeasonCountryUpdateManyWithoutIntakeSeasonNestedInput
+  intakePages?: Prisma.IntakePageUpdateManyWithoutIntakeSeasonNestedInput
+}
+
+export type IntakeSeasonUncheckedUpdateWithoutDestinationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  intake?: Prisma.EnumIntakeMonthFieldUpdateOperationsInput | $Enums.IntakeMonth
+  year?: Prisma.IntFieldUpdateOperationsInput | number
+  backgroundImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  intakeStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  countries?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutIntakeSeasonNestedInput
+  intakePages?: Prisma.IntakePageUncheckedUpdateManyWithoutIntakeSeasonNestedInput
+}
+
+export type IntakeSeasonUncheckedUpdateManyWithoutDestinationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  intake?: Prisma.EnumIntakeMonthFieldUpdateOperationsInput | $Enums.IntakeMonth
+  year?: Prisma.IntFieldUpdateOperationsInput | number
+  backgroundImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctaLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  intakeStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  isGlobal?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 
@@ -664,10 +1062,12 @@ export type IntakeSeasonUncheckedUpdateWithoutCountriesInput = {
 
 export type IntakeSeasonCountOutputType = {
   countries: number
+  intakePages: number
 }
 
 export type IntakeSeasonCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   countries?: boolean | IntakeSeasonCountOutputTypeCountCountriesArgs
+  intakePages?: boolean | IntakeSeasonCountOutputTypeCountIntakePagesArgs
 }
 
 /**
@@ -687,6 +1087,13 @@ export type IntakeSeasonCountOutputTypeCountCountriesArgs<ExtArgs extends runtim
   where?: Prisma.IntakeSeasonCountryWhereInput
 }
 
+/**
+ * IntakeSeasonCountOutputType without action
+ */
+export type IntakeSeasonCountOutputTypeCountIntakePagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.IntakePageWhereInput
+}
+
 
 export type IntakeSeasonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -703,7 +1110,11 @@ export type IntakeSeasonSelect<ExtArgs extends runtime.Types.Extensions.Internal
   createdAt?: boolean
   updatedAt?: boolean
   status?: boolean
+  isGlobal?: boolean
+  destinationId?: boolean
+  destination?: boolean | Prisma.IntakeSeason$destinationArgs<ExtArgs>
   countries?: boolean | Prisma.IntakeSeason$countriesArgs<ExtArgs>
+  intakePages?: boolean | Prisma.IntakeSeason$intakePagesArgs<ExtArgs>
   _count?: boolean | Prisma.IntakeSeasonCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["intakeSeason"]>
 
@@ -722,6 +1133,9 @@ export type IntakeSeasonSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   createdAt?: boolean
   updatedAt?: boolean
   status?: boolean
+  isGlobal?: boolean
+  destinationId?: boolean
+  destination?: boolean | Prisma.IntakeSeason$destinationArgs<ExtArgs>
 }, ExtArgs["result"]["intakeSeason"]>
 
 export type IntakeSeasonSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -739,6 +1153,9 @@ export type IntakeSeasonSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   createdAt?: boolean
   updatedAt?: boolean
   status?: boolean
+  isGlobal?: boolean
+  destinationId?: boolean
+  destination?: boolean | Prisma.IntakeSeason$destinationArgs<ExtArgs>
 }, ExtArgs["result"]["intakeSeason"]>
 
 export type IntakeSeasonSelectScalar = {
@@ -756,20 +1173,30 @@ export type IntakeSeasonSelectScalar = {
   createdAt?: boolean
   updatedAt?: boolean
   status?: boolean
+  isGlobal?: boolean
+  destinationId?: boolean
 }
 
-export type IntakeSeasonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "subtitle" | "description" | "intake" | "year" | "backgroundImage" | "ctaLabel" | "ctaUrl" | "applicationDeadline" | "intakeStartDate" | "createdAt" | "updatedAt" | "status", ExtArgs["result"]["intakeSeason"]>
+export type IntakeSeasonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "subtitle" | "description" | "intake" | "year" | "backgroundImage" | "ctaLabel" | "ctaUrl" | "applicationDeadline" | "intakeStartDate" | "createdAt" | "updatedAt" | "status" | "isGlobal" | "destinationId", ExtArgs["result"]["intakeSeason"]>
 export type IntakeSeasonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  destination?: boolean | Prisma.IntakeSeason$destinationArgs<ExtArgs>
   countries?: boolean | Prisma.IntakeSeason$countriesArgs<ExtArgs>
+  intakePages?: boolean | Prisma.IntakeSeason$intakePagesArgs<ExtArgs>
   _count?: boolean | Prisma.IntakeSeasonCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type IntakeSeasonIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type IntakeSeasonIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type IntakeSeasonIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  destination?: boolean | Prisma.IntakeSeason$destinationArgs<ExtArgs>
+}
+export type IntakeSeasonIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  destination?: boolean | Prisma.IntakeSeason$destinationArgs<ExtArgs>
+}
 
 export type $IntakeSeasonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "IntakeSeason"
   objects: {
+    destination: Prisma.$DestinationPayload<ExtArgs> | null
     countries: Prisma.$IntakeSeasonCountryPayload<ExtArgs>[]
+    intakePages: Prisma.$IntakePagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -786,6 +1213,8 @@ export type $IntakeSeasonPayload<ExtArgs extends runtime.Types.Extensions.Intern
     createdAt: Date
     updatedAt: Date
     status: $Enums.ContentStatus
+    isGlobal: boolean
+    destinationId: string | null
   }, ExtArgs["result"]["intakeSeason"]>
   composites: {}
 }
@@ -1180,7 +1609,9 @@ readonly fields: IntakeSeasonFieldRefs;
  */
 export interface Prisma__IntakeSeasonClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  destination<T extends Prisma.IntakeSeason$destinationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.IntakeSeason$destinationArgs<ExtArgs>>): Prisma.Prisma__DestinationClient<runtime.Types.Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   countries<T extends Prisma.IntakeSeason$countriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.IntakeSeason$countriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IntakeSeasonCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  intakePages<T extends Prisma.IntakeSeason$intakePagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.IntakeSeason$intakePagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IntakePagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1224,6 +1655,8 @@ export interface IntakeSeasonFieldRefs {
   readonly createdAt: Prisma.FieldRef<"IntakeSeason", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"IntakeSeason", 'DateTime'>
   readonly status: Prisma.FieldRef<"IntakeSeason", 'ContentStatus'>
+  readonly isGlobal: Prisma.FieldRef<"IntakeSeason", 'Boolean'>
+  readonly destinationId: Prisma.FieldRef<"IntakeSeason", 'String'>
 }
     
 
@@ -1473,6 +1906,10 @@ export type IntakeSeasonCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Ex
    */
   data: Prisma.IntakeSeasonCreateManyInput | Prisma.IntakeSeasonCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.IntakeSeasonIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1543,6 +1980,10 @@ export type IntakeSeasonUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Ex
    * Limit how many IntakeSeasons to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.IntakeSeasonIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1612,6 +2053,25 @@ export type IntakeSeasonDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
 }
 
 /**
+ * IntakeSeason.destination
+ */
+export type IntakeSeason$destinationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Destination
+   */
+  select?: Prisma.DestinationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Destination
+   */
+  omit?: Prisma.DestinationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DestinationInclude<ExtArgs> | null
+  where?: Prisma.DestinationWhereInput
+}
+
+/**
  * IntakeSeason.countries
  */
 export type IntakeSeason$countriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1633,6 +2093,30 @@ export type IntakeSeason$countriesArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.IntakeSeasonCountryScalarFieldEnum | Prisma.IntakeSeasonCountryScalarFieldEnum[]
+}
+
+/**
+ * IntakeSeason.intakePages
+ */
+export type IntakeSeason$intakePagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the IntakePage
+   */
+  select?: Prisma.IntakePageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the IntakePage
+   */
+  omit?: Prisma.IntakePageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.IntakePageInclude<ExtArgs> | null
+  where?: Prisma.IntakePageWhereInput
+  orderBy?: Prisma.IntakePageOrderByWithRelationInput | Prisma.IntakePageOrderByWithRelationInput[]
+  cursor?: Prisma.IntakePageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.IntakePageScalarFieldEnum | Prisma.IntakePageScalarFieldEnum[]
 }
 
 /**

@@ -18,32 +18,17 @@ export const metadata: Metadata = {
   description: "Create a new intake page for study abroad programs",
 };
 
+import { handleCreateIntakeAction } from "@/app/actions/intake-actions";
+
 export default async function CreateIntakePage() {
-  const handleCreateIntake = async (data: any) => {
-    "use server";
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || ""}/api/admin/intakes`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-      cache: "no-store",
-    });
-
-    if (!res.ok) {
-      const payload = await res.json().catch(() => ({}));
-      throw new Error(payload.error || "Failed to create intake");
-    }
-
-    redirect("/admin/dashboard/intakes");
-  };
-
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center gap-4">
         <Button variant="ghost" asChild>
-          <Link href="/admin/dashboard/intakes">
+          <Link href="/dashboard/intake-management?tab=details">
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Intakes
+            Back to Intake Management
           </Link>
         </Button>
 
@@ -68,69 +53,12 @@ export default async function CreateIntakePage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <IntakeForm onSubmit={handleCreateIntake} />
+            <IntakeForm onSubmit={handleCreateIntakeAction} />
           </CardContent>
         </Card>
       </Suspense>
 
-      {/* Help Section */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Need Help?</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <h4 className="font-semibold text-gray-900 mb-2">Quick Tips</h4>
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li>
-                  • Use descriptive titles that include the intake month and
-                  year
-                </li>
-                <li>• Global intakes are visible to all countries</li>
-                <li>
-                  • Country-specific intakes override global ones for that
-                  country
-                </li>
-                <li>• Keep meta titles under 60 characters for best SEO</li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-semibold text-gray-900 mb-2">Resources</h4>
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li>
-                  •{" "}
-                  <Link
-                    href="/admin/dashboard/docs/intakes"
-                    className="text-blue-600 hover:underline"
-                  >
-                    Intake Documentation
-                  </Link>
-                </li>
-                <li>
-                  •{" "}
-                  <Link
-                    href="/admin/dashboard/docs/seo"
-                    className="text-blue-600 hover:underline"
-                  >
-                    SEO Best Practices
-                  </Link>
-                </li>
-                <li>
-                  •{" "}
-                  <Link
-                    href="/admin/dashboard/support"
-                    className="text-blue-600 hover:underline"
-                  >
-                    Get Support
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+  
     </div>
   );
 }

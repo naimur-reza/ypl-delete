@@ -72,6 +72,9 @@ export const ModelName = {
   IntakeSeason: 'IntakeSeason',
   IntakeSeasonCountry: 'IntakeSeasonCountry',
   IntakePageBenefit: 'IntakePageBenefit',
+  IntakePageHowWeHelpItem: 'IntakePageHowWeHelpItem',
+  IntakePageCountry: 'IntakePageCountry',
+  IntakePageUniversity: 'IntakePageUniversity',
   Lead: 'Lead',
   OfferRequest: 'OfferRequest',
   Recommendation: 'Recommendation',
@@ -187,6 +190,7 @@ export const ServiceScalarFieldEnum = {
   summary: 'summary',
   content: 'content',
   image: 'image',
+  icon: 'icon',
   metaTitle: 'metaTitle',
   metaDescription: 'metaDescription',
   metaKeywords: 'metaKeywords',
@@ -325,13 +329,9 @@ export const IntakePageScalarFieldEnum = {
   intake: 'intake',
   countryId: 'countryId',
   isGlobal: 'isGlobal',
-  title: 'title',
-  slug: 'slug',
-  description: 'description',
   heroTitle: 'heroTitle',
   heroSubtitle: 'heroSubtitle',
   heroMedia: 'heroMedia',
-  heroMediaType: 'heroMediaType',
   heroCTALabel: 'heroCTALabel',
   heroCTAUrl: 'heroCTAUrl',
   whyChooseTitle: 'whyChooseTitle',
@@ -344,10 +344,10 @@ export const IntakePageScalarFieldEnum = {
   metaTitle: 'metaTitle',
   metaDescription: 'metaDescription',
   metaKeywords: 'metaKeywords',
-  canonicalUrl: 'canonicalUrl',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  status: 'status'
+  status: 'status',
+  intakeSeasonId: 'intakeSeasonId'
 } as const
 
 export type IntakePageScalarFieldEnum = (typeof IntakePageScalarFieldEnum)[keyof typeof IntakePageScalarFieldEnum]
@@ -514,7 +514,9 @@ export const IntakeSeasonScalarFieldEnum = {
   intakeStartDate: 'intakeStartDate',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  status: 'status'
+  status: 'status',
+  isGlobal: 'isGlobal',
+  destinationId: 'destinationId'
 } as const
 
 export type IntakeSeasonScalarFieldEnum = (typeof IntakeSeasonScalarFieldEnum)[keyof typeof IntakeSeasonScalarFieldEnum]
@@ -540,6 +542,37 @@ export const IntakePageBenefitScalarFieldEnum = {
 } as const
 
 export type IntakePageBenefitScalarFieldEnum = (typeof IntakePageBenefitScalarFieldEnum)[keyof typeof IntakePageBenefitScalarFieldEnum]
+
+
+export const IntakePageHowWeHelpItemScalarFieldEnum = {
+  id: 'id',
+  intakePageId: 'intakePageId',
+  title: 'title',
+  description: 'description',
+  icon: 'icon',
+  sortOrder: 'sortOrder',
+  isActive: 'isActive'
+} as const
+
+export type IntakePageHowWeHelpItemScalarFieldEnum = (typeof IntakePageHowWeHelpItemScalarFieldEnum)[keyof typeof IntakePageHowWeHelpItemScalarFieldEnum]
+
+
+export const IntakePageCountryScalarFieldEnum = {
+  id: 'id',
+  intakePageId: 'intakePageId',
+  countryId: 'countryId'
+} as const
+
+export type IntakePageCountryScalarFieldEnum = (typeof IntakePageCountryScalarFieldEnum)[keyof typeof IntakePageCountryScalarFieldEnum]
+
+
+export const IntakePageUniversityScalarFieldEnum = {
+  id: 'id',
+  intakePageId: 'intakePageId',
+  universityId: 'universityId'
+} as const
+
+export type IntakePageUniversityScalarFieldEnum = (typeof IntakePageUniversityScalarFieldEnum)[keyof typeof IntakePageUniversityScalarFieldEnum]
 
 
 export const LeadScalarFieldEnum = {

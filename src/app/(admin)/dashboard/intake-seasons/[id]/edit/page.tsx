@@ -21,7 +21,7 @@ export default function EditIntakeSeasonPage() {
         if (!response.ok) {
           if (response.status === 404) {
             toast.error("Intake season not found");
-            router.push("/dashboard/intake-seasons");
+            router.push("/dashboard/intake-management?tab=seasons");
             return;
           }
           throw new Error("Failed to fetch intake season");
@@ -31,7 +31,7 @@ export default function EditIntakeSeasonPage() {
       } catch (error) {
         console.error("Error fetching intake season:", error);
         toast.error("Failed to load intake season");
-        router.push("/dashboard/intake-seasons");
+        router.push("/dashboard/intake-management?tab=seasons");
       } finally {
         setIsLoading(false);
       }

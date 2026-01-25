@@ -18,6 +18,7 @@ import { FormBase } from "@/components/form/FormBase";
 import { Input } from "@/components/ui/input";
 import { CountrySelect } from "@/components/ui/region-select";
 import { SelectItem } from "@/components/ui/select";
+import { IconPicker } from "@/components/ui/icon-picker";
 
 const serviceSchema = z.object({
   title: z.string().min(1, "Title is required").max(150),
@@ -25,6 +26,7 @@ const serviceSchema = z.object({
   summary: z.string().optional().nullable(),
   content: z.string().optional().nullable(),
   image: z.string().optional().nullable(),
+  icon: z.string().optional().nullable(),
   metaTitle: z.string().max(200).optional().nullable(),
   metaDescription: z.string().max(500).optional().nullable(),
   metaKeywords: z.string().max(500).optional().nullable(),
@@ -61,6 +63,7 @@ export function ServiceForm({ initialData, onSuccess }: ServiceFormProps) {
       summary: initialData?.summary || "",
       content: initialData?.content || "",
       image: initialData?.image || "",
+      icon: initialData?.icon || "",
       metaTitle: initialData?.metaTitle || "",
       metaDescription: initialData?.metaDescription || "",
       metaKeywords: initialData?.metaKeywords || "",
@@ -75,6 +78,7 @@ export function ServiceForm({ initialData, onSuccess }: ServiceFormProps) {
           summary: value.summary || null,
           content: value.content || null,
           image: imageUrl || null,
+          icon: value.icon || null,
           metaTitle: value.metaTitle || null,
           metaDescription: value.metaDescription || null,
           metaKeywords: value.metaKeywords || null,
@@ -173,6 +177,15 @@ export function ServiceForm({ initialData, onSuccess }: ServiceFormProps) {
           label="Service Image"
           onUploadingChange={setIsUploading}
         />
+        <form.AppField name="icon">
+          {(field) => (
+            <IconPicker
+              label="Service Icon"
+              value={field.state.value || ""}
+              onChange={field.handleChange}
+            />
+          )}
+        </form.AppField>
         <form.AppField name="metaTitle">
           {(field) => <field.Input label="Meta Title" />}
         </form.AppField>

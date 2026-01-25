@@ -123,6 +123,21 @@ export type IntakeSeasonCountry = Prisma.IntakeSeasonCountryModel
  */
 export type IntakePageBenefit = Prisma.IntakePageBenefitModel
 /**
+ * Model IntakePageHowWeHelpItem
+ * 
+ */
+export type IntakePageHowWeHelpItem = Prisma.IntakePageHowWeHelpItemModel
+/**
+ * Model IntakePageCountry
+ * 
+ */
+export type IntakePageCountry = Prisma.IntakePageCountryModel
+/**
+ * Model IntakePageUniversity
+ * 
+ */
+export type IntakePageUniversity = Prisma.IntakePageUniversityModel
+/**
  * Model Lead
  * 
  */

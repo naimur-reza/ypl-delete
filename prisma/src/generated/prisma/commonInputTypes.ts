@@ -389,21 +389,21 @@ export type EnumIntakeMonthWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumIntakeMonthFilter<$PrismaModel>
 }
 
-export type EnumMediaTypeNullableFilter<$PrismaModel = never> = {
-  equals?: $Enums.MediaType | Prisma.EnumMediaTypeFieldRefInput<$PrismaModel> | null
-  in?: $Enums.MediaType[] | Prisma.ListEnumMediaTypeFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.MediaType[] | Prisma.ListEnumMediaTypeFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumMediaTypeNullableFilter<$PrismaModel> | $Enums.MediaType | null
+export type EnumIntakeMonthNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.IntakeMonth | Prisma.EnumIntakeMonthFieldRefInput<$PrismaModel> | null
+  in?: $Enums.IntakeMonth[] | Prisma.ListEnumIntakeMonthFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.IntakeMonth[] | Prisma.ListEnumIntakeMonthFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumIntakeMonthNullableFilter<$PrismaModel> | $Enums.IntakeMonth | null
 }
 
-export type EnumMediaTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.MediaType | Prisma.EnumMediaTypeFieldRefInput<$PrismaModel> | null
-  in?: $Enums.MediaType[] | Prisma.ListEnumMediaTypeFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.MediaType[] | Prisma.ListEnumMediaTypeFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumMediaTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.MediaType | null
+export type EnumIntakeMonthNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.IntakeMonth | Prisma.EnumIntakeMonthFieldRefInput<$PrismaModel> | null
+  in?: $Enums.IntakeMonth[] | Prisma.ListEnumIntakeMonthFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.IntakeMonth[] | Prisma.ListEnumIntakeMonthFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumIntakeMonthNullableWithAggregatesFilter<$PrismaModel> | $Enums.IntakeMonth | null
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumMediaTypeNullableFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumMediaTypeNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumIntakeMonthNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumIntakeMonthNullableFilter<$PrismaModel>
 }
 
 export type EnumEventTypeFilter<$PrismaModel = never> = {
@@ -970,21 +970,21 @@ export type NestedEnumIntakeMonthWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumIntakeMonthFilter<$PrismaModel>
 }
 
-export type NestedEnumMediaTypeNullableFilter<$PrismaModel = never> = {
-  equals?: $Enums.MediaType | Prisma.EnumMediaTypeFieldRefInput<$PrismaModel> | null
-  in?: $Enums.MediaType[] | Prisma.ListEnumMediaTypeFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.MediaType[] | Prisma.ListEnumMediaTypeFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumMediaTypeNullableFilter<$PrismaModel> | $Enums.MediaType | null
+export type NestedEnumIntakeMonthNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.IntakeMonth | Prisma.EnumIntakeMonthFieldRefInput<$PrismaModel> | null
+  in?: $Enums.IntakeMonth[] | Prisma.ListEnumIntakeMonthFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.IntakeMonth[] | Prisma.ListEnumIntakeMonthFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumIntakeMonthNullableFilter<$PrismaModel> | $Enums.IntakeMonth | null
 }
 
-export type NestedEnumMediaTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.MediaType | Prisma.EnumMediaTypeFieldRefInput<$PrismaModel> | null
-  in?: $Enums.MediaType[] | Prisma.ListEnumMediaTypeFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.MediaType[] | Prisma.ListEnumMediaTypeFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumMediaTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.MediaType | null
+export type NestedEnumIntakeMonthNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.IntakeMonth | Prisma.EnumIntakeMonthFieldRefInput<$PrismaModel> | null
+  in?: $Enums.IntakeMonth[] | Prisma.ListEnumIntakeMonthFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.IntakeMonth[] | Prisma.ListEnumIntakeMonthFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumIntakeMonthNullableWithAggregatesFilter<$PrismaModel> | $Enums.IntakeMonth | null
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumMediaTypeNullableFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumMediaTypeNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumIntakeMonthNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumIntakeMonthNullableFilter<$PrismaModel>
 }
 
 export type NestedEnumEventTypeFilter<$PrismaModel = never> = {

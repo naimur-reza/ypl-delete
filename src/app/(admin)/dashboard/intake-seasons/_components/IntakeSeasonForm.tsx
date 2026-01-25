@@ -14,7 +14,7 @@ import z from "zod";
 import { createEntityApi } from "@/lib/api-client";
 import { SelectItem } from "@/components/ui/select";
 import { ImageUpload } from "@/components/ui/image-upload";
-import MultiSelect from "@/components/ui/multi-select";
+import { CountrySelect } from "@/components/ui/region-select";
 
 const schema = z.object({
   title: z.string().min(1, "Title is required").max(200),
@@ -28,6 +28,8 @@ const schema = z.object({
   applicationDeadline: z.string().optional().nullable(),
   intakeStartDate: z.string().optional().nullable(),
   countryIds: z.array(z.string()).optional(),
+  destinationId: z.string().optional().nullable(),
+  isGlobal: z.boolean().optional().default(false),
   status: z.enum(["ACTIVE", "DRAFT"]).default("DRAFT"),
 });
 
@@ -38,6 +40,8 @@ const api = createEntityApi<{ id: string }>("/api/intake-seasons");
 interface IntakeSeasonFormProps {
   initialData?: { id: string } & Partial<FormData> & {
       countries?: { country: { id: string } }[];
+      destination?: { id: string; name: string; slug: string } | null;
+      isGlobal?: boolean;
     };
   onSuccess?: () => void;
 }
@@ -52,20 +56,24 @@ export function IntakeSeasonForm({
   const [countries, setCountries] = useState<{ id: string; name: string }[]>(
     []
   );
+  const [destinations, setDestinations] = useState<
+    { id: string; name: string; slug: string }[]
+  >([]);
   const [isUploading, setIsUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isGlobal, setIsGlobal] = useState<boolean>(
+    initialData?.isGlobal ?? false
+  );
 
   useEffect(() => {
     const load = async () => {
       try {
-        const res = await apiClient.get<{
-          data: { id: string; name: string }[];
-        }>("/api/countries", { limit: "1000" });
-        if (res.data) {
-          const arr = Array.isArray(res.data)
-            ? (res.data as any)
-            : (res.data as any).data || [];
-          setCountries(arr);
+        const destinationsRes = await apiClient.get<{ data: { id: string; name: string; slug: string }[] }>("/api/destinations", { limit: "1000" });
+        if (destinationsRes.data) {
+          const arr = Array.isArray(destinationsRes.data)
+            ? (destinationsRes.data as any)
+            : (destinationsRes.data as any).data || [];
+          setDestinations(arr);
         }
       } catch (e) {
         console.error(e);
@@ -93,6 +101,8 @@ export function IntakeSeasonForm({
       countryIds:
         initialData?.countries?.map((c: any) => c.country?.id || c.countryId) ||
         [],
+      destinationId:
+        initialData?.destinationId ?? initialData?.destination?.id ?? "__none__",
       status: initialData?.status || "DRAFT",
     } as unknown as FormData,
     validators: { onSubmit: schema as any },
@@ -108,6 +118,11 @@ export function IntakeSeasonForm({
           ctaUrl: value.ctaUrl || null,
           applicationDeadline: value.applicationDeadline || null,
           intakeStartDate: value.intakeStartDate || null,
+          destinationId:
+            value.destinationId === "__none__" || !value.destinationId
+              ? null
+              : value.destinationId,
+          isGlobal: isGlobal,
           status: value.status || "DRAFT",
         } as Record<string, unknown>;
 
@@ -123,7 +138,7 @@ export function IntakeSeasonForm({
         await queryClient.invalidateQueries({
           queryKey: ["data-table", "/api/intake-seasons"],
         });
-        router.push("/dashboard/intake-seasons");
+        router.push("/dashboard/intake-management?tab=seasons");
         onSuccess?.();
       } catch (e) {
         toast.error("Request failed");
@@ -134,10 +149,7 @@ export function IntakeSeasonForm({
     },
   });
 
-  const countryOptions = countries.map((c) => ({
-    value: c.id,
-    label: c.name,
-  }));
+
 
   return (
     <form
@@ -224,22 +236,32 @@ export function IntakeSeasonForm({
           </form.AppField>
         </div>
 
+        <form.AppField name="destinationId">
+          {(field) => (
+            <field.Select label="Target destination (optional)">
+              <SelectItem value="__none__">None</SelectItem>
+              {destinations.map((d) => (
+                <SelectItem key={d.id} value={d.id}>
+                  {d.name}
+                </SelectItem>
+              ))}
+            </field.Select>
+          )}
+        </form.AppField>
+
         <form.AppField name="countryIds">
           {(field) => (
-            <div className="space-y-2">
-              <label className="text-sm font-medium">
-                Target Countries (optional)
-              </label>
-              <MultiSelect
-                options={countryOptions}
-                value={field.state.value || []}
-                onChange={field.handleChange}
-                placeholder="Select countries..."
-              />
-              <p className="text-xs text-muted-foreground">
-                Leave empty to show for all countries
-              </p>
-            </div>
+            <CountrySelect
+              label="Target Countries"
+              value={field.state.value || []}
+              onChange={field.handleChange}
+              isGlobal={isGlobal}
+              onGlobalChange={(checked) => {
+                setIsGlobal(checked);
+                if (checked) field.handleChange([]);
+              }}
+              showGlobalOption={true}
+            />
           )}
         </form.AppField>
 
@@ -247,7 +269,7 @@ export function IntakeSeasonForm({
           <Button
             type="button"
             variant="outline"
-            onClick={() => router.push("/dashboard/intake-seasons")}
+            onClick={() => router.push("/dashboard/intake-management?tab=seasons")}
             disabled={isSubmitting}
           >
             Cancel

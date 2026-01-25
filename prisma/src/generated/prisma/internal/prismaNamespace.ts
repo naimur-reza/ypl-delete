@@ -405,6 +405,9 @@ export const ModelName = {
   IntakeSeason: 'IntakeSeason',
   IntakeSeasonCountry: 'IntakeSeasonCountry',
   IntakePageBenefit: 'IntakePageBenefit',
+  IntakePageHowWeHelpItem: 'IntakePageHowWeHelpItem',
+  IntakePageCountry: 'IntakePageCountry',
+  IntakePageUniversity: 'IntakePageUniversity',
   Lead: 'Lead',
   OfferRequest: 'OfferRequest',
   Recommendation: 'Recommendation',
@@ -460,7 +463,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "appointment" | "blog" | "service" | "accreditation" | "career" | "jobApplication" | "legalPage" | "course" | "courseIntake" | "intakePage" | "event" | "eventDestination" | "eventMedia" | "eventRegistration" | "fAQ" | "gallery" | "hero" | "heroCountry" | "intakeSeason" | "intakeSeasonCountry" | "intakePageBenefit" | "lead" | "offerRequest" | "recommendation" | "globalOffice" | "country" | "destination" | "essentialStudy" | "destinationSection" | "universityCountry" | "courseCountry" | "scholarshipCountry" | "eventCountry" | "blogCountry" | "blogUniversity" | "blogCourse" | "fAQCountry" | "fAQDestination" | "fAQUniversity" | "fAQEvent" | "fAQCourse" | "fAQScholarship" | "fAQIntakePage" | "globalOfficeCountry" | "destinationCountry" | "testimonialCountry" | "testimonialDestination" | "testimonialUniversity" | "testimonialEvent" | "accreditationCountry" | "galleryCountry" | "essentialStudyCountry" | "serviceCountry" | "scholarship" | "settings" | "stat" | "statCountry" | "testimonial" | "university" | "universityDetail" | "user"
+    modelProps: "appointment" | "blog" | "service" | "accreditation" | "career" | "jobApplication" | "legalPage" | "course" | "courseIntake" | "intakePage" | "event" | "eventDestination" | "eventMedia" | "eventRegistration" | "fAQ" | "gallery" | "hero" | "heroCountry" | "intakeSeason" | "intakeSeasonCountry" | "intakePageBenefit" | "intakePageHowWeHelpItem" | "intakePageCountry" | "intakePageUniversity" | "lead" | "offerRequest" | "recommendation" | "globalOffice" | "country" | "destination" | "essentialStudy" | "destinationSection" | "universityCountry" | "courseCountry" | "scholarshipCountry" | "eventCountry" | "blogCountry" | "blogUniversity" | "blogCourse" | "fAQCountry" | "fAQDestination" | "fAQUniversity" | "fAQEvent" | "fAQCourse" | "fAQScholarship" | "fAQIntakePage" | "globalOfficeCountry" | "destinationCountry" | "testimonialCountry" | "testimonialDestination" | "testimonialUniversity" | "testimonialEvent" | "accreditationCountry" | "galleryCountry" | "essentialStudyCountry" | "serviceCountry" | "scholarship" | "settings" | "stat" | "statCountry" | "testimonial" | "university" | "universityDetail" | "user"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2015,6 +2018,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.IntakePageBenefitCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.IntakePageBenefitCountAggregateOutputType> | number
+        }
+      }
+    }
+    IntakePageHowWeHelpItem: {
+      payload: Prisma.$IntakePageHowWeHelpItemPayload<ExtArgs>
+      fields: Prisma.IntakePageHowWeHelpItemFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.IntakePageHowWeHelpItemFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageHowWeHelpItemPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.IntakePageHowWeHelpItemFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageHowWeHelpItemPayload>
+        }
+        findFirst: {
+          args: Prisma.IntakePageHowWeHelpItemFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageHowWeHelpItemPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.IntakePageHowWeHelpItemFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageHowWeHelpItemPayload>
+        }
+        findMany: {
+          args: Prisma.IntakePageHowWeHelpItemFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageHowWeHelpItemPayload>[]
+        }
+        create: {
+          args: Prisma.IntakePageHowWeHelpItemCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageHowWeHelpItemPayload>
+        }
+        createMany: {
+          args: Prisma.IntakePageHowWeHelpItemCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.IntakePageHowWeHelpItemCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageHowWeHelpItemPayload>[]
+        }
+        delete: {
+          args: Prisma.IntakePageHowWeHelpItemDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageHowWeHelpItemPayload>
+        }
+        update: {
+          args: Prisma.IntakePageHowWeHelpItemUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageHowWeHelpItemPayload>
+        }
+        deleteMany: {
+          args: Prisma.IntakePageHowWeHelpItemDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.IntakePageHowWeHelpItemUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.IntakePageHowWeHelpItemUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageHowWeHelpItemPayload>[]
+        }
+        upsert: {
+          args: Prisma.IntakePageHowWeHelpItemUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageHowWeHelpItemPayload>
+        }
+        aggregate: {
+          args: Prisma.IntakePageHowWeHelpItemAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateIntakePageHowWeHelpItem>
+        }
+        groupBy: {
+          args: Prisma.IntakePageHowWeHelpItemGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IntakePageHowWeHelpItemGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.IntakePageHowWeHelpItemCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IntakePageHowWeHelpItemCountAggregateOutputType> | number
+        }
+      }
+    }
+    IntakePageCountry: {
+      payload: Prisma.$IntakePageCountryPayload<ExtArgs>
+      fields: Prisma.IntakePageCountryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.IntakePageCountryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageCountryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.IntakePageCountryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageCountryPayload>
+        }
+        findFirst: {
+          args: Prisma.IntakePageCountryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageCountryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.IntakePageCountryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageCountryPayload>
+        }
+        findMany: {
+          args: Prisma.IntakePageCountryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageCountryPayload>[]
+        }
+        create: {
+          args: Prisma.IntakePageCountryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageCountryPayload>
+        }
+        createMany: {
+          args: Prisma.IntakePageCountryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.IntakePageCountryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageCountryPayload>[]
+        }
+        delete: {
+          args: Prisma.IntakePageCountryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageCountryPayload>
+        }
+        update: {
+          args: Prisma.IntakePageCountryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageCountryPayload>
+        }
+        deleteMany: {
+          args: Prisma.IntakePageCountryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.IntakePageCountryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.IntakePageCountryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageCountryPayload>[]
+        }
+        upsert: {
+          args: Prisma.IntakePageCountryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageCountryPayload>
+        }
+        aggregate: {
+          args: Prisma.IntakePageCountryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateIntakePageCountry>
+        }
+        groupBy: {
+          args: Prisma.IntakePageCountryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IntakePageCountryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.IntakePageCountryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IntakePageCountryCountAggregateOutputType> | number
+        }
+      }
+    }
+    IntakePageUniversity: {
+      payload: Prisma.$IntakePageUniversityPayload<ExtArgs>
+      fields: Prisma.IntakePageUniversityFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.IntakePageUniversityFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageUniversityPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.IntakePageUniversityFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageUniversityPayload>
+        }
+        findFirst: {
+          args: Prisma.IntakePageUniversityFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageUniversityPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.IntakePageUniversityFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageUniversityPayload>
+        }
+        findMany: {
+          args: Prisma.IntakePageUniversityFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageUniversityPayload>[]
+        }
+        create: {
+          args: Prisma.IntakePageUniversityCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageUniversityPayload>
+        }
+        createMany: {
+          args: Prisma.IntakePageUniversityCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.IntakePageUniversityCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageUniversityPayload>[]
+        }
+        delete: {
+          args: Prisma.IntakePageUniversityDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageUniversityPayload>
+        }
+        update: {
+          args: Prisma.IntakePageUniversityUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageUniversityPayload>
+        }
+        deleteMany: {
+          args: Prisma.IntakePageUniversityDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.IntakePageUniversityUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.IntakePageUniversityUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageUniversityPayload>[]
+        }
+        upsert: {
+          args: Prisma.IntakePageUniversityUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakePageUniversityPayload>
+        }
+        aggregate: {
+          args: Prisma.IntakePageUniversityAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateIntakePageUniversity>
+        }
+        groupBy: {
+          args: Prisma.IntakePageUniversityGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IntakePageUniversityGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.IntakePageUniversityCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IntakePageUniversityCountAggregateOutputType> | number
         }
       }
     }
@@ -5074,6 +5299,7 @@ export const ServiceScalarFieldEnum = {
   summary: 'summary',
   content: 'content',
   image: 'image',
+  icon: 'icon',
   metaTitle: 'metaTitle',
   metaDescription: 'metaDescription',
   metaKeywords: 'metaKeywords',
@@ -5212,13 +5438,9 @@ export const IntakePageScalarFieldEnum = {
   intake: 'intake',
   countryId: 'countryId',
   isGlobal: 'isGlobal',
-  title: 'title',
-  slug: 'slug',
-  description: 'description',
   heroTitle: 'heroTitle',
   heroSubtitle: 'heroSubtitle',
   heroMedia: 'heroMedia',
-  heroMediaType: 'heroMediaType',
   heroCTALabel: 'heroCTALabel',
   heroCTAUrl: 'heroCTAUrl',
   whyChooseTitle: 'whyChooseTitle',
@@ -5231,10 +5453,10 @@ export const IntakePageScalarFieldEnum = {
   metaTitle: 'metaTitle',
   metaDescription: 'metaDescription',
   metaKeywords: 'metaKeywords',
-  canonicalUrl: 'canonicalUrl',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  status: 'status'
+  status: 'status',
+  intakeSeasonId: 'intakeSeasonId'
 } as const
 
 export type IntakePageScalarFieldEnum = (typeof IntakePageScalarFieldEnum)[keyof typeof IntakePageScalarFieldEnum]
@@ -5401,7 +5623,9 @@ export const IntakeSeasonScalarFieldEnum = {
   intakeStartDate: 'intakeStartDate',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  status: 'status'
+  status: 'status',
+  isGlobal: 'isGlobal',
+  destinationId: 'destinationId'
 } as const
 
 export type IntakeSeasonScalarFieldEnum = (typeof IntakeSeasonScalarFieldEnum)[keyof typeof IntakeSeasonScalarFieldEnum]
@@ -5427,6 +5651,37 @@ export const IntakePageBenefitScalarFieldEnum = {
 } as const
 
 export type IntakePageBenefitScalarFieldEnum = (typeof IntakePageBenefitScalarFieldEnum)[keyof typeof IntakePageBenefitScalarFieldEnum]
+
+
+export const IntakePageHowWeHelpItemScalarFieldEnum = {
+  id: 'id',
+  intakePageId: 'intakePageId',
+  title: 'title',
+  description: 'description',
+  icon: 'icon',
+  sortOrder: 'sortOrder',
+  isActive: 'isActive'
+} as const
+
+export type IntakePageHowWeHelpItemScalarFieldEnum = (typeof IntakePageHowWeHelpItemScalarFieldEnum)[keyof typeof IntakePageHowWeHelpItemScalarFieldEnum]
+
+
+export const IntakePageCountryScalarFieldEnum = {
+  id: 'id',
+  intakePageId: 'intakePageId',
+  countryId: 'countryId'
+} as const
+
+export type IntakePageCountryScalarFieldEnum = (typeof IntakePageCountryScalarFieldEnum)[keyof typeof IntakePageCountryScalarFieldEnum]
+
+
+export const IntakePageUniversityScalarFieldEnum = {
+  id: 'id',
+  intakePageId: 'intakePageId',
+  universityId: 'universityId'
+} as const
+
+export type IntakePageUniversityScalarFieldEnum = (typeof IntakePageUniversityScalarFieldEnum)[keyof typeof IntakePageUniversityScalarFieldEnum]
 
 
 export const LeadScalarFieldEnum = {
@@ -6195,20 +6450,6 @@ export type ListEnumIntakeMonthFieldRefInput<$PrismaModel> = FieldRefInputType<$
 
 
 /**
- * Reference to a field of type 'MediaType'
- */
-export type EnumMediaTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaType'>
-    
-
-
-/**
- * Reference to a field of type 'MediaType[]'
- */
-export type ListEnumMediaTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaType[]'>
-    
-
-
-/**
  * Reference to a field of type 'EventType'
  */
 export type EnumEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventType'>
@@ -6275,6 +6516,20 @@ export type EnumTestimonialTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$
  * Reference to a field of type 'TestimonialType[]'
  */
 export type ListEnumTestimonialTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TestimonialType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'MediaType'
+ */
+export type EnumMediaTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaType'>
+    
+
+
+/**
+ * Reference to a field of type 'MediaType[]'
+ */
+export type ListEnumMediaTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaType[]'>
     
 
 
@@ -6421,6 +6676,9 @@ export type GlobalOmitConfig = {
   intakeSeason?: Prisma.IntakeSeasonOmit
   intakeSeasonCountry?: Prisma.IntakeSeasonCountryOmit
   intakePageBenefit?: Prisma.IntakePageBenefitOmit
+  intakePageHowWeHelpItem?: Prisma.IntakePageHowWeHelpItemOmit
+  intakePageCountry?: Prisma.IntakePageCountryOmit
+  intakePageUniversity?: Prisma.IntakePageUniversityOmit
   lead?: Prisma.LeadOmit
   offerRequest?: Prisma.OfferRequestOmit
   recommendation?: Prisma.RecommendationOmit

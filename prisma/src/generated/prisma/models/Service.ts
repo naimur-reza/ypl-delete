@@ -31,6 +31,7 @@ export type ServiceMinAggregateOutputType = {
   summary: string | null
   content: string | null
   image: string | null
+  icon: string | null
   metaTitle: string | null
   metaDescription: string | null
   metaKeywords: string | null
@@ -49,6 +50,7 @@ export type ServiceMaxAggregateOutputType = {
   summary: string | null
   content: string | null
   image: string | null
+  icon: string | null
   metaTitle: string | null
   metaDescription: string | null
   metaKeywords: string | null
@@ -67,6 +69,7 @@ export type ServiceCountAggregateOutputType = {
   summary: number
   content: number
   image: number
+  icon: number
   metaTitle: number
   metaDescription: number
   metaKeywords: number
@@ -88,6 +91,7 @@ export type ServiceMinAggregateInputType = {
   summary?: true
   content?: true
   image?: true
+  icon?: true
   metaTitle?: true
   metaDescription?: true
   metaKeywords?: true
@@ -106,6 +110,7 @@ export type ServiceMaxAggregateInputType = {
   summary?: true
   content?: true
   image?: true
+  icon?: true
   metaTitle?: true
   metaDescription?: true
   metaKeywords?: true
@@ -124,6 +129,7 @@ export type ServiceCountAggregateInputType = {
   summary?: true
   content?: true
   image?: true
+  icon?: true
   metaTitle?: true
   metaDescription?: true
   metaKeywords?: true
@@ -216,6 +222,7 @@ export type ServiceGroupByOutputType = {
   summary: string | null
   content: string | null
   image: string | null
+  icon: string | null
   metaTitle: string | null
   metaDescription: string | null
   metaKeywords: string | null
@@ -256,6 +263,7 @@ export type ServiceWhereInput = {
   summary?: Prisma.StringNullableFilter<"Service"> | string | null
   content?: Prisma.StringNullableFilter<"Service"> | string | null
   image?: Prisma.StringNullableFilter<"Service"> | string | null
+  icon?: Prisma.StringNullableFilter<"Service"> | string | null
   metaTitle?: Prisma.StringNullableFilter<"Service"> | string | null
   metaDescription?: Prisma.StringNullableFilter<"Service"> | string | null
   metaKeywords?: Prisma.StringNullableFilter<"Service"> | string | null
@@ -276,6 +284,7 @@ export type ServiceOrderByWithRelationInput = {
   summary?: Prisma.SortOrderInput | Prisma.SortOrder
   content?: Prisma.SortOrderInput | Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
+  icon?: Prisma.SortOrderInput | Prisma.SortOrder
   metaTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   metaDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   metaKeywords?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -299,6 +308,7 @@ export type ServiceWhereUniqueInput = Prisma.AtLeast<{
   summary?: Prisma.StringNullableFilter<"Service"> | string | null
   content?: Prisma.StringNullableFilter<"Service"> | string | null
   image?: Prisma.StringNullableFilter<"Service"> | string | null
+  icon?: Prisma.StringNullableFilter<"Service"> | string | null
   metaTitle?: Prisma.StringNullableFilter<"Service"> | string | null
   metaDescription?: Prisma.StringNullableFilter<"Service"> | string | null
   metaKeywords?: Prisma.StringNullableFilter<"Service"> | string | null
@@ -319,6 +329,7 @@ export type ServiceOrderByWithAggregationInput = {
   summary?: Prisma.SortOrderInput | Prisma.SortOrder
   content?: Prisma.SortOrderInput | Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
+  icon?: Prisma.SortOrderInput | Prisma.SortOrder
   metaTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   metaDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   metaKeywords?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -344,6 +355,7 @@ export type ServiceScalarWhereWithAggregatesInput = {
   summary?: Prisma.StringNullableWithAggregatesFilter<"Service"> | string | null
   content?: Prisma.StringNullableWithAggregatesFilter<"Service"> | string | null
   image?: Prisma.StringNullableWithAggregatesFilter<"Service"> | string | null
+  icon?: Prisma.StringNullableWithAggregatesFilter<"Service"> | string | null
   metaTitle?: Prisma.StringNullableWithAggregatesFilter<"Service"> | string | null
   metaDescription?: Prisma.StringNullableWithAggregatesFilter<"Service"> | string | null
   metaKeywords?: Prisma.StringNullableWithAggregatesFilter<"Service"> | string | null
@@ -363,6 +375,7 @@ export type ServiceCreateInput = {
   summary?: string | null
   content?: string | null
   image?: string | null
+  icon?: string | null
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -383,6 +396,7 @@ export type ServiceUncheckedCreateInput = {
   summary?: string | null
   content?: string | null
   image?: string | null
+  icon?: string | null
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -403,6 +417,7 @@ export type ServiceUpdateInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -423,6 +438,7 @@ export type ServiceUncheckedUpdateInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -443,6 +459,7 @@ export type ServiceCreateManyInput = {
   summary?: string | null
   content?: string | null
   image?: string | null
+  icon?: string | null
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -462,6 +479,7 @@ export type ServiceUpdateManyMutationInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -481,6 +499,7 @@ export type ServiceUncheckedUpdateManyInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -500,6 +519,7 @@ export type ServiceCountOrderByAggregateInput = {
   summary?: Prisma.SortOrder
   content?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  icon?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrder
   metaDescription?: Prisma.SortOrder
   metaKeywords?: Prisma.SortOrder
@@ -519,6 +539,7 @@ export type ServiceMaxOrderByAggregateInput = {
   summary?: Prisma.SortOrder
   content?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  icon?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrder
   metaDescription?: Prisma.SortOrder
   metaKeywords?: Prisma.SortOrder
@@ -537,6 +558,7 @@ export type ServiceMinOrderByAggregateInput = {
   summary?: Prisma.SortOrder
   content?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  icon?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrder
   metaDescription?: Prisma.SortOrder
   metaKeywords?: Prisma.SortOrder
@@ -574,6 +596,7 @@ export type ServiceCreateWithoutCountriesInput = {
   summary?: string | null
   content?: string | null
   image?: string | null
+  icon?: string | null
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -593,6 +616,7 @@ export type ServiceUncheckedCreateWithoutCountriesInput = {
   summary?: string | null
   content?: string | null
   image?: string | null
+  icon?: string | null
   metaTitle?: string | null
   metaDescription?: string | null
   metaKeywords?: string | null
@@ -628,6 +652,7 @@ export type ServiceUpdateWithoutCountriesInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -647,6 +672,7 @@ export type ServiceUncheckedUpdateWithoutCountriesInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -697,6 +723,7 @@ export type ServiceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   summary?: boolean
   content?: boolean
   image?: boolean
+  icon?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
@@ -718,6 +745,7 @@ export type ServiceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   summary?: boolean
   content?: boolean
   image?: boolean
+  icon?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
@@ -737,6 +765,7 @@ export type ServiceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   summary?: boolean
   content?: boolean
   image?: boolean
+  icon?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
@@ -756,6 +785,7 @@ export type ServiceSelectScalar = {
   summary?: boolean
   content?: boolean
   image?: boolean
+  icon?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   metaKeywords?: boolean
@@ -768,7 +798,7 @@ export type ServiceSelectScalar = {
   isGlobal?: boolean
 }
 
-export type ServiceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "summary" | "content" | "image" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "heroSubtitle" | "heroTitle" | "stats" | "status" | "isGlobal", ExtArgs["result"]["service"]>
+export type ServiceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "summary" | "content" | "image" | "icon" | "metaTitle" | "metaDescription" | "metaKeywords" | "createdAt" | "updatedAt" | "heroSubtitle" | "heroTitle" | "stats" | "status" | "isGlobal", ExtArgs["result"]["service"]>
 export type ServiceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   countries?: boolean | Prisma.Service$countriesArgs<ExtArgs>
   _count?: boolean | Prisma.ServiceCountOutputTypeDefaultArgs<ExtArgs>
@@ -788,6 +818,7 @@ export type $ServicePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     summary: string | null
     content: string | null
     image: string | null
+    icon: string | null
     metaTitle: string | null
     metaDescription: string | null
     metaKeywords: string | null
@@ -1228,6 +1259,7 @@ export interface ServiceFieldRefs {
   readonly summary: Prisma.FieldRef<"Service", 'String'>
   readonly content: Prisma.FieldRef<"Service", 'String'>
   readonly image: Prisma.FieldRef<"Service", 'String'>
+  readonly icon: Prisma.FieldRef<"Service", 'String'>
   readonly metaTitle: Prisma.FieldRef<"Service", 'String'>
   readonly metaDescription: Prisma.FieldRef<"Service", 'String'>
   readonly metaKeywords: Prisma.FieldRef<"Service", 'String'>

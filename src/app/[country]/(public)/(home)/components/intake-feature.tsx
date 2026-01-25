@@ -84,13 +84,23 @@ export async function IntakeFeature({ countrySlug }: IntakeFeatureProps) {
             </p>
           )}
 
-          {/* CTA Button */}
-          <CountryAwareLink
-            href={season.ctaUrl || "/apply-now"}
-            className="bg-primary hover:bg-primary/90 active:bg-primary/80 text-white font-bold py-4 px-10 rounded-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 text-lg cursor-pointer inline-block"
-          >
-            {season.ctaLabel || "Apply Now"}
-          </CountryAwareLink>
+          {/* CTA Buttons */}
+          <div className="flex flex-wrap gap-3">
+            {countrySlug && (
+              <CountryAwareLink
+                href={`/${countrySlug}/intakes`}
+                className="bg-primary hover:bg-primary/90 active:bg-primary/80 text-white font-bold py-4 px-10 rounded-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 text-lg cursor-pointer inline-block"
+              >
+                View Details
+              </CountryAwareLink>
+            )}
+            <CountryAwareLink
+              href={season.ctaUrl || "/apply-now"}
+              className="bg-white/20 hover:bg-white/30 text-white font-bold py-4 px-10 rounded-lg transition-all duration-300 border border-white/40 text-lg cursor-pointer inline-block"
+            >
+              {season.ctaLabel || "Apply Now"}
+            </CountryAwareLink>
+          </div>
         </div>
       </div>
     </section>

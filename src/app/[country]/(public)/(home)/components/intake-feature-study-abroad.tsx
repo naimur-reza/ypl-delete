@@ -10,25 +10,35 @@ export async function IntakeFeatureStudyAbroad({
   buttonTitle?: "View details";
   buttonUrl?: string;
 }) {
-  // Fetch the currently active intake season
-  // If countrySlug is provided, check if the season applies to that country
+  // Build country filter: global (no countries) or matches country
+  const countryFilter = countrySlug
+    ? {
+        OR: [
+          { countries: { none: {} } },
+          {
+            countries: {
+              some: { country: { slug: countrySlug } },
+            },
+          },
+        ] as const,
+      }
+    : null;
+
+  // Build destination filter: when on a destination page, prefer season for that destination or global (null)
+  const destinationFilter = destinationId
+    ? {
+        OR: [{ destinationId }, { destinationId: null }] as const,
+      }
+    : null;
+
+  const andClauses: object[] = [];
+  if (countryFilter) andClauses.push(countryFilter);
+  if (destinationFilter) andClauses.push(destinationFilter);
+
   const season = await prisma.intakeSeason.findFirst({
     where: {
       status: "ACTIVE",
-      // If season has no countries specified, it applies to all
-      // If it has countries, check if our country is in the list
-      OR: [
-        { countries: { none: {} } }, // Global season (no countries specified)
-        countrySlug
-          ? {
-              countries: {
-                some: {
-                  country: { slug: countrySlug },
-                },
-              },
-            }
-          : {},
-      ],
+      ...(andClauses.length > 0 ? { AND: andClauses } : {}),
     },
     select: {
       id: true,
@@ -42,7 +52,11 @@ export async function IntakeFeatureStudyAbroad({
       year: true,
       applicationDeadline: true,
     },
-    orderBy: { createdAt: "desc" },
+    // Prefer destination-specific season, then newest
+    orderBy: [
+      { destinationId: "desc" },
+      { createdAt: "desc" },
+    ],
   });
 
   const intakePage = season
@@ -110,7 +124,7 @@ export async function IntakeFeatureStudyAbroad({
             <CountryAwareLink
               href={
                 countrySlug
-                  ? `/${intakePage?.destination?.slug}/${intakePage.intake.toLowerCase()}`
+                  ? `/${countrySlug}/${intakePage.destination.slug}/${intakePage.intake.toLowerCase()}`
                   : `/intake/${intakePage.destination.slug}/${intakePage.intake.toLowerCase()}`
               }
               className="bg-primary hover:bg-primary/90 active:bg-primary/80 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 md:px-10 rounded-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 text-base sm:text-lg cursor-pointer inline-block touch-manipulation min-h-[44px] flex items-center justify-center"

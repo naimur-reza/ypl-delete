@@ -130,13 +130,8 @@ const menuSections: MenuSection[] = [
             icon: Briefcase,
           },
           {
-            title: "Intake Pages",
-            url: "/dashboard/intake-pages",
-            icon: CalendarRange,
-          },
-          {
-            title: "Intake Seasons",
-            url: "/dashboard/intake-seasons",
+            title: "Intake Management",
+            url: "/dashboard/intake-management",
             icon: CalendarClock,
           },
           // {

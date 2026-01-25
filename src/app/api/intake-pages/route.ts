@@ -7,14 +7,23 @@ import {
   unauthorizedResponse,
   forbiddenResponse,
 } from "@/lib/auth-helpers";
+import {
+  createIntakePage,
+  updateIntakePage,
+  deleteIntakePage,
+} from "@/lib/intake-actions-logic";
 
 export async function GET(req: NextRequest) {
   return handleGetMany(req, prisma.intakePage, {
-    searchFields: ["title"],
+    searchFields: [],
     defaultSort: { updatedAt: "desc" },
     include: {
       destination: true,
+      countries: { include: { country: true } },
+      topUniversities: { include: { university: true } },
       intakePageBenefits: { orderBy: { sortOrder: "asc" } },
+      howWeHelpItems: { orderBy: { sortOrder: "asc" } },
+      intakeSeason: true,
     },
   });
 }
@@ -26,81 +35,12 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await req.json();
-    const {
-      destinationId,
-      intake,
-      title,
-      description,
-      heroMedia,
-      timelineJson,
-      whyChooseTitle,
-      whyChooseDescription,
-      heroTitle,
-      heroSubtitle,
-      heroCTALabel,
-      heroCTAUrl,
-      metaTitle,
-      metaDescription,
-      metaKeywords,
-      benefits,
-      status,
-    } = body;
-
-    if (!destinationId || !intake || !title) {
-      return Response.json(
-        { error: "destinationId, intake, title are required" },
-        { status: 400 },
-      );
-    }
-
-    const created = await prisma.intakePage.create({
-      data: {
-        destinationId,
-        intake,
-        title,
-        slug: title.toLowerCase().replace(/\s+/g, "-"),
-        description,
-        heroMedia,
-        timelineJson,
-        whyChooseTitle,
-        whyChooseDescription,
-        heroTitle,
-        heroSubtitle,
-        heroCTALabel,
-        heroCTAUrl,
-        metaTitle,
-        metaDescription,
-        metaKeywords,
-        status: status || "DRAFT",
-        intakePageBenefits: benefits?.length
-          ? {
-              create: benefits.map(
-                (
-                  b: {
-                    title: string;
-                    description?: string;
-                    icon?: string;
-                    sortOrder?: number;
-                  },
-                  index: number,
-                ) => ({
-                  title: b.title,
-                  description: b.description,
-                  icon: b.icon,
-                  sortOrder: b.sortOrder ?? index,
-                }),
-              ),
-            }
-          : undefined,
-      },
-      include: { intakePageBenefits: true, destination: true },
-    });
-
+    const created = await createIntakePage(body);
     return Response.json(created, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error creating intake page:", error);
     return Response.json(
-      { error: "Failed to create intake page" },
+      { error: error.message || "Failed to create intake page" },
       { status: 500 },
     );
   }
@@ -113,47 +53,18 @@ export async function PUT(req: NextRequest) {
 
   try {
     const body = await req.json();
-    const { id, benefits, ...data } = body;
+    const { id, ...data } = body;
 
     if (!id) {
       return Response.json({ error: "ID is required" }, { status: 400 });
     }
 
-    const updated = await prisma.intakePage.update({
-      where: { id },
-      data: {
-        ...data,
-        intakePageBenefits:
-          benefits !== undefined
-            ? {
-                deleteMany: {},
-                create: benefits.map(
-                  (
-                    b: {
-                      title: string;
-                      description?: string;
-                      icon?: string;
-                      sortOrder?: number;
-                    },
-                    index: number,
-                  ) => ({
-                    title: b.title,
-                    description: b.description,
-                    icon: b.icon,
-                    sortOrder: b.sortOrder ?? index,
-                  }),
-                ),
-              }
-            : undefined,
-      },
-      include: { intakePageBenefits: true, destination: true },
-    });
-
+    const updated = await updateIntakePage(id, data);
     return Response.json(updated);
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error updating intake page:", error);
     return Response.json(
-      { error: "Failed to update intake page" },
+      { error: error.message || "Failed to update intake page" },
       { status: 500 },
     );
   }
@@ -167,17 +78,12 @@ export async function DELETE(req: NextRequest) {
   try {
     const body = await req.json();
     const { id } = body;
-
-    if (!id) {
-      return Response.json({ error: "ID is required" }, { status: 400 });
-    }
-
-    await prisma.intakePage.delete({ where: { id } });
+    await deleteIntakePage(id);
     return new Response(null, { status: 204 });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error deleting intake page:", error);
     return Response.json(
-      { error: "Failed to delete intake page" },
+      { error: error.message || "Failed to delete intake page" },
       { status: 500 },
     );
   }

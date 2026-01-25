@@ -105,15 +105,22 @@ export async function IntakeFeature({
             </p>
           )}
 
- 
+          <div className="flex flex-wrap gap-3">
+            {countrySlug && (
               <CountryAwareLink
-                href={season.ctaUrl || "/apply-now"}
+                href={`/${countrySlug}/intakes`}
                 className="bg-primary hover:bg-primary/90 active:bg-primary/80 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 md:px-10 rounded-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 text-base sm:text-lg cursor-pointer inline-block touch-manipulation min-h-[44px] flex items-center justify-center"
               >
-                {season.ctaLabel || "Apply Now"}
+                View Details
               </CountryAwareLink>
-   
-  
+            )}
+            <CountryAwareLink
+              href={season.ctaUrl || "/apply-now"}
+              className="bg-white/20 hover:bg-white/30 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 md:px-10 rounded-lg transition-all duration-300 border border-white/40 text-base sm:text-lg cursor-pointer inline-block touch-manipulation min-h-[44px] flex items-center justify-center"
+            >
+              {season.ctaLabel || "Apply Now"}
+            </CountryAwareLink>
+          </div>
         </div>
       </div>
     </section>

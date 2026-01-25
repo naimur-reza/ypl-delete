@@ -7,14 +7,7 @@ import { DataTable } from "@/components/table/data-table";
 import { useDataTable } from "@/hooks/use-data-table";
 import { createEntityApi } from "@/lib/api-client";
 import { toast } from "sonner";
-import {
-  MoreHorizontal,
-  Plus,
-  Pencil,
-  Trash2,
-  Eye,
-  ExternalLink,
-} from "lucide-react";
+import { MoreHorizontal, Plus, Pencil, Trash2, Check, X } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,6 +18,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { useConfirmDialog } from "@/hooks/use-confirm-dialog";
+import { Badge } from "@/components/ui/badge";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {
@@ -34,32 +28,31 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
+
+type IntakeType = "JANUARY" | "MAY" | "SEPTEMBER";
 
 interface Item {
   id: string;
-  destinationId: string;
   title: string;
-  intake: string;
-  createdAt: string;
+  subtitle?: string;
+  intake: IntakeType;
+  year: number;
   status?: string;
-  destination?: {
-    id: string;
-    name: string;
-    slug: string;
-  };
+  applicationDeadline?: string;
+  createdAt: string;
+  countries?: { country: { id: string; name: string } }[];
 }
 
-const api = createEntityApi<Item>("/api/intake-pages");
+const api = createEntityApi<Item>("/api/intake-seasons");
 
-export default function IntakePages() {
+export function IntakeSeasonsTab() {
   const router = useRouter();
   const [statusFilter, setStatusFilter] = useState<string>("all");
 
   const endpoint = useMemo(
     () =>
-      `/api/intake-pages${statusFilter !== "all" ? `?status=${statusFilter}` : ""}`,
-    [statusFilter],
+      `/api/intake-seasons${statusFilter !== "all" ? `?status=${statusFilter}` : ""}`,
+    [statusFilter]
   );
 
   const { table, isLoading, error, pagination, refetch } = useDataTable<Item>({
@@ -73,7 +66,7 @@ export default function IntakePages() {
   });
 
   const deleteDialog = useConfirmDialog<Item>({
-    title: "Delete Intake Page",
+    title: "Delete Intake Season",
     getDescription: (item) =>
       `Are you sure you want to delete "${item.title}"? This action cannot be undone.`,
     onConfirm: async (item) => {
@@ -81,22 +74,61 @@ export default function IntakePages() {
       if (response.error) {
         toast.error(response.error);
       } else {
-        toast.success("Intake page deleted successfully");
+        toast.success("Intake season deleted successfully");
         refetch();
       }
     },
   });
 
+  const handleStatusToggle = async (item: Item) => {
+    const currentStatus = (item as { status?: string }).status || "DRAFT";
+    const newStatus = currentStatus === "ACTIVE" ? "DRAFT" : "ACTIVE";
+    try {
+      const response = await api.update(item.id, { id: item.id, status: newStatus });
+      if (response.error) {
+        toast.error(response.error);
+      } else {
+        toast.success(
+          `Intake season ${newStatus === "ACTIVE" ? "activated" : "deactivated"} successfully`
+        );
+        refetch();
+      }
+    } catch {
+      toast.error("Failed to update status");
+    }
+  };
+
   const columns: ColumnDef<Item>[] = useMemo(
     () => [
-      { accessorKey: "title", header: "Title", enableSorting: true },
-      { accessorKey: "intake", header: "Intake" },
-      { accessorKey: "destinationId", header: "Destination ID" },
+      {
+        accessorKey: "title",
+        header: "Title",
+        enableSorting: true,
+        cell: ({ row }) => (
+          <div className="max-w-[300px]">
+            <div className="font-medium truncate">{row.original.title}</div>
+            {row.original.subtitle && (
+              <div className="text-sm text-muted-foreground truncate">
+                {row.original.subtitle}
+              </div>
+            )}
+          </div>
+        ),
+      },
+      {
+        accessorKey: "intake",
+        header: "Intake",
+        cell: ({ row }) => (
+          <Badge variant="outline">
+            {row.original.intake} {row.original.year}
+          </Badge>
+        ),
+      },
       {
         accessorKey: "status",
         header: "Status",
         cell: ({ row }) => {
-          const status = (row.original as any).status as string;
+          const status = (row.original as { status?: string }).status as string;
           return (
             <Badge variant={status === "ACTIVE" ? "default" : "secondary"}>
               {status || "DRAFT"}
@@ -104,6 +136,14 @@ export default function IntakePages() {
           );
         },
         enableSorting: true,
+      },
+      {
+        accessorKey: "applicationDeadline",
+        header: "Deadline",
+        cell: ({ row }) =>
+          row.original.applicationDeadline
+            ? new Date(row.original.applicationDeadline).toLocaleDateString()
+            : "-",
       },
       {
         accessorKey: "createdAt",
@@ -127,27 +167,20 @@ export default function IntakePages() {
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  onClick={() => {
-                    const destSlug = (item.destination as any)?.slug || "uk";
-                    const intakeSlug = item.intake.toLowerCase();
-                    // Use [program]/[intake] route - strip study-in- prefix if present
-                    const cleanSlug = destSlug.startsWith("study-in-")
-                      ? destSlug.replace("study-in-", "")
-                      : destSlug;
-                    // URL: /bangladesh/uk/january (uses [program]/[intake] route)
-                    window.open(
-                      `/bangladesh/${cleanSlug}/${intakeSlug}`,
-                      "_blank",
-                    );
-                  }}
-                >
-                  <ExternalLink className="mr-2 h-4 w-4" />
-                  View Page
+                <DropdownMenuItem onClick={() => handleStatusToggle(item)}>
+                  {(item.status || "DRAFT") === "ACTIVE" ? (
+                    <>
+                      <X className="mr-2 h-4 w-4" /> Deactivate
+                    </>
+                  ) : (
+                    <>
+                      <Check className="mr-2 h-4 w-4" /> Activate
+                    </>
+                  )}
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() =>
-                    router.push(`/dashboard/intake-pages/${item.id}/edit`)
+                    router.push(`/dashboard/intake-seasons/${item.id}/edit`)
                   }
                 >
                   <Pencil className="mr-2 h-4 w-4" />
@@ -166,7 +199,7 @@ export default function IntakePages() {
         },
       },
     ],
-    [deleteDialog, router],
+    [deleteDialog, router]
   );
 
   if (table.options.columns.length === 0) {
@@ -174,14 +207,7 @@ export default function IntakePages() {
   }
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Intake Pages</h1>
-        <p className="text-muted-foreground">
-          Manage destination-specific intake content
-        </p>
-      </div>
-
+    <div className="space-y-4">
       <ConfirmDialog
         open={deleteDialog.isOpen}
         onOpenChange={deleteDialog.setIsOpen}
@@ -192,12 +218,11 @@ export default function IntakePages() {
         variant="destructive"
         isLoading={deleteDialog.isLoading}
       />
-
       <DataTable
         table={table}
         columns={columns}
         filterColumnKey="title"
-        filterPlaceholder="Filter intake pages..."
+        filterPlaceholder="Filter intake seasons..."
         isLoading={isLoading}
         error={error}
         pagination={pagination}
@@ -213,9 +238,9 @@ export default function IntakePages() {
                 <SelectItem value="DRAFT">Draft</SelectItem>
               </SelectContent>
             </Select>
-            <Button onClick={() => router.push("/dashboard/intake-pages/new")}>
+            <Button onClick={() => router.push("/dashboard/intake-seasons/new")}>
               <Plus className="mr-2 h-4 w-4" />
-              Add Intake Page
+              Add Intake Season
             </Button>
           </div>
         }

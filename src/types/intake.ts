@@ -2,9 +2,6 @@ import { IntakeMonth } from "@/hooks/use-course-wizard";
 
 export interface IntakePageData {
   id: string;
-  title: string;
-  slug: string;
-  description: string | null;
 
   // Hero Section
   heroTitle: string | null;
@@ -30,22 +27,14 @@ export interface IntakePageData {
   metaTitle: string | null;
   metaDescription: string | null;
   metaKeywords: string | null;
-  canonicalUrl: string | null;
 
   // Relations
   destination: {
-    id: string;
-    name: string;
     slug: string;
     thumbnail?: string;
-  };
-  country: {
-    id: string;
-    name: string;
-    slug: string;
   } | null;
   isGlobal: boolean;
-  intake: IntakeMonth;
+  intake: IntakeMonth | null;
   status: string;
 }
 
@@ -55,8 +44,38 @@ export interface IntakePageBenefit {
   description: string | null;
   icon: string | null;
   sortOrder: number;
+  isActive: boolean;
 }
 
+export interface IntakePageHowWeHelpItem {
+  id: string;
+  title: string;
+  description: string | null;
+  icon: string | null;
+  sortOrder: number;
+  isActive: boolean;
+}
+
+export interface IntakePageCountry {
+  id: string;
+  countryId: string;
+  country: {
+    id: string;
+    name: string;
+    slug: string;
+  };
+}
+
+export interface IntakePageUniversity {
+  id: string;
+  universityId: string;
+  university: {
+    id: string;
+    name: string;
+    slug: string;
+    logo?: string | null;
+  };
+}
 export interface IntakePageQuery {
   destinationSlug: string;
   intake: IntakeMonth;
@@ -65,15 +84,19 @@ export interface IntakePageQuery {
 
 export interface IntakePageWithRelations {
   id: string;
-  title: string;
-  description: string | null;
-  destinationId: string;
-  intake: IntakeMonth;
-  countryId: string | null;
+  destinationId: string | null;
+  intake: IntakeMonth | null;
   isGlobal: boolean;
   status: string;
   createdAt: Date;
   updatedAt: Date;
+  intakeSeasonId: string | null;
+  intakeSeason?: {
+    id: string;
+    title: string;
+    intake: string;
+    year: number;
+  } | null;
 
   // Hero Section
   heroTitle: string | null;
@@ -92,28 +115,23 @@ export interface IntakePageWithRelations {
   timelineEnabled: boolean;
 
   // How We Help
-  howWeHelpJson: any;
   howWeHelpEnabled: boolean;
 
   // SEO
   metaTitle: string | null;
   metaDescription: string | null;
   metaKeywords: string | null;
-  canonicalUrl: string | null;
 
   // Relations
   destination: {
-    id: string;
     name: string;
     slug: string;
     thumbnail: string | null;
-  };
-  country: {
-    id: string;
-    name: string;
-    slug: string;
   } | null;
+  countries: IntakePageCountry[];
+  topUniversities: IntakePageUniversity[];
   intakePageBenefits: IntakePageBenefit[];
+  howWeHelpItems: IntakePageHowWeHelpItem[];
   _count: {
     faqs: number;
   };

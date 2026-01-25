@@ -48,23 +48,19 @@ model CourseIntake {
 
 model IntakePage {
   id                   String              @id @default(cuid())
-  destinationId        String
-  intake               IntakeMonth
+  destinationId        String?
+  intake               IntakeMonth?
 
   // Country/Global Filtering
   countryId            String?
   isGlobal             Boolean             @default(false)
 
   // Basic Content
-  title                String
-  slug                 String              @default("")
-  description          String?
 
   // Hero Section
   heroTitle            String?
   heroSubtitle         String?
   heroMedia            String?
-  heroMediaType        MediaType?          @default(IMAGE)
   heroCTALabel         String?             @default("Apply Now")
   heroCTAUrl           String?             @default("/apply-now")
 
@@ -88,7 +84,6 @@ model IntakePage {
   metaTitle            String?
   metaDescription      String?
   metaKeywords         String?
-  canonicalUrl         String?
 
   // Metadata
   createdAt            DateTime            @default(now())
@@ -96,14 +91,16 @@ model IntakePage {
   status               ContentStatus       @default(DRAFT)
 
   // Relations
-  destination          Destination         @relation(fields: [destinationId], references: [id])
-  country              Country?            @relation(fields: [countryId], references: [id])
+  destination          Destination?         @relation(fields: [destinationId], references: [id])
+  countries            IntakePageCountry[]
   intakePageBenefits   IntakePageBenefit[]
+  howWeHelpItems     IntakePageHowWeHelpItem[]
+  topUniversities      IntakePageUniversity[]
   faqs                 FAQIntakePage[]
+  intakeSeasonId       String?
+  intakeSeason         IntakeSeason?       @relation(fields: [intakeSeasonId], references: [id])
 
-  @@unique([destinationId, intake, countryId])
-  @@unique([destinationId, intake, isGlobal])
   @@index([status])
   @@index([destinationId, intake])
-  @@index([countryId, isGlobal])
+  @@index([isGlobal])
 }

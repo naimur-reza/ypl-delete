@@ -41,19 +41,34 @@ export function IntakeFilters({ searchParams }: IntakeFiltersProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const currentFilters = {
-    destination: searchParams.destination || "",
-    intake: searchParams.intake || "",
-    country: searchParams.country || "",
-    status: searchParams.status || "",
-    scope: searchParams.scope || "",
-    search: searchParams.search || "",
+    destination: Array.isArray(searchParams.destination) 
+      ? searchParams.destination[0] || ""
+      : searchParams.destination || "",
+    intake: Array.isArray(searchParams.intake)
+      ? searchParams.intake[0] || ""
+      : searchParams.intake || "",
+    country: Array.isArray(searchParams.country)
+      ? searchParams.country[0] || ""
+      : searchParams.country || "",
+    status: Array.isArray(searchParams.status)
+      ? searchParams.status[0] || ""
+      : searchParams.status || "",
+    scope: Array.isArray(searchParams.scope)
+      ? searchParams.scope[0] || ""
+      : searchParams.scope || "",
+    search: Array.isArray(searchParams.search)
+      ? searchParams.search[0] || ""
+      : searchParams.search || "",
   };
 
   const updateFilter = (key: string, value: string) => {
     const newParams = new URLSearchParams(searchParamsObj.toString());
 
-    if (value) {
-      newParams.set(key, value);
+    // Treat '__all__' as empty (clear filter)
+    const filterValue = value === "__all__" ? "" : value;
+
+    if (filterValue) {
+      newParams.set(key, filterValue);
     } else {
       newParams.delete(key);
     }
@@ -104,18 +119,12 @@ export function IntakeFilters({ searchParams }: IntakeFiltersProps) {
             </Button>
           )}
 
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setIsExpanded(!isExpanded)}
-          >
-            {isExpanded ? "Show Less" : "Show More"}
-          </Button>
+ 
         </div>
       </div>
 
       {/* Always Visible Filters */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+      <div className="flex flex-wrap gap-2">
         {/* Search */}
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -129,14 +138,14 @@ export function IntakeFilters({ searchParams }: IntakeFiltersProps) {
 
         {/* Destination */}
         <Select
-          value={currentFilters.destination}
+          value={currentFilters.destination || "__all__"}
           onValueChange={(value) => updateFilter("destination", value)}
         >
           <SelectTrigger>
             <SelectValue placeholder="All Destinations" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Destinations</SelectItem>
+            <SelectItem value="__all__">All Destinations</SelectItem>
             <SelectItem value="uk">United Kingdom</SelectItem>
             <SelectItem value="usa">United States</SelectItem>
             <SelectItem value="canada">Canada</SelectItem>
@@ -146,14 +155,14 @@ export function IntakeFilters({ searchParams }: IntakeFiltersProps) {
 
         {/* Intake */}
         <Select
-          value={currentFilters.intake}
+          value={currentFilters.intake || "__all__"}
           onValueChange={(value) => updateFilter("intake", value)}
         >
           <SelectTrigger>
             <SelectValue placeholder="All Intakes" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Intakes</SelectItem>
+            <SelectItem value="__all__">All Intakes</SelectItem>
             {INTAKE_OPTIONS.map((option) => (
               <SelectItem key={option.value} value={option.value}>
                 {option.label}
@@ -164,14 +173,14 @@ export function IntakeFilters({ searchParams }: IntakeFiltersProps) {
 
         {/* Status */}
         <Select
-          value={currentFilters.status}
+          value={currentFilters.status || "__all__"}
           onValueChange={(value) => updateFilter("status", value)}
         >
           <SelectTrigger>
             <SelectValue placeholder="All Status" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Status</SelectItem>
+            <SelectItem value="__all__">All Status</SelectItem>
             {STATUS_OPTIONS.map((option) => (
               <SelectItem key={option.value} value={option.value}>
                 {option.label}
@@ -179,21 +188,15 @@ export function IntakeFilters({ searchParams }: IntakeFiltersProps) {
             ))}
           </SelectContent>
         </Select>
-      </div>
-
-      {/* Expandable Filters */}
-      {isExpanded && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4 border-t border-gray-200">
-          {/* Country */}
-          <Select
-            value={currentFilters.country}
+                  <Select
+            value={currentFilters.country || "__all__"}
             onValueChange={(value) => updateFilter("country", value)}
           >
             <SelectTrigger>
               <SelectValue placeholder="All Countries" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Countries</SelectItem>
+              <SelectItem value="__all__">All Countries</SelectItem>
               <SelectItem value="bangladesh">Bangladesh</SelectItem>
               <SelectItem value="india">India</SelectItem>
               <SelectItem value="pakistan">Pakistan</SelectItem>
@@ -204,14 +207,14 @@ export function IntakeFilters({ searchParams }: IntakeFiltersProps) {
 
           {/* Scope */}
           <Select
-            value={currentFilters.scope}
+            value={currentFilters.scope || "__all__"}
             onValueChange={(value) => updateFilter("scope", value)}
           >
             <SelectTrigger>
               <SelectValue placeholder="All Scopes" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Scopes</SelectItem>
+              <SelectItem value="__all__">All Scopes</SelectItem>
               {SCOPE_OPTIONS.map((option) => (
                 <SelectItem key={option.value} value={option.value}>
                   {option.label}
@@ -219,8 +222,9 @@ export function IntakeFilters({ searchParams }: IntakeFiltersProps) {
               ))}
             </SelectContent>
           </Select>
-        </div>
-      )}
+      </div>
+
+ 
 
       {/* Active Filter Tags */}
       {hasActiveFilters && (

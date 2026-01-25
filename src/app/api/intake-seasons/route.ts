@@ -4,10 +4,16 @@ import { handleGetMany } from "@/lib/api-helpers";
 import { getSession, canManageContent, unauthorizedResponse, forbiddenResponse } from "@/lib/auth-helpers";
 
 export async function GET(req: NextRequest) {
+  const destinationId = req.nextUrl.searchParams.get("destinationId") || undefined;
+  const where = destinationId ? { destinationId } : {};
   return handleGetMany(req, prisma.intakeSeason, {
+    where,
     searchFields: ["title", "subtitle"],
     defaultSort: { updatedAt: "desc" },
-    include: { countries: { include: { country: true } } },
+    include: {
+      countries: { include: { country: true } },
+      destination: { select: { id: true, name: true, slug: true } },
+    },
   });
 }
 
@@ -31,6 +37,8 @@ export async function POST(req: NextRequest) {
       applicationDeadline,
       intakeStartDate,
       countryIds,
+      destinationId,
+      isGlobal,
     } = body;
 
     if (!title || !intake || !year) {
@@ -38,6 +46,18 @@ export async function POST(req: NextRequest) {
         { error: "title, intake, and year are required" },
         { status: 400 }
       );
+    }
+
+    if (destinationId) {
+      const dest = await prisma.destination.findUnique({
+        where: { id: destinationId },
+      });
+      if (!dest) {
+        return Response.json(
+          { error: "Destination not found" },
+          { status: 400 }
+        );
+      }
     }
 
     // If setting this as active and has countries, deactivate other active seasons for same countries
@@ -78,13 +98,18 @@ export async function POST(req: NextRequest) {
           : null,
         intakeStartDate: intakeStartDate ? new Date(intakeStartDate) : null,
         status: status || "DRAFT",
+        isGlobal: isGlobal ?? false,
+        destinationId: destinationId || null,
         countries: countryIds?.length
           ? {
             create: countryIds.map((countryId: string) => ({ countryId })),
           }
           : undefined,
       },
-      include: { countries: { include: { country: true } } },
+      include: {
+        countries: { include: { country: true } },
+        destination: { select: { id: true, name: true, slug: true } },
+      },
     });
 
     return Response.json(created, { status: 201 });
@@ -118,10 +143,24 @@ export async function PUT(req: NextRequest) {
       applicationDeadline,
       intakeStartDate,
       countryIds,
+      destinationId,
+      isGlobal,
     } = body;
 
     if (!id) {
       return Response.json({ error: "ID is required" }, { status: 400 });
+    }
+
+    if (destinationId) {
+      const dest = await prisma.destination.findUnique({
+        where: { id: destinationId },
+      });
+      if (!dest) {
+        return Response.json(
+          { error: "Destination not found" },
+          { status: 400 }
+        );
+      }
     }
 
     // If setting this as active, deactivate other active seasons for same countries
@@ -189,6 +228,10 @@ export async function PUT(req: NextRequest) {
         }),
         // Status should update even if empty string (to allow clearing)
         ...(status !== undefined && { status }),
+        ...(destinationId !== undefined && {
+          destinationId: destinationId || null,
+        }),
+        isGlobal: isGlobal !== undefined ? isGlobal : undefined,
         countries:
           countryIds !== undefined
             ? {
@@ -196,7 +239,10 @@ export async function PUT(req: NextRequest) {
             }
             : undefined,
       },
-      include: { countries: { include: { country: true } } },
+      include: {
+        countries: { include: { country: true } },
+        destination: { select: { id: true, name: true, slug: true } },
+      },
     });
 
     return Response.json(updated);

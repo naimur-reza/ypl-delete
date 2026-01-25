@@ -19,6 +19,7 @@ import { SelectItem } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { FormBase } from "@/components/form/FormBase";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { IconPicker } from "@/components/ui/icon-picker";
 import {
   Course,
   Destination,
@@ -267,41 +268,13 @@ export function CourseForm({ initialData, onSuccess }: CourseFormProps) {
               onUploadingChange={setIsUploading}
             />
         </div>
-        <form.AppField name="icon">
-          {(field) => (
-            <field.Select label="Icon">
-              <SelectItem value="Briefcase">Briefcase (Business)</SelectItem>
-              <SelectItem value="Code">Code (IT/Computer Science)</SelectItem>
-              <SelectItem value="Microscope">
-                Microscope (Engineering)
-              </SelectItem>
-              <SelectItem value="Stethoscope">
-                Stethoscope (Medicine)
-              </SelectItem>
-              <SelectItem value="Palette">Palette (Arts & Design)</SelectItem>
-              <SelectItem value="Scale">Scale (Law)</SelectItem>
-              <SelectItem value="BookOpen">
-                BookOpen (Social Sciences)
-              </SelectItem>
-              <SelectItem value="FlaskConical">
-                FlaskConical (Sciences)
-              </SelectItem>
-              <SelectItem value="GraduationCap">
-                GraduationCap (Education)
-              </SelectItem>
-              <SelectItem value="Building2">
-                Building2 (Architecture)
-              </SelectItem>
-              <SelectItem value="Calculator">
-                Calculator (Mathematics)
-              </SelectItem>
-              <SelectItem value="Music">Music (Music/Arts)</SelectItem>
-              <SelectItem value="Globe">Globe (International)</SelectItem>
-              <SelectItem value="Heart">Heart (Healthcare)</SelectItem>
-              <SelectItem value="Lightbulb">Lightbulb (Innovation)</SelectItem>
-            </field.Select>
-          )}
-        </form.AppField>
+        <div className="space-y-2">
+          <IconPicker
+            label="Course Icon"
+            value={form.getFieldValue("icon") || ""}
+            onChange={(iconName) => form.setFieldValue("icon", iconName)}
+          />
+        </div>
         <form.AppField name="duration">
           {(field) => <field.Input label="Duration" />}
         </form.AppField>

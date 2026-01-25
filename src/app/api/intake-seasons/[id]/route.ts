@@ -13,6 +13,7 @@ export async function GET(
       where: { id },
       include: {
         countries: { include: { country: true } },
+        destination: { select: { id: true, name: true, slug: true } },
       },
     });
 
