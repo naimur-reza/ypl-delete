@@ -105,12 +105,8 @@ export function UniversitySlider({ universities, destinationId }: UniversitySlid
                       className="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-110"
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"></div>
-
-                    {/* Location Badge */}
-                    <div className="absolute bottom-3 left-3 flex items-center gap-1 text-white text-xs font-medium opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover/card:translate-y-0">
-                      <MapPin className="w-3 h-3" />
-                      <span>United Kingdom</span>
-                    </div>
+ 
+ 
                   </div>
 
                   {/* Content */}
