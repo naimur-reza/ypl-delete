@@ -17,6 +17,7 @@ import { FormBase } from "@/components/form/FormBase";
 import { Input } from "@/components/ui/input";
 import { SelectItem } from "@/components/ui/select";
 import { ImageUpload } from "@/components/ui/image-upload";
+import { CountrySelect } from "@/components/ui/region-select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 type FormData = z.infer<typeof scholarshipSchema>;
@@ -75,6 +76,8 @@ export function ScholarshipForm({
   const [imageUrl, setImageUrl] = useState<string>(initialData?.image || "");
   const [isUploading, setIsUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [countryIds, setCountryIds] = useState<string[]>([]);
+  const [isGlobal, setIsGlobal] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -128,8 +131,10 @@ export function ScholarshipForm({
       providerInfo: initialData?.providerInfo || "",
       requiredDocuments: initialData?.requiredDocuments || "",
       howToApply: initialData?.howToApply || "",
-    } satisfies Partial<FormData> as Partial<FormData>,
-    validators: { onSubmit: scholarshipSchema },
+      countryIds: (initialData as any)?.countries?.map((c: any) => c.country?.id || c.countryId) || [],
+      isGlobal: (initialData as any)?.isGlobal || false,
+    } as any,
+    validators: { onSubmit: scholarshipSchema as any },
     onSubmit: async ({ value }) => {
       setIsSubmitting(true);
       try {
@@ -152,6 +157,8 @@ export function ScholarshipForm({
           providerInfo: value.providerInfo || null,
           requiredDocuments: value.requiredDocuments || null,
           howToApply: value.howToApply || null,
+          countryIds: isGlobal ? [] : countryIds,
+          isGlobal: isGlobal,
         };
 
         if (isEditing && initialData?.id) {
@@ -221,9 +228,17 @@ export function ScholarshipForm({
       );
       form.setFieldValue("howToApply", initialData.howToApply || "");
       setImageUrl(initialData.image || "");
+      
+      const initialCountryIds = (initialData as any).countries?.map((c: any) => c.country?.id || c.countryId) || [];
+      setCountryIds(initialCountryIds);
+      setIsGlobal((initialData as any).isGlobal || false);
+      form.setFieldValue("countryIds", initialCountryIds);
+      form.setFieldValue("isGlobal", (initialData as any).isGlobal || false);
     } else {
       form.reset();
       setImageUrl("");
+      setCountryIds([]);
+      setIsGlobal(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialData]);
@@ -326,6 +341,28 @@ export function ScholarshipForm({
               label="Scholarship Image"
               onUploadingChange={setIsUploading}
             />
+            <form.AppField name="countryIds">
+              {(field) => (
+                <CountrySelect
+                  value={countryIds}
+                  onChange={(ids: string[]) => {
+                    setCountryIds(ids);
+                    field.handleChange(ids);
+                  }}
+                  label="Available Countries"
+                  showGlobalOption={true}
+                  isGlobal={isGlobal}
+                  onGlobalChange={(checked: boolean) => {
+                    setIsGlobal(checked);
+                    form.setFieldValue("isGlobal", checked as any);
+                    if (checked) {
+                      setCountryIds([]);
+                      field.handleChange([]);
+                    }
+                  }}
+                />
+              )}
+            </form.AppField>
             <form.AppField name="amount">
               {(field) => (
                 <FormBase label="Amount (USD)">

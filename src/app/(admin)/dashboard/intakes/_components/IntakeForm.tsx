@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -25,21 +26,34 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Plus, X, Upload, Eye, Save } from "lucide-react";
-import { IntakePageWithRelations } from "@/types";
 import { IconPicker } from "@/components/ui/icon-picker";
 import { apiClient } from "@/lib/api-client";
-import { useEffect, useTransition } from "react";
+import { useEffect, useState as useStateReact } from "react";
 import MultiSelect from "@/components/ui/multi-select";
 import { toast } from "sonner";
+import { Prisma } from "../../../../../../prisma/src/generated/prisma/client";
+ 
+
+type IntakePageWithRelations = Prisma.IntakePageGetPayload<{
+  include: {
+    destination: true;
+    intakeSeason: true;
+    intakePageBenefits: true;
+    howWeHelpItems: true;
+    topUniversities: { include: { university: true } };
+    countries: { include: { country: true } };
+    _count: { select: { faqs: true } };
+  };
+}>;
 
 interface IntakeFormProps {
   intake?: IntakePageWithRelations;
-  onSubmit: (data: any) => Promise<void>;
-  isLoading?: boolean;
 }
 
 type IntakeFormValues = {
   intakeSeasonId: string;
+  destinationId: string;
+  intake: string;
   universityIds: string[];
   status: string;
   heroTitle: string;
@@ -57,15 +71,15 @@ type IntakeFormValues = {
   metaKeywords: string;
 };
 
-export function IntakeForm({
-  intake,
-  onSubmit,
-  isLoading = false,
-}: IntakeFormProps) {
+export function IntakeForm({ intake }: IntakeFormProps) {
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [activeTab, setActiveTab] = useState("basic");
   const [intakeSeasons, setIntakeSeasons] = useState<any[]>([]);
+  const [destinations, setDestinations] = useState<{ id: string; name: string; slug: string }[]>([]);
   const [universities, setUniversities] = useState<any[]>([]);
   const [loadingSeasons, setLoadingSeasons] = useState(false);
+  const [loadingDestinations, setLoadingDestinations] = useState(false);
   const [loadingUniversities, setLoadingUniversities] = useState(false);
   const [benefits, setBenefits] = useState(
     intake?.intakePageBenefits || [
@@ -94,7 +108,8 @@ export function IntakeForm({
   );
 
   useEffect(() => {
-    const fetchSeasons = async () => {
+    const fetchData = async () => {
+      // Fetch intake seasons
       setLoadingSeasons(true);
       try {
         const res = await apiClient.get<any>("/api/intake-seasons", { limit: "1000" });
@@ -107,10 +122,22 @@ export function IntakeForm({
       } finally {
         setLoadingSeasons(false);
       }
-    };
-    fetchSeasons();
 
-    const fetchUniversities = async () => {
+      // Fetch destinations
+      setLoadingDestinations(true);
+      try {
+        const res = await apiClient.get<{ data: { id: string; name: string; slug: string }[] }>("/api/destinations", { limit: "1000" });
+        if (res.data) {
+          const arr = Array.isArray(res.data) ? res.data : (res.data as any).data || [];
+          setDestinations(arr);
+        }
+      } catch (e) {
+        console.error("Failed to fetch destinations", e);
+      } finally {
+        setLoadingDestinations(false);
+      }
+
+      // Fetch universities
       setLoadingUniversities(true);
       try {
         const res = await apiClient.get<any>("/api/universities", { limit: "1000", status: "ACTIVE" });
@@ -124,7 +151,7 @@ export function IntakeForm({
         setLoadingUniversities(false);
       }
     };
-    fetchUniversities();
+    fetchData();
   }, []);
 
   const {
@@ -136,6 +163,8 @@ export function IntakeForm({
   } = useForm<IntakeFormValues>({
     defaultValues: {
       intakeSeasonId: intake?.intakeSeasonId || "__none__",
+      destinationId: intake?.destinationId || "__none__",
+      intake: intake?.intake || "",
       universityIds: intake?.topUniversities?.map((u: any) => u.universityId) || [],
       status: intake?.status || "DRAFT",
 
@@ -210,28 +239,39 @@ export function IntakeForm({
     );
   };
 
-  const [isPending, startTransition] = useTransition();
-
   const onFormSubmit = async (data: any) => {
+    const selectedSeasonId = data.intakeSeasonId === "__none__" ? null : data.intakeSeasonId;
+    const selectedDestinationId = data.destinationId === "__none__" ? null : data.destinationId;
+    const selectedIntake = data.intake === "__none__" || !data.intake ? null : data.intake;
+
     const formData = {
       ...data,
-      intakeSeasonId: data.intakeSeasonId === "__none__" ? null : data.intakeSeasonId,
+      intakeSeasonId: selectedSeasonId,
+      destinationId: selectedDestinationId,
+      intake: selectedIntake,
       universityIds: data.universityIds || [],
       intakePageBenefits: benefits,
       howWeHelpItems: howWeHelpItems,
     };
 
-    startTransition(async () => {
-      try {
-        await onSubmit(formData);
-        toast.success(intake ? "Intake updated successfully" : "Intake created successfully");
-      } catch (e: any) {
-        if (e.message !== "NEXT_REDIRECT") {
-          console.error("Form submission failed", e);
-          toast.error(e.message || "Failed to save intake");
-        }
+    setIsSubmitting(true);
+    try {
+      if (intake?.id) {
+        // Update existing intake
+        await apiClient.put("/api/intake-pages", { id: intake.id, ...formData });
+        toast.success("Intake updated successfully");
+      } else {
+        // Create new intake
+        await apiClient.post("/api/intake-pages", formData);
+        toast.success("Intake created successfully");
       }
-    });
+      router.push("/dashboard/intake-management?tab=details");
+    } catch (e: any) {
+      console.error("Form submission failed", e);
+      toast.error(e.message || "Failed to save intake");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -252,9 +292,9 @@ export function IntakeForm({
             <Eye className="w-4 h-4 mr-2" />
             Preview
           </Button>
-          <Button type="submit" disabled={isPending}>
+          <Button type="submit" disabled={isSubmitting}>
             <Save className="w-4 h-4 mr-2" />
-            {isPending ? "Saving..." : "Save"}
+            {isSubmitting ? "Saving..." : "Save"}
           </Button>
         </div>
       </div>
@@ -277,18 +317,28 @@ export function IntakeForm({
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-4">
                 <div>
-                  <Label htmlFor="intakeSeasonId">Intake Season (link to details)</Label>
+                  <Label htmlFor="intakeSeasonId">Intake Season (Optional)</Label>
                   <Select
                     value={watch("intakeSeasonId")}
-                    onValueChange={(value) => setValue("intakeSeasonId", value)}
+                    onValueChange={(value) => {
+                      setValue("intakeSeasonId", value);
+                      // Auto-fill destination and intake from season if selected
+                      if (value !== "__none__") {
+                        const season = intakeSeasons.find((s) => s.id === value);
+                        if (season) {
+                          if (season.destinationId) setValue("destinationId", season.destinationId);
+                          if (season.intake) setValue("intake", season.intake);
+                        }
+                      }
+                    }}
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder={loadingSeasons ? "Loading seasons..." : "Select intake season"} />
+                      <SelectValue placeholder={loadingSeasons ? "Loading seasons..." : "Select intake season (optional)"} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="__none__">None / Select later</SelectItem>
+                      <SelectItem value="__none__">None - Fill manually below</SelectItem>
                       {intakeSeasons.map((season) => (
                         <SelectItem key={season.id} value={season.id}>
                           {season.title} ({season.intake} {season.year})
@@ -296,7 +346,62 @@ export function IntakeForm({
                       ))}
                     </SelectContent>
                   </Select>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Select a season to auto-fill destination and intake, or leave empty and fill manually
+                  </p>
                 </div>
+
+                {watch("intakeSeasonId") === "__none__" && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-muted/50 rounded-lg border border-dashed">
+                    <div>
+                      <Label htmlFor="destinationId">
+                        Destination <span className="text-destructive">*</span>
+                      </Label>
+                      <Select
+                        value={watch("destinationId")}
+                        onValueChange={(value) => setValue("destinationId", value)}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder={loadingDestinations ? "Loading..." : "Select destination"} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="__none__">Select destination</SelectItem>
+                          {destinations.map((dest) => (
+                            <SelectItem key={dest.id} value={dest.id}>
+                              {dest.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      {errors.destinationId && (
+                        <p className="text-xs text-destructive mt-1">{errors.destinationId.message}</p>
+                      )}
+                    </div>
+
+                    <div>
+                      <Label htmlFor="intake">
+                        Intake Month <span className="text-destructive">*</span>
+                      </Label>
+                      <Select
+                        value={watch("intake")}
+                        onValueChange={(value) => setValue("intake", value)}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select intake month" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="__none__">Select intake</SelectItem>
+                          <SelectItem value="JANUARY">January</SelectItem>
+                          <SelectItem value="MAY">May</SelectItem>
+                          <SelectItem value="SEPTEMBER">September</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      {errors.intake && (
+                        <p className="text-xs text-destructive mt-1">{errors.intake.message}</p>
+                      )}
+                    </div>
+                  </div>
+                )}
 
                 <div>
                   <Label htmlFor="status">Status</Label>

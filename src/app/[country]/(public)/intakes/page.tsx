@@ -4,7 +4,8 @@ import { getCountryBySlug } from "@/lib/countries";
 import { buildMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Calendar, MapPin, ArrowRight } from "lucide-react";
+import { Calendar, MapPin, ArrowRight, Clock } from "lucide-react";
+import Image from "next/image";
 
 export const revalidate = 3600;
 
@@ -37,11 +38,12 @@ export default async function IntakesListingPage({ params }: PageProps) {
     notFound();
   }
 
-  const intakePages = await prisma.intakePage.findMany({
+  // Fetch intake seasons for this country
+  const intakeSeasons = await prisma.intakeSeason.findMany({
     where: {
       status: "ACTIVE",
       OR: [
-        { countryId: country.id },
+        { countries: { some: { countryId: country.id } } },
         { isGlobal: true },
       ],
     },
@@ -54,9 +56,27 @@ export default async function IntakesListingPage({ params }: PageProps) {
           thumbnail: true,
         },
       },
+      intakePages: {
+        where: {
+          status: "ACTIVE",
+          OR: [
+            { countries: { some: { countryId: country.id } } },
+            { isGlobal: true },
+          ],
+        },
+        select: {
+          id: true,
+          intake: true,
+          destination: {
+            select: {
+              slug: true,
+            },
+          },
+        },
+      },
     },
     orderBy: [
-      { destination: { name: "asc" } },
+      { year: "desc" },
       { intake: "asc" },
     ],
   });
@@ -78,7 +98,7 @@ export default async function IntakesListingPage({ params }: PageProps) {
 
       {/* Cards grid */}
       <section className="max-w-6xl mx-auto py-12 md:py-16 px-4 md:px-8">
-        {intakePages.length === 0 ? (
+        {intakeSeasons.length === 0 ? (
           <div className="text-center py-16 bg-white rounded-2xl border border-slate-100">
             <p className="text-slate-600 text-lg">
               No intakes available for this country at the moment. Check back
@@ -87,40 +107,96 @@ export default async function IntakesListingPage({ params }: PageProps) {
           </div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {intakePages.map((page) => (
-              <Link
-                key={page.id}
-                href={`/${countrySlug}/${page.destination.slug}/${page.intake.toLowerCase()}`}
-                className="group bg-white rounded-2xl border border-slate-100 overflow-hidden hover:shadow-xl hover:border-primary/20 transition-all duration-300 flex flex-col h-full"
-              >
+            {intakeSeasons.map((season) => {
+              // Build the href using the intake season's destination
+              const destinationSlug = season.destination?.slug;
+              const intakeMonth = season.intake;
+              
+              // Link to the intake details page
+              const href = destinationSlug && intakeMonth
+                ? `/${countrySlug}/${destinationSlug}/${intakeMonth.toLowerCase()}`
+                : null;
+
+              const CardContent = (
                 <div className="p-6 flex-1 flex flex-col">
-                  <div className="flex items-center gap-2 mb-3">
-                    <MapPin className="w-4 h-4 text-primary shrink-0" />
-                    <span className="font-semibold text-slate-900">
-                      {page.destination.name.replace(/^Study\s+in\s+/i, "").trim()}
-                    </span>
-                  </div>
+                  {/* Background Image */}
+                  {season.backgroundImage && (
+                    <div className="relative w-full h-32 mb-4 rounded-lg overflow-hidden">
+                      <Image
+                        src={season.backgroundImage}
+                        alt={season.title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
+                  
+                  {/* Destination */}
+                  {season.destination && (
+                    <div className="flex items-center gap-2 mb-3">
+                      <MapPin className="w-4 h-4 text-primary shrink-0" />
+                      <span className="font-semibold text-slate-900">
+                        {season.destination.name.replace(/^Study\s+in\s+/i, "").trim()}
+                      </span>
+                    </div>
+                  )}
+                  
+                  {/* Intake & Year */}
                   <div className="flex items-center gap-2 text-slate-600 text-sm mb-3">
                     <Calendar className="w-4 h-4 text-primary shrink-0" />
                     <span>
-                      {formatIntake(page.intake)} intake
+                      {formatIntake(season.intake)} {season.year}
                     </span>
                   </div>
+                  
+                  {/* Title */}
                   <h2 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-primary transition-colors line-clamp-2">
-                    {page.title}
+                    {season.title}
                   </h2>
-                  {page.description && (
-                    <p className="text-slate-600 text-sm line-clamp-3 flex-1 mb-4">
-                      {page.description}
+                  
+                  {/* Subtitle/Description */}
+                  {season.subtitle && (
+                    <p className="text-slate-600 text-sm line-clamp-2 mb-3">
+                      {season.subtitle}
                     </p>
                   )}
+                  
+                  {/* Deadline */}
+                  {season.applicationDeadline && (
+                    <div className="flex items-center gap-2 text-sm text-orange-600 mb-4">
+                      <Clock className="w-4 h-4 shrink-0" />
+                      <span>
+                        Deadline: {new Date(season.applicationDeadline).toLocaleDateString("en-US", { 
+                          month: "short", 
+                          day: "numeric", 
+                          year: "numeric" 
+                        })}
+                      </span>
+                    </div>
+                  )}
+                  
+                  {/* CTA */}
                   <span className="inline-flex items-center gap-2 text-primary font-semibold mt-auto group-hover:gap-3 transition-all">
-                    View Details
+                    {href ? "View Details" : "Learn More"}
                     <ArrowRight className="w-4 h-4" />
                   </span>
                 </div>
-              </Link>
-            ))}
+              );
+
+              // Always make cards clickable - fallback to apply-now or contact page if no specific destination
+              const fallbackHref = season.ctaUrl || "/apply-now";
+              const cardHref = href || fallbackHref;
+
+              return (
+                <Link
+                  key={season.id}
+                  href={cardHref}
+                  className="group bg-white rounded-2xl border border-slate-100 overflow-hidden hover:shadow-xl hover:border-primary/20 transition-all duration-300 flex flex-col h-full"
+                >
+                  {CardContent}
+                </Link>
+              );
+            })}
           </div>
         )}
       </section>

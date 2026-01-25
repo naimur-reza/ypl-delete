@@ -115,15 +115,41 @@ export async function PUT(req: NextRequest) {
   if (!canManageContent(session)) return forbiddenResponse();
 
   const body = await req.json();
-  const { id, countryIds, rankingNumber, costOfStudying, ...data } = body;
+  const {
+    id,
+    countryIds,
+    rankingNumber,
+    costOfStudying,
+    destinationId,
+    // Destructure detail fields to exclude them from ...data
+    overview,
+    entryRequirements,
+    ranking,
+    tuitionFees,
+    famousFor,
+    servicesHeading,
+    servicesDescription,
+    servicesImage,
+    accommodation,
+    accommodationImage,
+    description,
+    ...data
+  } = body;
 
   if (!id) {
     return Response.json({ error: "ID is required" }, { status: 400 });
   }
 
-  const updateData = { ...data };
+  // updateData should only contain fields defined in the University model
+  const updateData: Record<string, unknown> = { ...data };
   if (rankingNumber !== undefined) updateData.rankingNumber = rankingNumber;
   if (costOfStudying !== undefined) updateData.costOfStudying = costOfStudying;
+  if (description !== undefined) updateData.description = description;
+
+  // Handle destinationId - use connect syntax for Prisma
+  if (destinationId) {
+    updateData.destination = { connect: { id: destinationId } };
+  }
 
   if (countryIds) {
     updateData.countries = {
@@ -134,17 +160,17 @@ export async function PUT(req: NextRequest) {
 
   // Handle nested detail update/create
   const detailData = {
-    overview: body.overview || "",
-    entryRequirements: body.entryRequirements || "",
-    ranking: body.ranking || null,
-    tuitionFees: body.tuitionFees || null,
-    famousFor: body.famousFor || null,
-    servicesHeading: body.servicesHeading || null,
-    servicesDescription: body.servicesDescription || null,
-    servicesImage: body.servicesImage || null,
-    accommodation: body.accommodation || null,
-    accommodationImage: body.accommodationImage || null,
-    description: body.description || null,
+    overview: overview || "",
+    entryRequirements: entryRequirements || "",
+    ranking: ranking || null,
+    tuitionFees: tuitionFees || null,
+    famousFor: famousFor || null,
+    servicesHeading: servicesHeading || null,
+    servicesDescription: servicesDescription || null,
+    servicesImage: servicesImage || null,
+    accommodation: accommodation || null,
+    accommodationImage: accommodationImage || null,
+    description: description || null,
   };
 
   updateData.detail = {

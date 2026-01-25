@@ -113,6 +113,7 @@ export function UniversityForm({
     metaDescription: initialData?.metaDescription || "",
     metaKeywords: initialData?.metaKeywords || "",
     status: (initialData?.status as any) || "ACTIVE",
+    isGlobal: (initialData as any)?.isGlobal || false,
     // Details
     rankingNumber: initialData?.rankingNumber ?? null,
     costOfStudying: initialData?.costOfStudying || "",
@@ -340,7 +341,11 @@ export function UniversityForm({
                     isGlobal={isGlobal}
                     onGlobalChange={(checked) => {
                       setIsGlobal(checked);
-                      if (checked) setCountryIds([]);
+                      form.setFieldValue("isGlobal", checked);
+                      if (checked) {
+                        setCountryIds([]);
+                        field.handleChange([]);
+                      }
                     }}
                   />
                 </FormBase>

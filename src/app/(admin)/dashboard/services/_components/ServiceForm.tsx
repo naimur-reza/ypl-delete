@@ -31,6 +31,16 @@ const serviceSchema = z.object({
   metaDescription: z.string().max(500).optional().nullable(),
   metaKeywords: z.string().max(500).optional().nullable(),
   status: z.enum(["ACTIVE", "DRAFT"]).default("ACTIVE"),
+  isGlobal: z.boolean().optional().default(false),
+  countryIds: z.array(z.string()).default([]),
+}).superRefine((data, ctx) => {
+  if (!data.isGlobal && (!data.countryIds || data.countryIds.length === 0)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Select at least one country",
+      path: ["countryIds"],
+    });
+  }
 });
 
 type FormData = z.infer<typeof serviceSchema>;
@@ -68,6 +78,8 @@ export function ServiceForm({ initialData, onSuccess }: ServiceFormProps) {
       metaDescription: initialData?.metaDescription || "",
       metaKeywords: initialData?.metaKeywords || "",
       status: initialData?.status || "ACTIVE",
+      isGlobal: (initialData as any)?.isGlobal || false,
+      countryIds: countryIds,
     } as FormData,
     validators: { onSubmit: serviceSchema as any },
     onSubmit: async ({ value }) => {
@@ -85,12 +97,12 @@ export function ServiceForm({ initialData, onSuccess }: ServiceFormProps) {
           status: value.status || "ACTIVE",
           countryIds: isGlobal ? [] : countryIds,
           isGlobal: isGlobal,
-        } as Record<string, unknown>;
+        };
 
         const res =
           isEditing && initialData?.id
-            ? await serviceApi.update(initialData.id, payload)
-            : await serviceApi.create(payload);
+            ? await serviceApi.update(initialData.id, payload as any)
+            : await serviceApi.create(payload as any);
 
         if (res.error) {
           toast.error(res.error);

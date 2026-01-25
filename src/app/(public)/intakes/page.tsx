@@ -19,5 +19,5 @@ export default async function PublicIntakesPage() {
   if (resolved.slug) {
     redirect(`/${resolved.slug}/intakes`);
   }
-  redirect("/");
+ 
 }

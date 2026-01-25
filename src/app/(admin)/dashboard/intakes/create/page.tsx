@@ -1,4 +1,5 @@
-import { Metadata } from "next";
+"use client";
+
 import { Suspense } from "react";
 import { IntakeForm } from "../_components/IntakeForm";
 import {
@@ -8,19 +9,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ArrowLeft, Save } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { redirect } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Create Intake - Admin Dashboard",
-  description: "Create a new intake page for study abroad programs",
-};
-
-import { handleCreateIntakeAction } from "@/app/actions/intake-actions";
-
-export default async function CreateIntakePage() {
+export default function CreateIntakePage() {
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -53,12 +46,10 @@ export default async function CreateIntakePage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <IntakeForm onSubmit={handleCreateIntakeAction} />
+            <IntakeForm />
           </CardContent>
         </Card>
       </Suspense>
-
-  
     </div>
   );
 }

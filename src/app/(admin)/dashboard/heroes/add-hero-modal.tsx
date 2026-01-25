@@ -87,6 +87,7 @@ const HeroFormModal = ({
       slug: selectedHero?.slug || "",
       order: selectedHero?.order ?? 0,
       status: (selectedHero?.status as "ACTIVE" | "DRAFT") || "ACTIVE",
+      isGlobal: (selectedHero as any)?.isGlobal || false,
       countryIds: countryIds,
     } as FormData,
     validators: {
@@ -354,7 +355,11 @@ const HeroFormModal = ({
                 isGlobal={isGlobal}
                 onGlobalChange={(checked) => {
                   setIsGlobal(checked);
-                  if (checked) setCountryIds([]);
+                  form.setFieldValue("isGlobal", checked);
+                  if (checked) {
+                    setCountryIds([]);
+                    field.handleChange([]);
+                  }
                 }}
               />
             )}

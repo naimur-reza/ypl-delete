@@ -244,7 +244,11 @@ export function StatForm({ initialData, onSuccess }: StatFormProps) {
               isGlobal={isGlobal}
               onGlobalChange={(checked) => {
                 setIsGlobal(checked);
-                if (checked) setCountryIds([]);
+                form.setFieldValue("isGlobal", checked as any);
+                if (checked) {
+                  setCountryIds([]);
+                  field.handleChange([]);
+                }
               }}
             />
           )}

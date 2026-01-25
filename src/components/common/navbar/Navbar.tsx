@@ -6,6 +6,11 @@ import {
   GraduationCap,
   CalendarDays,
   LayoutDashboard,
+  Briefcase,
+  Wrench,
+  Image as ImageIcon,
+  FileText,
+  LayoutList,
 } from "lucide-react";
 import { CountryAwareLink } from "./country-aware-link";
 import NavDropdown from "./navbar-dropdown";
@@ -157,20 +162,28 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
     {
       title: "Careers",
       href: "/careers",
+      icon: <Briefcase size={18} />,
     },
     {
       title: "Services",
       href: "/services",
+      icon: <Wrench size={18} />,
     },
     {
       title: "Gallery",
       href: "/gallery",
+      icon: <ImageIcon size={18} />,
     },
     {
       title: "Blogs",
       href: "/blogs",
+      icon: <FileText size={18} />,
     },
- 
+    {
+      title: "Intakes",
+      href: "/intakes",
+      icon: <LayoutList size={18} />,
+    },
   ];
 
   return (

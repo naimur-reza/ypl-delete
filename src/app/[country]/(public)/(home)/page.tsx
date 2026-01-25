@@ -163,7 +163,7 @@ const HomePage = async ({ params }: PageProps) => {
       <IntakeFeature countrySlug={countrySlug} />
       <CountriesSection destination={destinations} />
       <UniversitySlider universities={universities} />
-      <WhyChooseUs />
+      <WhyChooseUs countrySlug={countrySlug} />
       <ReviewSection countrySlug={countrySlug} />
       <AccredianSection accreditations={accreditations} />
       <EventsSection events={events} />

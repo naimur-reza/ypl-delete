@@ -129,6 +129,7 @@ export function BlogForm({ initialData, onSuccess }: BlogFormProps) {
       isFeatured: initialData?.isFeatured ?? false,
       status: (initialData?.status as "ACTIVE" | "DRAFT") || "ACTIVE",
       destinationId: initialData?.destinationId || "",
+      isGlobal: (initialData as any)?.isGlobal || false,
       countryIds: countryIds,
       metaTitle: initialData?.metaTitle || "",
       metaDescription: initialData?.metaDescription || "",
@@ -312,16 +313,17 @@ export function BlogForm({ initialData, onSuccess }: BlogFormProps) {
               value={countryIds}
               onChange={(ids) => {
                 setCountryIds(ids);
-                field.handleChange(ids);
+                form.setFieldValue("countryIds", ids as any);
               }}
               label="Countries"
               showGlobalOption={true}
               isGlobal={isGlobal}
               onGlobalChange={(checked) => {
                 setIsGlobal(checked);
+                form.setFieldValue("isGlobal", checked as any);
                 if (checked) {
                   setCountryIds([]);
-                  field.handleChange([]);
+                  form.setFieldValue("countryIds", [] as any);
                 }
               }}
             />

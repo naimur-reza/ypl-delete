@@ -139,6 +139,7 @@ export function EventForm({ event, onSuccess }: EventFormProps) {
       metaDescription: event?.metaDescription || "",
       metaKeywords: event?.metaKeywords || "",
       status: event?.status || "DRAFT",
+      isGlobal: (event as any)?.isGlobal || false,
     } satisfies FormData as FormData,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     validators: { onSubmit: eventSchema as any },
@@ -379,7 +380,11 @@ export function EventForm({ event, onSuccess }: EventFormProps) {
               isGlobal={isGlobal}
               onGlobalChange={(checked) => {
                 setIsGlobal(checked);
-                if (checked) setCountryIds([]);
+                form.setFieldValue("isGlobal", checked);
+                if (checked) {
+                  setCountryIds([]);
+                  field.handleChange([]);
+                }
               }}
             />
           )}

@@ -87,6 +87,7 @@ export function GlobalOfficeForm({
       metaTitle: initialData?.metaTitle || "",
       metaDescription: initialData?.metaDescription || "",
       metaKeywords: initialData?.metaKeywords || "",
+      isGlobal: (initialData as any)?.isGlobal || false,
     } as any,
     validators: { onSubmit: globalOfficeSchema as any },
     onSubmit: async ({ value }) => {
@@ -303,19 +304,28 @@ export function GlobalOfficeForm({
           />
         </div>
 
-        <div>
-          <CountrySelect
-            value={countryIds}
-            onChange={setCountryIds}
-            label="Select Countries"
-            showGlobalOption={true}
-            isGlobal={isGlobal}
-            onGlobalChange={(checked) => {
-              setIsGlobal(checked);
-              if (checked) setCountryIds([]);
-            }}
-          />
-        </div>
+        <form.AppField name="countryIds">
+          {(field) => (
+            <CountrySelect
+              value={countryIds}
+              onChange={(ids) => {
+                setCountryIds(ids);
+                form.setFieldValue("countryIds", ids as any);
+              }}
+              label="Select Countries"
+              showGlobalOption={true}
+              isGlobal={isGlobal}
+              onGlobalChange={(checked) => {
+                setIsGlobal(checked);
+                form.setFieldValue("isGlobal", checked as any);
+                if (checked) {
+                  setCountryIds([]);
+                  form.setFieldValue("countryIds", [] as any);
+                }
+              }}
+            />
+          )}
+        </form.AppField>
 
         <div className="pt-4 mt-4">
           <h3 className="text-sm font-semibold mb-3">SEO & Status</h3>

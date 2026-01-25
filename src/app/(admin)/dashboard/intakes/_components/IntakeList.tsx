@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -27,54 +27,29 @@ import {
   Trash2,
   Globe,
   MapPin,
-  Calendar,
 } from "lucide-react";
 import { SearchParams } from "@/types";
 import { formatDate } from "@/lib/utils";
+import { apiClient } from "@/lib/api-client";
+import { toast } from "sonner";
 
 interface IntakeListProps {
   searchParams: SearchParams;
 }
 
-// Mock data - replace with actual API call
-const mockIntakes = [
-  {
-    id: "1",
-    title: "May Intake 2024",
-    destination: { name: "United Kingdom", slug: "uk" },
-    intake: "MAY",
-    country: null,
-    isGlobal: true,
-    status: "ACTIVE",
-    createdAt: new Date("2024-01-15"),
-    updatedAt: new Date("2024-01-20"),
-    _count: { faqs: 8 },
-  },
-  {
-    id: "2",
-    title: "September Intake 2024",
-    destination: { name: "United Kingdom", slug: "uk" },
-    intake: "SEPTEMBER",
-    country: { name: "Bangladesh", slug: "bangladesh" },
-    isGlobal: false,
-    status: "DRAFT",
-    createdAt: new Date("2024-02-01"),
-    updatedAt: new Date("2024-02-10"),
-    _count: { faqs: 12 },
-  },
-  {
-    id: "3",
-    title: "January Intake 2025",
-    destination: { name: "United States", slug: "usa" },
-    intake: "JANUARY",
-    country: null,
-    isGlobal: true,
-    status: "ACTIVE",
-    createdAt: new Date("2024-03-01"),
-    updatedAt: new Date("2024-03-05"),
-    _count: { faqs: 6 },
-  },
-];
+interface IntakeItem {
+  id: string;
+  heroTitle?: string;
+  intake?: string;
+  destination?: { name: string; slug: string };
+  countries?: { country: { name: string; slug: string } }[];
+  isGlobal?: boolean;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  intakeSeason?: { title: string };
+  _count?: { faqs: number };
+}
 
 const getStatusColor = (status: string) => {
   switch (status) {
@@ -102,10 +77,51 @@ const getIntakeColor = (intake: string) => {
 
 export function IntakeList({ searchParams }: IntakeListProps) {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [intakes, setIntakes] = useState<IntakeItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [pagination, setPagination] = useState({
+    page: 1,
+    limit: 50,
+    total: 0,
+    totalPages: 0,
+  });
+
+  useEffect(() => {
+    const fetchIntakes = async () => {
+      setLoading(true);
+      try {
+        const queryParams: Record<string, string> = {
+          limit: "100", // Fetch more items
+        };
+        
+        // Add search params to query
+        if (searchParams.status) queryParams.status = searchParams.status;
+        if (searchParams.destination) queryParams.destinationId = searchParams.destination;
+        if (searchParams.intake) queryParams.intake = searchParams.intake;
+        if (searchParams.search) queryParams.search = searchParams.search;
+
+        const res = await apiClient.get<{ data: IntakeItem[]; pagination?: any }>("/api/intake-pages", queryParams);
+        if (res.data) {
+          const arr = Array.isArray(res.data) ? res.data : (res.data as any).data || [];
+          setIntakes(arr);
+          if ((res.data as any).pagination) {
+            setPagination((res.data as any).pagination);
+          }
+        }
+      } catch (e) {
+        console.error("Failed to fetch intakes", e);
+        toast.error("Failed to load intake pages");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchIntakes();
+  }, [searchParams]);
 
   const handleSelectAll = (checked: boolean) => {
     if (checked) {
-      setSelectedItems(mockIntakes.map((item) => item.id));
+      setSelectedItems(intakes.map((item) => item.id));
     } else {
       setSelectedItems([]);
     }
@@ -121,18 +137,71 @@ export function IntakeList({ searchParams }: IntakeListProps) {
 
   const handleDuplicate = (id: string) => {
     // Handle duplicate logic
-     
+    toast.info("Duplicate feature coming soon");
   };
 
-  const handleDelete = (id: string) => {
-    // Handle delete logic
-     
+  const handleDelete = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this intake?")) return;
+    
+    try {
+      await apiClient.delete("/api/intake-pages", { id });
+      setIntakes(intakes.filter((i) => i.id !== id));
+      toast.success("Intake deleted successfully");
+    } catch (e: any) {
+      console.error("Delete failed", e);
+      toast.error(e.message || "Failed to delete intake");
+    }
   };
 
-  const handleBulkAction = (action: string) => {
-     
-    // Handle bulk actions
+  const handleBulkAction = async (action: string) => {
+    if (action === "delete") {
+      if (!confirm(`Are you sure you want to delete ${selectedItems.length} intake(s)? This action cannot be undone.`)) {
+        return;
+      }
+      
+      try {
+        // Delete each selected item
+        await Promise.all(
+          selectedItems.map((id) => apiClient.delete("/api/intake-pages", { id }))
+        );
+        
+        // Remove deleted items from the list
+        setIntakes(intakes.filter((i) => !selectedItems.includes(i.id)));
+        setSelectedItems([]);
+        toast.success(`${selectedItems.length} intake(s) deleted successfully`);
+      } catch (e: any) {
+        console.error("Bulk delete failed", e);
+        toast.error(e.message || "Failed to delete some intakes");
+      }
+    } else {
+      toast.info(`Bulk ${action} feature coming soon`);
+    }
   };
+
+  const getIntakeTitle = (intake: IntakeItem) => {
+    if (intake.intakeSeason?.title) return intake.intakeSeason.title;
+    if (intake.heroTitle) return intake.heroTitle;
+    if (intake.intake && intake.destination?.name) {
+      return `${intake.intake} - ${intake.destination.name}`;
+    }
+    return "Untitled Intake";
+  };
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-lg border border-gray-200 p-8 text-center text-muted-foreground">
+        Loading intake pages...
+      </div>
+    );
+  }
+
+  if (intakes.length === 0) {
+    return (
+      <div className="bg-white rounded-lg border border-gray-200 p-8 text-center text-muted-foreground">
+        No intake pages found. Create your first one!
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white rounded-lg border border-gray-200">
@@ -178,7 +247,7 @@ export function IntakeList({ searchParams }: IntakeListProps) {
                 <input
                   type="checkbox"
                   className="rounded border-gray-300"
-                  checked={selectedItems.length === mockIntakes.length}
+                  checked={selectedItems.length === intakes.length && intakes.length > 0}
                   onChange={(e) => handleSelectAll(e.target.checked)}
                 />
               </TableHead>
@@ -187,13 +256,12 @@ export function IntakeList({ searchParams }: IntakeListProps) {
               <TableHead>Intake</TableHead>
               <TableHead>Scope</TableHead>
               <TableHead>Status</TableHead>
-              <TableHead>FAQs</TableHead>
               <TableHead>Updated</TableHead>
               <TableHead className="w-12">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {mockIntakes.map((intake) => (
+            {intakes.map((intake) => (
               <TableRow key={intake.id} className="hover:bg-gray-50">
                 <TableCell>
                   <input
@@ -206,23 +274,22 @@ export function IntakeList({ searchParams }: IntakeListProps) {
                   />
                 </TableCell>
                 <TableCell>
-                  <div>
-                    <div className="font-medium text-gray-900">
-                      {intake.title}
-                    </div>
-                    <div className="text-sm text-gray-500">ID: {intake.id}</div>
+                  <div className="font-medium text-gray-900">
+                    {getIntakeTitle(intake)}
                   </div>
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center gap-2">
                     <Globe className="w-4 h-4 text-gray-400" />
-                    <span>{intake.destination.name}</span>
+                    <span>{intake.destination?.name || "N/A"}</span>
                   </div>
                 </TableCell>
                 <TableCell>
-                  <Badge className={getIntakeColor(intake.intake)}>
-                    {intake.intake}
-                  </Badge>
+                  {intake.intake && (
+                    <Badge className={getIntakeColor(intake.intake)}>
+                      {intake.intake}
+                    </Badge>
+                  )}
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center gap-2">
@@ -234,7 +301,9 @@ export function IntakeList({ searchParams }: IntakeListProps) {
                     ) : (
                       <>
                         <MapPin className="w-4 h-4 text-green-500" />
-                        <span className="text-sm">{intake.country?.name}</span>
+                        <span className="text-sm">
+                          {intake.countries?.[0]?.country?.name || "Country-Specific"}
+                        </span>
                       </>
                     )}
                   </div>
@@ -248,14 +317,8 @@ export function IntakeList({ searchParams }: IntakeListProps) {
                   </Badge>
                 </TableCell>
                 <TableCell>
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm">{intake._count.faqs}</span>
-                    <span className="text-xs text-gray-500">FAQs</span>
-                  </div>
-                </TableCell>
-                <TableCell>
                   <div className="text-sm text-gray-600">
-                    {formatDate(intake.updatedAt)}
+                    {formatDate(new Date(intake.updatedAt))}
                   </div>
                 </TableCell>
                 <TableCell>
@@ -272,15 +335,17 @@ export function IntakeList({ searchParams }: IntakeListProps) {
                           Edit
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link
-                          href={`/study-in-${intake.destination.slug}/${intake.intake.toLowerCase()}`}
-                          target="_blank"
-                        >
-                          <Eye className="mr-2 h-4 w-4" />
-                          Preview
-                        </Link>
-                      </DropdownMenuItem>
+                      {intake.destination?.slug && intake.intake && (
+                        <DropdownMenuItem asChild>
+                          <Link
+                            href={`/study-in-${intake.destination.slug}/${intake.intake.toLowerCase()}`}
+                            target="_blank"
+                          >
+                            <Eye className="mr-2 h-4 w-4" />
+                            Preview
+                          </Link>
+                        </DropdownMenuItem>
+                      )}
                       <DropdownMenuItem
                         onClick={() => handleDuplicate(intake.id)}
                       >
@@ -307,15 +372,7 @@ export function IntakeList({ searchParams }: IntakeListProps) {
       {/* Pagination */}
       <div className="flex items-center justify-between p-4 border-t border-gray-200">
         <div className="text-sm text-gray-600">
-          Showing 1-{mockIntakes.length} of {mockIntakes.length} results
-        </div>
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" disabled>
-            Previous
-          </Button>
-          <Button variant="outline" size="sm" disabled>
-            Next
-          </Button>
+          Showing {intakes.length} results
         </div>
       </div>
     </div>

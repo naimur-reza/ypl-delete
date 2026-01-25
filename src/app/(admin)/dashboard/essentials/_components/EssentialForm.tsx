@@ -80,6 +80,8 @@ export function EssentialForm({ initialData, onSuccess }: EssentialFormProps) {
       description: initialData?.description || "",
       content: initialData?.content || "",
       status: initialData?.status || "DRAFT",
+      isGlobal: (initialData as any)?.isGlobal || false,
+      countryIds: countryIds,
     } satisfies FormData as FormData,
     validators: { onSubmit: essentialSchema as any },
     onSubmit: async ({ value }) => {
@@ -243,13 +245,20 @@ export function EssentialForm({ initialData, onSuccess }: EssentialFormProps) {
         <div className="pt-2">
           <CountrySelect
             value={countryIds}
-            onChange={setCountryIds}
+            onChange={(ids) => {
+              setCountryIds(ids);
+              form.setFieldValue("countryIds", ids as any);
+            }}
             label="Select Countries"
             showGlobalOption={true}
             isGlobal={isGlobal}
             onGlobalChange={(checked) => {
               setIsGlobal(checked);
-              if (checked) setCountryIds([]);
+              form.setFieldValue("isGlobal", checked as any);
+              if (checked) {
+                setCountryIds([]);
+                form.setFieldValue("countryIds", [] as any);
+              }
             }}
           />
         </div>

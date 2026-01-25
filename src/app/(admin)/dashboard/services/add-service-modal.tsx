@@ -26,6 +26,16 @@ const serviceSchema = z.object({
   metaTitle: z.string().max(200).optional().nullable(),
   metaDescription: z.string().max(500).optional().nullable(),
   metaKeywords: z.string().max(500).optional().nullable(),
+  isGlobal: z.boolean().optional().default(false),
+  countryIds: z.array(z.string()).default([]),
+}).superRefine((data, ctx) => {
+  if (!data.isGlobal && (!data.countryIds || data.countryIds.length === 0)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Select at least one country",
+      path: ["countryIds"],
+    });
+  }
 });
 
 type FormData = z.infer<typeof serviceSchema>;
@@ -48,7 +58,8 @@ export default function ServiceFormModal({
   const [imageUrl, setImageUrl] = useState<string>(selected?.image || "");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
-  const [countryIds, setCountryIds] = useState<string[]>([]);
+  const [countryIds, setCountryIds] = useState<string[]>(selected?.countryIds || []);
+  const [isGlobal, setIsGlobal] = useState<boolean>((selected as any)?.isGlobal || false);
 
   const form = useAppForm({
     defaultValues: {
@@ -60,6 +71,8 @@ export default function ServiceFormModal({
       metaTitle: selected?.metaTitle || "",
       metaDescription: selected?.metaDescription || "",
       metaKeywords: selected?.metaKeywords || "",
+      isGlobal: (selected as any)?.isGlobal || false,
+      countryIds: countryIds,
     } as FormData,
     validators: { onSubmit: serviceSchema as any },
     onSubmit: async ({ value }) => {
@@ -73,13 +86,14 @@ export default function ServiceFormModal({
           metaTitle: value.metaTitle || null,
           metaDescription: value.metaDescription || null,
           metaKeywords: value.metaKeywords || null,
-          countryIds,
-        } as Record<string, unknown>;
+          countryIds: isGlobal ? [] : countryIds,
+          isGlobal: isGlobal,
+        };
 
         const res =
           isEditing && selected?.id
-            ? await serviceApi.update(selected.id, payload)
-            : await serviceApi.create(payload);
+            ? await serviceApi.update(selected.id, payload as any)
+            : await serviceApi.create(payload as any);
 
         if (res.error) {
           toast.error(res.error);

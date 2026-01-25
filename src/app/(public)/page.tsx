@@ -84,7 +84,7 @@ const HomePage = async () => {
         destinations={destinations}
       />
       <AboutSection />
-      <IntakeFeature countrySlug={countrySlug}/>
+      <IntakeFeature countrySlug={countrySlug ?? undefined}/>
       <CountriesSection />
       <UniversitySlider universities={universities} />
       <WhyChooseUs countrySlug={countrySlug} />
@@ -92,7 +92,7 @@ const HomePage = async () => {
       <AccredianSection />
       <EventsSection events={events} />
       <FaqSection faqs={faqs} />
-      <BlogSection blogs={blogs} />
+      <BlogSection blogs={blogs} countrySlug={countrySlug} />
       <RepresentativeVideoSlider videos={videos} />
       <CallToActionBanner />
     </div>

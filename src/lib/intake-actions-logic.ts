@@ -1,30 +1,32 @@
 import { prisma } from "./prisma";
 import { IntakeMonth } from "@/hooks/use-course-wizard";
+import type { Prisma } from "@/prisma/src/generated/prisma";
 
-export interface CreateIntakePageInput {
+export type CreateIntakePageInput = Omit<
+  Prisma.IntakePageCreateInput,
+  "destination" | "intakeSeason" | "countries" | "topUniversities" | "intakePageBenefits" | "howWeHelpItems"
+> & {
   destinationId?: string;
   intake?: IntakeMonth;
-  whyChooseTitle?: string;
-  whyChooseDescription?: string;
-  heroTitle?: string;
-  heroSubtitle?: string;
-  heroCTALabel?: string;
-  heroCTAUrl?: string;
-  heroMedia?: string;
-  targetDate?: string;
-  timelineEnabled?: boolean;
-  howWeHelpEnabled?: boolean;
-  metaTitle?: string;
-  metaDescription?: string;
-  metaKeywords?: string;
-  intakePageBenefits?: any[];
-  howWeHelpItems?: any[];
+  intakeSeasonId?: string;
   countryIds?: string[];
   universityIds?: string[];
-  isGlobal?: boolean;
-  intakeSeasonId?: string;
-  status?: "DRAFT" | "ACTIVE";
-}
+  intakePageBenefits?: Array<{
+    title: string;
+    description?: string;
+    icon?: string;
+    sortOrder?: number;
+    isActive?: boolean;
+  }>;
+  howWeHelpItems?: Array<{
+    title: string;
+    description?: string;
+    icon?: string;
+    sortOrder?: number;
+    isActive?: boolean;
+  }>;
+  targetDate?: string;
+};
 
 export async function createIntakePage(data: CreateIntakePageInput) {
   const {
@@ -47,27 +49,42 @@ export async function createIntakePage(data: CreateIntakePageInput) {
     howWeHelpItems,
     universityIds,
     intakeSeasonId,
+    isGlobal,
+    countryIds,
     status,
   } = data;
 
-  if (!intakeSeasonId || intakeSeasonId === "__none__") {
-    throw new Error("Intake Season is required");
+  // Handle intakeSeasonId: if provided and valid, use it; otherwise require destinationId and intake
+  let season = null;
+  let finalDestinationId: string | undefined = destinationId;
+  let finalIntake: IntakeMonth | undefined = intake;
+  let finalIsGlobal = isGlobal ?? false;
+  let seasonCountryIds: string[] = countryIds || [];
+
+  if (intakeSeasonId && intakeSeasonId !== "__none__") {
+    // Fetch season data to sync isGlobal and countries
+    season = await prisma.intakeSeason.findUnique({
+      where: { id: intakeSeasonId },
+      include: { countries: true },
+    });
+
+    if (!season) {
+      throw new Error("Intake Season not found");
+    }
+
+    finalDestinationId = destinationId || season.destinationId || undefined;
+    finalIntake = intake || (season.intake as IntakeMonth);
+    finalIsGlobal = season.isGlobal;
+    seasonCountryIds = season.countries.map(c => c.countryId);
+  } else {
+    // No season selected - require destinationId and intake
+    if (!finalDestinationId) {
+      throw new Error("Destination is required when no intake season is selected");
+    }
+    if (!finalIntake) {
+      throw new Error("Intake month is required when no intake season is selected");
+    }
   }
-
-  // Fetch season data to sync isGlobal and countries
-  const season = await prisma.intakeSeason.findUnique({
-    where: { id: intakeSeasonId },
-    include: { countries: true },
-  });
-
-  if (!season) {
-    throw new Error("Intake Season not found");
-  }
-
-  const finalDestinationId = destinationId || season.destinationId || undefined;
-  const finalIntake = intake || (season.intake as IntakeMonth);
-  const finalIsGlobal = season.isGlobal;
-  const seasonCountryIds = season.countries.map(c => c.countryId);
 
   return await prisma.intakePage.create({
     data: {
@@ -87,7 +104,7 @@ export async function createIntakePage(data: CreateIntakePageInput) {
       metaDescription,
       metaKeywords,
       isGlobal: finalIsGlobal,
-      intakeSeasonId,
+      intakeSeasonId: intakeSeasonId && intakeSeasonId !== "__none__" ? intakeSeasonId : null,
       status: status || "DRAFT",
       countries: seasonCountryIds.length && !finalIsGlobal
         ? {

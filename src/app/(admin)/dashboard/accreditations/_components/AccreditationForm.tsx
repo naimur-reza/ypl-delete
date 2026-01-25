@@ -38,8 +38,17 @@ const accreditationSchema = z.object({
   type: z.enum(["NEWS", "PARTNER", "ACCREDITATION"]).default("NEWS"),
   status: z.enum(["ACTIVE", "DRAFT"]).default("DRAFT"),
   sortOrder: z.number().int().optional().nullable(),
-  countryIds: z.array(z.string().min(1)).min(1, "Select at least one country"),
+  isGlobal: z.boolean().optional().default(false),
+  countryIds: z.array(z.string()).default([]),
   countries: z.array(z.object()).optional(),
+}).superRefine((data, ctx) => {
+  if (!data.isGlobal && (!data.countryIds || data.countryIds.length === 0)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Select at least one country",
+      path: ["countryIds"],
+    });
+  }
 });
 
 type FormData = z.infer<typeof accreditationSchema>;
@@ -82,8 +91,8 @@ export function AccreditationForm({
       type: initialData?.type || "NEWS",
       status: initialData?.status || "DRAFT",
       sortOrder: initialData?.sortOrder ?? null,
-      countryIds:
-        countryIds.length > 0 ? countryIds : initialData?.countryIds ?? [],
+      isGlobal: (initialData as any)?.isGlobal || false,
+      countryIds: countryIds.length > 0 ? countryIds : (initialData as any)?.countryIds ?? [],
     } as unknown as FormData,
     validators: { onSubmit: accreditationSchema as any },
     onSubmit: async ({ value }) => {
@@ -241,14 +250,18 @@ export function AccreditationForm({
               value={countryIds}
               onChange={(ids) => {
                 setCountryIds(ids);
-                field.handleChange(ids);
+                form.setFieldValue("countryIds", ids as any);
               }}
               label="Select Countries"
               showGlobalOption={true}
               isGlobal={isGlobal}
               onGlobalChange={(checked) => {
                 setIsGlobal(checked);
-                if (checked) setCountryIds([]);
+                form.setFieldValue("isGlobal", checked as any);
+                if (checked) {
+                  setCountryIds([]);
+                  form.setFieldValue("countryIds", [] as any);
+                }
               }}
             />
           )}
