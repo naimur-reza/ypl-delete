@@ -47,7 +47,12 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
       prisma.destination.findMany({
         select: { id: true, name: true, slug: true },
         where: countryScopedFilter
-          ? { countries: countryScopedFilter }
+          ? {
+            OR: [
+              { countries: countryScopedFilter },
+              { isGlobal: true },
+            ],
+          }
           : undefined,
       }),
       prisma.university.findMany({

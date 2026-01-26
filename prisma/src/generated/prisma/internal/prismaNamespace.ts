@@ -402,6 +402,7 @@ export const ModelName = {
   Gallery: 'Gallery',
   Hero: 'Hero',
   HeroCountry: 'HeroCountry',
+  IntakeLead: 'IntakeLead',
   IntakeSeason: 'IntakeSeason',
   IntakeSeasonCountry: 'IntakeSeasonCountry',
   IntakePageBenefit: 'IntakePageBenefit',
@@ -463,7 +464,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "appointment" | "blog" | "service" | "accreditation" | "career" | "jobApplication" | "legalPage" | "course" | "courseIntake" | "intakePage" | "event" | "eventDestination" | "eventMedia" | "eventRegistration" | "fAQ" | "gallery" | "hero" | "heroCountry" | "intakeSeason" | "intakeSeasonCountry" | "intakePageBenefit" | "intakePageHowWeHelpItem" | "intakePageCountry" | "intakePageUniversity" | "lead" | "offerRequest" | "recommendation" | "globalOffice" | "country" | "destination" | "essentialStudy" | "destinationSection" | "universityCountry" | "courseCountry" | "scholarshipCountry" | "eventCountry" | "blogCountry" | "blogUniversity" | "blogCourse" | "fAQCountry" | "fAQDestination" | "fAQUniversity" | "fAQEvent" | "fAQCourse" | "fAQScholarship" | "fAQIntakePage" | "globalOfficeCountry" | "destinationCountry" | "testimonialCountry" | "testimonialDestination" | "testimonialUniversity" | "testimonialEvent" | "accreditationCountry" | "galleryCountry" | "essentialStudyCountry" | "serviceCountry" | "scholarship" | "settings" | "stat" | "statCountry" | "testimonial" | "university" | "universityDetail" | "user"
+    modelProps: "appointment" | "blog" | "service" | "accreditation" | "career" | "jobApplication" | "legalPage" | "course" | "courseIntake" | "intakePage" | "event" | "eventDestination" | "eventMedia" | "eventRegistration" | "fAQ" | "gallery" | "hero" | "heroCountry" | "intakeLead" | "intakeSeason" | "intakeSeasonCountry" | "intakePageBenefit" | "intakePageHowWeHelpItem" | "intakePageCountry" | "intakePageUniversity" | "lead" | "offerRequest" | "recommendation" | "globalOffice" | "country" | "destination" | "essentialStudy" | "destinationSection" | "universityCountry" | "courseCountry" | "scholarshipCountry" | "eventCountry" | "blogCountry" | "blogUniversity" | "blogCourse" | "fAQCountry" | "fAQDestination" | "fAQUniversity" | "fAQEvent" | "fAQCourse" | "fAQScholarship" | "fAQIntakePage" | "globalOfficeCountry" | "destinationCountry" | "testimonialCountry" | "testimonialDestination" | "testimonialUniversity" | "testimonialEvent" | "accreditationCountry" | "galleryCountry" | "essentialStudyCountry" | "serviceCountry" | "scholarship" | "settings" | "stat" | "statCountry" | "testimonial" | "university" | "universityDetail" | "user"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1796,6 +1797,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.HeroCountryCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.HeroCountryCountAggregateOutputType> | number
+        }
+      }
+    }
+    IntakeLead: {
+      payload: Prisma.$IntakeLeadPayload<ExtArgs>
+      fields: Prisma.IntakeLeadFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.IntakeLeadFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakeLeadPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.IntakeLeadFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakeLeadPayload>
+        }
+        findFirst: {
+          args: Prisma.IntakeLeadFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakeLeadPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.IntakeLeadFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakeLeadPayload>
+        }
+        findMany: {
+          args: Prisma.IntakeLeadFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakeLeadPayload>[]
+        }
+        create: {
+          args: Prisma.IntakeLeadCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakeLeadPayload>
+        }
+        createMany: {
+          args: Prisma.IntakeLeadCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.IntakeLeadCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakeLeadPayload>[]
+        }
+        delete: {
+          args: Prisma.IntakeLeadDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakeLeadPayload>
+        }
+        update: {
+          args: Prisma.IntakeLeadUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakeLeadPayload>
+        }
+        deleteMany: {
+          args: Prisma.IntakeLeadDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.IntakeLeadUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.IntakeLeadUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakeLeadPayload>[]
+        }
+        upsert: {
+          args: Prisma.IntakeLeadUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntakeLeadPayload>
+        }
+        aggregate: {
+          args: Prisma.IntakeLeadAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateIntakeLead>
+        }
+        groupBy: {
+          args: Prisma.IntakeLeadGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IntakeLeadGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.IntakeLeadCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IntakeLeadCountAggregateOutputType> | number
         }
       }
     }
@@ -5609,6 +5684,30 @@ export const HeroCountryScalarFieldEnum = {
 export type HeroCountryScalarFieldEnum = (typeof HeroCountryScalarFieldEnum)[keyof typeof HeroCountryScalarFieldEnum]
 
 
+export const IntakeLeadScalarFieldEnum = {
+  id: 'id',
+  intakePageId: 'intakePageId',
+  intakeName: 'intakeName',
+  countryId: 'countryId',
+  name: 'name',
+  email: 'email',
+  phone: 'phone',
+  city: 'city',
+  addressCountry: 'addressCountry',
+  studyDestination: 'studyDestination',
+  lastQualification: 'lastQualification',
+  englishTest: 'englishTest',
+  englishTestScore: 'englishTestScore',
+  additionalInfo: 'additionalInfo',
+  notes: 'notes',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type IntakeLeadScalarFieldEnum = (typeof IntakeLeadScalarFieldEnum)[keyof typeof IntakeLeadScalarFieldEnum]
+
+
 export const IntakeSeasonScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -6506,6 +6605,20 @@ export type ListEnumBackgroundTypeFieldRefInput<$PrismaModel> = FieldRefInputTyp
 
 
 /**
+ * Reference to a field of type 'IntakeLeadStatus'
+ */
+export type EnumIntakeLeadStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IntakeLeadStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'IntakeLeadStatus[]'
+ */
+export type ListEnumIntakeLeadStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IntakeLeadStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'TestimonialType'
  */
 export type EnumTestimonialTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TestimonialType'>
@@ -6673,6 +6786,7 @@ export type GlobalOmitConfig = {
   gallery?: Prisma.GalleryOmit
   hero?: Prisma.HeroOmit
   heroCountry?: Prisma.HeroCountryOmit
+  intakeLead?: Prisma.IntakeLeadOmit
   intakeSeason?: Prisma.IntakeSeasonOmit
   intakeSeasonCountry?: Prisma.IntakeSeasonCountryOmit
   intakePageBenefit?: Prisma.IntakePageBenefitOmit

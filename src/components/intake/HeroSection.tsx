@@ -1,7 +1,9 @@
+"use client";
+
 import Image from "next/image";
-import Link from "next/link";
+ 
 import { Button } from "@/components/ui/button";
-import { CountryAwareLink } from "../common/navbar/country-aware-link";
+ 
 
 interface HeroSectionProps {
   title?: string;
@@ -69,11 +71,13 @@ export function HeroSection({
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Button
-            asChild
             size="lg"
-            className="  px-8 py-4 text-lg font-semibold min-h-[56px]"
+            className="px-8 py-4 text-lg font-semibold min-h-[56px]"
+            onClick={() => {
+              document.getElementById('intake-lead-form')?.scrollIntoView({ behavior: 'smooth' });
+            }}
           >
-            <CountryAwareLink href={ctaUrl}>{ctaLabel}</CountryAwareLink>
+            {ctaLabel}
           </Button>
         </div>
       </div>

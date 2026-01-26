@@ -1,0 +1,35 @@
+// Intake Lead - stores form submissions from intake pages
+model IntakeLead {
+  id                String           @id @default(cuid())
+  intakePageId      String?
+  intakeName        String           // e.g., "September Intake - UK"
+  countryId         String?
+  name              String
+  email             String?
+  phone             String?
+  city              String?
+  addressCountry    String?
+  studyDestination  String?
+  lastQualification String?
+  englishTest       String?
+  englishTestScore  String?
+  additionalInfo    String?          @db.Text
+  notes             String?
+  status            IntakeLeadStatus @default(PENDING)
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  country           Country?         @relation(fields: [countryId], references: [id])
+  intakePage        IntakePage?      @relation(fields: [intakePageId], references: [id])
+
+  @@index([intakePageId])
+  @@index([countryId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+enum IntakeLeadStatus {
+  PENDING
+  CONTACTED
+  CONVERTED
+  CANCELLED
+}

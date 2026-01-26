@@ -190,7 +190,7 @@ export default async function WhyChooseUs({ countrySlug }: WhyChooseUsProps) {
 
         {/* Stats Grid */}
         <div
-          className={`grid grid-cols-1 gap-4 md:gap-8 ${
+          className={`grid grid-cols-1 gap-4 md:gap-5 ${
             displayStats.length === 2
               ? "md:grid-cols-2 max-w-3xl mx-auto"
               : displayStats.length >= 3

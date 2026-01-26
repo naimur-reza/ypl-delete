@@ -69,6 +69,7 @@ export const ModelName = {
   Gallery: 'Gallery',
   Hero: 'Hero',
   HeroCountry: 'HeroCountry',
+  IntakeLead: 'IntakeLead',
   IntakeSeason: 'IntakeSeason',
   IntakeSeasonCountry: 'IntakeSeasonCountry',
   IntakePageBenefit: 'IntakePageBenefit',
@@ -498,6 +499,30 @@ export const HeroCountryScalarFieldEnum = {
 } as const
 
 export type HeroCountryScalarFieldEnum = (typeof HeroCountryScalarFieldEnum)[keyof typeof HeroCountryScalarFieldEnum]
+
+
+export const IntakeLeadScalarFieldEnum = {
+  id: 'id',
+  intakePageId: 'intakePageId',
+  intakeName: 'intakeName',
+  countryId: 'countryId',
+  name: 'name',
+  email: 'email',
+  phone: 'phone',
+  city: 'city',
+  addressCountry: 'addressCountry',
+  studyDestination: 'studyDestination',
+  lastQualification: 'lastQualification',
+  englishTest: 'englishTest',
+  englishTestScore: 'englishTestScore',
+  additionalInfo: 'additionalInfo',
+  notes: 'notes',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type IntakeLeadScalarFieldEnum = (typeof IntakeLeadScalarFieldEnum)[keyof typeof IntakeLeadScalarFieldEnum]
 
 
 export const IntakeSeasonScalarFieldEnum = {

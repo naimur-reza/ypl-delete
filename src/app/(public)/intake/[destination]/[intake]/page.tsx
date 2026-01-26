@@ -5,7 +5,7 @@ import { HeroSection } from "@/components/intake/HeroSection";
 import { WhyChooseIntake } from "@/components/intake/WhyChooseIntake";
 import { TopUniversities } from "@/components/intake/TopUniversities";
 import { ApplicationTimeline } from "@/components/intake/ApplicationTimeline";
-import { BookConsultationFormInline } from "@/components/BookConsultationFormInline";
+import { IntakeLeadFormInline } from "@/components/IntakeLeadFormInline";
 import { ReviewSection } from "@/components/sections/review-section";
 import { FaqSection } from "@/components/sections/faq-section";
 import CallToActionBanner from "@/components/CallToActionBanner";
@@ -251,9 +251,11 @@ export default async function GlobalIntakePage({ params }: PageProps) {
       {/* Eligibility Form (global view) */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <BookConsultationFormInline
+          <IntakeLeadFormInline
             destinations={destinations as any}
             defaultDestination={intakeData.intakeSeason.destination?.name ?? ""}
+            intakePageId={intakeData.id}
+            intakeName={`${intakeName} Intake - ${destinationName}`}
             headerTitle="Check Your Eligibility"
             headerSubtitle={`Find out if you are eligible for the ${intakeName} intake to study in ${destinationName}. Our counselors will get back to you shortly.`}
           />

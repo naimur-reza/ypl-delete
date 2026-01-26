@@ -51,6 +51,7 @@ model Country {
   intakeSeasons      IntakeSeasonCountry[]
   intakePages        IntakePageCountry[]
   leads              Lead[]
+  intakeLeads        IntakeLead[]
   scholarships       ScholarshipCountry[]
   stats              StatCountry[]
   testimonials       TestimonialCountry[]

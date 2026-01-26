@@ -48,6 +48,16 @@ export const GalleryType = {
 export type GalleryType = (typeof GalleryType)[keyof typeof GalleryType]
 
 
+export const IntakeLeadStatus = {
+  PENDING: 'PENDING',
+  CONTACTED: 'CONTACTED',
+  CONVERTED: 'CONVERTED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type IntakeLeadStatus = (typeof IntakeLeadStatus)[keyof typeof IntakeLeadStatus]
+
+
 export const Role = {
   SUPERADMIN: 'SUPERADMIN',
   ADMIN: 'ADMIN',

@@ -4,7 +4,7 @@ import {
   HeroSlider,
   CountriesSection,
   UniversitySlider,
-  AccredianSection,
+ 
   WhyChooseUs,
   EventsSection,
   BlogSection,
@@ -22,6 +22,7 @@ import { UniversityFilterWithWizard } from "@/components/filters/university-filt
 import { buildMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 import { AboutSection } from "@/components/home/about-section";
+import { AccredianSection } from "../[country]/(public)/(home)/components";
 
 // Enable ISR with 1 hour revalidation for SSG
 export const revalidate = 3600;
@@ -38,7 +39,7 @@ const HomePage = async () => {
   const resolvedCountry = await resolveCountryContext();
   const countrySlug = resolvedCountry.slug;
 
-  const [universities, events, blogs, faqs, videos, countries, destinations] =
+  const [universities, events, blogs, faqs, videos, countries, destinations, accreditations] =
     await Promise.all([
       prisma.university.findMany({
         where: countrySlug
@@ -74,8 +75,24 @@ const HomePage = async () => {
         },
         orderBy: { name: "asc" },
       }),
+      // Accreditations - global page shows all global accreditations
+      prisma.accreditation.findMany({
+        where: {
+          status: "ACTIVE",
+          type: "NEWS",
+          isGlobal: true,
+        },
+        orderBy: { sortOrder: "asc" },
+        select: {
+          id: true,
+          name: true,
+          logo: true,
+          website: true,
+        },
+      }),
     ]);
 
+    console.log(accreditations)
   return (
     <div>
       <HeroSlider />
@@ -89,10 +106,10 @@ const HomePage = async () => {
       <UniversitySlider universities={universities} />
       <WhyChooseUs countrySlug={countrySlug} />
       <ReviewSection countrySlug={countrySlug} />
-      <AccredianSection />
+      <AccredianSection accreditations={accreditations} />
       <EventsSection events={events} />
       <FaqSection faqs={faqs} />
-      <BlogSection blogs={blogs} countrySlug={countrySlug} />
+      <BlogSection blogs={blogs}  />
       <RepresentativeVideoSlider videos={videos} />
       <CallToActionBanner />
     </div>

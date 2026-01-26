@@ -338,7 +338,7 @@ export function IntakeList({ searchParams }: IntakeListProps) {
                       {intake.destination?.slug && intake.intake && (
                         <DropdownMenuItem asChild>
                           <Link
-                            href={`/study-in-${intake.destination.slug}/${intake.intake.toLowerCase()}`}
+                            href={`/${intake.destination.slug}/${intake.intake.toLowerCase()}`}
                             target="_blank"
                           >
                             <Eye className="mr-2 h-4 w-4" />
@@ -346,12 +346,7 @@ export function IntakeList({ searchParams }: IntakeListProps) {
                           </Link>
                         </DropdownMenuItem>
                       )}
-                      <DropdownMenuItem
-                        onClick={() => handleDuplicate(intake.id)}
-                      >
-                        <Copy className="mr-2 h-4 w-4" />
-                        Duplicate
-                      </DropdownMenuItem>
+
                       <DropdownMenuSeparator />
                       <DropdownMenuItem
                         onClick={() => handleDelete(intake.id)}

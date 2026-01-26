@@ -51,11 +51,13 @@ export async function POST(req: NextRequest) {
     campusAndCommunity,
     destinationLife,
     status,
+    isGlobal,
   } = body;
 
-  if (!name || !slug || !countryIds?.length) {
+  // Allow global destinations without country IDs
+  if (!name || !slug || (!isGlobal && !countryIds?.length)) {
     return Response.json(
-      { error: "Name, slug and at least one country are required" },
+      { error: "Name, slug and at least one country are required (unless Global)" },
       { status: 400 }
     );
   }
@@ -76,6 +78,7 @@ export async function POST(req: NextRequest) {
         campusAndCommunity,
         destinationLife,
         status: status || "ACTIVE",
+        isGlobal: isGlobal || false,
         countries:
           countryIds && Array.isArray(countryIds)
             ? {
@@ -134,6 +137,7 @@ export async function PUT(req: NextRequest) {
     campusAndCommunity,
     destinationLife,
     status,
+    isGlobal,
   } = body;
 
   if (!id) {
@@ -158,6 +162,7 @@ export async function PUT(req: NextRequest) {
           campusAndCommunity,
           destinationLife,
           status,
+          isGlobal: isGlobal ?? undefined,
         },
       });
 

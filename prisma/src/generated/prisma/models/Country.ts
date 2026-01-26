@@ -244,6 +244,7 @@ export type CountryWhereInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryListRelationFilter
   intakePages?: Prisma.IntakePageCountryListRelationFilter
   leads?: Prisma.LeadListRelationFilter
+  intakeLeads?: Prisma.IntakeLeadListRelationFilter
   scholarships?: Prisma.ScholarshipCountryListRelationFilter
   stats?: Prisma.StatCountryListRelationFilter
   testimonials?: Prisma.TestimonialCountryListRelationFilter
@@ -278,6 +279,7 @@ export type CountryOrderByWithRelationInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryOrderByRelationAggregateInput
   intakePages?: Prisma.IntakePageCountryOrderByRelationAggregateInput
   leads?: Prisma.LeadOrderByRelationAggregateInput
+  intakeLeads?: Prisma.IntakeLeadOrderByRelationAggregateInput
   scholarships?: Prisma.ScholarshipCountryOrderByRelationAggregateInput
   stats?: Prisma.StatCountryOrderByRelationAggregateInput
   testimonials?: Prisma.TestimonialCountryOrderByRelationAggregateInput
@@ -315,6 +317,7 @@ export type CountryWhereUniqueInput = Prisma.AtLeast<{
   intakeSeasons?: Prisma.IntakeSeasonCountryListRelationFilter
   intakePages?: Prisma.IntakePageCountryListRelationFilter
   leads?: Prisma.LeadListRelationFilter
+  intakeLeads?: Prisma.IntakeLeadListRelationFilter
   scholarships?: Prisma.ScholarshipCountryListRelationFilter
   stats?: Prisma.StatCountryListRelationFilter
   testimonials?: Prisma.TestimonialCountryListRelationFilter
@@ -383,6 +386,7 @@ export type CountryCreateInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
@@ -417,6 +421,7 @@ export type CountryUncheckedCreateInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -451,6 +456,7 @@ export type CountryUpdateInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
@@ -485,6 +491,7 @@ export type CountryUncheckedUpdateInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -631,6 +638,22 @@ export type CountryUpdateOneRequiredWithoutHeroesNestedInput = {
   upsert?: Prisma.CountryUpsertWithoutHeroesInput
   connect?: Prisma.CountryWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.CountryUpdateToOneWithWhereWithoutHeroesInput, Prisma.CountryUpdateWithoutHeroesInput>, Prisma.CountryUncheckedUpdateWithoutHeroesInput>
+}
+
+export type CountryCreateNestedOneWithoutIntakeLeadsInput = {
+  create?: Prisma.XOR<Prisma.CountryCreateWithoutIntakeLeadsInput, Prisma.CountryUncheckedCreateWithoutIntakeLeadsInput>
+  connectOrCreate?: Prisma.CountryCreateOrConnectWithoutIntakeLeadsInput
+  connect?: Prisma.CountryWhereUniqueInput
+}
+
+export type CountryUpdateOneWithoutIntakeLeadsNestedInput = {
+  create?: Prisma.XOR<Prisma.CountryCreateWithoutIntakeLeadsInput, Prisma.CountryUncheckedCreateWithoutIntakeLeadsInput>
+  connectOrCreate?: Prisma.CountryCreateOrConnectWithoutIntakeLeadsInput
+  upsert?: Prisma.CountryUpsertWithoutIntakeLeadsInput
+  disconnect?: Prisma.CountryWhereInput | boolean
+  delete?: Prisma.CountryWhereInput | boolean
+  connect?: Prisma.CountryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CountryUpdateToOneWithWhereWithoutIntakeLeadsInput, Prisma.CountryUpdateWithoutIntakeLeadsInput>, Prisma.CountryUncheckedUpdateWithoutIntakeLeadsInput>
 }
 
 export type CountryCreateNestedOneWithoutIntakeSeasonsInput = {
@@ -898,6 +921,7 @@ export type CountryCreateWithoutAppointmentsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
@@ -931,6 +955,7 @@ export type CountryUncheckedCreateWithoutAppointmentsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -980,6 +1005,7 @@ export type CountryUpdateWithoutAppointmentsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
@@ -1013,6 +1039,7 @@ export type CountryUncheckedUpdateWithoutAppointmentsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -1046,6 +1073,7 @@ export type CountryCreateWithoutEventRegistrationsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
@@ -1079,6 +1107,7 @@ export type CountryUncheckedCreateWithoutEventRegistrationsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -1128,6 +1157,7 @@ export type CountryUpdateWithoutEventRegistrationsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
@@ -1161,6 +1191,7 @@ export type CountryUncheckedUpdateWithoutEventRegistrationsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -1194,6 +1225,7 @@ export type CountryCreateWithoutHeroesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
@@ -1227,6 +1259,7 @@ export type CountryUncheckedCreateWithoutHeroesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -1276,6 +1309,7 @@ export type CountryUpdateWithoutHeroesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
@@ -1306,6 +1340,159 @@ export type CountryUncheckedUpdateWithoutHeroesInput = {
   faqs?: Prisma.FAQCountryUncheckedUpdateManyWithoutCountryNestedInput
   galleries?: Prisma.GalleryCountryUncheckedUpdateManyWithoutCountryNestedInput
   globalOffices?: Prisma.GlobalOfficeCountryUncheckedUpdateManyWithoutCountryNestedInput
+  intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
+  intakePages?: Prisma.IntakePageCountryUncheckedUpdateManyWithoutCountryNestedInput
+  leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedUpdateManyWithoutCountryNestedInput
+  scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
+  stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
+  testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
+  universities?: Prisma.UniversityCountryUncheckedUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUncheckedUpdateManyWithoutCountryNestedInput
+}
+
+export type CountryCreateWithoutIntakeLeadsInput = {
+  id?: string
+  name: string
+  slug: string
+  isoCode: string
+  flag?: string | null
+  metaTitle?: string | null
+  metaDescription?: string | null
+  metaKeywords?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  status?: $Enums.ContentStatus
+  accreditation?: Prisma.AccreditationCountryCreateNestedManyWithoutCountryInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutCountryInput
+  blogs?: Prisma.BlogCountryCreateNestedManyWithoutCountryInput
+  courses?: Prisma.CourseCountryCreateNestedManyWithoutCountryInput
+  destinations?: Prisma.DestinationCountryCreateNestedManyWithoutCountryInput
+  events?: Prisma.EventCountryCreateNestedManyWithoutCountryInput
+  eventRegistrations?: Prisma.EventRegistrationCreateNestedManyWithoutCountryInput
+  faqs?: Prisma.FAQCountryCreateNestedManyWithoutCountryInput
+  galleries?: Prisma.GalleryCountryCreateNestedManyWithoutCountryInput
+  globalOffices?: Prisma.GlobalOfficeCountryCreateNestedManyWithoutCountryInput
+  heroes?: Prisma.HeroCountryCreateNestedManyWithoutCountryInput
+  intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
+  intakePages?: Prisma.IntakePageCountryCreateNestedManyWithoutCountryInput
+  leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
+  scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
+  stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
+  testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
+  universities?: Prisma.UniversityCountryCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryCreateNestedManyWithoutCountryInput
+}
+
+export type CountryUncheckedCreateWithoutIntakeLeadsInput = {
+  id?: string
+  name: string
+  slug: string
+  isoCode: string
+  flag?: string | null
+  metaTitle?: string | null
+  metaDescription?: string | null
+  metaKeywords?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  status?: $Enums.ContentStatus
+  accreditation?: Prisma.AccreditationCountryUncheckedCreateNestedManyWithoutCountryInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCountryInput
+  blogs?: Prisma.BlogCountryUncheckedCreateNestedManyWithoutCountryInput
+  courses?: Prisma.CourseCountryUncheckedCreateNestedManyWithoutCountryInput
+  destinations?: Prisma.DestinationCountryUncheckedCreateNestedManyWithoutCountryInput
+  events?: Prisma.EventCountryUncheckedCreateNestedManyWithoutCountryInput
+  eventRegistrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutCountryInput
+  faqs?: Prisma.FAQCountryUncheckedCreateNestedManyWithoutCountryInput
+  galleries?: Prisma.GalleryCountryUncheckedCreateNestedManyWithoutCountryInput
+  globalOffices?: Prisma.GlobalOfficeCountryUncheckedCreateNestedManyWithoutCountryInput
+  heroes?: Prisma.HeroCountryUncheckedCreateNestedManyWithoutCountryInput
+  intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
+  intakePages?: Prisma.IntakePageCountryUncheckedCreateNestedManyWithoutCountryInput
+  leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
+  scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
+  stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
+  testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
+  universities?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutCountryInput
+  essentials?: Prisma.EssentialStudyCountryUncheckedCreateNestedManyWithoutCountryInput
+  services?: Prisma.ServiceCountryUncheckedCreateNestedManyWithoutCountryInput
+}
+
+export type CountryCreateOrConnectWithoutIntakeLeadsInput = {
+  where: Prisma.CountryWhereUniqueInput
+  create: Prisma.XOR<Prisma.CountryCreateWithoutIntakeLeadsInput, Prisma.CountryUncheckedCreateWithoutIntakeLeadsInput>
+}
+
+export type CountryUpsertWithoutIntakeLeadsInput = {
+  update: Prisma.XOR<Prisma.CountryUpdateWithoutIntakeLeadsInput, Prisma.CountryUncheckedUpdateWithoutIntakeLeadsInput>
+  create: Prisma.XOR<Prisma.CountryCreateWithoutIntakeLeadsInput, Prisma.CountryUncheckedCreateWithoutIntakeLeadsInput>
+  where?: Prisma.CountryWhereInput
+}
+
+export type CountryUpdateToOneWithWhereWithoutIntakeLeadsInput = {
+  where?: Prisma.CountryWhereInput
+  data: Prisma.XOR<Prisma.CountryUpdateWithoutIntakeLeadsInput, Prisma.CountryUncheckedUpdateWithoutIntakeLeadsInput>
+}
+
+export type CountryUpdateWithoutIntakeLeadsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  isoCode?: Prisma.StringFieldUpdateOperationsInput | string
+  flag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  accreditation?: Prisma.AccreditationCountryUpdateManyWithoutCountryNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutCountryNestedInput
+  blogs?: Prisma.BlogCountryUpdateManyWithoutCountryNestedInput
+  courses?: Prisma.CourseCountryUpdateManyWithoutCountryNestedInput
+  destinations?: Prisma.DestinationCountryUpdateManyWithoutCountryNestedInput
+  events?: Prisma.EventCountryUpdateManyWithoutCountryNestedInput
+  eventRegistrations?: Prisma.EventRegistrationUpdateManyWithoutCountryNestedInput
+  faqs?: Prisma.FAQCountryUpdateManyWithoutCountryNestedInput
+  galleries?: Prisma.GalleryCountryUpdateManyWithoutCountryNestedInput
+  globalOffices?: Prisma.GlobalOfficeCountryUpdateManyWithoutCountryNestedInput
+  heroes?: Prisma.HeroCountryUpdateManyWithoutCountryNestedInput
+  intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
+  intakePages?: Prisma.IntakePageCountryUpdateManyWithoutCountryNestedInput
+  leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
+  scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
+  stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
+  testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
+  universities?: Prisma.UniversityCountryUpdateManyWithoutCountryNestedInput
+  essentials?: Prisma.EssentialStudyCountryUpdateManyWithoutCountryNestedInput
+  services?: Prisma.ServiceCountryUpdateManyWithoutCountryNestedInput
+}
+
+export type CountryUncheckedUpdateWithoutIntakeLeadsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  isoCode?: Prisma.StringFieldUpdateOperationsInput | string
+  flag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaKeywords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  accreditation?: Prisma.AccreditationCountryUncheckedUpdateManyWithoutCountryNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCountryNestedInput
+  blogs?: Prisma.BlogCountryUncheckedUpdateManyWithoutCountryNestedInput
+  courses?: Prisma.CourseCountryUncheckedUpdateManyWithoutCountryNestedInput
+  destinations?: Prisma.DestinationCountryUncheckedUpdateManyWithoutCountryNestedInput
+  events?: Prisma.EventCountryUncheckedUpdateManyWithoutCountryNestedInput
+  eventRegistrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutCountryNestedInput
+  faqs?: Prisma.FAQCountryUncheckedUpdateManyWithoutCountryNestedInput
+  galleries?: Prisma.GalleryCountryUncheckedUpdateManyWithoutCountryNestedInput
+  globalOffices?: Prisma.GlobalOfficeCountryUncheckedUpdateManyWithoutCountryNestedInput
+  heroes?: Prisma.HeroCountryUncheckedUpdateManyWithoutCountryNestedInput
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
@@ -1342,6 +1529,7 @@ export type CountryCreateWithoutIntakeSeasonsInput = {
   heroes?: Prisma.HeroCountryCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
@@ -1375,6 +1563,7 @@ export type CountryUncheckedCreateWithoutIntakeSeasonsInput = {
   heroes?: Prisma.HeroCountryUncheckedCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -1424,6 +1613,7 @@ export type CountryUpdateWithoutIntakeSeasonsInput = {
   heroes?: Prisma.HeroCountryUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
@@ -1457,6 +1647,7 @@ export type CountryUncheckedUpdateWithoutIntakeSeasonsInput = {
   heroes?: Prisma.HeroCountryUncheckedUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -1490,6 +1681,7 @@ export type CountryCreateWithoutIntakePagesInput = {
   heroes?: Prisma.HeroCountryCreateNestedManyWithoutCountryInput
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
@@ -1523,6 +1715,7 @@ export type CountryUncheckedCreateWithoutIntakePagesInput = {
   heroes?: Prisma.HeroCountryUncheckedCreateNestedManyWithoutCountryInput
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -1572,6 +1765,7 @@ export type CountryUpdateWithoutIntakePagesInput = {
   heroes?: Prisma.HeroCountryUpdateManyWithoutCountryNestedInput
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
@@ -1605,6 +1799,7 @@ export type CountryUncheckedUpdateWithoutIntakePagesInput = {
   heroes?: Prisma.HeroCountryUncheckedUpdateManyWithoutCountryNestedInput
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -1638,6 +1833,7 @@ export type CountryCreateWithoutLeadsInput = {
   heroes?: Prisma.HeroCountryCreateNestedManyWithoutCountryInput
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
@@ -1671,6 +1867,7 @@ export type CountryUncheckedCreateWithoutLeadsInput = {
   heroes?: Prisma.HeroCountryUncheckedCreateNestedManyWithoutCountryInput
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryUncheckedCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -1720,6 +1917,7 @@ export type CountryUpdateWithoutLeadsInput = {
   heroes?: Prisma.HeroCountryUpdateManyWithoutCountryNestedInput
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
@@ -1753,6 +1951,7 @@ export type CountryUncheckedUpdateWithoutLeadsInput = {
   heroes?: Prisma.HeroCountryUncheckedUpdateManyWithoutCountryNestedInput
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUncheckedUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -1787,6 +1986,7 @@ export type CountryCreateWithoutUniversitiesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
@@ -1820,6 +2020,7 @@ export type CountryUncheckedCreateWithoutUniversitiesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -1869,6 +2070,7 @@ export type CountryUpdateWithoutUniversitiesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
@@ -1902,6 +2104,7 @@ export type CountryUncheckedUpdateWithoutUniversitiesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -1934,6 +2137,7 @@ export type CountryCreateWithoutCoursesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
@@ -1967,6 +2171,7 @@ export type CountryUncheckedCreateWithoutCoursesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -2016,6 +2221,7 @@ export type CountryUpdateWithoutCoursesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
@@ -2049,6 +2255,7 @@ export type CountryUncheckedUpdateWithoutCoursesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -2083,6 +2290,7 @@ export type CountryCreateWithoutScholarshipsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryCreateNestedManyWithoutCountryInput
@@ -2116,6 +2324,7 @@ export type CountryUncheckedCreateWithoutScholarshipsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -2165,6 +2374,7 @@ export type CountryUpdateWithoutScholarshipsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUpdateManyWithoutCountryNestedInput
@@ -2198,6 +2408,7 @@ export type CountryUncheckedUpdateWithoutScholarshipsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -2230,6 +2441,7 @@ export type CountryCreateWithoutEventsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
@@ -2263,6 +2475,7 @@ export type CountryUncheckedCreateWithoutEventsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -2312,6 +2525,7 @@ export type CountryUpdateWithoutEventsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
@@ -2345,6 +2559,7 @@ export type CountryUncheckedUpdateWithoutEventsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -2378,6 +2593,7 @@ export type CountryCreateWithoutBlogsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
@@ -2411,6 +2627,7 @@ export type CountryUncheckedCreateWithoutBlogsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -2460,6 +2677,7 @@ export type CountryUpdateWithoutBlogsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
@@ -2493,6 +2711,7 @@ export type CountryUncheckedUpdateWithoutBlogsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -2526,6 +2745,7 @@ export type CountryCreateWithoutFaqsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
@@ -2559,6 +2779,7 @@ export type CountryUncheckedCreateWithoutFaqsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -2608,6 +2829,7 @@ export type CountryUpdateWithoutFaqsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
@@ -2641,6 +2863,7 @@ export type CountryUncheckedUpdateWithoutFaqsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -2674,6 +2897,7 @@ export type CountryCreateWithoutGlobalOfficesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
@@ -2707,6 +2931,7 @@ export type CountryUncheckedCreateWithoutGlobalOfficesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -2756,6 +2981,7 @@ export type CountryUpdateWithoutGlobalOfficesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
@@ -2789,6 +3015,7 @@ export type CountryUncheckedUpdateWithoutGlobalOfficesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -2822,6 +3049,7 @@ export type CountryCreateWithoutDestinationsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
@@ -2855,6 +3083,7 @@ export type CountryUncheckedCreateWithoutDestinationsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -2904,6 +3133,7 @@ export type CountryUpdateWithoutDestinationsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
@@ -2937,6 +3167,7 @@ export type CountryUncheckedUpdateWithoutDestinationsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -2971,6 +3202,7 @@ export type CountryCreateWithoutTestimonialsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryCreateNestedManyWithoutCountryInput
@@ -3004,6 +3236,7 @@ export type CountryUncheckedCreateWithoutTestimonialsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -3053,6 +3286,7 @@ export type CountryUpdateWithoutTestimonialsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUpdateManyWithoutCountryNestedInput
@@ -3086,6 +3320,7 @@ export type CountryUncheckedUpdateWithoutTestimonialsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -3118,6 +3353,7 @@ export type CountryCreateWithoutAccreditationInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
@@ -3151,6 +3387,7 @@ export type CountryUncheckedCreateWithoutAccreditationInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -3200,6 +3437,7 @@ export type CountryUpdateWithoutAccreditationInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
@@ -3233,6 +3471,7 @@ export type CountryUncheckedUpdateWithoutAccreditationInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -3266,6 +3505,7 @@ export type CountryCreateWithoutGalleriesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
@@ -3299,6 +3539,7 @@ export type CountryUncheckedCreateWithoutGalleriesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -3348,6 +3589,7 @@ export type CountryUpdateWithoutGalleriesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
@@ -3381,6 +3623,7 @@ export type CountryUncheckedUpdateWithoutGalleriesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -3415,6 +3658,7 @@ export type CountryCreateWithoutEssentialsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
@@ -3448,6 +3692,7 @@ export type CountryUncheckedCreateWithoutEssentialsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -3497,6 +3742,7 @@ export type CountryUpdateWithoutEssentialsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
@@ -3530,6 +3776,7 @@ export type CountryUncheckedUpdateWithoutEssentialsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -3563,6 +3810,7 @@ export type CountryCreateWithoutServicesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
@@ -3596,6 +3844,7 @@ export type CountryUncheckedCreateWithoutServicesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
   stats?: Prisma.StatCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -3645,6 +3894,7 @@ export type CountryUpdateWithoutServicesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
@@ -3678,6 +3928,7 @@ export type CountryUncheckedUpdateWithoutServicesInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
   stats?: Prisma.StatCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -3711,6 +3962,7 @@ export type CountryCreateWithoutStatsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryCreateNestedManyWithoutCountryInput
@@ -3744,6 +3996,7 @@ export type CountryUncheckedCreateWithoutStatsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedCreateNestedManyWithoutCountryInput
   intakePages?: Prisma.IntakePageCountryUncheckedCreateNestedManyWithoutCountryInput
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCountryInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedCreateNestedManyWithoutCountryInput
   scholarships?: Prisma.ScholarshipCountryUncheckedCreateNestedManyWithoutCountryInput
   testimonials?: Prisma.TestimonialCountryUncheckedCreateNestedManyWithoutCountryInput
   universities?: Prisma.UniversityCountryUncheckedCreateNestedManyWithoutCountryInput
@@ -3793,6 +4046,7 @@ export type CountryUpdateWithoutStatsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUpdateManyWithoutCountryNestedInput
@@ -3826,6 +4080,7 @@ export type CountryUncheckedUpdateWithoutStatsInput = {
   intakeSeasons?: Prisma.IntakeSeasonCountryUncheckedUpdateManyWithoutCountryNestedInput
   intakePages?: Prisma.IntakePageCountryUncheckedUpdateManyWithoutCountryNestedInput
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCountryNestedInput
+  intakeLeads?: Prisma.IntakeLeadUncheckedUpdateManyWithoutCountryNestedInput
   scholarships?: Prisma.ScholarshipCountryUncheckedUpdateManyWithoutCountryNestedInput
   testimonials?: Prisma.TestimonialCountryUncheckedUpdateManyWithoutCountryNestedInput
   universities?: Prisma.UniversityCountryUncheckedUpdateManyWithoutCountryNestedInput
@@ -3853,6 +4108,7 @@ export type CountryCountOutputType = {
   intakeSeasons: number
   intakePages: number
   leads: number
+  intakeLeads: number
   scholarships: number
   stats: number
   testimonials: number
@@ -3876,6 +4132,7 @@ export type CountryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   intakeSeasons?: boolean | CountryCountOutputTypeCountIntakeSeasonsArgs
   intakePages?: boolean | CountryCountOutputTypeCountIntakePagesArgs
   leads?: boolean | CountryCountOutputTypeCountLeadsArgs
+  intakeLeads?: boolean | CountryCountOutputTypeCountIntakeLeadsArgs
   scholarships?: boolean | CountryCountOutputTypeCountScholarshipsArgs
   stats?: boolean | CountryCountOutputTypeCountStatsArgs
   testimonials?: boolean | CountryCountOutputTypeCountTestimonialsArgs
@@ -3995,6 +4252,13 @@ export type CountryCountOutputTypeCountLeadsArgs<ExtArgs extends runtime.Types.E
 /**
  * CountryCountOutputType without action
  */
+export type CountryCountOutputTypeCountIntakeLeadsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.IntakeLeadWhereInput
+}
+
+/**
+ * CountryCountOutputType without action
+ */
 export type CountryCountOutputTypeCountScholarshipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ScholarshipCountryWhereInput
 }
@@ -4061,6 +4325,7 @@ export type CountrySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   intakeSeasons?: boolean | Prisma.Country$intakeSeasonsArgs<ExtArgs>
   intakePages?: boolean | Prisma.Country$intakePagesArgs<ExtArgs>
   leads?: boolean | Prisma.Country$leadsArgs<ExtArgs>
+  intakeLeads?: boolean | Prisma.Country$intakeLeadsArgs<ExtArgs>
   scholarships?: boolean | Prisma.Country$scholarshipsArgs<ExtArgs>
   stats?: boolean | Prisma.Country$statsArgs<ExtArgs>
   testimonials?: boolean | Prisma.Country$testimonialsArgs<ExtArgs>
@@ -4128,6 +4393,7 @@ export type CountryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   intakeSeasons?: boolean | Prisma.Country$intakeSeasonsArgs<ExtArgs>
   intakePages?: boolean | Prisma.Country$intakePagesArgs<ExtArgs>
   leads?: boolean | Prisma.Country$leadsArgs<ExtArgs>
+  intakeLeads?: boolean | Prisma.Country$intakeLeadsArgs<ExtArgs>
   scholarships?: boolean | Prisma.Country$scholarshipsArgs<ExtArgs>
   stats?: boolean | Prisma.Country$statsArgs<ExtArgs>
   testimonials?: boolean | Prisma.Country$testimonialsArgs<ExtArgs>
@@ -4156,6 +4422,7 @@ export type $CountryPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     intakeSeasons: Prisma.$IntakeSeasonCountryPayload<ExtArgs>[]
     intakePages: Prisma.$IntakePageCountryPayload<ExtArgs>[]
     leads: Prisma.$LeadPayload<ExtArgs>[]
+    intakeLeads: Prisma.$IntakeLeadPayload<ExtArgs>[]
     scholarships: Prisma.$ScholarshipCountryPayload<ExtArgs>[]
     stats: Prisma.$StatCountryPayload<ExtArgs>[]
     testimonials: Prisma.$TestimonialCountryPayload<ExtArgs>[]
@@ -4583,6 +4850,7 @@ export interface Prisma__CountryClient<T, Null = never, ExtArgs extends runtime.
   intakeSeasons<T extends Prisma.Country$intakeSeasonsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Country$intakeSeasonsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IntakeSeasonCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   intakePages<T extends Prisma.Country$intakePagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Country$intakePagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IntakePageCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   leads<T extends Prisma.Country$leadsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Country$leadsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LeadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  intakeLeads<T extends Prisma.Country$intakeLeadsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Country$intakeLeadsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IntakeLeadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   scholarships<T extends Prisma.Country$scholarshipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Country$scholarshipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ScholarshipCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   stats<T extends Prisma.Country$statsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Country$statsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StatCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   testimonials<T extends Prisma.Country$testimonialsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Country$testimonialsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestimonialCountryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -5350,6 +5618,30 @@ export type Country$leadsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.LeadScalarFieldEnum | Prisma.LeadScalarFieldEnum[]
+}
+
+/**
+ * Country.intakeLeads
+ */
+export type Country$intakeLeadsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the IntakeLead
+   */
+  select?: Prisma.IntakeLeadSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the IntakeLead
+   */
+  omit?: Prisma.IntakeLeadOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.IntakeLeadInclude<ExtArgs> | null
+  where?: Prisma.IntakeLeadWhereInput
+  orderBy?: Prisma.IntakeLeadOrderByWithRelationInput | Prisma.IntakeLeadOrderByWithRelationInput[]
+  cursor?: Prisma.IntakeLeadWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.IntakeLeadScalarFieldEnum | Prisma.IntakeLeadScalarFieldEnum[]
 }
 
 /**

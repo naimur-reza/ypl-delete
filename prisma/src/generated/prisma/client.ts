@@ -130,6 +130,11 @@ export type Hero = Prisma.HeroModel
  */
 export type HeroCountry = Prisma.HeroCountryModel
 /**
+ * Model IntakeLead
+ * 
+ */
+export type IntakeLead = Prisma.IntakeLeadModel
+/**
  * Model IntakeSeason
  * 
  */

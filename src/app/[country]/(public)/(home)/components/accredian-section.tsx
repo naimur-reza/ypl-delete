@@ -35,7 +35,7 @@ export function AccredianSection({
       }
     }
   };
-
+ 
   return (
     <section className="bg-white py-14 border-t border-gray-100 relative group">
       {/* Inline style to hide scrollbar for a cleaner look */}

@@ -130,7 +130,7 @@ const menuSections: MenuSection[] = [
             icon: Briefcase,
           },
           {
-            title: "Intake Management",
+            title: "Intakes",
             url: "/dashboard/intake-management",
             icon: CalendarClock,
           },
@@ -187,6 +187,11 @@ const menuSections: MenuSection[] = [
         title: "Appointments",
         url: "/dashboard/appointments",
         icon: CalendarClock,
+      },
+      {
+        title: "Intake Leads",
+        url: "/dashboard/intake-leads",
+        icon: UserPlus,
       },
     ],
   },

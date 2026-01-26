@@ -97,6 +97,7 @@ model IntakePage {
   howWeHelpItems     IntakePageHowWeHelpItem[]
   topUniversities      IntakePageUniversity[]
   faqs                 FAQIntakePage[]
+  intakeLeads          IntakeLead[]
   intakeSeasonId       String?
   intakeSeason         IntakeSeason?       @relation(fields: [intakeSeasonId], references: [id])
 

@@ -104,13 +104,20 @@ const HomePage = async ({ params }: PageProps) => {
       where: {
         status: "ACTIVE",
         type: "NEWS",
-        countries: {
-          some: {
-            country: {
-              slug: countrySlug || "",
+        ...(countrySlug && {
+          OR: [
+            {
+              countries: {
+                some: {
+                  country: {
+                    slug: countrySlug,
+                  },
+                },
+              },
             },
-          },
-        },
+            { isGlobal: true },
+          ],
+        }),
       },
       orderBy: { sortOrder: "asc" },
       select: {
@@ -151,7 +158,7 @@ const HomePage = async ({ params }: PageProps) => {
   ]);
 
 
- 
+ console.log(accreditations)
   return (
     <div>
       <HeroSlider countrySlug={countrySlug} />

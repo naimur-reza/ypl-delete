@@ -84,6 +84,7 @@ export function DestinationForm({
       metaDescription: initialData?.metaDescription || "",
       metaKeywords: initialData?.metaKeywords || "",
       status: (initialData?.status as "ACTIVE" | "DRAFT") || "ACTIVE",
+      isGlobal: (initialData as any)?.isGlobal || false,
     } as FormData,
     validators: { onSubmit: destinationSchema as any },
     onSubmit: async ({ value }) => {
@@ -289,7 +290,11 @@ export function DestinationForm({
                 isGlobal={isGlobal}
                 onGlobalChange={(checked) => {
                   setIsGlobal(checked);
-                  if (checked) setCountryIds([]);
+                  (form as any).setFieldValue("isGlobal", checked);
+                  if (checked) {
+                    setCountryIds([]);
+                    field.handleChange([]);
+                  }
                 }}
               />
             )}
@@ -304,7 +309,7 @@ export function DestinationForm({
           </form.AppField>
         </div>
 
-        <div className="space-y-4 pt-6 border-t">
+        <div className="space-y-4 pt-6 border-t border-border">
           <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
             Hero Section
           </h3>
@@ -359,7 +364,7 @@ export function DestinationForm({
               {sections.map((section, index) => (
                 <div
                   key={index}
-                  className="border rounded-lg overflow-hidden bg-card"
+                  className="border rounded-lg border-border overflow-hidden bg-card"
                 >
                   <div
                     className={cn(
@@ -419,7 +424,7 @@ export function DestinationForm({
                   </div>
 
                   {expandedSection === index && (
-                    <div className="p-4 border-t space-y-4 bg-background">
+                    <div className="p-4 border-t border-border space-y-4 bg-background">
                       <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
                           <label className="text-sm font-medium">
@@ -472,7 +477,7 @@ export function DestinationForm({
           )}
         </div>
 
-        <div className="space-y-4 pt-6 border-t">
+        <div className="space-y-4 pt-6 border-t border-border">
           <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
             SEO Settings
           </h3>
@@ -487,7 +492,7 @@ export function DestinationForm({
           </form.AppField>
         </div>
 
-        <div className="flex gap-2 justify-end pt-6 border-t">
+        <div className="flex gap-2 justify-end pt-6 border-t border-border">
           <Button
             type="button"
             variant="outline"

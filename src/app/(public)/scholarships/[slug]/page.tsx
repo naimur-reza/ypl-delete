@@ -214,11 +214,7 @@ export default async function ScholarshipDetailsPage({ params }: PageProps) {
           <h1 className="text-4xl md:text-5xl font-bold text-white max-w-4xl leading-tight mb-4">
             {scholarship.title}
           </h1>
-          {scholarship.description && (
-            <p className="text-xl text-white/90 max-w-3xl">
-              {scholarship.description}
-            </p>
-          )}
+          
         </div>
       </div>
 
