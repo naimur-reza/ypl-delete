@@ -44,7 +44,7 @@ export function BlogCard({
       <Link
         href={buildHref(blog.slug, countrySlug)}
         className={cn(
-          "group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 border-2 border-slate-200 hover:border-primary flex flex-col transform hover:-translate-y-1",
+          "group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 border border-slate-200 hover:border-primary/50 flex flex-col transform hover:-translate-y-1",
           featured && "border-primary/80",
           className,
         )}

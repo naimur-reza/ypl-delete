@@ -75,20 +75,7 @@ export async function generateMetadata({
   });
 
   // If not found, try with study-in- prefix
-  if (!intakeData && !destination.startsWith("study-in-")) {
-    intakeData = await prisma.intakePage.findFirst({
-      where: {
-        destination: {
-          slug: `study-in-${destination}`,
-        },
-        status: "ACTIVE",
-      },
-      include: {
-        destination: true,
-      },
-    });
-  }
-
+ 
  
 
   if (!intakeData) {
@@ -99,7 +86,7 @@ export async function generateMetadata({
   }
 
   const intakeName = formatIntakeName(intake);
-  const destinationName = intakeData.destination.name;
+  const destinationName = intakeData.destination?.name;
 
   return buildMetadata({
     title:
@@ -111,7 +98,7 @@ export async function generateMetadata({
     keywords:
       intakeData.metaKeywords ||
       `${intakeName} intake,  ${destinationName}, ${destinationName} universities, ${countryData.name} students`,
-    images: intakeData.destination.thumbnail,
+    images: intakeData.destination?.thumbnail,
     url: `/${country}/${destination}/${intake}`,
   });
 }
@@ -283,10 +270,9 @@ export default async function CountryIntakePage({ params }: PageProps) {
       {/* Top Universities (filtered by country) */}
       <TopUniversities
         universities={universities}
-        destinationSlug={destination}
+
         intakeName={intakeName}
         pageSize={6}
-        countrySlug={countryData.slug} // Show country context
       />
 
       {/* Application Timeline */}
@@ -329,42 +315,42 @@ export default async function CountryIntakePage({ params }: PageProps) {
 }
 
 // Generate static params for all country/destination/intake combinations
-export async function generateStaticParams() {
-  const intakePages = await prisma.intakePage.findMany({
-    where: { status: "ACTIVE" },
-    include: { destination: true },
-  });
+// export async function generateStaticParams() {
+//   const intakePages = await prisma.intakePage.findMany({
+//     where: { status: "ACTIVE" },
+//     include: { destination: true },
+//   });
 
-  const countries = await prisma.country.findMany({
-    where: { status: "ACTIVE" },
-  });
+//   const countries = await prisma.country.findMany({
+//     where: { status: "ACTIVE" },
+//   });
 
-  const params: Array<{
-    country: string;
-    destination: string;
-    intake: string;
-  }> = [];
-  const validIntakes = ["january", "may", "september"];
+//   const params: Array<{
+//     country: string;
+//     destination: string;
+//     intake: string;
+//   }> = [];
+//   const validIntakes = ["january", "may", "september"];
 
-  for (const country of countries) {
-    for (const intakePage of intakePages) {
-      // Get the destination slug - it may or may not have "study-in-" prefix
-      const destSlug = intakePage.destination.slug;
-      const destination = destSlug.startsWith("study-in-")
-        ? destSlug
-        : `study-in-${destSlug}`;
+//   for (const country of countries) {
+//     for (const intakePage of intakePages) {
+//       // Get the destination slug - it may or may not have "study-in-" prefix
+//       const destSlug = intakePage.destination.slug;
+//       const destination = destSlug.startsWith("study-in-")
+//         ? destSlug
+//         : `study-in-${destSlug}`;
 
-      // Generate params for each valid intake month
-      for (const intakeMonth of validIntakes) {
-        params.push({
-          country: country.slug,
-          destination: destination,
-          intake: intakeMonth,
-        });
-      }
-    }
-  }
+//       // Generate params for each valid intake month
+//       for (const intakeMonth of validIntakes) {
+//         params.push({
+//           country: country.slug,
+//           destination: destination,
+//           intake: intakeMonth,
+//         });
+//       }
+//     }
+//   }
 
    
-  return params;
-}
+//   return params;
+// }

@@ -3,8 +3,9 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Building, MapPin, ArrowRight, Send } from "lucide-react";
+import { Building, Send } from "lucide-react";
 import { Button } from "../ui/button";
+import { CountryAwareLink } from "../common/navbar/country-aware-link";
 
 interface University {
   id: string;
@@ -17,8 +18,6 @@ interface University {
 
 interface TopUniversitiesProps {
   universities?: University[];
-  destinationSlug: string;
-  countrySlug?: string;
   intakeName: string;
   title?: string;
   description?: string;
@@ -27,14 +26,12 @@ interface TopUniversitiesProps {
 
 export function TopUniversities({
   universities,
-  destinationSlug,
-  countrySlug,
   intakeName,
   title,
   description,
   pageSize = 6,
 }: TopUniversitiesProps) {
-  const baseUrl = countrySlug ? `/${countrySlug}` : "";
+ 
 
   const defaultTitle = `Top Universities for ${intakeName} Intake`;
   const defaultDescription = `Explore prestigious universities accepting applications for the ${intakeName} intake`;
@@ -42,6 +39,8 @@ export function TopUniversities({
   if (!universities || universities.length === 0) {
     return null;
   }
+
+  console.log(universities)
 
   const [page, setPage] = useState(1);
   const totalPages = Math.max(1, Math.ceil(universities.length / pageSize));
@@ -68,65 +67,68 @@ export function TopUniversities({
           </p>
         </div>
 
-        {/* Universities Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {visible.map((university) => (
-            <Link
-              key={university.id}
-              href={`${baseUrl}/universities/${university.slug}`}
-              className="group bg-white rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-200"
-            >
-              {/* University Image */}
-              <div className="relative h-48 bg-gray-100">
-                {university.thumbnail ? (
-                  <Image
-                    src={university.thumbnail}
-                    alt={university.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                ) : (
-                  <div className="flex items-center justify-center h-full">
-                    <Building className="w-12 h-12 text-gray-400" />
+        {/* Universities List (Table Style) */}
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden mb-12">
+          {/* Table Header */}
+          <div className="hidden md:grid grid-cols-[1fr_2fr_1fr] bg-slate-50/50 border-b border-gray-100 py-4 px-6">
+            <div className="text-sm font-semibold text-indigo-900/70 uppercase tracking-wider text-center">
+              University
+            </div>
+            <div className="text-sm font-semibold text-indigo-900/70 uppercase tracking-wider text-center">
+              University Name
+            </div>
+            <div className="text-sm font-semibold text-indigo-900/70 uppercase tracking-wider text-center">
+              Action
+            </div>
+          </div>
+
+          {/* Table Body */}
+          <div className="divide-y divide-gray-100">
+            {visible.map((university) => (
+              <div
+                key={university.id}
+                className="grid grid-cols-1 md:grid-cols-[1fr_2fr_1fr] items-center gap-4 py-6 px-6 hover:bg-slate-50/30 transition-colors"
+              >
+                {/* Logo Column */}
+                <div className="flex justify-center">
+                  <div className="relative w-32 h-16 bg-white border border-gray-100 rounded-lg p-2 flex items-center justify-center shadow-sm">
+                    {university.logo ? (
+                      <Image
+                        src={university.logo}
+                        alt={`${university.name} logo`}
+                        width={100}
+                        height={50}
+                        className="object-contain rounded-lg p-2"
+                      />
+                    ) : (
+                      <Building className="w-8 h-8 text-gray-400" />
+                    )}
                   </div>
-                )}
+                </div>
 
-                {/* Logo Overlay */}
-                {university.logo && (
-                  <div className="absolute top-4 left-4 bg-white rounded-lg p-2 shadow-lg">
-                    <Image
-                      src={university.logo}
-                      alt={`${university.name} logo`}
-                      width={60}
-                      height={60}
-                      className="rounded-lg"
-                    />
-                  </div>
-                )}
-              </div>
+                {/* Name Column */}
+                <div className="text-center">
+                  <CountryAwareLink
+                    href={`/universities/${university.slug}`}
+                    className="text-lg font-bold text-slate-700 hover:text-blue-600 transition-colors"
+                  >
+                    {university.name}
+                  </CountryAwareLink>
+                </div>
 
-              {/* University Info */}
-              <div className="p-6">
-                <h3 className="font-semibold text-lg text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
-                  {university.name}
-                </h3>
-
-                {university.address && (
-                  <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-                    <MapPin className="w-4 h-4" />
-                    <span className="line-clamp-1">{university.address}</span>
-                  </div>
-                )}
-
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-sm text-blue-600 font-medium">
-                    {intakeName} Intake
-                  </span>
-                  <ArrowRight className="w-4 h-4 text-blue-600 group-hover:translate-x-1 transition-transform" />
+                {/* Action Column */}
+                <div className="flex justify-center">
+                  <Link href={`/apply-now`}>
+                    <Button
+                      className="min-w-[140px] bg-linear-to-r from-[#db7993] to-primary hover:opacity-90 text-white font-bold py-2 px-6 rounded-lg shadow-[0_4px_12px_rgba(228,100,124,0.3)] transition-all duration-300 hover:scale-105"
+                    >
+                      Apply Now
+                    </Button>
+                  </Link>
                 </div>
               </div>
-            </Link>
-          ))}
+            ))}
+          </div>
         </div>
 
         {/* Pagination & Apply CTA */}
@@ -147,31 +149,10 @@ export function TopUniversities({
               Next
             </Button>
           </div>
-          <Link href={`${baseUrl}/apply-now`} className="inline-flex">
-            <Button size="lg" className="gap-2">
-              Apply Now <Send className="w-4 h-4" />
-            </Button>
-          </Link>
+         
         </div>
 
-        {/* Additional Info */}
-        <div className="mt-16 bg-blue-50 rounded-2xl p-8 text-center">
-          <h3 className="text-xl font-semibold text-gray-900 mb-4">
-            Need Help Choosing a University?
-          </h3>
-          <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-            Our expert counselors can help you find the perfect university based
-            on your academic background, career goals, and preferences for the{" "}
-            {intakeName} intake.
-          </p>
-          <Link
-            href={`${baseUrl}/contact`}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
-          >
-            Get Free Counseling
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
+ 
       </div>
     </section>
   );

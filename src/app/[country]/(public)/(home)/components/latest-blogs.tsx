@@ -23,7 +23,7 @@ const fallbackBlogs = [
 
 export default function BlogSection({ blogs }: {blogs: Blog[]}) {
  
-  const featuredBlogs = blogs?.filter((blog) => blog.isFeatured);
+  const featuredBlogs = blogs?.filter((blog) => blog.isFeatured) || fallbackBlogs;
 
   return (
     <section className="relative bg-gray-50 py-20 overflow-hidden">

@@ -15,7 +15,7 @@ type Props = {
 };
 
 export function ApplicationTimeline({ steps, targetDate, intakeName }: Props) {
-  const hasSteps = steps && steps.length > 0;
+ 
 
   return (
     <section className="py-16 bg-white">
@@ -39,44 +39,7 @@ export function ApplicationTimeline({ steps, targetDate, intakeName }: Props) {
             <ApplicationCountdown targetDate={targetDate} />
           </div>
         )}
-
-        <div className="space-y-4">
-          {hasSteps ? (
-            <div className="grid gap-4">
-              {steps!.map((step, idx) => (
-                <div
-                  key={`${step.title}-${idx}`}
-                  className="rounded-xl border border-gray-200 p-4 sm:p-6 bg-gray-50"
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="space-y-2">
-                      <p className="text-xs font-semibold text-blue-600 uppercase tracking-wide">
-                        Step {idx + 1}
-                      </p>
-                      <h3 className="text-lg font-semibold text-gray-900">
-                        {step.title || "Application step"}
-                      </h3>
-                      {step.description && (
-                        <p className="text-sm text-gray-600 leading-relaxed">
-                          {step.description}
-                        </p>
-                      )}
-                    </div>
-                    {step.date && (
-                      <div className="text-right text-sm text-gray-500">
-                        {new Date(step.date).toLocaleDateString()}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="rounded-xl border border-dashed border-gray-200 p-8 text-center text-gray-600">
-              Timeline steps will appear here once configured.
-            </div>
-          )}
-        </div>
+ 
       </div>
     </section>
   );
