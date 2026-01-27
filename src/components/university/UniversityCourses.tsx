@@ -5,6 +5,7 @@ import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { CountryAwareLink } from "../common/navbar/country-aware-link";
 
 // StudyLevel enum values from Prisma schema
 type StudyLevel =
@@ -65,8 +66,10 @@ export function UniversityCourses({
     new Set(
       courses
         .map((c) => c.studyLevel)
-        .filter((level): level is StudyLevel => level !== null && level !== undefined)
-    )
+        .filter(
+          (level): level is StudyLevel => level !== null && level !== undefined,
+        ),
+    ),
   );
 
   // Build filter tabs dynamically based on available study levels
@@ -92,7 +95,9 @@ export function UniversityCourses({
   });
 
   // Helper to get study level display
-  const getStudyLevelDisplay = (level: StudyLevel | null | undefined): string => {
+  const getStudyLevelDisplay = (
+    level: StudyLevel | null | undefined,
+  ): string => {
     if (!level) return "—";
     return STUDY_LEVEL_LABELS[level] || level;
   };
@@ -185,16 +190,18 @@ export function UniversityCourses({
                 >
                   {/* Course Name */}
                   <div className="md:col-span-5">
-                    <Link
-                      href={`/${countrySlug}/courses/${course.slug}`}
+                    <CountryAwareLink
+                      href={`/university/${universitySlug}/courses/${course.slug}`}
                       className="text-blue-600 hover:text-blue-800 font-medium hover:underline"
                     >
                       {course.title}
-                    </Link>
+                    </CountryAwareLink>
                     {/* Mobile only info */}
                     <div className="md:hidden mt-2 flex flex-wrap gap-4 text-sm text-slate-500">
                       <span>Intake: {getIntakeDisplay(course)}</span>
-                      <span>Level: {getStudyLevelDisplay(course.studyLevel)}</span>
+                      <span>
+                        Level: {getStudyLevelDisplay(course.studyLevel)}
+                      </span>
                     </div>
                   </div>
 
@@ -218,9 +225,11 @@ export function UniversityCourses({
                       asChild
                       className="bg-rose-500 hover:bg-rose-600 text-white rounded-md px-4 py-2 text-sm font-medium"
                     >
-                      <Link href={`/${countrySlug}/courses/${course.slug}`}>
+                      <CountryAwareLink
+                        href={`/university/${universitySlug}/courses/${course.slug}`}
+                      >
                         Enquire now
-                      </Link>
+                      </CountryAwareLink>
                     </Button>
                   </div>
                 </div>

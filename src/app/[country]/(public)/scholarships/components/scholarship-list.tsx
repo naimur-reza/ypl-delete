@@ -18,6 +18,7 @@ import {
 } from "@/lib/scholarship-filters";
 import { useFilter } from "@/hooks/use-filter";
 import { cn } from "@/lib/utils";
+import { CountryAwareLink } from "@/components/common/navbar/country-aware-link";
 
 interface Scholarship {
   id: string;
@@ -235,13 +236,13 @@ export default function ScholarshipList({
                     </div>
 
                     <div className="flex items-center justify-end md:border-l md:border-slate-100 md:pl-6">
-                      <Link
+                      <CountryAwareLink
                         href={`/scholarships/${scholarship.slug}`}
                         className="w-full md:w-auto px-6 py-3 bg-white border-2 border-slate-200 text-slate-700 font-bold rounded-lg hover:bg-slate-900 hover:text-white hover:border-slate-900 transition-all duration-200 flex items-center justify-center gap-2 group/btn"
                       >
                         View Details
                         <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-0.5 transition-transform" />
-                      </Link>
+                      </CountryAwareLink>
                     </div>
                   </div>
                 ))}

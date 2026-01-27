@@ -216,33 +216,33 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
 
             {universityItems.length > 0 && (
               <li>
-                <Link
+                <CountryAwareLink
                   className="font-medium mx-2  text-muted-foreground transition-colors  hover:bg-slate-100 px-3 py-2 rounded-full"
                   href="/universities"
                 >
                   Universities
-                </Link>
+                </CountryAwareLink>
               </li>
             )}
 
             {courseItems.length > 0 && (
               <li>
-                <Link
+                <CountryAwareLink
                   className="font-medium mx-2  text-muted-foreground transition-colors  hover:bg-slate-100 px-3 py-2 rounded-full"
                   href="/courses"
                 >
                   Courses
-                </Link>
+                </CountryAwareLink>
               </li>
             )}
 
             {
-              <Link
+              <CountryAwareLink
                 href="/scholarships"
                 className="font-medium mx-2  text-muted-foreground transition-colors  hover:bg-slate-100 px-3 py-2 rounded-full"
               >
                 Scholarships
-              </Link>
+              </CountryAwareLink>
             }
 
             {eventItems.length > 0 && (
@@ -293,11 +293,11 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
           {/* Country Modal - Visible on all screen sizes */}
           <CountryModal />
           <div className="hidden md:block">
-            <Link href={"/apply-now"}>
+            <CountryAwareLink href={"/apply-now"}>
               <Button size="lg" className="font-medium">
                 Book a Free Consultation
               </Button>
-            </Link>
+            </CountryAwareLink>
           </div>
 
           {/* Mobile Navigation */}

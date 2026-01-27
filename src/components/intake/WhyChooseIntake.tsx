@@ -76,6 +76,7 @@ export function WhyChooseIntake({
     },
   ];
 
+  console.log(intakeName);
   const displayBenefits =
     benefits && benefits.length > 0 ? benefits : defaultBenefits;
   const defaultTitle = `Why Choose ${intakeName} Intake?`;

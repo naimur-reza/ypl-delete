@@ -10,31 +10,7 @@ export async function IntakeFeatureStudyAbroad({
   buttonTitle?: "View details";
   buttonUrl?: string;
 }) {
-  // Build country filter: global (no countries) or matches country
-  const countryFilter = countrySlug
-    ? {
-        OR: [
-          { countries: { none: {} } },
-          {
-            countries: {
-              some: { country: { slug: countrySlug } },
-            },
-          },
-        ] as const,
-      }
-    : null;
-
-  // Build destination filter: when on a destination page, prefer season for that destination or global (null)
-  const destinationFilter = destinationId
-    ? {
-        OR: [{ destinationId }, { destinationId: null }] as const,
-      }
-    : null;
-
-  const andClauses: object[] = [];
-  if (countryFilter) andClauses.push(countryFilter);
-  if (destinationFilter) andClauses.push(destinationFilter);
-
+  // Query for intake season - same as home page (no destination filter)
   const season = await prisma.intakeSeason.findFirst({
     where: {
       status: "ACTIVE",
@@ -64,44 +40,52 @@ export async function IntakeFeatureStudyAbroad({
       intake: true,
       year: true,
       applicationDeadline: true,
-      destination: true,
+      destination: {
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+        },
+      },
     },
     orderBy: { createdAt: "desc" },
   });
 
- 
-
-  const intakePage = season
-    ? await prisma.intakePage.findFirst({
-        where: {
-          intakeSeasonId: season.id,
-          // Match destination if provided, otherwise any
-          ...(destinationId ? { destinationId } : {}),
-        },
-        include: {
-          intakeSeason: {
-            select: {
-              intake: true,
-              destination: {
-                select: {
-                  slug: true,
-                },
-              },
-            },
-          },
-        },
-      })
-    : null;
-
-  // If no active season, don't render anything
+  // If no active season for this destination, don't render anything
   if (!season) {
     return null;
   }
 
-  console.log(intakePage)
+  const intakePage = await prisma.intakePage.findFirst({
+    where: {
+      intakeSeasonId: season.id,
+      // Match destination if provided
+      ...(destinationId ? { destinationId } : {}),
+    },
+    include: {
+      intakeSeason: {
+        select: {
+          intake: true,
+          destination: {
+            select: {
+              slug: true,
+              name: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
   const backgroundImage =
     season.backgroundImage ||
     "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+
+  // Build title with destination name
+  const destinationName = season.destination?.name;
+  const displayTitle = destinationName 
+    ? season.title?.replace(/\{destination\}/gi, destinationName) || `${season.intake} Intake - Study in ${destinationName}`
+    : season.title;
 
   return (
     <section
@@ -127,9 +111,9 @@ export async function IntakeFeatureStudyAbroad({
             </div>
           )}
 
-          {/* Main headline */}
+          {/* Main headline with destination name */}
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">
-            {season.title}
+            {displayTitle}
           </h2>
 
           {/* Description */}
@@ -139,30 +123,24 @@ export async function IntakeFeatureStudyAbroad({
             </p>
           )}
 
-          {/* CTA Button */}
-          {season?.destination?.slug ? (
+          {/* CTA Buttons */}
+          <div className="flex flex-wrap gap-3">
             <CountryAwareLink
-              href={
-                countrySlug
-                  ? `/${countrySlug}/${season.destination.slug}/${season.intake.toLowerCase()}`
-                  : `/intake/${season.destination.slug}/${season.intake.toLowerCase()}`
-              }
-              className="bg-primary hover:bg-primary/90 active:bg-primary/80 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 md:px-10 rounded-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 text-base sm:text-lg cursor-pointer inline-block touch-manipulation min-h-[44px] flex items-center justify-center"
+              href="/intakes"
+              className="bg-primary hover:bg-primary/90 active:bg-primary/80 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 md:px-10 rounded-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 text-base sm:text-lg cursor-pointer inline-block touch-manipulation min-h-[44px]"
             >
-              View Details
+              View All Intakes
             </CountryAwareLink>
-          ) : (
-            <>
-              <CountryAwareLink
-                href={season.ctaUrl || "/apply-now"}
-                className="bg-primary hover:bg-primary/90 active:bg-primary/80 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 md:px-10 rounded-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 text-base sm:text-lg cursor-pointer inline-block touch-manipulation min-h-[44px] flex items-center justify-center"
-              >
-                {season.ctaLabel || "Apply Now"}
-              </CountryAwareLink>
-            </>
-          )}
+            <CountryAwareLink
+              href={season.ctaUrl || "/apply-now"}
+              className="bg-white/20 hover:bg-white/30 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 md:px-10 rounded-lg transition-all duration-300 border border-white/40 text-base sm:text-lg cursor-pointer inline-block touch-manipulation min-h-[44px]"
+            >
+              {season.ctaLabel || "Apply Now"}
+            </CountryAwareLink>
+          </div>
         </div>
       </div>
     </section>
   );
 }
+
