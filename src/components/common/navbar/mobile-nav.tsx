@@ -28,6 +28,7 @@ import { ReactNode } from "react";
 import Image from "next/image";
 import { getCookie } from "cookies-next";
 import CountryModalClient from "@/app/(public)/components/country-modal-client";
+import { CountryAwareLink } from "./country-aware-link";
 
 type NavItem = {
   icon?: ReactNode;
@@ -67,7 +68,7 @@ export function MobileNav({
   currentCountrySlug,
 }: MobileNavProps) {
   const [open, setOpen] = useState(false);
-  
+
   // Get current country from cookie if not provided
   const countryFromCookie =
     typeof window !== "undefined"
@@ -75,7 +76,7 @@ export function MobileNav({
       : null;
   const activeCountrySlug = currentCountrySlug || countryFromCookie;
   const currentCountryData = countries.find(
-    (c) => c.slug === activeCountrySlug
+    (c) => c.slug === activeCountrySlug,
   );
 
   const navSections = [
@@ -197,7 +198,7 @@ export function MobileNav({
             {/* Main Navigation Links - Direct Links Only */}
             <nav className="space-y-1">
               {navSections.map((section) => (
-                <Link
+                <CountryAwareLink
                   key={section.title}
                   href={section.href}
                   onClick={() => setOpen(false)}
@@ -205,7 +206,7 @@ export function MobileNav({
                 >
                   <span className="text-muted-foreground">{section.icon}</span>
                   <span className="font-medium">{section.title}</span>
-                </Link>
+                </CountryAwareLink>
               ))}
             </nav>
 
@@ -220,7 +221,7 @@ export function MobileNav({
             </div>
             <nav className="space-y-1">
               {resourceLinks.map((link) => (
-                <Link
+                <CountryAwareLink
                   key={link.title}
                   href={link.href}
                   onClick={() => setOpen(false)}
@@ -228,7 +229,7 @@ export function MobileNav({
                 >
                   <span className="text-muted-foreground">{link.icon}</span>
                   <span className="text-sm">{link.title}</span>
-                </Link>
+                </CountryAwareLink>
               ))}
             </nav>
           </div>
