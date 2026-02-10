@@ -4,23 +4,24 @@ import { prisma } from "@/lib/prisma";
 // GET /api/universities/[id] - Get single university
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const { id } = await params;
-    
+
     const university = await prisma.university.findUnique({
       where: { id },
       include: {
         countries: { include: { country: true } },
         destination: true,
+        detail: true,
       },
     });
 
     if (!university) {
       return NextResponse.json(
         { error: "University not found" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -29,8 +30,7 @@ export async function GET(
     console.error("Error fetching university:", error);
     return NextResponse.json(
       { error: "Failed to fetch university" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
-

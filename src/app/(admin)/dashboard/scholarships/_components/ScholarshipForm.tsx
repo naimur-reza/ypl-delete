@@ -23,7 +23,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 type FormData = z.infer<typeof scholarshipSchema>;
 
 const scholarshipApi = createEntityApi<FormData & { id: string }>(
-  "/api/scholarships"
+  "/api/scholarships",
 );
 
 interface University {
@@ -60,6 +60,8 @@ interface ScholarshipFormProps {
     providerInfo?: string | null;
     requiredDocuments?: string | null;
     howToApply?: string | null;
+    isGlobal?: boolean;
+    countries?: Array<{ country: { id: string } }>;
   };
   onSuccess?: () => void;
 }
@@ -93,12 +95,14 @@ export function ScholarshipForm({
 
         if (uniRes.data) {
           setUniversities(
-            Array.isArray(uniRes.data) ? uniRes.data : uniRes.data.data || []
+            Array.isArray(uniRes.data) ? uniRes.data : uniRes.data.data || [],
           );
         }
         if (destRes.data) {
           setDestinations(
-            Array.isArray(destRes.data) ? destRes.data : destRes.data.data || []
+            Array.isArray(destRes.data)
+              ? destRes.data
+              : destRes.data.data || [],
           );
         }
       } catch (error) {
@@ -131,8 +135,8 @@ export function ScholarshipForm({
       providerInfo: initialData?.providerInfo || "",
       requiredDocuments: initialData?.requiredDocuments || "",
       howToApply: initialData?.howToApply || "",
-      countryIds: (initialData as any)?.countries?.map((c: any) => c.country?.id || c.countryId) || [],
-      isGlobal: (initialData as any)?.isGlobal || false,
+      countryIds: initialData?.countries?.map((c) => c.country.id) || [],
+      isGlobal: initialData?.isGlobal || false,
     } as any,
     validators: { onSubmit: scholarshipSchema as any },
     onSubmit: async ({ value }) => {
@@ -175,7 +179,7 @@ export function ScholarshipForm({
         toast.success(
           isEditing
             ? "Scholarship updated successfully"
-            : "Scholarship created successfully"
+            : "Scholarship created successfully",
         );
         form.reset();
         setImageUrl("");
@@ -207,7 +211,7 @@ export function ScholarshipForm({
         "deadline",
         initialData.deadline
           ? new Date(initialData.deadline).toISOString().slice(0, 16)
-          : ""
+          : "",
       );
       form.setFieldValue("universityId", initialData.universityId || "");
       form.setFieldValue("destinationId", initialData.destinationId || "");
@@ -218,22 +222,23 @@ export function ScholarshipForm({
       form.setFieldValue("benefits", initialData.benefits || "");
       form.setFieldValue(
         "eligibilityCriteria",
-        initialData.eligibilityCriteria || ""
+        initialData.eligibilityCriteria || "",
       );
       form.setFieldValue("levelAndField", initialData.levelAndField || "");
       form.setFieldValue("providerInfo", initialData.providerInfo || "");
       form.setFieldValue(
         "requiredDocuments",
-        initialData.requiredDocuments || ""
+        initialData.requiredDocuments || "",
       );
       form.setFieldValue("howToApply", initialData.howToApply || "");
       setImageUrl(initialData.image || "");
-      
-      const initialCountryIds = (initialData as any).countries?.map((c: any) => c.country?.id || c.countryId) || [];
+
+      const initialCountryIds =
+        initialData.countries?.map((c) => c.country.id) || [];
       setCountryIds(initialCountryIds);
-      setIsGlobal((initialData as any).isGlobal || false);
+      setIsGlobal(initialData.isGlobal || false);
       form.setFieldValue("countryIds", initialCountryIds);
-      form.setFieldValue("isGlobal", (initialData as any).isGlobal || false);
+      form.setFieldValue("isGlobal", initialData.isGlobal || false);
     } else {
       form.reset();
       setImageUrl("");
@@ -343,24 +348,36 @@ export function ScholarshipForm({
             />
             <form.AppField name="countryIds">
               {(field) => (
-                <CountrySelect
-                  value={countryIds}
-                  onChange={(ids: string[]) => {
-                    setCountryIds(ids);
-                    field.handleChange(ids);
-                  }}
-                  label="Available Countries"
-                  showGlobalOption={true}
-                  isGlobal={isGlobal}
-                  onGlobalChange={(checked: boolean) => {
-                    setIsGlobal(checked);
-                    form.setFieldValue("isGlobal", checked as any);
-                    if (checked) {
-                      setCountryIds([]);
-                      field.handleChange([]);
-                    }
-                  }}
-                />
+                <div>
+                  <CountrySelect
+                    value={countryIds}
+                    onChange={(ids: string[]) => {
+                      setCountryIds(ids);
+                      field.handleChange(ids);
+                    }}
+                    label="Available Countries"
+                    showGlobalOption={true}
+                    isGlobal={isGlobal}
+                    onGlobalChange={(checked: boolean) => {
+                      setIsGlobal(checked);
+                      form.setFieldValue("isGlobal", checked as any);
+                      if (checked) {
+                        setCountryIds([]);
+                        field.handleChange([]);
+                      }
+                    }}
+                  />
+                  {field.state.meta.errors?.length > 0 && (
+                    <p className="text-sm text-destructive mt-1">
+                      {field.state.meta.errors.map((e: any) => typeof e === 'string' ? e : e?.message || String(e)).join(', ')}
+                    </p>
+                  )}
+                  {!isGlobal && countryIds.length === 0 && (
+                    <p className="text-sm text-amber-600 mt-1">
+                      No countries selected. Select &quot;Global&quot; or pick specific countries.
+                    </p>
+                  )}
+                </div>
               )}
             </form.AppField>
             <form.AppField name="amount">
@@ -503,6 +520,18 @@ export function ScholarshipForm({
             </form.AppField>
           </TabsContent>
         </Tabs>
+
+        <form.Subscribe selector={(state) => state.errorMap}>
+          {(errorMap) => {
+            const errors = Object.values(errorMap).flat().filter(Boolean);
+            if (errors.length === 0) return null;
+            return (
+              <div className="text-sm text-destructive p-3 bg-destructive/10 border border-destructive/20 rounded-md">
+                Please fix the form errors before submitting.
+              </div>
+            );
+          }}
+        </form.Subscribe>
 
         <div className="flex gap-2 justify-end mt-6">
           <Button

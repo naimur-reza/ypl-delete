@@ -4,11 +4,11 @@ import { prisma } from "@/lib/prisma";
 // GET /api/scholarships/[id] - Get single scholarship
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const { id } = await params;
-    
+
     const scholarship = await prisma.scholarship.findUnique({
       where: { id },
       include: {
@@ -24,13 +24,18 @@ export async function GET(
             name: true,
           },
         },
+        countries: {
+          include: {
+            country: true,
+          },
+        },
       },
     });
 
     if (!scholarship) {
       return NextResponse.json(
         { error: "Scholarship not found" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -39,8 +44,7 @@ export async function GET(
     console.error("Error fetching scholarship:", error);
     return NextResponse.json(
       { error: "Failed to fetch scholarship" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
-

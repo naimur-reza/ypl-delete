@@ -153,9 +153,13 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
   const officeItems = globalOffices.map((office) => {
     // Get the first country's flag, name, and slug for display
     const firstCountry = office.countries?.[0]?.country;
+    // If we're on a country-specific page, use that country's route
+    // Otherwise, use the office's primary country or 'global'
+  
+    const href = !countrySlug ? `/global-branches/${office.slug}` : `/${firstCountry?.slug}/global-branches/${office.slug}`
     return {
       title: office.name,
-      href: `/global-branches/${firstCountry?.slug || "global"}/${office.slug}`,
+      href,
       phone: office.phone || undefined,
       countryFlag: firstCountry?.flag || undefined,
       countryName: firstCountry?.name || undefined,
@@ -239,7 +243,7 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
             {
               <CountryAwareLink
                 href="/scholarships"
-                className="font-medium mx-2  text-muted-foreground transition-colors  hover:bg-slate-100 px-3 py-2 rounded-full"
+                className="font-medium mx-2  text-muted-foreground transition-colors text-sm md:text-base  hover:bg-slate-100 px-3 py-2 rounded-full"
               >
                 Scholarships
               </CountryAwareLink>

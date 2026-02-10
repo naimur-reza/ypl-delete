@@ -48,7 +48,7 @@ type GlobalOfficeWithCountries = {
 };
 
 const globalOfficeApi = createEntityApi<GlobalOfficeWithCountries>(
-  "/api/global-offices"
+  "/api/global-offices",
 );
 
 const GlobalOfficesPage = () => {
@@ -56,8 +56,9 @@ const GlobalOfficesPage = () => {
   const [statusFilter, setStatusFilter] = useState<string>("all");
 
   const endpoint = useMemo(
-    () => `/api/global-offices${statusFilter !== "all" ? `?status=${statusFilter}` : ""}`,
-    [statusFilter]
+    () =>
+      `/api/global-offices${statusFilter !== "all" ? `?status=${statusFilter}` : ""}`,
+    [statusFilter],
   );
 
   const { table, isLoading, error, pagination, refetch } =
@@ -92,12 +93,6 @@ const GlobalOfficesPage = () => {
         accessorKey: "name",
         header: "Name",
         enableSorting: true,
-      },
-      {
-        accessorKey: "subtitle",
-        header: "Subtitle",
-        enableSorting: true,
-        cell: ({ row }) => row.original.subtitle || "-",
       },
       {
         accessorKey: "slug",
@@ -180,7 +175,11 @@ const GlobalOfficesPage = () => {
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
-                  onClick={() => router.push(`/dashboard/global-offices/${globalOffice.id}/edit`)}
+                  onClick={() =>
+                    router.push(
+                      `/dashboard/global-offices/${globalOffice.id}/edit`,
+                    )
+                  }
                 >
                   <Pencil className="mr-2 h-4 w-4" />
                   Edit
@@ -198,7 +197,7 @@ const GlobalOfficesPage = () => {
         },
       },
     ],
-    [deleteDialog, router]
+    [deleteDialog, router],
   );
 
   if (table.options.columns.length === 0) {
@@ -237,8 +236,9 @@ const GlobalOfficesPage = () => {
         pagination={pagination}
         toolbar={
           <div className="flex items-center gap-2">
- 
-            <Button onClick={() => router.push("/dashboard/global-offices/new")}>
+            <Button
+              onClick={() => router.push("/dashboard/global-offices/new")}
+            >
               <Plus className="mr-2 h-4 w-4" />
               Add Global Office
             </Button>

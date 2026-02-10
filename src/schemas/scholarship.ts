@@ -26,13 +26,4 @@ export const scholarshipSchema = z
     providerInfo: z.string().optional().nullable(),
     requiredDocuments: z.string().optional().nullable(),
     howToApply: z.string().optional().nullable(),
-  })
-  .superRefine((data, ctx) => {
-    if (!data.isGlobal && (!data.countryIds || data.countryIds.length === 0)) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "Select at least one country",
-        path: ["countryIds"],
-      });
-    }
   });

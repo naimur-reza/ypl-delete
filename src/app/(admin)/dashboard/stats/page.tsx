@@ -73,8 +73,9 @@ const StatsPage = () => {
   const [statusFilter, setStatusFilter] = useState<string>("all");
 
   const endpoint = useMemo(
-    () => `/api/stats${statusFilter !== "all" ? `?status=${statusFilter}` : ""}`,
-    [statusFilter]
+    () =>
+      `/api/stats${statusFilter !== "all" ? `?status=${statusFilter}` : ""}`,
+    [statusFilter],
   );
 
   const { table, isLoading, error, pagination, refetch } = useDataTable<Stat>({
@@ -108,10 +109,6 @@ const StatsPage = () => {
         accessorKey: "title",
         header: "Title",
         enableSorting: true,
-      },
-      {
-        accessorKey: "subtitle",
-        header: "Subtitle",
       },
       {
         accessorKey: "section",
@@ -215,7 +212,7 @@ const StatsPage = () => {
         },
       },
     ],
-    [deleteDialog]
+    [deleteDialog],
   );
 
   if (table.options.columns.length === 0) {

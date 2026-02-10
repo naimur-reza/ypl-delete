@@ -70,7 +70,9 @@ export function GlobalOfficeForm({
   const [openingHours, setOpeningHours] = useState<OpeningHoursData | null>(
     null,
   );
-  const [isGlobal, setIsGlobal] = useState<boolean>((initialData as any)?.isGlobal || false);
+  const [isGlobal, setIsGlobal] = useState<boolean>(
+    (initialData as any)?.isGlobal || false,
+  );
 
   const form = useAppForm({
     defaultValues: {
@@ -173,9 +175,13 @@ export function GlobalOfficeForm({
       form.setFieldValue("metaKeywords", initialData.metaKeywords || "");
 
       if (initialData.countries) {
-        setCountryIds(initialData.countries.map((c) => c.country.id));
+        const mappedIds = initialData.countries.map((c) => c.country.id);
+        setCountryIds(mappedIds);
+        form.setFieldValue("countryIds", mappedIds as any);
       }
-      setIsGlobal((initialData as any)?.isGlobal || false);
+      const globalVal = (initialData as any)?.isGlobal || false;
+      setIsGlobal(globalVal);
+      form.setFieldValue("isGlobal", globalVal as any);
     } else {
       form.reset();
       setCountryIds([]);

@@ -480,9 +480,7 @@ export default function GlobalOfficesClient({
 
                             {/* View Office Button */}
                             <CountryAwareLink
-                              href={`/global-branches/${
-                                office.countries?.[0]?.country?.slug || "global"
-                              }/${office.slug}`}
+                              href={`/global-branches/${office.slug}`}
                             >
                               <Button className="bg-[#1e3a8a] hover:bg-[#1e3a8a]/90 text-white w-full sm:w-auto touch-manipulation min-h-11">
                                 View Office

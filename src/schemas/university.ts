@@ -44,15 +44,6 @@ const universitySchema = z
     // Additional detail fields
     accommodation: z.string().optional().nullable(),
     accommodationImage: z.string().optional().nullable(),
-  })
-  .superRefine((data, ctx) => {
-    if (!data.isGlobal && (!data.countryIds || data.countryIds.length === 0)) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "Select at least one country",
-        path: ["countryIds"],
-      });
-    }
   });
 
 export { universitySchema };

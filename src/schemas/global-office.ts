@@ -54,15 +54,6 @@ const globalOfficeSchema = z
       .or(z.literal("")),
     metaKeywords: z.string().optional().nullable().or(z.literal("")),
     countryIds: z.array(z.string()).default([]),
-  })
-  .superRefine((data, ctx) => {
-    if (!data.isGlobal && (!data.countryIds || data.countryIds.length === 0)) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "Select at least one country",
-        path: ["countryIds"],
-      });
-    }
   });
 
 export { globalOfficeSchema };
