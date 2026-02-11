@@ -29,10 +29,10 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
 
   const countryScopedFilter = countrySlug
     ? {
-      some: {
-        country: { slug: countrySlug },
-      },
-    }
+        some: {
+          country: { slug: countrySlug },
+        },
+      }
     : undefined;
 
   const [
@@ -42,89 +42,85 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
     events,
     globalOffices,
     countries,
- 
   ] = await Promise.all([
-      prisma.destination.findMany({
-        select: { id: true, name: true, slug: true },
-        where: countryScopedFilter
-          ? {
-            OR: [
-              { countries: countryScopedFilter },
-              { isGlobal: true },
-            ],
+    prisma.destination.findMany({
+      select: { id: true, name: true, slug: true },
+      where: countryScopedFilter
+        ? {
+            OR: [{ countries: countryScopedFilter }, { isGlobal: true }],
           }
-          : undefined,
-      }),
-      prisma.university.findMany({
-        select: { id: true, name: true, slug: true },
-        where: countryScopedFilter
-          ? {
+        : undefined,
+    }),
+    prisma.university.findMany({
+      select: { id: true, name: true, slug: true },
+      where: countryScopedFilter
+        ? {
             status: "ACTIVE",
             countries: countryScopedFilter,
           }
-          : { status: "ACTIVE" },
-        take: 20,
-      }),
-      prisma.course.findMany({
-        select: { id: true, title: true, slug: true },
-        where: countryScopedFilter
-          ? {
+        : { status: "ACTIVE" },
+      take: 20,
+    }),
+    prisma.course.findMany({
+      select: { id: true, title: true, slug: true },
+      where: countryScopedFilter
+        ? {
             status: "ACTIVE",
           }
-          : { status: "ACTIVE" },
-        take: 20,
-      }),
-      prisma.event.findMany({
-        select: { id: true, title: true, slug: true, eventType: true },
-        where: countryScopedFilter
-          ? {
+        : { status: "ACTIVE" },
+      take: 20,
+    }),
+    prisma.event.findMany({
+      select: { id: true, title: true, slug: true, eventType: true },
+      where: countryScopedFilter
+        ? {
             countries: countryScopedFilter,
           }
-          : undefined,
-        take: 10,
-      }),
-      prisma.globalOffice.findMany({
-        where: countryScopedFilter
-          ? { countries: countryScopedFilter }
-          : undefined,
-        select: {
-          id: true,
-          name: true,
-          slug: true,
-          phone: true,
-          countries: {
-            select: {
-              country: {
-                select: {
-                  id: true,
-                  name: true,
-                  flag: true,
-                  slug: true,
-                },
+        : undefined,
+      take: 10,
+    }),
+    prisma.globalOffice.findMany({
+      where: countryScopedFilter
+        ? { countries: countryScopedFilter }
+        : undefined,
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        phone: true,
+        countries: {
+          select: {
+            country: {
+              select: {
+                id: true,
+                name: true,
+                flag: true,
+                slug: true,
               },
             },
           },
         },
-      }),
-      prisma.country.findMany({
-        where: { status: "ACTIVE" },
-        select: {
-          id: true,
-          name: true,
-          slug: true,
-          flag: true,
-        },
-        orderBy: { name: "asc" },
-      }),
-      prisma.intakePage.findMany({
-        where: { status: "ACTIVE" },
-        select: {
-          intake: true,
-          destination: { select: { slug: true, name: true } },
-        },
-        orderBy: [{ destination: { name: "asc" } }, { intake: "asc" }],
-      }),
-    ]);
+      },
+    }),
+    prisma.country.findMany({
+      where: { status: "ACTIVE" },
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        flag: true,
+      },
+      orderBy: { name: "asc" },
+    }),
+    prisma.intakePage.findMany({
+      where: { status: "ACTIVE" },
+      select: {
+        intake: true,
+        destination: { select: { slug: true, name: true } },
+      },
+      orderBy: [{ destination: { name: "asc" } }, { intake: "asc" }],
+    }),
+  ]);
 
   const destinationItems = destinations.map((dest) => ({
     icon: <GraduationCap size={18} />,
@@ -155,8 +151,10 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
     const firstCountry = office.countries?.[0]?.country;
     // If we're on a country-specific page, use that country's route
     // Otherwise, use the office's primary country or 'global'
-  
-    const href = !countrySlug ? `/global-branches/${office.slug}` : `/${firstCountry?.slug}/global-branches/${office.slug}`
+
+    const href = !countrySlug
+      ? `/global-branches/${firstCountry?.slug}/${office.slug}`
+      : `/${firstCountry?.slug}/global-branches/${office.slug}`;
     return {
       title: office.name,
       href,
@@ -165,7 +163,6 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
       countryName: firstCountry?.name || undefined,
     };
   });
- 
 
   const resourceItems = [
     {
@@ -274,10 +271,8 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
             )}
 
             <NavDropdown
-            
               title="Resources"
               heading="Explore our resources"
-               
               items={resourceItems}
             />
           </ul>

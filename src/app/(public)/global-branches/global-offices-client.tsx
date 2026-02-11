@@ -18,7 +18,7 @@ import {
   Country,
   GlobalOffice,
 } from "../../../../prisma/src/generated/prisma/client";
-import { CountryAwareLink } from "@/components/common/navbar/country-aware-link";
+
 
 // Helper function to extract src from iframe or convert URL to embed format
 function convertToEmbedUrl(mapUrl: string): string {
@@ -479,13 +479,17 @@ export default function GlobalOfficesClient({
                             </div>
 
                             {/* View Office Button */}
-                            <CountryAwareLink
-                              href={`/global-branches/${office.slug}`}
+                            <Link
+                              href={
+                                countryCode
+                                  ? `/${countryName.toLowerCase().replace(/\s+/g, '-')}/global-branches/${(office.city || office.name.split(" ")[0].trim()).toLowerCase().replace(/\s+/g, '-')}`
+                                  : `/global-branches/${countryName.toLowerCase().replace(/\s+/g, '-')}/${(office.city || office.name.split(" ")[0].trim()).toLowerCase().replace(/\s+/g, '-')}`
+                              }
                             >
                               <Button className="bg-[#1e3a8a] hover:bg-[#1e3a8a]/90 text-white w-full sm:w-auto touch-manipulation min-h-11">
                                 View Office
                               </Button>
-                            </CountryAwareLink>
+                            </Link>
                           </div>
 
                           {/* Right Side - Map */}
