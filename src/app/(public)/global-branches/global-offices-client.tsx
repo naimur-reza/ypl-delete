@@ -13,12 +13,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { cn } from "@/lib/utils";
 import {
   Country,
   GlobalOffice,
 } from "../../../../prisma/src/generated/prisma/client";
-
+import { CountryAwareLink } from "@/components/common/navbar/country-aware-link";
 
 // Helper function to extract src from iframe or convert URL to embed format
 function convertToEmbedUrl(mapUrl: string): string {
@@ -108,7 +107,10 @@ export default function GlobalOfficesClient({
       const city = office.city || office.name.split(" ")[0].trim();
 
       // Check if this is a global office (has isGlobal = true and no countries)
-      const isGlobalOffice = (office as any).isGlobal === true || (!office.countries || office.countries.length === 0);
+      const isGlobalOffice =
+        (office as any).isGlobal === true ||
+        !office.countries ||
+        office.countries.length === 0;
 
       if (isGlobalOffice) {
         // Add to "Global" category
@@ -119,7 +121,7 @@ export default function GlobalOfficesClient({
           });
         }
         countryMap.get("Global")!.cities.add(city);
-        
+
         // Also track the city
         if (!cityCountryMap.has(city)) {
           cityCountryMap.set(city, new Set());
@@ -182,7 +184,10 @@ export default function GlobalOfficesClient({
         let matchesCountryFilter = true;
         if (matchingCountries.length > 0) {
           // Check if "Global" filter is selected and this is a global office
-          const isGlobalOffice = (office as any).isGlobal === true || (!office.countries || office.countries.length === 0);
+          const isGlobalOffice =
+            (office as any).isGlobal === true ||
+            !office.countries ||
+            office.countries.length === 0;
           const globalFilterSelected = matchingCountries.includes("Global");
 
           if (globalFilterSelected && isGlobalOffice) {
@@ -233,7 +238,10 @@ export default function GlobalOfficesClient({
     if (filteredOffices && Array.isArray(filteredOffices)) {
       filteredOffices.forEach((office) => {
         // Check if this is a global office
-        const isGlobalOffice = (office as any).isGlobal === true || (!office.countries || office.countries.length === 0);
+        const isGlobalOffice =
+          (office as any).isGlobal === true ||
+          !office.countries ||
+          office.countries.length === 0;
 
         if (isGlobalOffice) {
           // Add to "Global" group
@@ -479,17 +487,13 @@ export default function GlobalOfficesClient({
                             </div>
 
                             {/* View Office Button */}
-                            <Link
-                              href={
-                                countryCode
-                                  ? `/${countryName.toLowerCase().replace(/\s+/g, '-')}/global-branches/${(office.city || office.name.split(" ")[0].trim()).toLowerCase().replace(/\s+/g, '-')}`
-                                  : `/global-branches/${countryName.toLowerCase().replace(/\s+/g, '-')}/${(office.city || office.name.split(" ")[0].trim()).toLowerCase().replace(/\s+/g, '-')}`
-                              }
+                            <CountryAwareLink
+                              href={`/global-branches//${office.slug}`}
                             >
                               <Button className="bg-[#1e3a8a] hover:bg-[#1e3a8a]/90 text-white w-full sm:w-auto touch-manipulation min-h-11">
                                 View Office
                               </Button>
-                            </Link>
+                            </CountryAwareLink>
                           </div>
 
                           {/* Right Side - Map */}
