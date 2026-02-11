@@ -369,12 +369,17 @@ export function ScholarshipForm({
                   />
                   {field.state.meta.errors?.length > 0 && (
                     <p className="text-sm text-destructive mt-1">
-                      {field.state.meta.errors.map((e: any) => typeof e === 'string' ? e : e?.message || String(e)).join(', ')}
+                      {field.state.meta.errors
+                        .map((e: any) =>
+                          typeof e === "string" ? e : e?.message || String(e),
+                        )
+                        .join(", ")}
                     </p>
                   )}
                   {!isGlobal && countryIds.length === 0 && (
                     <p className="text-sm text-amber-600 mt-1">
-                      No countries selected. Select &quot;Global&quot; or pick specific countries.
+                      No countries selected. Select &quot;Global&quot; or pick
+                      specific countries.
                     </p>
                   )}
                 </div>
