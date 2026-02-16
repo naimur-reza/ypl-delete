@@ -295,9 +295,7 @@ const RegistrationsPage = () => {
         <h1 className="text-3xl font-bold tracking-tight">
           Event Registrations
         </h1>
-        <p className="text-muted-foreground">
-          Manage attendee registrations submitted from public event pages.
-        </p>
+ 
       </div>
 
       <ConfirmDialog

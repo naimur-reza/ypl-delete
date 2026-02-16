@@ -39,6 +39,7 @@ export async function POST(req: NextRequest) {
     description,
     providerType,
     isFeatured,
+    isGlobal,
     website,
     address,
     phone,
@@ -53,7 +54,7 @@ export async function POST(req: NextRequest) {
     costOfStudying,
   } = body;
 
-  if (!name || !slug || !destinationId || !countryIds.length) {
+  if (!name || !slug || !destinationId || (!isGlobal && (!countryIds || !countryIds.length))) {
     return Response.json(
       { error: "Name, slug, Countries Id and destinationId are required" },
       { status: 400 }
@@ -69,6 +70,7 @@ export async function POST(req: NextRequest) {
       description,
       providerType: providerType || "PRIVATE",
       isFeatured: isFeatured || false,
+      isGlobal: isGlobal || false,
       website,
       address,
       phone,

@@ -158,7 +158,7 @@ const Navbar = async ({ countrySlug }: NavbarProps) => {
     return {
       title: office.name,
       href,
-      phone: office.phone || undefined,
+      // phone: office.phone || undefined,
       countryFlag: firstCountry?.flag || undefined,
       countryName: firstCountry?.name || undefined,
     };

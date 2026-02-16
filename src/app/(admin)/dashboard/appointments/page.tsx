@@ -288,9 +288,7 @@ const AppointmentsPage = () => {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Appointments</h1>
-        <p className="text-muted-foreground">
-          Review consultation appointments submitted from public forms.
-        </p>
+ 
       </div>
 
       <ConfirmDialog

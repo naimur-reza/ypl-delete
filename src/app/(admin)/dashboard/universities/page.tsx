@@ -183,9 +183,7 @@ const UniversitiesPage = () => {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Universities</h1>
-        <p className="text-muted-foreground">
-          Manage universities and educational institutions
-        </p>
+ 
       </div>
 
       <ConfirmDialog

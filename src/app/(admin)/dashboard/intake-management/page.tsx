@@ -15,10 +15,7 @@ export default function IntakeManagementPage() {
         <h1 className="text-3xl font-bold tracking-tight">
           Intake Management
         </h1>
-        <p className="text-muted-foreground">
-          Manage intake season banners and season details (countdown, hero,
-          timeline) displayed across the website
-        </p>
+ 
       </div>
       <Suspense fallback={<div className="text-muted-foreground">Loading...</div>}>
         <IntakeManagementTabs />

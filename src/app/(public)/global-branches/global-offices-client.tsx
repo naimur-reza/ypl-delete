@@ -296,6 +296,8 @@ export default function GlobalOfficesClient({
     return convertToEmbedUrl(office.mapUrl) || null;
   };
 
+
+ 
   return (
     <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 max-w-7xl mx-auto">
       {/* Sidebar Filters - Mobile: Collapsible, Desktop: Sidebar */}
@@ -441,7 +443,7 @@ export default function GlobalOfficesClient({
 
                 {/* Office Cards */}
                 <div className="space-y-4">
-                  {countryOffices.map((office) => {
+                  {countryOffices.map((office, index) => {
                     const embedUrl = getEmbedUrl(office);
 
                     return (
@@ -485,10 +487,10 @@ export default function GlobalOfficesClient({
                                 </div>
                               )}
                             </div>
-
+ 
                             {/* View Office Button */}
                             <CountryAwareLink
-                              href={`/global-branches//${office.slug}`}
+                              href={`/global-branches/${office.countries[0]?.country.slug || "global"}/${office.slug}`}
                             >
                               <Button className="bg-[#1e3a8a] hover:bg-[#1e3a8a]/90 text-white w-full sm:w-auto touch-manipulation min-h-11">
                                 View Office

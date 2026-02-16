@@ -182,7 +182,7 @@ const BlogsPage = () => {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Blogs</h1>
-        <p className="text-muted-foreground">Manage blog posts</p>
+   
       </div>
 
       <ConfirmDialog

@@ -202,10 +202,7 @@ const HeroesPage = () => {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Heroes</h1>
-        <p className="text-muted-foreground">
-          Manage hero sections. Add multiple heroes per page to create a slider,
-          or a single hero for static display.
-        </p>
+ 
       </div>
 
       {isModalOpen && (

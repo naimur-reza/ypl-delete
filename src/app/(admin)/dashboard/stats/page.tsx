@@ -235,10 +235,6 @@ const StatsPage = () => {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Stats</h1>
-        <p className="text-muted-foreground">
-          Manage dynamic statistics displayed across the website. Configure
-          stats for About section, Hero slider, and more.
-        </p>
       </div>
 
       {isModalOpen && (

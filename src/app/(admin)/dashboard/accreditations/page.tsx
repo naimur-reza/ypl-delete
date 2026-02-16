@@ -166,9 +166,7 @@ export default function AccreditationsPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Accreditations</h1>
-        <p className="text-muted-foreground">
-          Manage accreditation logos and links
-        </p>
+
       </div>
 
 

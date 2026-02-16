@@ -314,10 +314,7 @@ const IntakeLeadsPage = () => {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Intake Leads</h1>
-        <p className="text-muted-foreground">
-          Manage leads submitted from intake pages. Track which intake each
-          student registered for.
-        </p>
+ 
       </div>
 
       <ConfirmDialog
