@@ -12,7 +12,7 @@ import { ReviewSection } from "@/components/sections/review-section";
 import CallToActionBanner from "@/components/CallToActionBanner";
 
 // SSG with ISR - revalidate every 5 minutes
-export const revalidate = 300;
+export const revalidate = 3600;
 export const dynamicParams = true;
 
 // Pre-generate first 50 most recent blogs at build time for instant loading

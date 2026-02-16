@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import Link from "next/link";
+import { Trophy, DollarSign, MapPin } from "lucide-react";
 
 // SSG with ISR - revalidate every hour
 export const revalidate = 3600;
@@ -31,8 +33,6 @@ import { UniversityCourses } from "@/components/university/UniversityCourses";
 import { UniversityScholarships } from "@/components/university/UniversityScholarships";
 import { UniversitySidebar } from "../components/university-sidebar";
 
-import { ReviewSlider } from "@/components/sections/review-slider";
-
 import { FaqSection } from "@/components/sections/faq-section";
 import { RepresentativeVideoSlider } from "@/components/sections/representative-video-slider";
 import CallToActionBanner from "@/components/CallToActionBanner";
@@ -40,8 +40,7 @@ import CallToActionBanner from "@/components/CallToActionBanner";
 import { fetchFaqsByContext } from "@/lib/faqs";
 import { IntakeFeature } from "@/app/[country]/(public)/(home)/components";
 import { ReviewSection } from "@/components/sections/review-section";
-
- 
+import { CountryAwareLink } from "@/components/common/navbar/country-aware-link";
 
 interface PageProps {
   params: Promise<{
@@ -95,7 +94,6 @@ export default async function UniversityDetailsPage({ params }: PageProps) {
     where: { slug, status: "ACTIVE" },
     include: {
       detail: true,
-      // country: true, // Removed as it is not a direct relation
       courses: {
         where: { status: "ACTIVE" },
         take: 10,
@@ -179,7 +177,7 @@ export default async function UniversityDetailsPage({ params }: PageProps) {
       : null,
     university.detail?.ranking ? { id: "rankings", label: "Rankings" } : null,
     university.detail?.entryRequirements
-      ? { id: "requirements", label: "Entry Requirements" }
+      ? { id: "requirements", label: "Requirements" }
       : null,
     { id: "courses", label: "Courses" },
     { id: "scholarships", label: "Scholarships" },
@@ -187,8 +185,8 @@ export default async function UniversityDetailsPage({ params }: PageProps) {
   ].filter(Boolean) as { id: string; label: string }[];
 
   return (
-    <main className="bg-slate-50 min-h-screen">
-      {/* 1. University Info / Hero Section */}
+    <div className="bg-slate-50 min-h-screen">
+      {/* Hero Section */}
       <UniversityHero
         university={{
           name: university.name,
@@ -196,109 +194,179 @@ export default async function UniversityDetailsPage({ params }: PageProps) {
           logo: university.logo,
           address: university.address,
           website: university.website,
-          fees: university.detail?.tuitionFees || "Contact for info",
-          ranking: university.detail?.ranking || "N/A",
-          established: "1900", // Placeholder as field missing in schema
-          famousFor: university.detail?.famousFor || "Excellence in Education",
-          rankingNumber: university.rankingNumber ?? "N/A",
-          costOfStudying: university.costOfStudying ?? undefined,
+          famousFor: university.detail?.famousFor || null,
         }}
+        countrySlug={country}
       />
 
-      {/* Main Content with Sidebar */}
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="flex flex-col lg:flex-row gap-12">
-          {/* Sidebar Navigation */}
-          <aside className="w-full lg:w-1/4 shrink-0">
-            <UniversitySidebar steps={sidebarSteps} />
-          </aside>
-
-          {/* Content Area */}
-          <div className="flex-1 space-y-16">
-            {/* 2. Overview Section */}
-            {university.detail?.overview && (
-              <section id="overview" className="scroll-mt-32">
-                <UniversityOverview overview={university.detail.overview} />
-              </section>
-            )}
-
-            {/* 3. Services Section */}
-            {university.detail?.servicesDescription && (
-              <section id="services" className="scroll-mt-32">
-                <UniversityServices
-                  heading={university.detail?.servicesHeading}
-                  description={university.detail?.servicesDescription}
-                  image={
-                    university.detail?.servicesImage ||
-                    "https://thumbs.dreamstime.com/b/conceptual-hand-writing-showing-our-services-concept-meaning-occupation-function-serving-intangible-products-male-wear-160644151.jpg"
-                  }
-                />
-              </section>
-            )}
-
-            {/* 4. Rankings Details */}
-            {university.detail?.ranking && (
-              <section id="rankings" className="scroll-mt-32">
-                <UniversityRankings ranking={university.detail.ranking} />
-              </section>
-            )}
-
-            {/* 5. Entry Requirements */}
-            {university.detail?.entryRequirements && (
-              <section id="requirements" className="scroll-mt-32">
-                <UniversityEntryRequirements
-                  requirements={university.detail.entryRequirements}
-                />
-              </section>
-            )}
-
-            {/* 7. Courses List */}
-            <section id="courses" className="scroll-mt-32">
-              <UniversityCourses
-                courses={university.courses}
-                universitySlug={university.slug}
-                countrySlug={country}
-              />
-            </section>
-
-            {/* 8. Scholarships List */}
-            <section id="scholarships" className="scroll-mt-32">
-              <UniversityScholarships
-                scholarships={university.scholarships}
-                countrySlug={country}
-              />
-            </section>
-
-            {/* 6. Cost of Studying & Accommodation */}
-            <section id="accommodation" className="scroll-mt-32">
-              <UniversityCostAndAccommodation
-                tuitionFees={university.detail?.tuitionFees}
-                accommodation={university.detail?.accommodation}
-                accommodationImage={university.detail?.accommodationImage}
-              />
-            </section>
+      {/* Sticky Top Bar with Key Info */}
+      <div className="sticky top-0 z-30 bg-white/80 backdrop-blur-xl border-b border-slate-200">
+        <div className="container mx-auto px-6 py-4">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="flex flex-wrap items-center gap-6 md:gap-8">
+              {university.rankingNumber && (
+                <div className="flex items-center gap-2">
+                  <Trophy className="w-5 h-5 text-slate-400" />
+                  <div className="flex flex-col">
+                    <span className="text-slate-500 text-xs font-semibold uppercase tracking-wider">
+                      Ranking
+                    </span>
+                    <span className="font-bold text-slate-900">
+                      {university.rankingNumber}
+                    </span>
+                  </div>
+                </div>
+              )}
+              {university.costOfStudying && (
+                <div className="flex items-center gap-2">
+                  <DollarSign className="w-5 h-5 text-slate-400" />
+                  <div className="flex flex-col">
+                    <span className="text-slate-500 text-xs font-semibold uppercase tracking-wider">
+                      Fees
+                    </span>
+                    <span className="font-bold text-blue-600">
+                      {university.costOfStudying}
+                    </span>
+                  </div>
+                </div>
+              )}
+              {university.destination && (
+                <div className="flex items-center gap-2">
+                  <MapPin className="w-5 h-5 text-slate-400" />
+                  <div className="flex flex-col">
+                    <span className="text-slate-500 text-xs font-semibold uppercase tracking-wider">
+                      Destination
+                    </span>
+                    <span className="font-bold text-slate-900">
+                      {university.destination.name}
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* 9. Intake Admission Section CTR */}
-      <IntakeFeature countrySlug={country} />
+      {/* Main Content with Sidebar */}
+      <div className="container mx-auto px-6 py-12">
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Sidebar Navigation */}
+          <aside className="w-full lg:w-1/4 shrink-0">
+            <div className="sticky top-32">
+              <UniversitySidebar steps={sidebarSteps} />
 
-      {/* 10. Student Review Video Slider */}
-      {reviews.length > 0 && (
- 
-         <ReviewSection  universityId={university.id} />
- 
-      )}
+              {/* Sidebar CTA */}
+              <div className="mt-6 p-6 bg-slate-900 rounded-2xl text-white relative overflow-hidden">
+                <div className="relative z-10">
+                  <h3 className="text-lg font-bold mb-2">Need Guidance?</h3>
+                  <p className="text-slate-400 text-sm mb-4">
+                    Our advisors can help you with {university.name}.
+                  </p>
+                  <CountryAwareLink href={`/apply-now`}>
+                    <button className="w-full py-3 bg-white text-slate-900 font-bold rounded-xl hover:bg-slate-100 transition-colors">
+                      Book Free Consultation
+                    </button>
+                  </CountryAwareLink>
+                </div>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/20 rounded-full blur-3xl -mr-16 -mt-16" />
+              </div>
+            </div>
+          </aside>
 
-      {/* 12. FAQ */}
-      <FaqSection faqs={faqs} />
+          {/* Content Area */}
+          <main className="flex-1 min-w-0">
+            <div className="space-y-8">
+              {/* Overview Section */}
+              {university.detail?.overview && (
+                <section id="overview" className="scroll-mt-32">
+                  <UniversityOverview overview={university.detail.overview} />
+                </section>
+              )}
 
-      {/* 13. Representative Video Slider */}
-      <RepresentativeVideoSlider videos={representativeVideos} />
+              {/* Services Section */}
+              {university.detail?.servicesDescription && (
+                <section id="services" className="scroll-mt-32">
+                  <UniversityServices
+                    heading={university.detail?.servicesHeading}
+                    description={university.detail?.servicesDescription}
+                    image={
+                      university.detail?.servicesImage ||
+                      "https://thumbs.dreamstime.com/b/conceptual-hand-writing-showing-our-services-concept-meaning-occupation-function-serving-intangible-products-male-wear-160644151.jpg"
+                    }
+                  />
+                </section>
+              )}
 
-      {/* 14. Book free counselling CTR Section */}
-      <CallToActionBanner />
-    </main>
+              {/* Rankings */}
+              {university.detail?.ranking && (
+                <section id="rankings" className="scroll-mt-32">
+                  <UniversityRankings ranking={university.detail.ranking} />
+                </section>
+              )}
+
+              {/* Entry Requirements */}
+              {university.detail?.entryRequirements && (
+                <section id="requirements" className="scroll-mt-32">
+                  <UniversityEntryRequirements
+                    requirements={university.detail.entryRequirements}
+                  />
+                </section>
+              )}
+
+              {/* Courses List */}
+              <section id="courses" className="scroll-mt-32">
+                <UniversityCourses
+                  courses={university.courses}
+                  universitySlug={university.slug}
+                  countrySlug={country}
+                />
+              </section>
+
+              {/* Scholarships */}
+              <section id="scholarships" className="scroll-mt-32">
+                <UniversityScholarships
+                  scholarships={university.scholarships}
+                  countrySlug={country}
+                />
+              </section>
+
+              {/* Cost & Accommodation */}
+              <section id="accommodation" className="scroll-mt-32">
+                <UniversityCostAndAccommodation
+                  tuitionFees={university.detail?.tuitionFees}
+                  accommodation={university.detail?.accommodation}
+                  accommodationImage={university.detail?.accommodationImage}
+                />
+              </section>
+            </div>
+          </main>
+        </div>
+      </div>
+
+      {/* Global Sections */}
+      <div className="space-y-0">
+        {/* Intake Admission Section */}
+        <div className="bg-white">
+          <IntakeFeature countrySlug={country} />
+        </div>
+
+        {/* FAQ Section */}
+        <div className="bg-slate-50">
+          <FaqSection faqs={faqs} />
+        </div>
+
+        {/* Student Reviews */}
+        {reviews.length > 0 && (
+          <ReviewSection universityId={university.id} />
+        )}
+
+        {/* Representative Videos */}
+        <RepresentativeVideoSlider videos={representativeVideos} />
+
+        {/* CTA Banner */}
+        <CallToActionBanner />
+      </div>
+    </div>
   );
 }

@@ -127,29 +127,28 @@ export function UniversityCourses({
   };
 
   return (
-    <section className="py-12 md:py-16 bg-white" id="courses">
-      <div className="container mx-auto px-4">
-        {/* Header with Search */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-6">
-          <div>
-            <h2 className="text-3xl font-bold text-slate-900 mb-2">
-              Courses offered
-            </h2>
-            <p className="text-slate-500">
-              Explore courses available at this university
-            </p>
+    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+      {/* Header with Search */}
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4">
+        <div className="flex items-center gap-2">
+          <div className="w-10 h-10 bg-rose-100 rounded-lg flex items-center justify-center">
+            <Search className="w-5 h-5 text-rose-600" />
           </div>
-
-          <div className="relative w-full md:w-96">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-            <Input
-              placeholder="Search courses..."
-              className="pl-10 bg-slate-50 border-slate-200"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
+          <h2 className="text-xl md:text-2xl font-bold text-slate-900">
+            Courses Offered
+          </h2>
         </div>
+
+        <div className="relative w-full md:w-72">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <Input
+            placeholder="Search courses..."
+            className="pl-10 bg-slate-50 border-slate-200"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+      </div>
 
         {/* Filter Tabs */}
         <div className="flex flex-wrap gap-2 mb-6">
@@ -252,7 +251,6 @@ export function UniversityCourses({
             </Button>
           </div>
         )}
-      </div>
-    </section>
+    </div>
   );
 }

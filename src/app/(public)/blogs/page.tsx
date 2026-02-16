@@ -21,7 +21,7 @@ export const generateMetadata = async (): Promise<Metadata> =>
   });
 
 // SSG with ISR - revalidate every 5 minutes for fresh content
-export const revalidate = 300;
+export const revalidate = 3600;
 export const dynamicParams = true;
 
 type PageProps = {

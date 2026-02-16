@@ -1,11 +1,7 @@
-"use client";
-
 import Image from "next/image";
-import { MapPin, Globe, Trophy, Calendar, CheckCircle } from "lucide-react"; // Added Icons
+import { ChevronRight, MapPin, Star } from "lucide-react";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
-import { GradientButton } from "@/components/ui/gradient-button"; // Assuming this exists or standard Button
-import { MarkdownContent } from "../ui/markdown-content";
+import { CountryAwareLink } from "@/components/common/navbar/country-aware-link";
 
 interface UniversityHeroProps {
   university: {
@@ -14,150 +10,94 @@ interface UniversityHeroProps {
     logo?: string | null;
     address?: string | null;
     website?: string | null;
-    ranking?: string;
-    established?: string;
-    famousFor?: string;
-    rankingNumber?: any;
-    costOfStudying?: string;
-    fees?: string;
+    famousFor?: string | null;
   };
+  countrySlug: string;
 }
 
-export function UniversityHero({ university }: UniversityHeroProps) {
+export function UniversityHero({ university, countrySlug }: UniversityHeroProps) {
   return (
-    <div className="relative w-full min-h-[700px] lg:h-[60vh] flex items-center bg-slate-900 overflow-hidden">
-      {/* Background Image with Overlay */}
-      {university.thumbnail ? (
-        <>
-          <Image
-            src={university.thumbnail}
-            alt={university.name}
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-slate-900/20 backdrop-blur-[2px]" />
-          <div className="absolute inset-0 bg-linear-to-r from-slate-900/90 via-slate-900/60 to-transparent" />
-        </>
-      ) : (
-        <div className="absolute inset-0 bg-linear-to-br from-slate-900 via-primary/20 to-slate-900" />
-      )}
+    <div className="relative h-[400px] w-full overflow-hidden">
+      <Image
+        src={
+          university.thumbnail ||
+          "https://images.unsplash.com/photo-1562774053-701939374585?q=100&w=1400&auto=format&fit=crop"
+        }
+        alt={university.name}
+        fill
+        className="object-cover"
+        priority
+      />
+      <div className="absolute inset-0 bg-linear-to-r from-slate-900 via-slate-900/60 to-transparent" />
+      <div className="absolute inset-0 flex flex-col justify-center container mx-auto px-6">
+        {/* Breadcrumb */}
+        <div className="flex items-center gap-2 text-white/80 text-sm mb-6">
+          <Link
+            href={`/${countrySlug}`}
+            className="hover:text-white transition-colors"
+          >
+            Home
+          </Link>
+          <ChevronRight className="w-4 h-4" />
+          <CountryAwareLink
+            href="/universities"
+            className="hover:text-white transition-colors"
+          >
+            Universities
+          </CountryAwareLink>
+          <ChevronRight className="w-4 h-4" />
+          <span className="text-white font-medium truncate max-w-[200px] md:max-w-none">
+            {university.name}
+          </span>
+        </div>
 
-      {/* Content Container */}
-      <div className="container mx-auto px-4 relative z-10 w-full">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-          {/* Left: Content */}
-          <div className="flex-1 space-y-8 text-center lg:text-left pt-5">
-            {/* Breadcrumb / Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white/80 text-sm font-medium backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-              University Profile
+        <div className="flex items-center gap-5 mb-4">
+          {/* University Logo */}
+          {university.logo && (
+            <div className="w-16 h-16 md:w-20 md:h-20 bg-white rounded-xl p-2 flex items-center justify-center shadow-lg shrink-0">
+              <Image
+                src={university.logo.trim()}
+                alt={university.name}
+                width={64}
+                height={64}
+                className="object-contain max-h-full max-w-full"
+              />
             </div>
-
-            <div className="space-y-4">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight font-serif">
-                {university.name}
-              </h1>
-
-              {university.address && (
-                <div className="flex items-center justify-center lg:justify-start gap-2 text-slate-300 text-lg">
-                  <MapPin className="w-5 h-5 text-accent md:block hidden" />
-
-                  <span>{university.address}</span>
-                </div>
-              )}
-            </div>
-
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
-              {university.website && (
-                <Link href={university.website} target="_blank">
-                  <GradientButton className="min-w-[160px] h-11 text-base">
-                    Visit Website
-                  </GradientButton>
-                </Link>
-              )}
-              <a
-                href="#overview"
-                className="px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white font-medium backdrop-blur transition-all border border-white/10"
-              >
-                Explore Details
-              </a>
-            </div>
-          </div>
-
-          {/* Right: Modern Stats/Logo Card */}
-          <div className="w-full lg:max-w-3xl shrink-0">
-            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl">
-              {/* Logo Area */}
-              <div className="flex items-center justify-center mb-8">
-                <div className="w-24 h-24 bg-white p-3 rounded-2xl flex items-center justify-center shadow-lg">
-                  {university.logo ? (
-                    <Image
-                      src={university.logo.trim()}
-                      alt={university.name}
-                      width={80}
-                      height={80}
-                      className="object-contain max-h-full max-w-full"
-                      onError={(e) => {
-                        // Hide the image and show fallback
-                        e.currentTarget.style.display = "none";
-                        const fallback = e.currentTarget.nextElementSibling;
-                        if (fallback) fallback.classList.remove("hidden");
-                      }}
-                    />
-                  ) : null}
-                  <span
-                    className={cn(
-                      "text-2xl font-bold text-primary",
-                      university.logo ? "hidden" : "",
-                    )}
-                  >
-                    {university.name.substring(0, 2)}
-                  </span>
-                </div>
+          )}
+          <div>
+            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white max-w-4xl leading-tight">
+              {university.name}
+            </h1>
+            {university.address && (
+              <div className="flex items-center gap-2 text-white/80 mt-2">
+                <MapPin className="w-4 h-4" />
+                <span className="text-sm md:text-base">{university.address}</span>
               </div>
-
-              {/* Grid Info */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-black/20 rounded-2xl p-4 border border-white/5">
-                  <div className="flex items-center gap-2 mb-2 text-accent">
-                    <Trophy className="w-4 h-4" />
-                    <span className="text-xs font-semibold uppercase tracking-wider">
-                      Ranking
-                    </span>
-                  </div>
-                  <p className="text-white font-bold text-lg leading-tight">
-                    {university.rankingNumber || "N/A"}
-                  </p>
-                </div>
-
-                <div className="bg-black/20 rounded-2xl p-4 border border-white/5">
-                  <div className="flex items-center gap-2 mb-2 text-accent">
-                    <Calendar className="w-4 h-4" />
-                    <span className="text-xs font-semibold uppercase tracking-wider">
-                      Fees
-                    </span>
-                  </div>
-                  <p className="text-white font-bold text-lg leading-tight truncate">
-                    {university.costOfStudying || "Ask Counsellor"}
-                  </p>
-                </div>
-
-                {/* Full width feature */}
-                <div className="col-span-2 bg-black/20 rounded-2xl p-4 border border-white/5">
-                  <div className="flex items-center gap-2 mb-2 text-accent">
-                    <CheckCircle className="w-4 h-4" />
-                    <span className="text-xs font-semibold uppercase tracking-wider">
-                      Famous For
-                    </span>
-                  </div>
-                  <div className="text-slate-200 text-sm leading-relaxed">
-                    <MarkdownContent content={university.famousFor || "N/A"} />
-                  </div>
-                </div>
+            )}
+            {university.famousFor && (
+              <div className="flex items-center gap-2 text-white/80 mt-1">
+                <Star className="w-4 h-4 text-amber-400" />
+                <span className="text-sm">{university.famousFor}</span>
               </div>
-            </div>
+            )}
           </div>
+        </div>
+
+        <div className="flex flex-wrap gap-4 mt-2">
+          <Link href="#overview">
+            <button className="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-all hover:scale-105 shadow-xl shadow-blue-600/20">
+              Explore Details
+            </button>
+          </Link>
+          {university.website && (
+            <Link
+              href={university.website}
+              target="_blank"
+              className="px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white font-medium rounded-xl backdrop-blur transition-all border border-white/20 flex items-center gap-2"
+            >
+              Visit Website
+            </Link>
+          )}
         </div>
       </div>
     </div>

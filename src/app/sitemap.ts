@@ -1,6 +1,9 @@
 import { MetadataRoute } from "next";
 import { prisma } from "@/lib/prisma";
 
+// Revalidate sitemap every hour — avoids running 12 DB queries on every crawler hit
+export const revalidate = 3600;
+
 const baseUrl =
   process.env.NEXT_PUBLIC_SITE_URL || "https://www.nwceducation.com";
 

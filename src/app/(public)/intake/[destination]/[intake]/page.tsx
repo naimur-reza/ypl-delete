@@ -181,7 +181,6 @@ export default async function GlobalIntakePage({ params }: PageProps) {
     notFound();
   }
 
-  console.log(intakeData)
   const intakeName = formatIntakeName(intake);
   const destinationName = intakeData.intakeSeason.destination?.name;
 

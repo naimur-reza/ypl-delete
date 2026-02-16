@@ -92,7 +92,6 @@ const HomePage = async () => {
       }),
     ]);
 
-    console.log(accreditations)
   return (
     <div>
       <HeroSlider />

@@ -62,7 +62,7 @@ const Intakes = async ({params}: {params: Promise<{country: string}>}) => {
     ],
   });
 
-  console.log(intakes)
+
 
   
 function formatIntake(intake: string): string {
@@ -97,7 +97,7 @@ function formatIntake(intake: string): string {
                     const destinationSlug = season.destination?.slug;
                     const intakeMonth = season.intake;
 
-                    console.log(season)
+                    
                     
                     // Link to the intake details page
                     const href = destinationSlug && intakeMonth

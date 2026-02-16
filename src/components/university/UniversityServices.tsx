@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Briefcase } from "lucide-react";
 import { MarkdownContent } from "@/components/ui/markdown-content";
 
 interface UniversityServicesProps {
@@ -11,32 +12,30 @@ export function UniversityServices({ heading, description, image }: UniversitySe
   if (!heading && !description && !image) return null;
 
   return (
-    <section className="py-12 md:py-20 bg-slate-50" id="services">
-      <div className="container mx-auto">
-        <div className="flex flex-col md:flex-row items-center gap-12">
-          {/* Content */}
-          <div className="flex-1 space-y-6">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 leading-tight">
-              {heading || "Student Services"}
-            </h2>
-            {description && (
-              <MarkdownContent content={description} />
-            )}
-          </div>
-
-          {/* Image */}
-          {image && (
-            <div className="flex-1 w-full relative aspect-video md:aspect-4/3 rounded-3xl overflow-hidden shadow-2xl">
-              <Image
-                src={image}
-                alt="University Services"
-                fill
-                className="object-cover hover:scale-105 transition-transform duration-700"
-              />
-            </div>
-          )}
+    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+      <div className="flex items-center gap-2 mb-6">
+        <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center">
+          <Briefcase className="w-5 h-5 text-indigo-600" />
         </div>
+        <h2 className="text-xl md:text-2xl font-bold text-slate-900">
+          {heading || "Student Services"}
+        </h2>
       </div>
-    </section>
+
+      {image && (
+        <div className="relative w-full aspect-video rounded-xl overflow-hidden mb-6">
+          <Image
+            src={image}
+            alt="University Services"
+            fill
+            className="object-cover"
+          />
+        </div>
+      )}
+
+      {description && (
+        <MarkdownContent content={description} />
+      )}
+    </div>
   );
 }

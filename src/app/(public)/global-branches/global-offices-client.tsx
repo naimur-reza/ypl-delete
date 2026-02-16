@@ -297,6 +297,7 @@ export default function GlobalOfficesClient({
   };
 
 
+  const officeHref = (office: any) => !countryCode ? `/global-branches/${office.countries[0]?.country.slug || "global"}/${office.slug}` : `/global-branches/${office.slug}`;
  
   return (
     <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 max-w-7xl mx-auto">
@@ -490,7 +491,7 @@ export default function GlobalOfficesClient({
  
                             {/* View Office Button */}
                             <CountryAwareLink
-                              href={`/global-branches/${office.countries[0]?.country.slug || "global"}/${office.slug}`}
+                              href={officeHref(office)}
                             >
                               <Button className="bg-[#1e3a8a] hover:bg-[#1e3a8a]/90 text-white w-full sm:w-auto touch-manipulation min-h-11">
                                 View Office

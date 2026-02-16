@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
  
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 // Components
 

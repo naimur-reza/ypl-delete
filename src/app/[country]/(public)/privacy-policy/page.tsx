@@ -3,7 +3,7 @@ import { MarkdownContent } from "@/components/ui/markdown-content";
 import { Metadata } from "next";
 import CallToActionBanner from "@/components/CallToActionBanner";
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await prisma.legalPage.findUnique({

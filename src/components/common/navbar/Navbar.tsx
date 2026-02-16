@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 
 import { prisma } from "@/lib/prisma";
+import { unstable_cache } from "next/cache";
 import {
   BookOpen,
   GraduationCap,
@@ -24,103 +25,115 @@ type NavbarProps = {
   countrySlug?: string | null;
 };
 
-const Navbar = async ({ countrySlug }: NavbarProps) => {
-  const session = await getSession();
+// Cache navbar data for 1 hour to avoid 7 DB queries on every page load
+const getNavbarData = unstable_cache(
+  async (countrySlug: string | null) => {
+    const countryScopedFilter = countrySlug
+      ? {
+          some: {
+            country: { slug: countrySlug },
+          },
+        }
+      : undefined;
 
-  const countryScopedFilter = countrySlug
-    ? {
-        some: {
-          country: { slug: countrySlug },
-        },
-      }
-    : undefined;
-
-  const [
-    destinations,
-    universities,
-    courses,
-    events,
-    globalOffices,
-    countries,
-  ] = await Promise.all([
-    prisma.destination.findMany({
-      select: { id: true, name: true, slug: true },
-      where: countryScopedFilter
-        ? {
-            OR: [{ countries: countryScopedFilter }, { isGlobal: true }],
-          }
-        : undefined,
-    }),
-    prisma.university.findMany({
-      select: { id: true, name: true, slug: true },
-      where: countryScopedFilter
-        ? {
-            status: "ACTIVE",
-            countries: countryScopedFilter,
-          }
-        : { status: "ACTIVE" },
-      take: 20,
-    }),
-    prisma.course.findMany({
-      select: { id: true, title: true, slug: true },
-      where: countryScopedFilter
-        ? {
-            status: "ACTIVE",
-          }
-        : { status: "ACTIVE" },
-      take: 20,
-    }),
-    prisma.event.findMany({
-      select: { id: true, title: true, slug: true, eventType: true },
-      where: countryScopedFilter
-        ? {
-            countries: countryScopedFilter,
-          }
-        : undefined,
-      take: 10,
-    }),
-    prisma.globalOffice.findMany({
-      where: countryScopedFilter
-        ? { countries: countryScopedFilter }
-        : undefined,
-      select: {
-        id: true,
-        name: true,
-        slug: true,
-        phone: true,
-        countries: {
-          select: {
-            country: {
-              select: {
-                id: true,
-                name: true,
-                flag: true,
-                slug: true,
+    const [
+      destinations,
+      universities,
+      courses,
+      events,
+      globalOffices,
+      countries,
+    ] = await Promise.all([
+      prisma.destination.findMany({
+        select: { id: true, name: true, slug: true },
+        where: countryScopedFilter
+          ? {
+              OR: [{ countries: countryScopedFilter }, { isGlobal: true }],
+            }
+          : undefined,
+      }),
+      prisma.university.findMany({
+        select: { id: true, name: true, slug: true },
+        where: countryScopedFilter
+          ? {
+              status: "ACTIVE",
+              countries: countryScopedFilter,
+            }
+          : { status: "ACTIVE" },
+        take: 20,
+      }),
+      prisma.course.findMany({
+        select: { id: true, title: true, slug: true },
+        where: countryScopedFilter
+          ? {
+              status: "ACTIVE",
+            }
+          : { status: "ACTIVE" },
+        take: 20,
+      }),
+      prisma.event.findMany({
+        select: { id: true, title: true, slug: true, eventType: true },
+        where: countryScopedFilter
+          ? {
+              countries: countryScopedFilter,
+            }
+          : undefined,
+        take: 10,
+      }),
+      prisma.globalOffice.findMany({
+        where: countryScopedFilter
+          ? { countries: countryScopedFilter }
+          : undefined,
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+          phone: true,
+          countries: {
+            select: {
+              country: {
+                select: {
+                  id: true,
+                  name: true,
+                  flag: true,
+                  slug: true,
+                },
               },
             },
           },
         },
-      },
-    }),
-    prisma.country.findMany({
-      where: { status: "ACTIVE" },
-      select: {
-        id: true,
-        name: true,
-        slug: true,
-        flag: true,
-      },
-      orderBy: { name: "asc" },
-    }),
-    prisma.intakePage.findMany({
-      where: { status: "ACTIVE" },
-      select: {
-        intake: true,
-        destination: { select: { slug: true, name: true } },
-      },
-      orderBy: [{ destination: { name: "asc" } }, { intake: "asc" }],
-    }),
-  ]);
+      }),
+      prisma.country.findMany({
+        where: { status: "ACTIVE" },
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+          flag: true,
+        },
+        orderBy: { name: "asc" },
+      }),
+      prisma.intakePage.findMany({
+        where: { status: "ACTIVE" },
+        select: {
+          intake: true,
+          destination: { select: { slug: true, name: true } },
+        },
+        orderBy: [{ destination: { name: "asc" } }, { intake: "asc" }],
+      }),
+    ]);
+
+    return { destinations, universities, courses, events, globalOffices, countries };
+  },
+  ["navbar-data"],
+  { revalidate: 3600, tags: ["navbar"] }
+);
+
+const Navbar = async ({ countrySlug }: NavbarProps) => {
+  const session = await getSession();
+
+  const { destinations, universities, courses, events, globalOffices, countries } =
+    await getNavbarData(countrySlug ?? null);
 
   const destinationItems = destinations.map((dest) => ({
     icon: <GraduationCap size={18} />,

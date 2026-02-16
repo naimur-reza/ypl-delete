@@ -1,3 +1,4 @@
+import { BookOpen } from "lucide-react";
 import { MarkdownContent } from "@/components/ui/markdown-content";
 
 interface UniversityOverviewProps {
@@ -6,13 +7,16 @@ interface UniversityOverviewProps {
 
 export function UniversityOverview({ overview }: UniversityOverviewProps) {
   return (
-    <section className="py-12 md:py-16 bg-white" id="overview">
-      <div className="container mx-auto px-4 max-w-5xl">
-        <h2 className="text-3xl font-bold text-slate-900 mb-8 border-l-4 border-primary pl-4">
+    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+      <div className="flex items-center gap-2 mb-4">
+        <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+          <BookOpen className="w-5 h-5 text-blue-600" />
+        </div>
+        <h2 className="text-xl md:text-2xl font-bold text-slate-900">
           Overview
         </h2>
-        <MarkdownContent content={overview} />
       </div>
-    </section>
+      <MarkdownContent content={overview} />
+    </div>
   );
 }

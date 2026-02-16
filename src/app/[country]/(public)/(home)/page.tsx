@@ -158,7 +158,7 @@ const HomePage = async ({ params }: PageProps) => {
   ]);
 
 
- console.log(accreditations)
+
   return (
     <div>
       <HeroSlider countrySlug={countrySlug} />

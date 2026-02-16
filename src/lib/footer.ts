@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { unstable_cache } from "next/cache";
 import type { FooterSettings, QuickLink } from "@/schemas/settings";
 
 // Static fallback data matching current footer
@@ -40,105 +41,109 @@ const staticDestinations = [
 /**
  * Fetch footer settings with fallback to static defaults
  */
-export async function fetchFooterSettings(): Promise<FooterSettings> {
-  try {
-    const settings = await prisma.settings.findUnique({
-      where: { key: "footer" },
-    });
+export const fetchFooterSettings = unstable_cache(
+  async (): Promise<FooterSettings> => {
+    try {
+      const settings = await prisma.settings.findUnique({
+        where: { key: "footer" },
+      });
 
-    if (!settings) {
+      if (!settings) {
+        return staticFallback;
+      }
+
+      return {
+        footerDestinations: settings.footerDestinations as
+          | string[]
+          | null
+          | undefined,
+        contactPhone: settings.contactPhone || staticFallback.contactPhone,
+        contactEmail: settings.contactEmail || staticFallback.contactEmail,
+        contactAddress: settings.contactAddress || staticFallback.contactAddress,
+        quickLinks:
+          (settings.quickLinks as QuickLink[] | null | undefined) ||
+          staticFallback.quickLinks,
+        socialFacebook: settings.socialFacebook || staticFallback.socialFacebook,
+        socialYoutube: settings.socialYoutube || staticFallback.socialYoutube,
+        socialLinkedin: settings.socialLinkedin || staticFallback.socialLinkedin,
+        socialTwitter: settings.socialTwitter || staticFallback.socialTwitter,
+        socialInstagram:
+          settings.socialInstagram || staticFallback.socialInstagram,
+        privacyPolicyUrl:
+          settings.privacyPolicyUrl || staticFallback.privacyPolicyUrl,
+        termsOfServiceUrl:
+          settings.termsOfServiceUrl || staticFallback.termsOfServiceUrl,
+        cookiePolicyUrl:
+          settings.cookiePolicyUrl || staticFallback.cookiePolicyUrl,
+        footerDescription:
+          settings.footerDescription || staticFallback.footerDescription,
+      };
+    } catch (error) {
+      console.error("Error fetching footer settings:", error);
       return staticFallback;
     }
-
-    // Merge with static fallback to ensure all fields are present
-    return {
-      footerDestinations: settings.footerDestinations as
-        | string[]
-        | null
-        | undefined,
-      contactPhone: settings.contactPhone || staticFallback.contactPhone,
-      contactEmail: settings.contactEmail || staticFallback.contactEmail,
-      contactAddress: settings.contactAddress || staticFallback.contactAddress,
-      quickLinks:
-        (settings.quickLinks as QuickLink[] | null | undefined) ||
-        staticFallback.quickLinks,
-      socialFacebook: settings.socialFacebook || staticFallback.socialFacebook,
-      socialYoutube: settings.socialYoutube || staticFallback.socialYoutube,
-      socialLinkedin: settings.socialLinkedin || staticFallback.socialLinkedin,
-      socialTwitter: settings.socialTwitter || staticFallback.socialTwitter,
-      socialInstagram:
-        settings.socialInstagram || staticFallback.socialInstagram,
-      privacyPolicyUrl:
-        settings.privacyPolicyUrl || staticFallback.privacyPolicyUrl,
-      termsOfServiceUrl:
-        settings.termsOfServiceUrl || staticFallback.termsOfServiceUrl,
-      cookiePolicyUrl:
-        settings.cookiePolicyUrl || staticFallback.cookiePolicyUrl,
-      footerDescription:
-        settings.footerDescription || staticFallback.footerDescription,
-    };
-  } catch (error) {
-    console.error("Error fetching footer settings:", error);
-    return staticFallback;
-  }
-}
+  },
+  ["footer-settings"],
+  { revalidate: 3600, tags: ["footer"] }
+);
 
 /**
  * Fetch selected destinations for footer
  */
-export async function getFooterDestinations() {
-  try {
-    const settings = await prisma.settings.findUnique({
-      where: { key: "footer" },
-    });
+export const getFooterDestinations = unstable_cache(
+  async () => {
+    try {
+      const settings = await prisma.settings.findUnique({
+        where: { key: "footer" },
+      });
 
-    const destinationIds = settings?.footerDestinations as
-      | string[]
-      | null
-      | undefined;
+      const destinationIds = settings?.footerDestinations as
+        | string[]
+        | null
+        | undefined;
 
-    if (!destinationIds || destinationIds.length === 0) {
-      // Return static destination names if no destinations selected
+      if (!destinationIds || destinationIds.length === 0) {
+        return staticDestinations.map((name) => ({
+          name,
+          slug: name.toLowerCase().replace(/\s+/g, "-"),
+          id: null,
+        }));
+      }
+
+      const destinations = await prisma.destination.findMany({
+        where: {
+          id: { in: destinationIds },
+        },
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+        },
+        orderBy: {
+          name: "asc",
+        },
+      });
+
+      return destinationIds
+        .map((id) => destinations.find((d) => d.id === id))
+        .filter((d): d is NonNullable<typeof d> => d !== undefined)
+        .map((d) => ({
+          name: d.name,
+          slug: d.slug,
+          id: d.id,
+        }));
+    } catch (error) {
+      console.error("Error fetching footer destinations:", error);
       return staticDestinations.map((name) => ({
         name,
         slug: name.toLowerCase().replace(/\s+/g, "-"),
         id: null,
       }));
     }
-
-    // Fetch destinations from database
-    const destinations = await prisma.destination.findMany({
-      where: {
-        id: { in: destinationIds },
-      },
-      select: {
-        id: true,
-        name: true,
-        slug: true,
-      },
-      orderBy: {
-        name: "asc",
-      },
-    });
-
-    // Return in the order specified by destinationIds array
-    return destinationIds
-      .map((id) => destinations.find((d) => d.id === id))
-      .filter((d): d is NonNullable<typeof d> => d !== undefined)
-      .map((d) => ({
-        name: d.name,
-        slug: d.slug,
-        id: d.id,
-      }));
-  } catch (error) {
-    console.error("Error fetching footer destinations:", error);
-    return staticDestinations.map((name) => ({
-      name,
-      slug: name.toLowerCase().replace(/\s+/g, "-"),
-      id: null,
-    }));
-  }
-}
+  },
+  ["footer-destinations"],
+  { revalidate: 3600, tags: ["footer"] }
+);
 
 /**
  * Parse and return quick links array
@@ -177,43 +182,54 @@ export function getSocialLinks(settings: FooterSettings): SocialLinks {
  * Fetch global offices for footer display
  */
 export async function getFooterGlobalOffices(countrySlug: string | undefined) {
+  return getCachedFooterGlobalOffices(countrySlug ?? "global");
+}
 
-  try {
-    const offices = await prisma.globalOffice.findMany({
-      where: {
-        status: "ACTIVE",
-        countries: {
-          some: {
-            country: {
-              slug: countrySlug,
+const getCachedFooterGlobalOffices = unstable_cache(
+  async (countrySlug: string) => {
+    try {
+      const whereClause = countrySlug !== "global"
+        ? {
+            status: "ACTIVE" as const,
+            countries: {
+              some: {
+                country: {
+                  slug: countrySlug,
+                },
+              },
             },
-          },
-        },
-      },
-      include: {
-        countries: {
-          include: {
-            country: {
-              select: {
-                slug: true,
+          }
+        : { status: "ACTIVE" as const };
+
+      const offices = await prisma.globalOffice.findMany({
+        where: whereClause,
+        include: {
+          countries: {
+            include: {
+              country: {
+                select: {
+                  slug: true,
+                },
               },
             },
           },
         },
-      },
-      orderBy: {
-        name: "asc",
-      },
-    });
+        orderBy: {
+          name: "asc",
+        },
+      });
 
-    return offices.map((office) => ({
-      id: office.id,
-      name: office.name,
-      slug: office.slug,
-      countries: office.countries.map((oc) => oc.country.slug),
-    }));
-  } catch (error) {
-    console.error("Error fetching global offices:", error);
-    return [];
-  }
-}
+      return offices.map((office) => ({
+        id: office.id,
+        name: office.name,
+        slug: office.slug,
+        countries: office.countries.map((oc) => oc.country.slug),
+      }));
+    } catch (error) {
+      console.error("Error fetching global offices:", error);
+      return [];
+    }
+  },
+  ["footer-global-offices"],
+  { revalidate: 3600, tags: ["footer"] }
+);

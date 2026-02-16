@@ -11,8 +11,7 @@ import { fetchFaqsForEventsPage } from "@/lib/faqs";
 import { buildMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 
-// Events are time-sensitive, use shorter revalidation (5 minutes)
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export const generateMetadata = async (): Promise<Metadata> =>
   buildMetadata({
