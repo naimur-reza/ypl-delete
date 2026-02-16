@@ -54,7 +54,7 @@ export default async function BlogsPage({ params }: PageProps) {
               blogs={allBlogs}
               destinations={destinations}
               categories={categories}
-              countrySlug={resolvedCountry.slug || "global"}
+              countrySlug={resolvedCountry.slug!}
               itemsPerPage={9}
             />
           </div>
