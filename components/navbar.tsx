@@ -8,11 +8,12 @@ import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/employers", label: "Employers" },
-  { href: "/job-seekers", label: "Job Seekers" },
+  // { href: "/employers", label: "Employers" },
+  { href: "/jobs", label: "Jobs" },
   { href: "/services", label: "Services" },
   { href: "/about", label: "About" },
   { href: "/insights", label: "Insights" },
+  { href: "/events", label: "Events" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -45,10 +46,17 @@ export function Navbar() {
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground bg-transparent" asChild>
+          <Button
+            variant="outline"
+            className="border-primary text-primary hover:bg-primary hover:text-primary-foreground bg-transparent"
+            asChild
+          >
             <Link href="/jobs">Search Jobs</Link>
           </Button>
-          <Button className="bg-secondary text-secondary-foreground hover:bg-secondary/90" asChild>
+          <Button
+            className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
+            asChild
+          >
             <Link href="/submit-cv">Submit CV</Link>
           </Button>
         </div>
@@ -81,10 +89,17 @@ export function Navbar() {
               </Link>
             ))}
             <div className="mt-4 flex flex-col gap-3">
-              <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground bg-transparent" asChild>
+              <Button
+                variant="outline"
+                className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground bg-transparent"
+                asChild
+              >
                 <Link href="/jobs">Search Jobs</Link>
               </Button>
-              <Button className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90" asChild>
+              <Button
+                className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90"
+                asChild
+              >
                 <Link href="/submit-cv">Submit CV</Link>
               </Button>
             </div>
