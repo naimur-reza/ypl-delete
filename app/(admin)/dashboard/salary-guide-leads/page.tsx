@@ -86,6 +86,7 @@ interface SalaryGuideLead {
   totalExperience: string;
   currentPosition: string;
   department: string;
+  role: string;
   currentOrganization: string;
   previousOrganizations: string;
   industry: string;
@@ -97,6 +98,20 @@ interface SalaryGuideLead {
   status: string;
   submittedAt: string;
 }
+
+const ROLES = [
+  "Accountant",
+  "HR Manager",
+  "Sales Executive",
+  "Software Engineer",
+  "Supply Chain Analyst",
+  "Operations Manager",
+  "Marketing Specialist",
+  "IT Support",
+  "Financial Analyst",
+  "Project Manager",
+  "Other",
+];
 
 /* ───────── Reusable filter select ───────── */
 function FilterSelect({
@@ -142,6 +157,7 @@ export default function SalaryGuideLeadsPage() {
   /* ── Filter state ── */
   const [filters, setFilters] = useState({
     department: "__all__",
+    role: "__all__",
     currentPosition: "__all__",
     industry: "__all__",
     educationalQualification: "__all__",
@@ -158,6 +174,7 @@ export default function SalaryGuideLeadsPage() {
   const clearFilters = () =>
     setFilters({
       department: "__all__",
+      role: "__all__",
       currentPosition: "__all__",
       industry: "__all__",
       educationalQualification: "__all__",
@@ -190,6 +207,7 @@ export default function SalaryGuideLeadsPage() {
     { key: "email", label: "Email" },
 
     { key: "department", label: "Dept" },
+    { key: "role", label: "Role" },
     { key: "currentPosition", label: "Position" },
     { key: "industry", label: "Industry" },
     { key: "totalExperience", label: "Experience" },
@@ -253,6 +271,12 @@ export default function SalaryGuideLeadsPage() {
             options={DEPARTMENTS}
           />
           <FilterSelect
+            label="Role"
+            value={filters.role}
+            onChange={(v) => setFilter("role", v)}
+            options={ROLES}
+          />
+          <FilterSelect
             label="Position"
             value={filters.currentPosition}
             onChange={(v) => setFilter("currentPosition", v)}
@@ -308,7 +332,7 @@ export default function SalaryGuideLeadsPage() {
         columns={columns}
         data={filteredItems}
         isLoading={isLoading}
-        searchKeys={["fullName", "email", "industry", "currentPosition"]}
+        searchKeys={["fullName", "email", "industry", "currentPosition", "role"]}
         actions={(item) => (
           <>
             <Button variant="ghost" size="sm" onClick={() => setViewLead(item)}>
@@ -338,6 +362,7 @@ export default function SalaryGuideLeadsPage() {
               ["Email", viewLead.email],
               ["Mobile", viewLead.mobileNumber],
               ["Department", viewLead.department],
+              ["Role", viewLead.role],
               ["Position / Level", viewLead.currentPosition],
               ["Industry", viewLead.industry],
               ["Current Org", viewLead.currentOrganization],

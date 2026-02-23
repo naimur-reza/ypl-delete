@@ -16,6 +16,20 @@ const DEPARTMENTS = [
   "IT & Technology",
 ];
 
+const ROLES = [
+  "Accountant",
+  "HR Manager",
+  "Sales Executive",
+  "Software Engineer",
+  "Supply Chain Analyst",
+  "Operations Manager",
+  "Marketing Specialist",
+  "IT Support",
+  "Financial Analyst",
+  "Project Manager",
+  "Other",
+];
+
 const POSITIONS = [
   "Strategic Level",
   "Management Level",
@@ -32,10 +46,7 @@ const INDUSTRIES = [
   "Energy & Power",
 ];
 
-const QUALIFICATIONS_ACADEMIC = [
-  "BBA / MBA",
-  "BSc / MSc",
-];
+const QUALIFICATIONS_ACADEMIC = ["BBA / MBA", "BSc / MSc"];
 
 const QUALIFICATIONS_PROFESSIONAL = [
   "CA (ICAB)",
@@ -52,11 +63,7 @@ const EXPERIENCE_RANGES = [
   "19+ Years",
 ];
 
-const AVAILABILITY = [
-  "Immediate",
-  "15 Days",
-  "1 Month+",
-];
+const AVAILABILITY = ["Immediate", "15 Days", "1 Month+"];
 
 const LOCATIONS = [
   "Dhaka",
@@ -86,6 +93,7 @@ export function SalaryGuideModal() {
       totalExperience: "",
       currentPosition: "",
       department: "",
+      role: "",
       currentOrganization: "",
       previousOrganizations: "",
       industry: "",
@@ -121,7 +129,7 @@ export function SalaryGuideModal() {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/50 p-4">
-      <div className="relative w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-lg bg-card p-6 shadow-xl">
+      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-lg bg-card p-6 shadow-xl">
         <button
           type="button"
           onClick={() => setIsOpen(false)}
@@ -135,9 +143,12 @@ export function SalaryGuideModal() {
           <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
             Free Download
           </span>
-          <h2 className="mt-3 text-xl font-semibold text-foreground">Get Our 2026 Salary Guide</h2>
+          <h2 className="mt-3 text-xl font-semibold text-foreground">
+            Get Our 2026 Salary Guide
+          </h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            Exclusive insights into salary benchmarks and employment trends for your industry.
+            Exclusive insights into salary benchmarks and employment trends for
+            your industry.
           </p>
         </div>
 
@@ -145,7 +156,9 @@ export function SalaryGuideModal() {
           <div className="flex flex-col items-center py-8">
             <CheckCircle className="h-12 w-12 text-green-500" />
             <p className="mt-3 font-semibold">Thank you!</p>
-            <p className="text-sm text-muted-foreground">We&apos;ll send the guide to your email shortly.</p>
+            <p className="text-sm text-muted-foreground">
+              We&apos;ll send the guide to your email shortly.
+            </p>
           </div>
         ) : (
           <form
@@ -162,7 +175,9 @@ export function SalaryGuideModal() {
                   {(field) => <field.Input label="Full Name *" required />}
                 </form.AppField>
                 <form.AppField name="email">
-                  {(field) => <field.Input label="Email *" type="email" required />}
+                  {(field) => (
+                    <field.Input label="Email *" type="email" required />
+                  )}
                 </form.AppField>
                 <form.AppField name="mobileNumber">
                   {(field) => <field.Input label="Mobile *" required />}
@@ -172,7 +187,20 @@ export function SalaryGuideModal() {
                   {(field) => (
                     <field.Select label="Department">
                       {DEPARTMENTS.map((opt) => (
-                        <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                        <SelectItem key={opt} value={opt}>
+                          {opt}
+                        </SelectItem>
+                      ))}
+                    </field.Select>
+                  )}
+                </form.AppField>
+                <form.AppField name="role">
+                  {(field) => (
+                    <field.Select label="Role">
+                      {ROLES.map((opt) => (
+                        <SelectItem key={opt} value={opt}>
+                          {opt}
+                        </SelectItem>
                       ))}
                     </field.Select>
                   )}
@@ -182,7 +210,9 @@ export function SalaryGuideModal() {
                   {(field) => (
                     <field.Select label="Position / Level">
                       {POSITIONS.map((opt) => (
-                        <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                        <SelectItem key={opt} value={opt}>
+                          {opt}
+                        </SelectItem>
                       ))}
                     </field.Select>
                   )}
@@ -192,7 +222,9 @@ export function SalaryGuideModal() {
                   {(field) => (
                     <field.Select label="Industry">
                       {INDUSTRIES.map((opt) => (
-                        <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                        <SelectItem key={opt} value={opt}>
+                          {opt}
+                        </SelectItem>
                       ))}
                     </field.Select>
                   )}
@@ -200,9 +232,14 @@ export function SalaryGuideModal() {
 
                 <form.AppField name="educationalQualification">
                   {(field) => (
-                    <field.Select label="Educational Qualification" description="Select Academic">
+                    <field.Select
+                      label="Educational Qualification"
+                
+                    >
                       {QUALIFICATIONS_ACADEMIC.map((opt) => (
-                        <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                        <SelectItem key={opt} value={opt}>
+                          {opt}
+                        </SelectItem>
                       ))}
                     </field.Select>
                   )}
@@ -210,9 +247,14 @@ export function SalaryGuideModal() {
 
                 <form.AppField name="professionalQualification">
                   {(field) => (
-                    <field.Select label="Professional Qualification" description="Select Professional">
+                    <field.Select
+                      label="Professional Qualification"
+              
+                    >
                       {QUALIFICATIONS_PROFESSIONAL.map((opt) => (
-                        <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                        <SelectItem key={opt} value={opt}>
+                          {opt}
+                        </SelectItem>
                       ))}
                     </field.Select>
                   )}
@@ -222,7 +264,9 @@ export function SalaryGuideModal() {
                   {(field) => (
                     <field.Select label="Total Experience">
                       {EXPERIENCE_RANGES.map((opt) => (
-                        <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                        <SelectItem key={opt} value={opt}>
+                          {opt}
+                        </SelectItem>
                       ))}
                     </field.Select>
                   )}
@@ -232,7 +276,9 @@ export function SalaryGuideModal() {
                   {(field) => (
                     <field.Select label="Availability / Status">
                       {AVAILABILITY.map((opt) => (
-                        <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                        <SelectItem key={opt} value={opt}>
+                          {opt}
+                        </SelectItem>
                       ))}
                     </field.Select>
                   )}
@@ -250,25 +296,34 @@ export function SalaryGuideModal() {
                 <form.AppField name="expectedSalary">
                   {(field) => <field.Input label="Expected Salary" />}
                 </form.AppField>
-              </div>
-
-              <form.AppField name="location">
+                        <form.AppField name="location">
                 {(field) => (
                   <field.Select label="Location *">
                     {LOCATIONS.map((opt) => (
-                      <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                      <SelectItem key={opt} value={opt}>
+                        {opt}
+                      </SelectItem>
                     ))}
                   </field.Select>
                 )}
               </form.AppField>
+              </div>
+
+      
 
               <form.AppField name="cvUrl">
-                {(field) => <field.FileUpload label="Upload CV (PDF, DOC, DOCX — max 5MB)" />}
+                {(field) => (
+                  <field.FileUpload label="Upload CV (PDF, DOC, DOCX — max 5MB)" />
+                )}
               </form.AppField>
 
               <form.Subscribe selector={(state) => state.isSubmitting}>
                 {(isSubmitting) => (
-                  <Button type="submit" className="w-full" disabled={isSubmitting}>
+                  <Button
+                    type="submit"
+                    className="w-full"
+                    disabled={isSubmitting}
+                  >
                     {isSubmitting ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />

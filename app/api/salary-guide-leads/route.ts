@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
     const fields = [
       "fullName", "email", "mobileNumber", "professionalQualification",
       "educationalQualification", "totalExperience", "currentPosition",
-      "department", "currentOrganization", "previousOrganizations",
+      "department", "role", "currentOrganization", "previousOrganizations",
       "industry", "currentSalary", "expectedSalary", "availableFromDate",
       "location", "cvUrl",
     ];

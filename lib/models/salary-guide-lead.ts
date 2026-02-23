@@ -9,6 +9,7 @@ export interface ISalaryGuideLead extends Document {
   totalExperience: string;
   currentPosition: string;
   department: string;
+  role: string;
   currentOrganization: string;
   previousOrganizations: string;
   industry: string;
@@ -31,6 +32,7 @@ const SalaryGuideLeadSchema = new Schema<ISalaryGuideLead>(
     totalExperience: { type: String, default: "" },
     currentPosition: { type: String, default: "" },
     department: { type: String, default: "" },
+    role: { type: String, default: "" },
     currentOrganization: { type: String, default: "" },
     previousOrganizations: { type: String, default: "" },
     industry: { type: String, default: "" },
