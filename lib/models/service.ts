@@ -7,6 +7,7 @@ export interface IService extends Document {
   icon: string;
   features: string[];
   image: string;
+  content: string;
   order: number;
   isActive: boolean;
 }
@@ -19,6 +20,7 @@ const ServiceSchema = new Schema<IService>(
     icon: { type: String, default: "briefcase" },
     features: [{ type: String }],
     image: { type: String, default: "" },
+    content: { type: String, default: "" },
     order: { type: Number, default: 0 },
     isActive: { type: Boolean, default: true },
   },

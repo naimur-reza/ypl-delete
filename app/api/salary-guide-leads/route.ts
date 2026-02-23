@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import SalaryGuideLead from "@/lib/models/salary-guide-lead";
+import Activity from "@/lib/models/activity";
 import { requireAuth } from "@/lib/api-auth";
 
 export async function GET(req: NextRequest) {
@@ -37,6 +38,22 @@ export async function POST(req: NextRequest) {
     }
 
     const lead = await SalaryGuideLead.create(data);
+
+    // Get auth if available to log who created it (could be an admin adding it manually)
+    const auth = await requireAuth(req);
+    if (!(auth instanceof NextResponse)) {
+      await Activity.create({
+        userId: auth.id,
+        userName: auth.name || "Admin", // Need to ensure name is in auth or fetch user
+        userEmail: auth.email,
+        action: "create",
+        entityType: "SalaryGuideLead",
+        entityId: lead._id,
+        entityName: lead.fullName,
+        description: `Created CV Lead for ${lead.fullName}`,
+      });
+    }
+
     return NextResponse.json(lead, { status: 201 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message || "Server error" }, { status: 500 });

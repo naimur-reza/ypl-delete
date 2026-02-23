@@ -4,7 +4,6 @@ import { UserCheck } from "lucide-react";
 import { useCrud } from "@/hooks/use-crud";
 import { DataTable, Column } from "@/components/dashboard/data-table";
 import { PageHeader } from "@/components/dashboard/page-header";
-import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface Application {
@@ -14,7 +13,6 @@ interface Application {
   phone: string;
   cvUrl: string;
   career: { _id: string; title: string } | string;
-  branch: { _id: string; name: string } | string;
   status: string;
   appliedAt: string;
 }
@@ -33,14 +31,6 @@ export default function ApplicationsPage() {
     {
       key: "career", label: "Career/Job",
       render: (item) => typeof item.career === "object" ? item.career.title : item.career,
-    },
-    {
-      key: "branch", label: "Branch",
-      render: (item) => (
-        <Badge variant="outline">
-          {typeof item.branch === "object" ? item.branch.name : item.branch || "—"}
-        </Badge>
-      ),
     },
     {
       key: "status", label: "Status",

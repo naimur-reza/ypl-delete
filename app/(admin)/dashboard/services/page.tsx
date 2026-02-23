@@ -1,23 +1,26 @@
 "use client";
 
 import { useState } from "react";
-import { Briefcase, Plus, Pencil, Trash2 } from "lucide-react";
+import { Briefcase, Plus, Pencil, Trash2, Eye, EyeOff, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { Badge } from "@/components/ui/badge";
 import { useCrud } from "@/hooks/use-crud";
 import { DataTable, Column } from "@/components/dashboard/data-table";
 import { CrudModal } from "@/components/dashboard/crud-modal";
 import { DeleteDialog } from "@/components/dashboard/delete-dialog";
 import { PageHeader } from "@/components/dashboard/page-header";
-import { Badge } from "@/components/ui/badge";
+import { useAppForm } from "@/hooks/use-field-context";
+import { SafeHtmlContent } from "@/components/ui/safe-html-content";
+import Image from "next/image";
+import Link from "next/link";
 
 interface Service {
-  _id?: string;
+  _id: string;
   title: string;
   slug: string;
   description: string;
+  content: string;
   icon: string;
   features: string[];
   image: string;
@@ -25,51 +28,62 @@ interface Service {
   isActive: boolean;
 }
 
-const defaultValues: Service = {
-  title: "", slug: "", description: "", icon: "briefcase",
-  features: [], image: "", order: 0, isActive: true,
-};
-
 export default function ServicesPage() {
   const { items, isLoading, create, update, remove } = useCrud<Service>("/api/services");
-  const [modalOpen, setModalOpen] = useState(false);
-  const [editing, setEditing] = useState<Service | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingItem, setEditingItem] = useState<Service | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Service | null>(null);
-  const [form, setForm] = useState<Service>(defaultValues);
-  const [featureInput, setFeatureInput] = useState("");
 
-  const openCreate = () => { setEditing(null); setForm(defaultValues); setFeatureInput(""); setModalOpen(true); };
-  const openEdit = (item: Service) => { setEditing(item); setForm(item); setFeatureInput(""); setModalOpen(true); };
-
-  const addFeature = () => {
-    if (featureInput.trim()) {
-      setForm({ ...form, features: [...form.features, featureInput.trim()] });
-      setFeatureInput("");
-    }
+  const openAdd = () => {
+    setEditingItem(null);
+    setIsModalOpen(true);
   };
-  const removeFeature = (i: number) => setForm({ ...form, features: form.features.filter((_, idx) => idx !== i) });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const ok = editing?._id
-      ? await update(editing._id, form)
-      : await create(form);
-    if (ok) setModalOpen(false);
+  const openEdit = (service: Service) => {
+    setEditingItem(service);
+    setIsModalOpen(true);
+  };
+
+  const toggleActive = async (service: Service) => {
+    await update(service._id, { isActive: !service.isActive });
   };
 
   const columns: Column<Service>[] = [
-    { key: "title", label: "Title", sortable: true },
-    { key: "slug", label: "Slug" },
-    { key: "icon", label: "Icon" },
-    { key: "order", label: "Order", sortable: true },
     {
-      key: "isActive", label: "Status",
+      key: "image",
+      label: "Image",
       render: (item) => (
-        <Badge variant={item.isActive ? "default" : "secondary"}>
-          {item.isActive ? "Active" : "Inactive"}
-        </Badge>
+        <div className="relative h-10 w-16 overflow-hidden rounded border border-border bg-muted">
+          <Image src={item.image || "/placeholder.svg"} alt={item.title} fill className="object-cover" />
+        </div>
       ),
     },
+    {
+      key: "title",
+      label: "Service Title",
+      render: (item) => (
+        <div className="flex flex-col gap-0.5">
+          <span className="text-sm font-bold">{item.title}</span>
+          <span className="text-[10px] text-muted-foreground font-mono">{item.slug}</span>
+        </div>
+      ),
+    },
+    {
+      key: "icon",
+      label: "Icon",
+      render: (item) => <Badge variant="outline" className="text-[10px]">{item.icon}</Badge>,
+    },
+    {
+      key: "status",
+      label: "Status",
+      render: (item) => (
+        <div className="flex items-center gap-2">
+          <Switch checked={item.isActive} onCheckedChange={() => toggleActive(item)} />
+          {item.isActive ? <Eye className="h-3 w-3 text-emerald-500" /> : <EyeOff className="h-3 w-3 text-muted-foreground" />}
+        </div>
+      ),
+    },
+    { key: "order", label: "Order", sortable: true },
   ];
 
   return (
@@ -77,10 +91,10 @@ export default function ServicesPage() {
       <PageHeader
         icon={Briefcase}
         title="Services"
-        description="Manage recruitment services"
+        description="Manage recruitment and career services"
         action={
-          <Button onClick={openCreate} size="sm">
-            <Plus className="h-4 w-4 mr-2" /> Add Service
+          <Button onClick={openAdd} className="gap-2">
+            <Plus className="h-4 w-4" /> Add Service
           </Button>
         }
       />
@@ -90,87 +104,167 @@ export default function ServicesPage() {
         columns={columns}
         data={items}
         isLoading={isLoading}
-        searchKeys={["title", "slug"]}
+        searchKeys={["title", "slug", "description"]}
         actions={(item) => (
-          <>
-            <Button variant="ghost" size="sm" onClick={() => openEdit(item)}>
+          <div className="flex gap-2">
+            <Button variant="ghost" size="icon" className="h-8 w-8 text-primary" asChild>
+              <Link href={`/dashboard/services/${item._id}`}>
+                <Eye className="h-4 w-4" />
+              </Link>
+            </Button>
+            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => openEdit(item)}>
               <Pencil className="h-4 w-4" />
             </Button>
-            <Button variant="ghost" size="sm" onClick={() => setDeleteTarget(item)}>
-              <Trash2 className="h-4 w-4 text-red-500" />
+            <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive" onClick={() => setDeleteTarget(item)}>
+              <Trash2 className="h-4 w-4" />
             </Button>
-          </>
+          </div>
         )}
       />
 
       <CrudModal
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        title={editing ? "Edit Service" : "Add Service"}
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={editingItem ? "Edit Service" : "New Service"}
+        className="max-w-4xl"
       >
-        <form onSubmit={handleSubmit} className="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
-          <div className="space-y-2">
-            <Label>Title</Label>
-            <Input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value, slug: e.target.value.toLowerCase().replace(/\s+/g, "-") })} required />
-          </div>
-          <div className="space-y-2">
-            <Label>Slug</Label>
-            <Input value={form.slug} onChange={(e) => setForm({ ...form, slug: e.target.value })} required />
-          </div>
-          <div className="space-y-2">
-            <Label>Description</Label>
-            <textarea
-              className="w-full min-h-[80px] rounded-md border border-input px-3 py-2 text-sm"
-              value={form.description}
-              onChange={(e) => setForm({ ...form, description: e.target.value })}
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Image URL</Label>
-            <Input value={form.image} onChange={(e) => setForm({ ...form, image: e.target.value })} placeholder="https://example.com/image.jpg" />
-          </div>
-          <div className="space-y-2">
-            <Label>Features</Label>
-            <div className="flex gap-2">
-              <Input value={featureInput} onChange={(e) => setFeatureInput(e.target.value)} placeholder="Add a feature" onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addFeature(); } }} />
-              <Button type="button" variant="outline" size="sm" onClick={addFeature}>Add</Button>
-            </div>
-            {form.features.length > 0 && (
-              <ul className="mt-2 space-y-1">
-                {form.features.map((f, i) => (
-                  <li key={i} className="flex items-center justify-between rounded bg-muted px-3 py-1.5 text-sm">
-                    <span>{f}</span>
-                    <button type="button" onClick={() => removeFeature(i)} className="text-red-500 hover:text-red-700 text-xs ml-2">×</button>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label>Icon</Label>
-              <Input value={form.icon} onChange={(e) => setForm({ ...form, icon: e.target.value })} />
-            </div>
-            <div className="space-y-2">
-              <Label>Order</Label>
-              <Input type="number" value={form.order} onChange={(e) => setForm({ ...form, order: Number(e.target.value) })} />
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <Switch checked={form.isActive} onCheckedChange={(v) => setForm({ ...form, isActive: v })} />
-            <Label>Active</Label>
-          </div>
-          <Button type="submit" className="w-full">{editing ? "Update" : "Create"}</Button>
-        </form>
+        <ServiceForm
+          editingItem={editingItem}
+          onSuccess={() => setIsModalOpen(false)}
+          create={create}
+          update={update}
+        />
       </CrudModal>
 
       <DeleteDialog
         open={!!deleteTarget}
         onClose={() => setDeleteTarget(null)}
-        onConfirm={() => remove(deleteTarget!._id!)}
-        title="Delete Service"
+        onConfirm={() => remove(deleteTarget!._id)}
+        title="Delete Service?"
       />
     </div>
+  );
+}
+
+function ServiceForm({
+  editingItem,
+  onSuccess,
+  create,
+  update,
+}: {
+  editingItem: Service | null;
+  onSuccess: () => void;
+  create: (data: any) => Promise<boolean>;
+  update: (id: string, data: any) => Promise<boolean>;
+}) {
+  const form = useAppForm({
+    defaultValues: editingItem || {
+      title: "",
+      slug: "",
+      description: "",
+      content: "",
+      icon: "briefcase",
+      features: [],
+      image: "",
+      isActive: true,
+      order: 0,
+    },
+    onSubmit: async ({ value }: { value: any }) => {
+      const ok = editingItem?._id
+        ? await update(editingItem._id, value)
+        : await create(value);
+      if (ok) onSuccess();
+    },
+  });
+
+  const handleTitleChange = (title: string) => {
+    form.setFieldValue("title", title);
+    if (!editingItem) {
+      form.setFieldValue("slug", title.toLowerCase().replace(/\s+/g, "-").replace(/[^\w-]+/g, ""));
+    }
+  };
+
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        form.handleSubmit();
+      }}
+      className="space-y-4"
+    >
+      <form.AppForm>
+        <div className="grid grid-cols-2 gap-4">
+          <form.AppField name="title">
+            {(field: any) => (
+              <field.Input 
+                label="Service Title" 
+                required 
+                onChange={(e: any) => handleTitleChange(e.target.value)}
+              />
+            )}
+          </form.AppField>
+          <form.AppField name="slug">
+            {(field: any) => <field.Input label="Slug (URL)" required />}
+          </form.AppField>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <form.AppField name="description">
+            {(field: any) => <field.RichText label="Short Description (Listing)" required />}
+          </form.AppField>
+          <div className="space-y-2">
+            <span className="text-sm font-medium">Live Preview</span>
+            <div className="rounded-md border border-input p-4 min-h-[100px] max-h-[150px] overflow-y-auto bg-muted/10">
+              <form.Subscribe selector={(state: any) => state.values.description}>
+                {(desc: string) => <SafeHtmlContent content={desc} />}
+              </form.Subscribe>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <form.AppField name="icon">
+            {(field: any) => <field.Input label="Icon Name (Lucide)" />}
+          </form.AppField>
+          <form.AppField name="order">
+            {(field: any) => (
+              <field.Input
+                label="Display Order"
+                type="number"
+                onChange={(e: any) => field.handleChange(Number(e.target.value))}
+              />
+            )}
+          </form.AppField>
+        </div>
+
+        <form.AppField name="image">
+          {(field: any) => <field.ImageUpload label="Service Image" />}
+        </form.AppField>
+
+        <form.AppField name="features">
+          {(field: any) => <field.MultiInput label="Features List" />}
+        </form.AppField>
+
+        <form.AppField name="isActive">
+          {(field: any) => <field.Checkbox label="Active Status" />}
+        </form.AppField>
+
+        <form.Subscribe selector={(state: any) => state.isSubmitting}>
+          {(isSubmitting: any) => (
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  {editingItem ? "Saving..." : "Creating..."}
+                </>
+              ) : (
+                editingItem ? "Save Changes" : "Create Service"
+              )}
+            </Button>
+          )}
+        </form.Subscribe>
+      </form.AppForm>
+    </form>
   );
 }

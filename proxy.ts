@@ -47,8 +47,8 @@ export default async function proxyRequest(req: NextRequest) {
     const headers = new Headers(req.headers);
     headers.set("x-user-id", payload.id);
     headers.set("x-user-role", payload.role);
+    headers.set("x-user-name", payload.name);
     headers.set("x-user-email", payload.email);
-    if (payload.branch) headers.set("x-user-branch", payload.branch);
 
     return NextResponse.next({ request: { headers } });
   }

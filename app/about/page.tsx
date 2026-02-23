@@ -2,6 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { Users, Award, Globe, Clock, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { connectDB } from "@/lib/mongodb";
+import Team from "@/lib/models/team";
+import { SafeHtmlContent } from "@/components/ui/safe-html-content";
 
 const stats = [
   { value: "15+", label: "Years of Experience" },
@@ -37,7 +40,7 @@ const values = [
   },
 ];
 
-const team = [
+const initialTeam = [
   {
     name: "Sarah Mitchell",
     role: "Managing Director",
@@ -64,7 +67,11 @@ const team = [
   },
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  await connectDB();
+  const dbTeam = await Team.find({ isActive: true }).sort({ order: 1, createdAt: -1 }).lean();
+  const teamMembers = dbTeam.length > 0 ? dbTeam : initialTeam;
+
   return (
     <>
       {/* Hero Section */}
@@ -117,7 +124,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-20">
             <div className="relative">
-              <div className="aspect-[4/3] overflow-hidden rounded-2xl">
+              <div className="aspect-4/3 overflow-hidden rounded-2xl">
                 <Image
                   src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80"
                   alt="Business meeting"
@@ -211,7 +218,7 @@ export default function AboutPage() {
           </div>
 
           <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {team.map((member) => (
+            {teamMembers.map((member: any) => (
               <div
                 key={member.name}
                 className="group overflow-hidden rounded-xl border border-border bg-card shadow-sm"
@@ -229,9 +236,10 @@ export default function AboutPage() {
                     {member.name}
                   </h3>
                   <p className="text-sm text-primary">{member.role}</p>
-                  <p className="mt-3 text-sm text-muted-foreground">
-                    {member.bio}
-                  </p>
+                  <SafeHtmlContent
+                    content={member.bio}
+                    className="mt-3 text-sm text-muted-foreground line-clamp-3"
+                  />
                 </div>
               </div>
             ))}

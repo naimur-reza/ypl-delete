@@ -7,9 +7,9 @@ const COOKIE_NAME = "ypl-token";
 
 export type TokenPayload = {
   id: string;
+  name: string;
   email: string;
   role: "superadmin" | "admin" | "manager";
-  branch?: string;
 };
 
 export async function signToken(payload: TokenPayload) {

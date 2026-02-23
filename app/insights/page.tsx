@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { BlogCard } from "@/components/blog-card";
-import { blogPosts } from "@/lib/data";
+import { blogPosts as initialBlogPosts } from "@/lib/data";
+import { connectDB } from "@/lib/mongodb";
+import Insight from "@/lib/models/insight";
 
 const categories = [
   "All",
@@ -11,7 +13,11 @@ const categories = [
   "Industry Insights",
 ];
 
-export default function InsightsPage() {
+export default async function InsightsPage() {
+  await connectDB();
+  const dbInsights = await Insight.find({ isActive: true }).sort({ order: 1, publishedAt: -1 }).lean();
+  const insights = dbInsights.length > 0 ? JSON.parse(JSON.stringify(dbInsights)) : initialBlogPosts;
+
   return (
     <>
       {/* Hero Section */}
@@ -52,9 +58,14 @@ export default function InsightsPage() {
       <section className="py-12 lg:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {blogPosts.map((post) => (
-              <BlogCard key={post.id} post={post} />
+            {insights.map((post: any) => (
+              <BlogCard key={post._id || post.id} post={post} />
             ))}
+            {insights.length === 0 && (
+              <div className="col-span-full py-20 text-center text-muted-foreground italic">
+                No insights found. Check back soon for new articles.
+              </div>
+            )}
           </div>
         </div>
       </section>

@@ -11,7 +11,7 @@ interface JobDetailsPageProps {
 
 async function getCareer(id: string) {
   await connectDB();
-  const career = await Career.findById(id).populate("branch", "name").lean();
+  const career = await Career.findById(id).lean();
   return career ? JSON.parse(JSON.stringify(career)) : null;
 }
 
@@ -91,7 +91,7 @@ export default async function JobDetailsPage({ params }: JobDetailsPageProps) {
                 <p className="mt-2 text-sm text-muted-foreground">Apply now or get in touch with our team to learn more about this opportunity.</p>
                 <div className="mt-6 space-y-3">
                   <Button className="w-full" asChild>
-                    <Link href={`/contact?job=${career._id}`}>Apply Now</Link>
+                    <Link href={`/jobs/${career._id}/apply`}>Apply Now</Link>
                   </Button>
                   <Button variant="outline" className="w-full bg-transparent" asChild>
                     <Link href="/contact">Contact Recruiter</Link>

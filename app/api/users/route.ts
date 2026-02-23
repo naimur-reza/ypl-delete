@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
   if (forbidden) return forbidden;
 
   await connectDB();
-  const users = await User.find().select("-password").populate("branch", "name").sort({ createdAt: -1 }).lean();
+  const users = await User.find().select("-password").sort({ createdAt: -1 }).lean();
   return NextResponse.json(users);
 }
 
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
   const parsed = userSchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json({ error: parsed.error.errors[0].message }, { status: 400 });
+    return NextResponse.json({ error: parsed.error.issues[0].message }, { status: 400 });
   }
 
   await connectDB();

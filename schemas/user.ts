@@ -6,7 +6,6 @@ export const userSchema = z.object({
   email: z.string().email("Invalid email"),
   password: z.string().min(4, "Min 4 characters").optional(),
   role: z.enum(["superadmin", "admin", "manager"]).default("manager"),
-  branch: z.string().optional(),
   isActive: z.boolean().default(true),
 });
 

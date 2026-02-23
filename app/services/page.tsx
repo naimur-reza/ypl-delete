@@ -4,6 +4,7 @@ import { CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { connectDB } from "@/lib/mongodb";
 import Service from "@/lib/models/service";
+import { SafeHtmlContent } from "@/components/ui/safe-html-content";
 
 async function getServices() {
   await connectDB();
@@ -51,9 +52,10 @@ export default async function ServicesPage() {
                   <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
                     {service.title}
                   </h2>
-                  <p className="mt-4 text-muted-foreground">
-                    {service.description}
-                  </p>
+                  <SafeHtmlContent 
+                    content={service.description} 
+                    className="mt-4 text-sm text-muted-foreground line-clamp-3" 
+                  />
                   {service.features && service.features.length > 0 && (
                     <ul className="mt-6 space-y-3">
                       {service.features.map((feature: string) => (

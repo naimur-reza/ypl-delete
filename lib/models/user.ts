@@ -5,7 +5,6 @@ export interface IUser extends Document {
   email: string;
   password: string;
   role: "superadmin" | "admin" | "manager";
-  branch?: mongoose.Types.ObjectId;
   isActive: boolean;
 }
 
@@ -15,7 +14,6 @@ const UserSchema = new Schema<IUser>(
     email: { type: String, required: true, unique: true, lowercase: true },
     password: { type: String, required: true },
     role: { type: String, enum: ["superadmin", "admin", "manager"], default: "manager" },
-    branch: { type: Schema.Types.ObjectId, ref: "Branch" },
     isActive: { type: Boolean, default: true },
   },
   { timestamps: true }

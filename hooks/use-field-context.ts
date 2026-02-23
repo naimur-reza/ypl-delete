@@ -10,6 +10,7 @@ import { FormFileUpload } from "@/components/form/FormFileUpload";
 import { FormDateInput } from "@/components/form/FormDateInput";
 import { FormCheckboxGroup } from "@/components/form/FormCheckboxGroup";
 import { FormRichTextEditor } from "@/components/form/FormRichTextEditor";
+import { FormDateTimeInput } from "@/components/form/FormDateTimeInput";
 
 const { fieldContext, formContext, useFieldContext, useFormContext } =
   createFormHookContexts();
@@ -25,7 +26,9 @@ const { useAppForm } = createFormHook({
     ImageUpload: FormImageUpload,
     FileUpload: FormFileUpload,
     Date: FormDateInput,
+    DateTime: FormDateTimeInput,
     RichText: FormRichTextEditor,
+    
   },
   formComponents: {},
   fieldContext,

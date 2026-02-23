@@ -7,7 +7,6 @@ export interface IApplication extends Document {
   cvUrl: string;
   coverLetter: string;
   career: mongoose.Types.ObjectId;
-  branch: mongoose.Types.ObjectId;
   status: string;
   appliedAt: Date;
 }
@@ -20,7 +19,6 @@ const ApplicationSchema = new Schema<IApplication>(
     cvUrl: { type: String, default: "" },
     coverLetter: { type: String, default: "" },
     career: { type: Schema.Types.ObjectId, ref: "Career", required: true },
-    branch: { type: Schema.Types.ObjectId, ref: "Branch" },
     status: {
       type: String,
       enum: ["new", "reviewed", "shortlisted", "rejected", "hired"],

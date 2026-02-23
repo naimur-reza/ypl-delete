@@ -2,8 +2,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Calendar, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { BlogCard } from "@/components/blog-card";
-import { blogPosts } from "@/lib/data";
+import { blogPosts as initialBlogPosts } from "@/lib/data";
+import { connectDB } from "@/lib/mongodb";
+import Insight from "@/lib/models/insight";
+import mongoose from "mongoose";
+import { SafeHtmlContent } from "@/components/ui/safe-html-content";
 
 interface InsightDetailPageProps {
   params: Promise<{ id: string }>;
@@ -11,15 +14,43 @@ interface InsightDetailPageProps {
 
 export default async function InsightDetailPage({ params }: InsightDetailPageProps) {
   const { id } = await params;
-  const post = blogPosts.find((p) => p.id === id);
+  await connectDB();
+
+  // Try to find in DB first
+  let post: any = null;
+  if (mongoose.Types.ObjectId.isValid(id)) {
+    post = await Insight.findById(id).lean();
+  } else {
+    post = await Insight.findOne({ slug: id }).lean();
+  }
+
+  // Fallback to static data for initial posts if not found in DB
+  if (!post) {
+    post = initialBlogPosts.find((p) => p.id === id);
+  }
 
   if (!post) {
     notFound();
   }
 
-  const relatedPosts = blogPosts
-    .filter((p) => p.id !== post.id && p.category === post.category)
-    .slice(0, 2);
+  // Convert to plain object for React
+  post = JSON.parse(JSON.stringify(post));
+
+  // Fetch related posts from DB or fallback
+  let relatedPosts: any[] = [];
+  const dbRelated = await Insight.find({ 
+    isActive: true, 
+    _id: { $ne: post._id }, 
+    category: post.category 
+  }).limit(2).lean();
+
+  if (dbRelated.length > 0) {
+    relatedPosts = JSON.parse(JSON.stringify(dbRelated));
+  } else {
+    relatedPosts = initialBlogPosts
+      .filter((p) => p.id !== (post._id || post.id) && p.category === post.category)
+      .slice(0, 2);
+  }
 
   return (
     <>
@@ -49,7 +80,7 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
               </div>
               <div className="flex items-center gap-2">
                 <Calendar className="h-5 w-5" />
-                <span>{post.date}</span>
+                <span>{post.publishedAt ? new Date(post.publishedAt).toLocaleDateString() : post.date}</span>
               </div>
             </div>
           </div>
@@ -62,62 +93,12 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
           <div className="grid gap-12 lg:grid-cols-3">
             <article className="lg:col-span-2">
               <div className="prose prose-lg max-w-none">
-                <p className="lead text-lg text-muted-foreground">
+                <p className="lead text-lg text-muted-foreground whitespace-pre-wrap">
                   {post.excerpt}
                 </p>
 
-                <div className="mt-8 space-y-6 text-muted-foreground">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </p>
-                  <p>
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
-                  </p>
-                  <h2 className="text-xl font-semibold text-foreground">
-                    Key Takeaways
-                  </h2>
-                  <p>
-                    Sed ut perspiciatis unde omnis iste natus error sit
-                    voluptatem accusantium doloremque laudantium, totam rem
-                    aperiam, eaque ipsa quae ab illo inventore veritatis et
-                    quasi architecto beatae vitae dicta sunt explicabo.
-                  </p>
-                  <ul className="list-disc space-y-2 pl-6">
-                    <li>
-                      Nemo enim ipsam voluptatem quia voluptas sit aspernatur
-                    </li>
-                    <li>
-                      Neque porro quisquam est, qui dolorem ipsum quia dolor sit
-                      amet
-                    </li>
-                    <li>
-                      Ut enim ad minima veniam, quis nostrum exercitationem
-                      ullam
-                    </li>
-                    <li>
-                      Quis autem vel eum iure reprehenderit qui in ea voluptate
-                    </li>
-                  </ul>
-                  <h2 className="text-xl font-semibold text-foreground">
-                    Looking Ahead
-                  </h2>
-                  <p>
-                    At vero eos et accusamus et iusto odio dignissimos ducimus
-                    qui blanditiis praesentium voluptatum deleniti atque
-                    corrupti quos dolores et quas molestias excepturi sint
-                    occaecati cupiditate non provident.
-                  </p>
-                  <p>
-                    Similique sunt in culpa qui officia deserunt mollitia animi,
-                    id est laborum et dolorum fuga. Et harum quidem rerum
-                    facilis est et expedita distinctio.
-                  </p>
+                <div className="mt-8">
+                  <SafeHtmlContent content={post.content} />
                 </div>
               </div>
 
@@ -127,7 +108,7 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
                     <span className="font-semibold text-foreground">
                       {post.author
                         .split(" ")
-                        .map((n) => n[0])
+                        .map((n: string) => n[0])
                         .join("")}
                     </span>
                   </div>
@@ -136,7 +117,7 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
                       {post.author}
                     </p>
                     <p className="text-sm text-muted-foreground">
-                      Content Writer at Talentix
+                      Content Writer at YPL
                     </p>
                   </div>
                 </div>
@@ -166,15 +147,15 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
                     <div className="mt-4 space-y-4">
                       {relatedPosts.map((relatedPost) => (
                         <Link
-                          key={relatedPost.id}
-                          href={`/insights/${relatedPost.id}`}
+                          key={relatedPost._id || relatedPost.id}
+                          href={`/insights/${relatedPost.slug || relatedPost.id}`}
                           className="block rounded-lg border border-border bg-card p-4 hover:border-foreground/20"
                         >
-                          <p className="font-medium text-foreground">
+                          <p className="font-medium text-foreground line-clamp-2">
                             {relatedPost.title}
                           </p>
                           <p className="mt-1 text-xs text-muted-foreground">
-                            {relatedPost.date}
+                            {relatedPost.publishedAt ? new Date(relatedPost.publishedAt).toLocaleDateString() : relatedPost.date}
                           </p>
                         </Link>
                       ))}
@@ -191,7 +172,16 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
 }
 
 export async function generateStaticParams() {
-  return blogPosts.map((post) => ({
-    id: post.id,
+  await connectDB();
+  const dbPosts = await Insight.find({ isActive: true }).select("slug").lean();
+  const staticParams = dbPosts.map((post) => ({
+    id: post.slug,
   }));
+  
+  // Also add IDs from initialBlogPosts to avoid breaking build if DB is empty
+  initialBlogPosts.forEach(p => {
+    staticParams.push({ id: p.id });
+  });
+
+  return staticParams;
 }

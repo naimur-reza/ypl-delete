@@ -7,7 +7,7 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
   const { id } = await params;
   try {
     await connectDB();
-    const career = await Career.findById(id).populate("branch", "name").lean();
+    const career = await Career.findById(id).lean();
     if (!career) return NextResponse.json({ error: "Not found" }, { status: 404 });
     return NextResponse.json(career);
   } catch (error: any) {
@@ -22,7 +22,6 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   const { id } = await params;
   await connectDB();
   const body = await req.json();
-  if (!body.branch) delete body.branch;
   const career = await Career.findByIdAndUpdate(id, body, { new: true });
   if (!career) return NextResponse.json({ error: "Not found" }, { status: 404 });
   return NextResponse.json(career);

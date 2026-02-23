@@ -49,7 +49,7 @@ export function Navbar() {
             <Link href="/jobs">Search Jobs</Link>
           </Button>
           <Button className="bg-secondary text-secondary-foreground hover:bg-secondary/90" asChild>
-            <Link href="/contact?type=vacancy">Submit Vacancy</Link>
+            <Link href="/submit-cv">Submit CV</Link>
           </Button>
         </div>
 
@@ -85,7 +85,7 @@ export function Navbar() {
                 <Link href="/jobs">Search Jobs</Link>
               </Button>
               <Button className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90" asChild>
-                <Link href="/contact?type=vacancy">Submit Vacancy</Link>
+                <Link href="/submit-cv">Submit CV</Link>
               </Button>
             </div>
           </nav>

@@ -12,7 +12,6 @@ export const careerSchema = z.object({
   salary: z.string().default(""),
   category: z.string().default(""),
   department: z.string().default(""),
-  branch: z.string().optional(),
   postedDate: z.string().optional(),
   isActive: z.boolean().default(true),
 });

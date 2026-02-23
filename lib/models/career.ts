@@ -11,7 +11,6 @@ export interface ICareer extends Document {
   salary: string;
   category: string;
   department: string;
-  branch: mongoose.Types.ObjectId;
   postedDate: Date;
   isActive: boolean;
 }
@@ -28,7 +27,6 @@ const CareerSchema = new Schema<ICareer>(
     salary: { type: String, default: "" },
     category: { type: String, default: "" },
     department: { type: String, default: "" },
-    branch: { type: Schema.Types.ObjectId, ref: "Branch" },
     postedDate: { type: Date, default: Date.now },
     isActive: { type: Boolean, default: true },
   },

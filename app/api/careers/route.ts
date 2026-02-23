@@ -21,8 +21,6 @@ export async function POST(req: NextRequest) {
   await connectDB();
   const body = await req.json();
   if (!body.slug) body.slug = body.title.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
-  // Remove empty branch to avoid Mongoose cast error
-  if (!body.branch) delete body.branch;
   const career = await Career.create(body);
   return NextResponse.json(career, { status: 201 });
 }

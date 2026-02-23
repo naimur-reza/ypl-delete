@@ -9,7 +9,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
   const { id } = await params;
 
   await connectDB();
-  const app = await Application.findById(id).populate("job", "title").populate("branch", "name").lean();
+  const app = await Application.findById(id).populate("career", "title").lean();
   if (!app) return NextResponse.json({ error: "Not found" }, { status: 404 });
   return NextResponse.json(app);
 }

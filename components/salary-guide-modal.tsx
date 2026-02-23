@@ -7,29 +7,6 @@ import { SelectItem } from "@/components/ui/select";
 import { useAppForm } from "@/hooks/use-field-context";
 
 /* ───────── Option lists (from CV Search Flowchart) ───────── */
-const DEPARTMENTS = [
-  "Finance & Accounts",
-  "Human Resources",
-  "Sales & Marketing",
-  "Supply Chain / Procurement",
-  "Operations",
-  "IT & Technology",
-];
-
-const ROLES = [
-  "Accountant",
-  "HR Manager",
-  "Sales Executive",
-  "Software Engineer",
-  "Supply Chain Analyst",
-  "Operations Manager",
-  "Marketing Specialist",
-  "IT Support",
-  "Financial Analyst",
-  "Project Manager",
-  "Other",
-];
-
 const POSITIONS = [
   "Strategic Level",
   "Management Level",
@@ -82,6 +59,8 @@ export function SalaryGuideModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [hasShown, setHasShown] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [departments, setDepartments] = useState<{ _id: string; name: string }[]>([]);
+  const [roles, setRoles] = useState<{ _id: string; name: string }[]>([]);
 
   const form = useAppForm({
     defaultValues: {
@@ -117,6 +96,13 @@ export function SalaryGuideModal() {
   });
 
   useEffect(() => {
+    fetch("/api/departments")
+      .then((res) => res.json())
+      .then((data) => setDepartments(data))
+      .catch((err) => console.error("Error fetching departments:", err));
+  }, []);
+
+  useEffect(() => {
     if (hasShown) return;
     const timer = setTimeout(() => {
       setIsOpen(true);
@@ -140,24 +126,23 @@ export function SalaryGuideModal() {
         </button>
 
         <div className="mb-6">
-          <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-            Free Download
+          <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary uppercase tracking-wider">
+            For Candidates
           </span>
           <h2 className="mt-3 text-xl font-semibold text-foreground">
-            Get Our 2026 Salary Guide
+            Join Our Elite CV Bank
           </h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            Exclusive insights into salary benchmarks and employment trends for
-            your industry.
+            Register your profile to be the first to know about high-impact career opportunities matching your expertise.
           </p>
         </div>
 
         {submitted ? (
-          <div className="flex flex-col items-center py-8">
-            <CheckCircle className="h-12 w-12 text-green-500" />
-            <p className="mt-3 font-semibold">Thank you!</p>
+          <div className="flex flex-col items-center py-8 text-center">
+            <CheckCircle className="h-12 w-12 text-primary" />
+            <p className="mt-3 font-semibold text-lg">Profile Registered!</p>
             <p className="text-sm text-muted-foreground">
-              We&apos;ll send the guide to your email shortly.
+              Thank you for joining our talent pool. Our consultants will contact you when a suitable role arises.
             </p>
           </div>
         ) : (
@@ -185,26 +170,53 @@ export function SalaryGuideModal() {
 
                 <form.AppField name="department">
                   {(field) => (
-                    <field.Select label="Department">
-                      {DEPARTMENTS.map((opt) => (
-                        <SelectItem key={opt} value={opt}>
-                          {opt}
+                    <field.Select
+                      label="Department"
+                      onValueChange={(val) => {
+                        // Reset role when department changes
+                        // We can use the form object directly if it's available in scope
+                        // or handle it via a separate effect if needed.
+                        // But let's try to find if form has a way to set value.
+                        // tanstack form usually has form.setFieldValue
+                        (form as any).setFieldValue("role", "");
+                        
+                        const dept = departments.find((d) => d.name === val);
+                        if (dept) {
+                          fetch(`/api/roles?departmentId=${dept._id}`)
+                            .then((res) => res.json())
+                            .then((data) => setRoles(data))
+                            .catch((err) => console.error("Error fetching roles:", err));
+                        } else {
+                          setRoles([]);
+                        }
+                      }}
+                    >
+                      {departments.map((opt) => (
+                        <SelectItem key={opt._id} value={opt.name}>
+                          {opt.name}
                         </SelectItem>
                       ))}
                     </field.Select>
                   )}
                 </form.AppField>
-                <form.AppField name="role">
-                  {(field) => (
-                    <field.Select label="Role">
-                      {ROLES.map((opt) => (
-                        <SelectItem key={opt} value={opt}>
-                          {opt}
-                        </SelectItem>
-                      ))}
-                    </field.Select>
+                <form.Subscribe selector={(state) => state.values.department}>
+                  {(deptName) => (
+                    <form.AppField name="role">
+                      {(field) => (
+                        <field.Select
+                          label="Role"
+                          disabled={!deptName}
+                        >
+                          {roles.map((opt) => (
+                            <SelectItem key={opt._id} value={opt.name}>
+                              {opt.name}
+                            </SelectItem>
+                          ))}
+                        </field.Select>
+                      )}
+                    </form.AppField>
                   )}
-                </form.AppField>
+                </form.Subscribe>
 
                 <form.AppField name="currentPosition">
                   {(field) => (
@@ -330,7 +342,7 @@ export function SalaryGuideModal() {
                         Submitting...
                       </>
                     ) : (
-                      "Submit"
+                      "Register Profile"
                     )}
                   </Button>
                 )}

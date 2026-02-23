@@ -1,46 +1,52 @@
 import Link from "next/link";
 import { Calendar, User } from "lucide-react";
-import type { BlogPost } from "@/lib/data";
+import Image from "next/image";
 
 interface BlogCardProps {
-  post: BlogPost;
+  post: any; // Using any to support both static data and DB models
 }
 
 export function BlogCard({ post }: BlogCardProps) {
+  const href = `/insights/${post.slug || post.id}`;
+  const dateStr = post.publishedAt 
+    ? new Date(post.publishedAt).toLocaleDateString() 
+    : post.date;
+
   return (
     <Link
-      href={`/insights/${post.id}`}
-      className="group block overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all hover:border-primary/30 hover:shadow-md"
+      href={href}
+      className="group block overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all hover:border-primary/30 hover:shadow-md h-full flex flex-col"
     >
-      <div className="aspect-video bg-muted">
-        <div className="flex h-full items-center justify-center bg-gradient-to-br from-primary/5 to-primary/10">
-          <span className="text-5xl font-bold text-primary/20">
-            {post.title[0]}
-          </span>
-        </div>
+      <div className="relative aspect-video overflow-hidden bg-muted">
+        <Image
+          src={post.image || "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80"}
+          alt={post.title}
+          fill
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+        />
       </div>
 
-      <div className="p-6">
-        <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+      <div className="p-6 flex flex-col flex-1">
+        <div className="flex items-center gap-2 text-xs font-medium text-primary uppercase tracking-wider">
           {post.category}
-        </span>
+        </div>
 
-        <h3 className="mt-3 text-lg font-semibold text-foreground group-hover:text-primary">
+        <h3 className="mt-3 text-lg font-bold text-foreground group-hover:text-primary line-clamp-2 leading-snug">
           {post.title}
         </h3>
 
-        <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">
+        <p className="mt-2 line-clamp-2 text-sm text-muted-foreground flex-1">
           {post.excerpt}
         </p>
 
-        <div className="mt-4 flex items-center gap-4 text-xs text-muted-foreground">
-          <div className="flex items-center gap-1">
-            <User className="h-3 w-3" />
+        <div className="mt-4 flex items-center gap-4 text-xs text-muted-foreground pt-4 border-t border-border/50">
+          <div className="flex items-center gap-1.5">
+            <User className="h-3.5 w-3.5" />
             <span>{post.author}</span>
           </div>
-          <div className="flex items-center gap-1">
-            <Calendar className="h-3 w-3" />
-            <span>{post.date}</span>
+          <div className="flex items-center gap-1.5">
+            <Calendar className="h-3.5 w-3.5" />
+            <span>{dateStr}</span>
           </div>
         </div>
       </div>

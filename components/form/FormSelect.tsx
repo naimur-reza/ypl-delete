@@ -10,16 +10,21 @@ import { useFieldContext } from "@/hooks/use-field-context";
 
 export function FormSelect({
   children,
+  disabled,
+  onValueChange,
   ...props
-}: FormControlProps & { children: ReactNode }) {
+}: FormControlProps & { children: ReactNode; disabled?: boolean; onValueChange?: (value: string) => void }) {
   const field = useFieldContext<string>();
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 
   return (
     <FormBase {...props}>
       <Select
-      
-        onValueChange={(e) => field.handleChange(e)}
+        disabled={disabled}
+        onValueChange={(e) => {
+          field.handleChange(e);
+          onValueChange?.(e);
+        }}
         value={field.state.value}
       >
         <SelectTrigger

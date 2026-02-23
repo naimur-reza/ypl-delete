@@ -14,6 +14,7 @@ import {
   FileSpreadsheet,
   Calendar,
   Files,
+  History as HistoryIcon,
 } from "lucide-react";
 
 import {
@@ -47,6 +48,7 @@ interface MenuItem {
   url: string;
   icon: React.ComponentType<{ className?: string }>;
   badge?: string;
+  roles?: string[];
 }
 
 interface MenuSection {
@@ -70,9 +72,13 @@ const menuSections: MenuSection[] = [
   {
     title: "Recruitment",
     items: [
+      { title: "Hero Slider", url: "/dashboard/hero", icon: LayoutDashboard },
       { title: "Services", url: "/dashboard/services", icon: Briefcase },
       { title: "Careers", url: "/dashboard/careers", icon: GraduationCap },
-      { title: "Branches", url: "/dashboard/branches", icon: Building2 },
+      { title: "Departments", url: "/dashboard/departments", icon: Building2 },
+      { title: "Roles", url: "/dashboard/roles", icon: UserCheck },
+      { title: "Team", url: "/dashboard/team", icon: Users },
+
     ],
   },
   {
@@ -84,17 +90,19 @@ const menuSections: MenuSection[] = [
         icon: UserCheck,
       },
       {
-        title: "CV Leads",
-        url: "/dashboard/salary-guide-leads",
+        title: "CV Bank",
+        url: "/dashboard/candidates",
         icon: FileSpreadsheet,
       },
+            { title: "Event Leads", url: "/dashboard/event-leads", icon: FileSpreadsheet },
     ],
   },
   {
     title: "Managements",
     items: [
       { title: "Calendars", url: "/dashboard/calendars", icon: Calendar },
-      { title: "Events", url: "/dashboard/events", icon: Files },
+      { title: "Insights", url: "/dashboard/insights", icon: Files },
+      { title: "Events", url: "/dashboard/events", icon: HistoryIcon },
     ],
   },
   {
@@ -102,6 +110,7 @@ const menuSections: MenuSection[] = [
     items: [
       { title: "Users", url: "/dashboard/users", icon: Users },
       { title: "Settings", url: "/dashboard/settings", icon: Settings },
+      { title: "Activity Log", url: "/dashboard/settings/activities", icon: HistoryIcon, roles: ["superadmin"] },
     ],
   },
 ];
@@ -134,7 +143,7 @@ export function AppSidebar({ user }: AppSidebarProps) {
     <Sidebar className="border-r border-border bg-linear-to-b from-background to-muted/20">
       <SidebarHeader className="border-b border-border bg-linear-to-r from-primary/5 to-primary/10 p-4">
         <Link href="/">
-          <Image src="/logo.svg" alt="Logo" width={100} height={50} />
+          <Image src="/images/ypl-logo.png" alt="Logo" width={100} height={50} />
         </Link>
       </SidebarHeader>
       <SidebarContent className="px-3 py-5 space-y-6">
@@ -144,8 +153,10 @@ export function AppSidebar({ user }: AppSidebarProps) {
               {section.title}
             </SidebarGroupLabel>
             <SidebarGroupContent className="mt-2 space-y-1">
-              {section.items.map((item) => {
-                const active = isActive(item.url);
+              {section.items
+                .filter((item) => !item.roles || (user?.role && item.roles.includes(user.role)))
+                .map((item) => {
+                  const active = isActive(item.url);
                 return (
                   <SidebarMenu key={item.title} className="space-y-1">
                     <SidebarMenuItem>

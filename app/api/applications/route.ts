@@ -8,17 +8,10 @@ export async function GET(req: NextRequest) {
   if (auth instanceof NextResponse) return auth;
 
   await connectDB();
-  const { searchParams } = req.nextUrl;
-  const branch = searchParams.get("branch");
   const filter: any = {};
-  if (branch) filter.branch = branch;
-  if (auth.role === "manager" && auth.branch) {
-    filter.branch = auth.branch;
-  }
 
   const applications = await Application.find(filter)
     .populate("career", "title")
-    .populate("branch", "name")
     .sort({ appliedAt: -1 })
     .lean();
   return NextResponse.json(applications);

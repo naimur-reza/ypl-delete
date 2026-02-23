@@ -8,7 +8,6 @@ export const applicationSchema = z.object({
   cvUrl: z.string().default(""),
   coverLetter: z.string().default(""),
   career: z.string().min(1, "Career/Job is required"),
-  branch: z.string().optional(),
   status: z.enum(["new", "reviewed", "shortlisted", "rejected", "hired"]).default("new"),
 });
 
