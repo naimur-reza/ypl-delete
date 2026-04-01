@@ -25,7 +25,8 @@ interface Service {
 
 export default function ServiceDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
-  const { items, update, isLoading } = useCrud<Service>("/api/services");
+  // Include inactive services so details work even for disabled items.
+  const { items, update, isLoading } = useCrud<Service>("/api/services?includeInactive=1");
   const service = items?.find((s) => s._id === id);
 
   const form = useAppForm({

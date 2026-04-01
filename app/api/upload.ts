@@ -21,6 +21,7 @@ export async function uploadImage(formData: FormData, options?: UploadOptions) {
       return { success: false, error: "No file provided" };
     }
 
+    const originalFileName = file.name;
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
@@ -29,6 +30,9 @@ export async function uploadImage(formData: FormData, options?: UploadOptions) {
         {
           folder: options?.folder ?? "diverse-projects",
           resource_type: options?.resourceType ?? "auto",
+          use_filename: true,
+          unique_filename: true,
+          filename_override: originalFileName,
         },
         (error, result) => {
           if (error) reject(error);
@@ -39,7 +43,13 @@ export async function uploadImage(formData: FormData, options?: UploadOptions) {
       uploadStream.end(buffer);
     });
 
-    return { success: true, data: result };
+    return {
+      success: true,
+      data: {
+        ...(result as Record<string, unknown>),
+        original_filename: originalFileName,
+      },
+    };
   } catch (error) {
     console.error("Upload error:", error);
     return {
@@ -50,9 +60,12 @@ export async function uploadImage(formData: FormData, options?: UploadOptions) {
 }
 
 /** Upload CV/document files (PDF, DOC, DOCX) to Cloudinary */
-export async function uploadFile(formData: FormData, folder = "salary-guide-cvs") {
+export async function uploadFile(
+  formData: FormData,
+  folder = "salary-guide-cvs",
+) {
   return uploadImage(formData, {
     folder,
-    resourceType: "raw",
+    resourceType: "auto",
   });
 }

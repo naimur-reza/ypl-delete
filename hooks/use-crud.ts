@@ -62,8 +62,14 @@ export function useCrud<T extends { _id?: string }>(
   };
 
   const update = async (id: string, body: Partial<T>) => {
+    const buildUrlWithId = (baseEndpoint: string, targetId: string) => {
+      const [path, query] = baseEndpoint.split("?");
+      if (query) return `${path}/${targetId}?${query}`;
+      return `${baseEndpoint}/${targetId}`;
+    };
+
     try {
-      const res = await fetch(`${endpoint}/${id}`, {
+      const res = await fetch(buildUrlWithId(endpoint, id), {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
@@ -82,8 +88,14 @@ export function useCrud<T extends { _id?: string }>(
   };
 
   const remove = async (id: string) => {
+    const buildUrlWithId = (baseEndpoint: string, targetId: string) => {
+      const [path, query] = baseEndpoint.split("?");
+      if (query) return `${path}/${targetId}?${query}`;
+      return `${baseEndpoint}/${targetId}`;
+    };
+
     try {
-      const res = await fetch(`${endpoint}/${id}`, { method: "DELETE" });
+      const res = await fetch(buildUrlWithId(endpoint, id), { method: "DELETE" });
       if (!res.ok) throw new Error("Delete failed");
       toast.success("Deleted successfully");
       await fetchItems();

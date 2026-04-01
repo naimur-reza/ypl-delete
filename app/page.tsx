@@ -17,7 +17,7 @@ import {
   Globe2,
   Zap,
 } from "lucide-react";
- 
+
 const stats = [
   { value: "15+", label: "Years Experience" },
   { value: "2,500+", label: "Placements Made" },
@@ -131,40 +131,63 @@ export default async function HomePage() {
             <div className="space-y-8">
               <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary">
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
                 </span>
-                About YPL
+                For Candidates & Employers
               </div>
               <h2 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-                Your Strategic Partner in <span className="text-primary italic">Global</span> Talent Acquisition
+                A CV-First Partner in{" "}
+                <span className="text-primary  ">Global</span> Talent
+                Acquisition
               </h2>
               <div className="space-y-5 text-lg leading-relaxed text-muted-foreground/90 font-medium">
                 <p>
-                  YPL is more than a recruitment agency; we are architectural partners in team building. For over 15 years, we have mastered the art of matching human potential with corporate ambition.
+                  YPL is more than a recruitment agency; we curate and activate
+                  an{" "}
+                  <span className="font-semibold text-foreground">
+                    elite CV Bank
+                  </span>{" "}
+                  of professionals and then match that talent with ambitious
+                  organizations.
                 </p>
                 <div className="grid gap-4 pt-4">
                   {[
-                    { icon: CheckCircle2, text: "Specialized Industry Knowledge" },
+                    {
+                      icon: CheckCircle2,
+                      text: "Deep, CV-level insight into talent",
+                    },
                     { icon: Globe2, text: "Global Recruitment Network" },
                     { icon: Zap, text: "Rapid & Precise Placements" },
                   ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-3 text-foreground font-semibold">
+                    <div
+                      key={i}
+                      className="flex items-center gap-3 text-foreground font-semibold"
+                    >
                       <item.icon className="h-5 w-5 text-primary" />
                       {item.text}
                     </div>
                   ))}
                 </div>
               </div>
-              <Button
-                className="group h-14 rounded-2xl px-8 text-base shadow-xl shadow-primary/20 transition-all hover:scale-105"
-                asChild
-              >
-                <Link href="/about">
-                  Discover Our Story
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </Button>
+              <div className="flex flex-wrap gap-3">
+                <Button
+                  className="group h-14 rounded-2xl px-8 text-base shadow-xl shadow-primary/20 transition-all hover:scale-105"
+                  asChild
+                >
+                  <Link href="/submit-cv">
+                    Join the CV Bank
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </Button>
+                <Button
+                  variant="outline"
+                  className="h-14 rounded-2xl px-6 text-sm font-semibold"
+                  asChild
+                >
+                  <Link href="/about">Learn more about YPL</Link>
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -182,7 +205,8 @@ export default async function HomePage() {
               Specialized Recruitment Solutions
             </h2>
             <p className="mx-auto mt-4 text-xl text-muted-foreground font-medium">
-              We provide tailored human capital strategies across various industries and seniority levels.
+              We provide tailored human capital strategies across various
+              industries and seniority levels.
             </p>
           </div>
 
@@ -192,7 +216,9 @@ export default async function HomePage() {
                 key={service.title}
                 className="group relative h-full rounded-2xl border border-border/50 bg-card p-10 shadow-sm transition-all hover:border-primary/20 hover:shadow-2xl hover:shadow-primary/5"
               >
-                <div className={`inline-flex h-14 w-14 items-center justify-center rounded-2xl ${service.color} transition-transform group-hover:scale-110 shadow-sm`}>
+                <div
+                  className={`inline-flex h-14 w-14 items-center justify-center rounded-2xl ${service.color} transition-transform group-hover:scale-110 shadow-sm`}
+                >
                   <service.icon className="h-7 w-7" />
                 </div>
                 <h3 className="mt-8 text-2xl font-bold text-foreground">
@@ -229,28 +255,44 @@ export default async function HomePage() {
                 Live Opportunities
               </div>
               <h2 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-                Elevate Your <span className="text-primary italic">Career</span>
+                Elevate Your <span className="text-primary  ">Career</span>
               </h2>
+              <p className="text-sm text-muted-foreground max-w-md">
+                Apply directly or join the CV Bank once, and let our team
+                surface matches for you over time.
+              </p>
             </div>
             <Button
               variant="ghost"
               className="group text-primary font-bold transition-all hover:bg-primary/5"
               asChild
             >
-              <Link href="/jobs">
-                Browse All Openings
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
+              <div className="flex items-center gap-2">
+                <Link href="/jobs">Browse All Openings</Link>
+                <span className="h-6 w-px bg-border" />
+                <Link
+                  href="/submit-cv"
+                  className="flex items-center gap-1 text-xs"
+                >
+                  Join CV Bank
+                  <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </div>
             </Button>
           </div>
 
           <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {latestJobs.map((job: any) => (
-              <JobCard key={job._id.toString()} job={JSON.parse(JSON.stringify(job))} />
+              <JobCard
+                key={job._id.toString()}
+                job={JSON.parse(JSON.stringify(job))}
+              />
             ))}
             {latestJobs.length === 0 && (
               <div className="col-span-full rounded-2xl border border-dashed border-border py-20 text-center">
-                <p className="text-muted-foreground font-medium italic">No active opportunities at the moment. Please check back soon.</p>
+                <p className="text-muted-foreground font-medium  ">
+                  No active opportunities at the moment. Please check back soon.
+                </p>
               </div>
             )}
           </div>
@@ -272,10 +314,12 @@ export default async function HomePage() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-4xl text-center space-y-10">
             <h2 className="text-5xl font-extrabold tracking-tight text-secondary-foreground sm:text-7xl">
-              Ready to <span className="text-primary">Transform</span> Your Business?
+              Ready to <span className="text-primary">Transform</span> Your
+              Talent Strategy?
             </h2>
             <p className="mx-auto max-w-2xl text-xl text-secondary-foreground/80 font-medium leading-relaxed">
-              Unlock the full potential of your organization with elite talent and visionary recruitment strategies.
+              Unlock the full potential of your organization with elite talent
+              and visionary recruitment strategies.
             </p>
             <div className="flex flex-col items-center justify-center gap-6 sm:flex-row">
               <Button
@@ -283,7 +327,7 @@ export default async function HomePage() {
                 className="h-16 rounded-2xl px-10 text-lg font-bold shadow-2xl shadow-primary/30 transition-all hover:scale-105"
                 asChild
               >
-                <Link href="/jobs">Explore Opportunities</Link>
+                <Link href="/submit-cv">Join the CV Bank</Link>
               </Button>
               <Button
                 size="lg"

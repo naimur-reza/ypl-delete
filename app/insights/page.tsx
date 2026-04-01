@@ -15,8 +15,13 @@ const categories = [
 
 export default async function InsightsPage() {
   await connectDB();
-  const dbInsights = await Insight.find({ isActive: true }).sort({ order: 1, publishedAt: -1 }).lean();
-  const insights = dbInsights.length > 0 ? JSON.parse(JSON.stringify(dbInsights)) : initialBlogPosts;
+  const dbInsights = await Insight.find({ isActive: true })
+    .sort({ order: 1, publishedAt: -1 })
+    .lean();
+  const insights =
+    dbInsights.length > 0
+      ? JSON.parse(JSON.stringify(dbInsights))
+      : initialBlogPosts;
 
   return (
     <>
@@ -45,7 +50,11 @@ export default async function InsightsPage() {
                 key={category}
                 variant={category === "All" ? "default" : "outline"}
                 size="sm"
-                className={category === "All" ? "bg-primary text-primary-foreground hover:bg-primary/90" : "border-border bg-transparent hover:bg-muted"}
+                className={
+                  category === "All"
+                    ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                    : "border-border bg-transparent hover:bg-muted"
+                }
               >
                 {category}
               </Button>
@@ -62,7 +71,7 @@ export default async function InsightsPage() {
               <BlogCard key={post._id || post.id} post={post} />
             ))}
             {insights.length === 0 && (
-              <div className="col-span-full py-20 text-center text-muted-foreground italic">
+              <div className="col-span-full py-20 text-center text-muted-foreground  ">
                 No insights found. Check back soon for new articles.
               </div>
             )}
@@ -82,7 +91,10 @@ export default async function InsightsPage() {
               updates, and career advice delivered to your inbox.
             </p>
             <div className="mt-8">
-              <Button className="bg-primary text-primary-foreground hover:bg-primary/90" asChild>
+              <Button
+                className="bg-primary text-primary-foreground hover:bg-primary/90"
+                asChild
+              >
                 <Link href="/contact">Subscribe Now</Link>
               </Button>
             </div>

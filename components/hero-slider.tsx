@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
@@ -34,8 +35,10 @@ const fallbackSlides: HeroSlide[] = [
     badgeText: "Your Trusted Recruitment Partner",
     title: "Building Teams That",
     highlightText: "Drive Success",
-    description: "We connect exceptional talent with forward-thinking organizations. From permanent placements to executive search, we deliver recruitment solutions that transform businesses.",
-    image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1920&q=80",
+    description:
+      "We connect exceptional talent with forward-thinking organizations. From permanent placements to executive search.",
+    image:
+      "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1920&q=80",
     primaryBtnText: "Find Your Next Role",
     primaryBtnLink: "/job-seekers",
     secondaryBtnText: "Hire Top Talent",
@@ -52,11 +55,7 @@ export function HeroSlider() {
     fetch("/api/hero?active=true")
       .then((res) => res.json())
       .then((data) => {
-        if (data && data.length > 0) {
-          setSlides(data);
-        } else {
-          setSlides(fallbackSlides);
-        }
+        setSlides(data?.length > 0 ? data : fallbackSlides);
       })
       .catch(() => setSlides(fallbackSlides));
   }, []);
@@ -69,76 +68,112 @@ export function HeroSlider() {
   }, [api]);
 
   return (
-    <section className="relative min-h-[90vh] overflow-hidden bg-secondary">
+    <section className="relative h-[92vh] w-full overflow-hidden bg-black">
       <Carousel
         setApi={setApi}
-        plugins={[
-          Autoplay({
-            delay: 5000,
-          }),
-        ]}
-        className="w-full"
-        opts={{
-          loop: true,
-        }}
+        plugins={[Autoplay({ delay: 6000, stopOnInteraction: false })]}
+        className="h-full w-full"
+        opts={{ loop: true }}
       >
-        <CarouselContent className="m-0">
-          {slides.map((slide) => (
-            <CarouselItem key={slide._id} className="p-0">
-              <div className="relative min-h-[90vh] flex items-center">
-                {/* Background */}
-                <div className="absolute inset-0">
+        <CarouselContent className="m-0 h-[92vh]">
+          {slides.map((slide, index) => (
+            <CarouselItem key={slide._id} className="relative p-0 h-full">
+              {/* Image Container with Zoom Effect */}
+              <div className="absolute inset-0 overflow-hidden">
+                <motion.div
+                  initial={{ scale: 1.1 }}
+                  animate={{ scale: current === index ? 1 : 1.1 }}
+                  transition={{ duration: 6, ease: "linear" }}
+                  className="relative h-full w-full"
+                >
                   <Image
                     src={slide.image}
                     alt={slide.title}
                     fill
                     className="object-cover"
-                    priority
+                    priority={index === 0}
                   />
-                  <div className="absolute inset-0 bg-secondary/85" />
-                </div>
+                </motion.div>
+                {/* Modern Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              </div>
 
-                {/* Content */}
-                <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-                  <div className="max-w-2xl py-20 animate-in fade-in slide-in-from-left duration-700">
-                    <span className="inline-block rounded-full bg-primary px-4 py-1.5 text-sm font-medium text-primary-foreground shadow-lg">
-                      {slide.badgeText}
-                    </span>
-                    <h1 className="mt-6 text-4xl font-bold tracking-tight text-secondary-foreground sm:text-5xl lg:text-6xl">
-                      {slide.title}{" "}
-                      <span className="block text-primary">{slide.highlightText}</span>
-                    </h1>
-                    <SafeHtmlContent
-                      content={slide.description}
-                      className="mt-6 text-lg leading-relaxed text-secondary-foreground/80"
-                    />
-                    <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                      {slide.primaryBtnText && (
-                        <Button
-                          size="lg"
-                          className="bg-primary text-primary-foreground hover:bg-primary/90"
-                          asChild
+              {/* Content Layer */}
+              <div className="relative mx-auto h-full max-w-7xl px-6 lg:px-8">
+                <div className="flex h-full flex-col justify-center">
+                  <div className="max-w-2xl">
+                    <AnimatePresence mode="wait">
+                      {current === index && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -20 }}
+                          transition={{ duration: 0.5, staggerChildren: 0.1 }}
                         >
-                          <Link href={slide.primaryBtnLink || "#"}>
-                            {slide.primaryBtnText}
-                            <ArrowRight className="ml-2 h-4 w-4" />
-                          </Link>
-                        </Button>
+                          <motion.span
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-1 text-sm font-medium text-white backdrop-blur-md"
+                          >
+                            <span className="mr-2 inline-block h-2 w-2 animate-pulse rounded-full bg-primary" />
+                            {slide.badgeText}
+                          </motion.span>
+
+                          <motion.h1
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 }}
+                            className="mt-6 text-5xl font-extrabold tracking-tight text-white sm:text-6xl lg:text-7xl"
+                          >
+                            {slide.title}
+                            <span className="mt-2 block bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+                              {slide.highlightText}
+                            </span>
+                          </motion.h1>
+
+                          <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.4 }}
+                          >
+                            <SafeHtmlContent
+                              content={slide.description}
+                              className="mt-6 text-xl leading-relaxed text-gray-300 antialiased"
+                            />
+                          </motion.div>
+
+                          <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.6 }}
+                            className="mt-10 flex flex-wrap gap-4"
+                          >
+                            <Button
+                              size="lg"
+                              className="h-14 rounded-full px-8 text-lg font-semibold shadow-[0_0_20px_rgba(var(--primary),0.3)] transition-all hover:scale-105 active:scale-95"
+                              asChild
+                            >
+                              <Link href={slide.primaryBtnLink || "#"}>
+                                {slide.primaryBtnText}
+                                <ArrowRight className="ml-2 h-5 w-5" />
+                              </Link>
+                            </Button>
+
+                            <Button
+                              size="lg"
+                              variant="outline"
+                              className="h-14 rounded-full border-white/20 bg-white/5 px-8 text-lg font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:scale-105"
+                              asChild
+                            >
+                              <Link href={slide.secondaryBtnLink || "#"}>
+                                {slide.secondaryBtnText}
+                              </Link>
+                            </Button>
+                          </motion.div>
+                        </motion.div>
                       )}
-                      {slide.secondaryBtnText && (
-                        <Button
-                          size="lg"
-                          variant="outline"
-                          className="border-secondary-foreground/30 bg-transparent text-secondary-foreground hover:bg-secondary-foreground/10"
-                          asChild
-                        >
-                          <Link href={slide.secondaryBtnLink || "#"}>
-                            {slide.secondaryBtnText}
-                            <ArrowRight className="ml-2 h-4 w-4" />
-                          </Link>
-                        </Button>
-                      )}
-                    </div>
+                    </AnimatePresence>
                   </div>
                 </div>
               </div>
@@ -146,21 +181,46 @@ export function HeroSlider() {
           ))}
         </CarouselContent>
 
-        {/* Indicators */}
-        {slides.length > 1 && (
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-2">
-            {slides.map((_, index) => (
-              <button
-                key={index}
-                className={cn(
-                  "h-1.5 rounded-full transition-all duration-300",
-                  index === current ? "w-8 bg-primary" : "w-2 bg-primary/30"
-                )}
-                onClick={() => api?.scrollTo(index)}
-              />
-            ))}
-          </div>
-        )}
+        {/* Custom Navigation Controls */}
+        <div className="absolute bottom-12 right-12 hidden gap-3 lg:flex">
+          <Button
+            variant="outline"
+            size="icon"
+            className="rounded-full border-white/20 bg-black/20 text-white backdrop-blur-md hover:bg-primary"
+            onClick={() => api?.scrollPrev()}
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
+            className="rounded-full border-white/20 bg-black/20 text-white backdrop-blur-md hover:bg-primary"
+            onClick={() => api?.scrollNext()}
+          >
+            <ChevronRight className="h-6 w-6" />
+          </Button>
+        </div>
+
+        {/* Modern Animated Indicators */}
+        <div className="absolute bottom-12 left-1/2 flex -translate-x-1/2 gap-4">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => api?.scrollTo(index)}
+              className="group relative h-1 w-12 overflow-hidden rounded-full bg-white/20 transition-all"
+            >
+              {current === index && (
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: "100%" }}
+                  transition={{ duration: 6, ease: "linear" }}
+                  className="absolute inset-0 bg-primary"
+                />
+              )}
+              <div className="absolute inset-0 h-full w-full opacity-0 transition-opacity group-hover:bg-white/10 group-hover:opacity-100" />
+            </button>
+          ))}
+        </div>
       </Carousel>
     </section>
   );

@@ -29,7 +29,8 @@ interface Service {
 }
 
 export default function ServicesPage() {
-  const { items, isLoading, create, update, remove } = useCrud<Service>("/api/services");
+  // Include inactive services so admins can view and re-enable them.
+  const { items, isLoading, create, update, remove } = useCrud<Service>("/api/services?includeInactive=1");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<Service | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Service | null>(null);

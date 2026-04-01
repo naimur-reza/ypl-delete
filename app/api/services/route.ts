@@ -4,9 +4,17 @@ import Service from "@/lib/models/service";
 import { requireAuth } from "@/lib/api-auth";
 import { serviceSchema } from "@/schemas/service";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   await connectDB();
-  const services = await Service.find({ isActive: true }).sort({ order: 1 }).lean();
+
+  const url = new URL(req.url);
+  const includeInactive = url.searchParams.get("includeInactive") === "1" || url.searchParams.get("includeInactive") === "true";
+
+  const services = await Service.find(
+    includeInactive ? {} : { isActive: true },
+  )
+    .sort({ order: 1 })
+    .lean();
   return NextResponse.json(services);
 }
 

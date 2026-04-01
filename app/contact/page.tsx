@@ -1,9 +1,17 @@
 "use client";
 
-import React from "react"
-
-import { useState } from "react";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  MessageSquare,
+  ShieldCheck,
+  Zap,
+  ChevronRight,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,277 +23,310 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const contactInfo = [
   {
     icon: MapPin,
     title: "Visit Us",
-    details: ["123 Business Street", "London, EC1A 1BB", "United Kingdom"],
+    details: "123 Business Street, London, EC1A 1BB",
+    color: "bg-blue-500/10 text-blue-500",
   },
   {
     icon: Phone,
     title: "Call Us",
-    details: ["+44 (0) 20 1234 5678", "Mon-Fri: 9am - 6pm"],
+    details: "+44 (0) 20 1234 5678",
+    color: "bg-green-500/10 text-green-500",
   },
   {
     icon: Mail,
     title: "Email Us",
-    details: ["info@ypl.com", "careers@ypl.com"],
+    details: "hello@ypl.com",
+    color: "bg-purple-500/10 text-purple-500",
   },
   {
     icon: Clock,
-    title: "Business Hours",
-    details: ["Monday - Friday: 9am - 6pm", "Saturday - Sunday: Closed"],
+    title: "Hours",
+    details: "Mon-Fri: 9am - 6pm",
+    color: "bg-orange-500/10 text-orange-500",
   },
 ];
 
 const inquiryTypes = [
-  "General Inquiry",
-  "Submit a Vacancy",
-  "Job Application",
-  "Career Advice",
+  "General",
+  "Hiring Talent",
+  "Finding a Job",
   "Partnership",
-  "Other",
 ];
+
+const fadeIn = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.5 },
+};
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
-    phone: "",
-    company: "",
     inquiryType: "",
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Form submission logic would go here
-    console.log("Form submitted:", formData);
-  };
-
   return (
-    <>
-      {/* Hero Section */}
-      <section className="bg-secondary py-16 lg:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <span className="inline-block rounded-full bg-primary px-4 py-1.5 text-sm font-medium text-primary-foreground">
-            Get in Touch
-          </span>
-          <h1 className="mt-6 text-4xl font-bold tracking-tight text-secondary-foreground sm:text-5xl">
-            Contact Us
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg text-secondary-foreground/80">
-            Get in touch with our team. Whether you are looking to hire,
-            seeking your next opportunity, or have a question, we are here
-            to help.
-          </p>
+    <div className="min-h-screen bg-background selection:bg-primary/30">
+      {/* --- HERO SECTION --- */}
+      <section className="relative overflow-hidden py-20">
+        {/* Animated Background Mesh */}
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute top-0 left-1/4 h-96 w-96 rounded-full bg-primary/10 blur-[120px]" />
+          <div className="absolute bottom-0 right-1/4 h-96 w-96 rounded-full bg-blue-500/10 blur-[120px]" />
+        </div>
+
+        <div className="mx-auto max-w-7xl px-6 text-center lg:px-8">
+          <motion.span
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="inline-block rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-medium text-primary shadow-sm"
+          >
+            Connect with our team
+          </motion.span>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="mt-8 text-5xl font-bold tracking-tight text-foreground sm:text-7xl"
+          >
+            Let&apos;s start a{" "}
+            <span className="text-primary">conversation.</span>
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-muted-foreground"
+          >
+            Whether you&apos;re looking to scale your team or find your next
+            career milestone, our experts are ready to guide you.
+          </motion.p>
         </div>
       </section>
 
-      {/* Contact Info */}
-      <section className="py-12">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      {/* --- CONTACT CARDS --- */}
+      <section className="-mt-12 ">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {contactInfo.map((info) => (
-              <div
+            {contactInfo.map((info, i) => (
+              <motion.div
                 key={info.title}
-                className="rounded-xl border border-border bg-card p-6 shadow-sm"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                whileHover={{ y: -5 }}
+                className="group relative rounded-2xl border border-border bg-card/50 p-6 backdrop-blur-sm transition-all hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/5"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                  <info.icon className="h-6 w-6 text-primary" />
+                <div
+                  className={cn(
+                    "flex h-12 w-12 items-center justify-center rounded-xl transition-transform group-hover:scale-110",
+                    info.color,
+                  )}
+                >
+                  <info.icon className="h-6 w-6" />
                 </div>
-                <h3 className="mt-4 font-semibold text-foreground">
-                  {info.title}
-                </h3>
-                <div className="mt-2 space-y-1">
-                  {info.details.map((detail, index) => (
-                    <p key={index} className="text-sm text-muted-foreground">
-                      {detail}
-                    </p>
-                  ))}
-                </div>
-              </div>
+                <h3 className="mt-4 font-bold text-foreground">{info.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  {info.details}
+                </p>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Contact Form */}
-      <section className="bg-muted py-12 lg:py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-12 lg:grid-cols-2">
-            <div>
-              <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-                Send Us a Message
-              </h2>
-              <p className="mt-4 text-muted-foreground">
-                Fill out the form below and a member of our team will get back
-                to you within 24 hours.
-              </p>
-
-              <form onSubmit={handleSubmit} className="mt-8 space-y-6">
-                <div className="grid gap-6 sm:grid-cols-2">
-                  <div>
-                    <Label htmlFor="firstName">First Name *</Label>
-                    <Input
-                      id="firstName"
-                      required
-                      value={formData.firstName}
-                      onChange={(e) =>
-                        setFormData({ ...formData, firstName: e.target.value })
-                      }
-                      className="mt-2 bg-card"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="lastName">Last Name *</Label>
-                    <Input
-                      id="lastName"
-                      required
-                      value={formData.lastName}
-                      onChange={(e) =>
-                        setFormData({ ...formData, lastName: e.target.value })
-                      }
-                      className="mt-2 bg-card"
-                    />
-                  </div>
+      {/* --- MAIN CONTENT: FORM & SIDEBAR --- */}
+      <section className="py-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="grid gap-16 lg:grid-cols-12">
+            {/* Form Side */}
+            <motion.div {...fadeIn} className="lg:col-span-7">
+              <div className="rounded-3xl border border-border bg-card p-8 shadow-sm lg:p-12">
+                <div className="mb-10">
+                  <h2 className="text-3xl font-bold tracking-tight">
+                    Send a message
+                  </h2>
+                  <p className="mt-2 text-muted-foreground">
+                    Responses typically within 2 business hours.
+                  </p>
                 </div>
 
-                <div className="grid gap-6 sm:grid-cols-2">
-                  <div>
-                    <Label htmlFor="email">Email *</Label>
+                <form className="space-y-6">
+                  <div className="grid gap-6 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <Label htmlFor="first-name">First Name</Label>
+                      <Input
+                        id="first-name"
+                        placeholder="John"
+                        className="h-12 border-muted/40 bg-muted/20 focus-visible:ring-primary"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="last-name">Last Name</Label>
+                      <Input
+                        id="last-name"
+                        placeholder="Doe"
+                        className="h-12 border-muted/40 bg-muted/20"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Work Email</Label>
                     <Input
                       id="email"
                       type="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
-                      className="mt-2 bg-card"
+                      placeholder="john@company.com"
+                      className="h-12 border-muted/40 bg-muted/20"
                     />
                   </div>
-                  <div>
-                    <Label htmlFor="phone">Phone</Label>
-                    <Input
-                      id="phone"
-                      type="tel"
-                      value={formData.phone}
-                      onChange={(e) =>
-                        setFormData({ ...formData, phone: e.target.value })
-                      }
-                      className="mt-2 bg-card"
-                    />
-                  </div>
-                </div>
 
-                <div className="grid gap-6 sm:grid-cols-2">
-                  <div>
-                    <Label htmlFor="company">Company</Label>
-                    <Input
-                      id="company"
-                      value={formData.company}
-                      onChange={(e) =>
-                        setFormData({ ...formData, company: e.target.value })
-                      }
-                      className="mt-2 bg-card"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="inquiryType">Inquiry Type *</Label>
-                    <Select
-                      value={formData.inquiryType}
-                      onValueChange={(value) =>
-                        setFormData({ ...formData, inquiryType: value })
-                      }
-                    >
-                      <SelectTrigger id="inquiryType" className="mt-2 bg-card">
-                        <SelectValue placeholder="Select type" />
+                  <div className="space-y-2">
+                    <Label htmlFor="type">How can we help?</Label>
+                    <Select>
+                      <SelectTrigger className="h-12 border-muted/40 bg-muted/20">
+                        <SelectValue placeholder="Choose a category" />
                       </SelectTrigger>
                       <SelectContent>
-                        {inquiryTypes.map((type) => (
-                          <SelectItem key={type} value={type}>
-                            {type}
+                        {inquiryTypes.map((t) => (
+                          <SelectItem key={t} value={t.toLowerCase()}>
+                            {t}
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                   </div>
-                </div>
 
-                <div>
-                  <Label htmlFor="message">Message *</Label>
-                  <Textarea
-                    id="message"
-                    required
-                    rows={5}
-                    value={formData.message}
-                    onChange={(e) =>
-                      setFormData({ ...formData, message: e.target.value })
-                    }
-                    className="mt-2 bg-card"
-                  />
-                </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="msg">Your Message</Label>
+                    <Textarea
+                      id="msg"
+                      rows={4}
+                      className="resize-none border-muted/40 bg-muted/20"
+                      placeholder="Tell us about your needs..."
+                    />
+                  </div>
 
-                <Button type="submit" size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                  Send Message
-                </Button>
-              </form>
-            </div>
-
-            <div className="rounded-lg border border-border bg-card p-8">
-              <h3 className="text-xl font-semibold text-foreground">
-                Why Contact YPL?
-              </h3>
-              <div className="mt-6 space-y-6">
-                <div>
-                  <h4 className="font-medium text-foreground">For Employers</h4>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    Looking to build your team? Share your hiring needs with us
-                    and let our expert recruiters find the perfect candidates
-                    for your organization.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-medium text-foreground">
-                    For Job Seekers
-                  </h4>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    Ready for your next career move? Register with us to access
-                    exclusive opportunities and personalized career support.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-medium text-foreground">
-                    General Inquiries
-                  </h4>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    Have questions about our services? Our team is here to
-                    provide information and guidance on how we can help.
-                  </p>
-                </div>
+                  <Button
+                    className="group h-12 w-full rounded-xl text-base font-semibold transition-all hover:scale-[1.01]"
+                    size="lg"
+                  >
+                    Send Message
+                    <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Button>
+                </form>
               </div>
+            </motion.div>
 
-              <div className="mt-8 border-t border-border pt-8">
-                <h4 className="font-medium text-foreground">
-                  Prefer to Call?
-                </h4>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  Speak directly with one of our consultants:
-                </p>
-                <a
-                  href="tel:+442012345678"
-                  className="mt-2 inline-block text-lg font-semibold text-foreground hover:text-foreground/80"
-                >
-                  +44 (0) 20 1234 5678
-                </a>
-              </div>
+            {/* Support / FAQ Side */}
+            <div className="lg:col-span-5 flex flex-col justify-center">
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3 }}
+                className="space-y-8"
+              >
+                <div>
+                  <h3 className="text-2xl font-bold">Why partner with us?</h3>
+                  <p className="mt-4 text-muted-foreground leading-relaxed">
+                    We don&apos;t just fill roles; we build teams. Join 500+
+                    companies that rely on our intelligence-driven recruitment.
+                  </p>
+                </div>
+
+                <div className="space-y-4">
+                  {[
+                    {
+                      icon: Zap,
+                      t: "Fast Placement",
+                      d: "Average 14 days to hire.",
+                    },
+                    {
+                      icon: ShieldCheck,
+                      t: "Guaranteed Fit",
+                      d: "90-day replacement policy.",
+                    },
+                    {
+                      icon: MessageSquare,
+                      t: "Dedicated Lead",
+                      d: "1-on-1 account management.",
+                    },
+                  ].map((item, i) => (
+                    <div
+                      key={i}
+                      className="flex gap-4 p-4 rounded-2xl border border-transparent hover:border-border hover:bg-muted/30 transition-colors"
+                    >
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                        <item.icon className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold">{item.t}</h4>
+                        <p className="text-sm text-muted-foreground">
+                          {item.d}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="pt-8">
+                  <h4 className="font-bold mb-4">Common Questions</h4>
+                  <Accordion type="single" collapsible className="w-full">
+                    <AccordionItem value="item-1">
+                      <AccordionTrigger className="text-left">
+                        What industries do you cover?
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        We specialize in Tech, Finance, Healthcare, and
+                        Executive placements across Europe and the UK.
+                      </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-2">
+                      <AccordionTrigger className="text-left">
+                        How do you charge?
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        Our pricing is performance-based. We only win when you
+                        find the right candidate.
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </div>
+              </motion.div>
             </div>
           </div>
         </div>
       </section>
-    </>
+
+      {/* --- MAP PLACEHOLDER --- */}
+      <section className="px-6 pb-12 lg:px-8">
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-3xl border border-border bg-muted/50 aspect-[21/9] flex items-center justify-center relative group grayscale hover:grayscale-0 transition-all duration-700">
+          {/* Visual Map Texture placeholder */}
+          <div className="absolute inset-0 bg-[url('https://www.google.com/maps/d/u/0/thumbnail?mid=1_4yL-W6-XN_S_p3fI_3R_B3I9M0')] bg-cover opacity-30 group-hover:opacity-60 transition-opacity" />
+          <Button variant="secondary" className="relative z-10 shadow-2xl">
+            <MapPin className="mr-2 h-4 w-4" />
+            Open in Google Maps
+          </Button>
+        </div>
+      </section>
+    </div>
   );
+}
+
+function cn(...inputs: any[]) {
+  return inputs.filter(Boolean).join(" ");
 }

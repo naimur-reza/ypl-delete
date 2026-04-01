@@ -2,7 +2,15 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Calendar, MapPin, Users, ArrowRight, Loader2, Search, Filter } from "lucide-react";
+import {
+  Calendar,
+  MapPin,
+  Users,
+  ArrowRight,
+  Loader2,
+  Search,
+  Filter,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -37,22 +45,24 @@ export default function EventsPage() {
       .catch(() => setLoading(false));
   }, []);
 
-  const filteredEvents = events.filter((e) =>
-    e.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    e.location.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredEvents = events.filter(
+    (e) =>
+      e.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      e.location.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   return (
     <div className="min-h-screen bg-muted/30 pb-20 pt-10">
-      <div className="container mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4">
         {/* Hero Section */}
         <div className="mb-12 text-center">
           <h1 className="mb-4 text-4xl font-bold tracking-tight md:text-5xl">
             Our <span className="text-primary">Events</span> & Workshops
           </h1>
           <p className="mx-auto max-w-2xl text-muted-foreground">
-            Join our industry-leading webinars, networking meetups, and professional workshops
-            designed to help you navigate the talent landscape.
+            Join our industry-leading webinars, networking meetups, and
+            professional workshops designed to help you navigate the talent
+            landscape.
           </p>
         </div>
 
@@ -68,8 +78,12 @@ export default function EventsPage() {
             />
           </div>
           <div className="flex gap-2">
-            <Badge variant="outline" className="px-3 py-1">All Events</Badge>
-            <Badge variant="secondary" className="px-3 py-1">Upcoming</Badge>
+            <Badge variant="outline" className="px-3 py-1">
+              All Events
+            </Badge>
+            <Badge variant="secondary" className="px-3 py-1">
+              Upcoming
+            </Badge>
           </div>
         </div>
 
@@ -81,7 +95,9 @@ export default function EventsPage() {
           <div className="flex h-64 flex-col items-center justify-center text-center">
             <Calendar className="mb-4 h-12 w-12 text-muted-foreground opacity-20" />
             <h3 className="text-xl font-semibold">No events found</h3>
-            <p className="text-muted-foreground">Try adjusting your search query.</p>
+            <p className="text-muted-foreground">
+              Try adjusting your search query.
+            </p>
           </div>
         ) : (
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -109,18 +125,18 @@ export default function EventsPage() {
                   <div className="mb-4 flex items-center gap-2 text-sm font-medium text-primary">
                     <Calendar className="h-4 w-4" />
                     {new Date(event.startDate).toLocaleDateString(undefined, {
-                      weekday: 'short',
-                      month: 'long',
-                      day: 'numeric',
-                      year: 'numeric'
+                      weekday: "short",
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
                     })}
                   </div>
                   <h3 className="mb-3 text-xl font-bold leading-tight group-hover:text-primary transition-colors">
                     {event.title}
                   </h3>
-                  <SafeHtmlContent 
-                    content={event.description} 
-                    className="mb-6 line-clamp-3 text-sm text-muted-foreground" 
+                  <SafeHtmlContent
+                    content={event.description}
+                    className="mb-6 line-clamp-3 text-sm text-muted-foreground"
                   />
                   <div className="mt-auto space-y-3 pb-6 border-b border-muted">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
