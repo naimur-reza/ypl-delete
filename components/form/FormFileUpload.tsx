@@ -1,7 +1,7 @@
 import { FormBase, FormControlProps } from "./FormBase";
 import { useFieldContext } from "@/hooks/use-field-context";
 import { Button } from "../ui/button";
-import { Upload, X, AlertCircle, FileText } from "lucide-react";
+import { Upload, X, AlertCircle, FileText, ExternalLink } from "lucide-react";
 import { useState } from "react";
 import { uploadFile } from "@/app/api/upload";
 
@@ -47,11 +47,21 @@ export function FormFileUpload(props: FormControlProps) {
         throw new Error(result.error);
       }
 
-      const data = result.data as { secure_url?: string };
-      if (data.secure_url) {
-        field.handleChange(data.secure_url);
+      const data = result.data as { secure_url?: string; url?: string };
+      const uploadedUrl = data.secure_url || data.url;
+      if (uploadedUrl) {
+        const normalizedUrl = (() => {
+          try {
+            return new URL(uploadedUrl).toString();
+          } catch {
+            return uploadedUrl;
+          }
+        })();
+        field.handleChange(normalizedUrl);
         setFileName(file.name);
         setError("");
+      } else {
+        throw new Error("Upload succeeded but no file URL was returned");
       }
     } catch (err) {
       const errorMessage =
@@ -73,20 +83,31 @@ export function FormFileUpload(props: FormControlProps) {
     <FormBase {...props}>
       <div className="space-y-3">
         {field.state.value && (
-          <div className="flex items-center justify-between gap-2 p-3 border border-gray-200 rounded-lg bg-gray-50">
-            <div className="flex items-center gap-2 min-w-0">
-              <FileText className="h-5 w-5 text-gray-500 shrink-0" />
-              <span className="text-sm truncate">{fileName || "CV uploaded"}</span>
+          <div className="space-y-2 p-3 border border-gray-200 rounded-lg bg-gray-50">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2 min-w-0">
+                <FileText className="h-5 w-5 text-gray-500 shrink-0" />
+                <span className="text-sm truncate">{fileName || "CV uploaded"}</span>
+              </div>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={handleRemoveFile}
+                className="shrink-0 text-red-600 hover:text-red-700 hover:bg-red-50"
+              >
+                <X className="h-4 w-4" />
+              </Button>
             </div>
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              onClick={handleRemoveFile}
-              className="shrink-0 text-red-600 hover:text-red-700 hover:bg-red-50"
+            <a
+              href={field.state.value}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-xs text-blue-600 hover:underline break-all"
             >
-              <X className="h-4 w-4" />
-            </Button>
+              {field.state.value}
+              <ExternalLink className="h-3.5 w-3.5 shrink-0" />
+            </a>
           </div>
         )}
 

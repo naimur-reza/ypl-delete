@@ -165,7 +165,7 @@ async function seed() {
         "Strategic leadership role overseeing all financial aspects of a growing wealth management firm.",
       requirements: [
         "Qualified Accountant (ACA/ACCA)",
-        "15+ years experience",
+        "28+ years experience",
         "Board-level experience",
       ],
       location: "Birmingham, UK",

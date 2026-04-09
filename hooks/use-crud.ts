@@ -3,6 +3,13 @@
 import { useState, useEffect, useCallback } from "react";
 import { toast } from "sonner";
 
+const FETCH_OPTS: RequestInit = { credentials: "include" };
+
+function crudBasePath(endpoint: string) {
+  const i = endpoint.indexOf("?");
+  return i === -1 ? endpoint : endpoint.slice(0, i);
+}
+
 interface UseCrudOptions {
   /** Auto-fetch on mount */
   autoFetch?: boolean;
@@ -25,15 +32,27 @@ export function useCrud<T extends { _id?: string }>(
     error: null,
   });
 
+  const basePath = crudBasePath(endpoint);
+
   const fetchItems = useCallback(async () => {
     setState((s) => ({ ...s, isLoading: true, error: null }));
     try {
-      const res = await fetch(endpoint);
-      if (!res.ok) throw new Error("Failed to fetch");
-      const data = await res.json();
-      setState({ items: Array.isArray(data) ? data : data.data || [], isLoading: false, error: null });
+      const res = await fetch(endpoint, FETCH_OPTS);
+      const data = await res.json().catch(() => null);
+      if (!res.ok) {
+        const msg =
+          (data && typeof data === "object" && "error" in data && String((data as { error?: string }).error)) ||
+          res.statusText ||
+          "Failed to fetch";
+        throw new Error(msg);
+      }
+      setState({
+        items: Array.isArray(data) ? data : data?.data || [],
+        isLoading: false,
+        error: null,
+      });
     } catch (err: any) {
-      setState((s) => ({ ...s, isLoading: false, error: err.message }));
+      setState((s) => ({ ...s, isLoading: false, error: err.message ?? "Failed to fetch" }));
     }
   }, [endpoint]);
 
@@ -43,7 +62,8 @@ export function useCrud<T extends { _id?: string }>(
 
   const create = async (body: Partial<T>) => {
     try {
-      const res = await fetch(endpoint, {
+      const res = await fetch(basePath, {
+        ...FETCH_OPTS,
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
@@ -62,14 +82,9 @@ export function useCrud<T extends { _id?: string }>(
   };
 
   const update = async (id: string, body: Partial<T>) => {
-    const buildUrlWithId = (baseEndpoint: string, targetId: string) => {
-      const [path, query] = baseEndpoint.split("?");
-      if (query) return `${path}/${targetId}?${query}`;
-      return `${baseEndpoint}/${targetId}`;
-    };
-
     try {
-      const res = await fetch(buildUrlWithId(endpoint, id), {
+      const res = await fetch(`${basePath}/${id}`, {
+        ...FETCH_OPTS,
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
@@ -88,14 +103,8 @@ export function useCrud<T extends { _id?: string }>(
   };
 
   const remove = async (id: string) => {
-    const buildUrlWithId = (baseEndpoint: string, targetId: string) => {
-      const [path, query] = baseEndpoint.split("?");
-      if (query) return `${path}/${targetId}?${query}`;
-      return `${baseEndpoint}/${targetId}`;
-    };
-
     try {
-      const res = await fetch(buildUrlWithId(endpoint, id), { method: "DELETE" });
+      const res = await fetch(`${basePath}/${id}`, { ...FETCH_OPTS, method: "DELETE" });
       if (!res.ok) throw new Error("Delete failed");
       toast.success("Deleted successfully");
       await fetchItems();

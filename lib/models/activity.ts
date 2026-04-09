@@ -4,7 +4,7 @@ export interface IActivity extends Document {
   userId: string;
   userName: string;
   userEmail: string;
-  action: "create" | "update" | "delete";
+  action: "create" | "update" | "delete" | "upload";
   entityType: string;
   entityId: string;
   entityName?: string;
@@ -17,7 +17,7 @@ const ActivitySchema = new Schema<IActivity>(
     userId: { type: String, required: true },
     userName: { type: String, required: true },
     userEmail: { type: String, required: true },
-    action: { type: String, enum: ["create", "update", "delete"], required: true },
+    action: { type: String, enum: ["create", "update", "delete", "upload"], required: true },
     entityType: { type: String, required: true },
     entityId: { type: String, required: true },
     entityName: { type: String },

@@ -1,6 +1,15 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Mail, Phone, MapPin, Facebook, Linkedin, Twitter, Instagram, ArrowRight } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Facebook,
+  Linkedin,
+  Twitter,
+  Instagram,
+  ArrowRight,
+} from "lucide-react";
 import { connectDB } from "@/lib/mongodb";
 import Setting from "@/lib/models/setting";
 
@@ -54,7 +63,10 @@ export async function Footer() {
       <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-6">
-            <Link href="/" className="inline-block transition-transform hover:scale-105">
+            <Link
+              href="/"
+              className="inline-block transition-transform hover:scale-105"
+            >
               <Image
                 src="/images/ypl-logo.png"
                 alt="YPL"
@@ -64,7 +76,8 @@ export async function Footer() {
               />
             </Link>
             <p className="text-sm leading-relaxed text-slate-400 max-w-xs">
-              {settings?.footerDescription || "Supporting the full talent lifecycle with expert recruitment and career management services."}
+              {settings?.footerDescription ||
+                "Supporting the full talent lifecycle with expert recruitment and career management services."}
             </p>
             <div className="flex items-center gap-3">
               {(settings?.socialLinks || []).map((link: any) => {
@@ -93,17 +106,42 @@ export async function Footer() {
             <div className="space-y-4 text-sm text-slate-400">
               <div className="flex gap-3">
                 <MapPin className="h-5 w-5 text-primary shrink-0" />
-                <span>{settings?.address || "123 Business Street, London, EC1A 1BB, UK"}</span>
+                <span>
+                  {settings?.address ||
+                    "123 Business Street, London, EC1A 1BB, UK"}
+                </span>
               </div>
-              <div className="flex items-center gap-3">
-                <Phone className="h-5 w-5 text-primary shrink-0" />
-                <a href={`tel:${settings?.phone}`} className="hover:text-white transition-colors">
-                  {settings?.phone || "+44 (0) 20 1234 5678"}
-                </a>
+              <div className="space-y-2">
+                <div className="flex items-center gap-3">
+                  <Phone className="h-5 w-5 text-primary shrink-0" />
+                  <div className="space-y-1">
+                    <a
+                      href="tel:01678000335"
+                      className="block hover:text-white transition-colors"
+                    >
+                      01678000335
+                    </a>
+                    <a
+                      href="tel:01678000337"
+                      className="block hover:text-white transition-colors"
+                    >
+                      01678000337
+                    </a>
+                    <a
+                      href="tel:01678000334"
+                      className="block hover:text-white transition-colors"
+                    >
+                      01678000334
+                    </a>
+                  </div>
+                </div>
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-primary shrink-0" />
-                <a href={`mailto:${settings?.email}`} className="hover:text-white transition-colors">
+                <a
+                  href={`mailto:${settings?.email}`}
+                  className="hover:text-white transition-colors"
+                >
                   {settings?.email || "info@ypl.com"}
                 </a>
               </div>
@@ -134,7 +172,10 @@ export async function Footer() {
               For Clients & Talents
             </h3>
             <ul className="space-y-3">
-              {[...footerLinks.candidates, ...footerLinks.employers.slice(0, 2)].map((link, i) => (
+              {[
+                ...footerLinks.candidates,
+                ...footerLinks.employers.slice(0, 2),
+              ].map((link, i) => (
                 <li key={`${link.href}-${i}`}>
                   <Link
                     href={link.href}
@@ -151,13 +192,14 @@ export async function Footer() {
 
         <div className="mt-16 pt-8 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500 font-medium tracking-wide">
           <p>
-            &copy; {new Date().getFullYear()} {settings?.siteName || "YPL"}. All rights reserved.
+            &copy; {new Date().getFullYear()} {settings?.siteName || "YPL"}. All
+            rights reserved.
           </p>
           <div className="flex items-center gap-1">
             <span>Designed and developed by</span>
-            <a 
-              href="https://codexaa.com" 
-              target="_blank" 
+            <a
+              href="https://codexaa.com"
+              target="_blank"
               rel="noopener"
               className="font-bold text-slate-300 hover:text-primary transition-colors"
             >

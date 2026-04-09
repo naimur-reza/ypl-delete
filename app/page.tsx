@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 
 const stats = [
-  { value: "15+", label: "Years Experience" },
+  { value: "28+", label: "Years Experience" },
   { value: "2,500+", label: "Placements Made" },
   { value: "98%", label: "Client Retention" },
   { value: "500+", label: "Partner Companies" },
@@ -100,7 +100,7 @@ export default async function HomePage() {
       </section>
 
       {/* About Preview */}
-      <section className="py-24 lg:py-32">
+      <section className="py-20 ">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid items-center gap-16 lg:grid-cols-2">
             <div className="relative group">
@@ -119,7 +119,7 @@ export default async function HomePage() {
                     <Award className="h-8 w-8 text-primary-foreground" />
                   </div>
                   <div>
-                    <p className="text-3xl font-bold text-white">15+</p>
+                    <p className="text-3xl font-bold text-white">28+</p>
                     <p className="text-sm font-medium text-white/70 uppercase tracking-wider">
                       Years Expertise
                     </p>
@@ -138,7 +138,7 @@ export default async function HomePage() {
               </div>
               <h2 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
                 A CV-First Partner in{" "}
-                <span className="text-primary  ">Global</span> Talent
+                <span className="text-primary italic">Global</span> Talent
                 Acquisition
               </h2>
               <div className="space-y-5 text-lg leading-relaxed text-muted-foreground/90 font-medium">
@@ -194,7 +194,7 @@ export default async function HomePage() {
       </section>
 
       {/* Services Section */}
-      <section className="relative overflow-hidden bg-muted/40 py-24 lg:py-32">
+      <section className="relative overflow-hidden bg-muted/40 py-20 ">
         <div className="absolute top-0 right-0 h-96 w-96 bg-primary/5 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2" />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="relative text-center max-w-3xl mx-auto space-y-4">
@@ -247,7 +247,7 @@ export default async function HomePage() {
       </section>
 
       {/* Latest Jobs Section */}
-      <section className="py-24 lg:py-32">
+      <section className="py-20 ">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
             <div className="space-y-4">
@@ -255,7 +255,7 @@ export default async function HomePage() {
                 Live Opportunities
               </div>
               <h2 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-                Elevate Your <span className="text-primary  ">Career</span>
+                Elevate Your <span className="text-primary italic">Career</span>
               </h2>
               <p className="text-sm text-muted-foreground max-w-md">
                 Apply directly or join the CV Bank once, and let our team
@@ -290,7 +290,7 @@ export default async function HomePage() {
             ))}
             {latestJobs.length === 0 && (
               <div className="col-span-full rounded-2xl border border-dashed border-border py-20 text-center">
-                <p className="text-muted-foreground font-medium  ">
+                <p className="text-muted-foreground font-medium italic">
                   No active opportunities at the moment. Please check back soon.
                 </p>
               </div>

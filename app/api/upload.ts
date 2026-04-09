@@ -30,6 +30,7 @@ export async function uploadImage(formData: FormData, options?: UploadOptions) {
         {
           folder: options?.folder ?? "diverse-projects",
           resource_type: options?.resourceType ?? "auto",
+          type: "upload",
           use_filename: true,
           unique_filename: true,
           filename_override: originalFileName,
@@ -66,6 +67,6 @@ export async function uploadFile(
 ) {
   return uploadImage(formData, {
     folder,
-    resourceType: "auto",
+    resourceType: "raw",
   });
 }

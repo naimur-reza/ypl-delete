@@ -20,6 +20,7 @@ export interface ISalaryGuideLead extends Document {
   cvUrl: string;
   status: string;
   submittedAt: Date;
+  lastNotifiedAt?: Date;
 }
 
 const SalaryGuideLeadSchema = new Schema<ISalaryGuideLead>(
@@ -47,6 +48,7 @@ const SalaryGuideLeadSchema = new Schema<ISalaryGuideLead>(
       default: "New",
     },
     submittedAt: { type: Date, default: Date.now },
+    lastNotifiedAt: { type: Date },
   },
   { timestamps: true }
 );

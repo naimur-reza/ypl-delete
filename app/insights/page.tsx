@@ -26,7 +26,7 @@ export default async function InsightsPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="bg-secondary py-16 lg:py-24">
+      <section className="bg-secondary py-16 lg:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <span className="inline-block rounded-full bg-primary px-4 py-1.5 text-sm font-medium text-primary-foreground">
             Latest Articles
@@ -83,10 +83,10 @@ export default async function InsightsPage() {
       <section className="bg-secondary py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+            <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
               Stay Updated
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+            <p className="mx-auto mt-4 max-w-2xl text-gray-300">
               Subscribe to our newsletter for the latest insights, job market
               updates, and career advice delivered to your inbox.
             </p>

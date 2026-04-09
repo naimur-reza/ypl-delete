@@ -11,6 +11,7 @@ import {
   ShieldCheck,
   Zap,
   ChevronRight,
+  ExternalLink,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -34,25 +35,25 @@ const contactInfo = [
   {
     icon: MapPin,
     title: "Visit Us",
-    details: "123 Business Street, London, EC1A 1BB",
+    details: "Open our location on Google Maps",
     color: "bg-blue-500/10 text-blue-500",
   },
   {
     icon: Phone,
     title: "Call Us",
-    details: "+44 (0) 20 1234 5678",
+    details: "01678000335 | 01678000337 | 01678000334",
     color: "bg-green-500/10 text-green-500",
   },
   {
     icon: Mail,
     title: "Email Us",
-    details: "hello@ypl.com",
+    details: "hr@yesjobsbd.com",
     color: "bg-purple-500/10 text-purple-500",
   },
   {
     icon: Clock,
     title: "Hours",
-    details: "Mon-Fri: 9am - 6pm",
+    details: "Saturday to Thursday, 9:00 AM – 6:00 PM",
     color: "bg-orange-500/10 text-orange-500",
   },
 ];
@@ -63,6 +64,10 @@ const inquiryTypes = [
   "Finding a Job",
   "Partnership",
 ];
+
+const mapLink = "https://maps.app.goo.gl/Zt8ascB9rxNVMoEn6";
+const mapEmbedUrl =
+  "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3650.3086827645093!2d90.427454!3d23.80762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjPCsDQ4JzI3LjQiTiA5MMKwMjUnMzguOCJF!5e0!3m2!1sen!2sbd!4v1775733904447!5m2!1sen!2sbd";
 
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
@@ -150,7 +155,7 @@ export default function ContactPage() {
       </section>
 
       {/* --- MAIN CONTENT: FORM & SIDEBAR --- */}
-      <section className="py-24">
+      <section className="py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid gap-16 lg:grid-cols-12">
             {/* Form Side */}
@@ -312,15 +317,56 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* --- MAP PLACEHOLDER --- */}
+      {/* --- MAP --- */}
       <section className="px-6 pb-12 lg:px-8">
-        <div className="mx-auto max-w-7xl overflow-hidden rounded-3xl border border-border bg-muted/50 aspect-[21/9] flex items-center justify-center relative group grayscale hover:grayscale-0 transition-all duration-700">
-          {/* Visual Map Texture placeholder */}
-          <div className="absolute inset-0 bg-[url('https://www.google.com/maps/d/u/0/thumbnail?mid=1_4yL-W6-XN_S_p3fI_3R_B3I9M0')] bg-cover opacity-30 group-hover:opacity-60 transition-opacity" />
-          <Button variant="secondary" className="relative z-10 shadow-2xl">
-            <MapPin className="mr-2 h-4 w-4" />
-            Open in Google Maps
-          </Button>
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-3xl border border-border bg-card shadow-sm">
+          <div className="grid gap-0 lg:grid-cols-[1.25fr_0.75fr]">
+            <div className="relative min-h-88 bg-muted/30">
+              <iframe
+                src={mapEmbedUrl}
+                title="YPL office location on Google Maps"
+                className="h-full min-h-88 w-full"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+
+            <div className="flex flex-col justify-between gap-8 p-8 lg:p-10">
+              <div>
+                <p className="text-sm font-medium uppercase tracking-[0.2em] text-primary">
+                  Visit Us
+                </p>
+                <h3 className="mt-3 text-2xl font-bold tracking-tight text-foreground">
+                  Find our office on the map
+                </h3>
+                <p className="mt-4 text-sm leading-6 text-muted-foreground">
+                  Use the map to plan your visit, or open Google Maps directly
+                  for directions and live traffic updates.
+                </p>
+              </div>
+
+              <div className="space-y-4 rounded-2xl border border-border bg-muted/30 p-5">
+                <div className="flex items-start gap-3">
+                  <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                  <div>
+                    <p className="font-semibold text-foreground">
+                      YPL (Yes Pvt Ltd)
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      Dhaka, Bangladesh
+                    </p>
+                  </div>
+                </div>
+
+                <Button asChild className="w-full rounded-xl">
+                  <a href={mapLink} target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="mr-2 h-4 w-4" />
+                    Open in Google Maps
+                  </a>
+                </Button>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </div>

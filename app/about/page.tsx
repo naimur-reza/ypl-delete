@@ -18,7 +18,7 @@ import { SafeHtmlContent } from "@/components/ui/safe-html-content";
 import { cn } from "@/lib/utils";
 
 const stats = [
-  { value: "15+", label: "Years of Experience" },
+  { value: "28+", label: "Years of Experience" },
   { value: "5k+", label: "Placements Made" },
   { value: "500+", label: "Client Companies" },
   { value: "98%", label: "Satisfaction Rate" },
@@ -170,7 +170,7 @@ export default function AboutPage({ dbTeam = [] }: { dbTeam?: any[] }) {
       </section>
 
       {/* --- STORY SECTION --- */}
-      <section className="py-24 lg:py-32">
+      <section className="py-20 ">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
             <motion.div {...fadeInUp} className="relative">
@@ -257,7 +257,7 @@ export default function AboutPage({ dbTeam = [] }: { dbTeam?: any[] }) {
       </section>
 
       {/* --- TEAM SECTION --- */}
-      <section className="py-24 ">
+      <section className="py-20 ">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mb-16 flex flex-col justify-between items-end gap-6 md:flex-row">
             <div className="max-w-xl">

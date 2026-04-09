@@ -96,14 +96,18 @@ export default function JobsPage() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-secondary py-16 lg:py-24">
+      <section className="relative overflow-hidden bg-secondary py-16 lg:py-20">
         <div className="absolute -top-20 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-primary/25 blur-3xl" />
         <div className="absolute -bottom-24 right-0 h-80 w-80 rounded-full bg-primary/10 blur-3xl" />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl space-y-5">
+            <span className="inline-flex items-center gap-2 roundecd-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-primary">
+              <Sparkles className="h-3.5 w-3.5" />
+              Career Opportunities
+            </span>
             <h1 className="text-4xl font-bold tracking-tight text-secondary-foreground sm:text-5xl">
               Find a role that matches your
-              <span className="text-primary  "> ambition</span>
+              <span className="text-primary italic"> ambition</span>
             </h1>
             <p className="text-lg text-secondary-foreground/75">
               Explore curated openings across industries, apply instantly, or

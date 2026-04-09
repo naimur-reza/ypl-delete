@@ -1,14 +1,14 @@
 "use client";
 
 import { useState, use } from "react";
-import { Briefcase, Save, ArrowLeft, Eye } from "lucide-react";
+import { Briefcase, Save, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCrud } from "@/hooks/use-crud";
 import { PageHeader } from "@/components/dashboard/page-header";
 import { useAppForm } from "@/hooks/use-field-context";
 import Link from "next/link";
 import { toast } from "sonner";
-import { SafeHtmlContent } from "@/components/ui/safe-html-content";
+import { MarkdownContent } from "@/components/ui/markdown-content";
 
 interface Service {
   _id: string;
@@ -75,13 +75,17 @@ export default function ServiceDetailsPage({ params }: { params: Promise<{ id: s
       />
 
       <div className="rounded-xl border bg-card p-6 shadow-xs">
-        <h3 className="mb-4 text-lg font-semibold">Content Editor</h3>
+        <h3 className="mb-1 text-lg font-semibold">Content Editor</h3>
+        <p className="mb-4 text-sm text-muted-foreground">
+          Write detailed service content using Markdown (headings, lists, links, and bold text).
+        </p>
         <form.AppForm>
           <form.AppField name="content">
             {(field: any) => (
-              <field.RichText 
+              <field.Textarea
                 label="Detailed Service Content" 
                 placeholder="Write detailed service information here..."
+                rows={14}
               />
             )}
           </form.AppField>
@@ -89,10 +93,17 @@ export default function ServiceDetailsPage({ params }: { params: Promise<{ id: s
       </div>
 
       <div className="rounded-xl border bg-card p-6 shadow-xs">
-        <h3 className="mb-4 text-lg font-semibold">Live Preview</h3>
+        <h3 className="mb-1 text-lg font-semibold">Live Preview</h3>
+        <p className="mb-4 text-sm text-muted-foreground">
+          Preview of the Markdown-rendered content.
+        </p>
         <div className="min-h-[200px] border rounded-md p-6 bg-muted/5">
           <form.Subscribe selector={(state: any) => state.values.content}>
-            {(content: string) => <SafeHtmlContent content={content} />}
+            {(content: string) => (
+              <MarkdownContent
+                content={content || "_Start writing markdown to see preview._"}
+              />
+            )}
           </form.Subscribe>
         </div>
       </div>

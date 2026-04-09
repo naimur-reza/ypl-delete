@@ -15,3 +15,15 @@ export async function GET(req: NextRequest) {
   const activities = await Activity.find().sort({ timestamp: -1 }).limit(100).lean();
   return NextResponse.json(activities);
 }
+
+export async function DELETE(req: NextRequest) {
+  const auth = await requireAuth(req);
+  if (auth instanceof NextResponse) return auth;
+
+  const forbidden = requireRole(auth, ["superadmin"]);
+  if (forbidden) return forbidden;
+
+  await connectDB();
+  await Activity.deleteMany({});
+  return NextResponse.json({ ok: true });
+}

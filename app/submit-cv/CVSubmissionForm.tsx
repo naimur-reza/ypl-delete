@@ -1,60 +1,15 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Loader2, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { SelectItem } from "@/components/ui/select";
 import { useAppForm } from "@/hooks/use-field-context";
+import { useDepartmentsAndRoles } from "@/hooks/use-departments-and-roles";
 import { toast } from "sonner";
 import Link from "next/link";
-
-/* ───────── Option lists ───────── */
-const POSITIONS = [
-  "Strategic Level",
-  "Management Level",
-  "Mid Level",
-  "Entry Level",
-];
-
-const INDUSTRIES = [
-  "Manufacturing",
-  "Service",
-  "Financial Institutions",
-  "Real Estate & Construction",
-  "Telecom",
-  "Energy & Power",
-];
-
-const QUALIFICATIONS_ACADEMIC = ["BBA / MBA", "BSc / MSc"];
-
-const QUALIFICATIONS_PROFESSIONAL = [
-  "CA (ICAB)",
-  "CMA (ICMAB)",
-  "ACCA",
-  "CIMA",
-];
-
-const EXPERIENCE_RANGES = [
-  "0-3 Years",
-  "4-7 Years",
-  "8-12 Years",
-  "13-18 Years",
-  "19+ Years",
-];
-
-const AVAILABILITY = ["Immediate", "15 Days", "1 Month+"];
-
-const LOCATIONS = [
-  "Dhaka",
-  "Chattogram",
-  "Sylhet",
-  "Rajshahi",
-  "Khulna",
-  "Barishal",
-  "Rangpur",
-  "Mymensingh",
-  "Outside Bangladesh",
-];
+import { CVStepBasic } from "@/components/submit-cv/cv-step-basic";
+import { CVStepCareer } from "@/components/submit-cv/cv-step-career";
+import { CVStepCompensation } from "@/components/submit-cv/cv-step-compensation";
 
 type StepId = 1 | 2 | 3;
 
@@ -78,9 +33,8 @@ const STEP_LABELS: { id: StepId; title: string; description: string }[] = [
 
 export function CVSubmissionForm() {
   const [submitted, setSubmitted] = useState(false);
-  const [departments, setDepartments] = useState<{ _id: string; name: string }[]>([]);
-  const [roles, setRoles] = useState<{ _id: string; name: string }[]>([]);
   const [step, setStep] = useState<StepId>(1);
+  const { departments, roles, onDepartmentNameChange } = useDepartmentsAndRoles();
 
   const form = useAppForm({
     defaultValues: {
@@ -123,13 +77,6 @@ export function CVSubmissionForm() {
     },
   });
 
-  useEffect(() => {
-    fetch("/api/departments")
-      .then((res) => res.json())
-      .then((data) => setDepartments(data))
-      .catch((err) => console.error("Error fetching departments:", err));
-  }, []);
-
   const goToNext = () => {
     setStep((prev) => (prev < 3 ? ((prev + 1) as StepId) : prev));
   };
@@ -165,12 +112,8 @@ export function CVSubmissionForm() {
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">
               Step {step} of {STEP_LABELS.length}
             </p>
-            <h2 className="text-xl font-bold text-foreground">
-              {currentStepMeta.title}
-            </h2>
-            <p className="text-xs text-muted-foreground">
-              {currentStepMeta.description}
-            </p>
+            <h2 className="text-xl font-bold text-foreground">{currentStepMeta.title}</h2>
+            <p className="text-xs text-muted-foreground">{currentStepMeta.description}</p>
           </div>
         </div>
 
@@ -179,16 +122,18 @@ export function CVSubmissionForm() {
             const isActive = s.id === step;
             const isCompleted = s.id < step;
             return (
-              <div
-                key={s.id}
-                className={`flex-1 h-1.5 rounded-full transition-all ${
-                  isCompleted
-                    ? "bg-primary"
-                    : isActive
-                      ? "bg-primary/70"
-                      : "bg-muted"
-                }`}
-              />
+              <div key={s.id} className="flex-1">
+                <div
+                  className={`h-1.5 rounded-full transition-all ${
+                    isCompleted ? "bg-primary" : isActive ? "bg-primary/70" : "bg-muted"
+                  }`}
+                />
+                <p
+                  className={`mt-1 text-xs ${isActive ? "text-primary" : "text-muted-foreground"}`}
+                >
+                  {s.title}
+                </p>
+              </div>
             );
           })}
         </div>
@@ -207,189 +152,16 @@ export function CVSubmissionForm() {
         className="space-y-6"
       >
         <form.AppForm>
-          {step === 1 && (
-            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-1">
-              <div className="grid gap-6 sm:grid-cols-2">
-                <form.AppField name="fullName">
-                  {(field: any) => <field.Input label="Full Name *" required />}
-                </form.AppField>
-                <form.AppField name="email">
-                  {(field: any) => (
-                    <field.Input label="Email Address *" type="email" required />
-                  )}
-                </form.AppField>
-                <form.AppField name="mobileNumber">
-                  {(field: any) => (
-                    <field.Input label="Mobile Number *" required />
-                  )}
-                </form.AppField>
-                <form.AppField name="location">
-                  {(field: any) => (
-                    <field.Select label="Preferred Location *">
-                      {LOCATIONS.map((opt) => (
-                        <SelectItem key={opt} value={opt}>
-                          {opt}
-                        </SelectItem>
-                      ))}
-                    </field.Select>
-                  )}
-                </form.AppField>
-              </div>
-            </div>
-          )}
-
+          {step === 1 && <CVStepBasic form={form as any} />}
           {step === 2 && (
-            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-1">
-              <div className="grid gap-6 sm:grid-cols-2">
-                <form.AppField name="department">
-                  {(field: any) => (
-                    <field.Select
-                      label="Primary Department"
-                      onValueChange={(val: string) => {
-                        form.setFieldValue("role", "");
-                        const dept = departments.find((d) => d.name === val);
-                        if (dept) {
-                          fetch(`/api/roles?departmentId=${dept._id}`)
-                            .then((res) => res.json())
-                            .then((data) => setRoles(data))
-                            .catch((err) =>
-                              console.error("Error fetching roles:", err),
-                            );
-                        } else {
-                          setRoles([]);
-                        }
-                      }}
-                    >
-                      {departments.map((opt) => (
-                        <SelectItem key={opt._id} value={opt.name}>
-                          {opt.name}
-                        </SelectItem>
-                      ))}
-                    </field.Select>
-                  )}
-                </form.AppField>
-                <form.Subscribe selector={(state: any) => state.values.department}>
-                  {(deptName: string) => (
-                    <form.AppField name="role">
-                      {(field: any) => (
-                        <field.Select
-                          label="Specific Role"
-                          disabled={!deptName}
-                        >
-                          {roles.map((opt) => (
-                            <SelectItem key={opt._id} value={opt.name}>
-                              {opt.name}
-                            </SelectItem>
-                          ))}
-                        </field.Select>
-                      )}
-                    </form.AppField>
-                  )}
-                </form.Subscribe>
-              </div>
-
-              <div className="grid gap-6 sm:grid-cols-2">
-                <form.AppField name="currentPosition">
-                  {(field: any) => (
-                    <field.Select label="Position Level">
-                      {POSITIONS.map((opt) => (
-                        <SelectItem key={opt} value={opt}>
-                          {opt}
-                        </SelectItem>
-                      ))}
-                    </field.Select>
-                  )}
-                </form.AppField>
-                <form.AppField name="industry">
-                  {(field: any) => (
-                    <field.Select label="Target Industry">
-                      {INDUSTRIES.map((opt) => (
-                        <SelectItem key={opt} value={opt}>
-                          {opt}
-                        </SelectItem>
-                      ))}
-                    </field.Select>
-                  )}
-                </form.AppField>
-              </div>
-
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                <form.AppField name="totalExperience">
-                  {(field: any) => (
-                    <field.Select label="Total Experience">
-                      {EXPERIENCE_RANGES.map((opt) => (
-                        <SelectItem key={opt} value={opt}>
-                          {opt}
-                        </SelectItem>
-                      ))}
-                    </field.Select>
-                  )}
-                </form.AppField>
-                <form.AppField name="educationalQualification">
-                  {(field: any) => (
-                    <field.Select label="Academic Qualification">
-                      {QUALIFICATIONS_ACADEMIC.map((opt) => (
-                        <SelectItem key={opt} value={opt}>
-                          {opt}
-                        </SelectItem>
-                      ))}
-                    </field.Select>
-                  )}
-                </form.AppField>
-                <form.AppField name="professionalQualification">
-                  {(field: any) => (
-                    <field.Select label="Professional Qualification">
-                      {QUALIFICATIONS_PROFESSIONAL.map((opt) => (
-                        <SelectItem key={opt} value={opt}>
-                          {opt}
-                        </SelectItem>
-                      ))}
-                    </field.Select>
-                  )}
-                </form.AppField>
-              </div>
-            </div>
+            <CVStepCareer
+              form={form as any}
+              departments={departments}
+              roles={roles}
+              onDepartmentNameChange={onDepartmentNameChange}
+            />
           )}
-
-          {step === 3 && (
-            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-1">
-              <div className="grid gap-6 sm:grid-cols-2">
-                <form.AppField name="currentOrganization">
-                  {(field: any) => <field.Input label="Current Company" />}
-                </form.AppField>
-                <form.AppField name="availableFromDate">
-                  {(field: any) => (
-                    <field.Select label="Notice Period / Availability">
-                      {AVAILABILITY.map((opt) => (
-                        <SelectItem key={opt} value={opt}>
-                          {opt}
-                        </SelectItem>
-                      ))}
-                    </field.Select>
-                  )}
-                </form.AppField>
-              </div>
-
-              <div className="grid gap-6 sm:grid-cols-2">
-                <form.AppField name="currentSalary">
-                  {(field: any) => (
-                    <field.Input label="Current Salary (Monthly)" />
-                  )}
-                </form.AppField>
-                <form.AppField name="expectedSalary">
-                  {(field: any) => (
-                    <field.Input label="Expected Salary (Monthly)" />
-                  )}
-                </form.AppField>
-              </div>
-
-              <form.AppField name="cvUrl">
-                {(field: any) => (
-                  <field.FileUpload label="Upload CV (PDF preferred)" required />
-                )}
-              </form.AppField>
-            </div>
-          )}
+          {step === 3 && <CVStepCompensation form={form as any} />}
 
           <div className="flex items-center justify-between pt-2">
             <Button
